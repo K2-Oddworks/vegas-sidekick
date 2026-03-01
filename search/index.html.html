@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Search Las Vegas Shows | Vegas Sidekick</title>
+  <meta name="description" content="Search all Las Vegas shows, comedy, magic, Cirque du Soleil, production shows and more. Find discount tickets with no hidden fees." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@8/themes/reset-min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0A1628; --blue: #1A7FE8; --blue-bright: #2E9BFF;
+      --orange: #FF6B00; --orange-bright: #FF8C2A;
+      --white: #FFFFFF; --gray: #A8B4C4; --gray-light: #D4DCE8;
+      --card-bg: #0F1E38; --green: #22C55E;
+    }
+    body { background: var(--navy); color: var(--white); font-family: 'Barlow', sans-serif; min-height: 100vh; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.4) 0%, transparent 100%), radial-gradient(1px 1px at 70% 45%, rgba(255,255,255,0.3) 0%, transparent 100%), radial-gradient(1px 1px at 40% 80%, rgba(255,255,255,0.3) 0%, transparent 100%); pointer-events: none; z-index: 0; }
+
+    .search-page { position: relative; z-index: 1; padding: 100px 40px 80px; max-width: 1000px; margin: 0 auto; }
+
+    .search-hero { text-align: center; margin-bottom: 40px; }
+    .search-eyebrow { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--orange); margin-bottom: 12px; }
+    .search-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: 2px; line-height: 1; margin-bottom: 12px; }
+    .search-title span { color: var(--blue-bright); }
+    .search-sub { font-size: 1rem; color: var(--gray); }
+
+    /* SEARCH BOX */
+    .ais-SearchBox { margin-bottom: 32px; }
+    .ais-SearchBox-form { display: flex; gap: 0; position: relative; }
+    .ais-SearchBox-input { width: 100%; background: var(--card-bg); border: 2px solid rgba(26,127,232,0.25); border-radius: 10px 0 0 10px; padding: 16px 20px; color: var(--white); font-family: 'Barlow', sans-serif; font-size: 1.1rem; outline: none; transition: border-color 0.2s; }
+    .ais-SearchBox-input:focus { border-color: var(--blue-bright); }
+    .ais-SearchBox-input::placeholder { color: var(--gray); }
+    .ais-SearchBox-submit { background: var(--orange); border: none; border-radius: 0 10px 10px 0; padding: 16px 28px; cursor: pointer; color: var(--navy); font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; transition: background 0.2s; white-space: nowrap; }
+    .ais-SearchBox-submit:hover { background: var(--orange-bright); }
+    .ais-SearchBox-reset { display: none; }
+
+    /* FILTERS */
+    .search-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .ais-RefinementList-list { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; }
+    .ais-RefinementList-item { }
+    .ais-RefinementList-label { display: flex; align-items: center; gap: 6px; background: var(--card-bg); border: 1px solid rgba(26,127,232,0.2); border-radius: 100px; padding: 6px 14px; font-size: 0.8rem; color: var(--gray-light); font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'Barlow', sans-serif; }
+    .ais-RefinementList-label:hover { border-color: var(--orange); color: var(--orange); }
+    .ais-RefinementList-item--selected .ais-RefinementList-label { background: rgba(255,107,0,0.12); border-color: var(--orange); color: var(--orange); }
+    .ais-RefinementList-checkbox { display: none; }
+    .ais-RefinementList-count { background: rgba(26,127,232,0.15); border-radius: 100px; padding: 1px 7px; font-size: 0.7rem; color: var(--blue-bright); }
+
+    /* STATS */
+    .ais-Stats { font-size: 0.8rem; color: var(--gray); margin-bottom: 20px; font-family: 'Barlow', sans-serif; }
+
+    /* HITS */
+    .ais-Hits-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; list-style: none; }
+    .ais-Hits-item { }
+    .show-hit-card { background: var(--card-bg); border: 1px solid rgba(26,127,232,0.12); border-radius: 12px; overflow: hidden; text-decoration: none; color: var(--white); transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; }
+    .show-hit-card:hover { transform: translateY(-4px); border-color: rgba(255,107,0,0.3); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+    .show-hit-img { height: 140px; background: linear-gradient(135deg, #122448, #0D1F3C); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; position: relative; overflow: hidden; }
+    .show-hit-img img { width: 100%; height: 100%; object-fit: cover; }
+    .show-hit-category { position: absolute; top: 10px; left: 10px; background: var(--orange); color: var(--navy); font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; }
+    .show-hit-body { padding: 16px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+    .show-hit-venue { font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--blue-bright); }
+    .show-hit-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; font-weight: 800; line-height: 1.2; }
+    .show-hit-name mark { background: rgba(255,107,0,0.2); color: var(--orange); border-radius: 2px; }
+    .show-hit-desc { font-size: 0.82rem; color: var(--gray); line-height: 1.5; flex: 1; }
+    .show-hit-footer { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .show-hit-price { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: var(--orange); }
+    .show-hit-cta { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--blue-bright); background: rgba(26,127,232,0.1); border: 1px solid rgba(26,127,232,0.2); padding: 6px 14px; border-radius: 4px; transition: all 0.2s; }
+    .show-hit-card:hover .show-hit-cta { background: var(--orange); color: var(--navy); border-color: var(--orange); }
+
+    /* NO RESULTS */
+    .ais-EmptyQueryBoundary, .vs-search-empty { text-align: center; padding: 60px 20px; }
+    .vs-search-empty-icon { font-size: 3rem; margin-bottom: 16px; opacity: 0.4; }
+    .vs-search-empty-text { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 2px; color: var(--gray); margin-bottom: 8px; }
+    .vs-search-empty-sub { font-size: 0.9rem; color: var(--gray); }
+
+    /* PAGINATION */
+    .ais-Pagination { margin-top: 40px; display: flex; justify-content: center; }
+    .ais-Pagination-list { display: flex; gap: 8px; list-style: none; }
+    .ais-Pagination-link { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: var(--card-bg); border: 1px solid rgba(26,127,232,0.15); border-radius: 6px; color: var(--gray-light); text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: all 0.2s; font-family: 'Barlow', sans-serif; }
+    .ais-Pagination-link:hover { border-color: var(--orange); color: var(--orange); }
+    .ais-Pagination-item--selected .ais-Pagination-link { background: var(--orange); border-color: var(--orange); color: var(--navy); }
+    .ais-Pagination-item--disabled .ais-Pagination-link { opacity: 0.3; pointer-events: none; }
+
+    @media (max-width: 600px) {
+      .search-page { padding: 90px 20px 80px; }
+      .ais-SearchBox-submit { padding: 16px 18px; font-size: 0.85rem; }
+      .ais-Hits-list { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="vs-header"></div>
+
+  <div class="search-page">
+    <div class="search-hero">
+      <div class="search-eyebrow">Vegas Sidekick</div>
+      <h1 class="search-title">Find Your <span>Show</span></h1>
+      <p class="search-sub">Search 100+ Las Vegas shows. Discount tickets, no hidden fees.</p>
+    </div>
+
+    <div id="search-container">
+      <div id="searchbox"></div>
+      <div id="refinements"></div>
+      <div id="stats"></div>
+      <div id="hits"></div>
+      <div id="pagination"></div>
+    </div>
+  </div>
+
+  <div id="vs-footer"></div>
+
+  <script src="/components/header.js"></script>
+  <script src="/components/footer.js"></script>
+
+  <!-- Algolia InstantSearch -->
+  <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script>
+
+  <script>
+    const searchClient = algoliasearch('E402SBJE6D', '95724ebb40815970fc1a638321c47644');
+
+    const search = instantsearch({
+      indexName: 'vegas_shows',
+      searchClient,
+      future: { preserveSharedStateOnUnmount: true }
+    });
+
+    search.addWidgets([
+      instantsearch.widgets.searchBox({
+        container: '#searchbox',
+        placeholder: 'Search shows, performers, venues...',
+        autofocus: true
+      }),
+
+      instantsearch.widgets.refinementList({
+        container: '#refinements',
+        attribute: 'category',
+        cssClasses: { root: 'search-filters' }
+      }),
+
+      instantsearch.widgets.stats({
+        container: '#stats',
+        templates: {
+          text: ({ nbHits }) => nbHits === 0
+            ? 'No shows found — try a different search'
+            : `${nbHits.toLocaleString()} show${nbHits === 1 ? '' : 's'} found`
+        }
+      }),
+
+      instantsearch.widgets.hits({
+        container: '#hits',
+        templates: {
+          item: (hit, { html, components }) => html`
+            <a href="${hit.url}" class="show-hit-card">
+              <div class="show-hit-img">
+                ${hit.image
+                  ? html`<img src="${hit.image}" alt="${hit.name}" onerror="this.style.display='none'" />`
+                  : html`<span>${hit.emoji || '🎭'}</span>`
+                }
+                <span class="show-hit-category">${hit.category}</span>
+              </div>
+              <div class="show-hit-body">
+                <div class="show-hit-venue">${hit.venue}</div>
+                <div class="show-hit-name">${components.Highlight({ hit, attribute: 'name' })}</div>
+                <div class="show-hit-desc">${hit.description}</div>
+              </div>
+              <div class="show-hit-footer">
+                <div class="show-hit-price">${hit.price ? 'From $' + hit.price : 'See Prices'}</div>
+                <div class="show-hit-cta">Get Tickets →</div>
+              </div>
+            </a>
+          `,
+          empty: () => `
+            <div class="vs-search-empty">
+              <div class="vs-search-empty-icon">🔍</div>
+              <div class="vs-search-empty-text">No Shows Found</div>
+              <div class="vs-search-empty-sub">Try searching for a show name, performer, or venue</div>
+            </div>
+          `
+        }
+      }),
+
+      instantsearch.widgets.pagination({
+        container: '#pagination'
+      })
+    ]);
+
+    search.start();
+  </script>
+
+</body>
+</html>
