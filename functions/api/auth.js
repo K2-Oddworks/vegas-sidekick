@@ -4,7 +4,7 @@ export async function onRequest(context) {
   const path = url.pathname.replace('/api/auth', '');
 
   const CLIENT_ID = 'Ov23lit31UqvtSuPp7tJ';
-  const CLIENT_SECRET = context.env.GITHUB_CLIENT_SECRET 0df238e8b6e494bfd136afb51e38cb00239901d5 '';
+  const CLIENT_SECRET = context.env.GITHUB_CLIENT_SECRET '0df238e8b6e494bfd136afb51e38cb00239901d5';
 
   if (path === '' || path === '/') {
     const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scope=repo,user&state=${crypto.randomUUID()}`;
