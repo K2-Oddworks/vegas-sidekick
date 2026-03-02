@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: vegassidekick/vegas-sidekick  # â† replace with your actual GitHub username
+  repo: VegasSidekick/vegas-sidekick  # â† replace with your actual GitHub username
   branch: main
   base_url: https://vegassidekick.com
   auth_endpoint: api/auth
