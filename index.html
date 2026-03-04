@@ -15,8 +15,8 @@
       --navy: #0A1628;
       --navy-mid: #0D1F3C;
       --navy-light: #122448;
-      --blue: #1A7FE8;
-      --blue-bright: #2E9BFF;
+      --blue: #1A6BFF;
+      --blue-bright: #1A6BFF;
       --orange: #FF6B00;
       --orange-bright: #FF8C2A;
       --white: #FFFFFF;
@@ -67,7 +67,7 @@
       padding: 14px 40px;
       background: rgba(10,22,40,0.92);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(26,127,232,0.15);
+      border-bottom: 1px solid rgba(26,107,255,0.15);
     }
 
     .nav-logo {
@@ -125,7 +125,6 @@
       z-index: 2;
     }
 
-    /* orange glow */
     .hero-glow {
       position: absolute;
       top: -200px; right: -200px;
@@ -137,7 +136,7 @@
       position: absolute;
       bottom: -100px; left: -100px;
       width: 500px; height: 500px;
-      background: radial-gradient(circle, rgba(26,127,232,0.07) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(26,107,255,0.07) 0%, transparent 70%);
       pointer-events: none;
     }
 
@@ -155,8 +154,8 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(26,127,232,0.12);
-      border: 1px solid rgba(26,127,232,0.3);
+      background: rgba(26,107,255,0.12);
+      border: 1px solid rgba(26,107,255,0.3);
       border-radius: 100px;
       padding: 6px 16px;
       font-size: 0.75rem;
@@ -211,7 +210,7 @@
     }
     .trust-pill .check {
       width: 18px; height: 18px;
-      background: rgba(26,127,232,0.2);
+      background: rgba(26,107,255,0.2);
       border: 1px solid var(--blue);
       border-radius: 50%;
       display: flex;
@@ -274,7 +273,7 @@
     }
     .btn-secondary:hover {
       border-color: var(--blue-bright);
-      background: rgba(26,127,232,0.08);
+      background: rgba(26,107,255,0.08);
       transform: translateY(-2px);
     }
 
@@ -323,7 +322,7 @@
 
     .category-card {
       background: var(--card-bg);
-      border: 1px solid rgba(26,127,232,0.12);
+      border: 1px solid rgba(26,107,255,0.12);
       border-radius: 10px;
       padding: 28px 20px;
       text-align: center;
@@ -342,10 +341,7 @@
       box-shadow: 0 8px 30px rgba(255,107,0,0.12);
     }
 
-    .cat-icon {
-      font-size: 2rem;
-      line-height: 1;
-    }
+    .cat-icon { font-size: 2rem; line-height: 1; }
 
     .cat-name {
       font-family: 'Barlow Condensed', sans-serif;
@@ -358,10 +354,7 @@
     }
     .category-card:hover .cat-name { color: var(--orange); }
 
-    .cat-count {
-      font-size: 0.75rem;
-      color: var(--gray);
-    }
+    .cat-count { font-size: 0.75rem; color: var(--gray); }
 
     /* ── FEATURED SHOWS ── */
     .shows-grid {
@@ -372,7 +365,7 @@
 
     .show-card {
       background: var(--card-bg);
-      border: 1px solid rgba(26,127,232,0.12);
+      border: 1px solid rgba(26,107,255,0.12);
       border-radius: 12px;
       overflow: hidden;
       transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
@@ -382,7 +375,7 @@
     .show-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 16px 40px rgba(0,0,0,0.4);
-      border-color: rgba(26,127,232,0.3);
+      border-color: rgba(26,107,255,0.3);
     }
 
     .show-card-img {
@@ -395,10 +388,7 @@
       overflow: hidden;
     }
 
-    .show-card-img-placeholder {
-      font-size: 4rem;
-      opacity: 0.4;
-    }
+    .show-card-img-placeholder { font-size: 4rem; opacity: 0.4; }
 
     .show-badge {
       position: absolute;
@@ -453,16 +443,8 @@
       border-top: 1px solid rgba(255,255,255,0.06);
     }
 
-    .show-price {
-      display: flex;
-      flex-direction: column;
-    }
-    .show-price-label {
-      font-size: 0.7rem;
-      color: var(--gray);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
+    .show-price { display: flex; flex-direction: column; }
+    .show-price-label { font-size: 0.7rem; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; }
     .show-price-amount {
       font-family: 'Bebas Neue', sans-serif;
       font-size: 1.6rem;
@@ -486,16 +468,13 @@
       cursor: pointer;
       transition: background 0.2s, transform 0.15s;
     }
-    .btn-tickets:hover {
-      background: var(--blue-bright);
-      transform: translateY(-1px);
-    }
+    .btn-tickets:hover { background: #1558D6; transform: translateY(-1px); }
 
-    /* ── ABOUT / TRUST ── */
+    /* ── TRUST ── */
     .trust-section {
       background: var(--navy-mid);
-      border-top: 1px solid rgba(26,127,232,0.1);
-      border-bottom: 1px solid rgba(26,127,232,0.1);
+      border-top: 1px solid rgba(26,107,255,0.1);
+      border-bottom: 1px solid rgba(26,107,255,0.1);
     }
 
     .trust-grid {
@@ -505,11 +484,7 @@
       align-items: start;
     }
 
-    .trust-block {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+    .trust-block { display: flex; flex-direction: column; gap: 12px; }
 
     .trust-icon {
       width: 48px; height: 48px;
@@ -531,15 +506,11 @@
       color: var(--white);
     }
 
-    .trust-text {
-      font-size: 0.9rem;
-      color: var(--gray);
-      line-height: 1.6;
-    }
+    .trust-text { font-size: 0.9rem; color: var(--gray); line-height: 1.6; }
 
     .trust-cta-block {
-      background: linear-gradient(135deg, rgba(26,127,232,0.08), rgba(255,107,0,0.05));
-      border: 1px solid rgba(26,127,232,0.2);
+      background: linear-gradient(135deg, rgba(26,107,255,0.08), rgba(255,107,0,0.05));
+      border: 1px solid rgba(26,107,255,0.2);
       border-radius: 12px;
       padding: 32px;
       display: flex;
@@ -555,116 +526,12 @@
       line-height: 1.1;
     }
     .trust-cta-headline span { color: var(--orange); }
-
-    .trust-cta-sub {
-      font-size: 0.9rem;
-      color: var(--gray);
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      position: relative;
-      z-index: 1;
-      background: #060E1A;
-      padding: 48px 40px 32px;
-      border-top: 1px solid rgba(26,127,232,0.1);
-    }
-
-    .footer-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 32px;
-    }
-
-    .footer-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 40px;
-      flex-wrap: wrap;
-    }
-
-    .footer-brand {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      max-width: 320px;
-    }
-
-    .footer-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.8rem;
-      color: var(--blue-bright);
-      letter-spacing: 2px;
-    }
-    .footer-logo span { color: var(--orange); }
-
-    .footer-tagline {
-      font-size: 0.85rem;
-      color: var(--gray);
-      line-height: 1.6;
-    }
-
-    .footer-links-group {
-      display: flex;
-      gap: 60px;
-      flex-wrap: wrap;
-    }
-
-    .footer-col h4 {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--orange);
-      margin-bottom: 16px;
-    }
-
-    .footer-col ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .footer-col a {
-      color: var(--gray);
-      text-decoration: none;
-      font-size: 0.875rem;
-      transition: color 0.2s;
-    }
-    .footer-col a:hover { color: var(--white); }
-
-    .footer-bottom {
-      border-top: 1px solid rgba(255,255,255,0.06);
-      padding-top: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .footer-copy {
-      font-size: 0.78rem;
-      color: var(--gray);
-    }
-
-    .footer-disclosure {
-      font-size: 0.72rem;
-      color: rgba(168,180,196,0.6);
-      max-width: 500px;
-      text-align: right;
-      line-height: 1.5;
-    }
+    .trust-cta-sub { font-size: 0.9rem; color: var(--gray); }
 
     /* ── DIVIDER ── */
     .section-divider {
       height: 1px;
-      background: linear-gradient(to right, transparent, rgba(26,127,232,0.2), transparent);
+      background: linear-gradient(to right, transparent, rgba(26,107,255,0.2), transparent);
       max-width: 1200px;
       margin: 0 auto;
     }
@@ -736,7 +603,6 @@
           <a href="#categories" class="btn-secondary">Find a Show</a>
         </div>
       </div>
-      <!-- Replace src with your actual logo file path -->
       <img
         src="logo-circle.png"
         alt="Vegas Sidekick"
@@ -782,11 +648,6 @@
           <div class="cat-name">Tribute Acts</div>
           <div class="cat-count">Shows available</div>
         </a>
-        <a href="/shows/hypnosis/" class="category-card">
-          <div class="cat-icon">🌀</div>
-          <div class="cat-name">Hypnosis</div>
-          <div class="cat-count">Shows available</div>
-        </a>
         <a href="/shows/dinner/" class="category-card">
           <div class="cat-icon">🍽️</div>
           <div class="cat-name">Dinner Shows</div>
@@ -820,7 +681,27 @@
       <h2 class="section-title">Featured <span>Shows</span></h2>
       <div class="shows-grid">
 
-        <!-- Carrot Top — Flagship -->
+        <!-- Marc Savard — Always First -->
+        <div class="show-card">
+          <div class="show-card-img">
+            <div class="show-card-img-placeholder">🌀</div>
+            <div class="show-badge">20+ Years in Vegas</div>
+          </div>
+          <div class="show-card-body">
+            <div class="show-venue">Showcase Mall</div>
+            <div class="show-name">Marc Savard Comedy Hypnosis</div>
+            <div class="show-desc">Vegas's longest-running hypnosis show. Marc doesn't just put people under — he turns your travel companions into the entertainment. Crowd work at its most chaotic.</div>
+          </div>
+          <div class="show-card-footer">
+            <div class="show-price">
+              <div class="show-price-label">From</div>
+              <div class="show-price-amount">$35</div>
+            </div>
+            <a href="https://spotlight.vegas/shows/comedy/marc-savard/ref/vegassidekick" class="btn-tickets" target="_blank" rel="noopener">Get Tickets →</a>
+          </div>
+        </div>
+
+        <!-- Carrot Top -->
         <div class="show-card">
           <div class="show-card-img">
             <div class="show-card-img-placeholder">🥕</div>
@@ -840,27 +721,7 @@
           </div>
         </div>
 
-        <!-- Marc Savard — Personal Friend, Always First in Comedy -->
-        <div class="show-card">
-          <div class="show-card-img">
-            <div class="show-card-img-placeholder">🌀</div>
-            <div class="show-badge">20+ Years in Vegas</div>
-          </div>
-          <div class="show-card-body">
-            <div class="show-venue">Showcase Mall</div>
-            <div class="show-name">Marc Savard Comedy Hypnosis</div>
-            <div class="show-desc">Vegas's longest-running hypnosis show. Marc doesn't just put people under — he turns your travel companions into the entertainment. Crowd work at its most chaotic.</div>
-          </div>
-          <div class="show-card-footer">
-            <div class="show-price">
-              <div class="show-price-label">From</div>
-              <div class="show-price-amount">$35</div>
-            </div>
-            <a href="https://spotlight.vegas/shows/hypnosis/marc-savard/ref/vegassidekick" class="btn-tickets" target="_blank" rel="noopener">Get Tickets →</a>
-          </div>
-        </div>
-
-        <!-- Generic placeholder 3 -->
+        <!-- Placeholder -->
         <div class="show-card">
           <div class="show-card-img">
             <div class="show-card-img-placeholder">🎩</div>
@@ -916,51 +777,9 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-top">
-        <div class="footer-brand">
-          <div class="footer-logo">Vegas <span>Sidekick</span>.com</div>
-          <div class="footer-tagline">Your Vegas insider for show tickets. Handpicked, discounted, and completely BS-free since 2023.</div>
-        </div>
-        <div class="footer-links-group">
-          <div class="footer-col">
-            <h4>Shows</h4>
-            <ul>
-              <li><a href="/shows/comedy/">Comedy</a></li>
-              <li><a href="/shows/magic/">Magic</a></li>
-              <li><a href="/shows/music/">Music</a></li>
-              <li><a href="/shows/cirque/">Cirque & Acrobats</a></li>
-              <li><a href="/shows/tribute/">Tribute Acts</a></li>
-            </ul>
-          </div>
-          <div class="footer-col">
-            <h4>More Shows</h4>
-            <ul>
-              <li><a href="/shows/hypnosis/">Hypnosis</a></li>
-              <li><a href="/shows/dinner/">Dinner Shows</a></li>
-              <li><a href="/shows/adult/">Adult Shows</a></li>
-              <li><a href="/shows/headliners/">Headliners</a></li>
-              <li><a href="/shows/family/">Family</a></li>
-            </ul>
-          </div>
-          <div class="footer-col">
-            <h4>Legal</h4>
-            <ul>
-              <li><a href="/privacy/">Privacy Policy</a></li>
-              <li><a href="/terms/">Terms of Use</a></li>
-              <li><a href="/affiliate-disclosure/">Affiliate Disclosure</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <div class="footer-copy">© 2026 Vegas Sidekick. All rights reserved.</div>
-        <div class="footer-disclosure">Affiliate Disclosure: Vegas Sidekick earns commissions when you purchase tickets through our links. This never affects our pricing or recommendations.</div>
-      </div>
-    </div>
-  </footer>
+  <!-- FOOTER COMPONENT -->
+  <div id="vs-footer"></div>
+  <script src="/components/footer.js"></script>
 
 </body>
 </html>
