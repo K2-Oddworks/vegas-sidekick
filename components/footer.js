@@ -67,25 +67,25 @@
   const styles = `
 <style>
 /* EMAIL BAR */
-.vs-email-bar { background: linear-gradient(135deg, #0D1F3C, #0F1E38); border-top: 1px solid rgba(26,127,232,0.15); border-bottom: 1px solid rgba(26,127,232,0.1); padding: 20px 40px; }
+.vs-email-bar { background: linear-gradient(135deg, #0D1F3C, #0F1E38); border-top: 1px solid rgba(26,107,255,0.15); border-bottom: 1px solid rgba(26,107,255,0.1); padding: 20px 40px; }
 .vs-email-bar-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
 .vs-email-bar-text { display: flex; flex-direction: column; gap: 2px; }
 .vs-email-bar-headline { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; color: #FFFFFF; letter-spacing: 0.5px; }
 .vs-email-bar-sub { font-size: 0.78rem; color: #A8B4C4; }
 .vs-email-form { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-.vs-email-form input { background: rgba(255,255,255,0.06); border: 1px solid rgba(26,127,232,0.25); border-radius: 6px; padding: 10px 16px; color: #FFFFFF; font-family: 'Barlow', sans-serif; font-size: 0.9rem; width: 240px; outline: none; transition: border-color 0.2s; }
-.vs-email-form input:focus { border-color: #2E9BFF; }
+.vs-email-form input { background: rgba(255,255,255,0.06); border: 1px solid rgba(26,107,255,0.25); border-radius: 6px; padding: 10px 16px; color: #FFFFFF; font-family: 'Barlow', sans-serif; font-size: 0.9rem; width: 240px; outline: none; transition: border-color 0.2s; }
+.vs-email-form input:focus { border-color: #1A6BFF; }
 .vs-email-form input::placeholder { color: #A8B4C4; }
-.vs-email-form button { background: #2E9BFF; color: #0A1628; font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 10px 24px; border-radius: 6px; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; white-space: nowrap; }
-.vs-email-form button:hover { background: #1A7FE8; transform: translateY(-1px); }
+.vs-email-form button { background: #1A6BFF; color: #FFFFFF; font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 10px 24px; border-radius: 6px; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; white-space: nowrap; }
+.vs-email-form button:hover { background: #1558D6; transform: translateY(-1px); }
 .vs-email-success { display: none; font-size: 0.9rem; color: #22C55E; font-weight: 600; }
 .vs-email-success.visible { display: block; }
 
 /* FOOTER */
-#vs-footer-inner { background: #060E1A; padding: 48px 40px 32px; border-top: 1px solid rgba(26,127,232,0.1); position: relative; z-index: 1; }
+#vs-footer-inner { background: #060E1A; padding: 48px 40px 32px; border-top: 1px solid rgba(26,107,255,0.1); position: relative; z-index: 1; }
 .vs-footer-inner { max-width: 1200px; margin: 0 auto; }
 .vs-footer-top { display: grid; grid-template-columns: 1fr 2fr; gap: 48px; margin-bottom: 40px; }
-.vs-footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: #2E9BFF; letter-spacing: 2px; text-decoration: none; display: block; margin-bottom: 12px; }
+.vs-footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: #1A6BFF; letter-spacing: 2px; text-decoration: none; display: block; margin-bottom: 12px; }
 .vs-footer-logo span { color: #FF6B00; }
 .vs-footer-tagline { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; color: #D4DCE8; letter-spacing: 1px; margin-bottom: 6px; }
 .vs-footer-tagline-sub { font-size: 0.82rem; color: #A8B4C4; line-height: 1.5; max-width: 260px; }
@@ -93,7 +93,7 @@
 .vs-footer-col { display: flex; flex-direction: column; gap: 10px; }
 .vs-footer-col-title { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #FF6B00; margin-bottom: 4px; }
 .vs-footer-col a { color: #A8B4C4; text-decoration: none; font-size: 0.85rem; font-family: 'Barlow', sans-serif; transition: color 0.2s; }
-.vs-footer-col a:hover { color: #2E9BFF; }
+.vs-footer-col a:hover { color: #1A6BFF; }
 .vs-footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); }
 .vs-footer-copy { font-size: 0.78rem; color: #A8B4C4; font-family: 'Barlow', sans-serif; }
 .vs-footer-disclosure { font-size: 0.72rem; color: rgba(168,180,196,0.5); max-width: 500px; text-align: right; line-height: 1.5; font-family: 'Barlow', sans-serif; }
