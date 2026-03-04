@@ -1,0 +1,33 @@
+backend:
+  name: github
+  repo: VegasSidekick/vegas-sidekick  # â† replace with your actual GitHub username
+  branch: main
+  base_url: https://vegassidekick.com
+  auth_endpoint: api/auth
+
+media_folder: "images/news"        # where uploaded photos get saved in the repo
+public_folder: "/images/news"      # the public URL path for those photos
+
+collections:
+  - name: "news"
+    label: "News Articles"
+    folder: "news"                  # articles saved as HTML files in /news/ folder
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title",         name: "title",       widget: "string" }
+      - { label: "Publish Date",  name: "date",        widget: "datetime" }
+      - { label: "Category",      name: "category",    widget: "select",
+          options: ["Comedy", "Music", "Magic", "Residencies", "Dining", "Events"] }
+      - { label: "Hero Image",    name: "image",       widget: "image", required: false }
+      - { label: "Image Caption", name: "image_credit",widget: "string", required: false,
+          hint: "e.g. Photo courtesy: Live Nation / KF Publicity" }
+      - { label: "Summary",       name: "description", widget: "string",
+          hint: "One sentence shown in previews and SEO meta description" }
+      - { label: "Body",          name: "body",        widget: "markdown" }
+      - { label: "Ticket Link",   name: "ticket_url",  widget: "string", required: false }
+      - { label: "Ticket Price",  name: "ticket_price",widget: "string", required: false,
+          hint: "e.g. From $45.99" }
+      - { label: "Show Date",     name: "show_date",   widget: "string", required: false,
+          hint: "e.g. December 4, 2026" }
+      - { label: "Venue",         name: "venue",       widget: "string", required: false }
