@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,600;0,700;1,400&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet" />
+  <script src="/components/header.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -21,22 +22,11 @@
     body { background: var(--navy); color: var(--white); font-family: 'Barlow', sans-serif; font-size: 16px; line-height: 1.6; overflow-x: hidden; }
     body::before { content: ''; position: fixed; inset: 0; background-image: radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.5) 0%, transparent 100%), radial-gradient(1px 1px at 30% 40%, rgba(255,255,255,0.3) 0%, transparent 100%), radial-gradient(1.5px 1.5px at 55% 8%, rgba(255,255,255,0.4) 0%, transparent 100%), radial-gradient(1px 1px at 75% 55%, rgba(255,255,255,0.4) 0%, transparent 100%); pointer-events: none; z-index: 0; }
 
-    /* ── PULSE ANIMATION ── */
     @keyframes ctaPulse {
       0%, 100% { box-shadow: 0 4px 20px rgba(255,107,0,0.3); }
       50% { box-shadow: 0 4px 32px rgba(255,107,0,0.6), 0 0 0 4px rgba(255,107,0,0.12); }
     }
 
-    /* ── NAV ── */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: 14px 40px; background: rgba(10,22,40,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(26,127,232,0.15); }
-    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--blue-bright); letter-spacing: 2px; text-decoration: none; }
-    .nav-logo span { color: var(--orange); }
-    .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
-    .nav-links a { color: var(--gray-light); text-decoration: none; font-weight: 600; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--orange); }
-    .nav-cta { background: var(--orange) !important; color: var(--navy) !important; padding: 8px 20px; border-radius: 4px; }
-
-    /* ── BREADCRUMB ── */
     .breadcrumb { position: relative; z-index: 1; max-width: calc(1200px + 80px); margin: 0 auto; padding: 90px 40px 0; }
     .breadcrumb-inner { display: flex; align-items: center; gap: 8px; font-size: 0.78rem; color: var(--gray); padding-top: 20px; }
     .breadcrumb a { color: var(--gray); text-decoration: none; }
@@ -44,24 +34,18 @@
     .breadcrumb-sep { color: rgba(168,180,196,0.4); }
     .breadcrumb-current { color: var(--gray-light); }
 
-    /* ── HERO ── */
     .show-hero { position: relative; z-index: 1; padding: 24px 40px 0; }
     .show-hero-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr var(--sidebar-width); gap: 40px; align-items: start; }
     .show-hero-left { display: flex; flex-direction: column; }
 
-    /* ── SLIDER ── */
     .slider-wrap { width: 100%; border-radius: 14px; overflow: hidden; position: relative; aspect-ratio: 16/9; background: #0D1F3C; }
     .slider-track { display: flex; height: 100%; transition: transform 0.5s cubic-bezier(0.4,0,0.2,1); }
     .slide { flex: 0 0 100%; height: 100%; position: relative; overflow: hidden; }
-
-    /* Photo slides */
     .slide-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .slide-photo .slide-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: linear-gradient(135deg, #122448, #0D1F3C); }
     .slide-placeholder .emoji { font-size: 4rem; opacity: 0.35; }
     .slide-placeholder .ph-text { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 3px; color: rgba(255,255,255,0.18); }
     .slide-placeholder .ph-label { font-size: 0.72rem; color: rgba(255,255,255,0.2); letter-spacing: 2px; text-transform: uppercase; }
-
-    /* Trust slide */
     .slide-trust { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #0D1F3C, #0A1628); padding: 20px; overflow-y: auto; }
     .trust-slide-inner { display: flex; flex-direction: column; align-items: center; gap: 28px; max-width: 480px; text-align: center; }
     .trust-slide-header { display: flex; flex-direction: column; gap: 6px; }
@@ -73,8 +57,6 @@
     .trust-item-icon { font-size: 1.6rem; }
     .trust-item-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.82rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--white); line-height: 1.2; }
     .trust-item-sub { font-size: 0.72rem; color: var(--gray); line-height: 1.4; }
-
-    /* Video slide */
     .slide-video { width: 100%; height: 100%; position: relative; background: #000; }
     .slide-video iframe { width: 100%; height: 100%; border: none; display: block; }
     .slide-video-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(10,22,40,0.85), rgba(10,22,40,0.7)); cursor: pointer; transition: opacity 0.3s; }
@@ -82,8 +64,6 @@
     .play-btn { width: 72px; height: 72px; border-radius: 50%; background: var(--orange); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 24px rgba(255,107,0,0.4); }
     .play-btn:hover { transform: scale(1.1); box-shadow: 0 8px 32px rgba(255,107,0,0.5); }
     .play-label { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.7); white-space: nowrap; }
-
-    /* Slider controls */
     .slider-prev, .slider-next { position: absolute; top: 50%; transform: translateY(-50%); z-index: 10; background: rgba(10,22,40,0.7); border: 1px solid rgba(255,255,255,0.12); color: var(--white); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s; font-size: 0.9rem; backdrop-filter: blur(8px); }
     .slider-prev { left: 12px; }
     .slider-next { right: 12px; }
@@ -94,22 +74,17 @@
     .show-category-tag { position: absolute; top: 16px; left: 16px; z-index: 5; background: var(--orange); color: var(--navy); font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 12px; border-radius: 4px; }
     .show-sidekick-badge { position: absolute; top: 16px; right: 16px; z-index: 5; background: rgba(10,22,40,0.85); border: 1px solid var(--orange); color: var(--orange); font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 12px; border-radius: 4px; backdrop-filter: blur(8px); }
 
-    /* ── TITLE BLOCK ── */
     .show-title-block { padding: 24px 0 0; }
     .show-venue-label { font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--blue-bright); margin-bottom: 8px; }
     .show-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.8rem, 5vw, 4.5rem); letter-spacing: 2px; line-height: 0.95; margin-bottom: 8px; }
     .show-subtitle { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; color: var(--orange); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
     .show-details-strip { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
     .detail-pill { display: flex; align-items: center; gap: 6px; background: var(--card-bg); border: 1px solid rgba(26,127,232,0.15); border-radius: 100px; padding: 6px 14px; font-size: 0.78rem; color: var(--gray-light); font-weight: 600; }
-
-    /* ── URGENCY PILLS ── */
     .urgency-strip { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
     .urgency-pill { display: flex; align-items: center; gap: 6px; border-radius: 100px; padding: 5px 12px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.5px; }
     .urgency-pill.fire { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.25); color: #FCA5A5; }
     .urgency-pill.clock { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.25); color: #FCD34D; }
     .urgency-pill.seat { background: rgba(26,127,232,0.1); border: 1px solid rgba(26,127,232,0.25); color: var(--blue-bright); }
-
-    /* ── HERO CTA STRIP ── */
     .hero-cta-strip { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; padding: 20px 0 8px; border-top: 1px solid rgba(255,255,255,0.06); }
     .hero-price-block { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
     .hero-price-our { font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem; color: var(--orange); letter-spacing: 1px; line-height: 1; }
@@ -117,13 +92,11 @@
     .hero-price-save { background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.25); color: var(--green); font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; }
     .hero-cta-note { font-size: 0.75rem; color: var(--gray); }
 
-    /* ── BUTTONS ── */
     .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: var(--navy); font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 16px 32px; border-radius: 6px; text-decoration: none; border: none; cursor: pointer; animation: ctaPulse 2.5s ease-in-out infinite; white-space: nowrap; }
     .btn-primary:hover { background: var(--orange-bright); transform: translateY(-2px); }
     .btn-tickets-main { display: flex; align-items: center; justify-content: center; gap: 8px; background: var(--orange); color: var(--navy); font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 18px 24px; border-radius: 8px; text-decoration: none; border: none; cursor: pointer; animation: ctaPulse 2.5s ease-in-out infinite; width: 100%; }
     .btn-tickets-main:hover { background: var(--orange-bright); transform: translateY(-2px); }
 
-    /* ── SIDEBAR ── */
     .show-sidebar { position: sticky; top: 88px; display: flex; flex-direction: column; gap: 16px; }
     .sidebar-ticket-card { background: var(--card-bg); border: 1px solid rgba(26,127,232,0.2); border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 18px; }
     .sidebar-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 2px; line-height: 1; }
@@ -150,11 +123,9 @@
     .sidebar-disclosure { font-size: 0.7rem; color: rgba(168,180,196,0.5); line-height: 1.5; text-align: center; }
     .sidebar-disclosure a { color: rgba(168,180,196,0.7); }
 
-    /* ── BODY ── */
     .show-body { position: relative; z-index: 1; padding: 40px 40px 60px; }
     .show-body-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr var(--sidebar-width); gap: 40px; align-items: start; }
     .show-content { display: flex; flex-direction: column; gap: 48px; }
-
     .content-block { display: flex; flex-direction: column; gap: 16px; }
     .content-block-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--orange); }
     .content-block-title { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 2px; line-height: 1; }
@@ -163,7 +134,6 @@
     .content-text p + p { margin-top: 16px; }
     .content-text strong { color: var(--white); }
 
-    /* ── DWELL WIDGET ── */
     .seen-widget { background: var(--card-bg); border: 1px solid rgba(26,127,232,0.2); border-radius: 14px; padding: 28px 32px; display: flex; flex-direction: column; gap: 16px; }
     .seen-widget-q { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 2px; }
     .seen-widget-q span { color: var(--blue-bright); }
@@ -175,14 +145,12 @@
     .seen-response-text { font-size: 1rem; color: var(--gray-light); line-height: 1.6; }
     .seen-response-text strong { color: var(--white); }
 
-    /* ── MID CTA ── */
     .mid-cta { background: linear-gradient(135deg, rgba(255,107,0,0.08), rgba(26,127,232,0.05)); border: 1px solid rgba(255,107,0,0.2); border-radius: 12px; padding: 28px 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
     .mid-cta-text { display: flex; flex-direction: column; gap: 4px; }
     .mid-cta-headline { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 2px; }
     .mid-cta-headline span { color: var(--orange); }
     .mid-cta-sub { font-size: 0.85rem; color: var(--gray); }
 
-    /* ── DETAILS GRID ── */
     .details-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
     .detail-card { background: var(--card-bg); border: 1px solid rgba(26,127,232,0.12); border-radius: 10px; padding: 20px; display: flex; flex-direction: column; gap: 8px; }
     .detail-card-icon { font-size: 1.4rem; }
@@ -190,7 +158,6 @@
     .detail-card-value { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--white); }
     .detail-card-sub { font-size: 0.78rem; color: var(--gray); }
 
-    /* ── FAQ ── */
     .faq-list { display: flex; flex-direction: column; gap: 12px; }
     .faq-item { background: var(--card-bg); border: 1px solid rgba(26,127,232,0.12); border-radius: 10px; overflow: hidden; }
     .faq-question { width: 100%; background: none; border: none; color: var(--white); font-family: 'Barlow', sans-serif; font-size: 0.95rem; font-weight: 700; text-align: left; padding: 20px 24px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; transition: color 0.2s; }
@@ -200,7 +167,6 @@
     .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease; padding: 0 24px; font-size: 0.9rem; color: var(--gray-light); line-height: 1.7; }
     .faq-item.open .faq-answer { max-height: 400px; padding: 0 24px 20px; }
 
-    /* ── SIMILAR ── */
     .similar-sections-wrap { display: flex; flex-direction: column; gap: 32px; }
     .similar-section { display: flex; flex-direction: column; gap: 14px; }
     .similar-section-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--blue-bright); border-bottom: 1px solid rgba(26,127,232,0.15); padding-bottom: 10px; }
@@ -215,7 +181,6 @@
     .similar-price { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: var(--orange); }
     .similar-cta { font-size: 0.68rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--blue-bright); }
 
-    /* ── MOBILE STICKY ── */
     .mobile-cta-bar { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 150; background: rgba(10,22,40,0.98); border-top: 3px solid var(--orange); padding: 10px 16px; backdrop-filter: blur(12px); align-items: center; justify-content: space-between; gap: 12px; height: var(--mobile-bar-height); }
     .mobile-price-block { display: flex; flex-direction: column; gap: 2px; }
     .mobile-price-row { display: flex; align-items: baseline; gap: 8px; }
@@ -223,20 +188,7 @@
     .mobile-price-was { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; color: var(--gray); text-decoration: line-through; }
     .mobile-price-save { font-size: 0.72rem; color: var(--green); font-weight: 700; }
 
-    /* ── FOOTER ── */
-    footer { position: relative; z-index: 1; background: #060E1A; padding: 48px 40px 32px; border-top: 1px solid rgba(26,127,232,0.1); }
-    .footer-inner { max-width: 1200px; margin: 0 auto; }
-    .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--blue-bright); letter-spacing: 2px; text-decoration: none; }
-    .footer-logo span { color: var(--orange); }
-    .footer-copy { font-size: 0.78rem; color: var(--gray); }
-    .footer-disclosure { font-size: 0.72rem; color: rgba(168,180,196,0.5); max-width: 500px; text-align: right; line-height: 1.5; }
-
-    /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
-      nav { padding: 12px 20px; }
-      .nav-logo img { height: 44px !important; }
-      .nav-links { display: none; }
       .breadcrumb { padding: 80px 20px 0; }
       .show-hero { padding: 16px 20px 0; }
       .show-hero-inner { grid-template-columns: 1fr; }
@@ -245,7 +197,6 @@
       .show-body-inner { grid-template-columns: 1fr; }
       .show-body-inner .show-sidebar { display: none; }
       .mobile-cta-bar { display: flex; }
-      footer { padding-bottom: calc(var(--mobile-bar-height) + 20px); }
       .mid-cta { flex-direction: column; align-items: flex-start; }
       .details-grid { grid-template-columns: repeat(2, 1fr); }
       .trust-items { grid-template-columns: 1fr 1fr; gap: 8px; }
@@ -256,7 +207,6 @@
       .trust-slide-title { font-size: 1.3rem; }
       .trust-slide-inner { gap: 16px; }
       .slide-trust { padding: 14px; }
-      .footer-disclosure { text-align: left; }
     }
     @media (max-width: 480px) {
       .similar-grid { grid-template-columns: 1fr 1fr; }
@@ -266,15 +216,7 @@
 </head>
 <body>
 
-  <nav>
-<a class="nav-logo" href="/"><img src="/images/logo-pill-alt.png" alt="Vegas Sidekick" style="height:84px;width:auto;" /></a>
-    <ul class="nav-links">
-      <li><a href="/#categories">Shows</a></li>
-      <li><a href="/#featured">Featured</a></li>
-      <li><a href="/#about">About</a></li>
-      <li><a href="https://spotlight.vegas/shows/comedy/carrot-top/ref/vegassidekick" target="_blank" rel="noopener" class="nav-cta">Get Tickets</a></li>
-    </ul>
-  </nav>
+  <div id="vs-header"></div>
 
   <div class="breadcrumb">
     <div class="breadcrumb-inner">
@@ -287,48 +229,22 @@
   <section class="show-hero">
     <div class="show-hero-inner">
       <div class="show-hero-left">
-
-        <!-- SLIDER -->
         <div class="slider-wrap" id="mainSlider">
           <span class="show-category-tag">Comedy</span>
           <span class="show-sidekick-badge">⭐ Sidekick Pick</span>
-
           <div class="slider-track" id="sliderTrack">
-
-            <!-- Slide 1: Hero photo -->
             <div class="slide slide-photo">
-              <img src="/images/carrot-top-hero.jpg" alt="Carrot Top performing live prop comedy at the Luxor Las Vegas"
-                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-              <div class="slide-placeholder" style="display:none;">
-                <div class="emoji">🥕</div>
-                <div class="ph-text">Carrot Top</div>
-                <div class="ph-label">Photo 1 — images/carrot-top-hero.jpg</div>
-              </div>
+              <img src="/images/carrot-top-hero.jpg" alt="Carrot Top performing live prop comedy at the Luxor Las Vegas" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <div class="slide-placeholder" style="display:none;"><div class="emoji">🥕</div><div class="ph-text">Carrot Top</div><div class="ph-label">Photo 1 — images/carrot-top-hero.jpg</div></div>
             </div>
-
-            <!-- Slide 2: Show photo -->
             <div class="slide slide-photo">
-              <img src="/images/carrot-top-show-2.jpg" alt="Carrot Top prop comedy show at the Luxor Hotel Las Vegas"
-                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-              <div class="slide-placeholder" style="display:none;">
-                <div class="emoji">🎭</div>
-                <div class="ph-text">On Stage</div>
-                <div class="ph-label">Photo 2 — images/carrot-top-show-2.jpg</div>
-              </div>
+              <img src="/images/carrot-top-show-2.jpg" alt="Carrot Top prop comedy show at the Luxor Hotel Las Vegas" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <div class="slide-placeholder" style="display:none;"><div class="emoji">🎭</div><div class="ph-text">On Stage</div><div class="ph-label">Photo 2 — images/carrot-top-show-2.jpg</div></div>
             </div>
-
-            <!-- Slide 3: Show photo -->
             <div class="slide slide-photo">
-              <img src="/images/carrot-top-show-3.jpg" alt="Carrot Top with props at the Atrium Showroom Luxor Las Vegas"
-                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-              <div class="slide-placeholder" style="display:none;">
-                <div class="emoji">🎪</div>
-                <div class="ph-text">The Props</div>
-                <div class="ph-label">Photo 3 — images/carrot-top-show-3.jpg</div>
-              </div>
+              <img src="/images/carrot-top-show-3.jpg" alt="Carrot Top with props at the Atrium Showroom Luxor Las Vegas" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <div class="slide-placeholder" style="display:none;"><div class="emoji">🎪</div><div class="ph-text">The Props</div><div class="ph-label">Photo 3 — images/carrot-top-show-3.jpg</div></div>
             </div>
-
-            <!-- Slide 4: Trust signal card -->
             <div class="slide">
               <div class="slide-trust">
                 <div class="trust-slide-inner">
@@ -337,54 +253,24 @@
                     <div class="trust-slide-title">Why Book Through <span>Vegas Sidekick</span></div>
                   </div>
                   <div class="trust-items">
-                    <div class="trust-item">
-                      <div class="trust-item-icon">🔒</div>
-                      <div class="trust-item-label">Secure Booking</div>
-                      <div class="trust-item-sub">Encrypted checkout. Your info is safe.</div>
-                    </div>
-                    <div class="trust-item">
-                      <div class="trust-item-icon">⚡</div>
-                      <div class="trust-item-label">Instant Ticket Delivery</div>
-                      <div class="trust-item-sub">Tickets emailed immediately after purchase.</div>
-                    </div>
-                    <div class="trust-item">
-                      <div class="trust-item-icon">🚫</div>
-                      <div class="trust-item-label">No Hidden Fees</div>
-                      <div class="trust-item-sub">The price you see is the price you pay.</div>
-                    </div>
-                    <div class="trust-item">
-                      <div class="trust-item-icon">🎟️</div>
-                      <div class="trust-item-label">No Account Required</div>
-                      <div class="trust-item-sub">Book in minutes. No sign-up needed.</div>
-                    </div>
+                    <div class="trust-item"><div class="trust-item-icon">🔒</div><div class="trust-item-label">Secure Booking</div><div class="trust-item-sub">Encrypted checkout. Your info is safe.</div></div>
+                    <div class="trust-item"><div class="trust-item-icon">⚡</div><div class="trust-item-label">Instant Ticket Delivery</div><div class="trust-item-sub">Tickets emailed immediately after purchase.</div></div>
+                    <div class="trust-item"><div class="trust-item-icon">🚫</div><div class="trust-item-label">No Hidden Fees</div><div class="trust-item-sub">The price you see is the price you pay.</div></div>
+                    <div class="trust-item"><div class="trust-item-icon">🎟️</div><div class="trust-item-label">No Account Required</div><div class="trust-item-sub">Book in minutes. No sign-up needed.</div></div>
                   </div>
                 </div>
               </div>
             </div>
-
-            <!-- Slide 5: Video -->
             <div class="slide slide-video" id="videoSlide">
-              <iframe id="ytPlayer"
-                src="about:blank"
-                data-src="https://www.youtube.com/embed/XRdqvnCZe-A?enablejsapi=1&rel=0"
-                title="Carrot Top Las Vegas show preview"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen>
-              </iframe>
-              <div class="slide-video-overlay" id="videoOverlay">
-                <div class="play-btn">▶</div>
-                <div class="play-label">Watch Show Preview</div>
-              </div>
+              <iframe id="ytPlayer" src="about:blank" data-src="https://www.youtube.com/embed/XRdqvnCZe-A?enablejsapi=1&rel=0" title="Carrot Top Las Vegas show preview" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <div class="slide-video-overlay" id="videoOverlay"><div class="play-btn">▶</div><div class="play-label">Watch Show Preview</div></div>
             </div>
-
-          </div><!-- /slider-track -->
-
+          </div>
           <button class="slider-prev" onclick="slideMove(-1)" aria-label="Previous">&#8592;</button>
           <button class="slider-next" onclick="slideMove(1)" aria-label="Next">&#8594;</button>
           <div class="slider-dots" id="sliderDots"></div>
-        </div><!-- /slider-wrap -->
+        </div>
 
-        <!-- TITLE BLOCK -->
         <div class="show-title-block">
           <div class="show-venue-label">Atrium Showroom · Luxor Hotel & Casino · Las Vegas Strip</div>
           <h1 class="show-title">Carrot Top</h1>
@@ -395,14 +281,11 @@
             <div class="detail-pill">⏱️ 75 minutes</div>
             <div class="detail-pill">🔞 Ages 16+</div>
           </div>
-
-          <!-- URGENCY NUDGES -->
           <div class="urgency-strip">
             <div class="urgency-pill fire">🔥 Most nights sell out</div>
             <div class="urgency-pill clock">⏰ Prices may increase — book early</div>
             <div class="urgency-pill seat">🪑 Book early for best seat selection</div>
           </div>
-
           <div class="hero-cta-strip">
             <div class="hero-price-block">
               <div class="hero-price-our">$68</div>
@@ -417,7 +300,6 @@
         </div>
       </div>
 
-      <!-- HERO SIDEBAR -->
       <div class="show-sidebar show-hero-right">
         <div class="sidebar-ticket-card">
           <div class="sidebar-title">Get Your <span>Tickets</span></div>
@@ -452,7 +334,6 @@
     </div>
   </section>
 
-  <!-- BODY -->
   <div class="show-body">
     <div class="show-body-inner">
       <div class="show-content">
@@ -507,52 +388,42 @@
           <div class="content-block-label">Questions</div>
           <h2 class="content-block-title">Frequently <span>Asked</span></h2>
           <div class="faq-list">
-
             <div class="faq-item">
               <button class="faq-question" onclick="toggleFaq(this)">What is the age requirement?<span class="faq-chevron">▼</span></button>
               <div class="faq-answer">This show is for guests ages 16 and up. No one under 16 will be admitted — no exceptions. All guests must be accompanied by a legal adult.</div>
             </div>
-
             <div class="faq-item">
               <button class="faq-question" onclick="toggleFaq(this)">What should I wear to the show?<span class="faq-chevron">▼</span></button>
               <div class="faq-answer">Vegas summers are brutal. Come as you are — t-shirts and shorts are completely fine. This is a comedy show, not a red carpet. Wear what makes you comfortable and save your energy for laughing.</div>
             </div>
-
             <div class="faq-item">
               <button class="faq-question" onclick="toggleFaq(this)">How long is the Carrot Top Las Vegas show?<span class="faq-chevron">▼</span></button>
               <div class="faq-answer">The show runs approximately 75 minutes with no intermission. It moves fast — you won't be watching the clock. Plan to arrive at the Luxor property at least 45 minutes before showtime to give yourself time to navigate to the venue, and aim to be in your seat about 30 minutes before curtain.</div>
             </div>
-
             <div class="faq-item">
               <button class="faq-question" onclick="toggleFaq(this)">Are there good seats and bad seats at the Atrium Showroom?<span class="faq-chevron">▼</span></button>
               <div class="faq-answer">There are no bad seats in the Atrium Showroom. It's an intimate venue with excellent sightlines throughout. That said, better seats fill up first — booking early gives you the most options. Front and center puts you closest to the props, which adds to the experience.</div>
             </div>
-
             <div class="faq-item">
               <button class="faq-question" onclick="toggleFaq(this)">What nights does Carrot Top perform?<span class="faq-chevron">▼</span></button>
               <div class="faq-answer">Carrot Top performs Monday through Saturday at 8:00 PM. He occasionally takes nights off — always verify availability at checkout. If tickets are showing for your date, the show is on.</div>
             </div>
-
             <div class="faq-item">
               <button class="faq-question" onclick="toggleFaq(this)">Is there a Meet & Greet with Carrot Top?<span class="faq-chevron">▼</span></button>
               <div class="faq-answer">Yes — a Meet & Greet Experience is available as a separate add-on ticket. It takes place before the show at 6:55 PM and includes a personal meeting and photo opportunity with Carrot Top. This is purchased separately from your show ticket. Check availability at checkout.</div>
             </div>
-
             <div class="faq-item">
               <button class="faq-question" onclick="toggleFaq(this)">Will there be any surprise fees at checkout?<span class="faq-chevron">▼</span></button>
               <div class="faq-answer">No. The price shown on this page is the price you pay. Any service fees are already factored into the displayed ticket price — nothing gets added at checkout. No surprises — ever.</div>
             </div>
-
             <div class="faq-item">
               <button class="faq-question" onclick="toggleFaq(this)">Is ADA / wheelchair accessible seating available?<span class="faq-chevron">▼</span></button>
               <div class="faq-answer">Yes, ADA and accessible seating is available at the Atrium Showroom. For specific ADA seating arrangements, please contact the Luxor box office directly to ensure the right accommodations are in place for your visit.</div>
             </div>
-
             <div class="faq-item">
               <button class="faq-question" onclick="toggleFaq(this)">Where should I park at the Luxor?<span class="faq-chevron">▼</span></button>
               <div class="faq-answer">The Luxor has a large parking garage on property. MGM Rewards members may qualify for complimentary parking. If you're staying elsewhere on the Strip, rideshare is often the easier call — especially on busy weekend nights. Either way, plan to arrive at the property at least 45 minutes before showtime so you have time to find the Atrium Showroom.</div>
             </div>
-
           </div>
         </div>
 
@@ -607,7 +478,6 @@
 
       </div>
 
-      <!-- BODY SIDEBAR -->
       <div class="show-sidebar">
         <div class="sidebar-ticket-card">
           <div class="sidebar-title">Get Your <span>Tickets</span></div>
@@ -642,7 +512,6 @@
     </div>
   </div>
 
-  <!-- MOBILE STICKY -->
   <div class="mobile-cta-bar">
     <div class="mobile-price-block">
       <div class="mobile-price-row">
@@ -654,25 +523,15 @@
     <a href="https://spotlight.vegas/shows/comedy/carrot-top/ref/vegassidekick" class="btn-tickets-main" style="width:auto;padding:12px 24px;font-size:0.95rem;" target="_blank" rel="noopener">Get Tickets →</a>
   </div>
 
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-bottom">
-        <a class="footer-logo" href="/">Vegas <span>Sidekick</span></a>
-        <div class="footer-copy">© 2026 Vegas Sidekick. All rights reserved.</div>
-        <div class="footer-disclosure">Affiliate Disclosure: Vegas Sidekick earns commissions when you purchase tickets through our links. This never affects our pricing or recommendations.</div>
-      </div>
-    </div>
-  </footer>
+  <div id="vs-footer"></div>
+  <script src="/components/footer.js"></script>
 
   <script>
-    // ── SLIDER ──
     const totalSlides = 5;
     let current = 0;
     let autoTimer;
     const track = document.getElementById('sliderTrack');
     const dotsWrap = document.getElementById('sliderDots');
-
-    // Build dots
     for (let i = 0; i < totalSlides; i++) {
       const d = document.createElement('button');
       d.className = 'slider-dot' + (i === 0 ? ' active' : '');
@@ -680,60 +539,24 @@
       d.onclick = () => goTo(i);
       dotsWrap.appendChild(d);
     }
-
     function goTo(idx) {
       current = (idx + totalSlides) % totalSlides;
       track.style.transform = 'translateX(-' + (current * 100) + '%)';
       document.querySelectorAll('.slider-dot').forEach((d, i) => d.classList.toggle('active', i === current));
-      if (current !== 4) {
-        const yt = document.getElementById('ytPlayer');
-        yt.src = 'about:blank';
-        document.getElementById('videoOverlay').classList.remove('hidden');
-      }
+      if (current !== 4) { document.getElementById('ytPlayer').src = 'about:blank'; document.getElementById('videoOverlay').classList.remove('hidden'); }
       resetAuto();
     }
-
     function slideMove(dir) { goTo(current + dir); }
-
-    function resetAuto() {
-      clearInterval(autoTimer);
-      autoTimer = setInterval(() => { if (current !== 4) goTo(current + 1); }, 5000);
-    }
-
+    function resetAuto() { clearInterval(autoTimer); autoTimer = setInterval(() => { if (current !== 4) goTo(current + 1); }, 5000); }
     document.getElementById('mainSlider').addEventListener('mouseenter', () => clearInterval(autoTimer));
     document.getElementById('mainSlider').addEventListener('mouseleave', resetAuto);
-
     let touchStartX = 0;
     track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
-    track.addEventListener('touchend', e => {
-      const diff = touchStartX - e.changedTouches[0].clientX;
-      if (Math.abs(diff) > 40) slideMove(diff > 0 ? 1 : -1);
-    });
-
-    document.getElementById('videoOverlay').addEventListener('click', function() {
-      const yt = document.getElementById('ytPlayer');
-      yt.src = yt.dataset.src;
-      this.classList.add('hidden');
-      clearInterval(autoTimer);
-    });
-
+    track.addEventListener('touchend', e => { const diff = touchStartX - e.changedTouches[0].clientX; if (Math.abs(diff) > 40) slideMove(diff > 0 ? 1 : -1); });
+    document.getElementById('videoOverlay').addEventListener('click', function() { document.getElementById('ytPlayer').src = document.getElementById('ytPlayer').dataset.src; this.classList.add('hidden'); clearInterval(autoTimer); });
     resetAuto();
-
-    // ── FAQ ──
-    function toggleFaq(btn) {
-      const item = btn.closest('.faq-item');
-      const isOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
-      if (!isOpen) item.classList.add('open');
-    }
-
-    // ── SEEN WIDGET ──
-    function seenAnswer(answer) {
-      document.getElementById('seen-btns').style.display = 'none';
-      document.getElementById('seen-yes').classList.remove('visible');
-      document.getElementById('seen-no').classList.remove('visible');
-      document.getElementById('seen-' + answer).classList.add('visible');
-    }
+    function toggleFaq(btn) { const item = btn.closest('.faq-item'); const isOpen = item.classList.contains('open'); document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open')); if (!isOpen) item.classList.add('open'); }
+    function seenAnswer(answer) { document.getElementById('seen-btns').style.display = 'none'; document.getElementById('seen-yes').classList.remove('visible'); document.getElementById('seen-no').classList.remove('visible'); document.getElementById('seen-' + answer).classList.add('visible'); }
   </script>
 </body>
 </html>
