@@ -4,7 +4,7 @@
 
 (function() {
   const BREVO_API_KEY = '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';
-  const BREVO_LIST_ID = 2; // Update this to your actual Brevo list ID
+  const BREVO_LIST_ID = 2;
 
   const html = `
 <div class="vs-email-bar" id="vsEmailBar">
@@ -27,7 +27,7 @@
   <div class="vs-footer-inner">
     <div class="vs-footer-top">
       <div class="vs-footer-brand">
-        <a class="vs-footer-logo" href="/">Vegas <span>Sidekick</span></a>
+        <a class="vs-footer-logo" href="/"><img src="/images/logo-pill-alt.png" alt="Vegas Sidekick" style="height:56px;width:auto;" /></a>
         <p class="vs-footer-tagline">Biggest Shows. Real Discounts. No BS.</p>
         <p class="vs-footer-tagline-sub">We live here. We know the shows. We tell you the truth.</p>
       </div>
@@ -36,16 +36,16 @@
           <div class="vs-footer-col-title">Shows</div>
           <a href="/shows/comedy/">Comedy</a>
           <a href="/shows/magic/">Magic</a>
-          <a href="/shows/cirque/">Cirque du Soleil</a>
-          <a href="/shows/production/">Production Shows</a>
-          <a href="/shows/adult/">Adult Shows</a>
-          <a href="/shows/family/">Family Shows</a>
+          <a href="/shows/music/">Music</a>
+          <a href="/shows/cirque/">Cirque &amp; Acrobatic</a>
+          <a href="/shows/headliners/">Headliners</a>
         </div>
         <div class="vs-footer-col">
-          <div class="vs-footer-col-title">More</div>
-          <a href="/shows/tribute/">Tribute Shows</a>
-          <a href="/shows/music/">Music Shows</a>
-          <a href="/shows/magic/">Burlesque</a>
+          <div class="vs-footer-col-title">More Shows</div>
+          <a href="/shows/production/">Production</a>
+          <a href="/shows/adult/">Adult Shows</a>
+          <a href="/shows/tribute/">Tribute Acts</a>
+          <a href="/shows/variety/">Variety</a>
           <a href="/search/">Search All Shows</a>
         </div>
         <div class="vs-footer-col">
@@ -85,8 +85,8 @@
 #vs-footer-inner { background: #060E1A; padding: 48px 40px 32px; border-top: 1px solid rgba(26,107,255,0.1); position: relative; z-index: 1; }
 .vs-footer-inner { max-width: 1200px; margin: 0 auto; }
 .vs-footer-top { display: grid; grid-template-columns: 1fr 2fr; gap: 48px; margin-bottom: 40px; }
-.vs-footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: #1A6BFF; letter-spacing: 2px; text-decoration: none; display: block; margin-bottom: 12px; }
-.vs-footer-logo span { color: #FF6B00; }
+.vs-footer-logo { display: block; margin-bottom: 16px; }
+.vs-footer-logo img { height: 56px; width: auto; }
 .vs-footer-tagline { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; color: #D4DCE8; letter-spacing: 1px; margin-bottom: 6px; }
 .vs-footer-tagline-sub { font-size: 0.82rem; color: #A8B4C4; line-height: 1.5; max-width: 260px; }
 .vs-footer-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }

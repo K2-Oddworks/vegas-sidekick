@@ -8,7 +8,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,600;0,700;1,400&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet" />
-  <script src="/components/header.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -558,5 +557,6 @@
     function toggleFaq(btn) { const item = btn.closest('.faq-item'); const isOpen = item.classList.contains('open'); document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open')); if (!isOpen) item.classList.add('open'); }
     function seenAnswer(answer) { document.getElementById('seen-btns').style.display = 'none'; document.getElementById('seen-yes').classList.remove('visible'); document.getElementById('seen-no').classList.remove('visible'); document.getElementById('seen-' + answer).classList.add('visible'); }
   </script>
+  <script src="/components/header.js"></script>
 </body>
 </html>
