@@ -740,17 +740,17 @@
     document.querySelector('[data-s="' + s + '"]').classList.add('active');
   }
 
-  // EMAIL
+  // EMAIL — via Cloudflare Worker proxy
   async function submitEmail() {
     const email = document.getElementById('emailInp').value.trim();
     if (!email || !email.includes('@')) { document.getElementById('emailInp').style.borderColor = '#FCA5A5'; return; }
     try {
-      await fetch('https://api.brevo.com/v3/contacts', {
+      await fetch('https://brevo-subscribe.vegassidekickcom.workers.dev', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'api-key': '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' },
-        body: JSON.stringify({ email: email, listIds: [2], updateEnabled: true })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email })
       });
-    } catch(e) { /* silent fail — still show success */ }
+    } catch(e) { /* silent fail */ }
     document.getElementById('emailForm').style.display = 'none';
     document.getElementById('emailOk').classList.add('on');
   }
