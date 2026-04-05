@@ -64,4 +64,17 @@
     drawer.classList.toggle('open');
     overlay.classList.toggle('visible');
   };
+
+  // Google Analytics — injected once via header, covers every page
+  const gtagScript = document.createElement('script');
+  gtagScript.async = true;
+  gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-BM6QGF7B4Y';
+  document.head.appendChild(gtagScript);
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  window.gtag = gtag;
+  gtag('js', new Date());
+  gtag('config', 'G-BM6QGF7B4Y');
+
 })();
