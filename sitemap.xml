@@ -10,15 +10,9 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/comedy/marc-savard-comedy-hypnosis/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
-```
-
-Save it, then:
-```
-git add sitemap.xml
-```
-```
-git commit -m "Add sitemap.xml"
-```
-```
-git push
