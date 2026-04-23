@@ -97,7 +97,7 @@
     #progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--blue), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; }
 
     /* HERO */
-    .hero { background: var(--navy); }
+    .hero { background: var(--navy); padding-top: 84px; }
 
     .breadcrumb { padding: 12px 24px; background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.05); font-family: var(--font-mono); font-size: 0.67rem; color: rgba(255,255,255,0.36); letter-spacing: 0.04em; }
     .breadcrumb a { color: rgba(255,255,255,0.36); transition: color 0.2s; }
@@ -349,6 +349,7 @@
 </head>
 <body>
 
+<div id="vs-header"></div>
 <div id="progress-bar" aria-hidden="true"></div>
 
 <!-- HERO -->
@@ -367,8 +368,8 @@
     <div class="slide">
       <img src="/images/marc-savard-comedy-hypnosis-3.jpg" alt="Marc Savard in action with hypnotized volunteers at Nathan Burton Theater" loading="lazy" />
     </div>
-    <div class="slide yt-slide" onclick="window.open('https://youtu.be/E0bECqHgo20','_blank')" role="button" tabindex="0" aria-label="Watch Marc Savard Comedy Hypnosis trailer on YouTube">
-      <img src="https://img.youtube.com/vi/E0bECqHgo20/maxresdefault.jpg" alt="Marc Savard Comedy Hypnosis — official trailer on YouTube" loading="lazy" />
+    <div class="slide yt-slide" onclick="playYT(this)" role="button" tabindex="0" aria-label="Watch Marc Savard Comedy Hypnosis trailer">
+      <img src="https://img.youtube.com/vi/E0bECqHgo20/maxresdefault.jpg" alt="Marc Savard Comedy Hypnosis — official trailer" loading="lazy" />
       <div class="yt-play" aria-hidden="true">
         <svg width="23" height="23" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
       </div>
@@ -950,6 +951,18 @@
   document.querySelectorAll('.seat-zone').forEach(z => {
     z.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); z.click(); } });
   });
+
+  /* YOUTUBE INLINE PLAY */
+  function playYT(el) {
+    clearInterval(si);
+    el.style.cursor = 'default';
+    el.onclick = null;
+    el.innerHTML = '<iframe src="https://www.youtube.com/embed/E0bECqHgo20?autoplay=1&rel=0" frameborder="0" allow="autoplay; encrypted-media; fullscreen" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;"></iframe>';
+  }
 </script>
+
+<div id="vs-footer"></div>
+<script src="/components/footer.js"></script>
+<script src="/components/header.js"></script>
 </body>
 </html>
