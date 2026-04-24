@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Affiliate Disclosure | Vegas Sidekick</title>
+  <meta name="description" content="Vegas Sidekick earns commissions through affiliate partnerships. Here's exactly how it works — no fine print, no spin." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://vegassidekick.com/affiliate-disclosure/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Affiliate Disclosure | Vegas Sidekick" />
+  <meta property="og:description" content="Vegas Sidekick earns commissions through affiliate partnerships. Here's exactly how it works." />
+  <meta property="og:url" content="https://vegassidekick.com/affiliate-disclosure/" />
+  <meta property="og:type" content="website" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─────────────────────────────────────────
+       DESIGN TOKENS
+    ───────────────────────────────────────── */
+    :root {
+      --navy:       #0A0F2C;
+      --navy-mid:   #111836;
+      --navy-light: #1a2347;
+      --blue:       #1A6BFF;
+      --blue-glow:  rgba(26,107,255,0.18);
+      --orange:     #FF6B2B;
+      --white:      #ffffff;
+      --off-white:  #F7F8FC;
+      --text-body:  #1e2440;
+      --text-muted: #5a6282;
+      --border:     rgba(26,107,255,0.15);
+      --card-bg:    #EEF3FF;
+
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-condensed: 'Barlow Condensed', sans-serif;
+      --font-body: 'Barlow', sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+
+      --radius: 12px;
+      --radius-sm: 8px;
+      --transition: 0.25s ease;
+    }
+
+    /* ─────────────────────────────────────────
+       RESET & BASE
+    ───────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--white);
+      color: var(--text-body);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    img { max-width: 100%; display: block; }
+
+    /* ─────────────────────────────────────────
+       READING PROGRESS BAR
+    ───────────────────────────────────────── */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--blue), var(--orange));
+      z-index: 9999;
+      transition: width 0.1s linear;
+    }
+
+    /* ─────────────────────────────────────────
+       HERO
+    ───────────────────────────────────────── */
+    .hero {
+      background: var(--navy);
+      padding: 72px 24px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 20% 50%, rgba(26,107,255,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 60% at 80% 30%, rgba(255,107,43,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 16px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.1s forwards;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(52px, 8vw, 96px);
+      color: var(--white);
+      letter-spacing: 0.02em;
+      line-height: 0.95;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.2s forwards;
+    }
+
+    .hero-title span {
+      color: var(--blue);
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-body);
+      font-size: 18px;
+      color: rgba(255,255,255,0.65);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.6;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.3s forwards;
+    }
+
+    .hero-divider {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--blue), var(--orange));
+      border-radius: 2px;
+      margin: 32px auto 0;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.4s forwards;
+    }
+
+    /* ─────────────────────────────────────────
+       BREADCRUMB
+    ───────────────────────────────────────── */
+    .breadcrumb-bar {
+      background: var(--off-white);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+    }
+
+    .breadcrumb {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-condensed);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .breadcrumb a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .breadcrumb-sep { color: var(--text-muted); opacity: 0.5; }
+
+    /* ─────────────────────────────────────────
+       MAIN CONTENT
+    ───────────────────────────────────────── */
+    .content-wrapper {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 64px 24px 96px;
+    }
+
+    /* Spike callout box */
+    .spike-callout {
+      background: var(--navy);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      margin-bottom: 52px;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .spike-callout::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 100% at 0% 50%, rgba(26,107,255,0.14) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .spike-icon {
+      font-size: 40px;
+      flex-shrink: 0;
+      line-height: 1;
+      margin-top: 2px;
+    }
+
+    .spike-callout-content {}
+
+    .spike-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 8px;
+    }
+
+    .spike-callout-text {
+      font-family: var(--font-body);
+      font-size: 16px;
+      color: rgba(255,255,255,0.82);
+      line-height: 1.65;
+    }
+
+    .spike-callout-text strong {
+      color: var(--white);
+    }
+
+    /* Section headings */
+    .section-heading {
+      font-family: var(--font-display);
+      font-size: 36px;
+      letter-spacing: 0.03em;
+      color: var(--navy);
+      margin-bottom: 16px;
+      line-height: 1;
+    }
+
+    .section-heading span {
+      color: var(--blue);
+    }
+
+    /* Body copy */
+    .body-section {
+      margin-bottom: 48px;
+    }
+
+    .body-section p {
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--text-body);
+      margin-bottom: 20px;
+    }
+
+    .body-section p:last-child { margin-bottom: 0; }
+
+    .body-section strong {
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    /* Info cards */
+    .info-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--blue);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      margin: 32px 0;
+    }
+
+    .info-card p {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text-body);
+      margin: 0;
+    }
+
+    .info-card strong {
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+    /* Orange accent card */
+    .accent-card {
+      background: rgba(255,107,43,0.07);
+      border: 1px solid rgba(255,107,43,0.2);
+      border-left: 4px solid var(--orange);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      margin: 32px 0;
+    }
+
+    .accent-card p {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text-body);
+      margin: 0;
+    }
+
+    /* Divider */
+    .section-rule {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 48px 0;
+    }
+
+    /* FTC badge */
+    .ftc-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--navy);
+      color: rgba(255,255,255,0.75);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 8px 14px;
+      border-radius: 100px;
+      margin-bottom: 32px;
+    }
+
+    .ftc-badge::before {
+      content: '✓';
+      color: var(--orange);
+      font-weight: 700;
+    }
+
+    /* Last updated */
+    .last-updated {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      margin-bottom: 48px;
+    }
+
+    /* Contact link */
+    .contact-block {
+      background: var(--navy);
+      border-radius: var(--radius);
+      padding: 32px;
+      text-align: center;
+      margin-top: 52px;
+    }
+
+    .contact-block p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+
+    .contact-block a {
+      display: inline-block;
+      background: var(--blue);
+      color: var(--white);
+      font-family: var(--font-condensed);
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 12px 28px;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      transition: opacity var(--transition);
+    }
+
+    .contact-block a:hover { opacity: 0.85; }
+
+    /* ─────────────────────────────────────────
+       SCROLL ANIMATIONS
+    ───────────────────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─────────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .hero { padding: 52px 20px 44px; }
+
+      .spike-callout {
+        flex-direction: column;
+        gap: 12px;
+        padding: 24px;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .footer-affiliate-note { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="vs-header"></div>
+
+  <!-- Reading Progress Bar -->
+  <div id="progress-bar"></div>
+
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="hero-title">
+    <p class="hero-eyebrow">Vegas Sidekick — How We Operate</p>
+    <h1 class="hero-title" id="hero-title">AFFILIATE<br /><span>DISCLOSURE</span></h1>
+    <p class="hero-subtitle">No fine print. No spin. Here's exactly how Vegas Sidekick makes money and why it doesn't cost you a thing.</p>
+    <div class="hero-divider"></div>
+  </section>
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb-bar" aria-label="Breadcrumb">
+    <nav class="breadcrumb">
+      <a href="https://vegassidekick.com/">Home</a>
+      <span class="breadcrumb-sep">›</span>
+      <span>Affiliate Disclosure</span>
+    </nav>
+  </div>
+
+  <!-- Main Content -->
+  <main class="content-wrapper" id="main-content">
+
+    <p class="last-updated fade-up">Last updated: April 2026</p>
+
+    <!-- Spike Callout -->
+    <div class="spike-callout fade-up" role="note">
+      <div class="spike-icon">🌵</div>
+      <div class="spike-callout-content">
+        <div class="spike-label">// Spike says</div>
+        <p class="spike-callout-text">
+          <strong>Vegas Sidekick keeps it straight.</strong> Some links on this site earn us a commission. Your price stays the same either way. We're going to tell you exactly how it works — because that's what a real sidekick does.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 1: How We Make Money -->
+    <div class="body-section fade-up">
+      <h2 class="section-heading">HOW WE <span>MAKE MONEY</span></h2>
+      <p>
+        Vegas Sidekick is a free resource. We don't charge admission, require a membership, or run subscription paywalls. Instead, we earn a commission when you click a link on this site and purchase a ticket.
+      </p>
+      <p>
+        When you buy a ticket through one of our links, our ticketing partner pays us a referral commission at no additional cost to you. The price you see on our site is the price you pay — no markup, no "convenience" fee tacked on at checkout.
+      </p>
+    </div>
+
+    <div class="info-card fade-up" role="note">
+      <p>
+        <strong>Affiliate links are clearly embedded in our show pages,</strong> typically in booking buttons and ticket CTAs. This disclosure page, along with a notice on each show page, constitutes our FTC-required disclosure. If you have any questions about which links are affiliate links, assume all booking links are — because on Vegas Sidekick, they are.
+      </p>
+    </div>
+
+
+
+    <hr class="section-rule fade-up" />
+
+    <!-- Section 2: What This Means for You -->
+    <div class="body-section fade-up">
+      <h2 class="section-heading">WHAT THIS MEANS <span>FOR YOU</span></h2>
+      <p>
+        <strong>Nothing changes on your end.</strong> The ticket prices you see on Vegas Sidekick reflect real prices available through our ticketing partners — the same prices you'd find going directly to their platforms. Our affiliate relationships don't inflate what you pay.
+      </p>
+      <p>
+        Honest pricing is the whole point of Vegas Sidekick: no hidden service fees layered in at checkout, no "convenience charge" that appears out of nowhere when you're trying to finalize a purchase. We vet our partners against that standard. If a partner doesn't hold up, they don't stay a partner.
+      </p>
+    </div>
+
+    <!-- Section 3: Editorial Independence -->
+    <div class="body-section fade-up">
+      <h2 class="section-heading">OUR <span>EDITORIAL INDEPENDENCE</span></h2>
+      <p>
+        Our show recommendations are editorial — meaning no show, venue, or production company pays to be featured on Vegas Sidekick. Nobody buys a write-up. Nobody buys a <strong>"⭐ Sidekick Pick"</strong> badge.
+      </p>
+      <p>
+        Every show on this site was added because we believe it's worth your night. Shows we don't recommend don't get listed. That's not a PR line — it's how we protect the only thing that makes this site useful: your trust in what Spike actually thinks.
+      </p>
+
+      <div class="accent-card fade-up" role="note">
+        <p>
+          <strong>If that ever changes — if a show ever pays for editorial placement — we will say so explicitly, directly, and on the relevant page.</strong> No buried asterisks, no vague language. We'll tell you.
+        </p>
+      </div>
+    </div>
+
+    <hr class="section-rule fade-up" />
+
+    <!-- Section 4: FTC Compliance -->
+    <div class="body-section fade-up">
+      <h2 class="section-heading">FTC <span>COMPLIANCE</span></h2>
+      <p>
+        This disclosure is made in accordance with the Federal Trade Commission's guidelines on endorsements and testimonials (16 CFR Part 255), which require that material connections between endorsers and the brands or products they recommend be clearly disclosed.
+      </p>
+      <p>
+        Our material connection to our ticketing partners is a standard affiliate commission arrangement. We receive compensation when a qualifying purchase is made through our referral links.
+      </p>
+    </div>
+
+    <div class="fade-up">
+      <span class="ftc-badge">FTC Compliant — 16 CFR Part 255</span>
+    </div>
+
+    <hr class="section-rule fade-up" />
+
+    <!-- Section 5: Third-Party Links -->
+    <div class="body-section fade-up">
+      <h2 class="section-heading">THIRD-PARTY <span>LINKS</span></h2>
+      <p>
+        Vegas Sidekick may occasionally link to third-party websites — show websites, venue pages, or news coverage — that are not affiliate links and generate no commission for us. These are included purely because they're useful. We don't endorse the content, products, or services of any third-party site and are not responsible for their content.
+      </p>
+    </div>
+
+    <!-- Contact -->
+    <div class="contact-block fade-up" role="complementary">
+      <p>Questions about how we operate, who we partner with, or anything in this disclosure? We're reachable.</p>
+      <a href="mailto:info@vegassidekick.com">info@vegassidekick.com</a>
+    </div>
+
+  </main>
+
+  <script>
+    // Reading Progress Bar
+    const bar = document.getElementById('progress-bar');
+    window.addEventListener('scroll', () => {
+      const docH = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docH > 0 ? (window.scrollY / docH) * 100 : 0;
+      bar.style.width = pct + '%';
+    }, { passive: true });
+
+    // Scroll-triggered fade-up
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+
+<div id="vs-footer"></div>
+<script src="/components/footer.js"></script>
+<script src="/components/header.js"></script>
+</body>
+</html>
