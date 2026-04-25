@@ -38,6 +38,14 @@
       }
     },
     "performer": { "@type": "Person", "name": "Marc Savard" },
+    "startDate": "2026-04-25T19:00",
+    "endDate": "2027-04-25T19:00",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "organizer": {
+      "@type": "Organization",
+      "name": "Marc Savard Comedy Hypnosis",
+      "url": "https://vegassidekick.com/shows/comedy/marc-savard-comedy-hypnosis/"
+    },
     "offers": {
       "@type": "Offer",
       "url": "https://spotlight.vegas/shows/comedy/marc-savard-comedy-hypnosis/ref/vegassidekick",
@@ -109,12 +117,67 @@
     .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.65s ease; }
     .slide.active { opacity: 1; }
     .slide img { width: 100%; height: 100%; object-fit: cover; }
-    .slide.yt-slide { cursor: pointer; display: flex; align-items: center; justify-content: center; background: #000; }
-    .slide.yt-slide img { opacity: 0.62; transition: opacity 0.3s; }
-    .slide.yt-slide:hover img { opacity: 0.82; }
-    .yt-play { position: absolute; width: 70px; height: 70px; background: var(--orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 2; transition: transform 0.25s; }
-    .slide.yt-slide:hover .yt-play { transform: scale(1.1); }
-    .yt-play svg { margin-left: 4px; }
+    /* YT SLIDE — Spike + Editorial Pill */
+    .slide.yt-slide { cursor: pointer; display: flex; align-items: center; justify-content: center; background: #000; overflow: hidden; }
+    .slide.yt-slide > .yt-thumb { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.32; transition: opacity 0.3s; }
+    .slide.yt-slide:hover > .yt-thumb { opacity: 0.42; }
+
+    /* Dark gradient left-side so Spike reads clean */
+    .yt-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(90deg,
+        rgba(10,22,40,0.88) 0%,
+        rgba(10,22,40,0.55) 42%,
+        rgba(10,22,40,0.08) 100%);
+      pointer-events: none;
+    }
+
+    /* Spike mascot */
+    .yt-spike {
+      position: absolute; left: 0; bottom: 0;
+      height: 105%; width: auto;
+      z-index: 2; pointer-events: none;
+      filter: drop-shadow(0 0 18px rgba(74,222,128,0.18));
+      transition: transform 0.35s ease;
+    }
+    .slide.yt-slide:hover .yt-spike { transform: translateX(6px) scale(1.02); }
+
+    /* Pill button group — right of center */
+    .yt-pill-wrap {
+      position: absolute; z-index: 3;
+      right: 12%; top: 50%; transform: translateY(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+    }
+    .yt-pill {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 13px 26px;
+      background: var(--orange);
+      border: none; border-radius: 100px;
+      font-family: var(--font-mono); font-size: 0.82rem; font-weight: 600;
+      color: white; letter-spacing: 0.1em; text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 0 28px rgba(255,107,0,0.45), 0 2px 8px rgba(0,0,0,0.4);
+      transition: transform 0.22s, box-shadow 0.22s, background 0.2s;
+    }
+    .yt-pill:hover { transform: scale(1.06); background: var(--orange-lt); box-shadow: 0 0 38px rgba(255,107,0,0.6), 0 4px 12px rgba(0,0,0,0.4); }
+    .yt-pill-icon { font-size: 0.78rem; }
+    .yt-pill-sub {
+      font-family: var(--font-mono); font-size: 0.6rem;
+      color: rgba(255,255,255,0.45); letter-spacing: 0.08em;
+      text-transform: uppercase; text-align: center;
+    }
+
+    /* iframe swap — fills the slide */
+    .yt-iframe {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      border: none; z-index: 10;
+    }
+
+    /* Responsive: hide Spike on very small screens */
+    @media (max-width: 480px) {
+      .yt-spike { display: none; }
+      .yt-pill-wrap { right: 50%; transform: translate(50%, -50%); }
+    }
     .slider-dots { position: absolute; bottom: 13px; left: 50%; transform: translateX(-50%); display: flex; gap: 7px; z-index: 3; }
     .dot-btn { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.28); border: none; padding: 0; transition: background 0.2s, transform 0.2s; }
     .dot-btn.active { background: var(--orange); transform: scale(1.4); }
@@ -350,6 +413,7 @@
 <body>
 
 <div id="vs-header"></div>
+
 <div id="progress-bar" aria-hidden="true"></div>
 
 <!-- HERO -->
@@ -368,10 +432,16 @@
     <div class="slide">
       <img src="/images/marc-savard-comedy-hypnosis-3.jpg" alt="Marc Savard in action with hypnotized volunteers at Nathan Burton Theater" loading="lazy" />
     </div>
-    <div class="slide yt-slide" onclick="playYT(this)" role="button" tabindex="0" aria-label="Watch Marc Savard Comedy Hypnosis trailer">
-      <img src="https://img.youtube.com/vi/E0bECqHgo20/maxresdefault.jpg" alt="Marc Savard Comedy Hypnosis — official trailer" loading="lazy" />
-      <div class="yt-play" aria-hidden="true">
-        <svg width="23" height="23" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+    <div class="slide yt-slide" id="yt-slide" tabindex="0" role="button" aria-label="Watch Marc Savard Comedy Hypnosis trailer" onclick="playYouTube()">
+      <img class="yt-thumb" src="https://img.youtube.com/vi/E0bECqHgo20/maxresdefault.jpg" alt="Marc Savard Comedy Hypnosis — official trailer" loading="lazy" />
+      <div class="yt-overlay"></div>
+      <img class="yt-spike" src="/images/spike.png" alt="" aria-hidden="true" />
+      <div class="yt-pill-wrap">
+        <button class="yt-pill" onclick="event.stopPropagation(); playYouTube()" aria-label="Play trailer">
+          <span class="yt-pill-icon">▶</span>
+          <span>VIDEO PREVIEW</span>
+        </button>
+        <div class="yt-pill-sub">Marc Savard Comedy Hypnosis</div>
       </div>
     </div>
     <button class="s-arrow prev" onclick="sliderMove(-1)" aria-label="Previous slide">
@@ -856,6 +926,14 @@
   }
   window.addEventListener('scroll', updateProgress, { passive: true });
 
+  /* PLAY YOUTUBE — swap thumbnail for embedded iframe with autoplay */
+  function playYouTube() {
+    clearInterval(si);
+    const slide = document.getElementById('yt-slide');
+    slide.innerHTML = '<iframe class="yt-iframe" src="https://www.youtube.com/embed/E0bECqHgo20?autoplay=1&rel=0" allow="autoplay; encrypted-media; fullscreen" allowfullscreen title="Marc Savard Comedy Hypnosis trailer"></iframe>';
+    slide.style.cursor = 'default';
+  }
+
   /* SLIDER */
   let cur = 0;
   const slides = document.querySelectorAll('.slide');
@@ -870,6 +948,11 @@
   const sliderEl = document.querySelector('.slider');
   sliderEl.addEventListener('mouseenter', () => clearInterval(si));
   sliderEl.addEventListener('mouseleave', () => { si = setInterval(() => sliderMove(1), 5000); });
+
+  /* Keyboard trigger for yt-slide */
+  document.getElementById('yt-slide').addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); playYouTube(); }
+  });
 
   /* HAVE YOU SEEN */
   function showSeen(t) {
@@ -951,14 +1034,6 @@
   document.querySelectorAll('.seat-zone').forEach(z => {
     z.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); z.click(); } });
   });
-
-  /* YOUTUBE INLINE PLAY */
-  function playYT(el) {
-    clearInterval(si);
-    el.style.cursor = 'default';
-    el.onclick = null;
-    el.innerHTML = '<iframe src="https://www.youtube.com/embed/E0bECqHgo20?autoplay=1&rel=0" frameborder="0" allow="autoplay; encrypted-media; fullscreen" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;"></iframe>';
-  }
 </script>
 
 <div id="vs-footer"></div>

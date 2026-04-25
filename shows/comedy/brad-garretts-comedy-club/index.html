@@ -38,6 +38,14 @@
       }
     },
     "performer": { "@type": "Person", "name": "Brad Garrett" },
+    "startDate": "2026-04-25T20:00",
+    "endDate": "2027-04-25T20:00",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "organizer": {
+      "@type": "Organization",
+      "name": "Brad Garrett's Comedy Club",
+      "url": "https://vegassidekick.com/shows/comedy/brad-garretts-comedy-club/"
+    },
     "offers": {
       "@type": "Offer",
       "url": "https://spotlight.vegas/shows/comedy/brad-garretts-comedy-club/ref/vegassidekick",
@@ -877,9 +885,6 @@
   </div>
 </div>
 
-<div id="vs-footer"></div>
-<script src="/components/footer.js"></script>
-
 <script>
   /* PROGRESS BAR */
   function updateProgress() {
@@ -1000,6 +1005,9 @@
     z.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); z.click(); } });
   });
 </script>
+
+<div id="vs-footer"></div>
+<script src="/components/footer.js"></script>
 <script src="/components/header.js"></script>
 </body>
 </html>
