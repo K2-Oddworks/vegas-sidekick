@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Use | Vegas Sidekick</title>
+  <meta name="description" content="Vegas Sidekick terms of use. The rules of the road for using vegassidekick.com." />
+  <link rel="canonical" href="https://vegassidekick.com/terms/" />
+  <meta name="robots" content="noindex, follow" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:      #0A1628;
+      --blue:      #1A6BDD;
+      --blue-lt:   #4d90f0;
+      --orange:    #FF6B00;
+      --white:     #FFFFFF;
+      --off-white: #F7F9FC;
+      --gray-100:  #F1F4F9;
+      --gray-200:  #E2E8F2;
+      --gray-400:  #94A3B8;
+      --text:      #0F172A;
+      --text-muted:#64748B;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-price:   'Barlow Condensed', sans-serif;
+      --font-body:    'Barlow', sans-serif;
+      --font-mono:    'IBM Plex Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* PAGE HEADER */
+    .page-header {
+      background: var(--navy);
+      padding: 84px 24px 48px;
+      border-bottom: 3px solid var(--orange);
+    }
+    .page-header-inner { max-width: 760px; margin: 0 auto; }
+    .page-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--blue-lt);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .page-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      color: var(--white);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      margin-bottom: 16px;
+    }
+    .page-meta {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.38);
+      letter-spacing: 0.04em;
+    }
+    .page-meta span { display: inline-block; margin-right: 18px; }
+
+    /* DOCUMENT BODY */
+    .doc-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 52px 24px 80px;
+    }
+
+    /* Table of Contents */
+    .toc {
+      background: var(--gray-100);
+      border-radius: 10px;
+      padding: 22px 26px;
+      margin-bottom: 48px;
+      border-left: 4px solid var(--blue);
+    }
+    .toc-title {
+      font-family: var(--font-price);
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--blue);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .toc ol {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      counter-reset: toc;
+    }
+    .toc ol li {
+      counter-increment: toc;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .toc ol li::before {
+      content: counter(toc, decimal-leading-zero);
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--gray-400);
+      flex-shrink: 0;
+      width: 22px;
+    }
+    .toc ol li a { font-size: 0.88rem; font-weight: 500; color: var(--text); }
+    .toc ol li a:hover { color: var(--orange); text-decoration: none; }
+
+    /* Sections */
+    .doc-section {
+      margin-bottom: 44px;
+      padding-bottom: 44px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .doc-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+    .section-num {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--orange);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .section-heading {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: var(--navy);
+      line-height: 1;
+      letter-spacing: 0.02em;
+      margin-bottom: 16px;
+    }
+
+    .doc-section p {
+      font-size: 0.97rem;
+      color: var(--text);
+      line-height: 1.78;
+      margin-bottom: 14px;
+    }
+    .doc-section p:last-child { margin-bottom: 0; }
+    .doc-section p strong { color: var(--navy); font-weight: 600; }
+
+    .callout {
+      background: var(--off-white);
+      border-left: 3px solid var(--blue);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin: 16px 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+    .callout strong { color: var(--navy); }
+
+    /* Contact block */
+    .contact-block {
+      background: var(--navy);
+      border-radius: 12px;
+      padding: 26px 28px;
+      margin-top: 16px;
+    }
+    .contact-block p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 10px;
+    }
+    .contact-block p:last-child { margin-bottom: 0; }
+    .contact-email {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--orange) !important;
+      text-decoration: none !important;
+      letter-spacing: 0.02em;
+    }
+    .contact-email:hover { opacity: 0.82; }
+
+    /* Footer */
+    .doc-footer {
+      margin-top: 56px;
+      padding-top: 28px;
+      border-top: 1px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .doc-footer-brand { font-family: var(--font-display); font-size: 1.3rem; color: var(--navy); letter-spacing: 0.04em; }
+    .doc-footer-brand span { color: var(--orange); }
+    .doc-footer-note { font-family: var(--font-mono); font-size: 0.64rem; color: var(--gray-400); letter-spacing: 0.04em; }
+
+    @media (max-width: 600px) {
+      .page-header { padding: 84px 16px 36px; }
+      .doc-wrap { padding: 36px 16px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="vs-header"></div>
+
+<header class="page-header" aria-label="Terms of Use page header">
+  <div class="page-header-inner">
+    <div class="page-eyebrow">🌵 Vegas Sidekick</div>
+    <h1 class="page-title">Terms of Use</h1>
+    <div class="page-meta">
+      <span>Effective: April 24, 2026</span>
+      <span>Last Updated: April 24, 2026</span>
+    </div>
+  </div>
+</header>
+
+<div class="doc-wrap">
+
+  <!-- TABLE OF CONTENTS -->
+  <nav class="toc" aria-label="Table of contents">
+    <div class="toc-title">Contents</div>
+    <ol>
+      <li><a href="#acceptance">Acceptance of Terms</a></li>
+      <li><a href="#about">About Vegas Sidekick</a></li>
+      <li><a href="#affiliate">Affiliate Disclosure</a></li>
+      <li><a href="#accuracy">Content Accuracy & Show Information</a></li>
+      <li><a href="#intellectual-property">Intellectual Property</a></li>
+      <li><a href="#prohibited">Prohibited Use</a></li>
+      <li><a href="#third-party">Third-Party Sites & Services</a></li>
+      <li><a href="#disclaimer">Disclaimer of Warranties</a></li>
+      <li><a href="#liability">Limitation of Liability</a></li>
+      <li><a href="#indemnification">Indemnification</a></li>
+      <li><a href="#governing-law">Governing Law</a></li>
+      <li><a href="#changes">Changes to These Terms</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ol>
+  </nav>
+
+  <!-- 1. ACCEPTANCE -->
+  <div class="doc-section" id="acceptance">
+    <span class="section-num">01</span>
+    <h2 class="section-heading">Acceptance of Terms</h2>
+    <p>By accessing or using vegassidekick.com (the "Site"), you agree to be bound by these Terms of Use. If you do not agree to these terms, please do not use the Site.</p>
+    <p>These Terms of Use apply to all visitors, users, and others who access or use the Site. We may update these terms at any time, and your continued use of the Site after any changes constitutes your acceptance of the updated terms.</p>
+  </div>
+
+  <!-- 2. ABOUT -->
+  <div class="doc-section" id="about">
+    <span class="section-num">02</span>
+    <h2 class="section-heading">About Vegas Sidekick</h2>
+    <p>Vegas Sidekick is a Las Vegas entertainment guide operated by Kris Kidd. The Site provides information, editorial content, and recommendations about Las Vegas shows, entertainment, and events. We are an independent media and affiliate platform — we are not affiliated with, endorsed by, or officially connected to any Las Vegas casino, hotel, venue, or show unless explicitly stated.</p>
+    <p>Vegas Sidekick earns revenue through affiliate commissions when users purchase tickets through links on the Site. This does not affect the admission price you pay.</p>
+  </div>
+
+  <!-- 3. AFFILIATE DISCLOSURE -->
+  <div class="doc-section" id="affiliate">
+    <span class="section-num">03</span>
+    <h2 class="section-heading">Affiliate Disclosure</h2>
+    <p>Vegas Sidekick participates in affiliate programs with Las Vegas ticketing platforms and entertainment partners. When you click a ticket link on this Site and complete a purchase, we may earn a commission. This commission comes from our affiliate partners — it does not increase the price you pay.</p>
+    <p>In accordance with FTC guidelines, we disclose our affiliate relationships clearly on the Site. Our editorial opinions, show recommendations, and content are our own and are not dictated by affiliate partners. We only recommend shows we genuinely believe are worth seeing.</p>
+    <div class="callout">
+      <strong>Bottom line:</strong> Clicking our ticket links doesn't cost you anything extra. It's how we keep the lights on and the site free to use.
+    </div>
+  </div>
+
+  <!-- 4. ACCURACY -->
+  <div class="doc-section" id="accuracy">
+    <span class="section-num">04</span>
+    <h2 class="section-heading">Content Accuracy &amp; Show Information</h2>
+    <p>We work hard to keep show schedules, pricing, age requirements, and venue details accurate. However, Las Vegas entertainment changes frequently — shows cancel, schedules shift, prices change, and venues update their policies. The information on this Site is provided for general informational purposes only.</p>
+    <p><strong>Always verify show details directly with the venue or ticketing partner before purchasing tickets or making travel plans.</strong> Vegas Sidekick is not responsible for losses resulting from outdated or inaccurate show information, changes to schedules or lineups, or any decisions made based on content on this Site.</p>
+    <p>Prices listed reflect our affiliate partner's current pricing at the time of publishing and are subject to change. The urgency language on this Site ("prices may increase closer to show date") reflects typical ticketing market behavior and is not a guarantee of price movement.</p>
+  </div>
+
+  <!-- 5. INTELLECTUAL PROPERTY -->
+  <div class="doc-section" id="intellectual-property">
+    <span class="section-num">05</span>
+    <h2 class="section-heading">Intellectual Property</h2>
+    <p>All original content on vegassidekick.com — including editorial copy, the Vegas Sidekick brand, the Spike mascot, design elements, graphics, and the site's overall look and feel — is owned by Kris Kidd and protected by applicable intellectual property laws.</p>
+    <p>You may not copy, reproduce, distribute, republish, scrape, or create derivative works from any content on this Site without our prior written permission. Brief quotations with attribution for editorial or informational purposes are generally acceptable; wholesale reproduction is not.</p>
+    <p>Show names, venue names, casino brands, and other third-party trademarks referenced on this Site are the property of their respective owners and are used for editorial identification purposes only. Their appearance on this Site does not imply any affiliation with or endorsement by those entities.</p>
+  </div>
+
+  <!-- 6. PROHIBITED USE -->
+  <div class="doc-section" id="prohibited">
+    <span class="section-num">06</span>
+    <h2 class="section-heading">Prohibited Use</h2>
+    <p>You agree not to use this Site for any unlawful purpose or in any way that could damage, disable, or impair the Site. Specifically, you may not:</p>
+    <p><strong>Scrape or harvest</strong> content, pricing data, or other information from the Site using automated tools without our written permission.</p>
+    <p><strong>Reproduce or republish</strong> our editorial content, show descriptions, or any original Site content without attribution and prior permission.</p>
+    <p><strong>Misrepresent</strong> your affiliation with Vegas Sidekick or impersonate the brand or its mascot.</p>
+    <p><strong>Interfere</strong> with the Site's technical infrastructure, attempt to gain unauthorized access, or introduce malicious code of any kind.</p>
+    <p><strong>Use the Site</strong> in any manner that violates applicable local, state, national, or international law.</p>
+  </div>
+
+  <!-- 7. THIRD-PARTY SITES -->
+  <div class="doc-section" id="third-party">
+    <span class="section-num">07</span>
+    <h2 class="section-heading">Third-Party Sites &amp; Services</h2>
+    <p>This Site contains links to third-party websites, including ticketing platforms, venues, and other external services. These links are provided for your convenience. Once you leave vegassidekick.com, you are subject to the terms of service and privacy policies of the destination site.</p>
+    <p>Vegas Sidekick does not control, endorse, or assume responsibility for the content, accuracy, policies, or practices of any third-party site. We are not a party to any transaction you complete on a third-party platform, and we bear no responsibility for purchases, disputes, refunds, or any other matter arising from those transactions.</p>
+  </div>
+
+  <!-- 8. DISCLAIMER -->
+  <div class="doc-section" id="disclaimer">
+    <span class="section-num">08</span>
+    <h2 class="section-heading">Disclaimer of Warranties</h2>
+    <p>The Site and all content on it are provided on an "as is" and "as available" basis without warranties of any kind, either express or implied. Vegas Sidekick makes no warranty that the Site will be uninterrupted, error-free, or free of viruses or other harmful components.</p>
+    <p>We make no warranty as to the accuracy, completeness, or reliability of any show information, pricing, schedules, or other content on the Site. Your use of the Site and reliance on any information provided is at your own risk.</p>
+  </div>
+
+  <!-- 9. LIMITATION OF LIABILITY -->
+  <div class="doc-section" id="liability">
+    <span class="section-num">09</span>
+    <h2 class="section-heading">Limitation of Liability</h2>
+    <p>To the fullest extent permitted by applicable law, Kris Kidd and Vegas Sidekick shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of — or inability to use — this Site or any content on it.</p>
+    <p>This includes but is not limited to losses resulting from reliance on show schedules, pricing, or other information that proves inaccurate; ticket purchases made through affiliate links; or technical failures of the Site.</p>
+    <p>In no event shall our total liability to you for any claim arising from your use of this Site exceed the greater of (a) the amount you paid us directly in connection with your use of the Site, or (b) $100. Because Vegas Sidekick is a free service and we do not process payments directly, this limit will typically be $100.</p>
+  </div>
+
+  <!-- 10. INDEMNIFICATION -->
+  <div class="doc-section" id="indemnification">
+    <span class="section-num">10</span>
+    <h2 class="section-heading">Indemnification</h2>
+    <p>You agree to defend, indemnify, and hold harmless Kris Kidd and Vegas Sidekick from any claims, damages, losses, costs, or expenses (including reasonable attorneys' fees) arising from your use of the Site, your violation of these Terms of Use, or your violation of any third-party rights.</p>
+  </div>
+
+  <!-- 11. GOVERNING LAW -->
+  <div class="doc-section" id="governing-law">
+    <span class="section-num">11</span>
+    <h2 class="section-heading">Governing Law</h2>
+    <p>These Terms of Use are governed by and construed in accordance with the laws of the State of Nevada, without regard to its conflict of law provisions. Any dispute arising under these terms shall be resolved in the courts of Clark County, Nevada, and you consent to personal jurisdiction in those courts.</p>
+  </div>
+
+  <!-- 12. CHANGES -->
+  <div class="doc-section" id="changes">
+    <span class="section-num">12</span>
+    <h2 class="section-heading">Changes to These Terms</h2>
+    <p>We reserve the right to update or modify these Terms of Use at any time. When we do, we will update the "Last Updated" date at the top of this page. Material changes will be communicated to email subscribers. Your continued use of the Site after any changes constitutes your acceptance of the revised terms.</p>
+    <p>We encourage you to review these Terms periodically to stay informed of any updates.</p>
+  </div>
+
+  <!-- 13. CONTACT -->
+  <div class="doc-section" id="contact">
+    <span class="section-num">13</span>
+    <h2 class="section-heading">Contact</h2>
+    <p>Questions about these Terms of Use? Reach us here:</p>
+    <div class="contact-block">
+      <p>Vegas Sidekick · Kris Kidd</p>
+      <a href="mailto:info@vegassidekick.com" class="contact-email">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+        info@vegassidekick.com
+      </a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    <div class="doc-footer-brand">VEGAS <span>SIDEKICK</span></div>
+    <div class="doc-footer-note">🌵 Vegas without the trauma &nbsp;·&nbsp; <a href="/" style="color:inherit;">vegassidekick.com</a></div>
+  </div>
+
+</div>
+
+<div id="vs-footer"></div>
+<script src="/components/footer.js"></script>
+<script src="/components/header.js"></script>
+</body>
+</html>
