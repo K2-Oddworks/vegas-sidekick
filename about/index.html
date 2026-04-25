@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Vegas Sidekick — Vegas Without The Trauma. Entertainment intelligence and ticket recommendations from Kris Kidd.">
+    <meta name="og:title" content="About Vegas Sidekick">
+    <meta name="og:description" content="Vegas Without The Trauma. Real entertainment recommendations from someone who lives here and knows what tourists love.">
+    <meta name="og:image" content="https://vegassidekick.com/og-image.jpg">
+    <title>About Vegas Sidekick — Vegas Without The Trauma</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #0A0F2C;
+            --blue: #1A6BFF;
+            --orange: #FF6B2B;
+            --pink: #FF1493;
+            --dark-bg: #0f1429;
+            --light-bg: #f8f9fa;
+            --text-dark: #1a1f3a;
+            --text-light: #f0f0f0;
+            --card-bg: rgba(26, 107, 255, 0.05);
+            --border-subtle: rgba(26, 107, 255, 0.15);
+        }
+
+        body {
+            font-family: 'Barlow Condensed', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, var(--navy) 0%, #0d1220 100%);
+            color: var(--text-light);
+            padding: 8rem 2rem 6rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(26, 107, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 107, 43, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero .container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.5rem;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero .tagline {
+            font-size: 1.8rem;
+            color: var(--orange);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: rgba(240, 240, 240, 0.9);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        /* MAIN CONTENT */
+        main {
+            max-width: 1000px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            margin-bottom: 5rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            color: var(--navy);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--blue) 0%, var(--orange) 100%);
+        }
+
+        .content-block {
+            background: var(--card-bg);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .content-block p {
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+            color: var(--text-dark);
+        }
+
+        .content-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight {
+            color: var(--blue);
+            font-weight: 700;
+        }
+
+        .accent {
+            color: var(--orange);
+        }
+
+        /* MISSION / VALUES GRID */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .value-card {
+            background: white;
+            border-left: 4px solid var(--blue);
+            padding: 2rem;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(26, 107, 255, 0.15);
+        }
+
+        .value-card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+            color: var(--navy);
+            margin-bottom: 0.8rem;
+        }
+
+        .value-card p {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* ABOUT KRIS */
+        .about-kris {
+            background: linear-gradient(135deg, rgba(26, 107, 255, 0.08) 0%, rgba(255, 107, 43, 0.05) 100%);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 3rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-kris h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 1.5px;
+            color: var(--navy);
+            margin-bottom: 1rem;
+        }
+
+        .about-kris .bio {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+        }
+
+        .about-kris .bio p {
+            margin-bottom: 1.2rem;
+        }
+
+        .about-kris .visual {
+            text-align: center;
+            font-size: 6rem;
+            opacity: 0.8;
+        }
+
+        /* SPIKE SECTION */
+        .spike-intro {
+            background: white;
+            border: 2px solid var(--blue);
+            border-radius: 8px;
+            padding: 2.5rem;
+            text-align: center;
+        }
+
+        .spike-intro .spike-img {
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: block;
+            border: 3px solid var(--blue);
+        }
+
+        .spike-intro h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 1.5px;
+            color: var(--navy);
+            margin-bottom: 1rem;
+        }
+
+        .spike-intro p {
+            font-size: 1rem;
+            color: #555;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* CTA SECTION */
+        .cta-section {
+            background: var(--navy);
+            color: var(--text-light);
+            padding: 4rem 2rem;
+            text-align: center;
+            border-radius: 8px;
+            margin-top: 5rem;
+        }
+
+        .cta-section h2 {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section h2::after {
+            background: linear-gradient(90deg, var(--blue) 0%, var(--orange) 100%);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--blue) 0%, var(--orange) 100%);
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(26, 107, 255, 0.4);
+        }
+
+        /* EMAIL SIGNUP */
+        .email-signup {
+            background: var(--navy);
+            border-left: 4px solid var(--pink);
+            padding: 2.5rem;
+            border-radius: 4px;
+            margin-top: 3rem;
+        }
+
+        .email-signup h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.6rem;
+            letter-spacing: 1px;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .email-signup p {
+            color: rgba(240, 240, 240, 0.9);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .email-form {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .email-form input {
+            flex: 1;
+            padding: 0.9rem 1rem;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 0.95rem;
+        }
+
+        .email-form button {
+            background: var(--orange);
+            color: white;
+            border: none;
+            padding: 0.9rem 1.8rem;
+            border-radius: 4px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .email-form button:hover {
+            background: #FF5A1A;
+            transform: scale(1.02);
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero { padding: 7rem 1.5rem 4rem; }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .tagline {
+                font-size: 1.4rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .about-kris {
+                grid-template-columns: 1fr;
+            }
+
+            .about-kris .visual {
+                font-size: 4rem;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .email-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="vs-header"></div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <h1>Vegas Without The Trauma</h1>
+            <p class="tagline">Entertainment Intelligence. Honest Recommendations. No BS.</p>
+            <p>Vegas Sidekick is your desert-coded guide to real entertainment in Las Vegas — transparent pricing, genuine reviews, and a sidekick who actually lives here.</p>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        <!-- MISSION -->
+        <section>
+            <h2>The Mission</h2>
+            <div class="content-block">
+                <p>Las Vegas sells dreams. Too often, it sells them at the cost of your wallet, your time, and your trust. Tourist traps. Hidden fees. Manufactured hype. Peak-season chaos disguised as "must-do" experiences.</p>
+                <p><span class="highlight">Vegas Sidekick exists to change that.</span> We live here. We know what tourists actually love — and what's designed to squeeze every dollar out of you. We're not here to maximize your spending — we're here to maximize your <em>experience</em>. That means honest recommendations. Real prices. Inside knowledge without the Vegas theater.</p>
+                <p>We show you where the real magic happens. We tell you which shows deliver genuine value and which are engineered for the Strip. We respect your intelligence, your time, and your willingness to have fun without getting fleeced.</p>
+            </div>
+        </section>
+
+        <!-- KRIS SECTION -->
+        <section>
+            <h2>Meet Kris Kidd 🌵</h2>
+            <div class="about-kris">
+                <div class="bio">
+                    <h3>20+ Years Inside Vegas Entertainment</h3>
+                    <p>I've spent two decades in this industry — production, creative direction, brand building — watching what works and what doesn't. I know the ecosystem from the inside. I've seen which shows deliver real entertainment value and which are just built to move product.</p>
+                    <p>Vegas Sidekick is me distilling everything I've learned into something actually useful: honest recommendations backed by real expertise. No hype. No manufactured urgency. Just someone who lives here telling you where to spend your money if you want to have a genuinely great night.</p>
+                    <p>I built this because I got tired of seeing people get swindled, disappointed, or bored when they came to Vegas. You deserve better. You deserve recommendations from someone who actually cares more about your experience than the affiliate commission.</p>
+                </div>
+                <div class="visual">
+                    🏜️
+                </div>
+            </div>
+        </section>
+
+        <!-- VALUES -->
+        <section>
+            <h2>How We Operate</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <h3>No Fluff</h3>
+                    <p>Honest pricing. No hidden fees. No countdown timers designed to panic you. Just real information delivered straight.</p>
+                </div>
+                <div class="value-card">
+                    <h3>We Live Here</h3>
+                    <p>We know what tourists love because we experience this city alongside you. That perspective filters everything — from comedy clubs to magic shows to residencies that actually deliver.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SPIKE -->
+        <section>
+            <div class="spike-intro">
+                <img src="/images/spike-mascot.jpg" alt="Spike — Vegas Sidekick mascot" class="spike-img" />
+                <h3>Meet Spike</h3>
+                <p>A deadpan cactus with retro sunglasses who's seen every show, knows every price, and never sugarcoats the truth. Spike is Vegas Sidekick's AI sidekick — your guide to entertainment without the tourist-trap nonsense. Pressure-free. No urgency. Just recommendations from someone (or something) that actually knows what you love.</p>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+            <h2>Ready to Find Your Next Show?</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">Vegas without the trauma. Genuine recommendations backed by 20+ years on the inside.</p>
+            <a href="https://vegassidekick.com/shows/" class="cta-button">Explore Shows</a>
+            
+            <div class="email-signup">
+                <h3>Stay in the Loop</h3>
+                <p>Get new show recommendations and Vegas entertainment insider tips delivered straight to your inbox.</p>
+                <form class="email-form" id="email-form">
+                    <input type="email" placeholder="your@email.com" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Email form submission to Brevo Worker
+        document.getElementById('email-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const input = this.querySelector('input[type="email"]');
+            const email = input.value.trim();
+            
+            if (!email) return;
+
+            fetch('https://brevo-subscribe.vegassidekickcom.workers.dev', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email })
+            })
+            .then(response => response.json())
+            .then(data => {
+                input.value = '';
+                input.placeholder = 'You\'re in. Spike will be in touch.';
+                this.querySelector('button').textContent = 'Done ✓';
+                this.querySelector('button').style.background = '#16a34a';
+            })
+            .catch(err => {
+                console.error('Signup error:', err);
+                input.placeholder = 'Error. Try again?';
+            });
+        });
+    </script>
+
+<div id="vs-footer"></div>
+<script src="/components/footer.js"></script>
+<script src="/components/header.js"></script>
+</body>
+</html>
