@@ -26,6 +26,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://vegassidekick.com/shows/comedy/comedy-cellar/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://vegassidekick.com/affiliate-disclosure/</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
