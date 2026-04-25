@@ -10,6 +10,7 @@
     <li><a href="/shows/cirque/">Cirque</a></li>
     <li><a href="/shows/music/">Music</a></li>
     <li><a href="/shows/headliners/">Headliners</a></li>
+    <li><a href="/news/">Dispatch</a></li>
     <li><a href="/shows/" class="nav-cta">All Shows →</a></li>
   </ul>
   <button class="nav-mobile-menu" onclick="vsToggleMenu()" aria-label="Menu">☰</button>
@@ -24,6 +25,7 @@
   <a href="/shows/adult/">Adult Shows</a>
   <a href="/shows/tribute/">Tribute Acts</a>
   <a href="/shows/variety/">Variety</a>
+  <a href="/news/">Vegas Dispatch</a>
   <a href="/shows/" class="mobile-drawer-cta">All Shows →</a>
 </div>
 <div class="nav-overlay" id="vsNavOverlay" onclick="vsToggleMenu()"></div>`;
