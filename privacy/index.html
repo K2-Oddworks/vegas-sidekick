@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy | Vegas Sidekick</title>
+  <meta name="description" content="Vegas Sidekick privacy policy. What we collect, how we use it, and how to contact us." />
+  <link rel="canonical" href="https://vegassidekick.com/privacy/" />
+  <meta name="robots" content="noindex, follow" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:      #0A1628;
+      --blue:      #1A6BDD;
+      --blue-lt:   #4d90f0;
+      --orange:    #FF6B00;
+      --white:     #FFFFFF;
+      --off-white: #F7F9FC;
+      --gray-100:  #F1F4F9;
+      --gray-200:  #E2E8F2;
+      --gray-400:  #94A3B8;
+      --text:      #0F172A;
+      --text-muted:#64748B;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-price:   'Barlow Condensed', sans-serif;
+      --font-body:    'Barlow', sans-serif;
+      --font-mono:    'IBM Plex Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* =============================================
+       PAGE HEADER
+    ============================================= */
+    .page-header {
+      background: var(--navy);
+      padding: 84px 24px 48px; /* 84px top for fixed nav */
+      border-bottom: 3px solid var(--orange);
+    }
+    .page-header-inner {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .page-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--blue-lt);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .page-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      color: var(--white);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      margin-bottom: 16px;
+    }
+    .page-meta {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.38);
+      letter-spacing: 0.04em;
+    }
+    .page-meta span {
+      display: inline-block;
+      margin-right: 18px;
+    }
+
+    /* =============================================
+       DOCUMENT BODY
+    ============================================= */
+    .doc-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 52px 24px 80px;
+    }
+
+    /* Table of Contents */
+    .toc {
+      background: var(--gray-100);
+      border-radius: 10px;
+      padding: 22px 26px;
+      margin-bottom: 48px;
+      border-left: 4px solid var(--blue);
+    }
+    .toc-title {
+      font-family: var(--font-price);
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--blue);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .toc ol {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      counter-reset: toc;
+    }
+    .toc ol li {
+      counter-increment: toc;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .toc ol li::before {
+      content: counter(toc, decimal-leading-zero);
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--gray-400);
+      flex-shrink: 0;
+      width: 22px;
+    }
+    .toc ol li a {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .toc ol li a:hover { color: var(--orange); text-decoration: none; }
+
+    /* Sections */
+    .doc-section {
+      margin-bottom: 44px;
+      padding-bottom: 44px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .doc-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .section-num {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--orange);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .section-heading {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: var(--navy);
+      line-height: 1;
+      letter-spacing: 0.02em;
+      margin-bottom: 16px;
+    }
+
+    .doc-section p {
+      font-size: 0.97rem;
+      color: var(--text);
+      line-height: 1.78;
+      margin-bottom: 14px;
+    }
+    .doc-section p:last-child { margin-bottom: 0; }
+    .doc-section p strong { color: var(--navy); font-weight: 600; }
+
+    /* Callout block */
+    .callout {
+      background: var(--off-white);
+      border-left: 3px solid var(--blue);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin: 16px 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+    .callout strong { color: var(--navy); }
+
+    /* Contact block */
+    .contact-block {
+      background: var(--navy);
+      border-radius: 12px;
+      padding: 26px 28px;
+      margin-top: 16px;
+    }
+    .contact-block p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 10px;
+    }
+    .contact-block p:last-child { margin-bottom: 0; }
+    .contact-email {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--orange) !important;
+      text-decoration: none !important;
+      letter-spacing: 0.02em;
+    }
+    .contact-email:hover { opacity: 0.82; }
+
+    /* Footer note */
+    .doc-footer {
+      margin-top: 56px;
+      padding-top: 28px;
+      border-top: 1px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .doc-footer-brand {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--navy);
+      letter-spacing: 0.04em;
+    }
+    .doc-footer-brand span { color: var(--orange); }
+    .doc-footer-note {
+      font-family: var(--font-mono);
+      font-size: 0.64rem;
+      color: var(--gray-400);
+      letter-spacing: 0.04em;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .page-header { padding: 84px 16px 36px; }
+      .doc-wrap { padding: 36px 16px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="vs-header"></div>
+
+<!-- PAGE HEADER -->
+<header class="page-header" aria-label="Privacy Policy page header">
+  <div class="page-header-inner">
+    <div class="page-eyebrow">🌵 Vegas Sidekick</div>
+    <h1 class="page-title">Privacy Policy</h1>
+    <div class="page-meta">
+      <span>Effective: April 24, 2026</span>
+      <span>Last Updated: April 24, 2026</span>
+    </div>
+  </div>
+</header>
+
+<!-- DOCUMENT BODY -->
+<div class="doc-wrap">
+
+  <!-- TABLE OF CONTENTS -->
+  <nav class="toc" aria-label="Table of contents">
+    <div class="toc-title">Contents</div>
+    <ol>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#what-we-collect">What We Collect</a></li>
+      <li><a href="#analytics">Analytics & Cookies</a></li>
+      <li><a href="#email">How We Use Your Email</a></li>
+      <li><a href="#affiliate-links">Affiliate Links & Third Parties</a></li>
+      <li><a href="#data-sharing">Data Sharing & Sale</a></li>
+      <li><a href="#your-rights">Your Rights & Choices</a></li>
+      <li><a href="#california">California Residents (CCPA)</a></li>
+      <li><a href="#children">Children's Privacy</a></li>
+      <li><a href="#changes">Changes to This Policy</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+    </ol>
+  </nav>
+
+  <!-- 1. OVERVIEW -->
+  <div class="doc-section" id="overview">
+    <span class="section-num">01</span>
+    <h2 class="section-heading">Overview</h2>
+    <p>Vegas Sidekick ("we," "us," or "our") operates the website located at vegassidekick.com. This Privacy Policy explains what personal information we collect when you visit our site, how we use it, and what choices you have.</p>
+    <p>We keep this simple because our data practices are simple. We're a Las Vegas entertainment guide, not a data company. We collect very little, we don't sell what we collect, and we're straightforward about how we use it.</p>
+  </div>
+
+  <!-- 2. WHAT WE COLLECT -->
+  <div class="doc-section" id="what-we-collect">
+    <span class="section-num">02</span>
+    <h2 class="section-heading">What We Collect</h2>
+    <p><strong>Information you give us directly:</strong> The only personal information we ask you to provide is your email address if you choose to sign up for our newsletter. That's it. We don't have user accounts. We don't have a checkout process. We don't collect payment information.</p>
+    <p><strong>Information collected automatically:</strong> When you visit vegassidekick.com, analytics tools collect certain technical information automatically. This includes your IP address, browser type, device type, pages viewed, time spent on pages, and general geographic location (city/region level). This data is collected through the analytics services described in Section 3.</p>
+    <div class="callout">
+      <strong>Short version:</strong> If you never sign up for our email list, the only data collected about your visit is anonymous analytics data — the same kind collected by most websites you visit every day.
+    </div>
+  </div>
+
+  <!-- 3. ANALYTICS & COOKIES -->
+  <div class="doc-section" id="analytics">
+    <span class="section-num">03</span>
+    <h2 class="section-heading">Analytics &amp; Cookies</h2>
+    <p>We use two analytics services to understand how people use our site:</p>
+    <p><strong>Cloudflare Analytics</strong> provides traffic and performance data at an aggregate level. Cloudflare processes this data in a privacy-respecting way that does not require cookies and does not track you across other websites. For more information, see <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">Cloudflare's Privacy Policy</a>.</p>
+    <p><strong>Google Analytics</strong> collects more detailed behavioral data including pages visited, time on site, referral sources, device and browser information, and approximate location derived from your IP address. Google Analytics uses cookies — small text files stored on your device — to track visits over time. This data is processed by Google under their own privacy terms. For more information, see <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>. To opt out of Google Analytics across all websites, you can install the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics Opt-out Browser Add-on</a>.</p>
+    <p>We use this analytics data solely to understand site performance and improve content. We do not use it to identify individual users or build personal profiles for advertising purposes.</p>
+  </div>
+
+  <!-- 4. EMAIL -->
+  <div class="doc-section" id="email">
+    <span class="section-num">04</span>
+    <h2 class="section-heading">How We Use Your Email</h2>
+    <p>If you sign up for our email list, we'll use your address to send you Vegas Sidekick updates, show recommendations, ticket deals, and related content. Our email list is managed through Brevo (formerly Sendinblue), a third-party email service provider. Brevo stores and processes your email address on our behalf in accordance with their own privacy policy.</p>
+    <p>From time to time, our emails may include sponsored content or partnerships with relevant Las Vegas businesses. When this occurs, it will be clearly disclosed in the email. We will never send you email on behalf of a third party without your knowledge that it is sponsored content.</p>
+    <p>You can unsubscribe from our emails at any time using the unsubscribe link included in every email we send, or by contacting us directly at <a href="mailto:info@vegassidekick.com">info@vegassidekick.com</a>.</p>
+  </div>
+
+  <!-- 5. AFFILIATE LINKS -->
+  <div class="doc-section" id="affiliate-links">
+    <span class="section-num">05</span>
+    <h2 class="section-heading">Affiliate Links &amp; Third Parties</h2>
+    <p>Vegas Sidekick earns commissions through affiliate relationships with Las Vegas ticketing partners. When you click a "Get Tickets" link on our site and make a purchase, we may receive a commission at no additional cost to you. These affiliate links are how we keep the site running.</p>
+    <p>When you click through to a third-party ticketing site, you leave vegassidekick.com. The purchase, payment processing, and any personal information you provide during that transaction are handled entirely by the third-party platform under their own terms of service and privacy policy. We do not receive, store, or process your payment information.</p>
+    <div class="callout">
+      Once you leave vegassidekick.com, this Privacy Policy no longer applies. We encourage you to review the privacy policy of any site you visit through our links.
+    </div>
+  </div>
+
+  <!-- 6. DATA SHARING & SALE -->
+  <div class="doc-section" id="data-sharing">
+    <span class="section-num">06</span>
+    <h2 class="section-heading">Data Sharing &amp; Sale</h2>
+    <p><strong>We do not sell your personal information.</strong> We do not sell, rent, or trade your email address or any other personal information to third parties for their marketing purposes.</p>
+    <p>We may share information in limited circumstances: with service providers who help us operate the site (such as our email platform), when required by law or legal process, or to protect the rights and safety of Vegas Sidekick, our users, or the public.</p>
+  </div>
+
+  <!-- 7. YOUR RIGHTS -->
+  <div class="doc-section" id="your-rights">
+    <span class="section-num">07</span>
+    <h2 class="section-heading">Your Rights &amp; Choices</h2>
+    <p>You have the right to:</p>
+    <p><strong>Unsubscribe</strong> from our email list at any time — every email includes an unsubscribe link, or you can email us directly.</p>
+    <p><strong>Request access or deletion</strong> of any personal information we hold about you. Because we only collect email addresses from signups, this is a straightforward request. Email us at <a href="mailto:info@vegassidekick.com">info@vegassidekick.com</a> and we'll handle it promptly.</p>
+    <p><strong>Opt out of Google Analytics</strong> tracking using the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics Opt-out Browser Add-on</a>.</p>
+    <p><strong>Disable cookies</strong> through your browser settings. Note that disabling cookies may affect the functionality of some websites.</p>
+  </div>
+
+  <!-- 8. CALIFORNIA -->
+  <div class="doc-section" id="california">
+    <span class="section-num">08</span>
+    <h2 class="section-heading">California Residents (CCPA)</h2>
+    <p>If you are a California resident, the California Consumer Privacy Act (CCPA) provides you with additional rights regarding your personal information.</p>
+    <p><strong>Right to Know:</strong> You have the right to request information about the categories and specific pieces of personal information we have collected about you, the sources of that information, and the purposes for which it is used.</p>
+    <p><strong>Right to Delete:</strong> You have the right to request that we delete personal information we have collected from you, subject to certain exceptions.</p>
+    <p><strong>Right to Opt Out of Sale:</strong> We do not sell personal information. You do not need to opt out of something we do not do, but we recognize this right and will honor any such request.</p>
+    <p><strong>Right to Non-Discrimination:</strong> We will not discriminate against you for exercising any of your CCPA rights.</p>
+    <p>To submit a request under the CCPA, contact us at <a href="mailto:info@vegassidekick.com">info@vegassidekick.com</a>. We will respond within 45 days as required by law.</p>
+  </div>
+
+  <!-- 9. CHILDREN -->
+  <div class="doc-section" id="children">
+    <span class="section-num">09</span>
+    <h2 class="section-heading">Children's Privacy</h2>
+    <p>Vegas Sidekick is not directed at children under the age of 13. We do not knowingly collect personal information from children under 13. If you believe a child has provided us with personal information, please contact us at <a href="mailto:info@vegassidekick.com">info@vegassidekick.com</a> and we will promptly remove it.</p>
+  </div>
+
+  <!-- 10. CHANGES -->
+  <div class="doc-section" id="changes">
+    <span class="section-num">10</span>
+    <h2 class="section-heading">Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time as our practices evolve. When we do, we'll update the "Last Updated" date at the top of this page. If we make material changes that affect how we handle your personal information, we'll notify email subscribers directly.</p>
+    <p>Your continued use of vegassidekick.com after any changes constitutes your acceptance of the updated policy.</p>
+  </div>
+
+  <!-- 11. CONTACT -->
+  <div class="doc-section" id="contact">
+    <span class="section-num">11</span>
+    <h2 class="section-heading">Contact Us</h2>
+    <p>Questions about this Privacy Policy, requests to access or delete your data, or anything else privacy-related — reach us here:</p>
+    <div class="contact-block">
+      <p>Vegas Sidekick</p>
+      <a href="mailto:info@vegassidekick.com" class="contact-email">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+        info@vegassidekick.com
+      </a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    <div class="doc-footer-brand">VEGAS <span>SIDEKICK</span></div>
+    <div class="doc-footer-note">🌵 Vegas without the trauma &nbsp;·&nbsp; <a href="/" style="color:inherit;">vegassidekick.com</a></div>
+  </div>
+
+</div>
+
+<div id="vs-footer"></div>
+<script src="/components/footer.js"></script>
+<script src="/components/header.js"></script>
+</body>
+</html>
