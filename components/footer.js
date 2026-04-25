@@ -50,6 +50,7 @@
         </div>
         <div class="vs-footer-col">
           <div class="vs-footer-col-title">Vegas Sidekick</div>
+          <a href="/news/">Vegas Dispatch</a>
           <a href="/about/">About Us</a>
           <a href="/affiliate-disclosure/">Affiliate Disclosure</a>
           <a href="/privacy/">Privacy Policy</a>
