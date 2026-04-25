@@ -417,11 +417,219 @@
     }
     .back-to-dispatch a:hover { text-decoration: underline; }
 
+    /* Email capture blocks */
+    .email-capture {
+      margin: 48px 0;
+      padding: 36px 40px;
+      background: var(--navy);
+      border-radius: 8px;
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .email-capture::after {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 260px; height: 260px;
+      background: radial-gradient(circle, rgba(255,107,0,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .email-capture .ec-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 8px;
+    }
+
+    .email-capture h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.7rem;
+      letter-spacing: 1px;
+      color: var(--white);
+      margin-bottom: 6px;
+      font-weight: 400;
+      line-height: 1.1;
+    }
+
+    .email-capture .ec-desc {
+      font-size: 0.9rem;
+      color: var(--gray);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .email-capture form {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .email-capture input[type="email"] {
+      flex: 1;
+      min-width: 200px;
+      padding: 13px 16px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(26,107,255,0.3);
+      border-radius: 6px;
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .email-capture input[type="email"]::placeholder { color: var(--gray); }
+    .email-capture input[type="email"]:focus { border-color: var(--blue); }
+
+    .email-capture button {
+      padding: 13px 28px;
+      background: var(--orange);
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .email-capture button:hover { background: #e05f00; }
+    .email-capture button:disabled { opacity: 0.6; cursor: default; }
+
+    .email-capture .ec-success {
+      display: none;
+      color: #4ade80;
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-top: 14px;
+    }
+
+    .email-capture .ec-success.visible { display: block; }
+
+    /* Shows section */
+    .article-shows-section {
+      background: var(--navy-mid);
+      border-top: 1px solid rgba(26,107,255,0.1);
+      padding: 64px 40px 80px;
+    }
+
+    .article-shows-inner {
+      max-width: 880px;
+      margin: 0 auto;
+    }
+
+    .article-shows-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 10px;
+    }
+
+    .article-shows-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 1px;
+      color: var(--white);
+      margin-bottom: 32px;
+      font-weight: 400;
+    }
+
+    .article-shows-title span { color: var(--blue); }
+
+    .article-shows-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .as-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(26,107,255,0.12);
+      border-radius: 12px;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+
+    .as-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+      border-color: rgba(26,107,255,0.3);
+    }
+
+    .as-card-img {
+      height: 150px;
+      overflow: hidden;
+      background: var(--navy);
+    }
+
+    .as-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .as-card:hover .as-card-img img { transform: scale(1.06); }
+
+    .as-card-body {
+      padding: 16px 18px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .as-card-venue {
+      font-size: 0.68rem;
+      color: var(--blue);
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .as-card-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.2;
+    }
+
+    .as-card-price {
+      margin-top: auto;
+      padding-top: 10px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.15rem;
+      color: var(--orange);
+      letter-spacing: 1px;
+    }
+
     /* Responsive */
     @media (max-width: 900px) {
       .article-hero { height: 440px; }
       .article-hero-content { padding: 32px 24px 40px; }
       .article-body { padding: 40px 24px 56px; }
+      .email-capture { padding: 28px 24px; }
+      .article-shows-section { padding: 48px 24px 64px; }
+      .article-shows-grid { grid-template-columns: 1fr 1fr; }
     }
 
     @media (max-width: 480px) {
@@ -429,7 +637,8 @@
       .article-hero h1 { font-size: 1.8rem; }
       .show-details-box { padding: 20px; }
       .show-details-box td:first-child { width: 110px; }
-      .ticket-cta { padding: 28px 20px; }
+      .email-capture { padding: 24px 20px; }
+      .article-shows-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -496,6 +705,18 @@
       <p>Performance clips topped 10+ million views within days. Instagram ranked their set as the most-viewed Coachella 2026 performance by a female act. Google Trends hit a perfect 100 score. Within hours of taking the stage, BINI had more social mentions than most headliners.</p>
     </article>
 
+    <!-- Mid-article email capture -->
+    <div class="email-capture" id="ec-mid">
+      <div class="ec-label">Vegas Dispatch</div>
+      <h3>Get Concert News Before Everyone Else</h3>
+      <p class="ec-desc">Ticket drops, show announcements, and Vegas insider tips — straight to your inbox. No spam, ever.</p>
+      <form onsubmit="vsBrevoSignup(event, 'ec-mid')">
+        <input type="email" name="email" placeholder="your@email.com" required />
+        <button type="submit">Subscribe Free</button>
+      </form>
+      <div class="ec-success">You're in! Watch your inbox.</div>
+    </div>
+
     <!-- In-article image: promotional poster -->
     <figure class="article-image">
       <img
@@ -528,7 +749,7 @@
           </tr>
           <tr>
             <td>On Sale</td>
-            <td>Friday, May 15 at 10 AM PT via Ticketmaster</td>
+            <td>Friday, May 15 at 10 AM PT</td>
           </tr>
           <tr>
             <td>Promoter</td>
@@ -544,14 +765,16 @@
       <p>PH Live at Planet Hollywood holds roughly 4,000 people. Given what happened at Coachella, expect this to sell fast. If you caught clips from their set and wondered who they were — here's your answer, and your chance to see them live.</p>
     </article>
 
-    <!-- Ticket CTA -->
-    <div class="ticket-cta">
-      <h3>BINI · Signals World Tour</h3>
-      <p>Planet Hollywood · Las Vegas · August 8, 2026</p>
-      <div class="on-sale-note">On Sale Friday, May 15 · 10 AM PT</div>
-      <br />
-      <a href="https://www.ticketmaster.com" class="btn-get-tickets" rel="noopener" target="_blank">Get Tickets at Ticketmaster →</a>
-      <p class="presale-note">BLOOM members get early access starting May 11 at 10 AM PT</p>
+    <!-- Ticket alert email capture -->
+    <div class="email-capture" id="ec-bottom">
+      <div class="ec-label">BINI · Signals World Tour · Las Vegas · August 8</div>
+      <h3>Be First in Line When Tickets Drop</h3>
+      <p class="ec-desc">General sale opens May 15 at 10 AM PT. Drop your email and we'll remind you the moment they go live — before they sell out.</p>
+      <form onsubmit="vsBrevoSignup(event, 'ec-bottom')">
+        <input type="email" name="email" placeholder="your@email.com" required />
+        <button type="submit">Remind Me</button>
+      </form>
+      <div class="ec-success">Done! We'll ping you when tickets drop.</div>
     </div>
 
     <div class="back-to-dispatch">
@@ -560,6 +783,50 @@
 
   </div>
 </div>
+
+<!-- More Shows Section -->
+<section class="article-shows-section">
+  <div class="article-shows-inner">
+    <div class="article-shows-label">While You're in Vegas</div>
+    <h2 class="article-shows-title">More Shows <span>Worth Your Night</span></h2>
+    <div class="article-shows-grid">
+
+      <a href="/shows/cirque/mad-apple/" class="as-card">
+        <div class="as-card-img">
+          <img src="/images/mad-apple-hero.jpg" alt="Mad Apple by Cirque du Soleil at New York-New York Las Vegas — acrobatics, comedy, and live music" loading="lazy" />
+        </div>
+        <div class="as-card-body">
+          <div class="as-card-venue">New York-New York</div>
+          <div class="as-card-name">Mad Apple by Cirque du Soleil</div>
+          <div class="as-card-price">From $59</div>
+        </div>
+      </a>
+
+      <a href="/shows/cirque/ka/" class="as-card">
+        <div class="as-card-img">
+          <img src="/images/ka-hero.jpg" alt="KÀ by Cirque du Soleil at MGM Grand Las Vegas — epic battle stage show" loading="lazy" />
+        </div>
+        <div class="as-card-body">
+          <div class="as-card-venue">MGM Grand</div>
+          <div class="as-card-name">KÀ by Cirque du Soleil</div>
+          <div class="as-card-price">From $75</div>
+        </div>
+      </a>
+
+      <a href="/shows/comedy/comedy-cellar/" class="as-card">
+        <div class="as-card-img">
+          <img src="/images/comedy-cellar-hero.jpg" alt="Comedy Cellar Las Vegas at Rio Hotel and Casino — five headlining comedians nightly" loading="lazy" />
+        </div>
+        <div class="as-card-body">
+          <div class="as-card-venue">Rio Hotel &amp; Casino</div>
+          <div class="as-card-name">Comedy Cellar</div>
+          <div class="as-card-price">From $41</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
 
 <div id="vs-footer"></div>
 <script src="/components/header.js"></script>
@@ -573,6 +840,41 @@
       bar.style.width = (total > 0 ? (scrolled / total) * 100 : 0) + '%';
     }, { passive: true });
   })();
+
+  function vsBrevoSignup(e, blockId) {
+    e.preventDefault();
+    var block = document.getElementById(blockId);
+    var emailInput = block.querySelector('input[type="email"]');
+    var btn = block.querySelector('button');
+    var success = block.querySelector('.ec-success');
+
+    btn.textContent = '...';
+    btn.disabled = true;
+
+    fetch('https://api.brevo.com/v3/contacts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'api-key': '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'
+      },
+      body: JSON.stringify({
+        email: emailInput.value,
+        listIds: [2],
+        updateEnabled: true
+      })
+    }).then(function(res) {
+      if (res.ok || res.status === 204 || res.status === 201) {
+        block.querySelector('form').style.display = 'none';
+        success.classList.add('visible');
+      } else {
+        btn.textContent = 'Try Again';
+        btn.disabled = false;
+      }
+    }).catch(function() {
+      btn.textContent = 'Try Again';
+      btn.disabled = false;
+    });
+  }
 </script>
 </body>
 </html>
