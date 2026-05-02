@@ -16,6 +16,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://vegassidekick.com/shows/comedy/laugh-factory/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-02</lastmod>
+  </url>
+  <url>
     <loc>https://vegassidekick.com/shows/comedy/marc-savard-comedy-hypnosis/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
