@@ -13,14 +13,15 @@
     "name": "Las Vegas Comedy Shows",
     "description": "All comedy shows currently running in Las Vegas.",
     "url": "https://vegassidekick.com/shows/comedy/",
-    "numberOfItems": 6,
+    "numberOfItems": 7,
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Carrot Top", "url": "https://vegassidekick.com/shows/comedy/carrot-top/" },
-      { "@type": "ListItem", "position": 2, "name": "Marc Savard Comedy Hypnosis", "url": "https://vegassidekick.com/shows/comedy/marc-savard-comedy-hypnosis/" },
-      { "@type": "ListItem", "position": 3, "name": "Brad Garrett's Comedy Club", "url": "https://vegassidekick.com/shows/comedy/brad-garretts-comedy-club/" },
-      { "@type": "ListItem", "position": 4, "name": "Tape Face", "url": "https://vegassidekick.com/shows/comedy/tape-face/" },
-      { "@type": "ListItem", "position": 5, "name": "Comedy Cellar Las Vegas", "url": "https://vegassidekick.com/shows/comedy/comedy-cellar/" },
-      { "@type": "ListItem", "position": 6, "name": "Popovich Comedy Pet Theater", "url": "https://vegassidekick.com/shows/comedy/popovich-comedy-pet-theater/" }
+      { "@type": "ListItem", "position": 2, "name": "Laugh Factory Las Vegas", "url": "https://vegassidekick.com/shows/comedy/laugh-factory/" },
+      { "@type": "ListItem", "position": 3, "name": "Marc Savard Comedy Hypnosis", "url": "https://vegassidekick.com/shows/comedy/marc-savard-comedy-hypnosis/" },
+      { "@type": "ListItem", "position": 4, "name": "Brad Garrett's Comedy Club", "url": "https://vegassidekick.com/shows/comedy/brad-garretts-comedy-club/" },
+      { "@type": "ListItem", "position": 5, "name": "Tape Face", "url": "https://vegassidekick.com/shows/comedy/tape-face/" },
+      { "@type": "ListItem", "position": 6, "name": "Comedy Cellar Las Vegas", "url": "https://vegassidekick.com/shows/comedy/comedy-cellar/" },
+      { "@type": "ListItem", "position": 7, "name": "Popovich Comedy Pet Theater", "url": "https://vegassidekick.com/shows/comedy/popovich-comedy-pet-theater/" }
     ]
   }
   </script>
@@ -258,6 +259,10 @@
             <div class="sb-link-left"><div class="sb-link-name">Comedy Cellar</div><div class="sb-link-venue">Rio Hotel & Casino</div></div>
             <div class="sb-link-price">$41</div>
           </a>
+          <a href="/shows/comedy/laugh-factory/" class="sb-link">
+            <div class="sb-link-left"><div class="sb-link-name">Laugh Factory Las Vegas</div><div class="sb-link-venue">Horseshoe Las Vegas</div></div>
+            <div class="sb-link-price">$32</div>
+          </a>
           <a href="/shows/comedy/popovich-comedy-pet-theater/" class="sb-link">
             <div class="sb-link-left"><div class="sb-link-name">Popovich Comedy Pet Theater</div><div class="sb-link-venue">Planet Hollywood</div></div>
             <div class="sb-link-price">$31</div>
@@ -289,12 +294,36 @@
           <button class="filter-btn" onclick="sortShows('za')" id="btn-za">Z → A</button>
           <button class="filter-btn" onclick="sortShows('price-asc')" id="btn-price-asc">Price ↑</button>
           <button class="filter-btn" onclick="sortShows('price-desc')" id="btn-price-desc">Price ↓</button>
-          <span class="filter-count" id="filterCount">5 shows</span>
+          <span class="filter-count" id="filterCount">6 shows</span>
         </div>
       </div>
 
       <!-- SHOW CARDS -->
       <div class="shows-content" id="showsList">
+
+        <!-- LAUGH FACTORY -->
+        <a href="/shows/comedy/laugh-factory/" class="show-card" data-name="Laugh Factory Las Vegas" data-price="32">
+          <div class="show-card-img">
+            <img src="/images/laugh-factory-hero.jpg" alt="Laugh Factory Las Vegas comedy club at Horseshoe Las Vegas on the Strip" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+            <div class="card-ph" style="display:none">🎤</div>
+          </div>
+          <div class="show-card-body">
+            <div class="show-card-venue">Laugh Factory · Horseshoe Las Vegas</div>
+            <div class="show-card-name">Laugh Factory Las Vegas</div>
+            <div class="show-card-tags">
+              <span class="show-card-tag">🔞 18+</span>
+              <span class="show-card-tag">🗓️ Nightly · 2 Shows</span>
+              <span class="show-card-tag">8:30PM &amp; 10:30PM</span>
+            </div>
+          </div>
+          <div class="show-card-right">
+            <div class="show-card-price">
+              <div class="card-p-our">$32</div>
+              <div class="card-p-was">$86</div>
+            </div>
+            <span class="btn-card">Get Tickets →</span>
+          </div>
+        </a>
 
         <!-- MARC SAVARD -->
         <a href="/shows/comedy/marc-savard-comedy-hypnosis/" class="show-card" data-name="Marc Savard Comedy Hypnosis" data-price="28">
@@ -442,7 +471,7 @@
 <script src="/components/footer.js"></script>
 
 <script>
-  const defaultOrder = ['Marc Savard Comedy Hypnosis', "Brad Garrett's Comedy Club", 'Tape Face', 'Comedy Cellar', 'Popovich Comedy Pet Theater'];
+  const defaultOrder = ['Laugh Factory Las Vegas', 'Marc Savard Comedy Hypnosis', "Brad Garrett's Comedy Club", 'Tape Face', 'Comedy Cellar', 'Popovich Comedy Pet Theater'];
 
   function sortShows(mode) {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
