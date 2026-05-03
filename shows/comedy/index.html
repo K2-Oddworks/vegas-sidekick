@@ -13,7 +13,7 @@
     "name": "Las Vegas Comedy Shows",
     "description": "All comedy shows currently running in Las Vegas.",
     "url": "https://vegassidekick.com/shows/comedy/",
-    "numberOfItems": 7,
+    "numberOfItems": 8,
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Carrot Top", "url": "https://vegassidekick.com/shows/comedy/carrot-top/" },
       { "@type": "ListItem", "position": 2, "name": "Laugh Factory Las Vegas", "url": "https://vegassidekick.com/shows/comedy/laugh-factory/" },
@@ -21,7 +21,8 @@
       { "@type": "ListItem", "position": 4, "name": "Brad Garrett's Comedy Club", "url": "https://vegassidekick.com/shows/comedy/brad-garretts-comedy-club/" },
       { "@type": "ListItem", "position": 5, "name": "Tape Face", "url": "https://vegassidekick.com/shows/comedy/tape-face/" },
       { "@type": "ListItem", "position": 6, "name": "Comedy Cellar Las Vegas", "url": "https://vegassidekick.com/shows/comedy/comedy-cellar/" },
-      { "@type": "ListItem", "position": 7, "name": "Popovich Comedy Pet Theater", "url": "https://vegassidekick.com/shows/comedy/popovich-comedy-pet-theater/" }
+      { "@type": "ListItem", "position": 7, "name": "Popovich Comedy Pet Theater", "url": "https://vegassidekick.com/shows/comedy/popovich-comedy-pet-theater/" },
+      { "@type": "ListItem", "position": 8, "name": "LA Comedy Club Las Vegas", "url": "https://vegassidekick.com/shows/comedy/la-comedy-club/" }
     ]
   }
   </script>
@@ -294,7 +295,7 @@
           <button class="filter-btn" onclick="sortShows('za')" id="btn-za">Z → A</button>
           <button class="filter-btn" onclick="sortShows('price-asc')" id="btn-price-asc">Price ↑</button>
           <button class="filter-btn" onclick="sortShows('price-desc')" id="btn-price-desc">Price ↓</button>
-          <span class="filter-count" id="filterCount">6 shows</span>
+          <span class="filter-count" id="filterCount">7 shows</span>
         </div>
       </div>
 
@@ -421,6 +422,30 @@
           </div>
         </a>
 
+        <!-- LA COMEDY CLUB -->
+        <a href="/shows/comedy/la-comedy-club/" class="show-card" data-name="LA Comedy Club Las Vegas" data-price="43">
+          <div class="show-card-img">
+            <img src="/images/la-comedy-club-hero.jpg" alt="LA Comedy Club Las Vegas at Dragon Room inside The STRAT Hotel" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+            <div class="card-ph" style="display:none">🎤</div>
+          </div>
+          <div class="show-card-body">
+            <div class="show-card-venue">Dragon Room · The STRAT Hotel</div>
+            <div class="show-card-name">LA Comedy Club Las Vegas</div>
+            <div class="show-card-tags">
+              <span class="show-card-tag">🔞 15+</span>
+              <span class="show-card-tag">🗓️ Nightly · 3 Shows</span>
+              <span class="show-card-tag">6PM · 8PM · 10PM</span>
+            </div>
+          </div>
+          <div class="show-card-right">
+            <div class="show-card-price">
+              <div class="card-p-our">$43</div>
+              <div class="card-p-was">$59</div>
+            </div>
+            <span class="btn-card">Get Tickets →</span>
+          </div>
+        </a>
+
         <!-- POPOVICH -->
         <a href="/shows/comedy/popovich-comedy-pet-theater/" class="show-card" data-name="Popovich Comedy Pet Theater" data-price="31">
           <div class="show-card-img">
@@ -471,7 +496,7 @@
 <script src="/components/footer.js"></script>
 
 <script>
-  const defaultOrder = ['Laugh Factory Las Vegas', 'Marc Savard Comedy Hypnosis', "Brad Garrett's Comedy Club", 'Tape Face', 'Comedy Cellar', 'Popovich Comedy Pet Theater'];
+  const defaultOrder = ['Laugh Factory Las Vegas', 'Marc Savard Comedy Hypnosis', "Brad Garrett's Comedy Club", 'Tape Face', 'Comedy Cellar', 'LA Comedy Club Las Vegas', 'Popovich Comedy Pet Theater'];
 
   function sortShows(mode) {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
