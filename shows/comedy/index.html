@@ -13,7 +13,7 @@
     "name": "Las Vegas Comedy Shows",
     "description": "All comedy shows currently running in Las Vegas.",
     "url": "https://vegassidekick.com/shows/comedy/",
-    "numberOfItems": 8,
+    "numberOfItems": 9,
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Carrot Top", "url": "https://vegassidekick.com/shows/comedy/carrot-top/" },
       { "@type": "ListItem", "position": 2, "name": "Laugh Factory Las Vegas", "url": "https://vegassidekick.com/shows/comedy/laugh-factory/" },
@@ -22,7 +22,8 @@
       { "@type": "ListItem", "position": 5, "name": "Tape Face", "url": "https://vegassidekick.com/shows/comedy/tape-face/" },
       { "@type": "ListItem", "position": 6, "name": "Comedy Cellar Las Vegas", "url": "https://vegassidekick.com/shows/comedy/comedy-cellar/" },
       { "@type": "ListItem", "position": 7, "name": "Popovich Comedy Pet Theater", "url": "https://vegassidekick.com/shows/comedy/popovich-comedy-pet-theater/" },
-      { "@type": "ListItem", "position": 8, "name": "LA Comedy Club Las Vegas", "url": "https://vegassidekick.com/shows/comedy/la-comedy-club/" }
+      { "@type": "ListItem", "position": 8, "name": "LA Comedy Club Las Vegas", "url": "https://vegassidekick.com/shows/comedy/la-comedy-club/" },
+      { "@type": "ListItem", "position": 9, "name": "Las Vegas LIVE Comedy Club", "url": "https://vegassidekick.com/shows/comedy/las-vegas-live-comedy-club/" }
     ]
   }
   </script>
@@ -295,7 +296,7 @@
           <button class="filter-btn" onclick="sortShows('za')" id="btn-za">Z → A</button>
           <button class="filter-btn" onclick="sortShows('price-asc')" id="btn-price-asc">Price ↑</button>
           <button class="filter-btn" onclick="sortShows('price-desc')" id="btn-price-desc">Price ↓</button>
-          <span class="filter-count" id="filterCount">7 shows</span>
+          <span class="filter-count" id="filterCount">8 shows</span>
         </div>
       </div>
 
@@ -422,6 +423,29 @@
           </div>
         </a>
 
+        <!-- LAS VEGAS LIVE COMEDY CLUB -->
+        <a href="/shows/comedy/las-vegas-live-comedy-club/" class="show-card" data-name="Las Vegas LIVE Comedy Club" data-price="30">
+          <div class="show-card-img">
+            <img src="/images/las-vegas-live-comedy-club-hero.jpg" alt="Las Vegas LIVE Comedy Club at V Theater upstairs inside Miracle Mile Shops at Planet Hollywood" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+            <div class="card-ph" style="display:none">🎤</div>
+          </div>
+          <div class="show-card-body">
+            <div class="show-card-venue">V Theater Upstairs · Miracle Mile · Planet Hollywood</div>
+            <div class="show-card-name">Las Vegas LIVE Comedy Club</div>
+            <div class="show-card-tags">
+              <span class="show-card-tag">🔞 16+</span>
+              <span class="show-card-tag">🗓️ Nightly</span>
+              <span class="show-card-tag">9PM</span>
+            </div>
+          </div>
+          <div class="show-card-right">
+            <div class="show-card-price">
+              <div class="card-p-our">$30</div>
+            </div>
+            <span class="btn-card">Get Tickets →</span>
+          </div>
+        </a>
+
         <!-- LA COMEDY CLUB -->
         <a href="/shows/comedy/la-comedy-club/" class="show-card" data-name="LA Comedy Club Las Vegas" data-price="43">
           <div class="show-card-img">
@@ -496,7 +520,7 @@
 <script src="/components/footer.js"></script>
 
 <script>
-  const defaultOrder = ['Laugh Factory Las Vegas', 'Marc Savard Comedy Hypnosis', "Brad Garrett's Comedy Club", 'Tape Face', 'Comedy Cellar', 'LA Comedy Club Las Vegas', 'Popovich Comedy Pet Theater'];
+  const defaultOrder = ['Las Vegas LIVE Comedy Club', 'Laugh Factory Las Vegas', 'Marc Savard Comedy Hypnosis', "Brad Garrett's Comedy Club", 'Tape Face', 'Comedy Cellar', 'LA Comedy Club Las Vegas', 'Popovich Comedy Pet Theater'];
 
   function sortShows(mode) {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));

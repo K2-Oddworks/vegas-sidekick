@@ -52,6 +52,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://vegassidekick.com/shows/comedy/las-vegas-live-comedy-club/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://vegassidekick.com/news/</loc>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
