@@ -57,6 +57,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://vegassidekick.com/shows/magic/nathan-burton-comedy-magic/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://vegassidekick.com/news/</loc>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
