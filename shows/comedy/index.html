@@ -15,7 +15,7 @@
     "name": "Las Vegas Comedy Shows",
     "description": "All comedy shows currently running in Las Vegas.",
     "url": "https://vegassidekick.com/shows/comedy/",
-    "numberOfItems": 9,
+    "numberOfItems": 10,
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Carrot Top", "url": "https://vegassidekick.com/shows/comedy/carrot-top/" },
       { "@type": "ListItem", "position": 2, "name": "Laugh Factory Las Vegas", "url": "https://vegassidekick.com/shows/comedy/laugh-factory/" },
@@ -25,7 +25,8 @@
       { "@type": "ListItem", "position": 6, "name": "Comedy Cellar Las Vegas", "url": "https://vegassidekick.com/shows/comedy/comedy-cellar/" },
       { "@type": "ListItem", "position": 7, "name": "Popovich Comedy Pet Theater", "url": "https://vegassidekick.com/shows/comedy/popovich-comedy-pet-theater/" },
       { "@type": "ListItem", "position": 8, "name": "LA Comedy Club Las Vegas", "url": "https://vegassidekick.com/shows/comedy/la-comedy-club/" },
-      { "@type": "ListItem", "position": 9, "name": "Las Vegas LIVE Comedy Club", "url": "https://vegassidekick.com/shows/comedy/las-vegas-live-comedy-club/" }
+      { "@type": "ListItem", "position": 9, "name": "Las Vegas LIVE Comedy Club", "url": "https://vegassidekick.com/shows/comedy/las-vegas-live-comedy-club/" },
+      { "@type": "ListItem", "position": 10, "name": "Mac King Comedy Magic", "url": "https://vegassidekick.com/shows/magic/mac-king/" }
     ]
   }
   </script>
@@ -298,7 +299,7 @@
           <button class="filter-btn" onclick="sortShows('za')" id="btn-za">Z → A</button>
           <button class="filter-btn" onclick="sortShows('price-asc')" id="btn-price-asc">Price ↑</button>
           <button class="filter-btn" onclick="sortShows('price-desc')" id="btn-price-desc">Price ↓</button>
-          <span class="filter-count" id="filterCount">8 shows</span>
+          <span class="filter-count" id="filterCount">9 shows</span>
         </div>
       </div>
 
@@ -472,6 +473,30 @@
           </div>
         </a>
 
+        <!-- MAC KING -->
+        <a href="/shows/magic/mac-king/" class="show-card" data-name="Mac King Comedy Magic" data-price="33">
+          <div class="show-card-img">
+            <img src="/images/mac-king-hero.jpg" alt="Mac King Comedy Magic at Thunderland Theater inside Excalibur Hotel Las Vegas" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+            <div class="card-ph" style="display:none">🎩</div>
+          </div>
+          <div class="show-card-body">
+            <div class="show-card-venue">Thunderland Theater · Excalibur Hotel &amp; Casino</div>
+            <div class="show-card-name">Mac King Comedy Magic</div>
+            <div class="show-card-tags">
+              <span class="show-card-tag">👶 Ages 5+</span>
+              <span class="show-card-tag">🗓️ Tue–Sat</span>
+              <span class="show-card-tag">1PM &amp; 3PM</span>
+            </div>
+          </div>
+          <div class="show-card-right">
+            <div class="show-card-price">
+              <div class="card-p-our">$33</div>
+              <div class="card-p-was">$73</div>
+            </div>
+            <span class="btn-card">Get Tickets →</span>
+          </div>
+        </a>
+
         <!-- POPOVICH -->
         <a href="/shows/comedy/popovich-comedy-pet-theater/" class="show-card" data-name="Popovich Comedy Pet Theater" data-price="31">
           <div class="show-card-img">
@@ -522,7 +547,7 @@
 <script src="/components/footer.js"></script>
 
 <script>
-  const defaultOrder = ['Las Vegas LIVE Comedy Club', 'Laugh Factory Las Vegas', 'Marc Savard Comedy Hypnosis', "Brad Garrett's Comedy Club", 'Tape Face', 'Comedy Cellar', 'LA Comedy Club Las Vegas', 'Popovich Comedy Pet Theater'];
+  const defaultOrder = ['Las Vegas LIVE Comedy Club', 'Laugh Factory Las Vegas', 'Marc Savard Comedy Hypnosis', "Brad Garrett's Comedy Club", 'Tape Face', 'Comedy Cellar', 'LA Comedy Club Las Vegas', 'Mac King Comedy Magic', 'Popovich Comedy Pet Theater'];
 
   function sortShows(mode) {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
