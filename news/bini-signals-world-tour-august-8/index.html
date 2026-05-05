@@ -53,9 +53,8 @@
       "datePublished": "2026-04-25T08:00:00-07:00",
       "dateModified": "2026-04-25T08:00:00-07:00",
       "author": {
-        "@type": "Organization",
-        "name": "Vegas Sidekick",
-        "url": "https://vegassidekick.com"
+        "@type": "Person",
+        "name": "Kris Kidd"
       },
       "publisher": {
         "@type": "Organization",
@@ -642,6 +641,43 @@
       .email-capture { padding: 24px 20px; }
       .article-shows-grid { grid-template-columns: 1fr; }
     }
+
+    .author-tagline {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.5);
+      margin-top: 8px;
+      font-style: italic;
+    }
+
+    .author-bio {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 40px 40px 0;
+    }
+
+    .author-bio-inner {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 28px;
+    }
+
+    .author-bio-text {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+    }
+
+    .author-bio-text strong {
+      color: var(--white);
+      font-weight: 700;
+    }
+
+    @media (max-width: 900px) {
+      .author-bio { padding: 32px 24px 0; }
+    }
+
+    @media (max-width: 480px) {
+      .author-bio { padding: 28px 20px 0; }
+    }
   </style>
 </head>
 <body>
@@ -666,10 +702,11 @@
       <span class="dispatch-tag">Concerts</span>
       <h1>BINI Brings Coachella Breakout to Vegas</h1>
       <div class="article-meta">
-        <span class="byline">Vegas Sidekick</span>
+        <span class="byline">by Kris Kidd</span>
         <time datetime="2026-04-25">April 25, 2026</time>
         <span class="read-time">4 min read</span>
       </div>
+      <p class="author-tagline">Las Vegas know-it-all. Entertainment industry veteran. Founder, Vegas Sidekick.</p>
     </div>
   </div>
 </div>
@@ -829,6 +866,12 @@
     </div>
   </div>
 </section>
+
+<div class="author-bio">
+  <div class="author-bio-inner">
+    <p class="author-bio-text"><strong>Kris Kidd</strong> is a Las Vegas entertainment insider with 20+ years in the industry and the founder of Vegas Sidekick.</p>
+  </div>
+</div>
 
 <div id="vs-footer"></div>
 <script src="/components/header.js"></script>
