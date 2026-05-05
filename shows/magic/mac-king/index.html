@@ -21,45 +21,52 @@
 
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "Event",
-    "name": "Mac King Comedy Magic",
-    "description": "70-minute comedy magic show at Thunderland Theater inside Excalibur Hotel and Casino. The longest-running one-man show in Las Vegas history. Two shows daily Tuesday through Saturday. Ages 5+.",
-    "image": "https://vegassidekick.com/images/mac-king-hero.jpg",
-    "url": "https://vegassidekick.com/shows/magic/mac-king/",
-    "startDate": "2026-05-05T13:00",
-    "endDate": "2027-05-05T13:00",
-    "eventStatus": "https://schema.org/EventScheduled",
-    "organizer": {
-      "@type": "Organization",
+      "@context": "https://schema.org",
+      "@type": "EventSeries",
       "name": "Mac King Comedy Magic",
-      "url": "https://vegassidekick.com/shows/magic/mac-king/"
-    },
-    "location": {
-      "@type": "Place",
-      "name": "Thunderland Theater at Excalibur Hotel and Casino",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "3850 S Las Vegas Blvd",
-        "addressLocality": "Las Vegas",
-        "addressRegion": "NV",
-        "postalCode": "89109",
-        "addressCountry": "US"
-      }
-    },
-    "performer": { "@type": "Person", "name": "Mac King" },
-    "offers": {
-      "@type": "Offer",
-      "url": "https://spotlight.vegas/shows/magic/mac-king/ref/vegassidekick",
-      "price": "33",
-      "priceCurrency": "USD",
-      "availability": "https://schema.org/InStock"
-    },
-    "eventSchedule": {
-      "@type": "Schedule",
-      "byDay": ["Tuesday","Wednesday","Thursday","Friday","Saturday"],
-      "startTime": "13:00"
-    }
+      "description": "70-minute comedy magic show at Thunderland Theater inside Excalibur Hotel and Casino. The longest-running one-man show in Las Vegas history. Two shows daily Tuesday through Saturday. Ages 5+.",
+      "image": "https://vegassidekick.com/images/mac-king-hero.jpg",
+      "url": "https://vegassidekick.com/shows/magic/mac-king/",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "organizer": {
+          "@type": "Organization",
+          "name": "Thunderland Theater at Excalibur Hotel and Casino"
+      },
+      "location": {
+          "@type": "Place",
+          "name": "Thunderland Theater at Excalibur Hotel and Casino",
+          "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "3850 S Las Vegas Blvd",
+              "addressLocality": "Las Vegas",
+              "addressRegion": "NV",
+              "postalCode": "89109",
+              "addressCountry": "US"
+          }
+      },
+      "performer": {
+          "@type": "Person",
+          "name": "Mac King"
+      },
+      "offers": {
+          "@type": "Offer",
+          "url": "https://spotlight.vegas/shows/magic/mac-king/ref/vegassidekick",
+          "price": "33",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+      },
+      "eventSchedule": {
+          "@type": "Schedule",
+          "byDay": [
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday"
+          ],
+          "startTime": "13:00"
+      },
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode"
   }
   </script>
 

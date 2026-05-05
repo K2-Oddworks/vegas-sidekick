@@ -21,45 +21,53 @@
 
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "Event",
-    "name": "Nathan Burton Comedy Magic",
-    "description": "70-minute family magic show featuring large-scale illusions, beautiful showgirls, close-up magic, and comedy at the Nathan Burton Theater inside FlyOver Las Vegas. All ages welcome.",
-    "image": "https://vegassidekick.com/images/nathan-burton-comedy-magic-hero.jpg",
-    "url": "https://vegassidekick.com/shows/magic/nathan-burton-comedy-magic/",
-    "startDate": "2026-05-04T16:00",
-    "endDate": "2027-05-04T16:00",
-    "eventStatus": "https://schema.org/EventScheduled",
-    "organizer": {
-      "@type": "Organization",
+      "@context": "https://schema.org",
+      "@type": "EventSeries",
       "name": "Nathan Burton Comedy Magic",
-      "url": "https://vegassidekick.com/shows/magic/nathan-burton-comedy-magic/"
-    },
-    "location": {
-      "@type": "Place",
-      "name": "Nathan Burton Theater at FlyOver Las Vegas",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "3771 S Las Vegas Blvd, Suite 160",
-        "addressLocality": "Las Vegas",
-        "addressRegion": "NV",
-        "postalCode": "89109",
-        "addressCountry": "US"
-      }
-    },
-    "performer": { "@type": "Person", "name": "Nathan Burton" },
-    "offers": {
-      "@type": "Offer",
-      "url": "https://spotlight.vegas/shows/magic/nathan-burton-comedy-magic/ref/vegassidekick",
-      "price": "28",
-      "priceCurrency": "USD",
-      "availability": "https://schema.org/InStock"
-    },
-    "eventSchedule": {
-      "@type": "Schedule",
-      "byDay": ["Monday","Tuesday","Wednesday","Friday","Saturday","Sunday"],
-      "startTime": "16:00"
-    }
+      "description": "70-minute family magic show featuring large-scale illusions, beautiful showgirls, close-up magic, and comedy at the Nathan Burton Theater inside FlyOver Las Vegas. All ages welcome.",
+      "image": "https://vegassidekick.com/images/nathan-burton-comedy-magic-hero.jpg",
+      "url": "https://vegassidekick.com/shows/magic/nathan-burton-comedy-magic/",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "organizer": {
+          "@type": "Organization",
+          "name": "Nathan Burton Theater at FlyOver Las Vegas"
+      },
+      "location": {
+          "@type": "Place",
+          "name": "Nathan Burton Theater at FlyOver Las Vegas",
+          "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "3771 S Las Vegas Blvd, Suite 160",
+              "addressLocality": "Las Vegas",
+              "addressRegion": "NV",
+              "postalCode": "89109",
+              "addressCountry": "US"
+          }
+      },
+      "performer": {
+          "@type": "Person",
+          "name": "Nathan Burton"
+      },
+      "offers": {
+          "@type": "Offer",
+          "url": "https://spotlight.vegas/shows/magic/nathan-burton-comedy-magic/ref/vegassidekick",
+          "price": "28",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+      },
+      "eventSchedule": {
+          "@type": "Schedule",
+          "byDay": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Friday",
+              "Saturday",
+              "Sunday"
+          ],
+          "startTime": "16:00"
+      },
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode"
   }
   </script>
 

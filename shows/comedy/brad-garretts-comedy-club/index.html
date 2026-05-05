@@ -21,45 +21,54 @@
 
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "Event",
-    "name": "Brad Garrett's Comedy Club",
-    "description": "90-minute rotating stand-up comedy show at The District inside MGM Grand. New lineup weekly. 18+ only.",
-    "image": "https://vegassidekick.com/images/brad-garretts-comedy-club-hero.jpg",
-    "url": "https://vegassidekick.com/shows/comedy/brad-garretts-comedy-club/",
-    "location": {
-      "@type": "Place",
-      "name": "Brad Garrett's Comedy Club at The District, MGM Grand",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "3799 S Las Vegas Blvd",
-        "addressLocality": "Las Vegas",
-        "addressRegion": "NV",
-        "postalCode": "89109",
-        "addressCountry": "US"
-      }
-    },
-    "performer": { "@type": "Person", "name": "Brad Garrett" },
-    "startDate": "2026-04-25T20:00",
-    "endDate": "2027-04-25T20:00",
-    "eventStatus": "https://schema.org/EventScheduled",
-    "organizer": {
-      "@type": "Organization",
+      "@context": "https://schema.org",
+      "@type": "EventSeries",
       "name": "Brad Garrett's Comedy Club",
-      "url": "https://vegassidekick.com/shows/comedy/brad-garretts-comedy-club/"
-    },
-    "offers": {
-      "@type": "Offer",
-      "url": "https://spotlight.vegas/shows/comedy/brad-garretts-comedy-club/ref/vegassidekick",
-      "price": "51",
-      "priceCurrency": "USD",
-      "availability": "https://schema.org/InStock"
-    },
-    "eventSchedule": {
-      "@type": "Schedule",
-      "byDay": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-      "startTime": "20:00"
-    }
+      "description": "90-minute rotating stand-up comedy show at The District inside MGM Grand. New lineup weekly. 18+ only.",
+      "image": "https://vegassidekick.com/images/brad-garretts-comedy-club-hero.jpg",
+      "url": "https://vegassidekick.com/shows/comedy/brad-garretts-comedy-club/",
+      "location": {
+          "@type": "Place",
+          "name": "Brad Garrett's Comedy Club at The District, MGM Grand",
+          "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "3799 S Las Vegas Blvd",
+              "addressLocality": "Las Vegas",
+              "addressRegion": "NV",
+              "postalCode": "89109",
+              "addressCountry": "US"
+          }
+      },
+      "performer": {
+          "@type": "Person",
+          "name": "Brad Garrett"
+      },
+      "eventStatus": "https://schema.org/EventScheduled",
+      "organizer": {
+          "@type": "Organization",
+          "name": "Brad Garrett's Comedy Club at The District, MGM Grand"
+      },
+      "offers": {
+          "@type": "Offer",
+          "url": "https://spotlight.vegas/shows/comedy/brad-garretts-comedy-club/ref/vegassidekick",
+          "price": "51",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+      },
+      "eventSchedule": {
+          "@type": "Schedule",
+          "byDay": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+              "Sunday"
+          ],
+          "startTime": "20:00"
+      },
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode"
   }
   </script>
 

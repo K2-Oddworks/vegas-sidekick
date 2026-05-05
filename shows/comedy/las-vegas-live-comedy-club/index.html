@@ -21,45 +21,54 @@
 
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "Event",
-    "name": "Las Vegas LIVE Comedy Club",
-    "description": "75-minute rotating stand-up comedy show at V Theater (upstairs, V2) inside Miracle Mile Shops at Planet Hollywood Resort & Casino. Ages 16+.",
-    "image": "https://vegassidekick.com/images/las-vegas-live-comedy-club-hero.jpg",
-    "url": "https://vegassidekick.com/shows/comedy/las-vegas-live-comedy-club/",
-    "startDate": "2026-05-04T21:00",
-    "endDate": "2027-05-04T21:00",
-    "eventStatus": "https://schema.org/EventScheduled",
-    "organizer": {
-      "@type": "Organization",
+      "@context": "https://schema.org",
+      "@type": "EventSeries",
       "name": "Las Vegas LIVE Comedy Club",
-      "url": "https://vegassidekick.com/shows/comedy/las-vegas-live-comedy-club/"
-    },
-    "location": {
-      "@type": "Place",
-      "name": "V Theater (V2 Upstairs) at Miracle Mile Shops, Planet Hollywood Resort & Casino",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "3663 S Las Vegas Blvd, Suite 360",
-        "addressLocality": "Las Vegas",
-        "addressRegion": "NV",
-        "postalCode": "89109",
-        "addressCountry": "US"
-      }
-    },
-    "performer": { "@type": "Organization", "name": "Las Vegas LIVE Comedy Club" },
-    "offers": {
-      "@type": "Offer",
-      "url": "https://spotlight.vegas/shows/comedy/las-vegas-live-comedy-club/ref/vegassidekick",
-      "price": "30",
-      "priceCurrency": "USD",
-      "availability": "https://schema.org/InStock"
-    },
-    "eventSchedule": {
-      "@type": "Schedule",
-      "byDay": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-      "startTime": "21:00"
-    }
+      "description": "75-minute rotating stand-up comedy show at V Theater (upstairs, V2) inside Miracle Mile Shops at Planet Hollywood Resort & Casino. Ages 16+.",
+      "image": "https://vegassidekick.com/images/las-vegas-live-comedy-club-hero.jpg",
+      "url": "https://vegassidekick.com/shows/comedy/las-vegas-live-comedy-club/",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "organizer": {
+          "@type": "Organization",
+          "name": "V Theater (V2 Upstairs) at Miracle Mile Shops, Planet Hollywood Resort & Casino"
+      },
+      "location": {
+          "@type": "Place",
+          "name": "V Theater (V2 Upstairs) at Miracle Mile Shops, Planet Hollywood Resort & Casino",
+          "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "3663 S Las Vegas Blvd, Suite 360",
+              "addressLocality": "Las Vegas",
+              "addressRegion": "NV",
+              "postalCode": "89109",
+              "addressCountry": "US"
+          }
+      },
+      "performer": {
+          "@type": "Organization",
+          "name": "Las Vegas LIVE Comedy Club"
+      },
+      "offers": {
+          "@type": "Offer",
+          "url": "https://spotlight.vegas/shows/comedy/las-vegas-live-comedy-club/ref/vegassidekick",
+          "price": "30",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+      },
+      "eventSchedule": {
+          "@type": "Schedule",
+          "byDay": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+              "Sunday"
+          ],
+          "startTime": "21:00"
+      },
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode"
   }
   </script>
 

@@ -21,45 +21,53 @@
 
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "Event",
-    "name": "Tape Face",
-    "description": "75-minute wordless comedy show at the Underground Theater at MGM Grand. Props, music, stunts, and audience interaction. All ages welcome.",
-    "image": "https://vegassidekick.com/images/tape-face-hero.jpg",
-    "url": "https://vegassidekick.com/shows/comedy/tape-face/",
-    "location": {
-      "@type": "Place",
-      "name": "Underground Theater at MGM Grand",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "3799 S Las Vegas Blvd",
-        "addressLocality": "Las Vegas",
-        "addressRegion": "NV",
-        "postalCode": "89109",
-        "addressCountry": "US"
-      }
-    },
-    "performer": { "@type": "Person", "name": "Tape Face" },
-    "startDate": "2026-04-25T19:30",
-    "endDate": "2027-04-25T19:30",
-    "eventStatus": "https://schema.org/EventScheduled",
-    "organizer": {
-      "@type": "Organization",
+      "@context": "https://schema.org",
+      "@type": "EventSeries",
       "name": "Tape Face",
-      "url": "https://vegassidekick.com/shows/comedy/tape-face/"
-    },
-    "offers": {
-      "@type": "Offer",
-      "url": "https://spotlight.vegas/shows/comedy/tape-face/ref/vegassidekick",
-      "price": "57",
-      "priceCurrency": "USD",
-      "availability": "https://schema.org/InStock"
-    },
-    "eventSchedule": {
-      "@type": "Schedule",
-      "byDay": ["Monday","Tuesday","Thursday","Friday","Saturday","Sunday"],
-      "startTime": "19:30"
-    }
+      "description": "75-minute wordless comedy show at the Underground Theater at MGM Grand. Props, music, stunts, and audience interaction. All ages welcome.",
+      "image": "https://vegassidekick.com/images/tape-face-hero.jpg",
+      "url": "https://vegassidekick.com/shows/comedy/tape-face/",
+      "location": {
+          "@type": "Place",
+          "name": "Underground Theater at MGM Grand",
+          "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "3799 S Las Vegas Blvd",
+              "addressLocality": "Las Vegas",
+              "addressRegion": "NV",
+              "postalCode": "89109",
+              "addressCountry": "US"
+          }
+      },
+      "performer": {
+          "@type": "Person",
+          "name": "Tape Face"
+      },
+      "eventStatus": "https://schema.org/EventScheduled",
+      "organizer": {
+          "@type": "Organization",
+          "name": "Underground Theater at MGM Grand"
+      },
+      "offers": {
+          "@type": "Offer",
+          "url": "https://spotlight.vegas/shows/comedy/tape-face/ref/vegassidekick",
+          "price": "57",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+      },
+      "eventSchedule": {
+          "@type": "Schedule",
+          "byDay": [
+              "Monday",
+              "Tuesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+              "Sunday"
+          ],
+          "startTime": "19:30"
+      },
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode"
   }
   </script>
 

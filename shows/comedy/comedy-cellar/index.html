@@ -21,44 +21,50 @@
 
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "Event",
-    "name": "Comedy Cellar Las Vegas",
-    "description": "90-minute stand-up comedy show featuring five headlining comedians nightly at the Comedy Cellar inside Rio All-Suite Hotel & Casino. 18+ only.",
-    "image": "https://vegassidekick.com/images/comedy-cellar-hero.jpg",
-    "url": "https://vegassidekick.com/shows/comedy/comedy-cellar/",
-    "startDate": "2026-04-25T19:00",
-    "endDate": "2027-04-25T21:00",
-    "eventStatus": "https://schema.org/EventScheduled",
-    "organizer": {
-      "@type": "Organization",
+      "@context": "https://schema.org",
+      "@type": "EventSeries",
       "name": "Comedy Cellar Las Vegas",
-      "url": "https://vegassidekick.com/shows/comedy/comedy-cellar/"
-    },
-    "location": {
-      "@type": "Place",
-      "name": "Comedy Cellar at Rio All-Suite Hotel & Casino",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "3700 W Flamingo Rd",
-        "addressLocality": "Las Vegas",
-        "addressRegion": "NV",
-        "postalCode": "89103",
-        "addressCountry": "US"
-      }
-    },
-    "offers": {
-      "@type": "Offer",
-      "url": "https://spotlight.vegas/shows/comedy/comedy-cellar/ref/vegassidekick",
-      "price": "41",
-      "priceCurrency": "USD",
-      "availability": "https://schema.org/InStock"
-    },
-    "eventSchedule": {
-      "@type": "Schedule",
-      "byDay": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-      "startTime": "19:00"
-    }
+      "description": "90-minute stand-up comedy show featuring five headlining comedians nightly at the Comedy Cellar inside Rio All-Suite Hotel & Casino. 18+ only.",
+      "image": "https://vegassidekick.com/images/comedy-cellar-hero.jpg",
+      "url": "https://vegassidekick.com/shows/comedy/comedy-cellar/",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "organizer": {
+          "@type": "Organization",
+          "name": "Comedy Cellar at Rio All-Suite Hotel & Casino"
+      },
+      "location": {
+          "@type": "Place",
+          "name": "Comedy Cellar at Rio All-Suite Hotel & Casino",
+          "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "3700 W Flamingo Rd",
+              "addressLocality": "Las Vegas",
+              "addressRegion": "NV",
+              "postalCode": "89103",
+              "addressCountry": "US"
+          }
+      },
+      "offers": {
+          "@type": "Offer",
+          "url": "https://spotlight.vegas/shows/comedy/comedy-cellar/ref/vegassidekick",
+          "price": "41",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+      },
+      "eventSchedule": {
+          "@type": "Schedule",
+          "byDay": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+              "Sunday"
+          ],
+          "startTime": "19:00"
+      },
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode"
   }
   </script>
 

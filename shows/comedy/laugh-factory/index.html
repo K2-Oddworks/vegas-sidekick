@@ -21,45 +21,54 @@
 
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "Event",
-    "name": "Laugh Factory Las Vegas",
-    "description": "75-minute rotating stand-up comedy show at Horseshoe Las Vegas. Two shows nightly, 8:30 PM and 10:30 PM. 18+ only.",
-    "image": "https://vegassidekick.com/images/laugh-factory-hero.jpg",
-    "url": "https://vegassidekick.com/shows/comedy/laugh-factory/",
-    "startDate": "2026-04-26T20:30",
-    "endDate": "2027-04-26T20:30",
-    "eventStatus": "https://schema.org/EventScheduled",
-    "organizer": {
-      "@type": "Organization",
+      "@context": "https://schema.org",
+      "@type": "EventSeries",
       "name": "Laugh Factory Las Vegas",
-      "url": "https://vegassidekick.com/shows/comedy/laugh-factory/"
-    },
-    "location": {
-      "@type": "Place",
-      "name": "Laugh Factory at Horseshoe Las Vegas",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "3645 S Las Vegas Blvd",
-        "addressLocality": "Las Vegas",
-        "addressRegion": "NV",
-        "postalCode": "89109",
-        "addressCountry": "US"
-      }
-    },
-    "performer": { "@type": "Organization", "name": "Laugh Factory" },
-    "offers": {
-      "@type": "Offer",
-      "url": "https://spotlight.vegas/shows/comedy/laugh-factory/ref/vegassidekick",
-      "price": "32",
-      "priceCurrency": "USD",
-      "availability": "https://schema.org/InStock"
-    },
-    "eventSchedule": {
-      "@type": "Schedule",
-      "byDay": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-      "startTime": "20:30"
-    }
+      "description": "75-minute rotating stand-up comedy show at Horseshoe Las Vegas. Two shows nightly, 8:30 PM and 10:30 PM. 18+ only.",
+      "image": "https://vegassidekick.com/images/laugh-factory-hero.jpg",
+      "url": "https://vegassidekick.com/shows/comedy/laugh-factory/",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "organizer": {
+          "@type": "Organization",
+          "name": "Laugh Factory at Horseshoe Las Vegas"
+      },
+      "location": {
+          "@type": "Place",
+          "name": "Laugh Factory at Horseshoe Las Vegas",
+          "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "3645 S Las Vegas Blvd",
+              "addressLocality": "Las Vegas",
+              "addressRegion": "NV",
+              "postalCode": "89109",
+              "addressCountry": "US"
+          }
+      },
+      "performer": {
+          "@type": "Organization",
+          "name": "Laugh Factory"
+      },
+      "offers": {
+          "@type": "Offer",
+          "url": "https://spotlight.vegas/shows/comedy/laugh-factory/ref/vegassidekick",
+          "price": "32",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+      },
+      "eventSchedule": {
+          "@type": "Schedule",
+          "byDay": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+              "Sunday"
+          ],
+          "startTime": "20:30"
+      },
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode"
   }
   </script>
 

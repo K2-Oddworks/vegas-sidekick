@@ -21,45 +21,54 @@
 
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "Event",
-    "name": "LA Comedy Club Las Vegas",
-    "description": "Three stand-up comedy shows nightly at the Dragon Room inside The STRAT Hotel Casino Tower. 6PM Happy Hour Variety Show, 8PM Touring Comics, 10PM Headliner. Ages 15+.",
-    "image": "https://vegassidekick.com/images/la-comedy-club-hero.jpg",
-    "url": "https://vegassidekick.com/shows/comedy/la-comedy-club/",
-    "startDate": "2026-05-02T18:00",
-    "endDate": "2027-05-02T18:00",
-    "eventStatus": "https://schema.org/EventScheduled",
-    "organizer": {
-      "@type": "Organization",
+      "@context": "https://schema.org",
+      "@type": "EventSeries",
       "name": "LA Comedy Club Las Vegas",
-      "url": "https://vegassidekick.com/shows/comedy/la-comedy-club/"
-    },
-    "location": {
-      "@type": "Place",
-      "name": "Dragon Room at The STRAT Hotel Casino Tower",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "2000 S Las Vegas Blvd",
-        "addressLocality": "Las Vegas",
-        "addressRegion": "NV",
-        "postalCode": "89104",
-        "addressCountry": "US"
-      }
-    },
-    "performer": { "@type": "Organization", "name": "LA Comedy Club" },
-    "offers": {
-      "@type": "Offer",
-      "url": "https://spotlight.vegas/shows/comedy/la-comedy-club/ref/vegassidekick",
-      "price": "43",
-      "priceCurrency": "USD",
-      "availability": "https://schema.org/InStock"
-    },
-    "eventSchedule": {
-      "@type": "Schedule",
-      "byDay": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-      "startTime": "18:00"
-    }
+      "description": "Three stand-up comedy shows nightly at the Dragon Room inside The STRAT Hotel Casino Tower. 6PM Happy Hour Variety Show, 8PM Touring Comics, 10PM Headliner. Ages 15+.",
+      "image": "https://vegassidekick.com/images/la-comedy-club-hero.jpg",
+      "url": "https://vegassidekick.com/shows/comedy/la-comedy-club/",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "organizer": {
+          "@type": "Organization",
+          "name": "Dragon Room at The STRAT Hotel Casino Tower"
+      },
+      "location": {
+          "@type": "Place",
+          "name": "Dragon Room at The STRAT Hotel Casino Tower",
+          "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "2000 S Las Vegas Blvd",
+              "addressLocality": "Las Vegas",
+              "addressRegion": "NV",
+              "postalCode": "89104",
+              "addressCountry": "US"
+          }
+      },
+      "performer": {
+          "@type": "Organization",
+          "name": "LA Comedy Club"
+      },
+      "offers": {
+          "@type": "Offer",
+          "url": "https://spotlight.vegas/shows/comedy/la-comedy-club/ref/vegassidekick",
+          "price": "43",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+      },
+      "eventSchedule": {
+          "@type": "Schedule",
+          "byDay": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+              "Sunday"
+          ],
+          "startTime": "18:00"
+      },
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode"
   }
   </script>
 
