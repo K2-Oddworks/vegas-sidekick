@@ -1,532 +1,516 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About Kris Kidd | Vegas Sidekick</title>
-  <meta name="description" content="20+ years inside Las Vegas entertainment. Meet the local behind the cactus." />
-  <meta property="og:title" content="About Kris Kidd — Vegas Sidekick" />
-  <meta property="og:description" content="20+ years inside Las Vegas entertainment. Not as a tourist — as someone who showed up, stayed, and learned the city from the inside out." />
-  <meta property="og:image" content="https://vegassidekick.com/images/kris-kidd.png" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Vegas Sidekick — Vegas Without The Trauma. Entertainment intelligence and ticket recommendations from Kris Kidd.">
+    <meta name="og:title" content="About Vegas Sidekick">
+    <meta name="og:description" content="Vegas Without The Trauma. Real entertainment recommendations from someone who lives here and knows what tourists love.">
+    <meta name="og:image" content="https://vegassidekick.com/og-image.jpg">
+    <title>About Vegas Sidekick — Vegas Without The Trauma</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet" />
+        :root {
+            --navy: #0A0F2C;
+            --blue: #1A6BFF;
+            --orange: #FF6B2B;
+            --pink: #FF1493;
+            --dark-bg: #0f1429;
+            --light-bg: #f8f9fa;
+            --text-dark: #1a1f3a;
+            --text-light: #f0f0f0;
+            --card-bg: rgba(26, 107, 255, 0.05);
+            --border-subtle: rgba(26, 107, 255, 0.15);
+        }
 
-  <style>
-    :root {
-      --navy:      #0A0F2C;
-      --blue:      #1A6BFF;
-      --orange:    #FF6B2B;
-      --white:     #FFFFFF;
-      --text:      #1A1A2E;
-      --muted:     #6B7280;
-      --card-bg:   #EEF3FF;
-    }
+        body {
+            font-family: 'Barlow Condensed', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, var(--navy) 0%, #0d1220 100%);
+            color: var(--text-light);
+            padding: 8rem 2rem 6rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
 
-    body {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      background: var(--white);
-      color: var(--text);
-      overflow-x: hidden;
-    }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(26, 107, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 107, 43, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
 
-    /* PROGRESS BAR */
-    #progress-bar {
-      position: fixed;
-      top: 0; left: 0;
-      height: 3px;
-      width: 0%;
-      background: var(--orange);
-      z-index: 9999;
-      transition: width 0.1s linear;
-    }
+        .hero .container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
 
-    /* HERO */
-    .hero {
-      background: var(--navy);
-      padding: 140px 2rem 80px;
-      position: relative;
-      overflow: hidden;
-    }
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.5rem;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
 
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -120px; right: -80px;
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(26,107,255,0.12) 0%, transparent 70%);
-      pointer-events: none;
-    }
+        .hero .tagline {
+            font-size: 1.8rem;
+            color: var(--orange);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
 
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: -100px; left: -60px;
-      width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(255,107,43,0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
+        .hero p {
+            font-size: 1.1rem;
+            color: rgba(240, 240, 240, 0.9);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
 
-    .hero-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 420px;
-      gap: 5rem;
-      align-items: center;
-    }
+        /* MAIN CONTENT */
+        main {
+            max-width: 1000px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
 
-    .hero-eyebrow {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--orange);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 1.2rem;
-    }
+        section {
+            margin-bottom: 5rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
 
-    .hero-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(3.5rem, 7vw, 6rem);
-      color: var(--white);
-      line-height: 0.95;
-      letter-spacing: 0.02em;
-      margin-bottom: 1.5rem;
-    }
+        h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            color: var(--navy);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
 
-    .hero-title span { color: var(--orange); }
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--blue) 0%, var(--orange) 100%);
+        }
 
-    .hero-subtitle {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem;
-      font-style: italic;
-      color: rgba(255,255,255,0.65);
-      line-height: 1.6;
-      max-width: 480px;
-    }
+        .content-block {
+            background: var(--card-bg);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
 
-    /* PHOTO */
-    .hero-photo { position: relative; }
+        .content-block p {
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+            color: var(--text-dark);
+        }
 
-    .photo-frame {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      border-radius: 4px;
-      overflow: hidden;
-      position: relative;
-      border: 2px solid rgba(26,107,255,0.3);
-    }
+        .content-block p:last-child {
+            margin-bottom: 0;
+        }
 
-    .photo-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
-    }
+        .highlight {
+            color: var(--blue);
+            font-weight: 700;
+        }
 
-    .photo-badge {
-      position: absolute;
-      bottom: -1px; left: -1px;
-      background: var(--orange);
-      color: var(--white);
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 0.4rem 0.9rem;
-    }
+        .accent {
+            color: var(--orange);
+        }
 
-    .photo-accent-line {
-      position: absolute;
-      top: 16px; right: -16px;
-      width: 2px;
-      height: 60%;
-      background: var(--orange);
-      opacity: 0.4;
-    }
+        /* MISSION / VALUES GRID */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
 
-    /* CREDENTIALS BAR */
-    .creds-section {
-      background: var(--card-bg);
-      padding: 60px 2rem;
-      border-top: 1px solid rgba(26,107,255,0.1);
-      border-bottom: 1px solid rgba(26,107,255,0.1);
-    }
+        .value-card {
+            background: white;
+            border-left: 4px solid var(--blue);
+            padding: 2rem;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-    .creds-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-      text-align: center;
-    }
+        .value-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(26, 107, 255, 0.15);
+        }
 
-    .cred-item {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
+        .value-card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+            color: var(--navy);
+            margin-bottom: 0.8rem;
+        }
 
-    .cred-item.visible { opacity: 1; transform: translateY(0); }
-    .cred-item:nth-child(2) { transition-delay: 0.1s; }
-    .cred-item:nth-child(3) { transition-delay: 0.2s; }
+        .value-card p {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.6;
+        }
 
-    .cred-number {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 3.5rem;
-      font-weight: 800;
-      color: var(--navy);
-      line-height: 1;
-      margin-bottom: 0.4rem;
-    }
+        /* ABOUT KRIS */
+        .about-kris {
+            background: linear-gradient(135deg, rgba(26, 107, 255, 0.08) 0%, rgba(255, 107, 43, 0.05) 100%);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 3rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
 
-    .cred-number span { color: var(--orange); }
+        .about-kris h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 1.5px;
+            color: var(--navy);
+            margin-bottom: 1rem;
+        }
 
-    .cred-label {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.68rem;
-      color: var(--muted);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
+        .about-kris .bio {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+        }
 
-    .cred-statement {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.15rem;
-      font-style: italic;
-      color: var(--navy);
-      line-height: 1.6;
-      padding: 0 0.5rem;
-    }
+        .about-kris .bio p {
+            margin-bottom: 1.2rem;
+        }
 
-    .cred-item:not(:first-child) {
-      border-left: 2px solid rgba(26,107,255,0.15);
-    }
+        .about-kris .visual {
+            text-align: center;
+            font-size: 6rem;
+            opacity: 0.8;
+        }
 
-    /* BODY COPY */
-    .content-section {
-      background: var(--white);
-      padding: 80px 2rem;
-    }
+        /* SPIKE SECTION */
+        .spike-intro {
+            background: white;
+            border: 2px solid var(--blue);
+            border-radius: 8px;
+            padding: 2.5rem;
+            text-align: center;
+        }
 
-    .content-inner {
-      max-width: 780px;
-      margin: 0 auto;
-    }
+        .spike-intro .spike-img {
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: block;
+            border: 3px solid var(--blue);
+        }
 
-    .section-label {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.68rem;
-      color: var(--blue);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 2rem;
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-    }
+        .spike-intro h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 1.5px;
+            color: var(--navy);
+            margin-bottom: 1rem;
+        }
 
-    .section-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--blue);
-      opacity: 0.2;
-      max-width: 60px;
-    }
+        .spike-intro p {
+            font-size: 1rem;
+            color: #555;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
 
-    .content-inner p {
-      font-size: 1.25rem;
-      line-height: 1.85;
-      color: var(--text);
-      margin-bottom: 1.6rem;
-    }
+        /* CTA SECTION */
+        .cta-section {
+            background: var(--navy);
+            color: var(--text-light);
+            padding: 4rem 2rem;
+            text-align: center;
+            border-radius: 8px;
+            margin-top: 5rem;
+        }
 
-    .content-inner p:last-child { margin-bottom: 0; }
+        .cta-section h2 {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
 
-    .lead-graf {
-      font-size: 1.5rem !important;
-      font-style: italic;
-      color: var(--navy) !important;
-      font-weight: 500;
-      line-height: 1.65 !important;
-    }
+        .cta-section h2::after {
+            background: linear-gradient(90deg, var(--blue) 0%, var(--orange) 100%);
+            left: 50%;
+            transform: translateX(-50%);
+        }
 
-    /* PULL QUOTES */
-    .quotes-section {
-      background: var(--navy);
-      padding: 80px 2rem;
-    }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--blue) 0%, var(--orange) 100%);
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-top: 1rem;
+        }
 
-    .quotes-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-    }
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(26, 107, 255, 0.4);
+        }
 
-    .quote-card {
-      border-left: 3px solid var(--orange);
-      padding: 2rem 2rem 2rem 2.5rem;
-      background: rgba(255,255,255,0.04);
-      border-radius: 0 4px 4px 0;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
+        /* EMAIL SIGNUP */
+        .email-signup {
+            background: var(--navy);
+            border-left: 4px solid var(--pink);
+            padding: 2.5rem;
+            border-radius: 4px;
+            margin-top: 3rem;
+        }
 
-    .quote-card.visible { opacity: 1; transform: translateY(0); }
-    .quote-card:nth-child(2) { transition-delay: 0.15s; }
+        .email-signup h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.6rem;
+            letter-spacing: 1px;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
 
-    .quote-mark {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 5rem;
-      color: var(--orange);
-      opacity: 0.3;
-      line-height: 0.6;
-      margin-bottom: 1rem;
-      display: block;
-    }
+        .email-signup p {
+            color: rgba(240, 240, 240, 0.9);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
 
-    .quote-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.35rem;
-      font-style: italic;
-      color: var(--white);
-      line-height: 1.7;
-    }
+        .email-form {
+            display: flex;
+            gap: 0.5rem;
+        }
 
-    .quote-attr {
-      margin-top: 1.2rem;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.65rem;
-      color: var(--orange);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
+        .email-form input {
+            flex: 1;
+            padding: 0.9rem 1rem;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 0.95rem;
+        }
 
-    /* CTA */
-    .cta-section {
-      background: var(--navy);
-      padding: 70px 2rem;
-      text-align: center;
-    }
+        .email-form button {
+            background: var(--orange);
+            color: white;
+            border: none;
+            padding: 0.9rem 1.8rem;
+            border-radius: 4px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
 
-    .cta-section h2 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      color: var(--white);
-      letter-spacing: 0.03em;
-      margin-bottom: 1rem;
-    }
+        .email-form button:hover {
+            background: #FF5A1A;
+            transform: scale(1.02);
+        }
 
-    .cta-section h2 span { color: var(--orange); }
+        /* ANIMATIONS */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    .cta-section p {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem;
-      font-style: italic;
-      color: rgba(255,255,255,0.6);
-      margin-bottom: 2.5rem;
-    }
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero { padding: 7rem 1.5rem 4rem; }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
 
-    .cta-btn {
-      display: inline-block;
-      background: var(--orange);
-      color: var(--white);
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.1rem;
-      letter-spacing: 0.1em;
-      padding: 1rem 3rem;
-      text-decoration: none;
-      border-radius: 2px;
-      transition: background 0.2s, transform 0.2s;
-      position: relative;
-      overflow: hidden;
-    }
+            .hero .tagline {
+                font-size: 1.4rem;
+            }
 
-    .cta-btn::after {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%;
-      width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-      transition: left 0.5s ease;
-    }
+            h2 {
+                font-size: 2rem;
+            }
 
-    .cta-btn:hover::after { left: 100%; }
-    .cta-btn:hover { background: #e85d22; transform: translateY(-2px); }
+            .about-kris {
+                grid-template-columns: 1fr;
+            }
 
-    /* SCROLL ANIMATIONS */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
+            .about-kris .visual {
+                font-size: 4rem;
+            }
 
-    .fade-up.visible { opacity: 1; transform: translateY(0); }
-    .fade-up:nth-child(2) { transition-delay: 0.1s; }
-    .fade-up:nth-child(3) { transition-delay: 0.2s; }
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
 
-    /* MOBILE */
-    .mobile-cta {
-      display: none;
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      z-index: 50;
-      background: var(--orange);
-      color: var(--white);
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.1rem;
-      letter-spacing: 0.1em;
-      text-align: center;
-      padding: 1rem;
-      text-decoration: none;
-    }
-
-    @media (max-width: 768px) {
-      .mobile-cta { display: block; }
-
-      .hero-inner {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-        text-align: center;
-      }
-
-      .hero-subtitle { margin: 0 auto; }
-      .hero-photo { max-width: 320px; margin: 0 auto; }
-      .quotes-inner { grid-template-columns: 1fr; }
-      .creds-inner { grid-template-columns: 1fr; }
-
-      .cred-item:not(:first-child) {
-        border-left: none;
-        border-top: 2px solid rgba(26,107,255,0.15);
-        padding-top: 2rem;
-      }
-
-      body { padding-bottom: 60px; }
-    }
-  </style>
+            .email-form {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
-
 <body>
 
-  <div id="progress-bar"></div>
+<div id="vs-header"></div>
 
-  <div id="vs-header"></div>
-
-  <section class="hero">
-    <div class="hero-inner">
-      <div class="hero-text">
-        <p class="hero-eyebrow">🌵 The Local Behind the Cactus</p>
-        <h1 class="hero-title">Spike Knows Vegas.<br /><span>Here's Why.</span></h1>
-        <p class="hero-subtitle">20+ years inside Las Vegas entertainment. Not as a tourist passing through — as someone who showed up, stayed, and learned the difference between what Vegas sells and what Vegas actually is.</p>
-      </div>
-
-      <div class="hero-photo">
-        <div class="photo-frame">
-          <img src="/images/kris-kidd.png" alt="Kris Kidd — Vegas Sidekick founder" />
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <h1>Vegas Without The Trauma</h1>
+            <p class="tagline">Entertainment Intelligence. Honest Recommendations. No BS.</p>
+            <p>Vegas Sidekick is your desert-coded guide to real entertainment in Las Vegas — transparent pricing, genuine reviews, and a sidekick who actually lives here.</p>
         </div>
-        <div class="photo-badge">Kris Kidd &mdash; Vegas Insider</div>
-        <div class="photo-accent-line"></div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="creds-section">
-    <div class="creds-inner">
-      <div class="cred-item">
-        <div class="cred-number">20<span>+</span></div>
-        <div class="cred-label">Years in Vegas Entertainment</div>
-      </div>
-      <div class="cred-item">
-        <div class="cred-statement">Real recommendations — because we actually live here, see the shows, and talk to the guests.</div>
-      </div>
-      <div class="cred-item">
-        <div class="cred-statement">We find the best prices on shows we genuinely love — the ones we'd send our friends and family to see.</div>
-      </div>
-    </div>
-  </section>
+    <!-- MAIN CONTENT -->
+    <main>
+        <!-- MISSION -->
+        <section>
+            <h2>The Mission</h2>
+            <div class="content-block">
+                <p>Las Vegas sells dreams. Too often, it sells them at the cost of your wallet, your time, and your trust. Tourist traps. Hidden fees. Manufactured hype. Peak-season chaos disguised as "must-do" experiences.</p>
+                <p><span class="highlight">Vegas Sidekick exists to change that.</span> We live here. We know what tourists actually love — and what's designed to squeeze every dollar out of you. We're not here to maximize your spending — we're here to maximize your <em>experience</em>. That means honest recommendations. Real prices. Inside knowledge without the Vegas theater.</p>
+                <p>We show you where the real magic happens. We tell you which shows deliver genuine value and which are engineered for the Strip. We respect your intelligence, your time, and your willingness to have fun without getting fleeced.</p>
+            </div>
+        </section>
 
-  <section class="content-section">
-    <div class="content-inner">
+        <!-- KRIS SECTION -->
+        <section>
+            <h2>Meet Kris Kidd 🌵</h2>
+            <div class="about-kris">
+                <div class="bio">
+                    <h3>20+ Years Inside Vegas Entertainment</h3>
+                    <p>I've spent two decades in this industry — production, creative direction, brand building — watching what works and what doesn't. I know the ecosystem from the inside. I've seen which shows deliver real entertainment value and which are just built to move product.</p>
+                    <p>Vegas Sidekick is me distilling everything I've learned into something actually useful: honest recommendations backed by real expertise. No hype. No manufactured urgency. Just someone who lives here telling you where to spend your money if you want to have a genuinely great night.</p>
+                    <p>I built this because I got tired of seeing people get swindled, disappointed, or bored when they came to Vegas. You deserve better. You deserve recommendations from someone who actually cares more about your experience than the affiliate commission.</p>
+                </div>
+                <div class="visual">
+                    🏜️
+                </div>
+            </div>
+        </section>
 
-      <div class="section-label">About Kris Kidd</div>
+        <!-- VALUES -->
+        <section>
+            <h2>How We Operate</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <h3>No Fluff</h3>
+                    <p>Honest pricing. No hidden fees. No countdown timers designed to panic you. Just real information delivered straight.</p>
+                </div>
+                <div class="value-card">
+                    <h3>We Live Here</h3>
+                    <p>We know what tourists love because we experience this city alongside you. That perspective filters everything — from comedy clubs to magic shows to residencies that actually deliver.</p>
+                </div>
+            </div>
+        </section>
 
-      <p class="lead-graf fade-up">
-        Most Vegas show guides are built by algorithms, SEO farms, and people who've never actually been to the show. Vegas Sidekick is different — because I'm different.
-      </p>
+        <!-- SPIKE -->
+        <section>
+            <div class="spike-intro">
+                <img src="/images/spike-mascot.jpg" alt="Spike — Vegas Sidekick mascot" class="spike-img" />
+                <h3>Meet Spike</h3>
+                <p>A deadpan cactus with retro sunglasses who's seen every show, knows every price, and never sugarcoats the truth. Spike is Vegas Sidekick's AI sidekick — your guide to entertainment without the tourist-trap nonsense. Pressure-free. No urgency. Just recommendations from someone (or something) that actually knows what you love.</p>
+            </div>
+        </section>
 
-      <p class="fade-up">
-        My name is Kris Kidd. I've spent over two decades inside the Las Vegas entertainment industry. Not as a tourist. Not as a blogger passing through. As someone who showed up, stayed, and learned the city from the inside out.
-      </p>
+        <!-- CTA -->
+        <section class="cta-section">
+            <h2>Ready to Find Your Next Show?</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">Vegas without the trauma. Genuine recommendations backed by 20+ years on the inside.</p>
+            <a href="https://vegassidekick.com/shows/" class="cta-button">Explore Shows</a>
+            
+            <div class="email-signup">
+                <h3>Stay in the Loop</h3>
+                <p>Get new show recommendations and Vegas entertainment insider tips delivered straight to your inbox.</p>
+                <form class="email-form" id="email-form">
+                    <input type="email" placeholder="your@email.com" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </section>
+    </main>
 
-      <p class="fade-up">
-        I built Vegas Sidekick because the information gap between locals and visitors is real — and expensive. Tourists overpay, see the wrong show, and leave disappointed. Not because they made bad decisions, but because nobody gave them straight talk. Every site they landed on had an agenda. Every "top 10 list" was paid placement dressed up as a recommendation.
-      </p>
+    <script>
+        // Email form submission to Brevo Worker
+        document.getElementById('email-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const input = this.querySelector('input[type="email"]');
+            const email = input.value.trim();
+            
+            if (!email) return;
 
-      <p class="fade-up">
-        Spike — our deadpan saguaro mascot — is the embodiment of that straight talk. No fake urgency. No hidden fees. No manufactured hype. Just honest show recommendations from someone who's actually been in the room.
-      </p>
+            fetch('https://brevo-subscribe.vegassidekickcom.workers.dev', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email })
+            })
+            .then(response => response.json())
+            .then(data => {
+                input.value = '';
+                input.placeholder = 'You\'re in. Spike will be in touch.';
+                this.querySelector('button').textContent = 'Done ✓';
+                this.querySelector('button').style.background = '#16a34a';
+            })
+            .catch(err => {
+                console.error('Signup error:', err);
+                input.placeholder = 'Error. Try again?';
+            });
+        });
+    </script>
 
-      <p class="fade-up">
-        Vegas Sidekick isn't a booking engine. It's a point of view. And after twenty years in this city, I've earned mine.
-      </p>
-
-    </div>
-  </section>
-
-  <section class="quotes-section">
-    <div class="quotes-inner">
-
-      <div class="quote-card">
-        <span class="quote-mark">&ldquo;</span>
-        <p class="quote-text">Vegas has always had two versions — the one they sell you, and the one you find when you actually live here. Spike knows the second one.</p>
-        <p class="quote-attr">— Kris Kidd, Founder</p>
-      </div>
-
-      <div class="quote-card">
-        <span class="quote-mark">&ldquo;</span>
-        <p class="quote-text">I've watched a lot of people waste their one night out on the wrong show. That's the problem Vegas Sidekick exists to solve.</p>
-        <p class="quote-attr">— Kris Kidd, Founder</p>
-      </div>
-
-    </div>
-  </section>
-
-  <section class="cta-section">
-    <h2>Ready to Find <span>Your Show?</span></h2>
-    <p>No pressure. No upsells. Just the best night Vegas has to offer.</p>
-    <a href="/" class="cta-btn">Browse All Shows</a>
-  </section>
-
-  <a href="/" class="mobile-cta">Browse All Shows</a>
-
-  <div id="vs-footer"></div>
-  <script src="/components/footer.js"></script>
-  <script src="/components/header.js"></script>
-
-  <script>
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      document.getElementById('progress-bar').style.width =
-        (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
-    });
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.15 });
-
-    document.querySelectorAll('.fade-up, .quote-card, .cred-item').forEach(el => observer.observe(el));
-  </script>
-
+<div id="vs-footer"></div>
+<script src="/components/footer.js"></script>
+<script src="/components/header.js"></script>
 </body>
 </html>

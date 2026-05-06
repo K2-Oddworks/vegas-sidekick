@@ -51,7 +51,8 @@
         <div class="vs-footer-col">
           <div class="vs-footer-col-title">Vegas Sidekick</div>
           <a href="/news/">Vegas Dispatch</a>
-          <a href="/about/">About Kris Kidd</a>
+          <a href="/about/">About Vegas Sidekick</a>
+          <a href="/about/kris-kidd/">About Kris Kidd</a>
           <a href="/affiliate-disclosure/">Affiliate Disclosure</a>
           <a href="/privacy/">Privacy Policy</a>
           <a href="/terms/">Terms of Use</a>
