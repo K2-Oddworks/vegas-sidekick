@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Kris Kidd | Vegas Sidekick</title>
+  <meta name="description" content="20+ years inside Las Vegas entertainment. Meet the local behind the cactus." />
+  <meta property="og:title" content="About Kris Kidd — Vegas Sidekick" />
+  <meta property="og:description" content="20+ years inside Las Vegas entertainment. Not as a tourist — as someone who showed up, stayed, and learned the city from the inside out." />
+  <meta property="og:image" content="https://vegassidekick.com/images/kris-kidd.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --navy:      #0A0F2C;
+      --blue:      #1A6BFF;
+      --orange:    #FF6B2B;
+      --white:     #FFFFFF;
+      --text:      #1A1A2E;
+      --muted:     #6B7280;
+      --card-bg:   #EEF3FF;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      background: var(--white);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* PROGRESS BAR */
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      width: 0%;
+      background: var(--orange);
+      z-index: 9999;
+      transition: width 0.1s linear;
+    }
+
+    /* HERO */
+    .hero {
+      background: var(--navy);
+      padding: 140px 2rem 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px; right: -80px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(26,107,255,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -100px; left: -60px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(255,107,43,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--orange);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 7vw, 6rem);
+      color: var(--white);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title span { color: var(--orange); }
+
+    .hero-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-style: italic;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.6;
+      max-width: 480px;
+    }
+
+    /* PHOTO */
+    .hero-photo { position: relative; }
+
+    .photo-frame {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      border: 2px solid rgba(26,107,255,0.3);
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    .photo-badge {
+      position: absolute;
+      bottom: -1px; left: -1px;
+      background: var(--orange);
+      color: var(--white);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.9rem;
+    }
+
+    .photo-accent-line {
+      position: absolute;
+      top: 16px; right: -16px;
+      width: 2px;
+      height: 60%;
+      background: var(--orange);
+      opacity: 0.4;
+    }
+
+    /* CREDENTIALS BAR */
+    .creds-section {
+      background: var(--card-bg);
+      padding: 60px 2rem;
+      border-top: 1px solid rgba(26,107,255,0.1);
+      border-bottom: 1px solid rgba(26,107,255,0.1);
+    }
+
+    .creds-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .cred-item {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .cred-item.visible { opacity: 1; transform: translateY(0); }
+    .cred-item:nth-child(2) { transition-delay: 0.1s; }
+    .cred-item:nth-child(3) { transition-delay: 0.2s; }
+
+    .cred-number {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .cred-number span { color: var(--orange); }
+
+    .cred-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .cred-statement {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--navy);
+      line-height: 1.6;
+      padding: 0 0.5rem;
+    }
+
+    .cred-item:not(:first-child) {
+      border-left: 2px solid rgba(26,107,255,0.15);
+    }
+
+    /* BODY COPY */
+    .content-section {
+      background: var(--white);
+      padding: 80px 2rem;
+    }
+
+    .content-inner {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--blue);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--blue);
+      opacity: 0.2;
+      max-width: 60px;
+    }
+
+    .content-inner p {
+      font-size: 1.25rem;
+      line-height: 1.85;
+      color: var(--text);
+      margin-bottom: 1.6rem;
+    }
+
+    .content-inner p:last-child { margin-bottom: 0; }
+
+    .lead-graf {
+      font-size: 1.5rem !important;
+      font-style: italic;
+      color: var(--navy) !important;
+      font-weight: 500;
+      line-height: 1.65 !important;
+    }
+
+    /* PULL QUOTES */
+    .quotes-section {
+      background: var(--navy);
+      padding: 80px 2rem;
+    }
+
+    .quotes-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .quote-card {
+      border-left: 3px solid var(--orange);
+      padding: 2rem 2rem 2rem 2.5rem;
+      background: rgba(255,255,255,0.04);
+      border-radius: 0 4px 4px 0;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .quote-card.visible { opacity: 1; transform: translateY(0); }
+    .quote-card:nth-child(2) { transition-delay: 0.15s; }
+
+    .quote-mark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 5rem;
+      color: var(--orange);
+      opacity: 0.3;
+      line-height: 0.6;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .quote-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-style: italic;
+      color: var(--white);
+      line-height: 1.7;
+    }
+
+    .quote-attr {
+      margin-top: 1.2rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--orange);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* CTA */
+    .cta-section {
+      background: var(--navy);
+      padding: 70px 2rem;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      color: var(--white);
+      letter-spacing: 0.03em;
+      margin-bottom: 1rem;
+    }
+
+    .cta-section h2 span { color: var(--orange); }
+
+    .cta-section p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 2.5rem;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: var(--orange);
+      color: var(--white);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+      padding: 1rem 3rem;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.2s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-btn::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .cta-btn:hover::after { left: 100%; }
+    .cta-btn:hover { background: #e85d22; transform: translateY(-2px); }
+
+    /* SCROLL ANIMATIONS */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up:nth-child(2) { transition-delay: 0.1s; }
+    .fade-up:nth-child(3) { transition-delay: 0.2s; }
+
+    /* MOBILE */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 50;
+      background: var(--orange);
+      color: var(--white);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+      text-align: center;
+      padding: 1rem;
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      .mobile-cta { display: block; }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        text-align: center;
+      }
+
+      .hero-subtitle { margin: 0 auto; }
+      .hero-photo { max-width: 320px; margin: 0 auto; }
+      .quotes-inner { grid-template-columns: 1fr; }
+      .creds-inner { grid-template-columns: 1fr; }
+
+      .cred-item:not(:first-child) {
+        border-left: none;
+        border-top: 2px solid rgba(26,107,255,0.15);
+        padding-top: 2rem;
+      }
+
+      body { padding-bottom: 60px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="progress-bar"></div>
+
+  <div id="vs-header"></div>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <p class="hero-eyebrow">🌵 The Local Behind the Cactus</p>
+        <h1 class="hero-title">Spike Knows Vegas.<br /><span>Here's Why.</span></h1>
+        <p class="hero-subtitle">20+ years inside Las Vegas entertainment. Not as a tourist passing through — as someone who showed up, stayed, and learned the difference between what Vegas sells and what Vegas actually is.</p>
+      </div>
+
+      <div class="hero-photo">
+        <div class="photo-frame">
+          <img src="/images/kris-kidd.png" alt="Kris Kidd — Vegas Sidekick founder" />
+        </div>
+        <div class="photo-badge">Kris Kidd &mdash; Vegas Insider</div>
+        <div class="photo-accent-line"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="creds-section">
+    <div class="creds-inner">
+      <div class="cred-item">
+        <div class="cred-number">20<span>+</span></div>
+        <div class="cred-label">Years in Vegas Entertainment</div>
+      </div>
+      <div class="cred-item">
+        <div class="cred-statement">Real recommendations — because we actually live here, see the shows, and talk to the guests.</div>
+      </div>
+      <div class="cred-item">
+        <div class="cred-statement">We find the best prices on shows we genuinely love — the ones we'd send our friends and family to see.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="content-inner">
+
+      <div class="section-label">About Kris Kidd</div>
+
+      <p class="lead-graf fade-up">
+        Most Vegas show guides are built by algorithms, SEO farms, and people who've never actually been to the show. Vegas Sidekick is different — because I'm different.
+      </p>
+
+      <p class="fade-up">
+        My name is Kris Kidd. I've spent over two decades inside the Las Vegas entertainment industry. Not as a tourist. Not as a blogger passing through. As someone who showed up, stayed, and learned the city from the inside out.
+      </p>
+
+      <p class="fade-up">
+        I built Vegas Sidekick because the information gap between locals and visitors is real — and expensive. Tourists overpay, see the wrong show, and leave disappointed. Not because they made bad decisions, but because nobody gave them straight talk. Every site they landed on had an agenda. Every "top 10 list" was paid placement dressed up as a recommendation.
+      </p>
+
+      <p class="fade-up">
+        Spike — our deadpan saguaro mascot — is the embodiment of that straight talk. No fake urgency. No hidden fees. No manufactured hype. Just honest show recommendations from someone who's actually been in the room.
+      </p>
+
+      <p class="fade-up">
+        Vegas Sidekick isn't a booking engine. It's a point of view. And after twenty years in this city, I've earned mine.
+      </p>
+
+    </div>
+  </section>
+
+  <section class="quotes-section">
+    <div class="quotes-inner">
+
+      <div class="quote-card">
+        <span class="quote-mark">&ldquo;</span>
+        <p class="quote-text">Vegas has always had two versions — the one they sell you, and the one you find when you actually live here. Spike knows the second one.</p>
+        <p class="quote-attr">— Kris Kidd, Founder</p>
+      </div>
+
+      <div class="quote-card">
+        <span class="quote-mark">&ldquo;</span>
+        <p class="quote-text">I've watched a lot of people waste their one night out on the wrong show. That's the problem Vegas Sidekick exists to solve.</p>
+        <p class="quote-attr">— Kris Kidd, Founder</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <h2>Ready to Find <span>Your Show?</span></h2>
+    <p>No pressure. No upsells. Just the best night Vegas has to offer.</p>
+    <a href="/" class="cta-btn">Browse All Shows</a>
+  </section>
+
+  <a href="/" class="mobile-cta">Browse All Shows</a>
+
+  <div id="vs-footer"></div>
+  <script src="/components/footer.js"></script>
+  <script src="/components/header.js"></script>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      document.getElementById('progress-bar').style.width =
+        (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-up, .quote-card, .cred-item').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
