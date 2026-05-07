@@ -209,6 +209,16 @@
     .compare-clear-btn:hover { background: rgba(255,255,255,.14); color: white; }
     .compare-hint { font-family: 'IBM Plex Mono', monospace; font-size: .6rem; color: rgba(255,255,255,.3); }
 
+    /* ── COMPARE PROMPT ── */
+    .compare-prompt { display: flex; align-items: center; gap: 10px; background: var(--blue-card); border: 1.5px solid var(--blue-border); border-radius: 10px; padding: 13px 18px; font-size: .84rem; color: var(--subtext); margin-bottom: 20px; line-height: 1.4; }
+    .compare-prompt-icon { font-size: 1.1rem; flex-shrink: 0; }
+    .compare-prompt strong { color: var(--navy); }
+
+    /* ── INLINE COMPARE BUTTON ── */
+    .card-compare-inline { width: 100%; padding: 8px; border-radius: 6px; border: 1.5px solid var(--border); background: #fff; color: var(--subtext); font-family: 'IBM Plex Mono', monospace; font-size: .66rem; font-weight: 500; letter-spacing: .03em; cursor: pointer; transition: all .15s; text-align: center; margin-top: 2px; }
+    .card-compare-inline:hover { border-color: var(--blue-bright); color: var(--blue-bright); background: var(--blue-card); }
+    .card-compare-inline.on { border-color: var(--blue-bright); color: #fff; background: var(--blue-bright); }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 960px) {
       .bc { padding: 80px 20px 0; }
@@ -375,6 +385,11 @@
           <div class="shows-section-title">All Cirque Shows</div>
           <div class="shows-section-count" id="gridCount">5 shows</div>
         </div>
+      <!-- COMPARE PROMPT -->
+      <div class="compare-prompt">
+        <span class="compare-prompt-icon">🔀</span>
+        <span>Not sure which show? <strong>Add up to 3 to compare</strong> side by side — price, age limit, schedule, and more.</span>
+      </div>
         <div class="show-grid" id="showGrid">
 
           <!-- MYSTÈRE -->
@@ -392,7 +407,6 @@
               <img src="/images/mystere-hero.jpg" alt="Mystère by Cirque du Soleil at Mystère Theatre, TI Hotel Las Vegas" loading="lazy" />
               <div class="card-spike-badge">⭐ Spike's Pick</div>
               <div class="card-best-badge">⭐ The Original</div>
-              <button class="card-compare-btn" onclick="toggleCompare(event,this,'Mystère')">+ Compare</button>
             </div>
             <div class="card-body">
               <div class="card-venue">Mystère Theatre · TI Hotel</div>
@@ -402,6 +416,7 @@
                 <span class="card-tag">🗓️ Mon, Tue, Fri–Sun</span>
                 <span class="card-tag">6PM &amp; 8:30PM</span>
               </div>
+              <button class="card-compare-inline" onclick="toggleCompare(event,this,this.closest('.show-grid-card').dataset.name)">+ Add to Compare</button>
               <div class="card-footer">
                 <div class="card-price"><div class="card-price-our">$55</div><div class="card-price-was">$93</div></div>
                 <span class="card-cta">Get Tickets →</span>
@@ -424,7 +439,6 @@
               <img src="/images/mad-apple-hero.jpg" alt="Mad Apple by Cirque du Soleil at New York-New York Las Vegas" loading="lazy" />
               <div class="card-spike-badge">⭐ Spike's Pick</div>
               <div class="card-best-badge">🍎 Best Adults Night Out</div>
-              <button class="card-compare-btn" onclick="toggleCompare(event,this,'Mad Apple')">+ Compare</button>
             </div>
             <div class="card-body">
               <div class="card-venue">New York-New York Las Vegas</div>
@@ -434,6 +448,7 @@
                 <span class="card-tag">🗓️ Tue–Sun</span>
                 <span class="card-tag">7PM &amp; 9:30PM</span>
               </div>
+              <button class="card-compare-inline" onclick="toggleCompare(event,this,this.closest('.show-grid-card').dataset.name)">+ Add to Compare</button>
               <div class="card-footer">
                 <div class="card-price"><div class="card-price-our">$53</div><div class="card-price-was">$100</div></div>
                 <span class="card-cta">Get Tickets →</span>
@@ -455,7 +470,6 @@
             <div class="card-img-wrap">
               <img src="/images/o-show-2.jpg" alt="O by Cirque du Soleil at the Bellagio Hotel Las Vegas — aquatic acrobatics" loading="lazy" />
               <div class="card-best-badge">💧 Most Spectacular Show</div>
-              <button class="card-compare-btn" onclick="toggleCompare(event,this,'O')">+ Compare</button>
             </div>
             <div class="card-body">
               <div class="card-venue">Bellagio Hotel &amp; Casino</div>
@@ -465,6 +479,7 @@
                 <span class="card-tag">🗓️ Wed–Sun</span>
                 <span class="card-tag">6:30PM &amp; 9PM</span>
               </div>
+              <button class="card-compare-inline" onclick="toggleCompare(event,this,this.closest('.show-grid-card').dataset.name)">+ Add to Compare</button>
               <div class="card-footer">
                 <div class="card-price"><div class="card-price-our">$119</div><div class="card-price-was">$188</div></div>
                 <span class="card-cta">Get Tickets →</span>
@@ -486,7 +501,6 @@
             <div class="card-img-wrap">
               <img src="/images/mj-one-hero.jpg" alt="Michael Jackson ONE by Cirque du Soleil at Mandalay Bay Las Vegas" loading="lazy" />
               <div class="card-best-badge">🕺 Best for MJ Fans</div>
-              <button class="card-compare-btn" onclick="toggleCompare(event,this,'Michael Jackson ONE')">+ Compare</button>
             </div>
             <div class="card-body">
               <div class="card-venue">Mandalay Bay Hotel &amp; Casino</div>
@@ -496,6 +510,7 @@
                 <span class="card-tag">🗓️ Thu–Mon</span>
                 <span class="card-tag">7PM &amp; 9:30PM</span>
               </div>
+              <button class="card-compare-inline" onclick="toggleCompare(event,this,this.closest('.show-grid-card').dataset.name)">+ Add to Compare</button>
               <div class="card-footer">
                 <div class="card-price"><div class="card-price-our">$111</div><div class="card-price-was">$163</div></div>
                 <span class="card-cta">Get Tickets →</span>
@@ -517,7 +532,6 @@
             <div class="card-img-wrap">
               <img src="/images/ka-hero.jpg" alt="KÀ by Cirque du Soleil at KÀ Theatre, MGM Grand Las Vegas" loading="lazy" />
               <div class="card-best-badge">⚔️ Most Epic Stage</div>
-              <button class="card-compare-btn" onclick="toggleCompare(event,this,'KÀ')">+ Compare</button>
             </div>
             <div class="card-body">
               <div class="card-venue">KÀ Theatre · MGM Grand</div>
@@ -527,6 +541,7 @@
                 <span class="card-tag">🗓️ Mon–Wed &amp; Sat–Sun</span>
                 <span class="card-tag">6PM &amp; 8:30PM</span>
               </div>
+              <button class="card-compare-inline" onclick="toggleCompare(event,this,this.closest('.show-grid-card').dataset.name)">+ Add to Compare</button>
               <div class="card-footer">
                 <div class="card-price"><div class="card-price-our">$86</div><div class="card-price-was">$118</div></div>
                 <span class="card-cta">Get Tickets →</span>
@@ -683,7 +698,7 @@
     document.querySelectorAll('.show-grid-card').forEach(card => {
       if (card.dataset.name === name) {
         card.classList.remove('compare-selected');
-        const btn = card.querySelector('.card-compare-btn');
+        const btn = card.querySelector('.card-compare-inline');
         if (btn) { btn.textContent = '+ Compare'; btn.classList.remove('on'); }
       }
     });
@@ -724,7 +739,7 @@
     compareList = [];
     document.querySelectorAll('.show-grid-card').forEach(card => {
       card.classList.remove('compare-selected');
-      const btn = card.querySelector('.card-compare-btn');
+      const btn = card.querySelector('.card-compare-inline');
       if (btn) { btn.textContent = '+ Compare'; btn.classList.remove('on'); }
     });
     document.getElementById('compareBar').classList.remove('visible');

@@ -230,6 +230,16 @@
     .compare-clear-btn:hover { background: rgba(255,255,255,.14); color: white; }
     .compare-hint { font-family: 'IBM Plex Mono', monospace; font-size: .6rem; color: rgba(255,255,255,.3); }
 
+    /* ── COMPARE PROMPT ── */
+    .compare-prompt { display: flex; align-items: center; gap: 10px; background: var(--blue-card); border: 1.5px solid var(--blue-border); border-radius: 10px; padding: 13px 18px; font-size: .84rem; color: var(--subtext); margin-bottom: 20px; line-height: 1.4; }
+    .compare-prompt-icon { font-size: 1.1rem; flex-shrink: 0; }
+    .compare-prompt strong { color: var(--navy); }
+
+    /* ── INLINE COMPARE BUTTON ── */
+    .card-compare-inline { width: 100%; padding: 8px; border-radius: 6px; border: 1.5px solid var(--border); background: #fff; color: var(--subtext); font-family: 'IBM Plex Mono', monospace; font-size: .66rem; font-weight: 500; letter-spacing: .03em; cursor: pointer; transition: all .15s; text-align: center; margin-top: 2px; }
+    .card-compare-inline:hover { border-color: var(--blue-bright); color: var(--blue-bright); background: var(--blue-card); }
+    .card-compare-inline.on { border-color: var(--blue-bright); color: #fff; background: var(--blue-bright); }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 1100px) {
       .sp-grid { grid-template-columns: repeat(2, 1fr); }
@@ -442,6 +452,11 @@
           <div class="shows-section-title">All Shows</div>
           <div class="shows-section-count" id="gridCount">17 shows</div>
         </div>
+      <!-- COMPARE PROMPT -->
+      <div class="compare-prompt">
+        <span class="compare-prompt-icon">🔀</span>
+        <span>Not sure which show? <strong>Add up to 3 to compare</strong> side by side — price, age limit, schedule, and more.</span>
+      </div>
         <div class="show-grid" id="showGrid">
 
           <!-- CARROT TOP -->
@@ -460,7 +475,6 @@
               <div class="card-spike-badge">⭐ Spike's Pick</div>
               <div class="card-best-badge">🏆 Most Iconic</div>
               <div class="card-cat-pill">Comedy</div>
-              <button class="card-compare-btn" onclick="toggleCompare(event,this,'Carrot Top')">+ Compare</button>
             </div>
             <div class="card-body">
               <div class="card-venue">Atrium Showroom · Luxor Hotel</div>
@@ -470,6 +484,7 @@
                 <span class="card-tag">🗓️ Mon–Sat</span>
                 <span class="card-tag">8PM</span>
               </div>
+              <button class="card-compare-inline" onclick="toggleCompare(event,this,this.closest('.show-grid-card').dataset.name)">+ Add to Compare</button>
               <div class="card-footer">
                 <div class="card-price"><div class="card-price-our">$68</div><div class="card-price-was">$88</div></div>
                 <span class="card-cta">Get Tickets →</span>
@@ -493,7 +508,6 @@
               <div class="card-spike-badge">⭐ Spike's Pick</div>
               <div class="card-best-badge">🍎 Best Adults Night Out</div>
               <div class="card-cat-pill">Cirque</div>
-              <button class="card-compare-btn" onclick="toggleCompare(event,this,'Mad Apple')">+ Compare</button>
             </div>
             <div class="card-body">
               <div class="card-venue">New York-New York Las Vegas</div>
@@ -503,6 +517,7 @@
                 <span class="card-tag">🗓️ Tue–Sun</span>
                 <span class="card-tag">7PM &amp; 9:30PM</span>
               </div>
+              <button class="card-compare-inline" onclick="toggleCompare(event,this,this.closest('.show-grid-card').dataset.name)">+ Add to Compare</button>
               <div class="card-footer">
                 <div class="card-price"><div class="card-price-our">$53</div><div class="card-price-was">$100</div></div>
                 <span class="card-cta">Get Tickets →</span>
@@ -526,7 +541,6 @@
               <div class="card-spike-badge">⭐ Spike's Pick</div>
               <div class="card-best-badge">⭐ The Original</div>
               <div class="card-cat-pill">Cirque</div>
-              <button class="card-compare-btn" onclick="toggleCompare(event,this,'Mystère')">+ Compare</button>
             </div>
             <div class="card-body">
               <div class="card-venue">Mystère Theatre · TI Hotel</div>
@@ -536,6 +550,7 @@
                 <span class="card-tag">🗓️ Mon, Tue, Fri–Sun</span>
                 <span class="card-tag">6PM &amp; 8:30PM</span>
               </div>
+              <button class="card-compare-inline" onclick="toggleCompare(event,this,this.closest('.show-grid-card').dataset.name)">+ Add to Compare</button>
               <div class="card-footer">
                 <div class="card-price"><div class="card-price-our">$55</div><div class="card-price-was">$93</div></div>
                 <span class="card-cta">Get Tickets →</span>
@@ -558,7 +573,6 @@
               <img src="/images/mac-king-hero.jpg" alt="Mac King Comedy Magic at Thunderland Theater inside Excalibur Hotel Las Vegas" loading="lazy" />
               <div class="card-best-badge">🎩 Best Value Magic</div>
               <div class="card-cat-pill">Magic</div>
-              <button class="card-compare-btn" onclick="toggleCompare(event,this,'Mac King Comedy Magic')">+ Compare</button>
             </div>
             <div class="card-body">
               <div class="card-venue">Thunderland Theater · Excalibur</div>
@@ -568,6 +582,7 @@
                 <span class="card-tag">🗓️ Tue–Sat</span>
                 <span class="card-tag">1PM &amp; 3PM</span>
               </div>
+              <button class="card-compare-inline" onclick="toggleCompare(event,this,this.closest('.show-grid-card').dataset.name)">+ Add to Compare</button>
               <div class="card-footer">
                 <div class="card-price"><div class="card-price-our">$33</div><div class="card-price-was">$73</div></div>
                 <span class="card-cta">Get Tickets →</span>
@@ -590,7 +605,6 @@
               <img src="/images/tape-face-hero.jpg" alt="Tape Face Las Vegas Underground Theater MGM Grand" loading="lazy" />
               <div class="card-best-badge">✨ Most Unique Experience</div>
               <div class="card-cat-pill">Comedy</div>
-              <button class="card-compare-btn" onclick="toggleCompare(event,this,'Tape Face')">+ Compare</button>
             </div>
             <div class="card-body">
               <div class="card-venue">Underground Theater · MGM Grand</div>
@@ -600,6 +614,7 @@
                 <span class="card-tag">🗓️ Mon, Tue, Thu–Sun</span>
                 <span class="card-tag">7:30PM</span>
               </div>
+              <button class="card-compare-inline" onclick="toggleCompare(event,this,this.closest('.show-grid-card').dataset.name)">+ Add to Compare</button>
               <div class="card-footer">
                 <div class="card-price"><div class="card-price-our">$57</div><div class="card-price-was">$98</div></div>
                 <span class="card-cta">Get Tickets →</span>
@@ -622,7 +637,6 @@
               <img src="/images/marriage-can-be-murder-hero.jpg" alt="Marriage Can Be Murder comedy murder mystery dinner show at Rio Hotel Las Vegas" loading="lazy" />
               <div class="card-best-badge">🍷 Best Dinner Show</div>
               <div class="card-cat-pill">Comedy</div>
-              <button class="card-compare-btn" onclick="toggleCompare(event,this,'Marriage Can Be Murder')">+ Compare</button>
             </div>
             <div class="card-body">
               <div class="card-venue">Masquerade Village · Rio Hotel</div>
@@ -632,6 +646,7 @@
                 <span class="card-tag">🍽️ Dinner Included</span>
                 <span class="card-tag">7PM Nightly</span>
               </div>
+              <button class="card-compare-inline" onclick="toggleCompare(event,this,this.closest('.show-grid-card').dataset.name)">+ Add to Compare</button>
               <div class="card-footer">
                 <div class="card-price"><div class="card-price-our">$80</div><div class="card-price-was">$118</div></div>
                 <span class="card-cta">Get Tickets →</span>
@@ -654,7 +669,6 @@
               <img src="/images/o-show-2.jpg" alt="O by Cirque du Soleil at the Bellagio Hotel Las Vegas — aquatic acrobatics" loading="lazy" />
               <div class="card-best-badge">💧 Most Spectacular Show</div>
               <div class="card-cat-pill">Cirque</div>
-              <button class="card-compare-btn" onclick="toggleCompare(event,this,'O')">+ Compare</button>
             </div>
             <div class="card-body">
               <div class="card-venue">Bellagio Hotel &amp; Casino</div>
@@ -664,6 +678,7 @@
                 <span class="card-tag">🗓️ Wed–Sun</span>
                 <span class="card-tag">6:30PM &amp; 9PM</span>
               </div>
+              <button class="card-compare-inline" onclick="toggleCompare(event,this,this.closest('.show-grid-card').dataset.name)">+ Add to Compare</button>
               <div class="card-footer">
                 <div class="card-price"><div class="card-price-our">$119</div><div class="card-price-was">$188</div></div>
                 <span class="card-cta">Get Tickets →</span>
@@ -686,7 +701,6 @@
               <img src="/images/ka-hero.jpg" alt="KÀ by Cirque du Soleil at KÀ Theatre, MGM Grand Las Vegas" loading="lazy" />
               <div class="card-best-badge">⚔️ Most Epic Stage</div>
               <div class="card-cat-pill">Cirque</div>
-              <button class="card-compare-btn" onclick="toggleCompare(event,this,'KÀ')">+ Compare</button>
             </div>
             <div class="card-body">
               <div class="card-venue">KÀ Theatre · MGM Grand</div>
@@ -696,6 +710,7 @@
                 <span class="card-tag">🗓️ Mon–Wed &amp; Sat–Sun</span>
                 <span class="card-tag">6PM &amp; 8:30PM</span>
               </div>
+              <button class="card-compare-inline" onclick="toggleCompare(event,this,this.closest('.show-grid-card').dataset.name)">+ Add to Compare</button>
               <div class="card-footer">
                 <div class="card-price"><div class="card-price-our">$86</div><div class="card-price-was">$118</div></div>
                 <span class="card-cta">Get Tickets →</span>
@@ -718,7 +733,6 @@
               <img src="/images/mj-one-hero.jpg" alt="Michael Jackson ONE by Cirque du Soleil at Mandalay Bay Las Vegas" loading="lazy" />
               <div class="card-best-badge">🕺 Best for MJ Fans</div>
               <div class="card-cat-pill">Cirque</div>
-              <button class="card-compare-btn" onclick="toggleCompare(event,this,'Michael Jackson ONE')">+ Compare</button>
             </div>
             <div class="card-body">
               <div class="card-venue">Mandalay Bay Hotel &amp; Casino</div>
@@ -728,6 +742,7 @@
                 <span class="card-tag">🗓️ Thu–Mon</span>
                 <span class="card-tag">7PM &amp; 9:30PM</span>
               </div>
+              <button class="card-compare-inline" onclick="toggleCompare(event,this,this.closest('.show-grid-card').dataset.name)">+ Add to Compare</button>
               <div class="card-footer">
                 <div class="card-price"><div class="card-price-our">$111</div><div class="card-price-was">$163</div></div>
                 <span class="card-cta">Get Tickets →</span>
@@ -750,7 +765,6 @@
               <img src="/images/laugh-factory-hero.jpg" alt="Laugh Factory Las Vegas comedy club at Horseshoe Las Vegas on the Strip" loading="lazy" />
               <div class="card-best-badge">🎙️ Best Stand-Up Value</div>
               <div class="card-cat-pill">Comedy</div>
-              <button class="card-compare-btn" onclick="toggleCompare(event,this,'Laugh Factory Las Vegas')">+ Compare</button>
             </div>
             <div class="card-body">
               <div class="card-venue">Laugh Factory · Horseshoe Las Vegas</div>
@@ -760,6 +774,7 @@
                 <span class="card-tag">🗓️ Nightly · 2 Shows</span>
                 <span class="card-tag">8:30PM &amp; 10:30PM</span>
               </div>
+              <button class="card-compare-inline" onclick="toggleCompare(event,this,this.closest('.show-grid-card').dataset.name)">+ Add to Compare</button>
               <div class="card-footer">
                 <div class="card-price"><div class="card-price-our">$32</div><div class="card-price-was">$86</div></div>
                 <span class="card-cta">Get Tickets →</span>
@@ -782,7 +797,6 @@
               <img src="/images/comedy-cellar-hero.jpg" alt="Comedy Cellar Las Vegas at Rio All-Suite Hotel and Casino" loading="lazy" />
               <div class="card-best-badge">🗽 NYC Stand-Up Experience</div>
               <div class="card-cat-pill">Comedy</div>
-              <button class="card-compare-btn" onclick="toggleCompare(event,this,'Comedy Cellar')">+ Compare</button>
             </div>
             <div class="card-body">
               <div class="card-venue">Rio All-Suite Hotel &amp; Casino</div>
@@ -792,6 +806,7 @@
                 <span class="card-tag">🗓️ Nightly · 2 Shows</span>
                 <span class="card-tag">7PM &amp; 9:30PM</span>
               </div>
+              <button class="card-compare-inline" onclick="toggleCompare(event,this,this.closest('.show-grid-card').dataset.name)">+ Add to Compare</button>
               <div class="card-footer">
                 <div class="card-price"><div class="card-price-our">$41</div><div class="card-price-was">$62</div></div>
                 <span class="card-cta">Get Tickets →</span>
@@ -814,7 +829,6 @@
               <img src="/images/brad-garretts-comedy-club-hero.jpg" alt="Brad Garrett's Comedy Club MGM Grand Las Vegas" loading="lazy" />
               <div class="card-best-badge">🎤 Best Comedy Club</div>
               <div class="card-cat-pill">Comedy</div>
-              <button class="card-compare-btn" onclick="toggleCompare(event,this,&quot;Brad Garrett's Comedy Club&quot;)">+ Compare</button>
             </div>
             <div class="card-body">
               <div class="card-venue">The District · MGM Grand</div>
@@ -824,6 +838,7 @@
                 <span class="card-tag">🗓️ Nightly</span>
                 <span class="card-tag">8PM</span>
               </div>
+              <button class="card-compare-inline" onclick="toggleCompare(event,this,this.closest('.show-grid-card').dataset.name)">+ Add to Compare</button>
               <div class="card-footer">
                 <div class="card-price"><div class="card-price-our">$51</div><div class="card-price-was">$104</div></div>
                 <span class="card-cta">Get Tickets →</span>
@@ -846,7 +861,6 @@
               <img src="/images/la-comedy-club-hero.jpg" alt="LA Comedy Club Las Vegas at Dragon Room inside The STRAT Hotel" loading="lazy" />
               <div class="card-best-badge">🔄 Most Flexible Schedule</div>
               <div class="card-cat-pill">Comedy</div>
-              <button class="card-compare-btn" onclick="toggleCompare(event,this,'LA Comedy Club Las Vegas')">+ Compare</button>
             </div>
             <div class="card-body">
               <div class="card-venue">Dragon Room · The STRAT Hotel</div>
@@ -856,6 +870,7 @@
                 <span class="card-tag">🗓️ Nightly · 3 Shows</span>
                 <span class="card-tag">6PM · 8PM · 10PM</span>
               </div>
+              <button class="card-compare-inline" onclick="toggleCompare(event,this,this.closest('.show-grid-card').dataset.name)">+ Add to Compare</button>
               <div class="card-footer">
                 <div class="card-price"><div class="card-price-our">$43</div><div class="card-price-was">$59</div></div>
                 <span class="card-cta">Get Tickets →</span>
@@ -878,7 +893,6 @@
               <img src="/images/marc-savard-comedy-hypnosis-hero.jpg" alt="Marc Savard Comedy Hypnosis Las Vegas" loading="lazy" />
               <div class="card-best-badge">💰 Best Budget Pick</div>
               <div class="card-cat-pill">Comedy</div>
-              <button class="card-compare-btn" onclick="toggleCompare(event,this,'Marc Savard Comedy Hypnosis')">+ Compare</button>
             </div>
             <div class="card-body">
               <div class="card-venue">Nathan Burton Theater · Showcase Mall</div>
@@ -888,6 +902,7 @@
                 <span class="card-tag">🗓️ Mon, Wed, Fri–Sun</span>
                 <span class="card-tag">7PM</span>
               </div>
+              <button class="card-compare-inline" onclick="toggleCompare(event,this,this.closest('.show-grid-card').dataset.name)">+ Add to Compare</button>
               <div class="card-footer">
                 <div class="card-price"><div class="card-price-our">$28</div><div class="card-price-was">$55</div></div>
                 <span class="card-cta">Get Tickets →</span>
@@ -910,7 +925,6 @@
               <img src="/images/nathan-burton-comedy-magic-hero.jpg" alt="Nathan Burton Comedy Magic show at FlyOver Las Vegas on the Strip" loading="lazy" />
               <div class="card-best-badge">🌟 Best Family Magic</div>
               <div class="card-cat-pill">Magic</div>
-              <button class="card-compare-btn" onclick="toggleCompare(event,this,'Nathan Burton Comedy Magic')">+ Compare</button>
             </div>
             <div class="card-body">
               <div class="card-venue">Nathan Burton Theater · FlyOver Las Vegas</div>
@@ -920,6 +934,7 @@
                 <span class="card-tag">🗓️ Daily (except Thu)</span>
                 <span class="card-tag">4PM</span>
               </div>
+              <button class="card-compare-inline" onclick="toggleCompare(event,this,this.closest('.show-grid-card').dataset.name)">+ Add to Compare</button>
               <div class="card-footer">
                 <div class="card-price"><div class="card-price-our">$28</div></div>
                 <span class="card-cta">Get Tickets →</span>
@@ -942,7 +957,6 @@
               <img src="/images/las-vegas-live-comedy-club-hero.jpg" alt="Las Vegas LIVE Comedy Club at V Theater inside Miracle Mile Shops at Planet Hollywood" loading="lazy" />
               <div class="card-best-badge">🌙 Best Late Night</div>
               <div class="card-cat-pill">Comedy</div>
-              <button class="card-compare-btn" onclick="toggleCompare(event,this,'Las Vegas LIVE Comedy Club')">+ Compare</button>
             </div>
             <div class="card-body">
               <div class="card-venue">V Theater Upstairs · Planet Hollywood</div>
@@ -952,6 +966,7 @@
                 <span class="card-tag">🗓️ Nightly</span>
                 <span class="card-tag">9PM</span>
               </div>
+              <button class="card-compare-inline" onclick="toggleCompare(event,this,this.closest('.show-grid-card').dataset.name)">+ Add to Compare</button>
               <div class="card-footer">
                 <div class="card-price"><div class="card-price-our">$30</div></div>
                 <span class="card-cta">Get Tickets →</span>
@@ -974,7 +989,6 @@
               <img src="/images/popovich-comedy-pet-theater-hero.jpg" alt="Popovich Comedy Pet Theater Las Vegas V Theater Planet Hollywood" loading="lazy" />
               <div class="card-best-badge">🐾 Best for Young Kids</div>
               <div class="card-cat-pill">Comedy</div>
-              <button class="card-compare-btn" onclick="toggleCompare(event,this,'Popovich Comedy Pet Theater')">+ Compare</button>
             </div>
             <div class="card-body">
               <div class="card-venue">V Theater · Planet Hollywood</div>
@@ -984,6 +998,7 @@
                 <span class="card-tag">🗓️ Tue–Sat</span>
                 <span class="card-tag">2:30PM</span>
               </div>
+              <button class="card-compare-inline" onclick="toggleCompare(event,this,this.closest('.show-grid-card').dataset.name)">+ Add to Compare</button>
               <div class="card-footer">
                 <div class="card-price"><div class="card-price-our">$31</div><div class="card-price-was">$54</div></div>
                 <span class="card-cta">Get Tickets →</span>
@@ -1152,7 +1167,7 @@
     document.querySelectorAll('.show-grid-card').forEach(card => {
       if (card.dataset.name === name) {
         card.classList.remove('compare-selected');
-        const btn = card.querySelector('.card-compare-btn');
+        const btn = card.querySelector('.card-compare-inline');
         if (btn) { btn.textContent = '+ Compare'; btn.classList.remove('on'); }
       }
     });
@@ -1193,7 +1208,7 @@
     compareList = [];
     document.querySelectorAll('.show-grid-card').forEach(card => {
       card.classList.remove('compare-selected');
-      const btn = card.querySelector('.card-compare-btn');
+      const btn = card.querySelector('.card-compare-inline');
       if (btn) { btn.textContent = '+ Compare'; btn.classList.remove('on'); }
     });
     document.getElementById('compareBar').classList.remove('visible');
