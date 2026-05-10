@@ -8,17 +8,21 @@
 
   const html = `
 <div class="vs-email-bar" id="vsEmailBar">
+  <div class="vs-email-bar-accent"></div>
   <div class="vs-email-bar-inner">
-    <div class="vs-email-bar-text">
-      <span class="vs-email-bar-headline">🎰 Get exclusive Vegas show deals</span>
-      <span class="vs-email-bar-sub">No spam. Just deals worth knowing about.</span>
+    <div class="vs-email-bar-left">
+      <div class="vs-email-bar-spike">🌵</div>
+      <div class="vs-email-bar-text">
+        <span class="vs-email-bar-headline">Vegas deals before prices go up</span>
+        <span class="vs-email-bar-sub">Spike's picks, last-minute discounts, and show alerts — straight to your inbox. No spam.</span>
+      </div>
     </div>
     <form class="vs-email-form" id="vsEmailForm" onsubmit="vsSubmitEmail(event)">
       <input type="email" id="vsEmailInput" placeholder="your@email.com" required autocomplete="email" />
-      <button type="submit" id="vsEmailBtn">Notify Me</button>
+      <button type="submit" id="vsEmailBtn">Get Deals →</button>
     </form>
     <div class="vs-email-success" id="vsEmailSuccess">
-      ✅ You're in! Watch your inbox for deals.
+      ✅ You're in — Spike will be in touch.
     </div>
   </div>
 </div>
@@ -69,18 +73,22 @@
   const styles = `
 <style>
 /* EMAIL BAR */
-.vs-email-bar { background: linear-gradient(135deg, #0D1F3C, #0F1E38); border-top: 1px solid rgba(26,107,255,0.15); border-bottom: 1px solid rgba(26,107,255,0.1); padding: 20px 40px; }
-.vs-email-bar-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
-.vs-email-bar-text { display: flex; flex-direction: column; gap: 2px; }
-.vs-email-bar-headline { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; color: #FFFFFF; letter-spacing: 0.5px; }
-.vs-email-bar-sub { font-size: 0.78rem; color: #A8B4C4; }
-.vs-email-form { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-.vs-email-form input { background: rgba(255,255,255,0.06); border: 1px solid rgba(26,107,255,0.25); border-radius: 6px; padding: 10px 16px; color: #FFFFFF; font-family: 'Barlow', sans-serif; font-size: 0.9rem; width: 240px; outline: none; transition: border-color 0.2s; }
-.vs-email-form input:focus { border-color: #1A6BFF; }
-.vs-email-form input::placeholder { color: #A8B4C4; }
-.vs-email-form button { background: #1A6BFF; color: #FFFFFF; font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 10px 24px; border-radius: 6px; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; white-space: nowrap; }
-.vs-email-form button:hover { background: #1558D6; transform: translateY(-1px); }
-.vs-email-success { display: none; font-size: 0.9rem; color: #22C55E; font-weight: 600; }
+.vs-email-bar { background: linear-gradient(135deg, #0D1F3C 0%, #0A1628 60%, #12182a 100%); border-top: 3px solid #FF6B00; border-bottom: 1px solid rgba(255,107,0,0.15); padding: 28px 40px; position: relative; overflow: hidden; }
+.vs-email-bar::after { content:''; position:absolute; top:0; right:0; width:320px; height:100%; background: radial-gradient(ellipse at right center, rgba(255,107,0,0.07) 0%, transparent 70%); pointer-events:none; }
+.vs-email-bar-accent { display:none; }
+.vs-email-bar-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 28px; flex-wrap: wrap; }
+.vs-email-bar-left { display: flex; align-items: center; gap: 14px; flex: 1; min-width: 0; }
+.vs-email-bar-spike { font-size: 2.2rem; flex-shrink: 0; line-height: 1; }
+.vs-email-bar-text { display: flex; flex-direction: column; gap: 3px; }
+.vs-email-bar-headline { font-family: 'Barlow Condensed', sans-serif; font-size: 1.25rem; font-weight: 800; color: #FFFFFF; letter-spacing: 0.5px; line-height: 1.15; }
+.vs-email-bar-sub { font-size: 0.78rem; color: rgba(255,255,255,0.5); line-height: 1.4; }
+.vs-email-form { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; flex-shrink: 0; }
+.vs-email-form input { background: rgba(255,255,255,0.07); border: 1.5px solid rgba(255,255,255,0.15); border-radius: 7px; padding: 11px 16px; color: #FFFFFF; font-family: 'Barlow', sans-serif; font-size: 0.9rem; width: 240px; outline: none; transition: border-color 0.2s, background 0.2s; }
+.vs-email-form input:focus { border-color: #FF6B00; background: rgba(255,255,255,0.1); }
+.vs-email-form input::placeholder { color: rgba(255,255,255,0.35); }
+.vs-email-form button { background: #FF6B00; color: #FFFFFF; font-family: 'Barlow Condensed', sans-serif; font-size: 0.95rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 11px 26px; border-radius: 7px; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; white-space: nowrap; box-shadow: 0 4px 14px rgba(255,107,0,0.35); }
+.vs-email-form button:hover { background: #FF8C2A; transform: translateY(-1px); }
+.vs-email-success { display: none; font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; color: #4ade80; letter-spacing: 0.5px; }
 .vs-email-success.visible { display: block; }
 
 /* FOOTER */
@@ -101,8 +109,8 @@
 .vs-footer-disclosure { font-size: 0.72rem; color: rgba(168,180,196,0.5); max-width: 500px; text-align: right; line-height: 1.5; font-family: 'Barlow', sans-serif; }
 
 @media (max-width: 900px) {
-  .vs-email-bar { padding: 20px; }
-  .vs-email-bar-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .vs-email-bar { padding: 24px 20px; }
+  .vs-email-bar-inner { flex-direction: column; align-items: flex-start; gap: 18px; }
   .vs-email-form input { width: 100%; }
   .vs-email-form { width: 100%; }
   .vs-email-form button { flex: 1; }
@@ -132,28 +140,15 @@
     btn.disabled = true;
 
     try {
-      const response = await fetch('https://api.brevo.com/v3/contacts', {
+      await fetch('https://brevo-subscribe.vegassidekickcom.workers.dev', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'api-key': BREVO_API_KEY
-        },
-        body: JSON.stringify({
-          email: email,
-          listIds: [BREVO_LIST_ID],
-          updateEnabled: true
-        })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
       });
-
-      if (response.ok || response.status === 204) {
-        form.style.display = 'none';
-        success.classList.add('visible');
-      } else {
-        btn.textContent = 'Try Again';
-        btn.disabled = false;
-      }
+      form.style.display = 'none';
+      success.classList.add('visible');
     } catch (err) {
-      btn.textContent = 'Try Again';
+      btn.textContent = 'Get Deals →';
       btn.disabled = false;
     }
   };
