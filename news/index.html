@@ -68,7 +68,6 @@
       overflow-x: hidden;
     }
 
-    /* Starfield */
     body::before {
       content: '';
       position: fixed;
@@ -85,7 +84,6 @@
       z-index: 0;
     }
 
-    /* Page header */
     .dispatch-header {
       position: relative;
       z-index: 1;
@@ -125,7 +123,6 @@
       line-height: 1.7;
     }
 
-    /* Filter bar */
     .filter-bar {
       position: relative;
       z-index: 1;
@@ -174,7 +171,6 @@
       background: rgba(255,107,0,0.08);
     }
 
-    /* Main grid area */
     .dispatch-content {
       position: relative;
       z-index: 1;
@@ -186,7 +182,6 @@
       margin: 0 auto;
     }
 
-    /* Featured article */
     .featured-article {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -294,7 +289,6 @@
     }
     .featured-article:hover .read-more-link { color: var(--orange); }
 
-    /* Article grid */
     .grid-header {
       display: flex;
       align-items: center;
@@ -401,7 +395,6 @@
       margin-top: 8px;
     }
 
-    /* Empty state */
     .no-results {
       display: none;
       grid-column: 1 / -1;
@@ -411,7 +404,6 @@
       font-size: 1rem;
     }
 
-    /* Animations */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(16px); }
       to { opacity: 1; transform: translateY(0); }
@@ -421,7 +413,6 @@
     .featured-article { animation: fadeUp 0.6s ease 0.1s both; }
     .articles-grid { animation: fadeUp 0.6s ease 0.2s both; }
 
-    /* Responsive */
     @media (max-width: 900px) {
       .dispatch-header { padding: 100px 24px 48px; }
       .filter-bar { padding: 20px 24px; }
@@ -443,7 +434,6 @@
 
 <div id="vs-header"></div>
 
-<!-- Page Header -->
 <header class="dispatch-header">
   <div class="dispatch-header-inner">
     <div class="section-label">Vegas Sidekick</div>
@@ -452,7 +442,6 @@
   </div>
 </header>
 
-<!-- Filter Bar -->
 <div class="filter-bar">
   <div class="filter-bar-inner">
     <span class="filter-label">Filter:</span>
@@ -464,45 +453,59 @@
   </div>
 </div>
 
-<!-- Content -->
 <main class="dispatch-content" id="articles-section">
   <div class="dispatch-content-inner">
 
-    <!-- Featured article: Live Nation May 2026 (newest) -->
+    <!-- Featured article: Blue Dot Fever (newest) -->
     <a
-      href="/news/live-nation-las-vegas-listings-update-may-2026/"
+      href="/news/blue-dot-fever-what-it-means-for-vegas/"
       class="featured-article"
-      data-category="concerts"
+      data-category="industry"
       id="featured-article"
     >
       <div class="featured-article-img">
         <img
           src="/images/news/live-nation-may-2026-arena.png"
-          alt="Packed stadium arena at a major Las Vegas concert with confetti and stage lights"
+          alt="Packed concert arena with confetti and thousands of fans under dramatic stage lighting"
           loading="lazy"
         />
         <span class="featured-badge">Latest</span>
       </div>
       <div class="featured-article-body">
-        <div class="article-category">Concerts</div>
-        <h2>Live Nation Las Vegas: Major New Show Announcements — May 7, 2026</h2>
-        <p>Metallica at Sphere. BTS for four nights at Allegiant Stadium. LISA making history as the first K-pop artist to headline The Colosseum. Plus Foo Fighters, KAROL G, Olivia Rodrigo, and 20+ more newly confirmed shows.</p>
+        <div class="article-category">Industry</div>
+        <h2>Blue Dot Fever: What Concert Tour Cancellations Mean for Vegas Visitors</h2>
+        <p>Meghan Trainor, Post Malone, Zayn Malik, and the Pussycat Dolls have all pulled shows as ticket prices hit record highs and gas prices squeeze road-trip budgets. Here's why Las Vegas is a different story.</p>
         <div class="article-date-row">
-          <time datetime="2026-05-07">May 7, 2026</time>
+          <time datetime="2026-05-10">May 10, 2026</time>
           <span>·</span>
-          <span>8 min read</span>
+          <span>5 min read</span>
         </div>
         <span class="read-more-link">Read Story →</span>
       </div>
     </a>
 
-    <!-- Article grid -->
     <div class="grid-header">
       <span class="grid-title">All Stories</span>
       <span id="article-count"></span>
     </div>
 
     <div class="articles-grid" id="articles-grid">
+
+      <a href="/news/blue-dot-fever-what-it-means-for-vegas/" class="article-card" data-category="industry">
+        <div class="article-card-img">
+          <img
+            src="/images/news/live-nation-may-2026-arena.png"
+            alt="Packed concert arena — the contrast between sold-out Vegas residencies and touring act cancellations"
+            loading="lazy"
+          />
+          <span class="article-card-tag">Industry</span>
+        </div>
+        <div class="article-card-body">
+          <h3>Blue Dot Fever: What Concert Tour Cancellations Mean for Vegas Visitors</h3>
+          <p>Artists are canceling tours, ticket prices hit record highs, and gas prices are up. Here's why Vegas residencies are a different story entirely.</p>
+          <div class="article-card-meta">May 10, 2026 · 5 min read</div>
+        </div>
+      </a>
 
       <a href="/news/live-nation-las-vegas-listings-update-may-2026/" class="article-card" data-category="concerts">
         <div class="article-card-img">
@@ -604,13 +607,11 @@
     function filterArticles(category) {
       var visible = 0;
 
-      // Featured article
       if (featured) {
         var show = category === 'all' || featured.dataset.category === category;
         featured.style.display = show ? '' : 'none';
       }
 
-      // Grid cards
       cards.forEach(function(card) {
         var match = category === 'all' || card.dataset.category === category;
         card.style.display = match ? '' : 'none';
