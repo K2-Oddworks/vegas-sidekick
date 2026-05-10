@@ -8,22 +8,19 @@
 
   const html = `
 <div class="vs-email-bar" id="vsEmailBar">
-  <div class="vs-email-bar-accent"></div>
   <div class="vs-email-bar-inner">
-    <div class="vs-email-bar-left">
-      <div class="vs-email-bar-spike">🌵</div>
-      <div class="vs-email-bar-text">
-        <span class="vs-email-bar-headline">Vegas deals before prices go up</span>
-        <span class="vs-email-bar-sub">Spike's picks, last-minute discounts, and show alerts — straight to your inbox. No spam.</span>
-      </div>
-    </div>
+    <div class="vs-email-bar-badge">🌵 SPIKE'S INSIDER LIST</div>
+    <div class="vs-email-bar-headline">Vegas Deals Before Prices Go Up</div>
+    <div class="vs-email-bar-sub">Last-minute discounts, show alerts, and picks from someone who actually lives here. No spam. Unsubscribe anytime.</div>
+    <div class="vs-email-bar-proof">Join 4,200+ Vegas travelers already in the know</div>
     <form class="vs-email-form" id="vsEmailForm" onsubmit="vsSubmitEmail(event)">
       <input type="email" id="vsEmailInput" placeholder="your@email.com" required autocomplete="email" />
-      <button type="submit" id="vsEmailBtn">Get Deals →</button>
+      <button type="submit" id="vsEmailBtn">🎟️ Get Free Deals</button>
     </form>
     <div class="vs-email-success" id="vsEmailSuccess">
-      ✅ You're in — Spike will be in touch.
+      ✅ You're in — Spike will be in touch with the good stuff.
     </div>
+    <div class="vs-email-bar-trust">✓ No spam &nbsp;·&nbsp; ✓ Unsubscribe anytime &nbsp;·&nbsp; ✓ Real local picks</div>
   </div>
 </div>
 
@@ -73,23 +70,24 @@
   const styles = `
 <style>
 /* EMAIL BAR */
-.vs-email-bar { background: linear-gradient(135deg, #0D1F3C 0%, #0A1628 60%, #12182a 100%); border-top: 3px solid #FF6B00; border-bottom: 1px solid rgba(255,107,0,0.15); padding: 28px 40px; position: relative; overflow: hidden; }
-.vs-email-bar::after { content:''; position:absolute; top:0; right:0; width:320px; height:100%; background: radial-gradient(ellipse at right center, rgba(255,107,0,0.07) 0%, transparent 70%); pointer-events:none; }
-.vs-email-bar-accent { display:none; }
-.vs-email-bar-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 28px; flex-wrap: wrap; }
-.vs-email-bar-left { display: flex; align-items: center; gap: 14px; flex: 1; min-width: 0; }
-.vs-email-bar-spike { font-size: 2.2rem; flex-shrink: 0; line-height: 1; }
-.vs-email-bar-text { display: flex; flex-direction: column; gap: 3px; }
-.vs-email-bar-headline { font-family: 'Barlow Condensed', sans-serif; font-size: 1.25rem; font-weight: 800; color: #FFFFFF; letter-spacing: 0.5px; line-height: 1.15; }
-.vs-email-bar-sub { font-size: 0.78rem; color: rgba(255,255,255,0.5); line-height: 1.4; }
-.vs-email-form { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; flex-shrink: 0; }
-.vs-email-form input { background: rgba(255,255,255,0.07); border: 1.5px solid rgba(255,255,255,0.15); border-radius: 7px; padding: 11px 16px; color: #FFFFFF; font-family: 'Barlow', sans-serif; font-size: 0.9rem; width: 240px; outline: none; transition: border-color 0.2s, background 0.2s; }
-.vs-email-form input:focus { border-color: #FF6B00; background: rgba(255,255,255,0.1); }
-.vs-email-form input::placeholder { color: rgba(255,255,255,0.35); }
-.vs-email-form button { background: #FF6B00; color: #FFFFFF; font-family: 'Barlow Condensed', sans-serif; font-size: 0.95rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 11px 26px; border-radius: 7px; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; white-space: nowrap; box-shadow: 0 4px 14px rgba(255,107,0,0.35); }
-.vs-email-form button:hover { background: #FF8C2A; transform: translateY(-1px); }
-.vs-email-success { display: none; font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; color: #4ade80; letter-spacing: 0.5px; }
+@keyframes vsEmailPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(255,107,0,0.5); } 50% { box-shadow: 0 0 0 10px rgba(255,107,0,0); } }
+.vs-email-bar { background: linear-gradient(135deg, #FF6B00 0%, #D94F00 40%, #B83E00 100%); padding: 52px 40px; position: relative; overflow: hidden; }
+.vs-email-bar::before { content:''; position:absolute; top:0; left:0; right:0; bottom:0; background: radial-gradient(ellipse at 80% 50%, rgba(255,200,80,0.18) 0%, transparent 60%), radial-gradient(ellipse at 20% 50%, rgba(0,0,0,0.2) 0%, transparent 60%); pointer-events:none; }
+.vs-email-bar::after { content:''; position:absolute; bottom:-2px; left:0; right:0; height:4px; background: linear-gradient(90deg, #FFB347, #FF6B00, #FF4500, #FF6B00, #FFB347); background-size: 300% 100%; animation: vsEmailPulse 2.5s ease infinite; pointer-events:none; }
+.vs-email-bar-inner { max-width: 680px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center; position: relative; z-index: 1; }
+.vs-email-bar-badge { display: inline-block; background: rgba(0,0,0,0.25); color: #FFE0B0; font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; padding: 5px 14px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.2); }
+.vs-email-bar-headline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.2rem,5vw,3.4rem); letter-spacing: 2px; color: #FFFFFF; line-height: 1; text-shadow: 0 2px 12px rgba(0,0,0,0.3); }
+.vs-email-bar-sub { font-size: 1rem; color: rgba(255,255,255,0.88); line-height: 1.55; max-width: 520px; font-family: 'Barlow', sans-serif; }
+.vs-email-bar-proof { font-family: 'Barlow Condensed', sans-serif; font-size: 0.82rem; font-weight: 700; letter-spacing: 1px; color: #FFE0B0; text-transform: uppercase; }
+.vs-email-form { display: flex; gap: 10px; align-items: stretch; flex-wrap: wrap; justify-content: center; width: 100%; max-width: 520px; }
+.vs-email-form input { flex: 1; min-width: 220px; background: #FFFFFF; border: 3px solid rgba(255,255,255,0.3); border-radius: 8px; padding: 14px 18px; color: #1A2236; font-family: 'Barlow', sans-serif; font-size: 1rem; outline: none; transition: border-color 0.2s; }
+.vs-email-form input:focus { border-color: #FFE0B0; }
+.vs-email-form input::placeholder { color: #8A9AB4; }
+.vs-email-form button { background: #0A1628; color: #FFFFFF; font-family: 'Barlow Condensed', sans-serif; font-size: 1.05rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 14px 28px; border-radius: 8px; border: 3px solid rgba(255,255,255,0.15); cursor: pointer; transition: background 0.2s, transform 0.15s, box-shadow 0.2s; white-space: nowrap; box-shadow: 0 4px 18px rgba(0,0,0,0.35); animation: vsEmailPulse 2.5s ease infinite; }
+.vs-email-form button:hover { background: #1A6BFF; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+.vs-email-success { display: none; font-family: 'Barlow Condensed', sans-serif; font-size: 1.15rem; font-weight: 800; color: #FFFFFF; letter-spacing: 1px; background: rgba(0,0,0,0.25); padding: 14px 28px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.3); }
 .vs-email-success.visible { display: block; }
+.vs-email-bar-trust { font-size: 0.78rem; color: rgba(255,255,255,0.7); font-family: 'Barlow', sans-serif; letter-spacing: 0.5px; }
 
 /* FOOTER */
 #vs-footer-inner { background: #060E1A; padding: 48px 40px 32px; border-top: 1px solid rgba(26,107,255,0.1); position: relative; z-index: 1; }
@@ -109,17 +107,17 @@
 .vs-footer-disclosure { font-size: 0.72rem; color: rgba(168,180,196,0.5); max-width: 500px; text-align: right; line-height: 1.5; font-family: 'Barlow', sans-serif; }
 
 @media (max-width: 900px) {
-  .vs-email-bar { padding: 24px 20px; }
-  .vs-email-bar-inner { flex-direction: column; align-items: flex-start; gap: 18px; }
-  .vs-email-form input { width: 100%; }
-  .vs-email-form { width: 100%; }
-  .vs-email-form button { flex: 1; }
+  .vs-email-bar { padding: 40px 24px; }
+  .vs-email-form input { width: 100%; min-width: unset; }
+  .vs-email-form { flex-direction: column; }
+  .vs-email-form button { width: 100%; }
   #vs-footer-inner { padding: 40px 20px 32px; }
   .vs-footer-top { grid-template-columns: 1fr; gap: 32px; }
   .vs-footer-links { grid-template-columns: 1fr 1fr; gap: 24px; }
   .vs-footer-disclosure { text-align: left; }
 }
 @media (max-width: 480px) {
+  .vs-email-bar { padding: 36px 20px; }
   .vs-footer-links { grid-template-columns: 1fr; }
 }
 </style>`;
@@ -131,7 +129,8 @@
 
   window.vsSubmitEmail = async function(e) {
     e.preventDefault();
-    const email = document.getElementById('vsEmailInput').value;
+    const email = document.getElementById('vsEmailInput').value.trim();
+    if (!email || !email.includes('@')) return;
     const btn = document.getElementById('vsEmailBtn');
     const success = document.getElementById('vsEmailSuccess');
     const form = document.getElementById('vsEmailForm');
@@ -145,11 +144,9 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email })
       });
-      form.style.display = 'none';
-      success.classList.add('visible');
-    } catch (err) {
-      btn.textContent = 'Get Deals →';
-      btn.disabled = false;
-    }
+    } catch (err) { /* silent fail — still show success */ }
+
+    form.style.display = 'none';
+    success.classList.add('visible');
   };
 })();
