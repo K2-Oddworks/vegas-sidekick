@@ -11,7 +11,7 @@
   <meta property="og:type" content="article">
   <meta property="og:title" content="Blue Dot Fever: What Concert Tour Cancellations Mean for Vegas Visitors">
   <meta property="og:description" content="Big-name artists are canceling tours as ticket prices hit record highs and gas prices squeeze road-trip budgets. Here's why Las Vegas entertainment is a different story.">
-  <meta property="og:image" content="https://vegassidekick.com/images/news/live-nation-may-2026-arena.png">
+  <meta property="og:image" content="https://vegassidekick.com/images/news/blue-dot-fever-seating-chart.png">
   <meta property="og:url" content="https://vegassidekick.com/news/blue-dot-fever-what-it-means-for-vegas/">
   <meta property="og:site_name" content="Vegas Sidekick">
   <meta property="article:published_time" content="2026-05-10T09:00:00-07:00">
@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Blue Dot Fever: What Concert Tour Cancellations Mean for Vegas Visitors">
   <meta name="twitter:description" content="Artists are canceling tours, gas prices are up, and the economics of live entertainment are shifting. Here's what it means for your Vegas trip.">
-  <meta name="twitter:image" content="https://vegassidekick.com/images/news/live-nation-may-2026-arena.png">
+  <meta name="twitter:image" content="https://vegassidekick.com/images/news/blue-dot-fever-seating-chart.png">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,7 +37,8 @@
       "headline": "Blue Dot Fever: What Concert Tour Cancellations Mean for Vegas Visitors",
       "description": "Big-name artists are canceling tours as ticket prices hit record highs and gas prices squeeze road-trip budgets. Here's what blue dot fever means if you're heading to Las Vegas.",
       "image": [
-        "https://vegassidekick.com/images/news/live-nation-may-2026-arena.png",
+        "https://vegassidekick.com/images/news/blue-dot-fever-seating-chart.png",
+        "https://vegassidekick.com/images/news/blue-dot-fever-gas-prices-vegas.png",
         "https://vegassidekick.com/images/news/eagles-sphere-inside-route66.png"
       ],
       "datePublished": "2026-05-10T09:00:00-07:00",
@@ -105,6 +106,7 @@
       transition: width 0.1s linear;
     }
 
+    /* ── Hero ── */
     .article-hero {
       position: relative;
       height: 560px;
@@ -189,7 +191,7 @@
     }
 
     .byline { font-weight: 600; color: rgba(255,255,255,0.8); }
-    .read-time::before { content: '\00b7'; margin-right: 16px; }
+    .read-time::before { content: '·'; margin-right: 16px; }
 
     .author-tagline {
       font-size: 0.82rem;
@@ -198,6 +200,7 @@
       font-style: italic;
     }
 
+    /* ── Body ── */
     .article-body-wrap {
       background: var(--navy);
       padding: 0 0 80px;
@@ -228,6 +231,7 @@
       margin: 44px 0 16px;
     }
 
+    /* ── Stat callout ── */
     .stat-callout {
       background: rgba(255,107,0,0.08);
       border-left: 4px solid var(--orange);
@@ -250,6 +254,7 @@
       color: var(--gray-300);
     }
 
+    /* ── Inline Images ── */
     .article-image {
       width: 100%;
       border-radius: 6px;
@@ -264,6 +269,7 @@
       font-style: italic;
     }
 
+    /* ── Artist grid ── */
     .artist-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -294,6 +300,7 @@
       line-height: 1.5;
     }
 
+    /* ── Email Capture ── */
     .email-capture {
       background: linear-gradient(135deg, rgba(26,107,255,0.15) 0%, rgba(255,107,0,0.1) 100%);
       border: 1px solid rgba(255,107,0,0.3);
@@ -364,6 +371,7 @@
       font-weight: 600;
     }
 
+    /* ── Vegas difference box ── */
     .vegas-difference {
       background: linear-gradient(135deg, rgba(26,107,255,0.1) 0%, rgba(10,22,40,0) 100%);
       border: 1px solid rgba(26,107,255,0.25);
@@ -389,6 +397,7 @@
 
     .vegas-difference p:last-child { margin-bottom: 0; }
 
+    /* ── Article Tags ── */
     .article-tags {
       display: flex;
       flex-wrap: wrap;
@@ -412,6 +421,37 @@
 
     .article-tag:hover { border-color: var(--orange); color: var(--orange); }
 
+    /* ── Kris Kidd pullquote ── */
+    .expert-quote {
+      border-left: 4px solid var(--orange);
+      background: rgba(255,107,0,0.06);
+      border-radius: 0 8px 8px 0;
+      padding: 24px 28px;
+      margin: 40px 0;
+    }
+
+    .expert-quote blockquote {
+      font-size: 1.15rem;
+      font-style: italic;
+      color: rgba(255,255,255,0.9);
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+
+    .expert-quote cite {
+      font-size: 0.82rem;
+      font-style: normal;
+      font-weight: 700;
+      color: var(--orange);
+      letter-spacing: 0.5px;
+    }
+
+    .expert-quote cite span {
+      font-weight: 400;
+      color: var(--gray-300);
+    }
+
+    /* ── Author Bio ── */
     .author-bio {
       max-width: 780px;
       margin: 0 auto;
@@ -437,6 +477,7 @@
       font-weight: 700;
     }
 
+    /* ── While You're in Vegas ── */
     .article-shows {
       max-width: 780px;
       margin: 0 auto;
@@ -512,11 +553,13 @@
       color: var(--orange);
     }
 
+    /* ── Animations ── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* ── Responsive ── */
     @media (max-width: 900px) {
       .article-hero { height: 460px; }
       .article-hero-content { padding: 32px 24px 40px; }
@@ -543,10 +586,11 @@
 <div id="vs-progress" aria-hidden="true"></div>
 <div id="vs-header"></div>
 
+<!-- Article Hero -->
 <div class="article-hero">
   <img
-    src="/images/news/live-nation-may-2026-arena.png"
-    alt="Packed concert arena with confetti falling and thousands of fans cheering under dramatic stage lighting"
+    src="/images/news/blue-dot-fever-seating-chart.png"
+    alt="Aerial view of a massive concert arena with thousands of blue dots marking empty available seats surrounding a warm gold-lit stage — a visual representation of blue dot fever in the live music industry"
     fetchpriority="high"
   />
   <div class="article-hero-overlay">
@@ -570,6 +614,7 @@
   </div>
 </div>
 
+<!-- Article Body -->
 <div class="article-body-wrap">
   <div class="article-body">
 
@@ -577,7 +622,7 @@
 
       <p>The music industry has a new diagnosis — and it shows up as a sea of empty blue dots on Ticketmaster venue maps. <strong>Meghan Trainor, Zayn Malik, Post Malone, and the Pussycat Dolls</strong> have all cancelled shows or pulled entire tour legs in recent weeks. Artists are citing health, family, and creative priorities. Fans are pointing at the seating maps.</p>
 
-      <p>The term “blue dot fever” comes from Ticketmaster’s interface, where available seats appear as blue dots. When large sections of a venue are still showing blue close to show time, it signals that demand isn’t keeping pace with ambition — or price. It’s becoming a pattern, and it’s worth understanding if you’re planning any kind of trip around live entertainment.</p>
+      <p>The term "blue dot fever" comes from Ticketmaster's interface, where available seats appear as blue dots. When large sections of a venue are still showing blue close to show time, it signals that demand isn't keeping pace with ambition — or price. It's becoming a pattern, and it's worth understanding if you're planning any kind of trip around live entertainment.</p>
 
       <h2>The Artists Who Pulled Back</h2>
 
@@ -596,11 +641,11 @@
         </div>
         <div class="artist-card">
           <h4>Pussycat Dolls</h4>
-          <p>Cancelled the US leg of their comeback tour after “taking an honest look” at the North American run. Unlike the others, they actually referenced demand directly. Tickets had been priced at a relatively modest $50–$120.</p>
+          <p>Cancelled the US leg of their comeback tour after "taking an honest look" at the North American run. Unlike the others, they actually referenced demand directly. Tickets had been priced at a relatively modest $50–$120.</p>
         </div>
       </div>
 
-      <p>What’s notable is that even affordable pricing didn’t save the Pussycat Dolls run. That points to something bigger than just sticker shock.</p>
+      <p>What's notable is that even affordable pricing didn't save the Pussycat Dolls run. That points to something bigger than just sticker shock.</p>
 
       <h2>The Economics Behind It</h2>
 
@@ -611,10 +656,11 @@
 
       <p>The post-pandemic live music boom was real. Pent-up demand sent tours soaring. Taylor Swift broke records. Stadiums sold out. Artists and promoters set prices accordingly — and fans paid. But that era of tolerance appears to be ending.</p>
 
-      <p>Fans now aren’t just absorbing the ticket cost. They’re absorbing hotels, travel, merchandise, and food. The total outlay for a single concert weekend can easily run $1,000+ for a family. At some point, the math stops working.</p>
+      <p>Fans now aren't just absorbing the ticket cost. They're absorbing hotels, travel, merchandise, and food. The total outlay for a single concert weekend can easily run $1,000+ for a family. At some point, the math stops working.</p>
 
-      <p>On the production side, modern tours are enormous logistical operations. Fleets of trucks move staging, rigging, lighting, and sound equipment from city to city. Fuel costs are a significant line item — and they’ve climbed. National average gas prices have moved from around $3 to roughly $4.50, a meaningful jump when you’re running dozens of trucks cross-country. Jet fuel costs have risen too, squeezing tour budgets that were built on earlier projections.</p>
+      <p>On the production side, modern tours are enormous logistical operations. Fleets of trucks move staging, rigging, lighting, and sound equipment from city to city. Fuel costs are a significant line item — and they've climbed. National average gas prices have moved from around $3 to roughly $4.50, a meaningful jump when you're running dozens of trucks cross-country. Jet fuel costs have risen too, squeezing tour budgets that were built on earlier projections.</p>
 
+      <!-- Email capture -->
       <div class="email-capture">
         <h3>Stay Ahead of the News</h3>
         <p>Vegas show announcements, cancellations, and deals — direct to your inbox.</p>
@@ -622,14 +668,26 @@
           <input type="email" id="ec-email-1" placeholder="Your email address" autocomplete="email">
           <button onclick="vsBrevoSignup('ec-email-1', 'ec-success-1')">Notify Me</button>
         </div>
-        <p class="ec-success" id="ec-success-1">You’re in. We’ll keep you posted.</p>
+        <p class="ec-success" id="ec-success-1">You're in. We'll keep you posted.</p>
       </div>
 
-      <h2>What It Means If You’re Driving to Vegas</h2>
+      <div class="expert-quote">
+        <blockquote>"Twenty years in Las Vegas entertainment. The road was always going to break eventually — fuel costs, crew costs, the logistical weight of moving a stadium show from city to city. Vegas residencies don't have that problem. They never did. The smart acts figured that out first."</blockquote>
+        <cite>Kris Kidd <span>— Founder, Vegas Sidekick. Entertainment industry veteran.</span></cite>
+      </div>
+
+      <h2>What It Means If You're Driving to Vegas</h2>
 
       <p>Millions of people road-trip to Las Vegas — from Southern California, Arizona, Utah, New Mexico. For a lot of families and groups, driving is the whole budget strategy: skip the flight, save the money for shows and restaurants. That calculus has gotten harder.</p>
 
-      <p>A round trip from Los Angeles used to cost maybe $50–$60 in gas for a typical vehicle. At today’s prices, that same trip pushes closer to $80–$90. From Phoenix it’s similar. From Salt Lake City, you’re looking at even more. It’s not a crisis, but it’s a real number when you’re already spending on hotels and entertainment.</p>
+      <p>A round trip from Los Angeles used to cost maybe $50–$60 in gas for a typical vehicle. At today's prices, that same trip pushes closer to $80–$90. From Phoenix it's similar. From Salt Lake City, you're looking at even more. It's not a crisis, but it's a real number when you're already spending on hotels and entertainment.</p>
+
+      <img
+        src="/images/news/blue-dot-fever-gas-prices-vegas.png"
+        alt="A car drives toward the Las Vegas Strip at sunset past a Shell gas station price sign showing $4.49, $4.69, and $4.89 per gallon — rising fuel costs hit Vegas road-trippers hard"
+        class="article-image"
+      />
+      <p class="image-caption">Gas at $4.49–$4.89 heading into Vegas. A round trip from LA that once cost $55 is now closer to $90.</p>
 
       <p>The practical advice: factor gas into your budget upfront rather than treating it as rounding error. And if you were planning your trip specifically around a touring act — whether here in Vegas or anywhere else — check the seating maps before you commit. Blue dots are a signal worth reading.</p>
 
@@ -637,34 +695,35 @@
 
       <img
         src="/images/news/eagles-sphere-inside-route66.png"
-        alt="Inside Sphere Las Vegas — 18,000 fans look up at the world’s largest LED ceiling during an Eagles performance, filling every seat in the house"
+        alt="Inside Sphere Las Vegas — 18,000 fans look up at the world's largest LED ceiling during an Eagles performance, filling every seat in the house"
         class="article-image"
       />
       <p class="image-caption">The Eagles at Sphere — 64 confirmed shows, consistently sold out. Vegas residencies operate on a fundamentally different model than touring acts.</p>
 
       <div class="vegas-difference">
-        <h3>Residencies Don’t Have This Problem</h3>
-        <p>The Eagles aren’t loading trucks. Cirque du Soleil isn’t routing dates across 40 cities. The comedy clubs and magic shows on the Strip aren’t repricing tickets every week based on dynamic demand algorithms.</p>
-        <p>Las Vegas entertainment runs on a residency model. Shows are built for specific venues, their costs are stable and known in advance, and they aren’t trying to fill a 60,000-seat stadium in markets where they’ve overestimated their draw. The economics are completely different.</p>
-        <p>The biggest stadium acts — the ones blue dot fever can’t touch — are largely selling out regardless. It’s the mid-tier touring artist in an arena or amphitheater who’s most exposed. Las Vegas, by design, doesn’t rely on that tier. The entertainment infrastructure here is built differently.</p>
+        <h3>Residencies Don't Have This Problem</h3>
+        <p>The Eagles aren't loading trucks. Cirque du Soleil isn't routing dates across 40 cities. The comedy clubs and magic shows on the Strip aren't repricing tickets every week based on dynamic demand algorithms.</p>
+        <p>Las Vegas entertainment runs on a residency model. Shows are built for specific venues, their costs are stable and known in advance, and they aren't trying to fill a 60,000-seat stadium in markets where they've overestimated their draw. The economics are completely different.</p>
+        <p>The biggest stadium acts — the ones blue dot fever can't touch — are largely selling out regardless. It's the mid-tier touring artist in an arena or amphitheater who's most exposed. Las Vegas, by design, doesn't rely on that tier. The entertainment infrastructure here is built differently.</p>
       </div>
 
-      <p>That’s not just good news for Vegas as a destination — it’s good news for you as a visitor. When you book a show here, you’re booking something that’s been running for months or years, in a venue purpose-built for it, with a production that’s been refined night after night. The chances of showing up and finding out it’s cancelled are low. Compare that to routing a trip around a touring act in 2026.</p>
+      <p>That's not just good news for Vegas as a destination — it's good news for you as a visitor. When you book a show here, you're booking something that's been running for months or years, in a venue purpose-built for it, with a production that's been refined night after night. The chances of showing up and finding out it's cancelled are low. Compare that to routing a trip around a touring act in 2026.</p>
 
       <h2>One More Thing: The World Cup Factor</h2>
 
-      <p>This summer adds another layer of competition for entertainment dollars. The FIFA World Cup is being hosted across the United States, Canada, and Mexico — and ticket prices have drawn significant criticism. For consumers who want to attend World Cup matches, that spending may crowd out concerts and other live events. It’s one more reason mid-tier touring acts are facing a harder market than they expected, and one more reason that a Vegas trip — with its concentrated, high-quality entertainment that doesn’t require you to plan around a single touring date — looks increasingly smart.</p>
+      <p>This summer adds another layer of competition for entertainment dollars. The FIFA World Cup is being hosted across the United States, Canada, and Mexico — and ticket prices have drawn significant criticism. For consumers who want to attend World Cup matches, that spending may crowd out concerts and other live events. It's one more reason mid-tier touring acts are facing a harder market than they expected, and one more reason that a Vegas trip — with its concentrated, high-quality entertainment that doesn't require you to plan around a single touring date — looks increasingly smart.</p>
 
-      <p>The bottom line: blue dot fever is real, and it’s a market correction that was probably overdue. But Las Vegas entertainment, by its nature, is largely insulated from it. Book the shows. Come for the residencies. <strong>Just budget the gas before you leave the driveway.</strong></p>
+      <p>The bottom line: blue dot fever is real, and it's a market correction that was probably overdue. But Las Vegas entertainment, by its nature, is largely insulated from it. Book the shows. Come for the residencies. <strong>Just budget the gas before you leave the driveway.</strong></p>
 
+      <!-- Bottom email capture -->
       <div class="email-capture">
         <h3>Know Before You Go</h3>
-        <p>We track what’s opening, what’s closing, and what’s worth your money in Vegas.</p>
+        <p>We track what's opening, what's closing, and what's worth your money in Vegas.</p>
         <div class="ec-form">
           <input type="email" id="ec-email-2" placeholder="Your email address" autocomplete="email">
           <button onclick="vsBrevoSignup('ec-email-2', 'ec-success-2')">Get Updates</button>
         </div>
-        <p class="ec-success" id="ec-success-2">You’re on the list.</p>
+        <p class="ec-success" id="ec-success-2">You're on the list.</p>
       </div>
 
       <div class="article-tags">
@@ -679,6 +738,7 @@
     </article>
   </div>
 
+  <!-- Author Bio -->
   <div class="author-bio">
     <div class="author-bio-inner">
       <div class="author-bio-text">
@@ -687,9 +747,10 @@
     </div>
   </div>
 
+  <!-- While You're in Vegas -->
   <div class="article-shows">
     <div class="article-shows-header">
-      <h3>Shows That Aren’t Going Anywhere</h3>
+      <h3>Shows That Aren't Going Anywhere</h3>
     </div>
     <div class="article-shows-grid">
       <a href="/shows/cirque/ka/" class="article-show-card">
@@ -726,6 +787,7 @@
 <script src="/components/header.js"></script>
 <script src="/components/footer.js"></script>
 <script>
+  // Reading progress bar
   window.addEventListener('scroll', () => {
     const doc = document.documentElement;
     const scrollTop = doc.scrollTop || document.body.scrollTop;
@@ -735,6 +797,7 @@
     if (bar) bar.style.width = progress + '%';
   });
 
+  // Brevo email signup
   function vsBrevoSignup(inputId, successId) {
     const input = document.getElementById(inputId);
     const successEl = document.getElementById(successId);
