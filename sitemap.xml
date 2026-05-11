@@ -52,6 +52,24 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://vegassidekick.com/shows/comedy/marriage-can-be-murder/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-10</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/comedy/las-vegas-live-comedy-club/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-10</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/magic/shin-lim/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-11</lastmod>
+  </url>
+  <url>
     <loc>https://vegassidekick.com/news/</loc>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>

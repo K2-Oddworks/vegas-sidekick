@@ -13,7 +13,7 @@
     "name": "Las Vegas Comedy Shows",
     "description": "All comedy shows currently running in Las Vegas.",
     "url": "https://vegassidekick.com/shows/comedy/",
-    "numberOfItems": 8,
+    "numberOfItems": 10,
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Carrot Top", "url": "https://vegassidekick.com/shows/comedy/carrot-top/" },
       { "@type": "ListItem", "position": 2, "name": "Laugh Factory Las Vegas", "url": "https://vegassidekick.com/shows/comedy/laugh-factory/" },
@@ -22,7 +22,9 @@
       { "@type": "ListItem", "position": 5, "name": "Tape Face", "url": "https://vegassidekick.com/shows/comedy/tape-face/" },
       { "@type": "ListItem", "position": 6, "name": "Comedy Cellar Las Vegas", "url": "https://vegassidekick.com/shows/comedy/comedy-cellar/" },
       { "@type": "ListItem", "position": 7, "name": "Popovich Comedy Pet Theater", "url": "https://vegassidekick.com/shows/comedy/popovich-comedy-pet-theater/" },
-      { "@type": "ListItem", "position": 8, "name": "LA Comedy Club Las Vegas", "url": "https://vegassidekick.com/shows/comedy/la-comedy-club/" }
+      { "@type": "ListItem", "position": 8, "name": "LA Comedy Club Las Vegas", "url": "https://vegassidekick.com/shows/comedy/la-comedy-club/" },
+      { "@type": "ListItem", "position": 9, "name": "Marriage Can Be Murder", "url": "https://vegassidekick.com/shows/comedy/marriage-can-be-murder/" },
+      { "@type": "ListItem", "position": 10, "name": "Las Vegas Live Comedy Club", "url": "https://vegassidekick.com/shows/comedy/las-vegas-live-comedy-club/" }
     ]
   }
   </script>
@@ -199,11 +201,11 @@
     <div class="hero-left">
       <div class="hero-eyebrow">Las Vegas · Comedy Shows</div>
       <h1 class="hero-title">Las Vegas Comedy Shows — <span>All Tickets & Prices</span></h1>
-      <p class="hero-sub">Six comedy shows on the Strip — from family-friendly animal acts to 18+ stand-up. Prices from $28. We'll tell you which ones are actually worth it and why. No fluff.</p>
+      <p class="hero-sub">Nine comedy shows across Las Vegas — from family-friendly animal acts to 18+ stand-up to an interactive murder mystery dinner show. Prices from $28. We'll tell you which ones are actually worth it and why. No fluff.</p>
       <div class="hero-stats">
-        <div class="hero-stat"><div class="hero-stat-num">6</div><div class="hero-stat-lbl">Shows Running</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">9</div><div class="hero-stat-lbl">Shows Running</div></div>
         <div class="hero-stat"><div class="hero-stat-num">$28</div><div class="hero-stat-lbl">Starting Price</div></div>
-        <div class="hero-stat"><div class="hero-stat-num">6</div><div class="hero-stat-lbl">Venues</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">9</div><div class="hero-stat-lbl">Venues</div></div>
       </div>
 
       <!-- FEATURED: CARROT TOP -->
@@ -268,6 +270,14 @@
             <div class="sb-link-left"><div class="sb-link-name">Popovich Comedy Pet Theater</div><div class="sb-link-venue">Planet Hollywood</div></div>
             <div class="sb-link-price">$31</div>
           </a>
+          <a href="/shows/comedy/marriage-can-be-murder/" class="sb-link">
+            <div class="sb-link-left"><div class="sb-link-name">Marriage Can Be Murder</div><div class="sb-link-venue">D Las Vegas · Fremont St</div></div>
+            <div class="sb-link-price">$70</div>
+          </a>
+          <a href="/shows/comedy/las-vegas-live-comedy-club/" class="sb-link">
+            <div class="sb-link-left"><div class="sb-link-name">Las Vegas Live Comedy Club</div><div class="sb-link-venue">Las Vegas</div></div>
+            <div class="sb-link-price">$30</div>
+          </a>
         </div>
         <div class="sb-div"></div>
         <div class="sb-email">
@@ -295,7 +305,7 @@
           <button class="filter-btn" onclick="sortShows('za')" id="btn-za">Z → A</button>
           <button class="filter-btn" onclick="sortShows('price-asc')" id="btn-price-asc">Price ↑</button>
           <button class="filter-btn" onclick="sortShows('price-desc')" id="btn-price-desc">Price ↓</button>
-          <span class="filter-count" id="filterCount">7 shows</span>
+          <span class="filter-count" id="filterCount">9 shows</span>
         </div>
       </div>
 
@@ -470,6 +480,54 @@
           </div>
         </a>
 
+        <!-- MARRIAGE CAN BE MURDER -->
+        <a href="/shows/comedy/marriage-can-be-murder/" class="show-card" data-name="Marriage Can Be Murder" data-price="70">
+          <div class="show-card-img">
+            <img src="/images/marriage-can-be-murder-hero.jpg" alt="Marriage Can Be Murder interactive murder mystery dinner show at D Las Vegas Fremont Street" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+            <div class="card-ph" style="display:none">🔍</div>
+          </div>
+          <div class="show-card-body">
+            <div class="show-card-venue">D Las Vegas · Fremont Street</div>
+            <div class="show-card-name">Marriage Can Be Murder</div>
+            <div class="show-card-tags">
+              <span class="show-card-tag">🍽️ Dinner Included</span>
+              <span class="show-card-tag">🗓️ Wed–Sat</span>
+              <span class="show-card-tag">7:30PM</span>
+            </div>
+          </div>
+          <div class="show-card-right">
+            <div class="show-card-price">
+              <div class="card-p-our">$70</div>
+              <div class="card-p-was">$89</div>
+            </div>
+            <span class="btn-card">Get Tickets →</span>
+          </div>
+        </a>
+
+        <!-- LAS VEGAS LIVE COMEDY CLUB -->
+        <a href="/shows/comedy/las-vegas-live-comedy-club/" class="show-card" data-name="Las Vegas Live Comedy Club" data-price="30">
+          <div class="show-card-img">
+            <img src="/images/las-vegas-live-comedy-club-hero.jpg" alt="Las Vegas Live Comedy Club stand-up comedy rotating headliners Las Vegas" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+            <div class="card-ph" style="display:none">🎤</div>
+          </div>
+          <div class="show-card-body">
+            <div class="show-card-venue">Las Vegas</div>
+            <div class="show-card-name">Las Vegas Live Comedy Club</div>
+            <div class="show-card-tags">
+              <span class="show-card-tag">🔞 18+</span>
+              <span class="show-card-tag">🗓️ Nightly</span>
+              <span class="show-card-tag">Multiple Shows</span>
+            </div>
+          </div>
+          <div class="show-card-right">
+            <div class="show-card-price">
+              <div class="card-p-our">$30</div>
+              <div class="card-p-was">$50</div>
+            </div>
+            <span class="btn-card">Get Tickets →</span>
+          </div>
+        </a>
+
       </div>
     </div>
 
@@ -496,7 +554,7 @@
 <script src="/components/footer.js"></script>
 
 <script>
-  const defaultOrder = ['Laugh Factory Las Vegas', 'Marc Savard Comedy Hypnosis', "Brad Garrett's Comedy Club", 'Tape Face', 'Comedy Cellar', 'LA Comedy Club Las Vegas', 'Popovich Comedy Pet Theater'];
+  const defaultOrder = ['Laugh Factory Las Vegas', 'Marc Savard Comedy Hypnosis', "Brad Garrett's Comedy Club", 'Tape Face', 'Comedy Cellar', 'LA Comedy Club Las Vegas', 'Popovich Comedy Pet Theater', 'Marriage Can Be Murder', 'Las Vegas Live Comedy Club'];
 
   function sortShows(mode) {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
