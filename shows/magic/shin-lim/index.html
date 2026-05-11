@@ -303,8 +303,7 @@
 </head>
 <body>
 <div id="progress-bar" aria-hidden="true"></div>
-
-<script src="/components/header.js"></script>
+<div id="vs-header"></div>
 
 <section class="hero" aria-label="Show hero">
   <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -825,6 +824,7 @@
   </div>
 </div>
 
+<div id="vs-footer"></div>
 <script src="/components/footer.js"></script>
 
 <script>
@@ -912,5 +912,6 @@
     z.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); z.click(); } });
   });
 </script>
+<script src="/components/header.js"></script>
 </body>
 </html>
