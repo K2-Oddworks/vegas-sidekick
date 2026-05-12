@@ -87,12 +87,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://vegassidekick.com/shows/magic/shin-lim/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <lastmod>2026-05-11</lastmod>
-  </url>
-  <url>
     <loc>https://vegassidekick.com/shows/comedy/marriage-can-be-murder/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -131,6 +125,12 @@
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <lastmod>2026-05-07</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/news/matt-rife-stay-golden-dolby-live-december-4/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2026-05-12</lastmod>
   </url>
   <url>
     <loc>https://vegassidekick.com/news/blue-dot-fever-what-it-means-for-vegas/</loc>
