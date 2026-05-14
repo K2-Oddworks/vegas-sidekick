@@ -7,1162 +7,1735 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vegas Sidekick | Biggest Shows. Real Discounts. No BS.</title>
   <meta name="description" content="Handpicked Las Vegas show tickets at legit discounts. No membership, no hidden fees, no markup games. Your Vegas insider — guaranteed." />
+  <meta property="og:title" content="Vegas Sidekick | Biggest Shows. Real Discounts. No BS." />
+  <meta property="og:description" content="Handpicked Las Vegas show tickets at legit discounts. No membership, no hidden fees, no markup games. Your Vegas insider — guaranteed." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://vegassidekick.com/" />
+  <meta property="og:image" content="/images/logo-pill-alt.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,600;0,700;1,400&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600&family=Barlow+Condensed:wght@800&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --navy: #0A1628;
-      --navy-mid: #0D1F3C;
-      --navy-light: #122448;
-      --blue: #1A6BFF;
-      --blue-bright: #1A6BFF;
-      --orange: #FF6B00;
-      --orange-bright: #FF8C2A;
-      --white: #FFFFFF;
-      --gray: #A8B4C4;
-      --gray-light: #D4DCE8;
-      --card-bg: #0F1E38;
+      --navy:   #0A0F2C;
+      --blue:   #1A6BFF;
+      --orange: #FF6B2B;
+      --white:  #FFFFFF;
+      --tint:   #F0F5FF;
+      --gray:   #8896A8;
+      --gray-dark: #4A5568;
+      --card-border: #E8EEF8;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--navy);
-      color: var(--white);
+      background: var(--white);
+      color: var(--navy);
       font-family: 'Barlow', sans-serif;
       font-size: 16px;
       line-height: 1.6;
       overflow-x: hidden;
+      padding-top: 89px; /* real header 84px + gradient bar 5px */
     }
 
-    /* ── STARFIELD ── */
-    body::before {
-      content: '';
+    /* ── PROGRESS BAR ── */
+    #progress-bar {
       position: fixed;
-      inset: 0;
-      background-image:
-        radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.6) 0%, transparent 100%),
-        radial-gradient(1px 1px at 25% 40%, rgba(255,255,255,0.4) 0%, transparent 100%),
-        radial-gradient(1.5px 1.5px at 45% 8%, rgba(255,255,255,0.5) 0%, transparent 100%),
-        radial-gradient(1px 1px at 60% 30%, rgba(255,255,255,0.3) 0%, transparent 100%),
-        radial-gradient(1px 1px at 75% 55%, rgba(255,255,255,0.5) 0%, transparent 100%),
-        radial-gradient(1.5px 1.5px at 88% 12%, rgba(255,255,255,0.4) 0%, transparent 100%),
-        radial-gradient(1px 1px at 33% 70%, rgba(255,255,255,0.3) 0%, transparent 100%),
-        radial-gradient(1px 1px at 55% 80%, rgba(255,255,255,0.4) 0%, transparent 100%),
-        radial-gradient(1px 1px at 92% 75%, rgba(255,255,255,0.3) 0%, transparent 100%),
-        radial-gradient(1.5px 1.5px at 18% 90%, rgba(255,255,255,0.5) 0%, transparent 100%);
-      pointer-events: none;
-      z-index: 0;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: var(--blue);
+      z-index: 9999;
+      transition: width 0.1s linear;
     }
 
-    /* ── NAV ── */
-    nav {
+    /* ── GRADIENT SEPARATOR BAR ── */
+    .gradient-bar {
       position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 40px;
-      background: rgba(10,22,40,0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(26,107,255,0.15);
+      top: 84px; /* header.js nav height on desktop */
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(to right, var(--orange), var(--blue));
+      z-index: 199;
     }
 
-    .nav-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.6rem;
-      color: var(--blue-bright);
-      letter-spacing: 2px;
-      text-decoration: none;
+    @media (max-width: 900px) {
+      body { padding-top: 65px; } /* real header 60px + gradient bar 5px */
+      .gradient-bar { top: 60px; } /* mobile header height */
     }
-    .nav-logo span { color: var(--orange); }
-
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      list-style: none;
-    }
-    .nav-links a {
-      color: var(--gray-light);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.85rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--orange); }
-
-    .nav-cta {
-      background: var(--orange);
-      color: var(--white) !important;
-      padding: 8px 20px;
-      border-radius: 4px;
-      transition: background 0.2s !important;
-    }
-    .nav-cta:hover { background: var(--orange-bright) !important; color: var(--white) !important; }
 
     /* ── HERO ── */
     .hero {
-      position: relative;
-      z-index: 1;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: 120px 40px 80px;
-      background: linear-gradient(135deg, #0A1628 0%, #0D1F3C 50%, #0A1628 100%);
-      overflow: hidden;
-    }
-
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: -1px; left: 0; right: 0;
-      height: 80px;
-      background: linear-gradient(to bottom, transparent, var(--navy));
-      z-index: 2;
-    }
-
-    .hero-glow {
-      position: absolute;
-      top: -200px; right: -200px;
-      width: 700px; height: 700px;
-      background: radial-gradient(circle, rgba(255,107,0,0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .hero-glow-blue {
-      position: absolute;
-      bottom: -100px; left: -100px;
-      width: 500px; height: 500px;
-      background: radial-gradient(circle, rgba(26,107,255,0.07) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 60px;
-      align-items: center;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(26,107,255,0.12);
-      border: 1px solid rgba(26,107,255,0.3);
-      border-radius: 100px;
-      padding: 6px 16px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--blue-bright);
-      margin-bottom: 24px;
-      animation: fadeUp 0.6s ease both;
-    }
-    .hero-badge::before {
-      content: '•';
-      color: var(--orange);
-      font-size: 1rem;
-    }
-
-    .hero-headline {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(3.5rem, 8vw, 7rem);
-      line-height: 0.95;
-      letter-spacing: 2px;
-      animation: fadeUp 0.6s ease 0.1s both;
-    }
-    .hero-headline .line-blue { color: var(--blue-bright); display: block; }
-    .hero-headline .line-white { color: var(--white); display: block; }
-    .hero-headline .line-orange { color: var(--orange); display: block; }
-
-    .hero-sub {
-      margin-top: 24px;
-      font-size: 1.1rem;
-      color: var(--gray);
-      max-width: 520px;
-      line-height: 1.7;
-      animation: fadeUp 0.6s ease 0.2s both;
-    }
-
-    .hero-trust {
-      display: flex;
-      gap: 20px;
-      margin-top: 24px;
-      flex-wrap: wrap;
-      animation: fadeUp 0.6s ease 0.25s both;
-    }
-    .trust-pill {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--gray-light);
-      letter-spacing: 0.5px;
-    }
-    .trust-pill .check {
-      width: 18px; height: 18px;
-      background: rgba(26,107,255,0.2);
-      border: 1px solid var(--blue);
-      border-radius: 50%;
+      background: var(--navy);
+      padding: 60px 40px 80px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.6rem;
-      color: var(--blue-bright);
+      gap: 48px;
+      min-height: 88vh;
+      position: relative;
+      overflow: hidden;
     }
 
-    .hero-buttons {
+    /* subtle starfield */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 8% 12%, rgba(255,255,255,0.55) 0%, transparent 100%),
+        radial-gradient(1px 1px at 22% 38%, rgba(255,255,255,0.35) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 40% 7%, rgba(255,255,255,0.45) 0%, transparent 100%),
+        radial-gradient(1px 1px at 58% 28%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 70% 55%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 82% 18%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 93% 72%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 14% 65%, rgba(255,255,255,0.25) 0%, transparent 100%),
+        radial-gradient(1px 1px at 35% 82%, rgba(255,255,255,0.35) 0%, transparent 100%),
+        radial-gradient(1px 1px at 76% 90%, rgba(255,255,255,0.2) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      flex: 1 1 0;
+      max-width: 580px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      border: 1.5px solid var(--blue);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 600;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.2rem, 7vw, 6rem);
+      line-height: 1.0;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 .blue  { color: var(--blue); }
+    .hero h1 .white { color: var(--white); }
+    .hero h1 .orange { color: var(--orange); }
+
+    .hero-sub {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 400;
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.78);
+      margin-bottom: 28px;
+      max-width: 480px;
+      line-height: 1.65;
+    }
+
+    .trust-badges {
       display: flex;
-      gap: 16px;
-      margin-top: 36px;
       flex-wrap: wrap;
-      animation: fadeUp 0.6s ease 0.3s both;
+      gap: 18px;
+      margin-bottom: 36px;
+    }
+
+    .trust-badges span {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--white);
+    }
+
+    .trust-badges span::first-letter {
+      color: var(--blue);
+    }
+
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
     }
 
     .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      display: inline-block;
       background: var(--orange);
-      color: var(--navy);
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      padding: 16px 32px;
-      border-radius: 6px;
+      color: var(--white);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.05em;
+      padding: 14px 32px;
+      border-radius: 8px;
       text-decoration: none;
-      border: none;
+      border: 2px solid var(--orange);
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
       cursor: pointer;
-      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-      box-shadow: 0 4px 20px rgba(255,107,0,0.3);
     }
+
     .btn-primary:hover {
-      background: var(--orange-bright);
+      background: #e55a1e;
+      border-color: #e55a1e;
       transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(255,107,0,0.4);
+      box-shadow: 0 6px 20px rgba(255,107,43,0.35);
     }
 
     .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      display: inline-block;
       background: transparent;
       color: var(--white);
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      padding: 16px 32px;
-      border-radius: 6px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.05em;
+      padding: 14px 32px;
+      border-radius: 8px;
       text-decoration: none;
-      border: 1px solid rgba(255,255,255,0.25);
+      border: 2px solid var(--blue);
+      transition: background 0.2s, transform 0.2s;
       cursor: pointer;
-      transition: border-color 0.2s, background 0.2s, transform 0.15s;
     }
+
     .btn-secondary:hover {
-      border-color: var(--blue-bright);
-      background: rgba(26,107,255,0.08);
+      background: rgba(26,107,255,0.12);
       transform: translateY(-2px);
     }
 
-    .hero-logo {
-      width: clamp(200px, 22vw, 320px);
-      animation: fadeIn 0.8s ease 0.4s both, float 4s ease-in-out 1.2s infinite;
-      filter: drop-shadow(0 20px 60px rgba(255,107,0,0.25));
-    }
-
-    /* ── CATEGORIES ── */
-    .section {
+    /* Spike right column */
+    .hero-spike {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
       position: relative;
       z-index: 1;
-      padding: 80px 40px;
+    }
+
+    .spike-wrap {
+      max-width: 380px;
+      width: 100%;
+    }
+
+    .spike-wrap img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 8px 32px rgba(26,107,255,0.25)) drop-shadow(0 0 60px rgba(255,107,43,0.12));
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 48px 24px 60px;
+        min-height: auto;
+        gap: 32px;
+      }
+      .hero-content { max-width: 100%; }
+      .trust-badges { justify-content: center; }
+      .hero-ctas { justify-content: center; }
+      .hero-spike { order: 2; }
+      .spike-wrap { max-width: 280px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero { padding: 36px 20px 48px; }
+      .hero h1 { font-size: clamp(2.8rem, 10vw, 4rem); }
+      .spike-wrap { max-width: 240px; }
+    }
+
+    /* ── TICKER ── */
+    .ticker-section {
+      background: var(--navy);
+      height: 56px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      border-top: 1px solid rgba(26,107,255,0.2);
+      border-bottom: 1px solid rgba(26,107,255,0.2);
+    }
+
+    .ticker-wrap {
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .ticker-wrap:hover .ticker-track {
+      animation-play-state: paused;
+    }
+
+    .ticker-track {
+      display: flex;
+      white-space: nowrap;
+      animation: marquee 35s linear infinite;
+      will-change: transform;
+    }
+
+    @keyframes marquee {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0;
+      padding: 0 4px;
+    }
+
+    .ticker-item a {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 600;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      text-decoration: none;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+
+    .ticker-item a:hover { color: var(--orange); }
+
+    .ticker-item .t-price {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      color: var(--orange);
+    }
+
+    .ticker-sep {
+      color: rgba(255,255,255,0.3);
+      margin: 0 16px;
+      font-size: 0.7rem;
+    }
+
+    /* ── SECTIONS GENERAL ── */
+    .section-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 60px 40px;
+    }
+
+    @media (max-width: 768px) {
+      .section-inner { padding: 48px 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .section-inner { padding: 40px 16px; }
+    }
+
+    /* ── SECTION HEADERS ── */
+    .section-heading-wrap {
+      margin-bottom: 32px;
+    }
+
+    .section-title-line {
+      display: inline-block;
+    }
+
+    .section-title-accent {
+      display: inline-block;
+      width: 48px;
+      height: 3px;
+      background: var(--orange);
+      border-radius: 2px;
+      margin-bottom: 8px;
     }
 
     .section-label {
-      font-family: 'Barlow Condensed', sans-serif;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      color: var(--navy);
+      line-height: 1.1;
+    }
+
+    .section-row-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .section-row-header .section-label {
+      font-size: clamp(1.6rem, 2.5vw, 2.1rem);
+    }
+
+    .section-view-all {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--blue);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+
+    .section-view-all:hover { color: var(--orange); }
+
+    /* ── CATEGORY GRID ── */
+    .cat-section { background: var(--white); }
+
+    .cat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .cat-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    .cat-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 160px;
+      padding: 32px 20px;
+      text-align: center;
+      background: var(--tint);
+      border: 2px solid var(--blue);
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--navy);
+      cursor: pointer;
+      box-shadow: 0 2px 12px rgba(10,15,44,0.07);
+      transition: border-color 0.22s, transform 0.22s, box-shadow 0.22s;
+    }
+
+    .cat-card:hover {
+      border-color: var(--orange);
+      transform: scale(1.03);
+      box-shadow: 0 8px 28px rgba(255,107,43,0.18);
+    }
+
+    .cat-card.cat-cta {
+      background: var(--orange);
+      border-color: var(--white);
+      color: var(--white);
+    }
+
+    .cat-card.cat-cta:hover {
+      border-color: var(--white);
+      box-shadow: 0 8px 28px rgba(255,107,43,0.4);
+    }
+
+    .cat-icon {
+      width: 52px;
+      height: 52px;
+      margin-bottom: 14px;
+      color: var(--blue);
+      flex-shrink: 0;
+    }
+
+    .cat-cta .cat-icon {
+      color: var(--white);
+    }
+
+    .cat-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 0.04em;
+    }
+
+    .cat-card.cat-cta .cat-name { color: var(--white); }
+
+    /* ── SHOW HORIZONTAL ROW ── */
+    .shows-row-section { overflow: hidden; }
+
+    .shows-scroll {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 20px;
+      padding-bottom: 16px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .shows-scroll::-webkit-scrollbar { display: none; }
+
+    /* ── SHOW CARD ── */
+    .show-card {
+      flex: 0 0 300px;
+      scroll-snap-align: start;
+      background: var(--white);
+      border: 2px solid var(--card-border);
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.22s, border-color 0.22s, box-shadow 0.22s;
+    }
+
+    .show-card:hover {
+      transform: scale(1.03);
+      border-color: var(--orange);
+      box-shadow: 0 8px 28px rgba(255,107,43,0.18);
+    }
+
+    .show-card a {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .show-card-img-wrap {
+      position: relative;
+    }
+
+    .show-card-img-wrap img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+    }
+
+    .show-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: var(--orange);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 600;
+      font-size: 0.7rem;
+      letter-spacing: 0.05em;
+      padding: 4px 10px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    .show-card-body {
+      padding: 16px 18px 20px;
+    }
+
+    .show-venue {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 600;
       font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 3px;
+      color: var(--blue);
       text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 5px;
+    }
+
+    .show-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.35rem;
+      color: var(--navy);
+      line-height: 1.1;
+      margin-bottom: 7px;
+      letter-spacing: 0.02em;
+    }
+
+    .show-desc {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 400;
+      font-size: 0.85rem;
+      color: var(--gray-dark);
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    .show-price {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1.25rem;
       color: var(--orange);
-      margin-bottom: 12px;
+      margin-bottom: 14px;
+    }
+
+    .show-cta {
+      display: inline-block;
+      background: var(--orange);
+      color: var(--white);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.06em;
+      padding: 9px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .show-cta:hover { background: #d4561f; }
+
+    /* ── VIBE STRIP ── */
+    .vibe-strip {
+      background: var(--tint);
+      padding: 24px 40px;
+    }
+
+    .vibe-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .vibe-icon {
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .vibe-text {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 400;
+      font-size: 1rem;
+      color: var(--navy);
+    }
+
+    .vibe-text strong {
+      font-weight: 600;
+    }
+
+    .btn-vibe {
+      background: var(--blue);
+      color: var(--white);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.06em;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-vibe:hover {
+      background: #1258d4;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 480px) {
+      .vibe-strip { padding: 24px 20px; }
+      .vibe-inner { gap: 14px; }
+    }
+
+    /* ── VIBE MODAL ── */
+    #vibe-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(0,0,0,0.75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+
+    #vibe-modal.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .vibe-modal-panel {
+      background: var(--navy);
+      border: 2px solid var(--blue);
+      border-radius: 16px;
+      max-width: 480px;
+      width: 90%;
+      padding: 40px 32px;
+      position: relative;
+      transform: translateY(30px);
+      transition: transform 0.3s ease;
+    }
+
+    #vibe-modal.open .vibe-modal-panel {
+      transform: translateY(0);
+    }
+
+    .vibe-modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 1.6rem;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px 8px;
+      transition: color 0.2s;
+    }
+
+    .vibe-modal-close:hover { color: var(--orange); }
+
+    .vibe-modal-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+
+    .vibe-modal-sub {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 400;
+      font-size: 0.9rem;
+      color: var(--gray);
+      margin-bottom: 24px;
+    }
+
+    .vibe-answers {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .vibe-answer {
+      background: var(--navy);
+      border: 2px solid var(--blue);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 16px 20px;
+      width: 100%;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: left;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .vibe-answer:hover {
+      border-color: var(--orange);
+      background: #0F1840;
+    }
+
+    @media (max-width: 480px) {
+      .vibe-modal-panel { padding: 32px 20px; }
+      .vibe-modal-title { font-size: 1.6rem; }
+    }
+
+    /* ── EMAIL COMPACT STRIP ── */
+    .email-compact {
+      background: var(--navy);
+      padding: 32px 40px;
+      border-top: 1px solid rgba(26,107,255,0.15);
+      border-bottom: 1px solid rgba(26,107,255,0.15);
+    }
+
+    .email-compact-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .email-compact-text {
+      flex: 1 1 200px;
+      min-width: 0;
+    }
+
+    .email-compact-label {
+      display: block;
+      font-family: 'Barlow', sans-serif;
+      font-weight: 600;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--orange);
+      margin-bottom: 4px;
+    }
+
+    .email-compact-headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    #spikes-picks-form {
+      flex: 2 1 360px;
+      display: flex;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    #spikes-picks-form input[type="email"] {
+      flex: 1 1 200px;
+      min-width: 0;
+      height: 48px;
+      background: rgba(255,255,255,0.08);
+      border: 1.5px solid rgba(255,255,255,0.22);
+      border-radius: 6px;
+      padding: 0 16px;
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.9rem;
+      color: var(--white);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    #spikes-picks-form input[type="email"]::placeholder { color: rgba(255,255,255,0.4); }
+    #spikes-picks-form input[type="email"]:focus { border-color: var(--blue); }
+
+    #spikes-picks-form button {
+      height: 48px;
+      background: var(--orange);
+      color: var(--white);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.06em;
+      padding: 0 24px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+
+    #spikes-picks-form button:hover { background: #d4561f; }
+
+    #spikes-picks-success {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--white);
+    }
+
+    @media (max-width: 768px) {
+      .email-compact { padding: 28px 20px; }
+      .email-compact-inner { gap: 20px; }
+      #spikes-picks-form { flex-direction: column; }
+      #spikes-picks-form input[type="email"],
+      #spikes-picks-form button { width: 100%; flex: none; }
+    }
+
+
+    @media (min-width: 481px) and (max-width: 768px) {
+      footer { padding-bottom: 100px; }
+    }
+
+    /* ── MOBILE STICKY CTA BAR ── */
+    .mobile-cta-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 500;
+      display: none;
+      padding: 0;
+    }
+
+    @media (max-width: 768px) {
+      .mobile-cta-bar { display: block; }
+    }
+
+    .mobile-cta-bar a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 18px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
+      color: var(--white);
+      text-decoration: none;
+      background: linear-gradient(90deg, var(--orange) 30%, #FF9B6A 50%, var(--orange) 70%);
+      background-size: 300% auto;
+      animation: shimmer 2.5s linear infinite;
+    }
+
+    @keyframes shimmer {
+      0%   { background-position: -300% center; }
+      100% { background-position: 300% center; }
+    }
+
+    /* ── FADE-UP ANIMATION ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── EYEBROW / PICKS HEADER ── */
+    .section-eyebrow {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--orange);
+      margin-bottom: 6px;
     }
 
     .section-title {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2rem, 4vw, 3.5rem);
-      letter-spacing: 2px;
-      line-height: 1;
-      margin-bottom: 32px;
-    }
-    .section-title span { color: var(--blue-bright); }
-
-    .section-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .categories-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .category-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(26,107,255,0.12);
-      border-radius: 100px;
-      padding: 10px 20px;
-      text-align: center;
-      text-decoration: none;
-      color: var(--white);
-      transition: border-color 0.2s, background 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .category-card:hover {
-      border-color: var(--orange);
-      background: rgba(255,107,0,0.08);
-    }
-
-    .cat-icon { font-size: 1rem; line-height: 1; }
-
-    .cat-name {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      color: var(--gray-light);
-      transition: color 0.2s;
-    }
-    .category-card:hover .cat-name { color: var(--orange); }
-
-    .cat-count { display: none; }
-
-    /* ── SPOTLIGHT ── */
-    .spotlight-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      margin-bottom: 20px;
-    }
-
-    .spotlight-card {
-      position: relative;
-      border-radius: 16px;
-      overflow: hidden;
-      height: 440px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      text-decoration: none;
-      border: 1px solid rgba(255,255,255,0.08);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .spotlight-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 28px 60px rgba(0,0,0,0.55);
-    }
-
-    .spotlight-img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-    .spotlight-card:hover .spotlight-img { transform: scale(1.05); }
-
-    .spotlight-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(10,22,40,0.97) 0%, rgba(10,22,40,0.5) 55%, rgba(10,22,40,0.15) 100%);
-    }
-
-    .spotlight-content {
-      position: relative;
-      z-index: 2;
-      padding: 28px;
-    }
-
-    .spotlight-badge {
-      display: inline-block;
-      background: var(--orange);
-      color: white;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      padding: 4px 12px;
-      border-radius: 4px;
-      margin-bottom: 14px;
-    }
-
-    .spotlight-venue {
-      font-size: 0.72rem;
-      color: rgba(255,255,255,0.55);
-      font-weight: 600;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
-
-    .spotlight-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2rem, 3.5vw, 2.8rem);
-      color: white;
-      line-height: 1;
-      letter-spacing: 2px;
-      margin-bottom: 10px;
-    }
-
-    .spotlight-desc {
-      font-size: 0.84rem;
-      color: rgba(255,255,255,0.65);
-      line-height: 1.55;
-      margin-bottom: 22px;
-    }
-
-    .spotlight-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    .spotlight-price-label {
-      font-size: 0.65rem;
-      color: rgba(255,255,255,0.45);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 2px;
-    }
-    .spotlight-price-amount {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2.2rem;
-      color: var(--orange);
-      line-height: 1;
-    }
-
-    .spotlight-cta {
-      background: var(--orange);
-      color: white;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.88rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      padding: 13px 26px;
-      border-radius: 6px;
-      text-decoration: none;
-      white-space: nowrap;
-      transition: background 0.2s, transform 0.15s;
-    }
-    .spotlight-cta:hover { background: #e05f00; transform: translateY(-1px); }
-
-    /* ── SHOW GRID ── */
-    .shows-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .show-card {
-      background: var(--card-bg);
-      border: 1px solid rgba(26,107,255,0.12);
-      border-radius: 12px;
-      overflow: hidden;
-      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-      display: flex;
-      flex-direction: column;
-      text-decoration: none;
-      color: inherit;
-    }
-    .show-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.4);
-      border-color: rgba(26,107,255,0.3);
-    }
-
-    .show-card-img {
-      height: 190px;
-      position: relative;
-      overflow: hidden;
-      background: #122448;
-    }
-    .show-card-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.4s ease;
-    }
-    .show-card:hover .show-card-img img { transform: scale(1.05); }
-
-    .show-badge {
-      position: absolute;
-      top: 12px; left: 12px;
-      background: var(--orange);
-      color: var(--white);
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      padding: 4px 10px;
-      border-radius: 4px;
-      z-index: 1;
-    }
-
-    .show-card-body {
-      padding: 18px 18px 14px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .show-venue {
-      font-size: 0.72rem;
-      color: var(--blue-bright);
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .show-name {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.25rem;
-      font-weight: 800;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      color: var(--navy);
       line-height: 1.1;
-      color: var(--white);
+      margin-bottom: 24px;
     }
 
-    .show-desc {
-      font-size: 0.82rem;
-      color: var(--gray);
-      line-height: 1.5;
-      flex: 1;
-    }
+    /* ── BACKGROUND VARIANTS ── */
+    .bg-navy    { background: var(--navy); }
+    .bg-white   { background: var(--white); }
+    .bg-offwhite { background: #F9FBFF; }
+    .bg-tint    { background: var(--tint); }
 
-    .show-card-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 18px;
-      border-top: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .show-price { display: flex; flex-direction: column; }
-    .show-price-label { font-size: 0.65rem; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; }
-    .show-price-amount {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.5rem;
-      color: var(--orange);
-      letter-spacing: 1px;
-      line-height: 1;
-    }
-
-    .btn-tickets {
-      background: var(--blue);
-      color: var(--white);
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      padding: 9px 18px;
-      border-radius: 6px;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.15s;
-    }
-    .btn-tickets:hover { background: #1558D6; transform: translateY(-1px); }
-
-    .shows-sublabel {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.35);
-      margin-bottom: 16px;
-    }
-
-    /* ── TRUST ── */
-    .trust-section {
-      background: var(--navy-mid);
-      border-top: 1px solid rgba(26,107,255,0.1);
-      border-bottom: 1px solid rgba(26,107,255,0.1);
-    }
-
-    .trust-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 40px;
-      align-items: start;
-    }
-
-    .trust-block { display: flex; flex-direction: column; gap: 12px; }
-
-    .trust-icon {
-      width: 48px; height: 48px;
-      background: rgba(255,107,0,0.1);
-      border: 1px solid rgba(255,107,0,0.2);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.4rem;
-    }
-
-    .trust-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.2rem;
-      font-weight: 800;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--white);
-    }
-
-    .trust-text { font-size: 0.9rem; color: var(--gray); line-height: 1.6; }
-
-    .trust-cta-block {
-      background: linear-gradient(135deg, rgba(26,107,255,0.08), rgba(255,107,0,0.05));
-      border: 1px solid rgba(26,107,255,0.2);
-      border-radius: 12px;
-      padding: 32px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      align-items: flex-start;
-    }
-
-    .trust-cta-headline {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.8rem;
-      letter-spacing: 2px;
-      line-height: 1.1;
-    }
-    .trust-cta-headline span { color: var(--orange); }
-    .trust-cta-sub { font-size: 0.9rem; color: var(--gray); }
-
-    /* ── DIVIDER ── */
-    .section-divider {
-      height: 1px;
-      background: linear-gradient(to right, transparent, rgba(26,107,255,0.2), transparent);
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-12px); }
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      .spotlight-grid { grid-template-columns: 1fr; }
-      .spotlight-card { height: 380px; }
-      .shows-grid { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 768px) {
-      nav { padding: 12px 20px; }
-      .nav-links { display: none; }
-      .hero { padding: 100px 20px 60px; }
-      .hero-inner { grid-template-columns: 1fr; text-align: center; }
-      .hero-logo { width: 180px; margin: 0 auto; }
-      .hero-badge { margin: 0 auto 24px; }
-      .hero-sub { margin: 24px auto 0; }
-      .hero-trust { justify-content: center; }
-      .hero-buttons { justify-content: center; }
-      .section { padding: 60px 20px; }
-      .footer-top { flex-direction: column; }
-      .footer-disclosure { text-align: left; }
-    }
-    @media (max-width: 480px) {
-      .shows-grid { grid-template-columns: 1fr; }
-      .spotlight-card { height: 340px; }
-    }
-
-    /* ── VEGAS DISPATCH NEWS SECTION ── */
+    /* ── VEGAS DISPATCH SLIDER ── */
     .dispatch-section {
-      position: relative;
-      z-index: 1;
-      padding: 80px 40px;
-      background: linear-gradient(180deg, var(--navy) 0%, var(--navy-mid) 100%);
-      border-top: 1px solid rgba(26,107,255,0.1);
+      background: var(--navy);
+      padding: 0;
     }
 
-    .dispatch-section-inner {
-      max-width: 1200px;
+    .dispatch-inner {
+      max-width: 1280px;
       margin: 0 auto;
+      padding: 60px 40px;
     }
 
-    .dispatch-section-head {
+    .dispatch-header {
       display: flex;
-      align-items: flex-end;
+      align-items: baseline;
       justify-content: space-between;
       margin-bottom: 32px;
-      gap: 24px;
     }
 
-    .dispatch-section-head-left {
-      display: flex;
-      align-items: center;
-      gap: 24px;
+    .dispatch-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      color: var(--white);
+      letter-spacing: 0.04em;
+      line-height: 1;
     }
 
-    .dispatch-spike {
-      width: 100px;
-      height: auto;
-      flex-shrink: 0;
-      filter: drop-shadow(0 8px 24px rgba(0,0,0,0.4));
+    .dispatch-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--orange);
+      margin-bottom: 4px;
     }
-
-    .dispatch-head-text {}
 
     .dispatch-view-all {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
+      font-family: 'Barlow', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
       color: var(--blue);
       text-decoration: none;
       white-space: nowrap;
       transition: color 0.2s;
-      padding-bottom: 4px;
     }
+
     .dispatch-view-all:hover { color: var(--orange); }
 
-    .hp-news-card {
+    .dispatch-grid {
       display: grid;
-      grid-template-columns: 340px 1fr;
-      gap: 0;
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid rgba(26,107,255,0.15);
-      text-decoration: none;
-      color: inherit;
-      background: var(--card-bg);
-      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-    }
-    .hp-news-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 24px 60px rgba(0,0,0,0.45);
-      border-color: rgba(26,107,255,0.3);
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
     }
 
-    .hp-news-card-img {
-      position: relative;
+    .dispatch-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(26,107,255,0.18);
+      border-radius: 10px;
       overflow: hidden;
-      background: var(--navy-light);
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.22s, transform 0.22s, box-shadow 0.22s;
     }
-    .hp-news-card-img img {
+
+    .dispatch-card:hover {
+      border-color: var(--orange);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+    }
+
+    .dispatch-card-img {
+      aspect-ratio: 16/9;
+      overflow: hidden;
+    }
+
+    .dispatch-card-img img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center 20%;
       display: block;
-      transition: transform 0.5s ease;
-    }
-    .hp-news-card:hover .hp-news-card-img img { transform: scale(1.05); }
-
-    .hp-news-tag {
-      position: absolute;
-      top: 14px;
-      left: 14px;
-      background: var(--orange);
-      color: white;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      padding: 5px 11px;
-      border-radius: 3px;
+      transition: transform 0.4s;
     }
 
-    .hp-news-card-body {
-      padding: 36px;
+    .dispatch-card:hover .dispatch-card-img img { transform: scale(1.04); }
+
+    .dispatch-card-body {
+      padding: 20px;
+      flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      justify-content: center;
+      gap: 8px;
     }
 
-    .hp-news-category {
+    .dispatch-date {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.68rem;
       font-weight: 700;
-      letter-spacing: 2.5px;
+      font-size: 0.7rem;
       text-transform: uppercase;
+      letter-spacing: 0.15em;
       color: var(--orange);
     }
 
-    .hp-news-title {
+    .dispatch-card-title {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(1.7rem, 2.5vw, 2.4rem);
-      letter-spacing: 1px;
-      line-height: 1.05;
+      font-size: 1.25rem;
+      line-height: 1.15;
       color: var(--white);
+      letter-spacing: 0.02em;
     }
 
-    .hp-news-excerpt {
-      font-size: 0.92rem;
+    .dispatch-card-desc {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 400;
+      font-size: 0.85rem;
       color: var(--gray);
-      line-height: 1.7;
-      max-width: 520px;
+      line-height: 1.55;
+      flex: 1;
     }
 
-    .hp-news-meta {
-      font-size: 0.75rem;
-      color: rgba(168,180,196,0.5);
-    }
-
-    .hp-news-read {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.88rem;
+    .dispatch-read {
+      font-family: 'Barlow', sans-serif;
       font-weight: 700;
-      letter-spacing: 1.5px;
+      font-size: 0.78rem;
       text-transform: uppercase;
+      letter-spacing: 0.1em;
       color: var(--blue);
       margin-top: 4px;
       transition: color 0.2s;
     }
-    .hp-news-card:hover .hp-news-read { color: var(--orange); }
+
+    .dispatch-card:hover .dispatch-read { color: var(--orange); }
 
     @media (max-width: 900px) {
-      .dispatch-section { padding: 60px 24px; }
-      .hp-news-card { grid-template-columns: 1fr; }
-      .hp-news-card-img { height: 240px; }
-      .dispatch-spike { width: 72px; }
+      .dispatch-inner { padding: 48px 20px; }
+      .dispatch-grid { grid-template-columns: 1fr 1fr; }
     }
-    @media (max-width: 480px) {
-      .dispatch-section { padding: 48px 20px; }
-      .hp-news-card-body { padding: 24px; }
+
+    @media (max-width: 540px) {
+      .dispatch-grid {
+        grid-template-columns: 1fr;
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 16px;
+        padding-bottom: 12px;
+      }
+      .dispatch-card {
+        flex: 0 0 78vw;
+        scroll-snap-align: start;
+      }
     }
+
   </style>
 </head>
 <body>
 
-<div id="vs-header"></div>
+  <!-- READING PROGRESS BAR -->
+  <div id="progress-bar"></div>
+
+  <!-- HEADER COMPONENT (nav + mobile drawer + Google Analytics) -->
+  <div id="vs-header"></div>
+  <script src="/components/header.js"></script>
+
+  <!-- GRADIENT SEPARATOR BAR -->
+  <div class="gradient-bar"></div>
 
   <!-- HERO -->
-  <section class="hero">
-    <div class="hero-glow"></div>
-    <div class="hero-glow-blue"></div>
-    <div class="hero-inner">
-      <div class="hero-content">
-        <div class="hero-badge">Your Vegas Insider</div>
-        <h1 class="hero-headline">
-          <span class="line-blue">Biggest</span>
-          <span class="line-white">Shows.</span>
-          <span class="line-orange">Real Discounts. No BS.</span>
-        </h1>
-        <p class="hero-sub">The best Las Vegas show tickets at real discounts. No membership, no hidden fees, no markup games. No surprises — ever.</p>
-        <div class="hero-trust">
-          <div class="trust-pill"><div class="check">✓</div> No Hidden Fees</div>
-          <div class="trust-pill"><div class="check">✓</div> No Membership</div>
-          <div class="trust-pill"><div class="check">✓</div> Legit Discounts</div>
-        </div>
-        <div class="hero-buttons">
-          <a href="#categories" class="btn-primary">Browse Shows →</a>
-          <a href="#categories" class="btn-secondary">Find a Show</a>
-        </div>
+  <section class="hero" aria-label="Hero">
+    <div class="hero-content fade-up">
+      <span class="hero-badge">YOUR VEGAS INSIDER</span>
+      <h1>
+        <span class="blue">BIGGEST SHOWS.</span><br>
+        <span class="orange">REAL DISCOUNTS.</span> <span class="white">NO BS.</span>
+      </h1>
+      <p class="hero-sub">The best Las Vegas show tickets at real discounts. No membership, no hidden fees, no markup games. No surprises — ever.</p>
+      <div class="trust-badges">
+        <span>&#10003; No Hidden Fees</span>
+        <span>&#10003; No Membership</span>
+        <span>&#10003; Legit Discounts</span>
       </div>
-      <img
-        src="logo-circle.png"
-        alt="Vegas Sidekick"
-        class="hero-logo"
-        onerror="this.style.display='none'"
-      />
+      <div class="hero-ctas">
+        <a href="/shows/" class="btn-primary">BROWSE SHOWS &rarr;</a>
+        <a href="/shows/" class="btn-secondary">FIND A SHOW</a>
+      </div>
     </div>
-  </section>
-
-  <!-- CATEGORIES -->
-  <section class="section" id="categories" style="padding-bottom: 40px;">
-    <div class="section-inner">
-      <div class="section-label">Browse by Category</div>
-      <div class="categories-grid">
-        <a href="/shows/comedy/" class="category-card"><div class="cat-icon">😂</div><div class="cat-name">Comedy</div></a>
-        <a href="/shows/magic/" class="category-card"><div class="cat-icon">🎩</div><div class="cat-name">Magic</div></a>
-        <a href="/shows/music/" class="category-card"><div class="cat-icon">🎵</div><div class="cat-name">Music</div></a>
-        <a href="/shows/cirque/" class="category-card"><div class="cat-icon">🎪</div><div class="cat-name">Cirque</div></a>
-        <a href="/shows/adult/" class="category-card"><div class="cat-icon">🔥</div><div class="cat-name">Adult</div></a>
-        <a href="/shows/tribute/" class="category-card"><div class="cat-icon">⭐</div><div class="cat-name">Tribute</div></a>
-        <a href="/shows/dinner/" class="category-card"><div class="cat-icon">🍽️</div><div class="cat-name">Dinner</div></a>
-        <a href="/shows/variety/" class="category-card"><div class="cat-icon">🎭</div><div class="cat-name">Variety</div></a>
-        <a href="/shows/headliners/" class="category-card"><div class="cat-icon">🎤</div><div class="cat-name">Headliners</div></a>
-        <a href="/shows/family/" class="category-card"><div class="cat-icon">👨‍👩‍👧</div><div class="cat-name">Family</div></a>
+    <div class="hero-spike">
+      <div class="spike-wrap">
+        <img id="spike-hero" src="/images/spike-hero.png" alt="Spike the Vegas Sidekick mascot, pointing you toward great shows" />
       </div>
     </div>
   </section>
 
-  <div class="section-divider"></div>
+  <!-- SCROLLING SHOW TICKER -->
+  <div class="ticker-section" aria-label="Trending shows ticker" role="marquee">
+    <div class="ticker-wrap">
+      <div class="ticker-track">
+        <!-- First set -->
+        <div class="ticker-item">
+          <a href="/shows/comedy/carrot-top/">CARROT TOP &mdash; <span class="t-price">FROM $47</span></a><span class="ticker-sep">&bull;</span>
+        </div>
+        <div class="ticker-item">
+          <a href="/shows/cirque/mad-apple/">MAD APPLE &mdash; <span class="t-price">FROM $59</span></a><span class="ticker-sep">&bull;</span>
+        </div>
+        <div class="ticker-item">
+          <a href="/shows/comedy/tape-face/">TAPE FACE &mdash; <span class="t-price">FROM $57</span></a><span class="ticker-sep">&bull;</span>
+        </div>
+        <div class="ticker-item">
+          <a href="/shows/magic/david-copperfield/">DAVID COPPERFIELD &mdash; <span class="t-price">FROM $74</span></a><span class="ticker-sep">&bull;</span>
+        </div>
+        <div class="ticker-item">
+          <a href="/shows/cirque/mystere/">MYST&Egrave;RE &mdash; <span class="t-price">FROM $79</span></a><span class="ticker-sep">&bull;</span>
+        </div>
+        <div class="ticker-item">
+          <a href="/shows/cirque/ka/">K&Agrave; &mdash; <span class="t-price">FROM $89</span></a><span class="ticker-sep">&bull;</span>
+        </div>
+        <div class="ticker-item">
+          <a href="/shows/magic/criss-angel/">CRISS ANGEL &mdash; <span class="t-price">FROM $65</span></a><span class="ticker-sep">&bull;</span>
+        </div>
+        <div class="ticker-item">
+          <a href="/shows/magic/penn-and-teller/">PENN &amp; TELLER &mdash; <span class="t-price">FROM $62</span></a><span class="ticker-sep">&bull;</span>
+        </div>
+        <div class="ticker-item">
+          <a href="/shows/variety/absinthe/">ABSINTHE &mdash; <span class="t-price">FROM $109</span></a><span class="ticker-sep">&bull;</span>
+        </div>
+        <div class="ticker-item">
+          <a href="/shows/magic/shin-lim-limitless/">SHIN LIM &mdash; <span class="t-price">FROM $72</span></a><span class="ticker-sep">&bull;</span>
+        </div>
+        <!-- Duplicate set for seamless loop -->
+        <div class="ticker-item">
+          <a href="/shows/comedy/carrot-top/">CARROT TOP &mdash; <span class="t-price">FROM $47</span></a><span class="ticker-sep">&bull;</span>
+        </div>
+        <div class="ticker-item">
+          <a href="/shows/cirque/mad-apple/">MAD APPLE &mdash; <span class="t-price">FROM $59</span></a><span class="ticker-sep">&bull;</span>
+        </div>
+        <div class="ticker-item">
+          <a href="/shows/comedy/tape-face/">TAPE FACE &mdash; <span class="t-price">FROM $57</span></a><span class="ticker-sep">&bull;</span>
+        </div>
+        <div class="ticker-item">
+          <a href="/shows/magic/david-copperfield/">DAVID COPPERFIELD &mdash; <span class="t-price">FROM $74</span></a><span class="ticker-sep">&bull;</span>
+        </div>
+        <div class="ticker-item">
+          <a href="/shows/cirque/mystere/">MYST&Egrave;RE &mdash; <span class="t-price">FROM $79</span></a><span class="ticker-sep">&bull;</span>
+        </div>
+        <div class="ticker-item">
+          <a href="/shows/cirque/ka/">K&Agrave; &mdash; <span class="t-price">FROM $89</span></a><span class="ticker-sep">&bull;</span>
+        </div>
+        <div class="ticker-item">
+          <a href="/shows/magic/criss-angel/">CRISS ANGEL &mdash; <span class="t-price">FROM $65</span></a><span class="ticker-sep">&bull;</span>
+        </div>
+        <div class="ticker-item">
+          <a href="/shows/magic/penn-and-teller/">PENN &amp; TELLER &mdash; <span class="t-price">FROM $62</span></a><span class="ticker-sep">&bull;</span>
+        </div>
+        <div class="ticker-item">
+          <a href="/shows/variety/absinthe/">ABSINTHE &mdash; <span class="t-price">FROM $109</span></a><span class="ticker-sep">&bull;</span>
+        </div>
+        <div class="ticker-item">
+          <a href="/shows/magic/shin-lim-limitless/">SHIN LIM &mdash; <span class="t-price">FROM $72</span></a><span class="ticker-sep">&bull;</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <!-- FEATURED SHOWS -->
-  <section class="section" id="featured">
+  <!-- CATEGORY GRID -->
+  <section class="cat-section" aria-labelledby="cat-heading">
     <div class="section-inner">
-      <div class="section-label">Hand-Picked by Your Sidekick</div>
-      <h2 class="section-title">Tonight's <span>Picks</span></h2>
-
-      <!-- SPOTLIGHT: two hero cards -->
-      <div class="spotlight-grid">
-
-        <!-- Mad Apple -->
-        <a href="/shows/cirque/mad-apple/" class="spotlight-card">
-          <img src="/images/mad-apple-hero.jpg" alt="Mad Apple by Cirque du Soleil at New York-New York Las Vegas" class="spotlight-img" loading="lazy" />
-          <div class="spotlight-overlay"></div>
-          <div class="spotlight-content">
-            <div class="spotlight-badge">Cirque du Soleil</div>
-            <div class="spotlight-venue">New York-New York Hotel & Casino</div>
-            <div class="spotlight-name">Mad Apple</div>
-            <div class="spotlight-desc">NYC energy meets Cirque acrobatics — comedy, music, and jaw-dropping stunts. The most fun Cirque show on the Strip.</div>
-            <div class="spotlight-footer">
-              <div>
-                <div class="spotlight-price-label">From</div>
-                <div class="spotlight-price-amount">$59</div>
-              </div>
-              <span class="spotlight-cta">See Details →</span>
-            </div>
-          </div>
+      <div class="section-heading-wrap fade-up">
+        <div class="section-title-accent"></div>
+        <h2 class="section-label" id="cat-heading">BROWSE BY CATEGORY</h2>
+      </div>
+      <div class="cat-grid">
+        <a href="/shows/comedy/" class="cat-card fade-up">
+          <!-- Microphone -->
+          <svg class="cat-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="17" y="4" width="14" height="22" rx="7" stroke="currentColor" stroke-width="2.5"/>
+            <path d="M10 24c0 7.73 6.27 14 14 14s14-6.27 14-14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+            <line x1="24" y1="38" x2="24" y2="44" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="16" y1="44" x2="32" y2="44" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <span class="cat-name">COMEDY</span>
         </a>
+        <a href="/shows/magic/" class="cat-card fade-up">
+          <!-- Magic wand with star -->
+          <svg class="cat-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <line x1="8" y1="40" x2="30" y2="18" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/>
+            <path d="M30 10l1.6 4.8 4.8 1.6-4.8 1.6-1.6 4.8-1.6-4.8-4.8-1.6 4.8-1.6z" fill="currentColor"/>
+            <circle cx="40" cy="10" r="2" fill="currentColor" opacity="0.65"/>
+            <circle cx="14" cy="14" r="1.5" fill="currentColor" opacity="0.5"/>
+            <circle cx="40" cy="26" r="1.5" fill="currentColor" opacity="0.5"/>
+          </svg>
+          <span class="cat-name">MAGIC</span>
+        </a>
+        <a href="/shows/cirque/" class="cat-card fade-up">
+          <!-- Acrobat figure -->
+          <svg class="cat-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="24" cy="7" r="4.5" stroke="currentColor" stroke-width="2.5"/>
+            <line x1="24" y1="12" x2="24" y2="22" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="24" y1="17" x2="8" y2="26" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="24" y1="17" x2="40" y2="26" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="24" y1="22" x2="15" y2="38" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="24" y1="22" x2="33" y2="38" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <span class="cat-name">CIRQUE / ACROBATICS</span>
+        </a>
+        <a href="/shows/" class="cat-card cat-cta fade-up">
+          <!-- 4-grid / all shows -->
+          <svg class="cat-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="5" y="5" width="17" height="17" rx="3" stroke="currentColor" stroke-width="2.5"/>
+            <rect x="26" y="5" width="17" height="17" rx="3" stroke="currentColor" stroke-width="2.5"/>
+            <rect x="5" y="26" width="17" height="17" rx="3" stroke="currentColor" stroke-width="2.5"/>
+            <rect x="26" y="26" width="17" height="17" rx="3" fill="currentColor" opacity="0.35" stroke="currentColor" stroke-width="2.5"/>
+          </svg>
+          <span class="cat-name">ALL SHOWS</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EMAIL COMPACT STRIP — SPIKE'S PICKS -->
+  <section class="email-compact" aria-labelledby="email-heading">
+    <div class="email-compact-inner fade-up">
+      <div class="email-compact-text">
+        <span class="email-compact-label">&#127797; FREE WEEKLY INTEL</span>
+        <div class="email-compact-headline" id="email-heading">SPIKE'S PICKS</div>
+      </div>
+      <form id="spikes-picks-form" novalidate>
+        <input type="email" id="spikes-picks-email" placeholder="Your email address" required autocomplete="email" />
+        <button type="submit">I'M IN &rarr;</button>
+      </form>
+      <div id="spikes-picks-success" style="display:none;">You're in &mdash; Spike will be in touch. &#127797;</div>
+    </div>
+  </section>
+
+  <!-- THIS WEEK'S PICKS -->
+  <section class="bg-white shows-row-section" aria-labelledby="picks-heading">
+    <div class="section-inner">
+      <div class="fade-up">
+        <div class="section-eyebrow">HAND-PICKED BY YOUR SIDEKICK</div>
+        <h2 class="section-title" id="picks-heading">THIS WEEK'S PICKS</h2>
+      </div>
+      <div class="shows-scroll" role="list">
+
+        <!-- Card: Mad Apple -->
+        <article class="show-card" role="listitem">
+          <a href="/shows/cirque/mad-apple/">
+            <div class="show-card-img-wrap">
+              <img src="/images/mad-apple-hero.jpg" alt="Mad Apple by Cirque du Soleil" loading="lazy" />
+              <span class="show-badge">&#11088; SIDEKICK PICK</span>
+            </div>
+            <div class="show-card-body">
+              <div class="show-venue">New York-New York Hotel</div>
+              <div class="show-name">MAD APPLE</div>
+              <p class="show-desc">Cirque du Soleil's sexiest, most daring show yet.</p>
+              <div class="show-price">FROM $59</div>
+              <span class="show-cta">SEE DETAILS &rarr;</span>
+            </div>
+          </a>
+        </article>
+
+        <!-- Card: Carrot Top -->
+        <article class="show-card" role="listitem">
+          <a href="/shows/comedy/carrot-top/">
+            <div class="show-card-img-wrap">
+              <img src="/images/carrot-top-hero.jpg" alt="Carrot Top at the Luxor" loading="lazy" />
+            </div>
+            <div class="show-card-body">
+              <div class="show-venue">Luxor Hotel &amp; Casino</div>
+              <div class="show-name">CARROT TOP</div>
+              <p class="show-desc">The king of prop comedy, Monday&ndash;Saturday 8PM.</p>
+              <div class="show-price">FROM $47</div>
+              <span class="show-cta">SEE DETAILS &rarr;</span>
+            </div>
+          </a>
+        </article>
+
+        <!-- Card: Criss Angel -->
+        <article class="show-card" role="listitem">
+          <a href="/shows/magic/criss-angel/">
+            <div class="show-card-img-wrap">
+              <img src="/images/criss-angel-hero.jpg" alt="Criss Angel at Wonderlands Theater" loading="lazy" />
+            </div>
+            <div class="show-card-body">
+              <div class="show-venue">Wonderlands Theater</div>
+              <div class="show-name">CRISS ANGEL</div>
+              <p class="show-desc">Mind-bending magic and death-defying illusions.</p>
+              <div class="show-price">FROM $65</div>
+              <span class="show-cta">SEE DETAILS &rarr;</span>
+            </div>
+          </a>
+        </article>
+
+        <!-- Card: KÀ -->
+        <article class="show-card" role="listitem">
+          <a href="/shows/cirque/ka/">
+            <div class="show-card-img-wrap">
+              <img src="/images/ka-hero.jpg" alt="KÀ by Cirque du Soleil at MGM Grand" loading="lazy" />
+            </div>
+            <div class="show-card-body">
+              <div class="show-venue">MGM Grand</div>
+              <div class="show-name">K&Agrave; BY CIRQUE DU SOLEIL</div>
+              <p class="show-desc">Epic battle spectacle on a gravity-defying stage.</p>
+              <div class="show-price">FROM $89</div>
+              <span class="show-cta">SEE DETAILS &rarr;</span>
+            </div>
+          </a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- COMEDY SHOWS ROW -->
+  <section class="bg-offwhite shows-row-section" aria-labelledby="comedy-heading">
+    <div class="section-inner">
+      <div class="section-row-header fade-up">
+        <h2 class="section-label" id="comedy-heading">COMEDY SHOWS</h2>
+        <a href="/shows/comedy/" class="section-view-all">View All Comedy &rarr;</a>
+      </div>
+      <div class="shows-scroll" role="list">
 
         <!-- Carrot Top -->
-        <a href="/shows/comedy/carrot-top/" class="spotlight-card">
-          <img src="/images/carrot-top-hero.jpg" alt="Carrot Top performing live at the Luxor Las Vegas" class="spotlight-img" loading="lazy" />
-          <div class="spotlight-overlay"></div>
-          <div class="spotlight-content">
-            <div class="spotlight-badge">⭐ Sidekick Pick</div>
-            <div class="spotlight-venue">Luxor Hotel & Casino</div>
-            <div class="spotlight-name">Carrot Top</div>
-            <div class="spotlight-desc">The prop comedy legend. 30 years, still unhinged. Vegas has been laughing at this man your entire life and showing zero signs of stopping.</div>
-            <div class="spotlight-footer">
-              <div>
-                <div class="spotlight-price-label">From</div>
-                <div class="spotlight-price-amount">$47</div>
-              </div>
-              <span class="spotlight-cta">See Details →</span>
+        <article class="show-card" role="listitem">
+          <a href="/shows/comedy/carrot-top/">
+            <div class="show-card-img-wrap">
+              <img src="/images/carrot-top-hero.jpg" alt="Carrot Top" loading="lazy" />
             </div>
-          </div>
-        </a>
-
-      </div>
-
-      <!-- SHOW GRID: remaining shows -->
-      <div class="shows-sublabel">More Shows</div>
-      <div class="shows-grid">
-
-        <!-- Marc Savard -->
-        <a href="/shows/comedy/marc-savard-comedy-hypnosis/" class="show-card">
-          <div class="show-card-img">
-            <img src="/images/marc-savard-comedy-hypnosis-hero.jpg" alt="Marc Savard Comedy Hypnosis Las Vegas" loading="lazy" />
-            <div class="show-badge">20+ Years in Vegas</div>
-          </div>
-          <div class="show-card-body">
-            <div class="show-venue">Showcase Mall</div>
-            <div class="show-name">Marc Savard Comedy Hypnosis</div>
-            <div class="show-desc">He turns your travel companions into the entertainment. Crowd work at its most chaotic.</div>
-          </div>
-          <div class="show-card-footer">
-            <div class="show-price">
-              <div class="show-price-label">From</div>
-              <div class="show-price-amount">$35</div>
+            <div class="show-card-body">
+              <div class="show-venue">Luxor Hotel &amp; Casino</div>
+              <div class="show-name">CARROT TOP</div>
+              <p class="show-desc">Mon&ndash;Sat 8PM. The ultimate prop comedy show.</p>
+              <div class="show-price">FROM $47</div>
+              <span class="show-cta">SEE DETAILS &rarr;</span>
             </div>
-            <span class="btn-tickets">See Details →</span>
-          </div>
-        </a>
+          </a>
+        </article>
 
         <!-- Tape Face -->
-        <a href="/shows/comedy/tape-face/" class="show-card">
-          <div class="show-card-img">
-            <img src="/images/tape-face-hero.jpg" alt="Tape Face Las Vegas at MGM Grand" loading="lazy" />
-          </div>
-          <div class="show-card-body">
-            <div class="show-venue">MGM Grand</div>
-            <div class="show-name">Tape Face</div>
-            <div class="show-desc">No words. No language barrier. 75 minutes of pure chaos. All ages. As seen on America's Got Talent.</div>
-          </div>
-          <div class="show-card-footer">
-            <div class="show-price">
-              <div class="show-price-label">From</div>
-              <div class="show-price-amount">$57</div>
+        <article class="show-card" role="listitem">
+          <a href="/shows/comedy/tape-face/">
+            <div class="show-card-img-wrap">
+              <img src="/images/tape-face-hero.jpg" alt="Tape Face" loading="lazy" />
             </div>
-            <span class="btn-tickets">See Details →</span>
-          </div>
-        </a>
+            <div class="show-card-body">
+              <div class="show-venue">Harrah's Las Vegas</div>
+              <div class="show-name">TAPE FACE</div>
+              <p class="show-desc">Silent comedy genius. No words. All laughs.</p>
+              <div class="show-price">FROM $57</div>
+              <span class="show-cta">SEE DETAILS &rarr;</span>
+            </div>
+          </a>
+        </article>
 
-        <!-- Brad Garrett's -->
-        <a href="/shows/comedy/brad-garretts-comedy-club/" class="show-card">
-          <div class="show-card-img">
-            <img src="/images/brad-garretts-comedy-club-hero.jpg" alt="Brad Garrett's Comedy Club at MGM Grand Las Vegas" loading="lazy" />
-          </div>
-          <div class="show-card-body">
-            <div class="show-venue">MGM Grand</div>
-            <div class="show-name">Brad Garrett's Comedy Club</div>
-            <div class="show-desc">The Strip's rotating stand-up room. New headliners weekly. 18+ only.</div>
-          </div>
-          <div class="show-card-footer">
-            <div class="show-price">
-              <div class="show-price-label">From</div>
-              <div class="show-price-amount">$51</div>
+        <!-- Marc Savard -->
+        <article class="show-card" role="listitem">
+          <a href="/shows/comedy/marc-savard-comedy-hypnosis/">
+            <div class="show-card-img-wrap">
+              <img src="/images/marc-savard-comedy-hypnosis-hero.jpg" alt="Marc Savard Comedy Hypnosis" loading="lazy" />
             </div>
-            <span class="btn-tickets">See Details →</span>
-          </div>
-        </a>
+            <div class="show-card-body">
+              <div class="show-venue">V Theater</div>
+              <div class="show-name">MARC SAVARD COMEDY HYPNOSIS</div>
+              <p class="show-desc">Volunteer from the audience. Hilarity guaranteed.</p>
+              <div class="show-price">FROM $39</div>
+              <span class="show-cta">SEE DETAILS &rarr;</span>
+            </div>
+          </a>
+        </article>
 
-        <!-- Comedy Cellar -->
-        <a href="/shows/comedy/comedy-cellar/" class="show-card">
-          <div class="show-card-img">
-            <img src="/images/comedy-cellar-hero.jpg" alt="Comedy Cellar Las Vegas at Rio All-Suite Hotel & Casino" loading="lazy" />
-            <div class="show-badge">Nightly · 2 Shows</div>
-          </div>
-          <div class="show-card-body">
-            <div class="show-venue">Rio Hotel & Casino</div>
-            <div class="show-name">Comedy Cellar</div>
-            <div class="show-desc">Five headlining comics every night. 7 PM and 9:30 PM. The NYC legend, now in Vegas. 18+ only.</div>
-          </div>
-          <div class="show-card-footer">
-            <div class="show-price">
-              <div class="show-price-label">From</div>
-              <div class="show-price-amount">$41</div>
+        <!-- Marriage Can Be Murder -->
+        <article class="show-card" role="listitem">
+          <a href="/shows/comedy/marriage-can-be-murder/">
+            <div class="show-card-img-wrap">
+              <img src="/images/marriage-can-be-murder-hero.jpg" alt="Marriage Can Be Murder" loading="lazy" />
             </div>
-            <span class="btn-tickets">See Details →</span>
-          </div>
-        </a>
-
-        <!-- Popovich Comedy Pet Theater -->
-        <a href="/shows/comedy/popovich-comedy-pet-theater/" class="show-card">
-          <div class="show-card-img">
-            <img src="/images/popovich-comedy-pet-theater-hero.jpg" alt="Popovich Comedy Pet Theater at V Theater, Planet Hollywood Las Vegas" loading="lazy" />
-            <div class="show-badge">All Ages</div>
-          </div>
-          <div class="show-card-body">
-            <div class="show-venue">V Theater · Planet Hollywood</div>
-            <div class="show-name">Popovich Comedy Pet Theater</div>
-            <div class="show-desc">30+ rescued animals, juggling, and circus acts. The best family show on the Strip. Tue–Sat at 2:30 PM.</div>
-          </div>
-          <div class="show-card-footer">
-            <div class="show-price">
-              <div class="show-price-label">From</div>
-              <div class="show-price-amount">$31</div>
+            <div class="show-card-body">
+              <div class="show-venue">D Las Vegas</div>
+              <div class="show-name">MARRIAGE CAN BE MURDER</div>
+              <p class="show-desc">Murder mystery comedy dinner show.</p>
+              <div class="show-price">FROM $49</div>
+              <span class="show-cta">SEE DETAILS &rarr;</span>
             </div>
-            <span class="btn-tickets">See Details →</span>
-          </div>
-        </a>
+          </a>
+        </article>
 
       </div>
     </div>
   </section>
 
-  <div class="section-divider"></div>
-
-  <!-- ABOUT / TRUST -->
-  <section class="section trust-section" id="about">
+  <!-- MAGIC SHOWS ROW -->
+  <section class="bg-white shows-row-section" aria-labelledby="magic-heading">
     <div class="section-inner">
-      <div class="section-label">Why Vegas Sidekick</div>
-      <h2 class="section-title">Built for <span>Return Customers</span></h2>
-      <div class="trust-grid">
-        <div class="trust-block">
-          <div class="trust-icon">🚫</div>
-          <div class="trust-title">No Hidden Fees</div>
-          <div class="trust-text">Service fees are built into the price you see. What you see is what you pay. No surprise $18 "convenience" charge at checkout.</div>
-        </div>
-        <div class="trust-block">
-          <div class="trust-icon">🎟️</div>
-          <div class="trust-title">No Membership Required</div>
-          <div class="trust-text">You shouldn't have to subscribe to get a deal. Browse, pick, buy. That's it. No account, no loyalty program, no upsell.</div>
-        </div>
-        <div class="trust-block">
-          <div class="trust-icon">🌵</div>
-          <div class="trust-title">We Live Here</div>
-          <div class="trust-text">Not a review aggregator. Not a tourist site. We're Vegas locals who know the Strip the way you know your neighborhood — which means we know exactly what's worth your night and what isn't.</div>
-        </div>
-        <div class="trust-cta-block">
-          <div class="trust-cta-headline">Ready to Book Your <span>Vegas Night?</span></div>
-          <div class="trust-cta-sub">100 shows. Real discounts. Zero games. Your sidekick is standing by.</div>
-          <a href="#categories" class="btn-primary">Browse Shows →</a>
-        </div>
+      <div class="section-row-header fade-up">
+        <h2 class="section-label" id="magic-heading">MAGIC SHOWS</h2>
+        <a href="/shows/magic/" class="section-view-all">View All Magic &rarr;</a>
+      </div>
+      <div class="shows-scroll" role="list">
+
+        <!-- Criss Angel -->
+        <article class="show-card" role="listitem">
+          <a href="/shows/magic/criss-angel/">
+            <div class="show-card-img-wrap">
+              <img src="/images/criss-angel-hero.jpg" alt="Criss Angel" loading="lazy" />
+            </div>
+            <div class="show-card-body">
+              <div class="show-venue">Wonderlands Theater</div>
+              <div class="show-name">CRISS ANGEL</div>
+              <p class="show-desc">The world's most dangerous and spectacular magic.</p>
+              <div class="show-price">FROM $65</div>
+              <span class="show-cta">SEE DETAILS &rarr;</span>
+            </div>
+          </a>
+        </article>
+
+        <!-- Shin Lim -->
+        <article class="show-card" role="listitem">
+          <a href="/shows/magic/shin-lim-limitless/">
+            <div class="show-card-img-wrap">
+              <img src="/images/shin-lim-limitless-hero.jpg" alt="Shin Lim Limitless" loading="lazy" />
+            </div>
+            <div class="show-card-body">
+              <div class="show-venue">Mirage Hotel</div>
+              <div class="show-name">SHIN LIM</div>
+              <p class="show-desc">AGT champion. Sleight of hand at another level.</p>
+              <div class="show-price">FROM $72</div>
+              <span class="show-cta">SEE DETAILS &rarr;</span>
+            </div>
+          </a>
+        </article>
+
+        <!-- Mac King -->
+        <article class="show-card" role="listitem">
+          <a href="/shows/magic/mac-king/">
+            <div class="show-card-img-wrap">
+              <img src="/images/mac-king-hero.jpg" alt="Mac King" loading="lazy" />
+            </div>
+            <div class="show-card-body">
+              <div class="show-venue">Excalibur Hotel</div>
+              <div class="show-name">MAC KING</div>
+              <p class="show-desc">Vegas' funniest magician. Kid-friendly and clever.</p>
+              <div class="show-price">FROM $45</div>
+              <span class="show-cta">SEE DETAILS &rarr;</span>
+            </div>
+          </a>
+        </article>
+
+        <!-- Nathan Burton -->
+        <article class="show-card" role="listitem">
+          <a href="/shows/magic/nathan-burton-comedy-magic/">
+            <div class="show-card-img-wrap">
+              <img src="/images/nathan-burton-comedy-magic-hero.jpg" alt="Nathan Burton Comedy Magic" loading="lazy" />
+            </div>
+            <div class="show-card-body">
+              <div class="show-venue">Planet Hollywood</div>
+              <div class="show-name">NATHAN BURTON COMEDY MAGIC</div>
+              <p class="show-desc">Comedy magic with big laughs and bigger tricks.</p>
+              <div class="show-price">FROM $35</div>
+              <span class="show-cta">SEE DETAILS &rarr;</span>
+            </div>
+          </a>
+        </article>
+
       </div>
     </div>
   </section>
 
-  <!-- VEGAS DISPATCH NEWS SECTION -->
-  <section class="dispatch-section">
-    <div class="dispatch-section-inner">
-
-      <div class="dispatch-section-head">
-        <div class="dispatch-section-head-left">
-          <img
-            src="/images/spike-mascot.jpg"
-            alt="Spike, the Vegas Sidekick mascot — a cool cartoon cactus in sunglasses"
-            class="dispatch-spike"
-          />
-          <div class="dispatch-head-text">
-            <div class="section-label">Vegas Dispatch</div>
-            <h2 class="section-title">Latest From <span>The Strip</span></h2>
-          </div>
-        </div>
-        <a href="/news/" class="dispatch-view-all">All Stories →</a>
+  <!-- CIRQUE & ACROBATICS ROW -->
+  <section class="bg-offwhite shows-row-section" aria-labelledby="cirque-heading">
+    <div class="section-inner">
+      <div class="section-row-header fade-up">
+        <h2 class="section-label" id="cirque-heading">CIRQUE &amp; ACROBATICS</h2>
+        <a href="/shows/cirque/" class="section-view-all">View All &rarr;</a>
       </div>
+      <div class="shows-scroll" role="list">
 
-      <a href="/news/blue-dot-fever-what-it-means-for-vegas/" class="hp-news-card">
-        <div class="hp-news-card-img">
-          <img
-            src="/images/news/live-nation-may-2026-arena.png"
-            alt="Packed concert arena with thousands of fans under dramatic stage lighting"
-            loading="lazy"
-          />
-          <span class="hp-news-tag">Industry</span>
-        </div>
-        <div class="hp-news-card-body">
-          <div class="hp-news-category">Industry · May 10, 2026</div>
-          <div class="hp-news-title">Blue Dot Fever: What Concert Tour Cancellations Mean for Vegas Visitors</div>
-          <p class="hp-news-excerpt">Artists are canceling tours as ticket prices hit record highs and gas prices squeeze road-trip budgets. Here's why Vegas residencies are a different story.</p>
-          <div class="hp-news-read">Read the Story →</div>
-        </div>
-      </a>
+        <!-- KÀ -->
+        <article class="show-card" role="listitem">
+          <a href="/shows/cirque/ka/">
+            <div class="show-card-img-wrap">
+              <img src="/images/ka-hero.jpg" alt="KÀ by Cirque du Soleil" loading="lazy" />
+            </div>
+            <div class="show-card-body">
+              <div class="show-venue">MGM Grand</div>
+              <div class="show-name">K&Agrave;</div>
+              <p class="show-desc">Epic battle on a gravity-defying moving stage.</p>
+              <div class="show-price">FROM $89</div>
+              <span class="show-cta">SEE DETAILS &rarr;</span>
+            </div>
+          </a>
+        </article>
 
+        <!-- Mad Apple -->
+        <article class="show-card" role="listitem">
+          <a href="/shows/cirque/mad-apple/">
+            <div class="show-card-img-wrap">
+              <img src="/images/mad-apple-hero.jpg" alt="Mad Apple" loading="lazy" />
+            </div>
+            <div class="show-card-body">
+              <div class="show-venue">New York-New York</div>
+              <div class="show-name">MAD APPLE</div>
+              <p class="show-desc">Cirque du Soleil reinvented for adults. Wild and daring.</p>
+              <div class="show-price">FROM $59</div>
+              <span class="show-cta">SEE DETAILS &rarr;</span>
+            </div>
+          </a>
+        </article>
+
+        <!-- Mystère -->
+        <article class="show-card" role="listitem">
+          <a href="/shows/cirque/mystere/">
+            <div class="show-card-img-wrap">
+              <img src="/images/mystere-hero.jpg" alt="Mystère by Cirque du Soleil" loading="lazy" />
+            </div>
+            <div class="show-card-body">
+              <div class="show-venue">Treasure Island</div>
+              <div class="show-name">MYST&Egrave;RE</div>
+              <p class="show-desc">The original Cirque du Soleil Las Vegas experience.</p>
+              <div class="show-price">FROM $79</div>
+              <span class="show-cta">SEE DETAILS &rarr;</span>
+            </div>
+          </a>
+        </article>
+
+        <!-- Michael Jackson ONE -->
+        <article class="show-card" role="listitem">
+          <a href="/shows/cirque/michael-jackson-one/">
+            <div class="show-card-img-wrap">
+              <img src="/images/mj-one-hero.jpg" alt="Michael Jackson ONE" loading="lazy" />
+            </div>
+            <div class="show-card-body">
+              <div class="show-venue">Mandalay Bay</div>
+              <div class="show-name">MICHAEL JACKSON ONE</div>
+              <p class="show-desc">MJ's greatest hits brought to electrifying life.</p>
+              <div class="show-price">FROM $85</div>
+              <span class="show-cta">SEE DETAILS &rarr;</span>
+            </div>
+          </a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT'S YOUR VEGAS VIBE? QUIZ STRIP -->
+  <div class="vibe-strip fade-up" aria-label="Vegas Vibe Quiz">
+    <div class="vibe-inner">
+      <span class="vibe-icon" aria-hidden="true">&#127797;</span>
+      <div class="vibe-text">
+        <strong>What's Your Vegas Vibe?</strong> Spike will find your show. Takes 20 seconds.
+      </div>
+      <button class="btn-vibe" onclick="openVibeModal()" aria-haspopup="dialog">FIND MY SHOW &rarr;</button>
+    </div>
+  </div>
+
+  <!-- VIBE MODAL -->
+  <div id="vibe-modal" role="dialog" aria-modal="true" aria-labelledby="vibe-modal-title">
+    <div class="vibe-modal-panel">
+      <button class="vibe-modal-close" onclick="closeVibeModal()" aria-label="Close quiz">&times;</button>
+      <h2 class="vibe-modal-title" id="vibe-modal-title">WHAT'S YOUR VEGAS VIBE?</h2>
+      <p class="vibe-modal-sub">Spike wants to know.</p>
+      <div class="vibe-answers">
+        <button class="vibe-answer" onclick="vibeGo('/shows/comedy/')">I need to laugh until something hurts</button>
+        <button class="vibe-answer" onclick="vibeGo('/shows/cirque/')">I want my jaw on the floor</button>
+        <button class="vibe-answer" onclick="vibeGo('/shows/')">I'm with someone I need to impress</button>
+        <button class="vibe-answer" onclick="vibeGo('/shows/')">Honestly? I just need a drink and a seat</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- VEGAS DISPATCH — LATEST ARTICLES -->
+  <section class="dispatch-section" aria-labelledby="dispatch-heading">
+    <div class="dispatch-inner">
+      <div class="dispatch-header fade-up">
+        <div>
+          <div class="dispatch-eyebrow">FROM THE FIELD</div>
+          <h2 class="dispatch-title" id="dispatch-heading">VEGAS DISPATCH</h2>
+        </div>
+        <a href="/news/" class="dispatch-view-all">All Articles &rarr;</a>
+      </div>
+      <div class="dispatch-grid">
+
+        <!-- Article 1: Blue Dot Fever (May 10, 2026) -->
+        <a href="/news/blue-dot-fever-what-it-means-for-vegas/" class="dispatch-card fade-up">
+          <div class="dispatch-card-img">
+            <img src="/images/news/blue-dot-fever-gas-prices-vegas.png" alt="Blue Dot Fever — concert tour cancellations and Vegas visitors" loading="lazy" />
+          </div>
+          <div class="dispatch-card-body">
+            <div class="dispatch-date">May 10, 2026</div>
+            <div class="dispatch-card-title">Blue Dot Fever: What Tour Cancellations Mean for Vegas Visitors</div>
+            <p class="dispatch-card-desc">Big-name artists are canceling tours as ticket prices hit record highs. Here's what it means if you're heading to Las Vegas.</p>
+            <span class="dispatch-read">Read Article &rarr;</span>
+          </div>
+        </a>
+
+        <!-- Article 2: Live Nation May 2026 (May 7, 2026) -->
+        <a href="/news/live-nation-las-vegas-listings-update-may-2026/" class="dispatch-card fade-up">
+          <div class="dispatch-card-img">
+            <img src="/images/news/live-nation-may-2026-arena.png" alt="Live Nation Las Vegas major show announcements May 2026" loading="lazy" />
+          </div>
+          <div class="dispatch-card-body">
+            <div class="dispatch-date">May 7, 2026</div>
+            <div class="dispatch-card-title">Live Nation Las Vegas: Major New Show Announcements — May 2026</div>
+            <p class="dispatch-card-desc">Metallica at Sphere, BTS at Allegiant Stadium, LISA's K-pop residency, Olivia Rodrigo, Foo Fighters — the big wave just landed.</p>
+            <span class="dispatch-read">Read Article &rarr;</span>
+          </div>
+        </a>
+
+        <!-- Article 3: BINI World Tour (April 25, 2026) -->
+        <a href="/news/bini-signals-world-tour-august-8/" class="dispatch-card fade-up">
+          <div class="dispatch-card-img">
+            <img src="/images/news/bini-signals-world-tour-poster.jpg" alt="BINI Signals World Tour at Planet Hollywood August 8" loading="lazy" />
+          </div>
+          <div class="dispatch-card-body">
+            <div class="dispatch-date">April 25, 2026</div>
+            <div class="dispatch-card-title">BINI Brings Coachella Breakout to Vegas — Signals World Tour Aug 8</div>
+            <p class="dispatch-card-desc">Filipino girl group BINI, fresh off Coachella 2026, brings their Signals World Tour to PH Live at Planet Hollywood.</p>
+            <span class="dispatch-read">Read Article &rarr;</span>
+          </div>
+        </a>
+
+      </div>
     </div>
   </section>
 
   <!-- FOOTER COMPONENT -->
-<div id="vs-footer"></div>
-  <script src="/components/header.js"></script>
+  <div id="vs-footer"></div>
   <script src="/components/footer.js"></script>
 
+  <!-- MOBILE STICKY CTA BAR -->
+  <div class="mobile-cta-bar" aria-label="Browse shows">
+    <a href="/shows/">BROWSE SHOWS &rarr;</a>
+  </div>
+
+  <!-- ================================================================
+       INLINE JAVASCRIPT
+       ================================================================ -->
+  <script>
+    // ── SCROLL PROGRESS BAR ──
+    (function () {
+      var bar = document.getElementById('progress-bar');
+      window.addEventListener('scroll', function () {
+        var scrollTop  = window.scrollY;
+        var docHeight  = document.documentElement.scrollHeight - window.innerHeight;
+        var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        bar.style.width = pct + '%';
+      }, { passive: true });
+    }());
+
+    // ── VIBE MODAL ──
+    var vibeModal = document.getElementById('vibe-modal');
+
+    function openVibeModal() {
+      vibeModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeVibeModal() {
+      vibeModal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function vibeGo(url) {
+      closeVibeModal();
+      window.location.href = url;
+    }
+
+    // Close on outside click
+    vibeModal.addEventListener('click', function (e) {
+      if (e.target === vibeModal) closeVibeModal();
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && vibeModal.classList.contains('open')) {
+        closeVibeModal();
+      }
+    });
+
+    // ── EMAIL FORM ──
+    (function () {
+      var form    = document.getElementById('spikes-picks-form');
+      var success = document.getElementById('spikes-picks-success');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var email = document.getElementById('spikes-picks-email').value.trim();
+        if (!email) return;
+
+        var btn = form.querySelector('button[type="submit"]');
+        btn.textContent = 'SENDING...';
+        btn.disabled = true;
+
+        fetch('https://brevo-subscribe.vegassidekickcom.workers.dev', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email })
+        })
+        .then(function (res) {
+          form.style.display = 'none';
+          success.style.display = 'block';
+        })
+        .catch(function () {
+          // Still show success — the subscription may have worked
+          form.style.display = 'none';
+          success.style.display = 'block';
+        });
+      });
+    }());
+
+    // ── SCROLL-TRIGGERED FADE-UP ANIMATIONS ──
+    (function () {
+      if (!('IntersectionObserver' in window)) {
+        // Fallback: show all fade-up elements immediately
+        document.querySelectorAll('.fade-up').forEach(function (el) {
+          el.classList.add('visible');
+        });
+        return;
+      }
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.fade-up').forEach(function (el) {
+        observer.observe(el);
+      });
+    }());
+  </script>
 </body>
 </html>
