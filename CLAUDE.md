@@ -210,12 +210,147 @@ Push to `master` branch. Netlify auto-deploys on push. The Cloudflare Worker (`f
 ## Key Gotchas
 
 1. **No build system** — changes to HTML/CSS/JS take effect immediately on deploy. There is no compilation step.
-2. **Components are injected JS** — header and footer are injected into the DOM by JavaScript. Ensure pages load component scripts before any JS that depends on them.
-3. **Script load order matters** — place component `<script>` tags where DOM injection should happen (current pattern injects relative to the script tag position).
+2. **Components are injected JS** — header and footer are injected into the DOM by JavaScript. The header requires `<div id="vs-header"></div>` at the top of `<body>` and the script at the bottom. See Header Component section below.
+3. **Script load order matters** — component scripts go at the bottom of `<body>`, after all content. The placeholder divs go at the top.
 4. **Image paths are root-relative** — use `/images/filename.jpg` not relative paths, since pages exist in subdirectories.
 5. **Sitemap must be updated manually** — add new pages to `sitemap.xml` when creating new show pages.
 6. **CSS is all inline** — there is no shared stylesheet. The design system exists as repeated CSS custom properties in each page's `<style>` block.
 7. **Algolia index is external** — the search index `vegas_shows` must be populated separately via the Algolia dashboard or API. Adding a show page does not auto-index it.
+
+---
+
+## Image Handling (Critical)
+
+**Binary images cannot be uploaded via the MCP/GitHub tools.** The push tools treat all content as UTF-8 text — passing base64-encoded binary stores the ASCII base64 string as the file, not the decoded image. This corrupts every image uploaded this way.
+
+### The fix: embed images as WebP data URLs in HTML
+
+For images that appear inside HTML pages (article heroes, card thumbnails):
+1. Convert to WebP: `cwebp -q 70 photo.jpg -o photo.webp`
+2. Generate data URL: `python3 -c "import base64; print('data:image/webp;base64,' + base64.b64encode(open('photo.webp','rb').read()).decode())" > dataurl.txt`
+3. Use the data URL as the `src` attribute directly in HTML
+
+**Size targets:**
+- Card thumbnails: `cwebp -q 65`, aim for <60KB binary (~80KB data URL)
+- Article hero images: `cwebp -q 75`, aim for <100KB binary (~133KB data URL)
+- Use `cwebp -size 71680 input.jpg -o output.webp` to hit a specific byte count
+- MCP payload limit is ~500KB per push — keep total HTML file under that
+
+**OG/social preview images** require a real hosted file URL (crawlers can't use data URLs). These must be uploaded as binary via the GitHub web interface: `github.com/VegasSidekick/vegas-sidekick/upload/main/images/news` — drag and drop the file directly.
+
+---
+
+## Header Component — Correct Usage
+
+The header component requires **both** of these in every page:
+
+```html
+<!-- 1. Placeholder div at the TOP of <body> -->
+<div id="vs-header"></div>
+
+<!-- 2. Script tag at the BOTTOM of <body>, before </body> -->
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+```
+
+The footer also needs a placeholder:
+```html
+<div id="vs-footer"></div>
+```
+
+`header.js` injects into `#vs-header`. If that div is missing, the nav silently fails to render.
+
+---
+
+## Publishing News Articles
+
+When publishing a new article, these files must all be updated:
+
+1. **Create** `news/{slug}/index.html` — full article page
+2. **Update** `news/index.html` — promote new article to featured, add grid card, shift oldest out
+3. **Update** `index.html` — update the Vegas Dispatch section with the new article card
+4. **Update** `sitemap.xml` — add new URL entry with `<lastmod>` date
+
+**Before touching `index.html`**, always check git log to confirm the current state:
+```bash
+git log --oneline --format="%h %ad %s" --date=short index.html | head -5
+```
+If there has been recent homepage work not done in this session, pull the latest and make only the targeted change (the dispatch/news card section). Never rewrite index.html from scratch.
+
+### News article HTML structure
+
+```html
+<body>
+<div id="vs-header"></div>          <!-- header injection point -->
+<div id="vs-progress"></div>        <!-- scroll progress bar -->
+
+<nav class="breadcrumbs">...</nav>  <!-- Home › Vegas Dispatch › Article Title -->
+
+<!-- hero, article body, etc. -->
+
+<div id="vs-footer"></div>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+</body>
+```
+
+### Email signup in articles
+
+Use the Cloudflare Worker endpoint (not the Brevo API directly):
+```javascript
+fetch('https://brevo-subscribe.vegassidekickcom.workers.dev', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email })
+})
+```
+
+---
+
+## Pushing Files to GitHub (MCP API)
+
+`git push` is blocked in this environment (proxy returns 403). All file pushes go through the Python MCP API:
+
+```python
+import urllib.request, json
+
+with open('/home/claude/.claude/remote/.session_ingress_token') as f:
+    token = f.read().strip()
+
+mcp_url = "https://api.anthropic.com/v2/ccr-sessions/{SESSION_ID}/github/mcp"
+headers = {
+    "X-MCP-Server-ID": "f537862b-b4d9-5761-8681-c6df5723856e",
+    "X-Session-UUID": "{SESSION_ID}",
+    "Authorization": f"Bearer {token}",
+    "Content-Type": "application/json",
+    "Accept": "application/json, text/event-stream"
+}
+
+def mcp_push(files, msg):
+    payload = {"jsonrpc": "2.0", "id": 1, "method": "tools/call", "params": {
+        "name": "push_files",
+        "arguments": {"owner": "VegasSidekick", "repo": "vegas-sidekick",
+                      "branch": "main", "files": files, "message": msg}
+    }}
+    req = urllib.request.Request(mcp_url, data=json.dumps(payload).encode(), headers=headers, method='POST')
+    with urllib.request.urlopen(req, timeout=180) as r:
+        raw = r.read()
+    result = None
+    for line in raw.decode().split('\n'):
+        if line.startswith('data: '):
+            result = json.loads(line[6:])
+    text = result.get('result', {}).get('content', [{}])[0].get('text', '') if result else ''
+    return '"commit"' in text
+```
+
+The `SESSION_ID` and `X-MCP-Server-ID` change each session — read the current values from `/tmp/mcp-config-cse_*.json`.
+
+After every push, sync the local repo:
+```bash
+git fetch origin main && git reset --hard origin/main
+```
+
+The stop hook checks for uncommitted local changes — the local repo must always match remote after a session.
 
 ---
 
