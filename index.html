@@ -38,7 +38,7 @@
       font-size: 16px;
       line-height: 1.6;
       overflow-x: hidden;
-      padding-top: 70px; /* nav 65px + gradient bar 5px */
+      padding-top: 89px; /* real header 84px + gradient bar 5px */
     }
 
     /* ── PROGRESS BAR ── */
@@ -53,122 +53,20 @@
       transition: width 0.1s linear;
     }
 
-    /* ── NAV ── */
-    .site-nav {
-      position: fixed;
-      top: 3px; /* sit below progress bar */
-      left: 0;
-      right: 0;
-      height: 65px;
-      background: rgba(10, 15, 44, 0.97);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      z-index: 200;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 32px;
-      border-bottom: 1px solid rgba(26, 107, 255, 0.18);
-    }
-
-    .nav-logo img {
-      height: 40px;
-      width: auto;
-      display: block;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-family: 'Barlow', sans-serif;
-      font-weight: 600;
-      font-size: 0.82rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--white);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--orange); }
-
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 6px;
-    }
-
-    .hamburger span {
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: var(--white);
-      border-radius: 2px;
-      transition: all 0.3s;
-      transform-origin: center;
-    }
-
-    .hamburger.open span:nth-child(1) {
-      transform: translateY(7px) rotate(45deg);
-    }
-    .hamburger.open span:nth-child(2) {
-      opacity: 0;
-      transform: scaleX(0);
-    }
-    .hamburger.open span:nth-child(3) {
-      transform: translateY(-7px) rotate(-45deg);
-    }
-
-    /* Mobile nav drawer */
-    @media (max-width: 768px) {
-      .hamburger { display: flex; }
-
-      .nav-links {
-        display: none;
-        position: fixed;
-        top: 68px; /* below nav */
-        left: 0;
-        right: 0;
-        background: rgba(10, 15, 44, 0.99);
-        backdrop-filter: blur(12px);
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0;
-        padding: 16px 32px 24px;
-        border-bottom: 2px solid rgba(26,107,255,0.3);
-        z-index: 199;
-      }
-
-      .nav-links.open { display: flex; }
-
-      .nav-links li { width: 100%; }
-
-      .nav-links a {
-        display: block;
-        padding: 14px 0;
-        font-size: 1.1rem;
-        border-bottom: 1px solid rgba(255,255,255,0.07);
-      }
-    }
-
     /* ── GRADIENT SEPARATOR BAR ── */
     .gradient-bar {
       position: fixed;
-      top: 65px;
+      top: 84px; /* header.js nav height on desktop */
       left: 0;
       right: 0;
       height: 5px;
       background: linear-gradient(to right, var(--orange), var(--blue));
       z-index: 199;
+    }
+
+    @media (max-width: 900px) {
+      body { padding-top: 65px; } /* real header 60px + gradient bar 5px */
+      .gradient-bar { top: 60px; } /* mobile header height */
     }
 
     /* ── HERO ── */
@@ -537,11 +435,16 @@
       box-shadow: 0 8px 28px rgba(255,107,43,0.4);
     }
 
-    .cat-emoji {
-      font-size: 3rem;
-      margin-bottom: 12px;
-      display: block;
-      line-height: 1;
+    .cat-icon {
+      width: 52px;
+      height: 52px;
+      margin-bottom: 14px;
+      color: var(--blue);
+      flex-shrink: 0;
+    }
+
+    .cat-cta .cat-icon {
+      color: var(--white);
     }
 
     .cat-name {
@@ -826,195 +729,103 @@
       .vibe-modal-title { font-size: 1.6rem; }
     }
 
-    /* ── EMAIL CAPTURE ── */
-    .email-section {
-      background: var(--orange);
-      padding: 60px 24px;
+    /* ── EMAIL COMPACT STRIP ── */
+    .email-compact {
+      background: var(--navy);
+      padding: 32px 40px;
+      border-top: 1px solid rgba(26,107,255,0.15);
+      border-bottom: 1px solid rgba(26,107,255,0.15);
     }
 
-    .email-card {
-      max-width: 600px;
+    .email-compact-inner {
+      max-width: 1100px;
       margin: 0 auto;
-      background: var(--white);
-      border: 3px solid var(--blue);
-      border-radius: 16px;
-      padding: 48px 40px;
-      text-align: center;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
     }
 
-    .email-eyebrow {
+    .email-compact-text {
+      flex: 1 1 200px;
+      min-width: 0;
+    }
+
+    .email-compact-label {
+      display: block;
       font-family: 'Barlow', sans-serif;
       font-weight: 600;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--navy);
-      margin-bottom: 10px;
+      letter-spacing: 0.2em;
+      color: var(--orange);
+      margin-bottom: 4px;
     }
 
-    .email-headline {
+    .email-compact-headline {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2.2rem, 5vw, 3rem);
-      color: var(--navy);
-      line-height: 1.05;
-      margin-bottom: 14px;
-    }
-
-    .email-sub {
-      font-family: 'Barlow', sans-serif;
-      font-weight: 400;
-      font-size: 0.95rem;
-      color: var(--gray-dark);
-      margin-bottom: 28px;
-      line-height: 1.6;
+      font-size: 2rem;
+      color: var(--white);
+      line-height: 1;
     }
 
     #spikes-picks-form {
+      flex: 2 1 360px;
       display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-bottom: 14px;
+      gap: 10px;
+      min-width: 0;
     }
 
     #spikes-picks-form input[type="email"] {
-      flex: 1 1 220px;
-      background: var(--white);
-      border: 2px solid var(--navy);
-      border-radius: 8px;
-      padding: 14px 18px;
+      flex: 1 1 200px;
+      min-width: 0;
+      height: 48px;
+      background: rgba(255,255,255,0.08);
+      border: 1.5px solid rgba(255,255,255,0.22);
+      border-radius: 6px;
+      padding: 0 16px;
       font-family: 'Barlow', sans-serif;
-      font-size: 0.95rem;
-      color: var(--navy);
+      font-size: 0.9rem;
+      color: var(--white);
       outline: none;
       transition: border-color 0.2s;
     }
 
-    #spikes-picks-form input[type="email"]:focus {
-      border-color: var(--blue);
-    }
+    #spikes-picks-form input[type="email"]::placeholder { color: rgba(255,255,255,0.4); }
+    #spikes-picks-form input[type="email"]:focus { border-color: var(--blue); }
 
     #spikes-picks-form button {
-      background: var(--navy);
+      height: 48px;
+      background: var(--orange);
       color: var(--white);
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.05rem;
+      font-size: 1rem;
       letter-spacing: 0.06em;
-      padding: 14px 28px;
+      padding: 0 24px;
       border: none;
-      border-radius: 8px;
+      border-radius: 6px;
       cursor: pointer;
       white-space: nowrap;
-      transition: background 0.2s, transform 0.2s;
+      transition: background 0.2s;
     }
 
-    #spikes-picks-form button:hover {
-      background: #1a2c5a;
-      transform: translateY(-2px);
-    }
+    #spikes-picks-form button:hover { background: #d4561f; }
 
     #spikes-picks-success {
       font-family: 'Barlow', sans-serif;
       font-weight: 600;
-      font-size: 1rem;
-      color: var(--navy);
-      margin-bottom: 10px;
+      font-size: 0.95rem;
+      color: var(--white);
     }
 
-    .email-fine {
-      font-family: 'Barlow', sans-serif;
-      font-weight: 400;
-      font-size: 0.78rem;
-      color: rgba(10,15,44,0.55);
-    }
-
-    @media (max-width: 600px) {
-      .email-card { padding: 36px 20px; }
+    @media (max-width: 768px) {
+      .email-compact { padding: 28px 20px; }
+      .email-compact-inner { gap: 20px; }
       #spikes-picks-form { flex-direction: column; }
       #spikes-picks-form input[type="email"],
-      #spikes-picks-form button { width: 100%; }
+      #spikes-picks-form button { width: 100%; flex: none; }
     }
 
-    /* ── FOOTER ── */
-    footer {
-      background: var(--navy);
-      padding: 60px 40px 32px;
-      color: var(--gray);
-    }
-
-    .footer-inner {
-      max-width: 1280px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 20px;
-    }
-
-    .footer-inner img {
-      height: 48px;
-      width: auto;
-      display: block;
-    }
-
-    .footer-tagline {
-      font-family: 'Barlow', sans-serif;
-      font-weight: 400;
-      font-size: 0.85rem;
-      color: var(--gray);
-      letter-spacing: 0.06em;
-    }
-
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 20px;
-      justify-content: center;
-      list-style: none;
-    }
-
-    .footer-links a {
-      font-family: 'Barlow', sans-serif;
-      font-weight: 400;
-      font-size: 0.85rem;
-      color: var(--gray);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .footer-links a:hover { color: var(--blue); }
-
-    .footer-links li:not(:last-child)::after {
-      content: '|';
-      margin-left: 20px;
-      color: rgba(136,150,168,0.3);
-    }
-
-    .footer-legal {
-      font-family: 'Barlow', sans-serif;
-      font-weight: 400;
-      font-size: 0.8rem;
-      color: rgba(136,150,168,0.7);
-      max-width: 640px;
-      line-height: 1.6;
-    }
-
-    .footer-copy {
-      font-family: 'Barlow', sans-serif;
-      font-weight: 400;
-      font-size: 0.8rem;
-      color: rgba(136,150,168,0.55);
-    }
-
-    .footer-easter {
-      font-size: 0.9rem;
-      opacity: 0.35;
-    }
-
-    @media (max-width: 480px) {
-      footer { padding: 48px 20px 100px; }
-    }
 
     @media (min-width: 481px) and (max-width: 768px) {
       footer { padding-bottom: 100px; }
@@ -1100,27 +911,12 @@
   <!-- READING PROGRESS BAR -->
   <div id="progress-bar"></div>
 
-  <!-- GRADIENT SEPARATOR BAR (fixed, sits between progress bar and nav bottom) -->
-  <div class="gradient-bar"></div>
+  <!-- HEADER COMPONENT (nav + mobile drawer + Google Analytics) -->
+  <div id="vs-header"></div>
+  <script src="/components/header.js"></script>
 
-  <!-- NAVIGATION -->
-  <nav class="site-nav" role="navigation" aria-label="Main navigation">
-    <a class="nav-logo" href="/">
-      <img src="/images/logo-pill-alt.png" alt="Vegas Sidekick" style="height:40px;width:auto;" />
-    </a>
-    <ul class="nav-links" id="nav-links" role="list">
-      <li><a href="/shows/">Shows</a></li>
-      <li><a href="/shows/comedy/">Comedy</a></li>
-      <li><a href="/shows/magic/">Magic</a></li>
-      <li><a href="/shows/cirque/">Cirque</a></li>
-      <li><a href="/shows/">All Shows</a></li>
-    </ul>
-    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-  </nav>
+  <!-- GRADIENT SEPARATOR BAR -->
+  <div class="gradient-bar"></div>
 
   <!-- HERO -->
   <section class="hero" aria-label="Hero">
@@ -1228,19 +1024,46 @@
       </div>
       <div class="cat-grid">
         <a href="/shows/comedy/" class="cat-card fade-up">
-          <span class="cat-emoji" aria-hidden="true">&#128514;</span>
+          <!-- Microphone -->
+          <svg class="cat-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="17" y="4" width="14" height="22" rx="7" stroke="currentColor" stroke-width="2.5"/>
+            <path d="M10 24c0 7.73 6.27 14 14 14s14-6.27 14-14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+            <line x1="24" y1="38" x2="24" y2="44" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="16" y1="44" x2="32" y2="44" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
           <span class="cat-name">COMEDY</span>
         </a>
         <a href="/shows/magic/" class="cat-card fade-up">
-          <span class="cat-emoji" aria-hidden="true">&#127913;</span>
+          <!-- Magic wand with star -->
+          <svg class="cat-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <line x1="8" y1="40" x2="30" y2="18" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/>
+            <path d="M30 10l1.6 4.8 4.8 1.6-4.8 1.6-1.6 4.8-1.6-4.8-4.8-1.6 4.8-1.6z" fill="currentColor"/>
+            <circle cx="40" cy="10" r="2" fill="currentColor" opacity="0.65"/>
+            <circle cx="14" cy="14" r="1.5" fill="currentColor" opacity="0.5"/>
+            <circle cx="40" cy="26" r="1.5" fill="currentColor" opacity="0.5"/>
+          </svg>
           <span class="cat-name">MAGIC</span>
         </a>
         <a href="/shows/cirque/" class="cat-card fade-up">
-          <span class="cat-emoji" aria-hidden="true">&#127914;</span>
+          <!-- Acrobat figure -->
+          <svg class="cat-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="24" cy="7" r="4.5" stroke="currentColor" stroke-width="2.5"/>
+            <line x1="24" y1="12" x2="24" y2="22" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="24" y1="17" x2="8" y2="26" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="24" y1="17" x2="40" y2="26" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="24" y1="22" x2="15" y2="38" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="24" y1="22" x2="33" y2="38" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
           <span class="cat-name">CIRQUE / ACROBATICS</span>
         </a>
         <a href="/shows/" class="cat-card cat-cta fade-up">
-          <span class="cat-emoji" aria-hidden="true">&#9889;</span>
+          <!-- 4-grid / all shows -->
+          <svg class="cat-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="5" y="5" width="17" height="17" rx="3" stroke="currentColor" stroke-width="2.5"/>
+            <rect x="26" y="5" width="17" height="17" rx="3" stroke="currentColor" stroke-width="2.5"/>
+            <rect x="5" y="26" width="17" height="17" rx="3" stroke="currentColor" stroke-width="2.5"/>
+            <rect x="26" y="26" width="17" height="17" rx="3" fill="currentColor" opacity="0.35" stroke="currentColor" stroke-width="2.5"/>
+          </svg>
           <span class="cat-name">ALL SHOWS</span>
         </a>
       </div>
@@ -1582,41 +1405,24 @@
     </div>
   </div>
 
-  <!-- EMAIL CAPTURE — SPIKE'S PICKS -->
-  <section class="email-section" aria-labelledby="email-heading">
-    <div class="email-card fade-up">
-      <div class="email-eyebrow">FREE WEEKLY INTEL</div>
-      <h2 class="email-headline" id="email-heading">SPIKE'S PICKS</h2>
-      <p class="email-sub">Weekly show intel &amp; deals from a cactus who's seen it all. No spam. No markup. Just the good stuff.</p>
+  <!-- EMAIL COMPACT STRIP — SPIKE'S PICKS -->
+  <section class="email-compact" aria-labelledby="email-heading">
+    <div class="email-compact-inner fade-up">
+      <div class="email-compact-text">
+        <span class="email-compact-label">&#127797; FREE WEEKLY INTEL</span>
+        <div class="email-compact-headline" id="email-heading">SPIKE'S PICKS</div>
+      </div>
       <form id="spikes-picks-form" novalidate>
         <input type="email" id="spikes-picks-email" placeholder="Your email address" required autocomplete="email" />
         <button type="submit">I'M IN &rarr;</button>
       </form>
       <div id="spikes-picks-success" style="display:none;">You're in &mdash; Spike will be in touch. &#127797;</div>
-      <p class="email-fine">No spam. Unsubscribe anytime.</p>
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-inner">
-      <img src="/images/logo-pill-alt.png" alt="Vegas Sidekick" />
-      <p class="footer-tagline">SPIKE KNOWS VEGAS</p>
-      <nav aria-label="Footer navigation">
-        <ul class="footer-links">
-          <li><a href="/shows/">Shows</a></li>
-          <li><a href="/shows/comedy/">Comedy</a></li>
-          <li><a href="/shows/magic/">Magic</a></li>
-          <li><a href="/shows/cirque/">Cirque</a></li>
-          <li><a href="/shows/">All Shows</a></li>
-          <li><a href="/affiliate-disclosure/">Affiliate Disclosure</a></li>
-        </ul>
-      </nav>
-      <p class="footer-legal">Vegas Sidekick is an affiliate partner of Spotlight.Vegas. We may earn a commission when you purchase tickets through our links, at no additional cost to you.</p>
-      <p class="footer-copy">&copy; 2026 K2 Oddworks. All rights reserved.</p>
-      <p class="footer-easter" aria-hidden="true">&#127797;</p>
-    </div>
-  </footer>
+  <!-- FOOTER COMPONENT -->
+  <div id="vs-footer"></div>
+  <script src="/components/footer.js"></script>
 
   <!-- MOBILE STICKY CTA BAR -->
   <div class="mobile-cta-bar" aria-label="Browse shows">
@@ -1636,25 +1442,6 @@
         var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
         bar.style.width = pct + '%';
       }, { passive: true });
-    }());
-
-    // ── HAMBURGER MENU ──
-    (function () {
-      var btn   = document.getElementById('hamburger');
-      var links = document.getElementById('nav-links');
-      btn.addEventListener('click', function () {
-        var isOpen = links.classList.toggle('open');
-        btn.classList.toggle('open', isOpen);
-        btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      });
-      // Close nav when a link is clicked
-      links.addEventListener('click', function (e) {
-        if (e.target.tagName === 'A') {
-          links.classList.remove('open');
-          btn.classList.remove('open');
-          btn.setAttribute('aria-expanded', 'false');
-        }
-      });
     }());
 
     // ── VIBE MODAL ──
