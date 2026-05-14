@@ -904,6 +904,162 @@
     .bg-offwhite { background: #F9FBFF; }
     .bg-tint    { background: var(--tint); }
 
+    /* ── VEGAS DISPATCH SLIDER ── */
+    .dispatch-section {
+      background: var(--navy);
+      padding: 0;
+    }
+
+    .dispatch-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 60px 40px;
+    }
+
+    .dispatch-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 32px;
+    }
+
+    .dispatch-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      color: var(--white);
+      letter-spacing: 0.04em;
+      line-height: 1;
+    }
+
+    .dispatch-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--orange);
+      margin-bottom: 4px;
+    }
+
+    .dispatch-view-all {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--blue);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+
+    .dispatch-view-all:hover { color: var(--orange); }
+
+    .dispatch-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .dispatch-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(26,107,255,0.18);
+      border-radius: 10px;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.22s, transform 0.22s, box-shadow 0.22s;
+    }
+
+    .dispatch-card:hover {
+      border-color: var(--orange);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+    }
+
+    .dispatch-card-img {
+      aspect-ratio: 16/9;
+      overflow: hidden;
+    }
+
+    .dispatch-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s;
+    }
+
+    .dispatch-card:hover .dispatch-card-img img { transform: scale(1.04); }
+
+    .dispatch-card-body {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .dispatch-date {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--orange);
+    }
+
+    .dispatch-card-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.25rem;
+      line-height: 1.15;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+
+    .dispatch-card-desc {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 400;
+      font-size: 0.85rem;
+      color: var(--gray);
+      line-height: 1.55;
+      flex: 1;
+    }
+
+    .dispatch-read {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 700;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--blue);
+      margin-top: 4px;
+      transition: color 0.2s;
+    }
+
+    .dispatch-card:hover .dispatch-read { color: var(--orange); }
+
+    @media (max-width: 900px) {
+      .dispatch-inner { padding: 48px 20px; }
+      .dispatch-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 540px) {
+      .dispatch-grid {
+        grid-template-columns: 1fr;
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 16px;
+        padding-bottom: 12px;
+      }
+      .dispatch-card {
+        flex: 0 0 78vw;
+        scroll-snap-align: start;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -1067,6 +1223,21 @@
           <span class="cat-name">ALL SHOWS</span>
         </a>
       </div>
+    </div>
+  </section>
+
+  <!-- EMAIL COMPACT STRIP — SPIKE'S PICKS -->
+  <section class="email-compact" aria-labelledby="email-heading">
+    <div class="email-compact-inner fade-up">
+      <div class="email-compact-text">
+        <span class="email-compact-label">&#127797; FREE WEEKLY INTEL</span>
+        <div class="email-compact-headline" id="email-heading">SPIKE'S PICKS</div>
+      </div>
+      <form id="spikes-picks-form" novalidate>
+        <input type="email" id="spikes-picks-email" placeholder="Your email address" required autocomplete="email" />
+        <button type="submit">I'M IN &rarr;</button>
+      </form>
+      <div id="spikes-picks-success" style="display:none;">You're in &mdash; Spike will be in touch. &#127797;</div>
     </div>
   </section>
 
@@ -1405,18 +1576,58 @@
     </div>
   </div>
 
-  <!-- EMAIL COMPACT STRIP — SPIKE'S PICKS -->
-  <section class="email-compact" aria-labelledby="email-heading">
-    <div class="email-compact-inner fade-up">
-      <div class="email-compact-text">
-        <span class="email-compact-label">&#127797; FREE WEEKLY INTEL</span>
-        <div class="email-compact-headline" id="email-heading">SPIKE'S PICKS</div>
+  <!-- VEGAS DISPATCH — LATEST ARTICLES -->
+  <section class="dispatch-section" aria-labelledby="dispatch-heading">
+    <div class="dispatch-inner">
+      <div class="dispatch-header fade-up">
+        <div>
+          <div class="dispatch-eyebrow">FROM THE FIELD</div>
+          <h2 class="dispatch-title" id="dispatch-heading">VEGAS DISPATCH</h2>
+        </div>
+        <a href="/news/" class="dispatch-view-all">All Articles &rarr;</a>
       </div>
-      <form id="spikes-picks-form" novalidate>
-        <input type="email" id="spikes-picks-email" placeholder="Your email address" required autocomplete="email" />
-        <button type="submit">I'M IN &rarr;</button>
-      </form>
-      <div id="spikes-picks-success" style="display:none;">You're in &mdash; Spike will be in touch. &#127797;</div>
+      <div class="dispatch-grid">
+
+        <!-- Article 1: Blue Dot Fever (May 10, 2026) -->
+        <a href="/news/blue-dot-fever-what-it-means-for-vegas/" class="dispatch-card fade-up">
+          <div class="dispatch-card-img">
+            <img src="/images/news/blue-dot-fever-gas-prices-vegas.png" alt="Blue Dot Fever — concert tour cancellations and Vegas visitors" loading="lazy" />
+          </div>
+          <div class="dispatch-card-body">
+            <div class="dispatch-date">May 10, 2026</div>
+            <div class="dispatch-card-title">Blue Dot Fever: What Tour Cancellations Mean for Vegas Visitors</div>
+            <p class="dispatch-card-desc">Big-name artists are canceling tours as ticket prices hit record highs. Here's what it means if you're heading to Las Vegas.</p>
+            <span class="dispatch-read">Read Article &rarr;</span>
+          </div>
+        </a>
+
+        <!-- Article 2: Live Nation May 2026 (May 7, 2026) -->
+        <a href="/news/live-nation-las-vegas-listings-update-may-2026/" class="dispatch-card fade-up">
+          <div class="dispatch-card-img">
+            <img src="/images/news/live-nation-may-2026-arena.png" alt="Live Nation Las Vegas major show announcements May 2026" loading="lazy" />
+          </div>
+          <div class="dispatch-card-body">
+            <div class="dispatch-date">May 7, 2026</div>
+            <div class="dispatch-card-title">Live Nation Las Vegas: Major New Show Announcements — May 2026</div>
+            <p class="dispatch-card-desc">Metallica at Sphere, BTS at Allegiant Stadium, LISA's K-pop residency, Olivia Rodrigo, Foo Fighters — the big wave just landed.</p>
+            <span class="dispatch-read">Read Article &rarr;</span>
+          </div>
+        </a>
+
+        <!-- Article 3: BINI World Tour (April 25, 2026) -->
+        <a href="/news/bini-signals-world-tour-august-8/" class="dispatch-card fade-up">
+          <div class="dispatch-card-img">
+            <img src="/images/news/bini-signals-world-tour-poster.jpg" alt="BINI Signals World Tour at Planet Hollywood August 8" loading="lazy" />
+          </div>
+          <div class="dispatch-card-body">
+            <div class="dispatch-date">April 25, 2026</div>
+            <div class="dispatch-card-title">BINI Brings Coachella Breakout to Vegas — Signals World Tour Aug 8</div>
+            <p class="dispatch-card-desc">Filipino girl group BINI, fresh off Coachella 2026, brings their Signals World Tour to PH Live at Planet Hollywood.</p>
+            <span class="dispatch-read">Read Article &rarr;</span>
+          </div>
+        </a>
+
+      </div>
     </div>
   </section>
 
