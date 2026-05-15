@@ -151,17 +151,12 @@
 
     /* ── SPIKE IN THE SCREEN ── */
     .crt-spike {
-      position: relative;
+      position: absolute;
       z-index: 4;
       font-size: 64px;
       line-height: 1;
       filter: drop-shadow(0 0 12px rgba(0,255,255,0.6));
-      animation: spikeFloat 3s ease-in-out infinite;
-    }
-
-    @keyframes spikeFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-6px); }
+      user-select: none;
     }
 
     /* ── 404 GLITCH TEXT ── */
@@ -372,6 +367,48 @@
 <div id="vs-footer"></div>
 <script src="/components/header.js"></script>
 <script src="/components/footer.js"></script>
+
+<script>
+  (function () {
+    var spike  = document.querySelector('.crt-spike');
+    var screen = document.querySelector('.crt-screen');
+
+    var x = 20, y = 20;
+    var vx = 0.6, vy = 0.45;  // slow drift
+
+    var glows = [
+      'drop-shadow(0 0 12px rgba(0,255,255,0.7))',
+      'drop-shadow(0 0 12px rgba(255,0,255,0.7))',
+      'drop-shadow(0 0 12px rgba(255,107,0,0.7))',
+      'drop-shadow(0 0 12px rgba(26,107,255,0.8))',
+    ];
+    var glowIndex = 0;
+
+    function bounce() {
+      var sw = screen.clientWidth;
+      var sh = screen.clientHeight;
+      var ew = spike.offsetWidth;
+      var eh = spike.offsetHeight;
+
+      x += vx;
+      y += vy;
+
+      if (x <= 0) { x = 0; vx = Math.abs(vx); glowIndex = (glowIndex + 1) % glows.length; spike.style.filter = glows[glowIndex]; }
+      if (y <= 0) { y = 0; vy = Math.abs(vy); glowIndex = (glowIndex + 1) % glows.length; spike.style.filter = glows[glowIndex]; }
+      if (x + ew >= sw) { x = sw - ew; vx = -Math.abs(vx); glowIndex = (glowIndex + 1) % glows.length; spike.style.filter = glows[glowIndex]; }
+      if (y + eh >= sh) { y = sh - eh; vy = -Math.abs(vy); glowIndex = (glowIndex + 1) % glows.length; spike.style.filter = glows[glowIndex]; }
+
+      spike.style.left = x + 'px';
+      spike.style.top  = y + 'px';
+
+      requestAnimationFrame(bounce);
+    }
+
+    spike.style.left = x + 'px';
+    spike.style.top  = y + 'px';
+    requestAnimationFrame(bounce);
+  })();
+</script>
 
 </body>
 </html>
