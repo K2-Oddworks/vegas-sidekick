@@ -15,14 +15,15 @@
     "name": "Las Vegas Magic Shows",
     "description": "All magic shows currently running in Las Vegas.",
     "url": "https://vegassidekick.com/shows/magic/",
-    "numberOfItems": 6,
+    "numberOfItems": 7,
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Mac King Comedy Magic",      "url": "https://vegassidekick.com/shows/magic/mac-king/" },
       { "@type": "ListItem", "position": 2, "name": "Nathan Burton Comedy Magic", "url": "https://vegassidekick.com/shows/magic/nathan-burton-comedy-magic/" },
       { "@type": "ListItem", "position": 3, "name": "Criss Angel MINDFREAK",      "url": "https://vegassidekick.com/shows/magic/criss-angel/" },
       { "@type": "ListItem", "position": 4, "name": "Shin Lim: LIMITLESS",        "url": "https://vegassidekick.com/shows/magic/shin-lim/" },
       { "@type": "ListItem", "position": 5, "name": "Penn & Teller",              "url": "https://vegassidekick.com/shows/magic/penn-and-teller/" },
-      { "@type": "ListItem", "position": 6, "name": "Mat Franco: Magic Reinvented Nightly", "url": "https://vegassidekick.com/shows/magic/mat-franco/" }
+      { "@type": "ListItem", "position": 6, "name": "Mat Franco: Magic Reinvented Nightly", "url": "https://vegassidekick.com/shows/magic/mat-franco/" },
+      { "@type": "ListItem", "position": 7, "name": "The Mentalist",              "url": "https://vegassidekick.com/shows/magic/the-mentalist/" }
     ]
   }
   </script>
@@ -257,7 +258,7 @@
     <div class="hero-left">
       <div class="hero-eyebrow">Las Vegas · Magic Shows</div>
       <h1 class="hero-title">Las Vegas Magic Shows — <span>Tickets &amp; Prices</span></h1>
-      <p class="hero-sub">Six magic shows covering the full range — $28 family matinées to world-record close-up card magic, 21-year Las Vegas institutions, and concert-scale illusion spectaculars. We'll tell you which one is right for your trip.</p>
+      <p class="hero-sub">Seven magic shows covering the full range — $28 family matinées to world-record close-up card magic, 21-year Las Vegas institutions, concert-scale illusion spectaculars, and the Strip's only dedicated mentalism show. We'll tell you which one is right for your trip.</p>
       <div class="hero-stats">
         <div class="hero-stat"><div class="hero-stat-num">$28</div><div class="hero-stat-lbl">Starting Price</div></div>
         <div class="hero-stat"><div class="hero-stat-num">28%</div><div class="hero-stat-lbl">Max Savings vs. Box Office</div></div>
@@ -276,6 +277,7 @@
           <a href="/shows/magic/penn-and-teller/" class="sb-link"><div class="sb-link-left"><div class="sb-link-name">Penn &amp; Teller</div><div class="sb-link-venue">Rio Hotel</div></div><div class="sb-link-price">$90</div></a>
           <a href="/shows/magic/criss-angel/" class="sb-link"><div class="sb-link-left"><div class="sb-link-name">Criss Angel MINDFREAK</div><div class="sb-link-venue">Planet Hollywood</div></div><div class="sb-link-price">$117</div></a>
           <a href="/shows/magic/mat-franco/" class="sb-link"><div class="sb-link-left"><div class="sb-link-name">Mat Franco</div><div class="sb-link-venue">The LINQ Hotel</div></div><div class="sb-link-price">$57</div></a>
+          <a href="/shows/magic/the-mentalist/" class="sb-link"><div class="sb-link-left"><div class="sb-link-name">The Mentalist</div><div class="sb-link-venue">V Theater · Planet Hollywood</div></div><div class="sb-link-price">$40</div></a>
         </div>
         <div class="sb-div"></div>
         <div class="sb-email">
@@ -358,7 +360,7 @@
             <option value="az">A → Z</option>
           </select>
           <div class="filter-count-wrap">
-            <span class="filter-count" id="filterCount">6 shows</span>
+            <span class="filter-count" id="filterCount">7 shows</span>
           </div>
         </div>
       </div>
@@ -381,7 +383,7 @@
       <div class="shows-section">
         <div class="shows-section-hdr">
           <div class="shows-section-title">All Magic Shows</div>
-          <div class="shows-section-count" id="gridCount">6 shows</div>
+          <div class="shows-section-count" id="gridCount">7 shows</div>
         </div>
         <!-- COMPARE PROMPT -->
         <div class="compare-prompt">
@@ -577,6 +579,37 @@
             </div>
           </a>
 
+          <!-- THE MENTALIST -->
+          <a href="/shows/magic/the-mentalist/"
+             class="show-grid-card"
+             data-name="The Mentalist"
+             data-price="40"
+             data-occasions="magic adult"
+             data-duration="75 min"
+             data-age="All Ages · Rec. 16+"
+             data-schedule="Mon · Tue · Thu · Fri–Sun · 7:30PM"
+             data-venue="V Theater (V2 Upstairs) · Planet Hollywood"
+             data-bestfor="Best Mentalism Show">
+            <div class="card-img-wrap">
+              <img src="/images/the-mentalist-hero.jpg" alt="Promotional poster for The Mentalist starring Gerry McCambridge — dramatic close-up of piercing blue eyes above the tagline Magic, Comedy &amp; Mind Tricks at V Theater, Planet Hollywood Las Vegas" loading="lazy" />
+              <div class="card-best-badge">🧠 Best Mentalism Show</div>
+            </div>
+            <div class="card-body">
+              <div class="card-venue">V Theater · Planet Hollywood</div>
+              <div class="card-name">The Mentalist</div>
+              <div class="card-tags">
+                <span class="card-tag">🧠 Mentalism</span>
+                <span class="card-tag">🗓️ 6 Nights/Week</span>
+                <span class="card-tag">7:30PM</span>
+              </div>
+              <button class="card-compare-inline" onclick="toggleCompare(event,this,this.closest('.show-grid-card').dataset.name)">+ Add to Compare</button>
+              <div class="card-footer">
+                <div class="card-price"><div class="card-price-our">$40</div><div class="card-price-was">$120</div></div>
+                <span class="card-cta">Get Tickets →</span>
+              </div>
+            </div>
+          </a>
+
         </div>
         <div class="no-results" id="noResults">No shows match that filter. <button onclick="filterShows('all')" style="color:var(--orange);background:none;border:none;cursor:pointer;font-weight:700;">Show all →</button></div>
       </div>
@@ -593,6 +626,7 @@
           <a href="/shows/magic/penn-and-teller/" class="bsb-link"><div><span class="bsb-link-label">Las Vegas Institution</span>Penn &amp; Teller</div><span class="bsb-link-price">$90</span></a>
           <a href="/shows/magic/criss-angel/" class="bsb-link"><div><span class="bsb-link-label">#1 Magic Show</span>Criss Angel MINDFREAK</div><span class="bsb-link-price">$117</span></a>
           <a href="/shows/magic/mat-franco/" class="bsb-link"><div><span class="bsb-link-label">Best Interactive Magic</span>Mat Franco</div><span class="bsb-link-price">$57</span></a>
+          <a href="/shows/magic/the-mentalist/" class="bsb-link"><div><span class="bsb-link-label">Best Mentalism Show</span>The Mentalist</div><span class="bsb-link-price">$40</span></a>
         </div>
       </div>
       <div class="bsb-card">
@@ -622,7 +656,7 @@
 <script>
   let activeFilter = 'all';
   let activeSort = 'default';
-  const defaultOrder = ['Mac King Comedy Magic','Nathan Burton Comedy Magic','Criss Angel MINDFREAK','Shin Lim: LIMITLESS','Penn & Teller','Mat Franco: Magic Reinvented Nightly'];
+  const defaultOrder = ['Mac King Comedy Magic','Nathan Burton Comedy Magic','Criss Angel MINDFREAK','Shin Lim: LIMITLESS','Penn & Teller','Mat Franco: Magic Reinvented Nightly','The Mentalist'];
 
   function filterShows(f) {
     activeFilter = f;
