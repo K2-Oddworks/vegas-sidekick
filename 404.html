@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="/favicon.png" type="image/png" />
+  <link rel="shortcut icon" href="/favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — Page Not Found | Vegas Sidekick</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:    #0A1628;
+      --blue:    #1A6BFF;
+      --orange:  #FF6B00;
+      --white:   #FFFFFF;
+      --gray:    #A8B4C4;
+      --cyan:    #00FFFF;
+      --magenta: #FF00FF;
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      background: var(--navy);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── STARFIELD ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 8%  12%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 22% 44%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 38%  6%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 55% 28%, rgba(255,255,255,0.35) 0%, transparent 100%),
+        radial-gradient(1px 1px at 67% 72%, rgba(255,255,255,0.45) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 78% 18%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 55%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 15% 88%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 44% 91%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 95% 80%, rgba(255,255,255,0.35) 0%, transparent 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── MAIN CONTENT ── */
+    .page-wrap {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 24px 60px;
+      text-align: center;
+    }
+
+    /* ── CRT TV ── */
+    .crt-frame {
+      position: relative;
+      width: 320px;
+      height: 260px;
+      background: #1a1a2e;
+      border-radius: 20px;
+      border: 4px solid #3a3a5c;
+      box-shadow:
+        0 0 0 2px #2a2a44,
+        0 0 40px rgba(0,255,255,0.15),
+        0 0 80px rgba(255,0,255,0.1),
+        inset 0 0 30px rgba(0,0,0,0.8);
+      margin-bottom: 48px;
+      overflow: hidden;
+    }
+
+    /* scan lines */
+    .crt-frame::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.25) 2px,
+        rgba(0,0,0,0.25) 4px
+      );
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    /* screen glow */
+    .crt-screen {
+      position: absolute;
+      inset: 12px;
+      background: radial-gradient(ellipse at center, #0d1f3c 0%, #060e1a 100%);
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* horizontal glitch lines across screen */
+    .crt-screen::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(transparent 48%, rgba(0,255,255,0.04) 48.5%, transparent 49%),
+        linear-gradient(transparent 72%, rgba(255,0,255,0.04) 72.5%, transparent 73%);
+      z-index: 2;
+      pointer-events: none;
+      animation: screenFlicker 4s infinite;
+    }
+
+    @keyframes screenFlicker {
+      0%, 95%, 100% { opacity: 1; }
+      96% { opacity: 0.7; }
+      97% { opacity: 1; }
+      98% { opacity: 0.5; }
+      99% { opacity: 1; }
+    }
+
+    /* TV base / stand */
+    .crt-frame::after {
+      content: '';
+      position: absolute;
+      bottom: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 18px;
+      background: #2a2a44;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 4px 0 #1a1a2e;
+    }
+
+    /* ── SPIKE IN THE SCREEN ── */
+    .crt-spike {
+      position: relative;
+      z-index: 4;
+      font-size: 64px;
+      line-height: 1;
+      filter: drop-shadow(0 0 12px rgba(0,255,255,0.6));
+      animation: spikeFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes spikeFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    /* ── 404 GLITCH TEXT ── */
+    .glitch-wrap {
+      position: relative;
+      margin-bottom: 16px;
+    }
+
+    .glitch-404 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(96px, 20vw, 160px);
+      line-height: 1;
+      color: var(--white);
+      letter-spacing: 6px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .glitch-404::before,
+    .glitch-404::after {
+      content: '404';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+    }
+
+    .glitch-404::before {
+      color: var(--cyan);
+      animation: glitchTop 2.5s infinite;
+      clip-path: inset(0 0 60% 0);
+    }
+
+    .glitch-404::after {
+      color: var(--magenta);
+      animation: glitchBot 2.5s infinite;
+      clip-path: inset(60% 0 0 0);
+    }
+
+    @keyframes glitchTop {
+      0%, 100%  { transform: translate(0); opacity: 0; }
+      10%       { transform: translate(-4px, -2px); opacity: 0.8; }
+      20%       { transform: translate(4px, 0); opacity: 0; }
+      55%       { transform: translate(-3px, 1px); opacity: 0.7; }
+      60%       { transform: translate(0); opacity: 0; }
+    }
+
+    @keyframes glitchBot {
+      0%, 100%  { transform: translate(0); opacity: 0; }
+      30%       { transform: translate(4px, 2px); opacity: 0.8; }
+      40%       { transform: translate(-4px, 0); opacity: 0; }
+      70%       { transform: translate(3px, -1px); opacity: 0.7; }
+      75%       { transform: translate(0); opacity: 0; }
+    }
+
+    /* ── COPY ── */
+    .error-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 12px;
+    }
+
+    .error-headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(28px, 5vw, 42px);
+      letter-spacing: 2px;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .error-sub {
+      font-size: 16px;
+      color: var(--gray);
+      max-width: 420px;
+      line-height: 1.65;
+      margin-bottom: 40px;
+    }
+
+    /* ── HOME BUTTON ── */
+    .btn-home {
+      display: inline-block;
+      background: var(--orange);
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 14px 36px;
+      border-radius: 6px;
+      margin-bottom: 56px;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-home:hover { background: #e55f00; transform: translateY(-2px); }
+
+    /* ── PILL SLIDER ── */
+    .pill-nav-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 16px;
+    }
+
+    .pill-track-wrap {
+      width: 100%;
+      max-width: 680px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 4px;
+    }
+
+    .pill-track-wrap::-webkit-scrollbar { display: none; }
+
+    .pill-track {
+      display: flex;
+      gap: 10px;
+      width: max-content;
+      padding: 4px 2px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(26,107,255,0.1);
+      border: 1px solid rgba(26,107,255,0.25);
+      color: var(--gray);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 9px 18px;
+      border-radius: 9999px;
+      white-space: nowrap;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+
+    .pill:hover {
+      background: rgba(255,107,0,0.15);
+      border-color: var(--orange);
+      color: var(--white);
+    }
+
+    .pill-icon { font-size: 14px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 480px) {
+      .page-wrap { padding: 100px 16px 48px; }
+      .crt-frame { width: 260px; height: 210px; }
+      .crt-spike { font-size: 52px; }
+      .pill-track-wrap { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="vs-header"></div>
+
+<main class="page-wrap">
+
+  <!-- CRT TV with Spike -->
+  <div class="crt-frame">
+    <div class="crt-screen">
+      <div class="crt-spike">🌵</div>
+    </div>
+  </div>
+
+  <!-- Glitch 404 -->
+  <div class="glitch-wrap">
+    <div class="glitch-404">404</div>
+  </div>
+
+  <div class="error-label">🌵 Spike lost the signal</div>
+  <h1 class="error-headline">This page checked out of Vegas</h1>
+  <p class="error-sub">Whatever you were looking for isn't here — maybe it moved, maybe it never existed. Either way, there's a lot of Vegas left to explore.</p>
+
+  <a href="/" class="btn-home">Back to the Strip →</a>
+
+  <!-- Pill Nav -->
+  <div class="pill-nav-label">Where do you want to go?</div>
+  <div class="pill-track-wrap">
+    <div class="pill-track">
+      <a href="/" class="pill"><span class="pill-icon">🏠</span> Home</a>
+      <a href="/shows/" class="pill"><span class="pill-icon">🎟️</span> All Shows</a>
+      <a href="/shows/comedy/" class="pill"><span class="pill-icon">🎭</span> Comedy</a>
+      <a href="/shows/magic/" class="pill"><span class="pill-icon">🎩</span> Magic</a>
+      <a href="/shows/cirque/" class="pill"><span class="pill-icon">🎪</span> Cirque</a>
+      <a href="/shows/music/" class="pill"><span class="pill-icon">🎵</span> Music</a>
+      <a href="/shows/headliners/" class="pill"><span class="pill-icon">🎤</span> Headliners</a>
+      <a href="/news/" class="pill"><span class="pill-icon">📰</span> Vegas Dispatch</a>
+      <a href="/search/" class="pill"><span class="pill-icon">🔍</span> Search</a>
+    </div>
+  </div>
+
+</main>
+
+<div id="vs-footer"></div>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
+
+</body>
+</html>
