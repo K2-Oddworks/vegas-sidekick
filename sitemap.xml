@@ -87,6 +87,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://vegassidekick.com/shows/magic/allstars-of-magic/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-16</lastmod>
+  </url>
+  <url>
     <loc>https://vegassidekick.com/shows/magic/shin-lim/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

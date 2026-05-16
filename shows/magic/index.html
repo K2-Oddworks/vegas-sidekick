@@ -15,11 +15,12 @@
     "name": "Las Vegas Magic Shows",
     "description": "All magic shows currently running in Las Vegas.",
     "url": "https://vegassidekick.com/shows/magic/",
-    "numberOfItems": 3,
+    "numberOfItems": 4,
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Mac King Comedy Magic",      "url": "https://vegassidekick.com/shows/magic/mac-king/" },
       { "@type": "ListItem", "position": 2, "name": "Nathan Burton Comedy Magic", "url": "https://vegassidekick.com/shows/magic/nathan-burton-comedy-magic/" },
-      { "@type": "ListItem", "position": 3, "name": "Criss Angel MINDFREAK",      "url": "https://vegassidekick.com/shows/magic/criss-angel/" }
+      { "@type": "ListItem", "position": 3, "name": "Criss Angel MINDFREAK",      "url": "https://vegassidekick.com/shows/magic/criss-angel/" },
+      { "@type": "ListItem", "position": 4, "name": "Allstars of Magic",          "url": "https://vegassidekick.com/shows/magic/allstars-of-magic/" }
     ]
   }
   </script>
@@ -254,7 +255,7 @@
     <div class="hero-left">
       <div class="hero-eyebrow">Las Vegas · Magic Shows</div>
       <h1 class="hero-title">Las Vegas Magic Shows — <span>Tickets &amp; Prices</span></h1>
-      <p class="hero-sub">Three magic shows covering the full range — $28 family matinées to a concert-scale illusion spectacular with 75+ tricks and purpose-built pyrotechnics. We'll tell you which one is right for your trip.</p>
+      <p class="hero-sub">Four magic shows covering the full range — $28 family matinées to a multi-performer variety spectacular at Planet Hollywood to a concert-scale illusion show with 75+ tricks and purpose-built pyrotechnics. We'll tell you which one is right for your trip.</p>
       <div class="hero-stats">
         <div class="hero-stat"><div class="hero-stat-num">$28</div><div class="hero-stat-lbl">Starting Price</div></div>
         <div class="hero-stat"><div class="hero-stat-num">28%</div><div class="hero-stat-lbl">Max Savings vs. Box Office</div></div>
@@ -270,6 +271,7 @@
           <a href="/shows/magic/nathan-burton-comedy-magic/" class="sb-link"><div class="sb-link-left"><div class="sb-link-name">Nathan Burton</div><div class="sb-link-venue">FlyOver Las Vegas</div></div><div class="sb-link-price">$28</div></a>
           <a href="/shows/magic/mac-king/" class="sb-link"><div class="sb-link-left"><div class="sb-link-name">Mac King Comedy Magic</div><div class="sb-link-venue">Excalibur</div></div><div class="sb-link-price">$33</div></a>
           <a href="/shows/magic/criss-angel/" class="sb-link"><div class="sb-link-left"><div class="sb-link-name">Criss Angel MINDFREAK</div><div class="sb-link-venue">Planet Hollywood</div></div><div class="sb-link-price">$117</div></a>
+          <a href="/shows/magic/allstars-of-magic/" class="sb-link"><div class="sb-link-left"><div class="sb-link-name">Allstars of Magic</div><div class="sb-link-venue">V Theater · Planet Hollywood</div></div><div class="sb-link-price">$31</div></a>
         </div>
         <div class="sb-div"></div>
         <div class="sb-email">
@@ -352,7 +354,7 @@
             <option value="az">A → Z</option>
           </select>
           <div class="filter-count-wrap">
-            <span class="filter-count" id="filterCount">3 shows</span>
+            <span class="filter-count" id="filterCount">4 shows</span>
           </div>
         </div>
       </div>
@@ -375,7 +377,7 @@
       <div class="shows-section">
         <div class="shows-section-hdr">
           <div class="shows-section-title">All Magic Shows</div>
-          <div class="shows-section-count" id="gridCount">3 shows</div>
+          <div class="shows-section-count" id="gridCount">4 shows</div>
         </div>
         <!-- COMPARE PROMPT -->
         <div class="compare-prompt">
@@ -478,6 +480,37 @@
             </div>
           </a>
 
+          <!-- ALLSTARS OF MAGIC -->
+          <a href="/shows/magic/allstars-of-magic/"
+             class="show-grid-card"
+             data-name="Allstars of Magic"
+             data-price="31"
+             data-occasions="magic family"
+             data-duration="60 min"
+             data-age="All Ages"
+             data-schedule="Tue · Thu · Sat · 4PM"
+             data-venue="V Theater Main Floor · Planet Hollywood"
+             data-bestfor="Best Multi-Performer">
+            <div class="card-img-wrap">
+              <img src="/images/allstars-of-magic-hero.jpg" alt="A magician in a black velvet tuxedo jacket and black top hat holds out his open palm; a bright yellow dove with wings fully spread takes flight from his hand, against a starry teal-blue galaxy background — Allstars of Magic at V Theater, Planet Hollywood Las Vegas" loading="lazy" />
+              <div class="card-best-badge">🎩 Best Multi-Performer</div>
+            </div>
+            <div class="card-body">
+              <div class="card-venue">V Theater Main Floor · Planet Hollywood</div>
+              <div class="card-name">Allstars of Magic</div>
+              <div class="card-tags">
+                <span class="card-tag">👨‍👩‍👧 All Ages</span>
+                <span class="card-tag">🗓️ Tue · Thu · Sat</span>
+                <span class="card-tag">4PM</span>
+              </div>
+              <button class="card-compare-inline" onclick="toggleCompare(event,this,this.closest('.show-grid-card').dataset.name)">+ Add to Compare</button>
+              <div class="card-footer">
+                <div class="card-price"><div class="card-price-our">$31</div><div class="card-price-was">$110</div></div>
+                <span class="card-cta">Get Tickets →</span>
+              </div>
+            </div>
+          </a>
+
         </div>
         <div class="no-results" id="noResults">No shows match that filter. <button onclick="filterShows('all')" style="color:var(--orange);background:none;border:none;cursor:pointer;font-weight:700;">Show all →</button></div>
       </div>
@@ -491,6 +524,7 @@
           <a href="/shows/magic/nathan-burton-comedy-magic/" class="bsb-link"><div><span class="bsb-link-label">Best Budget Pick</span>Nathan Burton</div><span class="bsb-link-price">$28</span></a>
           <a href="/shows/magic/mac-king/" class="bsb-link"><div><span class="bsb-link-label">Best Value Magic</span>Mac King</div><span class="bsb-link-price">$33</span></a>
           <a href="/shows/magic/criss-angel/" class="bsb-link"><div><span class="bsb-link-label">#1 Magic Show</span>Criss Angel MINDFREAK</div><span class="bsb-link-price">$117</span></a>
+          <a href="/shows/magic/allstars-of-magic/" class="bsb-link"><div><span class="bsb-link-label">Best Multi-Performer</span>Allstars of Magic</div><span class="bsb-link-price">$31</span></a>
         </div>
       </div>
       <div class="bsb-card">
@@ -520,7 +554,7 @@
 <script>
   let activeFilter = 'all';
   let activeSort = 'default';
-  const defaultOrder = ['Mac King Comedy Magic','Nathan Burton Comedy Magic','Criss Angel MINDFREAK'];
+  const defaultOrder = ['Mac King Comedy Magic','Nathan Burton Comedy Magic','Criss Angel MINDFREAK','Allstars of Magic'];
 
   function filterShows(f) {
     activeFilter = f;
