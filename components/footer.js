@@ -40,12 +40,6 @@
           <a href="/shows/music/">Music</a>
           <a href="/shows/cirque/">Cirque &amp; Acrobatic</a>
           <a href="/shows/headliners/">Headliners</a>
-        </div>
-        <div class="vs-footer-col">
-          <div class="vs-footer-col-title">More Shows</div>
-          <a href="/shows/production/">Production</a>
-          <a href="/shows/adult/">Adult Shows</a>
-          <a href="/shows/variety/">Variety</a>
           <a href="/search/">Search All Shows</a>
         </div>
         <div class="vs-footer-col">

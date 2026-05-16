@@ -21,9 +21,6 @@
   <a href="/shows/cirque/">Cirque &amp; Acrobatic</a>
   <a href="/shows/music/">Music</a>
   <a href="/shows/headliners/">Headliners</a>
-  <a href="/shows/production/">Production</a>
-  <a href="/shows/adult/">Adult Shows</a>
-  <a href="/shows/variety/">Variety</a>
   <a href="/news/" class="mobile-drawer-dispatch">Vegas Dispatch</a>
   <a href="/shows/" class="mobile-drawer-cta">All Shows →</a>
 </div>
