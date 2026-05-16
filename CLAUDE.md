@@ -90,15 +90,30 @@ vegas-sidekick/
 All CSS embedded in `<style>` tags. All JS inline at bottom. Components loaded via `<script src="/components/header.js">`.
 
 ### Show Detail Pages (`shows/{category}/{show-slug}/index.html`)
-Each show page follows this consistent structure:
-1. Breadcrumbs (`Home > Category > Show Name`)
-2. Hero section with image carousel
-3. Two-column layout: Main content (left) + Sticky sidebar (right)
-4. Sidebar: Ticket CTA card with price and affiliate link
-5. Content blocks: Description, details table, video preview
-6. FAQ accordion section
-7. "Have you seen this show?" engagement widget
-8. Similar shows grid
+
+**Canonical template: `shows/music/vegas-the-show/index.html`**
+
+This is the standard template for all new show pages. Copy it when building a new show — do not use older pages (e.g., carrot-top) as a starting point. Key features of the template:
+
+- Fixed scroll progress bar (`#progress-bar`, gold→orange gradient)
+- Hero section: breadcrumb + image slider (`aspect-ratio: 16/9`) + venue/title block + price strip
+- Two-column layout: `main.main-content` (left) + `aside.sidebar` (right, sticky, navy bg)
+- Mobile sticky buy bar fixed to bottom (hidden on desktop)
+- Main content sections in order:
+  1. `.seen-widget` — "Have you seen this show?" yes/no engagement widget
+  2. `.trust-grid` — 4 trust cards (secure booking, instant delivery, no fees, no account)
+  3. About section with `.spike-callout` (gold left-border callout)
+  4. `.email-signup` — gold accent bar, inline email form wired to Brevo Worker
+  5. `.details-grid` — 3-col icon cards for venue/schedule/duration/age/etc.
+  6. `.expect-grid` — 2-col "What to Expect" cards
+  7. `.seating-section` — interactive SVG seating chart + `.zone-popup` + `.seat-accord`
+  8. `.faq-list` — accordion FAQ
+  9. `.also-grid` — 3 "You Might Also Like" show cards
+  10. `.final-cta` — full-width bottom CTA block
+- Fonts: Bebas Neue (display), Barlow Condensed (price/labels), Barlow (body), IBM Plex Mono (meta/mono)
+- Color accents vary by category (gold/orange for Music, blue/magenta for Magic, red for Adult, etc.)
+
+The seating chart is an interactive SVG — clickable zones call `selectZone('id')`, which populates a `.zone-popup` panel below with zone name, description, and optional Sidekick Pick badge.
 
 ### URL Pattern for Affiliate Links
 ```
