@@ -17,6 +17,7 @@
   <a href="/shows/comedy/">Comedy</a>
   <a href="/shows/magic/">Magic</a>
   <a href="/shows/cirque/">Cirque &amp; Acrobatic</a>
+  <a href="/shows/adult/">Adult Shows</a>
   <a href="/news/" class="mobile-drawer-dispatch">Vegas Dispatch</a>
   <a href="/shows/" class="mobile-drawer-cta">All Shows →</a>
 </div>
