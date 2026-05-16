@@ -23,7 +23,6 @@
   <a href="/shows/headliners/">Headliners</a>
   <a href="/shows/production/">Production</a>
   <a href="/shows/adult/">Adult Shows</a>
-  <a href="/shows/tribute/">Tribute Acts</a>
   <a href="/shows/variety/">Variety</a>
   <a href="/news/">Vegas Dispatch</a>
   <a href="/shows/" class="mobile-drawer-cta">All Shows →</a>
