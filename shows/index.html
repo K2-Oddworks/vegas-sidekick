@@ -15,7 +15,7 @@
     "name": "Las Vegas Shows",
     "description": "All Las Vegas shows and tickets.",
     "url": "https://vegassidekick.com/shows/",
-    "numberOfItems": 25,
+    "numberOfItems": 26,
     "itemListElement": [
       { "@type": "ListItem", "position": 1,  "name": "Carrot Top",                  "url": "https://vegassidekick.com/shows/comedy/carrot-top/" },
       { "@type": "ListItem", "position": 2,  "name": "Mad Apple",                   "url": "https://vegassidekick.com/shows/cirque/mad-apple/" },
@@ -41,7 +41,8 @@
       { "@type": "ListItem", "position": 22, "name": "Nathan Burton Comedy Magic",  "url": "https://vegassidekick.com/shows/magic/nathan-burton-comedy-magic/" },
       { "@type": "ListItem", "position": 23, "name": "Las Vegas LIVE Comedy Club",  "url": "https://vegassidekick.com/shows/comedy/las-vegas-live-comedy-club/" },
       { "@type": "ListItem", "position": 24, "name": "Popovich Comedy Pet Theater", "url": "https://vegassidekick.com/shows/comedy/popovich-comedy-pet-theater/" },
-      { "@type": "ListItem", "position": 25, "name": "Rouge",                       "url": "https://vegassidekick.com/shows/adult/rouge/" }
+      { "@type": "ListItem", "position": 25, "name": "Rouge",                       "url": "https://vegassidekick.com/shows/adult/rouge/" },
+      { "@type": "ListItem", "position": 26, "name": "VEGAS! The Show",             "url": "https://vegassidekick.com/shows/music/vegas-the-show/" }
     ]
   }
   </script>
@@ -435,6 +436,7 @@
           <button class="filter-btn"        onclick="filterShows('date')"   id="btn-date">💕 Date Night</button>
           <button class="filter-btn"        onclick="filterShows('budget')" id="btn-budget">💰 Under $50</button>
           <button class="filter-btn"        onclick="filterShows('adult')"  id="btn-adult">🔞 Adult Shows</button>
+          <button class="filter-btn"        onclick="filterShows('music')"  id="btn-music">🎭 Music &amp; Variety</button>
           <div class="filter-divider"></div>
           <select class="sort-select" onchange="sortShows(this.value)" id="sortSelect">
             <option value="default">Our Order</option>
@@ -1214,6 +1216,39 @@
             </div>
           </a>
 
+          <!-- VEGAS! THE SHOW -->
+          <a href="/shows/music/vegas-the-show/"
+             class="show-grid-card"
+             data-name="VEGAS! The Show"
+             data-price="55"
+             data-occasions="music date family"
+             data-duration="75 min"
+             data-age="All Ages"
+             data-schedule="Mon–Sat · 7PM"
+             data-venue="Saxe Theater · Planet Hollywood"
+             data-bestfor="Classic Vegas Spectacular">
+            <div class="card-img-wrap">
+              <img src="/images/vegas-the-show-hero.webp" alt="VEGAS! The Show at Saxe Theater Planet Hollywood Las Vegas — showgirl spectacular" loading="lazy" />
+              <div class="card-spike-badge">🌵 Spike's Pick</div>
+              <div class="card-best-badge">🎭 Classic Vegas Spectacular</div>
+              <div class="card-cat-pill">Music</div>
+            </div>
+            <div class="card-body">
+              <div class="card-venue">Saxe Theater · Planet Hollywood</div>
+              <div class="card-name">VEGAS! The Show</div>
+              <div class="card-tags">
+                <span class="card-tag">👨‍👩‍👧 All Ages</span>
+                <span class="card-tag">🗓️ Mon–Sat</span>
+                <span class="card-tag">7PM</span>
+              </div>
+              <button class="card-compare-inline" onclick="toggleCompare(event,this,this.closest('.show-grid-card').dataset.name)">+ Add to Compare</button>
+              <div class="card-footer">
+                <div class="card-price"><div class="card-price-our">$55</div><div class="card-price-was">$90</div></div>
+                <span class="card-cta">Get Tickets →</span>
+              </div>
+            </div>
+          </a>
+
           <!-- ROUGE -->
           <a href="/shows/adult/rouge/"
              class="show-grid-card"
@@ -1309,6 +1344,7 @@
           <a href="/shows/comedy/" class="bsb-link"><div><span class="bsb-link-label">11 shows · From $28</span>😂 Comedy</div></a>
           <a href="/shows/cirque/" class="bsb-link"><div><span class="bsb-link-label">5 shows · From $53</span>🎪 Cirque du Soleil</div></a>
           <a href="/shows/magic/" class="bsb-link"><div><span class="bsb-link-label">9 shows · From $28</span>🎩 Magic</div></a>
+          <a href="/shows/music/" class="bsb-link"><div><span class="bsb-link-label">All ages · From $55</span>🎭 Music &amp; Variety</div></a>
           <a href="/shows/adult/" class="bsb-link"><div><span class="bsb-link-label">18+ only · From $79</span>🔞 Adult Shows</div></a>
         </div>
       </div>
@@ -1335,7 +1371,7 @@
 <script>
   let activeFilter = 'all';
   let activeSort = 'default';
-  const defaultOrder = ['Carrot Top','Mad Apple','Rouge','Mystère','Mac King Comedy Magic','Criss Angel MINDFREAK','Shin Lim: LIMITLESS','Penn & Teller','Mat Franco: Magic Reinvented Nightly','The Mentalist','Colin Cloud: Mastermind','Allstars of Magic','Tape Face','Marriage Can Be Murder','O','KÀ','Michael Jackson ONE','Laugh Factory Las Vegas','Comedy Cellar',"Brad Garrett's Comedy Club",'LA Comedy Club Las Vegas','Marc Savard Comedy Hypnosis','Nathan Burton Comedy Magic','Las Vegas LIVE Comedy Club','Popovich Comedy Pet Theater'];
+  const defaultOrder = ['Carrot Top','Mad Apple','Rouge','VEGAS! The Show','Mystère','Mac King Comedy Magic','Criss Angel MINDFREAK','Shin Lim: LIMITLESS','Penn & Teller','Mat Franco: Magic Reinvented Nightly','The Mentalist','Colin Cloud: Mastermind','Allstars of Magic','Tape Face','Marriage Can Be Murder','O','KÀ','Michael Jackson ONE','Laugh Factory Las Vegas','Comedy Cellar',"Brad Garrett's Comedy Club",'LA Comedy Club Las Vegas','Marc Savard Comedy Hypnosis','Nathan Burton Comedy Magic','Las Vegas LIVE Comedy Club','Popovich Comedy Pet Theater'];
 
   function filterShows(f) {
     activeFilter = f;
