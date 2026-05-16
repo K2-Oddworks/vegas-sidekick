@@ -360,7 +360,7 @@
             <option value="az">A → Z</option>
           </select>
           <div class="filter-count-wrap">
-            <span class="filter-count" id="filterCount">5 shows</span>
+            <span class="filter-count" id="filterCount">All Shows</span>
           </div>
         </div>
       </div>
@@ -383,7 +383,7 @@
       <div class="shows-section">
         <div class="shows-section-hdr">
           <div class="shows-section-title">All Cirque Shows</div>
-          <div class="shows-section-count" id="gridCount">5 shows</div>
+          <div class="shows-section-count" id="gridCount">All Shows</div>
         </div>
       <!-- COMPARE PROMPT -->
       <div class="compare-prompt">
@@ -631,7 +631,7 @@
     });
     visibleCards.forEach(c => grid.appendChild(c));
 
-    const label = activeFilter === 'all' ? `${visible} shows` : `${visible} show${visible !== 1 ? 's' : ''}`;
+    const label = activeFilter === 'all' ? 'All Shows' : `${visible} show${visible !== 1 ? 's' : ''}`;
     document.getElementById('filterCount').textContent = label;
     document.getElementById('gridCount').textContent = label;
     document.getElementById('noResults').classList.toggle('visible', visible === 0);

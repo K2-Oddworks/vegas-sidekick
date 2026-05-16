@@ -37,9 +37,7 @@
           <div class="vs-footer-col-title">Shows</div>
           <a href="/shows/comedy/">Comedy</a>
           <a href="/shows/magic/">Magic</a>
-          <a href="/shows/music/">Music</a>
           <a href="/shows/cirque/">Cirque &amp; Acrobatic</a>
-          <a href="/shows/headliners/">Headliners</a>
           <a href="/search/">Search All Shows</a>
         </div>
         <div class="vs-footer-col">
