@@ -24,7 +24,7 @@
   <a href="/shows/production/">Production</a>
   <a href="/shows/adult/">Adult Shows</a>
   <a href="/shows/variety/">Variety</a>
-  <a href="/news/">Vegas Dispatch</a>
+  <a href="/news/" class="mobile-drawer-dispatch">Vegas Dispatch</a>
   <a href="/shows/" class="mobile-drawer-cta">All Shows →</a>
 </div>
 <div class="nav-overlay" id="vsNavOverlay" onclick="vsToggleMenu()"></div>`;
@@ -41,8 +41,10 @@
 .nav-mobile-menu { display: none; background: none; border: none; color: #D4DCE8; font-size: 1.6rem; cursor: pointer; padding: 4px 8px; }
 .nav-mobile-drawer { display: none; position: fixed; top: 0; right: -280px; width: 280px; height: 100vh; background: #0D1F3C; z-index: 300; flex-direction: column; padding: 80px 32px 32px; gap: 8px; transition: right 0.3s ease; border-left: 1px solid rgba(26,127,232,0.2); overflow-y: auto; }
 .nav-mobile-drawer.open { right: 0; }
-.nav-mobile-drawer a { color: #D4DCE8; text-decoration: none; font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 1rem; letter-spacing: 1px; text-transform: uppercase; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.06); transition: color 0.2s; }
+.nav-mobile-drawer a { color: #D4DCE8; text-decoration: none; font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 1rem; letter-spacing: 1px; text-transform: uppercase; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.14); transition: color 0.2s; }
 .nav-mobile-drawer a:hover { color: #FF6B00; }
+.mobile-drawer-dispatch { border-left: 3px solid #FF6B00 !important; padding-left: 12px !important; color: #FF8C2A !important; margin-top: 4px; }
+.mobile-drawer-dispatch:hover { color: #FFB347 !important; }
 .mobile-drawer-cta { background: #FF6B00 !important; color: #0A1628 !important; text-align: center; border-radius: 6px; padding: 14px !important; border-bottom: none !important; margin-top: 8px; }
 .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 250; }
 .nav-overlay.visible { display: block; }
