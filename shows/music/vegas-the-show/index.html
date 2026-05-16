@@ -106,7 +106,7 @@
     .breadcrumb a:hover { color: var(--orange); }
     .breadcrumb span { color: rgba(255,255,255,0.7); }
 
-    .slider { position: relative; width: 100%; aspect-ratio: 16/7; max-height: 480px; overflow: hidden; background: var(--navy-mid); }
+    .slider { position: relative; width: 100%; aspect-ratio: 16/9; max-height: 560px; overflow: hidden; background: var(--navy-mid); }
     .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.65s ease; }
     .slide.active { opacity: 1; }
     .slide img { width: 100%; height: 100%; object-fit: cover; }
@@ -228,7 +228,7 @@
     .seating-section { margin-bottom: 50px; }
     .seating-diagram-wrap { background: var(--navy); border-radius: var(--radius-lg); padding: 26px 20px 30px; margin-bottom: 20px; position: relative; overflow: hidden; }
     .seating-diagram-wrap::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--gold), var(--orange)); }
-    .seating-lbl { font-family: var(--font-mono); font-size: 0.64rem; color: rgba(255,255,255,0.32); text-align: center; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 20px; }
+    .seating-lbl { font-family: var(--font-price); font-size: 0.78rem; font-weight: 700; color: var(--gold-lt); text-align: center; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px; }
     .seat-svg-wrap { max-width: 580px; margin: 0 auto; }
     .seat-svg-wrap svg { width: 100%; height: auto; display: block; }
     .seat-zone { cursor: pointer; transition: opacity 0.18s; }
@@ -558,17 +558,17 @@
 
           <!-- ===== GENERAL RESERVED — purple, angled upper-left rows N–X ===== -->
           <g class="seat-zone" onclick="selectZone('gr')" tabindex="0" role="button" aria-label="General Reserved — click for details">
-            <polygon points="28,28 148,28 155,252 28,270" fill="#7B5EA7" opacity="0.88"/>
+            <polygon points="28,28 230,28 175,252 28,270" fill="#7B5EA7" opacity="0.88"/>
             <!-- Row dividers -->
-            <line x1="28" y1="52" x2="148" y2="52" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
-            <line x1="28" y1="76" x2="149" y2="76" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
-            <line x1="28" y1="100" x2="150" y2="100" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
-            <line x1="28" y1="124" x2="151" y2="124" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
-            <line x1="28" y1="148" x2="152" y2="148" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
-            <line x1="28" y1="172" x2="153" y2="172" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
-            <line x1="28" y1="196" x2="154" y2="196" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
-            <line x1="28" y1="220" x2="155" y2="220" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
-            <line x1="28" y1="244" x2="155" y2="244" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
+            <line x1="28" y1="52" x2="225" y2="52" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
+            <line x1="28" y1="76" x2="219" y2="76" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
+            <line x1="28" y1="100" x2="213" y2="100" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
+            <line x1="28" y1="124" x2="207" y2="124" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
+            <line x1="28" y1="148" x2="201" y2="148" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
+            <line x1="28" y1="172" x2="195" y2="172" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
+            <line x1="28" y1="196" x2="189" y2="196" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
+            <line x1="28" y1="220" x2="183" y2="220" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
+            <line x1="28" y1="244" x2="177" y2="244" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
             <!-- Row labels -->
             <text x="34" y="46" font-family="'Barlow Condensed',sans-serif" font-size="9" fill="white" font-weight="700" opacity="0.8">X</text>
             <text x="34" y="70" font-family="'Barlow Condensed',sans-serif" font-size="9" fill="white" font-weight="700" opacity="0.8">W</text>
@@ -581,7 +581,7 @@
             <text x="34" y="238" font-family="'Barlow Condensed',sans-serif" font-size="9" fill="white" font-weight="700" opacity="0.8">P</text>
             <text x="34" y="262" font-family="'Barlow Condensed',sans-serif" font-size="9" fill="white" font-weight="700" opacity="0.8">N</text>
             <!-- Rotated label -->
-            <text x="91" y="148" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="11" fill="white" letter-spacing="0" opacity="0.85" transform="rotate(-90,91,148)">GENERAL RESERVED</text>
+            <text x="115" y="148" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="11" fill="white" letter-spacing="0" opacity="0.85" transform="rotate(-90,115,148)">GENERAL RESERVED</text>
           </g>
 
           <!-- Theater label -->
@@ -694,7 +694,7 @@
           <span class="faq-q-text">What is the refund and cancellation policy?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Refunds are available for exceptional circumstances such as a show cancellation. Review the full terms and conditions at checkout before purchasing.</div>
+        <div class="faq-a">VEGAS! The Show runs six nights a week with professional consistency — outright cancellations are extremely rare. The show has been running at the Saxe Theater for years and has a strong track record. Tickets are generally non-refundable once purchased, which is standard for live Las Vegas entertainment. In the unlikely event of a cancellation, you will be notified and refund options will be provided. Review the full terms and conditions at checkout before purchasing.</div>
       </div>
 
     </div>
