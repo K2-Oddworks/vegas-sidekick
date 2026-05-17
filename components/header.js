@@ -9,6 +9,7 @@
     <li><a href="/shows/magic/">Magic</a></li>
     <li><a href="/shows/cirque/">Cirque</a></li>
     <li><a href="/shows/music/">Music</a></li>
+    <li><a href="/shows/spectaculars/">Spectaculars</a></li>
     <li><a href="/news/">Dispatch</a></li>
     <li><a href="/shows/" class="nav-cta">All Shows →</a></li>
   </ul>
@@ -19,6 +20,7 @@
   <a href="/shows/magic/">Magic</a>
   <a href="/shows/cirque/">Cirque &amp; Acrobatic</a>
   <a href="/shows/music/">Music &amp; Variety</a>
+  <a href="/shows/spectaculars/">Spectaculars</a>
   <a href="/shows/adult/">Adult Shows</a>
   <a href="/news/" class="mobile-drawer-dispatch">Vegas Dispatch</a>
   <a href="/shows/" class="mobile-drawer-cta">All Shows →</a>

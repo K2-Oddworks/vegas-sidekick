@@ -39,6 +39,7 @@
           <a href="/shows/magic/">Magic</a>
           <a href="/shows/cirque/">Cirque &amp; Acrobatic</a>
           <a href="/shows/music/">Music &amp; Variety</a>
+          <a href="/shows/spectaculars/">Spectaculars</a>
           <a href="/shows/adult/">Adult Shows</a>
           <a href="/search/">Search All Shows</a>
         </div>
