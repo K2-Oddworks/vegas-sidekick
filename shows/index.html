@@ -15,7 +15,7 @@
     "name": "Las Vegas Shows",
     "description": "All Las Vegas shows and tickets.",
     "url": "https://vegassidekick.com/shows/",
-    "numberOfItems": 30,
+    "numberOfItems": 31,
     "itemListElement": [
       { "@type": "ListItem", "position": 1,  "name": "Carrot Top",                  "url": "https://vegassidekick.com/shows/comedy/carrot-top/" },
       { "@type": "ListItem", "position": 2,  "name": "Mad Apple",                   "url": "https://vegassidekick.com/shows/cirque/mad-apple/" },
@@ -46,7 +46,8 @@
       { "@type": "ListItem", "position": 27, "name": "Blue Man Group",              "url": "https://vegassidekick.com/shows/music/blue-man-group/" },
       { "@type": "ListItem", "position": 28, "name": "Absinthe",                    "url": "https://vegassidekick.com/shows/adult/absinthe/" },
       { "@type": "ListItem", "position": 29, "name": "Awakening",                  "url": "https://vegassidekick.com/shows/spectaculars/awakening/" },
-      { "@type": "ListItem", "position": 30, "name": "Tournament of Kings",        "url": "https://vegassidekick.com/shows/family/tournament-of-kings/" }
+      { "@type": "ListItem", "position": 30, "name": "Tournament of Kings",        "url": "https://vegassidekick.com/shows/family/tournament-of-kings/" },
+      { "@type": "ListItem", "position": 31, "name": "The Wizard of Oz at Sphere","url": "https://vegassidekick.com/shows/spectaculars/wizard-of-oz/" }
     ]
   }
   </script>
@@ -1381,6 +1382,38 @@
             </div>
           </a>
 
+          <!-- THE WIZARD OF OZ AT SPHERE -->
+          <a href="/shows/spectaculars/wizard-of-oz/"
+             class="show-grid-card"
+             data-name="The Wizard of Oz at Sphere"
+             data-price="123"
+             data-occasions="spectacular family"
+             data-duration="75 min"
+             data-age="6+"
+             data-schedule="Most days · 11 AM–8 PM"
+             data-venue="MSG Sphere"
+             data-bestfor="Most Immersive Experience">
+            <div class="card-img-wrap">
+              <img src="/images/wizard-of-oz-hero.webp" alt="The Wizard of Oz at Sphere Las Vegas — Dorothy and friends walking the yellow brick road inside a crystal bubble" loading="lazy" />
+              <div class="card-best-badge">🌵 Spike's Pick</div>
+              <div class="card-cat-pill">Spectacular · Family</div>
+            </div>
+            <div class="card-body">
+              <div class="card-venue">MSG Sphere · Las Vegas</div>
+              <div class="card-name">The Wizard of Oz at Sphere</div>
+              <div class="card-tags">
+                <span class="card-tag">👶 Ages 6+</span>
+                <span class="card-tag">🗓️ Most Days</span>
+                <span class="card-tag">75 min</span>
+              </div>
+              <button class="card-compare-inline" onclick="toggleCompare(event,this,this.closest('.show-grid-card').dataset.name)">+ Add to Compare</button>
+              <div class="card-footer">
+                <div class="card-price"><div class="card-price-our">$123</div></div>
+                <span class="card-cta">Get Tickets →</span>
+              </div>
+            </div>
+          </a>
+
           <!-- AWAKENING -->
           <a href="/shows/spectaculars/awakening/"
              class="show-grid-card"
@@ -1503,7 +1536,7 @@
 <script>
   let activeFilter = 'all';
   let activeSort = 'default';
-  const defaultOrder = ['Tournament of Kings','Awakening','Absinthe','Carrot Top','Mad Apple','Rouge','VEGAS! The Show','Blue Man Group','Mystère','Mac King Comedy Magic','Criss Angel MINDFREAK','Shin Lim: LIMITLESS','Penn & Teller','Mat Franco: Magic Reinvented Nightly','The Mentalist','Colin Cloud: Mastermind','Allstars of Magic','Tape Face','Marriage Can Be Murder','O','KÀ','Michael Jackson ONE','Laugh Factory Las Vegas','Comedy Cellar',"Brad Garrett's Comedy Club",'LA Comedy Club Las Vegas','Marc Savard Comedy Hypnosis','Nathan Burton Comedy Magic','Las Vegas LIVE Comedy Club','Popovich Comedy Pet Theater'];
+  const defaultOrder = ['The Wizard of Oz at Sphere','Tournament of Kings','Awakening','Absinthe','Carrot Top','Mad Apple','Rouge','VEGAS! The Show','Blue Man Group','Mystère','Mac King Comedy Magic','Criss Angel MINDFREAK','Shin Lim: LIMITLESS','Penn & Teller','Mat Franco: Magic Reinvented Nightly','The Mentalist','Colin Cloud: Mastermind','Allstars of Magic','Tape Face','Marriage Can Be Murder','O','KÀ','Michael Jackson ONE','Laugh Factory Las Vegas','Comedy Cellar',"Brad Garrett's Comedy Club",'LA Comedy Club Las Vegas','Marc Savard Comedy Hypnosis','Nathan Burton Comedy Magic','Las Vegas LIVE Comedy Club','Popovich Comedy Pet Theater'];
 
   function filterShows(f) {
     activeFilter = f;
