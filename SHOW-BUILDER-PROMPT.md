@@ -398,7 +398,7 @@ Standard FAQ questions for every show (adapt answers per show):
 8. [Show-specific Q]
 
 **Refund answer (always use this exact language):**
-> "Tickets are generally non-refundable once purchased. If your travel plans change, some exchanges may be possible — check the cancellation terms at checkout before completing your order."
+> "Refunds are available for exceptional circumstances such as the unlikely event that a show cancels. Check the full terms and conditions before purchasing."
 
 ---
 
