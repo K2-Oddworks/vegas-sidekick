@@ -215,6 +215,12 @@ Pill CSS:
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.36} }
 ```
 
+## Urgency Copy — Locked
+
+✅ **Allowed:** "Prices may increase closer to show date"
+❌ **Never:** "Prices increase closer to show date" — removing "may" makes it a false claim
+❌ **Never:** Fake countdown timers, fake social proof, fabricated scarcity, made-up reviews
+
 ---
 
 ## Seen Widget
@@ -244,12 +250,14 @@ The `.seen-resp a` links must be **orange** (`color: var(--orange)`).
 
 ## Trust Grid (4 cards, always identical)
 
+Copy these exactly — wording is locked. Never name the ticketing partner anywhere in these cards.
+
 ```html
 <div class="trust-grid fade-up">
-  <div class="trust-card"><div class="trust-icon">🔒</div><div class="trust-title">Secure Booking</div><div class="trust-body">Your payment is encrypted. Personal info stays private.</div></div>
-  <div class="trust-card"><div class="trust-icon">⚡</div><div class="trust-title">Instant Delivery</div><div class="trust-body">Tickets delivered to your email within minutes of purchase.</div></div>
-  <div class="trust-card"><div class="trust-icon">💰</div><div class="trust-title">No Hidden Fees</div><div class="trust-body">The price you see is the price you pay. No surprise charges at checkout.</div></div>
-  <div class="trust-card"><div class="trust-icon">👤</div><div class="trust-title">No Account Required</div><div class="trust-body">Skip the sign-up. Buy tickets as a guest in under 2 minutes.</div></div>
+  <div class="trust-card"><div class="trust-icon">🔒</div><div class="trust-title">Secure Booking</div><div class="trust-body">Every transaction uses secure, encrypted checkout. Your payment information is always protected.</div></div>
+  <div class="trust-card"><div class="trust-icon">⚡</div><div class="trust-title">Instant Delivery</div><div class="trust-body">Tickets arrive by email immediately after purchase. No will-call, no waiting.</div></div>
+  <div class="trust-card"><div class="trust-icon">✅</div><div class="trust-title">No Hidden Fees</div><div class="trust-body">The price you see is the price you pay. Nothing added at checkout.</div></div>
+  <div class="trust-card"><div class="trust-icon">🎫</div><div class="trust-title">No Account Required</div><div class="trust-body">Buy without creating an account. Fast, clean, tickets straight to your inbox.</div></div>
 </div>
 ```
 
@@ -558,6 +566,8 @@ Schema (EventSeries type):
 6. **Refund FAQ** — Always use the exact generic language in the FAQ section above.
 7. **Age policy** — Copy exactly from user's brief; it varies significantly per show.
 8. **Prices** — "Our price" is the affiliate price; "box office price" is the strikethrough comparison price.
+9. **Photography default** — Unless the brief specifies otherwise, use: *"Still photos are generally welcome — check with your usher before shooting. No flash photography and no video recording. Ushers may ask you to stop at any time."*
+10. **Urgency copy** — Only ever write "Prices **may** increase closer to show date." Never drop "may." Never add countdown timers, fake scarcity, or fabricated social proof.
 
 ---
 
