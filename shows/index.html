@@ -15,7 +15,7 @@
     "name": "Las Vegas Shows",
     "description": "All Las Vegas shows and tickets.",
     "url": "https://vegassidekick.com/shows/",
-    "numberOfItems": 27,
+    "numberOfItems": 28,
     "itemListElement": [
       { "@type": "ListItem", "position": 1,  "name": "Carrot Top",                  "url": "https://vegassidekick.com/shows/comedy/carrot-top/" },
       { "@type": "ListItem", "position": 2,  "name": "Mad Apple",                   "url": "https://vegassidekick.com/shows/cirque/mad-apple/" },
@@ -43,7 +43,8 @@
       { "@type": "ListItem", "position": 24, "name": "Popovich Comedy Pet Theater", "url": "https://vegassidekick.com/shows/comedy/popovich-comedy-pet-theater/" },
       { "@type": "ListItem", "position": 25, "name": "Rouge",                       "url": "https://vegassidekick.com/shows/adult/rouge/" },
       { "@type": "ListItem", "position": 26, "name": "VEGAS! The Show",             "url": "https://vegassidekick.com/shows/music/vegas-the-show/" },
-      { "@type": "ListItem", "position": 27, "name": "Blue Man Group",              "url": "https://vegassidekick.com/shows/music/blue-man-group/" }
+      { "@type": "ListItem", "position": 27, "name": "Blue Man Group",              "url": "https://vegassidekick.com/shows/music/blue-man-group/" },
+      { "@type": "ListItem", "position": 28, "name": "Absinthe",                    "url": "https://vegassidekick.com/shows/adult/absinthe/" }
     ]
   }
   </script>
@@ -1346,6 +1347,38 @@
             </div>
           </a>
 
+          <!-- ABSINTHE -->
+          <a href="/shows/adult/absinthe/"
+             class="show-grid-card"
+             data-name="Absinthe"
+             data-price="122"
+             data-occasions="adult comedy spectacular date"
+             data-duration="70 min"
+             data-age="18+"
+             data-schedule="Nightly · 7PM &amp; 9PM"
+             data-venue="Spiegeltent · Caesars Palace"
+             data-bestfor="Most Acclaimed Show">
+            <div class="card-img-wrap">
+              <img src="/images/absinthe-2.webp" alt="Absinthe circus performers on aerial rigging above the Spiegeltent stage at Caesars Palace Las Vegas" loading="lazy" />
+              <div class="card-best-badge">🌵 Spike's Pick</div>
+              <div class="card-cat-pill">Adult · Comedy · Spectacular</div>
+            </div>
+            <div class="card-body">
+              <div class="card-venue">Spiegeltent · Caesars Palace</div>
+              <div class="card-name">Absinthe</div>
+              <div class="card-tags">
+                <span class="card-tag">🔞 18+ Only</span>
+                <span class="card-tag">🗓️ Nightly</span>
+                <span class="card-tag">7PM &amp; 9PM</span>
+              </div>
+              <button class="card-compare-inline" onclick="toggleCompare(event,this,this.closest('.show-grid-card').dataset.name)">+ Add to Compare</button>
+              <div class="card-footer">
+                <div class="card-price"><div class="card-price-our">$122</div></div>
+                <span class="card-cta">Get Tickets →</span>
+              </div>
+            </div>
+          </a>
+
         </div>
         <div class="no-results" id="noResults">No shows match that filter. <button onclick="filterShows('all')" style="color:var(--orange);background:none;border:none;cursor:pointer;font-weight:700;">Show all →</button></div>
       </div>
@@ -1404,7 +1437,7 @@
 <script>
   let activeFilter = 'all';
   let activeSort = 'default';
-  const defaultOrder = ['Carrot Top','Mad Apple','Rouge','VEGAS! The Show','Blue Man Group','Mystère','Mac King Comedy Magic','Criss Angel MINDFREAK','Shin Lim: LIMITLESS','Penn & Teller','Mat Franco: Magic Reinvented Nightly','The Mentalist','Colin Cloud: Mastermind','Allstars of Magic','Tape Face','Marriage Can Be Murder','O','KÀ','Michael Jackson ONE','Laugh Factory Las Vegas','Comedy Cellar',"Brad Garrett's Comedy Club",'LA Comedy Club Las Vegas','Marc Savard Comedy Hypnosis','Nathan Burton Comedy Magic','Las Vegas LIVE Comedy Club','Popovich Comedy Pet Theater'];
+  const defaultOrder = ['Absinthe','Carrot Top','Mad Apple','Rouge','VEGAS! The Show','Blue Man Group','Mystère','Mac King Comedy Magic','Criss Angel MINDFREAK','Shin Lim: LIMITLESS','Penn & Teller','Mat Franco: Magic Reinvented Nightly','The Mentalist','Colin Cloud: Mastermind','Allstars of Magic','Tape Face','Marriage Can Be Murder','O','KÀ','Michael Jackson ONE','Laugh Factory Las Vegas','Comedy Cellar',"Brad Garrett's Comedy Club",'LA Comedy Club Las Vegas','Marc Savard Comedy Hypnosis','Nathan Burton Comedy Magic','Las Vegas LIVE Comedy Club','Popovich Comedy Pet Theater'];
 
   function filterShows(f) {
     activeFilter = f;

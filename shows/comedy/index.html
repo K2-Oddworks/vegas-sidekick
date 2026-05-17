@@ -15,7 +15,7 @@
     "name": "Las Vegas Comedy Shows",
     "description": "All comedy shows currently running in Las Vegas.",
     "url": "https://vegassidekick.com/shows/comedy/",
-    "numberOfItems": 12,
+    "numberOfItems": 13,
     "itemListElement": [
       { "@type": "ListItem", "position": 1,  "name": "Carrot Top",                  "url": "https://vegassidekick.com/shows/comedy/carrot-top/" },
       { "@type": "ListItem", "position": 2,  "name": "Laugh Factory Las Vegas",     "url": "https://vegassidekick.com/shows/comedy/laugh-factory/" },
@@ -28,7 +28,8 @@
       { "@type": "ListItem", "position": 9,  "name": "Las Vegas LIVE Comedy Club",  "url": "https://vegassidekick.com/shows/comedy/las-vegas-live-comedy-club/" },
       { "@type": "ListItem", "position": 10, "name": "Mac King Comedy Magic",       "url": "https://vegassidekick.com/shows/magic/mac-king/" },
       { "@type": "ListItem", "position": 11, "name": "Marriage Can Be Murder",      "url": "https://vegassidekick.com/shows/comedy/marriage-can-be-murder/" },
-      { "@type": "ListItem", "position": 12, "name": "Blue Man Group",              "url": "https://vegassidekick.com/shows/music/blue-man-group/" }
+      { "@type": "ListItem", "position": 12, "name": "Blue Man Group",              "url": "https://vegassidekick.com/shows/music/blue-man-group/" },
+      { "@type": "ListItem", "position": 13, "name": "Absinthe",                    "url": "https://vegassidekick.com/shows/adult/absinthe/" }
     ]
   }
   </script>
@@ -807,6 +808,37 @@
             </div>
           </a>
 
+          <!-- ABSINTHE (Comedy · Adult Spectacular) -->
+          <a href="/shows/adult/absinthe/"
+             class="show-grid-card"
+             data-name="Absinthe"
+             data-price="122"
+             data-occasions="comedy adult date"
+             data-duration="70 min"
+             data-age="18+"
+             data-schedule="Nightly · 7PM &amp; 9PM"
+             data-venue="Spiegeltent · Caesars Palace"
+             data-bestfor="Most Acclaimed Show">
+            <div class="card-img-wrap">
+              <img src="/images/absinthe-2.webp" alt="Absinthe circus performers on aerial rigging above the Spiegeltent stage at Caesars Palace Las Vegas" loading="lazy" />
+              <div class="card-best-badge">🌵 Spike's Pick · Most Acclaimed</div>
+            </div>
+            <div class="card-body">
+              <div class="card-venue">Spiegeltent · Caesars Palace</div>
+              <div class="card-name">Absinthe</div>
+              <div class="card-tags">
+                <span class="card-tag">🔞 18+ Only</span>
+                <span class="card-tag">🗓️ Nightly</span>
+                <span class="card-tag">7PM &amp; 9PM</span>
+              </div>
+              <button class="card-compare-inline" onclick="toggleCompare(event,this,this.closest('.show-grid-card').dataset.name)">+ Add to Compare</button>
+              <div class="card-footer">
+                <div class="card-price"><div class="card-price-our">$122</div></div>
+                <span class="card-cta">Get Tickets →</span>
+              </div>
+            </div>
+          </a>
+
         </div>
         <div class="no-results" id="noResults">No shows match that filter. <button onclick="filterShows('all')" style="color:var(--orange);background:none;border:none;cursor:pointer;font-weight:700;">Show all →</button></div>
       </div>
@@ -856,7 +888,7 @@
   let activeFilter = 'all';
   let activeSort = 'default';
 
-  const defaultOrder = ['Carrot Top','Laugh Factory Las Vegas','Marc Savard Comedy Hypnosis',"Brad Garrett's Comedy Club",'Tape Face','Comedy Cellar','LA Comedy Club Las Vegas','Las Vegas LIVE Comedy Club','Mac King Comedy Magic','Marriage Can Be Murder','Popovich Comedy Pet Theater','Blue Man Group'];
+  const defaultOrder = ['Carrot Top','Laugh Factory Las Vegas','Marc Savard Comedy Hypnosis',"Brad Garrett's Comedy Club",'Tape Face','Comedy Cellar','LA Comedy Club Las Vegas','Las Vegas LIVE Comedy Club','Mac King Comedy Magic','Marriage Can Be Murder','Popovich Comedy Pet Theater','Blue Man Group','Absinthe'];
 
   function filterShows(f) {
     activeFilter = f;
