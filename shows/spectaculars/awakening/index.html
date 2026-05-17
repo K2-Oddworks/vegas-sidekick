@@ -37,7 +37,7 @@
     "organizer": { "@type": "Organization", "name": "Wynn Las Vegas" },
     "offers": {
       "@type": "Offer",
-      "url": "https://spotlight.vegas/shows/spectacular/awakening/ref/vegassidekick",
+      "url": "https://spotlight.vegas/shows/production/awakening/ref/vegassidekick",
       "price": "70",
       "priceCurrency": "USD",
       "availability": "https://schema.org/InStock"
@@ -351,8 +351,8 @@
           <div class="price-reg">$144 box office</div>
           <div class="price-save">Save $74 · 51% Off</div>
         </div>
-        <div class="price-sub">Via Spotlight.vegas<br>Choose Your Seats</div>
-        <a href="https://spotlight.vegas/shows/spectacular/awakening/ref/vegassidekick" class="price-strip-cta" target="_blank" rel="noopener">Get Tickets →</a>
+        <div class="price-sub">No Hidden Fees<br>Instant Delivery</div>
+        <a href="https://spotlight.vegas/shows/production/awakening/ref/vegassidekick" class="price-strip-cta" target="_blank" rel="noopener">Get Tickets →</a>
       </div>
     </div>
 
@@ -365,7 +365,7 @@
           <div class="sidebar-price-was">$144</div>
         </div>
         <div class="sidebar-save-badge">Save $74 · 51% Off</div>
-        <a href="https://spotlight.vegas/shows/spectacular/awakening/ref/vegassidekick" class="sidebar-cta" target="_blank" rel="noopener">🎟️ Get Tickets Now</a>
+        <a href="https://spotlight.vegas/shows/production/awakening/ref/vegassidekick" class="sidebar-cta" target="_blank" rel="noopener">🎟️ Get Tickets Now</a>
         <div class="sidebar-divider"></div>
         <div class="sidebar-meta">
           <div class="sidebar-meta-row">
@@ -407,16 +407,19 @@
 
       <!-- SEEN WIDGET -->
       <div class="seen-widget">
-        <div class="seen-text">Have you seen Awakening?</div>
-        <div class="seen-btns">
-          <button class="seen-btn" onclick="this.textContent='👍 Thanks!';this.disabled=true;">👍 Yes — loved it</button>
-          <button class="seen-btn" onclick="this.textContent='📋 Noted';this.disabled=true;">📋 On my list</button>
+        <div id="seenDefault">
+          <div class="seen-text">Have you seen Awakening?</div>
+          <div class="seen-btns">
+            <button class="seen-btn" onclick="seenRespond('yes')">👍 Yes — loved it</button>
+            <button class="seen-btn" onclick="seenRespond('no')">📋 On my list</button>
+          </div>
         </div>
+        <div id="seenMsg" style="display:none;font-size:.9rem;color:var(--navy);line-height:1.6;"></div>
       </div>
 
       <!-- TRUST GRID -->
       <div class="trust-grid">
-        <div class="trust-card"><div class="trust-icon">🔒</div><div class="trust-title">Secure Booking</div><div class="trust-desc">Encrypted checkout via Spotlight.vegas</div></div>
+        <div class="trust-card"><div class="trust-icon">🔒</div><div class="trust-title">Secure Booking</div><div class="trust-desc">Safe, encrypted checkout</div></div>
         <div class="trust-card"><div class="trust-icon">⚡</div><div class="trust-title">Instant Delivery</div><div class="trust-desc">Tickets to your email immediately</div></div>
         <div class="trust-card"><div class="trust-icon">💲</div><div class="trust-title">No Hidden Fees</div><div class="trust-desc">Price you see is the price you pay</div></div>
         <div class="trust-card"><div class="trust-icon">🎟️</div><div class="trust-title">No Account Needed</div><div class="trust-desc">Check out as a guest in seconds</div></div>
@@ -594,7 +597,7 @@
               <div class="zone-popup-pick" id="zonePick" style="display:none">🌵 Spike's Pick</div>
             </div>
             <div class="zone-popup-desc" id="zoneDesc"></div>
-            <a href="https://spotlight.vegas/shows/spectacular/awakening/ref/vegassidekick" class="zone-popup-cta" target="_blank" rel="noopener">Get Tickets in This Zone →</a>
+            <a href="https://spotlight.vegas/shows/production/awakening/ref/vegassidekick" class="zone-popup-cta" target="_blank" rel="noopener">Get Tickets in This Zone →</a>
           </div>
         </div>
 
@@ -699,7 +702,7 @@
           </div>
           <div class="faq-item">
             <button class="faq-q" onclick="toggleFaq(this)">Can I get a refund if my plans change? <span class="faq-chevron">▼</span></button>
-            <div class="faq-a">Tickets purchased through Spotlight.vegas are generally non-refundable after purchase. If your travel plans change, you may be able to exchange your date — check the terms at checkout. We recommend booking once your dates are confirmed.</div>
+            <div class="faq-a">Tickets are generally non-refundable once purchased. If your travel plans change, some exchanges may be possible — check the cancellation terms at checkout before completing your order. We recommend booking once your trip dates are confirmed.</div>
           </div>
         </div>
       </div>
@@ -742,7 +745,7 @@
       <div class="bsb-card">
         <div class="bsb-ttl">Quick Facts</div>
         <div class="bsb-links">
-          <a href="https://spotlight.vegas/shows/spectacular/awakening/ref/vegassidekick" class="bsb-link" target="_blank" rel="noopener"><div><span class="bsb-link-label">Our Price</span>From $70</div><span class="bsb-link-price">$70</span></a>
+          <a href="https://spotlight.vegas/shows/production/awakening/ref/vegassidekick" class="bsb-link" target="_blank" rel="noopener"><div><span class="bsb-link-label">Our Price</span>From $70</div><span class="bsb-link-price">$70</span></a>
           <div class="bsb-link" style="cursor:default"><div><span class="bsb-link-label">Box Office</span>$144</div></div>
           <div class="bsb-link" style="cursor:default"><div><span class="bsb-link-label">You Save</span>$74 (51% Off)</div></div>
           <div class="bsb-link" style="cursor:default"><div><span class="bsb-link-label">Duration</span>80 minutes</div></div>
@@ -752,7 +755,7 @@
       <div class="bsb-card">
         <div class="bsb-ttl">Best Seats</div>
         <div class="bsb-text">Spike's Pick: <strong>Sapphire &amp; Ruby</strong> — best sightlines for the price. Diamond is the most immersive if you want the full premium experience.</div>
-        <a href="https://spotlight.vegas/shows/spectacular/awakening/ref/vegassidekick" class="sidebar-cta" target="_blank" rel="noopener" style="font-size:.85rem;padding:11px">Choose Your Seats →</a>
+        <a href="https://spotlight.vegas/shows/production/awakening/ref/vegassidekick" class="sidebar-cta" target="_blank" rel="noopener" style="font-size:.85rem;padding:11px">Choose Your Seats →</a>
       </div>
       <div class="bsb-card">
         <div class="bsb-ttl">More Spectaculars</div>
@@ -772,8 +775,8 @@
   <div class="final-cta-inner">
     <div class="final-cta-title">Ready to See Awakening?</div>
     <div class="final-cta-sub">Tickets from $70 — save $74 vs. the Wynn box office. Choose your zone, pick your seats, and get your tickets in under two minutes.</div>
-    <a href="https://spotlight.vegas/shows/spectacular/awakening/ref/vegassidekick" class="final-cta-btn" target="_blank" rel="noopener">🎟️ Get Tickets Now</a>
-    <div class="final-cta-note">Via Spotlight.vegas · No hidden fees · Instant delivery</div>
+    <a href="https://spotlight.vegas/shows/production/awakening/ref/vegassidekick" class="final-cta-btn" target="_blank" rel="noopener">🎟️ Get Tickets Now</a>
+    <div class="final-cta-note">No hidden fees · Instant delivery · Choose your seats</div>
   </div>
 </div>
 
@@ -783,7 +786,7 @@
     <div class="mobile-buy-amount">$70</div>
     <div class="mobile-buy-sub">Save $74 vs. box office</div>
   </div>
-  <a href="https://spotlight.vegas/shows/spectacular/awakening/ref/vegassidekick" class="mobile-buy-cta" target="_blank" rel="noopener">Get Tickets →</a>
+  <a href="https://spotlight.vegas/shows/production/awakening/ref/vegassidekick" class="mobile-buy-cta" target="_blank" rel="noopener">Get Tickets →</a>
 </div>
 
 <div id="vs-footer"></div>
@@ -808,6 +811,20 @@
   }
   function goToSlide(i) {
     slideShow(i - slideIdx);
+  }
+
+  // Seen widget
+  function seenRespond(type) {
+    const ticketUrl = 'https://spotlight.vegas/shows/production/awakening/ref/vegassidekick';
+    const link = '<a href="' + ticketUrl + '" style="color:var(--orange);font-weight:700;text-decoration:none" target="_blank" rel="noopener">grab tickets here →</a>';
+    const msgs = {
+      yes: 'Great taste. If you\'re going back or want to bring someone — ' + link,
+      no: 'You\'re going to love it. Awakening is one of the most ambitious productions on the Strip — an original story, aerial acrobatics, and pyrotechnics in a theater built specifically for the show. ' + link
+    };
+    document.getElementById('seenDefault').style.display = 'none';
+    const msg = document.getElementById('seenMsg');
+    msg.innerHTML = msgs[type];
+    msg.style.display = 'block';
   }
 
   // Zone select
