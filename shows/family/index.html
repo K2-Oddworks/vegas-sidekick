@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="/favicon.png" type="image/png" />
+  <link rel="shortcut icon" href="/favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Family Shows in Las Vegas 2026 | All-Ages Entertainment | Vegas Sidekick</title>
+  <meta name="description" content="The best family shows in Las Vegas — Tournament of Kings, all-ages dinner shows, and live entertainment for every group. Compare prices and book today." />
+  <link rel="canonical" href="https://vegassidekick.com/shows/family/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0A1628; --navy-mid: #0f1e38;
+      --orange: #FF6B00; --orange-lt: #FF8C2A;
+      --show-red: #8B1A1A; --show-red-lt: #D45050;
+      --show-gold: #C9A84C; --show-gold-lt: #E8C87A;
+      --white: #FFFFFF; --off-white: #F7F9FC;
+      --gray-100: #F1F4F9; --gray-200: #E2E8F2; --gray-400: #94A3B8;
+      --text: #0F172A; --text-muted: #64748B;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-price: 'Barlow Condensed', sans-serif;
+      --font-body: 'Barlow', sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+      --radius: 12px; --radius-lg: 20px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--navy); color: var(--white); line-height: 1.6; overflow-x: hidden; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    /* NAV SPACER */
+    .nav-spacer { height: 84px; }
+
+    /* HERO */
+    .page-hero { background: linear-gradient(135deg, #1A0808 0%, var(--navy) 60%); border-bottom: 1px solid rgba(139,26,26,0.3); padding: 52px 40px 48px; position: relative; overflow: hidden; }
+    .page-hero::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse at 85% 50%, rgba(201,168,76,0.08) 0%, transparent 60%); pointer-events:none; }
+    .hero-inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+    .hero-eyebrow { font-family: var(--font-mono); font-size: 0.67rem; color: var(--show-gold-lt); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; }
+    .hero-title { font-family: var(--font-display); font-size: clamp(3rem, 6vw, 5.5rem); line-height: 0.92; letter-spacing: 0.03em; color: white; margin-bottom: 18px; }
+    .hero-title span { color: var(--show-gold); }
+    .hero-sub { font-size: 1.05rem; color: rgba(255,255,255,0.68); line-height: 1.7; max-width: 620px; margin-bottom: 28px; }
+    .hero-stats { display: flex; gap: 36px; flex-wrap: wrap; }
+    .stat { display: flex; flex-direction: column; gap: 2px; }
+    .stat-num { font-family: var(--font-price); font-size: 2rem; font-weight: 800; color: var(--orange); line-height: 1; }
+    .stat-lbl { font-family: var(--font-mono); font-size: 0.6rem; color: rgba(255,255,255,0.4); letter-spacing: 0.06em; text-transform: uppercase; }
+
+    /* BREADCRUMB */
+    .bc { max-width: 960px; margin: 0 auto; padding: 18px 40px 0; }
+    .bc-inner { display: flex; gap: 7px; font-size: 0.75rem; color: rgba(255,255,255,0.35); font-family: var(--font-mono); }
+    .bc-inner a { color: rgba(255,255,255,0.35); transition: color 0.2s; }
+    .bc-inner a:hover { color: var(--orange); }
+    .bc-inner span { color: rgba(255,255,255,0.7); }
+
+    /* MAIN LAYOUT */
+    .page-body { max-width: 960px; margin: 0 auto; padding: 40px 40px 80px; }
+
+    /* FEATURED SHOW */
+    .featured-label { font-family: var(--font-mono); font-size: 0.62rem; color: var(--show-gold-lt); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; }
+    .featured-card { display: grid; grid-template-columns: 1fr 1fr; gap: 0; background: white; border-radius: var(--radius-lg); overflow: hidden; color: var(--text); box-shadow: 0 20px 60px rgba(0,0,0,0.4); margin-bottom: 48px; }
+    .featured-img { aspect-ratio: 4/3; overflow: hidden; background: var(--gray-100); }
+    .featured-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+    .featured-card:hover .featured-img img { transform: scale(1.03); }
+    .featured-body { padding: 32px 28px; display: flex; flex-direction: column; justify-content: space-between; }
+    .feat-eyebrow { font-family: var(--font-mono); font-size: 0.62rem; color: var(--show-red-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+    .feat-title { font-family: var(--font-display); font-size: 2.6rem; color: var(--navy); line-height: 0.95; letter-spacing: 0.02em; margin-bottom: 12px; }
+    .feat-venue { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px; }
+    .feat-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 20px; flex: 1; }
+    .feat-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 22px; }
+    .feat-pill { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 100px; font-family: var(--font-mono); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; background: var(--gray-100); color: var(--text-muted); border: 1px solid var(--gray-200); }
+    .feat-price-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .feat-price { font-family: var(--font-price); font-size: 2.2rem; font-weight: 800; color: var(--orange); line-height: 1; }
+    .feat-price-sub { font-size: 0.74rem; color: var(--text-muted); }
+    .feat-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.9rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; padding: 12px 22px; border-radius: var(--radius); transition: background 0.2s, transform 0.15s; white-space: nowrap; }
+    .feat-cta:hover { background: var(--orange-lt); transform: translateY(-2px); }
+
+    /* ABOUT SECTION */
+    .about-section { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: var(--radius-lg); padding: 36px; margin-bottom: 40px; }
+    .about-section h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.5rem); color: white; letter-spacing: 0.03em; margin-bottom: 16px; line-height: 1; }
+    .about-section h2 span { color: var(--show-gold); }
+    .about-section p { font-size: 0.95rem; color: rgba(255,255,255,0.65); line-height: 1.75; margin-bottom: 14px; }
+    .about-section p:last-child { margin-bottom: 0; }
+
+    @media (max-width: 720px) {
+      .page-hero { padding: 36px 20px; }
+      .bc { padding: 16px 20px 0; }
+      .page-body { padding: 28px 20px 60px; }
+      .featured-card { grid-template-columns: 1fr; }
+      .featured-img { aspect-ratio: 16/9; }
+      .hero-stats { gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+<div class="nav-spacer"></div>
+<div id="vs-header"></div>
+<script src="/components/header.js"></script>
+
+<div class="bc">
+  <div class="bc-inner">
+    <a href="/">Home</a> <span>›</span> <a href="/shows/">Shows</a> <span>›</span> <span>Family</span>
+  </div>
+</div>
+
+<div class="page-hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Vegas Sidekick · Show Guide</div>
+    <h1 class="hero-title">Family <span>Shows</span><br>in Las Vegas</h1>
+    <p class="hero-sub">All-ages entertainment on the Strip — from medieval dinner shows with real horses and jousting to spectaculars built for every group. Great for kids, grandparents, and everyone in between.</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">1</div><div class="stat-lbl">Show Listed</div></div>
+      <div class="stat"><div class="stat-num">$74</div><div class="stat-lbl">Tickets From</div></div>
+      <div class="stat"><div class="stat-num">39%</div><div class="stat-lbl">Off Box Office</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="page-body">
+
+  <div class="featured-label">🏰 Featured Family Show</div>
+
+  <a href="/shows/family/tournament-of-kings/" class="featured-card">
+    <div class="featured-img">
+      <img src="/images/tournament-of-kings-hero.webp" alt="Tournament of Kings at Excalibur Hotel Las Vegas — armored knight on horseback" loading="eager" />
+    </div>
+    <div class="featured-body">
+      <div>
+        <div class="feat-eyebrow">Dinner Show · All Ages · Excalibur Hotel</div>
+        <div class="feat-title">Tournament of Kings</div>
+        <div class="feat-venue">King Arthur's Arena · Excalibur Hotel, Las Vegas Blvd</div>
+        <p class="feat-desc">Live jousting, sword combat, trained horses, pyrotechnics, and a full medieval feast — all in 75 minutes. Pick your kingdom, eat with your hands, and cheer your knight to victory. The only dinner show on the Strip where real horses charge across an indoor arena.</p>
+        <div class="feat-pills">
+          <span class="feat-pill">⚔️ Live Jousting</span>
+          <span class="feat-pill">🍗 Dinner Included</span>
+          <span class="feat-pill">🐎 Real Horses</span>
+          <span class="feat-pill">🔥 Pyrotechnics</span>
+          <span class="feat-pill">👪 All Ages</span>
+        </div>
+      </div>
+      <div class="feat-price-row">
+        <div>
+          <div class="feat-price">$74</div>
+          <div class="feat-price-sub">From $74 · Save $48 vs. box office</div>
+        </div>
+        <span class="feat-cta">Get Tickets →</span>
+      </div>
+    </div>
+  </a>
+
+  <div class="about-section">
+    <h2>Family Entertainment <span>in Las Vegas</span></h2>
+    <p>Las Vegas has a reputation as an adults-only destination, but the reality is more nuanced. Several shows on the Strip are genuinely built for all ages — productions where kids are engaged throughout, parents aren't uncomfortable, and the whole group leaves having actually had a good time together.</p>
+    <p>Tournament of Kings at Excalibur is the flagship family experience on the Strip. It's the kind of show that works because the core premise — watching knights joust while you eat with your hands and cheer for your kingdom — lands for an eight-year-old and a sixty-year-old equally. The production quality is higher than the medieval-dinner-show concept might suggest, and the included feast makes it exceptional value for groups.</p>
+    <p>More family-friendly shows are coming to Vegas Sidekick. In the meantime, several shows in other categories are also appropriate for all ages — including <a href="/shows/magic/mac-king/" style="color:var(--show-gold-lt)">Mac King Comedy Magic</a> at Harrah's, <a href="/shows/music/blue-man-group/" style="color:var(--show-gold-lt)">Blue Man Group</a> at Luxor, and <a href="/shows/spectaculars/awakening/" style="color:var(--show-gold-lt)">Awakening</a> at Wynn (ages 5+).</p>
+  </div>
+
+</div>
+
+<div id="vs-footer"></div>
+<script src="/components/footer.js"></script>
+</body>
+</html>

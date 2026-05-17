@@ -64,6 +64,18 @@
     <lastmod>2026-05-17</lastmod>
   </url>
   <url>
+    <loc>https://vegassidekick.com/shows/family/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2026-05-17</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/family/tournament-of-kings/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-17</lastmod>
+  </url>
+  <url>
     <loc>https://vegassidekick.com/shows/magic/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>

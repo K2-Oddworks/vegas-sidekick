@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="/favicon.png" type="image/png" />
+  <link rel="shortcut icon" href="/favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tournament of Kings Las Vegas Tickets 2026 | Excalibur Hotel | Vegas Sidekick</title>
+  <meta name="description" content="Tournament of Kings tickets from $74 — save $48 vs. box office. Live jousting, real horses, and a full medieval feast included. All ages welcome at King Arthur's Arena, Excalibur Hotel." />
+  <link rel="canonical" href="https://vegassidekick.com/shows/family/tournament-of-kings/" />
+  <meta property="og:title" content="Tournament of Kings Las Vegas Tickets | Excalibur Hotel | Vegas Sidekick" />
+  <meta property="og:description" content="Live jousting, real horses, pyrotechnics, and a full medieval feast — all included. From $74, save $48 vs. box office. All ages welcome." />
+  <meta property="og:image" content="https://vegassidekick.com/images/tournament-of-kings-hero.webp" />
+  <meta property="og:url" content="https://vegassidekick.com/shows/family/tournament-of-kings/" />
+  <meta property="og:type" content="website" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "Tournament of Kings",
+    "description": "75-minute medieval dinner show featuring live jousting, trained horses, pyrotechnics, and a full feast at King Arthur's Arena inside Excalibur Hotel.",
+    "image": "https://vegassidekick.com/images/tournament-of-kings-hero.webp",
+    "url": "https://vegassidekick.com/shows/family/tournament-of-kings/",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "organizer": { "@type": "Organization", "name": "Excalibur Hotel & Casino" },
+    "location": {
+      "@type": "Place",
+      "name": "King Arthur's Arena — Excalibur Hotel",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "3850 Las Vegas Blvd S",
+        "addressLocality": "Las Vegas",
+        "addressRegion": "NV",
+        "postalCode": "89109",
+        "addressCountry": "US"
+      }
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "74",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "url": "https://spotlight.vegas/shows/production/tournament-of-kings/ref/vegassidekick"
+    },
+    "audience": { "@type": "Audience", "audienceType": "All ages" }
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:        #0A1628;
+      --navy-mid:    #0f1e38;
+      --orange:      #FF6B00;
+      --orange-lt:   #ff8c33;
+      --show-red:    #8B1A1A;
+      --show-red-lt: #D45050;
+      --show-gold:   #C9A84C;
+      --show-gold-lt:#E8C87A;
+      --white:       #FFFFFF;
+      --off-white:   #F7F9FC;
+      --gray-100:    #F1F4F9;
+      --gray-200:    #E2E8F2;
+      --gray-400:    #94A3B8;
+      --text:        #0F172A;
+      --text-muted:  #64748B;
+      --font-display:'Bebas Neue', sans-serif;
+      --font-price:  'Barlow Condensed', sans-serif;
+      --font-body:   'Barlow', sans-serif;
+      --font-mono:   'IBM Plex Mono', monospace;
+      --radius:      12px;
+      --radius-sm:   8px;
+      --radius-lg:   20px;
+      --shadow:      0 4px 20px rgba(0,0,0,0.09);
+      --sidebar:     308px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); color: var(--text); background: var(--white); line-height: 1.6; overflow-x: hidden; }
+    img  { max-width: 100%; display: block; }
+    a    { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; }
+
+    #progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--show-red), var(--show-gold)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; }
+
+    /* ── HERO ── */
+    .hero { background: var(--navy); padding-top: 84px; }
+    .breadcrumb { padding: 12px 24px; background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.05); font-family: var(--font-mono); font-size: 0.67rem; color: rgba(255,255,255,0.36); letter-spacing: 0.04em; }
+    .breadcrumb a { color: rgba(255,255,255,0.36); transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--orange); }
+    .breadcrumb span { color: rgba(255,255,255,0.7); }
+
+    .slider { position: relative; width: 100%; aspect-ratio: 16/9; max-height: 560px; overflow: hidden; background: var(--navy-mid); }
+    .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.65s ease; }
+    .slide.active { opacity: 1; }
+    .slide img { width: 100%; height: 100%; object-fit: cover; }
+    .slider-dots { position: absolute; bottom: 13px; left: 50%; transform: translateX(-50%); display: flex; gap: 7px; z-index: 3; }
+    .dot-btn { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.28); border: none; padding: 0; transition: background 0.2s, transform 0.2s; cursor: pointer; }
+    .dot-btn.active { background: var(--show-gold); transform: scale(1.4); }
+    .s-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; background: rgba(0,0,0,0.44); border: none; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; z-index: 3; transition: background 0.2s; cursor: pointer; }
+    .s-arrow:hover { background: rgba(139,26,26,0.75); }
+    .s-arrow.prev { left: 13px; }
+    .s-arrow.next { right: 13px; }
+
+    .hero-content-wrap { max-width: 1200px; margin: 0 auto; }
+    .hero-content { padding: 28px 24px 32px; }
+    .venue-label { font-family: var(--font-mono); font-size: 0.69rem; color: var(--show-gold-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 9px; }
+    .hero-title { font-family: var(--font-display); font-size: clamp(2.8rem, 5.5vw, 5rem); color: white; line-height: 0.94; letter-spacing: 0.02em; margin-bottom: 9px; }
+    .hero-subtitle { font-family: var(--font-price); font-size: 1rem; font-weight: 700; color: var(--show-gold-lt); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 20px; }
+    .info-pills { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 15px; }
+    .pill { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: 100px; font-family: var(--font-mono); font-size: 0.67rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.74); border: 1px solid rgba(255,255,255,0.11); }
+    .pill-red  { background: rgba(139,26,26,0.3);  color: var(--show-red-lt);  border-color: rgba(212,80,80,0.4); }
+    .pill-gold { background: rgba(201,168,76,0.2);  color: var(--show-gold-lt); border-color: rgba(201,168,76,0.4); }
+    .urgency-pills { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 20px; }
+    .upill { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 6px; font-family: var(--font-mono); font-size: 0.63rem; font-weight: 600; letter-spacing: 0.04em; background: rgba(255,107,0,0.09); color: var(--orange-lt); border: 1px solid rgba(255,107,0,0.2); }
+    .udot { width: 5px; height: 5px; border-radius: 50%; background: var(--orange); flex-shrink: 0; animation: blink 1.6s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.36} }
+
+    .price-strip { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 22px; padding: 17px 24px; background: rgba(255,255,255,0.03); border-top: 1px solid rgba(255,255,255,0.06); flex-wrap: wrap; }
+    .price-block { display: flex; flex-direction: column; gap: 2px; }
+    .price-lbl { font-family: var(--font-mono); font-size: 0.59rem; color: rgba(255,255,255,0.33); letter-spacing: 0.06em; text-transform: uppercase; }
+    .price-cur { font-family: var(--font-price); font-size: 2.9rem; font-weight: 800; color: var(--orange); line-height: 1; }
+    .price-was { font-family: var(--font-price); font-size: 0.9rem; color: rgba(255,255,255,0.35); text-decoration: line-through; }
+    .price-save { display: inline-block; background: rgba(40,168,40,0.18); border: 1px solid rgba(40,168,40,0.35); color: #78D878; font-family: var(--font-mono); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.05em; padding: 2px 8px; border-radius: 4px; margin-top: 2px; }
+    .hero-cta { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.12rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); border: none; transition: background 0.2s, transform 0.2s; white-space: nowrap; }
+    .hero-cta:hover { background: var(--orange-lt); transform: translateY(-2px); }
+    .urgency-txt { font-family: var(--font-mono); font-size: 0.62rem; color: rgba(255,255,255,0.32); }
+
+    /* ── PAGE LAYOUT ── */
+    .page-layout { display: grid; grid-template-columns: 1fr var(--sidebar); max-width: 1200px; margin: 0 auto; align-items: start; }
+    .main-content { padding: 46px 36px 60px 22px; min-width: 0; }
+
+    .sidebar { position: sticky; top: 0; background: var(--navy); min-height: 100vh; padding: 24px 20px 22px; display: flex; flex-direction: column; gap: 15px; }
+    .sb-price-lbl { font-family: var(--font-mono); font-size: 0.59rem; color: rgba(255,255,255,0.33); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px; }
+    .sb-price { font-family: var(--font-price); font-size: 2.9rem; font-weight: 800; color: var(--orange); line-height: 1; }
+    .sb-price-was { font-family: var(--font-price); font-size: 0.84rem; color: rgba(255,255,255,0.3); }
+    .sb-price-save { display: inline-block; background: rgba(40,168,40,0.18); border: 1px solid rgba(40,168,40,0.3); color: #78D878; font-family: var(--font-mono); font-size: 0.6rem; padding: 2px 7px; border-radius: 3px; margin-bottom: 4px; }
+    .sb-cta { display: block; width: 100%; padding: 14px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.02rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; text-align: center; border-radius: var(--radius-sm); border: none; transition: background 0.2s; position: relative; overflow: hidden; }
+    .sb-cta::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.13), transparent); animation: shimmer 2.6s infinite; }
+    @keyframes shimmer { 100%{ left:100%; } }
+    .sb-cta:hover { background: var(--orange-lt); }
+    .sb-div { height: 1px; background: rgba(255,255,255,0.07); }
+    .trust-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .trust-list li { display: flex; align-items: center; gap: 9px; font-family: var(--font-mono); font-size: 0.67rem; color: rgba(255,255,255,0.58); }
+    .t-check { width: 16px; height: 16px; border-radius: 50%; background: rgba(201,168,76,0.2); border: 1px solid rgba(201,168,76,0.4); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--show-gold-lt); font-size: 0.54rem; }
+    .sb-info-item { display: flex; align-items: flex-start; gap: 8px; }
+    .sb-info-icon { font-size: 0.88rem; margin-top: 1px; flex-shrink: 0; }
+    .sb-info-lbl { font-family: var(--font-mono); font-size: 0.57rem; color: rgba(255,255,255,0.32); text-transform: uppercase; letter-spacing: 0.04em; display: block; margin-bottom: 1px; }
+    .sb-info-val { font-family: var(--font-body); font-size: 0.77rem; color: rgba(255,255,255,0.7); }
+
+    /* ── MAIN CONTENT SECTIONS ── */
+    .section { margin-bottom: 50px; }
+    .section-title { font-family: var(--font-display); font-size: clamp(1.85rem, 2.8vw, 2.55rem); color: var(--navy); line-height: 1; letter-spacing: 0.02em; margin-bottom: 20px; }
+    .section-title span { color: var(--orange); }
+    .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    .seen-widget { background: linear-gradient(135deg, var(--navy) 0%, #0d2040 100%); border-radius: var(--radius-lg); padding: 28px; color: white; margin-bottom: 50px; }
+    .seen-tag { font-family: var(--font-mono); font-size: 0.65rem; color: var(--show-gold-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
+    .seen-q { font-family: var(--font-display); font-size: clamp(1.45rem, 2.6vw, 1.95rem); color: white; margin-bottom: 16px; line-height: 1.1; }
+    .seen-btns { display: flex; gap: 10px; }
+    .seen-btn { padding: 10px 22px; border-radius: var(--radius-sm); font-family: var(--font-price); font-size: 0.9rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; transition: all 0.2s; border: none; cursor: pointer; }
+    .seen-yes { background: var(--show-red); color: white; }
+    .seen-no  { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.15); }
+    .seen-btn:hover { transform: translateY(-2px); opacity: 0.88; }
+    .seen-resp { display: none; margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.08); }
+    .seen-resp.visible { display: block; }
+    .seen-resp p { font-size: 0.89rem; color: rgba(255,255,255,0.73); line-height: 1.72; margin-bottom: 12px; }
+    .seen-resp a { color: var(--orange); font-weight: 600; }
+
+    .trust-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; margin-bottom: 50px; }
+    .trust-card { background: var(--gray-100); border-radius: var(--radius); padding: 17px; display: flex; gap: 12px; align-items: flex-start; }
+    .trust-icon { font-size: 1.55rem; flex-shrink: 0; }
+    .trust-card-title { font-family: var(--font-price); font-size: 0.86rem; font-weight: 800; color: var(--navy); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 3px; }
+    .trust-card-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.52; }
+
+    .about-body p { font-size: 0.98rem; color: var(--text); line-height: 1.78; margin-bottom: 16px; }
+    .about-body p:last-child { margin-bottom: 0; }
+    .spike-callout { display: flex; gap: 13px; align-items: flex-start; background: linear-gradient(135deg, rgba(139,26,26,0.08), rgba(255,107,0,0.03)); border: 1px solid rgba(139,26,26,0.22); border-left: 4px solid var(--show-red); border-radius: var(--radius); padding: 16px 20px; margin: 20px 0; }
+    .spike-emoji { font-size: 1.85rem; flex-shrink: 0; margin-top: 2px; }
+    .spike-text { font-family: var(--font-mono); font-size: 0.81rem; color: var(--navy); line-height: 1.62; }
+    .spike-text strong { color: var(--show-red); display: block; margin-bottom: 4px; font-size: 0.63rem; letter-spacing: 0.06em; text-transform: uppercase; }
+
+    .email-signup { background: var(--navy); border-radius: var(--radius-lg); padding: 32px 28px; margin-bottom: 50px; position: relative; overflow: hidden; display: flex; align-items: center; gap: 24px; }
+    .email-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: linear-gradient(180deg, var(--show-red), var(--show-gold)); }
+    .email-heading { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); color: var(--show-gold-lt); letter-spacing: 0.08em; flex-shrink: 0; line-height: 1; }
+    .email-body { flex: 1; }
+    .email-body h3 { font-family: var(--font-price); font-size: 1rem; font-weight: 800; color: white; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
+    .email-body p { font-size: 0.79rem; color: rgba(255,255,255,0.42); line-height: 1.5; margin-bottom: 12px; }
+    .email-form { display: flex; gap: 8px; }
+    .email-input { flex: 1; padding: 10px 13px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.11); border-radius: var(--radius-sm); color: white; font-family: var(--font-mono); font-size: 0.77rem; outline: none; }
+    .email-input::placeholder { color: rgba(255,255,255,0.24); }
+    .email-input:focus { border-color: rgba(139,26,26,0.5); }
+    .email-submit { padding: 10px 15px; background: var(--show-red); color: white; font-family: var(--font-price); font-size: 0.84rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; border: none; border-radius: var(--radius-sm); transition: background 0.2s; white-space: nowrap; cursor: pointer; }
+    .email-submit:hover { background: var(--show-red-lt); }
+    .email-success { display: none; font-size: 0.82rem; color: #78D878; margin-top: 8px; }
+    .email-success.visible { display: block; }
+
+    .details-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 50px; }
+    .detail-card { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 17px; transition: box-shadow 0.2s, transform 0.2s; }
+    .detail-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+    .detail-card-icon { font-size: 1.55rem; margin-bottom: 8px; }
+    .detail-card-lbl { font-family: var(--font-price); font-size: 0.68rem; font-weight: 800; color: var(--show-red); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
+    .detail-card-val { font-family: var(--font-body); font-size: 0.87rem; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
+    .detail-card-sub { font-size: 0.76rem; color: var(--text-muted); line-height: 1.52; }
+
+    .expect-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; margin-bottom: 50px; }
+    .expect-card { background: var(--off-white); border-radius: var(--radius); padding: 20px; border-left: 3px solid var(--show-red); }
+    .expect-title { font-family: var(--font-price); font-size: 0.88rem; font-weight: 800; color: var(--navy); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 7px; display: flex; align-items: center; gap: 6px; }
+    .expect-desc { font-size: 0.81rem; color: var(--text-muted); line-height: 1.62; }
+
+    .seating-section { margin-bottom: 50px; }
+    .seating-diagram-wrap { background: var(--navy); border-radius: var(--radius-lg); padding: 26px 20px 30px; margin-bottom: 20px; position: relative; overflow: hidden; }
+    .seating-diagram-wrap::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--show-red), var(--show-gold)); }
+    .seating-lbl { font-family: var(--font-price); font-size: 0.78rem; font-weight: 700; color: var(--show-gold-lt); text-align: center; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; }
+    .seating-legend { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-bottom: 16px; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 0.62rem; color: rgba(255,255,255,0.6); letter-spacing: 0.03em; text-transform: uppercase; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+    .zone-popup { display: none; background: rgba(255,255,255,0.055); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 16px; margin-top: 18px; color: white; }
+    .zone-popup.visible { display: block; }
+    .zone-popup-hdr { display: flex; align-items: center; gap: 9px; margin-bottom: 8px; }
+    .zone-popup-name { font-family: var(--font-display); font-size: 1.22rem; color: white; }
+    .zone-popup-pick { background: var(--orange); color: white; font-family: var(--font-mono); font-size: 0.58rem; padding: 2px 7px; border-radius: 3px; letter-spacing: 0.04em; text-transform: uppercase; }
+    .zone-popup-desc { font-size: 0.82rem; color: rgba(255,255,255,0.64); line-height: 1.64; margin-bottom: 12px; }
+    .zone-popup-cta { display: inline-flex; align-items: center; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.82rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; padding: 9px 16px; border-radius: var(--radius-sm); transition: background 0.2s; }
+    .zone-popup-cta:hover { background: var(--orange-lt); }
+
+    .seat-accord { border: 1px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; }
+    .seat-accord-item { border-bottom: 1px solid var(--gray-200); }
+    .seat-accord-item:last-child { border-bottom: none; }
+    .seat-accord-trigger { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 18px; background: white; border: none; cursor: pointer; text-align: left; transition: background 0.15s; }
+    .seat-accord-trigger:hover { background: var(--gray-100); }
+    .seat-accord-left { display: flex; align-items: center; gap: 12px; }
+    .seat-accord-dot { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
+    .seat-accord-title { font-family: var(--font-price); font-size: 1rem; font-weight: 700; color: var(--navy); }
+    .seat-accord-chevron { color: var(--gray-400); font-size: 0.8rem; transition: transform 0.2s; }
+    .seat-accord-body { display: none; padding: 14px 18px 16px; background: var(--off-white); font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; border-top: 1px solid var(--gray-200); }
+    .seat-accord-body.open { display: block; }
+
+    .faq-list { border: 1px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; margin-bottom: 50px; }
+    .faq-item { border-bottom: 1px solid var(--gray-200); }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-q { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 15px 20px; background: white; border: none; cursor: pointer; text-align: left; font-family: var(--font-body); font-size: 0.9rem; font-weight: 700; color: var(--navy); transition: background 0.15s; }
+    .faq-q:hover { background: var(--gray-100); }
+    .faq-chevron { color: var(--gray-400); font-size: 0.8rem; flex-shrink: 0; transition: transform 0.2s; }
+    .faq-a { display: none; padding: 14px 20px 16px; background: var(--off-white); font-size: 0.87rem; color: var(--text-muted); line-height: 1.7; border-top: 1px solid var(--gray-200); }
+    .faq-a.open { display: block; }
+
+    .also-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 50px; }
+    .also-card { background: white; border: 1.5px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; text-decoration: none; color: var(--text); transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s; display: flex; flex-direction: column; }
+    .also-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.15); transform: translateY(-3px); border-color: rgba(255,107,0,0.3); }
+    .also-img { aspect-ratio: 16/10; overflow: hidden; background: var(--gray-100); }
+    .also-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+    .also-card:hover .also-img img { transform: scale(1.04); }
+    .also-body { padding: 14px 16px; flex: 1; }
+    .also-venue { font-size: 0.62rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--show-red-lt); margin-bottom: 3px; }
+    .also-name { font-family: var(--font-price); font-size: 1.15rem; font-weight: 800; color: var(--navy); line-height: 1.1; margin-bottom: 6px; }
+    .also-price { font-family: var(--font-price); font-weight: 800; font-size: 1rem; color: var(--orange); }
+
+    .final-cta { background: linear-gradient(135deg, #6B0A0A 0%, #2A0808 100%); padding: 56px 40px; text-align: center; }
+    .final-cta-inner { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+    .final-cta-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); letter-spacing: 0.06em; color: #FFFFFF; line-height: 1; }
+    .final-cta-sub { font-size: 0.95rem; color: rgba(255,255,255,0.75); line-height: 1.6; }
+    .final-cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.05rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 16px 36px; border-radius: var(--radius-sm); transition: background 0.2s, transform 0.15s; }
+    .final-cta-btn:hover { background: var(--orange-lt); transform: translateY(-2px); }
+    .final-cta-note { font-size: 0.72rem; color: rgba(255,255,255,0.4); font-family: var(--font-mono); }
+
+    .mobile-sticky { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--navy); border-top: 1px solid rgba(139,26,26,0.3); padding: 10px 16px; z-index: 100; align-items: center; justify-content: space-between; gap: 12px; }
+    .mob-price-lbl { font-family: var(--font-mono); font-size: 0.55rem; color: rgba(255,255,255,0.28); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 1px; }
+    .mob-price { font-family: var(--font-price); font-size: 2.4rem; font-weight: 800; color: var(--orange); line-height: 1; }
+    .mob-cta { flex: 1; max-width: 230px; padding: 13px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.02rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; text-align: center; border-radius: var(--radius-sm); border: none; position: relative; overflow: hidden; transition: background 0.2s; }
+    .mob-cta::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.17), transparent); animation: shimmer 2s infinite; }
+
+    @media (max-width: 940px) {
+      .page-layout { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .mobile-sticky { display: flex; }
+      .details-grid { grid-template-columns: repeat(2,1fr); }
+      .also-grid { grid-template-columns: repeat(2,1fr); }
+      .main-content { padding: 26px 16px 120px; }
+    }
+    @media (max-width: 600px) {
+      .hero-content { padding: 22px 16px 26px; }
+      .trust-grid { grid-template-columns: 1fr; }
+      .details-grid { grid-template-columns: 1fr; }
+      .expect-grid { grid-template-columns: 1fr; }
+      .also-grid { grid-template-columns: 1fr; }
+      .email-signup { flex-direction: column; gap: 12px; }
+      .email-form { flex-direction: column; }
+      .price-strip { flex-direction: column; align-items: flex-start; gap: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="progress-bar" aria-hidden="true"></div>
+<div id="vs-header"></div>
+<script src="/components/header.js"></script>
+
+<section class="hero" aria-label="Show hero">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a> › <a href="/shows/">Shows</a> › <a href="/shows/family/">Family</a> › <span>Tournament of Kings</span>
+  </nav>
+
+  <div class="slider" role="region" aria-label="Show photos">
+    <div class="slide active">
+      <img src="/images/tournament-of-kings-hero.webp" alt="Tournament of Kings at Excalibur Hotel Las Vegas — armored knight on horseback at King Arthur's Arena" loading="eager" />
+    </div>
+    <div class="slide">
+      <img src="/images/tournament-of-kings-2.webp" alt="Tournament of Kings — king presiding over the medieval feast as performers gather around the arena" loading="lazy" />
+    </div>
+    <div class="slide">
+      <img src="/images/tournament-of-kings-3.webp" alt="Tournament of Kings — knights on horseback riding through blue smoke carrying flags in the arena" loading="lazy" />
+    </div>
+    <button class="s-arrow prev" onclick="sliderMove(-1)" aria-label="Previous slide">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="s-arrow next" onclick="sliderMove(1)" aria-label="Next slide">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <div class="slider-dots" role="tablist">
+      <button class="dot-btn active" onclick="goToSlide(0)" role="tab" aria-label="Photo 1" aria-selected="true"></button>
+      <button class="dot-btn" onclick="goToSlide(1)" role="tab" aria-label="Photo 2" aria-selected="false"></button>
+      <button class="dot-btn" onclick="goToSlide(2)" role="tab" aria-label="Photo 3" aria-selected="false"></button>
+    </div>
+  </div>
+
+  <div class="hero-content-wrap">
+    <div class="hero-content">
+      <div class="venue-label">King Arthur's Arena · Excalibur Hotel · Las Vegas Blvd</div>
+      <h1 class="hero-title">Tournament<br>of Kings</h1>
+      <p class="hero-subtitle">Eat. Drink. Be Rowdy.</p>
+      <div class="info-pills">
+        <span class="pill pill-red">🏰 Family Show</span>
+        <span class="pill">⏱ 75 Min</span>
+        <span class="pill pill-gold">🍗 Dinner Included</span>
+        <span class="pill">📍 Excalibur Hotel</span>
+        <span class="pill">👪 All Ages</span>
+      </div>
+      <div class="urgency-pills">
+        <div class="upill"><span class="udot"></span>Mon &amp; Fri · 6:00 PM</div>
+        <div class="upill"><span class="udot"></span>Wed, Thu, Sat &amp; Sun · 6:00 PM &amp; 8:30 PM</div>
+        <div class="upill"><span class="udot"></span>39% Off Regular Price</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="price-strip">
+    <div class="price-block">
+      <div class="price-lbl">Tickets From</div>
+      <div class="price-cur">$74</div>
+      <div class="price-was">$122 box office</div>
+      <div class="price-save">Save $48 · 39% Off</div>
+    </div>
+    <a href="https://spotlight.vegas/shows/production/tournament-of-kings/ref/vegassidekick" target="_blank" rel="noopener" class="hero-cta">Get Tickets →</a>
+    <span class="urgency-txt">⏰ Prices may increase closer to show date</span>
+  </div>
+</section>
+
+<div class="page-layout">
+<main class="main-content" role="main">
+
+  <!-- SEEN WIDGET -->
+  <div class="seen-widget fade-up">
+    <div class="seen-tag">🌵 Spike Wants to Know</div>
+    <div class="seen-q">Have you seen Tournament of Kings before?</div>
+    <div class="seen-btns">
+      <button class="seen-btn seen-yes" onclick="showSeen('yes')">Yeah, I've been</button>
+      <button class="seen-btn seen-no" onclick="showSeen('no')">First time</button>
+    </div>
+    <div class="seen-resp" id="seen-yes">
+      <p>A feast worth repeating. Whether you're bringing someone new or just ready for another round of jousting — <a href="https://spotlight.vegas/shows/production/tournament-of-kings/ref/vegassidekick" target="_blank" rel="noopener">grab your tickets here →</a></p>
+    </div>
+    <div class="seen-resp" id="seen-no">
+      <p>Here's what you're walking into: you pick a section, you cheer for your knight, you eat with your hands, and you watch real horses charge across a real arena floor. There's jousting, sword combat, fire, and a full medieval feast — all in 75 minutes. <a href="https://spotlight.vegas/shows/production/tournament-of-kings/ref/vegassidekick" target="_blank" rel="noopener">Get your tickets here →</a></p>
+    </div>
+  </div>
+
+  <!-- TRUST GRID -->
+  <div class="trust-grid fade-up">
+    <div class="trust-card"><div class="trust-icon">🔒</div><div><div class="trust-card-title">Secure Booking</div><div class="trust-card-desc">Every transaction uses safe, encrypted checkout. Your payment info is always protected.</div></div></div>
+    <div class="trust-card"><div class="trust-icon">⚡</div><div><div class="trust-card-title">Instant Delivery</div><div class="trust-card-desc">Tickets arrive by email immediately after purchase. No will-call, no waiting.</div></div></div>
+    <div class="trust-card"><div class="trust-icon">✅</div><div><div class="trust-card-title">No Hidden Fees</div><div class="trust-card-desc">The price you see is the price you pay. Nothing added at checkout.</div></div></div>
+    <div class="trust-card"><div class="trust-icon">🎫</div><div><div class="trust-card-title">No Account Required</div><div class="trust-card-desc">Buy without creating an account. Fast, clean, tickets straight to your inbox.</div></div></div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="section fade-up" aria-labelledby="about-heading">
+    <h2 id="about-heading" class="section-title">About <span>Tournament of Kings</span></h2>
+    <div class="about-body">
+      <p>Tournament of Kings is the most thrilling dinner and show experience in Las Vegas — live-action jousting, sword combat, horsemanship, music, and crowd participation all rolled into 75 minutes of non-stop entertainment. King Arthur and his valiant knights compete in a full tournament inside a massive arena while you eat, drink, and pick sides.</p>
+      <p>Step back into the Middle Ages and choose your kingdom. Cheer at the top of your lungs as armored knights engage in full combat and battle through the competition. Meanwhile, the feast arrives: slow-roasted Cornish hen, herb-roasted potatoes, corn on the cob, and fresh-baked biscuits, served directly to your seat. No utensils. That's not an oversight — it's part of the deal.</p>
+      <div class="spike-callout">
+        <div class="spike-emoji">🌵</div>
+        <div class="spike-text">
+          <strong>Spike Says</strong>
+          Tournament of Kings sounds like a gimmick on paper and delivers completely in person. Real horses, real combat, a real meal — and a crowd that gets genuinely loud. The no-utensils thing stops feeling weird after about three minutes. Bring kids, bring parents, bring whoever. It works for every group.
+        </div>
+      </div>
+      <p>The production includes pyrotechnics and elevated sound levels. The show wraps with an apple square dessert and a ceremonial toast with the performers. Still photography is welcome throughout — please be mindful of guests around you. Video recording is not permitted.</p>
+    </div>
+  </section>
+
+  <!-- EMAIL SIGNUP -->
+  <div class="email-signup fade-up">
+    <div class="email-bar"></div>
+    <div class="email-heading">DEALS</div>
+    <div class="email-body">
+      <h3>Vegas show deals straight to your inbox</h3>
+      <p>Last-minute discounts, show updates, and the occasional tip from Spike. No spam. Unsubscribe whenever.</p>
+      <div class="email-form">
+        <input type="email" class="email-input" placeholder="your@email.com" aria-label="Email address" id="emailInp" />
+        <button class="email-submit" type="button" id="emailBtn" onclick="submitEmail()">Subscribe</button>
+      </div>
+      <div class="email-success" id="emailSuccess">✅ You're in — Spike will be in touch with the good stuff.</div>
+    </div>
+  </div>
+
+  <!-- SHOW DETAILS -->
+  <section class="section fade-up" aria-labelledby="details-heading">
+    <h2 id="details-heading" class="section-title">Show <span>Details</span></h2>
+    <div class="details-grid">
+      <div class="detail-card">
+        <div class="detail-card-icon">📍</div>
+        <div class="detail-card-lbl">Venue</div>
+        <div class="detail-card-val">King Arthur's Arena</div>
+        <div class="detail-card-sub">Excalibur Hotel · 3850 Las Vegas Blvd S. A dedicated arena built for the Tournament of Kings production.</div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-icon">🕐</div>
+        <div class="detail-card-lbl">Mon &amp; Fri Schedule</div>
+        <div class="detail-card-val">Monday &amp; Friday</div>
+        <div class="detail-card-sub">6:00 PM only. One show per evening. Dark on Tuesdays.</div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-icon">🕕</div>
+        <div class="detail-card-lbl">Wed–Sun Schedule</div>
+        <div class="detail-card-val">Wed, Thu, Sat &amp; Sun</div>
+        <div class="detail-card-sub">6:00 PM &amp; 8:30 PM. Two shows per day. Check availability for your date.</div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-icon">⏱️</div>
+        <div class="detail-card-lbl">Duration</div>
+        <div class="detail-card-val">75 Minutes</div>
+        <div class="detail-card-sub">Full feast included — Cornish hen, potatoes, corn, biscuits, and apple square dessert. No intermission.</div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-icon">👪</div>
+        <div class="detail-card-lbl">Age Policy</div>
+        <div class="detail-card-val">All Ages Welcome</div>
+        <div class="detail-card-sub">Children 3 &amp; under attend free (adult's lap, shares meal). Ages 4+ require a ticket. Guests under 16 must be accompanied by an adult.</div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-icon">📸</div>
+        <div class="detail-card-lbl">Photography</div>
+        <div class="detail-card-val">Still Photos OK</div>
+        <div class="detail-card-sub">Non-flash still photography is welcome. Please be considerate of guests around you. Video recording is not permitted.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT TO EXPECT -->
+  <section class="section fade-up" aria-labelledby="expect-heading">
+    <h2 id="expect-heading" class="section-title">What to <span>Expect</span></h2>
+    <div class="expect-grid">
+      <div class="expect-card">
+        <div class="expect-title"><span>⚔️</span> Live Jousting &amp; Combat</div>
+        <div class="expect-desc">Armored knights on horseback charge each other with real lances. When they shatter, the crowd loses it. Add sword-fighting and full stage combat and you have a genuine action show — not pantomime.</div>
+      </div>
+      <div class="expect-card">
+        <div class="expect-title"><span>🍗</span> A Feast Served to Your Seat</div>
+        <div class="expect-desc">Slow-roasted Cornish hen, herb-roasted potatoes, corn on the cob, and fresh-baked biscuits — plus an apple square dessert and a toast with the performers. Delivered to your seat, included in the ticket price. No utensils. You're royalty now.</div>
+      </div>
+      <div class="expect-card">
+        <div class="expect-title"><span>🏰</span> Pick Your Kingdom</div>
+        <div class="expect-desc">Your section is named after a competing country — Ireland, Romania, Norway, France, Dragon, Hungary, Spain, or Austria. Each section cheers for their knight. The rivalry between sections is half the entertainment.</div>
+      </div>
+      <div class="expect-card">
+        <div class="expect-title"><span>🐎</span> Real Horses in an Indoor Arena</div>
+        <div class="expect-desc">Trained performance horses charge, maneuver, and perform in a full-sized indoor arena. There aren't many shows in Las Vegas where this happens. The horsemanship is genuinely impressive up close.</div>
+      </div>
+      <div class="expect-card">
+        <div class="expect-title"><span>🔥</span> Fire &amp; Special Effects</div>
+        <div class="expect-desc">The show includes pyrotechnics and fire effects woven throughout the performance, along with elevated sound and dramatic lighting. The spectacle goes well beyond what you'd expect from a dinner show.</div>
+      </div>
+      <div class="expect-card">
+        <div class="expect-title"><span>👪</span> Works for Every Group</div>
+        <div class="expect-desc">Kids go wild for the horses and jousting. Adults enjoy the spectacle and the feast. No adult-only content — no drinking-focused premise. Tournament of Kings works for families, friend groups, and multi-generational parties.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEATING CHART -->
+  <section class="seating-section fade-up" aria-labelledby="seating-heading">
+    <h2 id="seating-heading" class="section-title">King Arthur's Arena <span>Seating Chart</span></h2>
+    <p style="font-size:.94rem;color:var(--text-muted);line-height:1.7;margin-bottom:20px;">The arena wraps around a central performance floor on three sides, with eight named sections each representing a competing kingdom. With only five rows in the entire arena, every seat has a clear view of the action. <strong>Click a category</strong> to see what each offers.</p>
+
+    <div class="seating-diagram-wrap">
+      <div class="seating-lbl">King Arthur's Arena · Excalibur Hotel — Click a category for details</div>
+      <div class="seating-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#C9A84C"></div>Category A — Front Floor</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#C040A0"></div>Category B — Spain &amp; Austria</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#6B4ABF"></div>Category C — Back Rows</div>
+      </div>
+
+      <svg viewBox="0 0 700 500" style="width:100%;max-width:620px;display:block;margin:0 auto;cursor:pointer" role="img" aria-label="King Arthur's Arena seating chart — click a category to select">
+        <rect width="700" height="500" rx="16" fill="#0A1628"/>
+
+        <!-- Category C — back rows (purple) -->
+        <g onclick="selectZone('cat-c')" style="cursor:pointer">
+          <rect x="60" y="8" width="405" height="47" fill="#4A2E8A" rx="5" opacity="0.9"/>
+          <rect x="60" y="445" width="405" height="47" fill="#4A2E8A" rx="5" opacity="0.9"/>
+          <text x="262" y="36" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="10" font-weight="700" fill="rgba(190,160,255,0.85)" letter-spacing="1" style="pointer-events:none">CATEGORY C · BACK ROWS</text>
+          <text x="262" y="472" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="10" font-weight="700" fill="rgba(190,160,255,0.85)" letter-spacing="1" style="pointer-events:none">CATEGORY C · BACK ROWS</text>
+        </g>
+
+        <!-- Category A — front floor sections (gold) -->
+        <g onclick="selectZone('cat-a')" style="cursor:pointer">
+          <rect x="60" y="58" width="120" height="102" fill="#6B4C10" rx="4"/>
+          <text x="120" y="115" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="11" font-weight="800" fill="#E8C87A" letter-spacing="0.5" style="pointer-events:none">IRELAND</text>
+          <rect x="185" y="58" width="120" height="102" fill="#A07A18" rx="4"/>
+          <text x="245" y="115" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="11" font-weight="800" fill="#2A1A00" letter-spacing="0.5" style="pointer-events:none">ROMANIA</text>
+          <rect x="310" y="58" width="155" height="102" fill="#6B4C10" rx="4"/>
+          <text x="387" y="115" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="11" font-weight="800" fill="#E8C87A" letter-spacing="0.5" style="pointer-events:none">NORWAY</text>
+          <rect x="60" y="340" width="120" height="102" fill="#6B4C10" rx="4"/>
+          <text x="120" y="396" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="11" font-weight="800" fill="#E8C87A" letter-spacing="0.5" style="pointer-events:none">FRANCE</text>
+          <rect x="185" y="340" width="120" height="102" fill="#A07A18" rx="4"/>
+          <text x="245" y="396" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="11" font-weight="800" fill="#2A1A00" letter-spacing="0.5" style="pointer-events:none">DRAGON</text>
+          <rect x="310" y="340" width="155" height="102" fill="#6B4C10" rx="4"/>
+          <text x="387" y="396" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="11" font-weight="800" fill="#E8C87A" letter-spacing="0.5" style="pointer-events:none">HUNGARY</text>
+        </g>
+
+        <!-- Category B — Spain & Austria (magenta) -->
+        <g onclick="selectZone('cat-b')" style="cursor:pointer">
+          <rect x="476" y="58" width="178" height="195" fill="#6B1A5A" rx="4" opacity="0.9"/>
+          <text x="565" y="158" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="13" font-weight="800" fill="rgba(255,175,230,0.9)" letter-spacing="0.5" style="pointer-events:none">SPAIN</text>
+          <rect x="476" y="263" width="178" height="179" fill="#6B1A5A" rx="4" opacity="0.9"/>
+          <text x="565" y="355" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="13" font-weight="800" fill="rgba(255,175,230,0.9)" letter-spacing="0.5" style="pointer-events:none">AUSTRIA</text>
+        </g>
+
+        <!-- Stage — drawn last -->
+        <rect x="50" y="163" width="422" height="174" fill="#1A2A12" rx="8" stroke="#3A6020" stroke-width="1.5"/>
+        <text x="261" y="253" text-anchor="middle" font-family="Bebas Neue,sans-serif" font-size="38" fill="#C9A84C" letter-spacing="5" style="pointer-events:none">STAGE</text>
+        <text x="261" y="278" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="11" fill="rgba(201,168,76,0.38)" letter-spacing="2" style="pointer-events:none">ARENA FLOOR</text>
+
+        <!-- Castle entrance marker -->
+        <rect x="10" y="175" width="38" height="150" fill="#060E1A" rx="4"/>
+        <text x="29" y="263" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="9" fill="rgba(255,255,255,0.2)" transform="rotate(-90,29,263)" letter-spacing="1.5" style="pointer-events:none">CASTLE</text>
+      </svg>
+
+      <div class="zone-popup" id="zonePopup">
+        <div class="zone-popup-hdr">
+          <div class="zone-popup-name" id="zoneName">—</div>
+          <div class="zone-popup-pick" id="zonePick" style="display:none">🌵 Spike's Pick</div>
+        </div>
+        <div class="zone-popup-desc" id="zoneDesc"></div>
+        <a href="https://spotlight.vegas/shows/production/tournament-of-kings/ref/vegassidekick" class="zone-popup-cta" target="_blank" rel="noopener">Get Tickets in This Category →</a>
+      </div>
+    </div>
+
+    <div class="seat-accord">
+      <div class="seat-accord-item">
+        <button class="seat-accord-trigger" onclick="toggleAccord(this)">
+          <div class="seat-accord-left"><div class="seat-accord-dot" style="background:#C9A84C"></div><div class="seat-accord-title">Category A — Front Floor Sections</div></div>
+          <span class="seat-accord-chevron">▼</span>
+        </button>
+        <div class="seat-accord-body">The closest rows to the arena floor in the main sections — Ireland, Romania, and Norway across the top, and France, Dragon, and Hungary across the bottom. Romania and Dragon are the center sections directly facing each other across the stage, giving you a head-on view of every charge and joust. Category A is the most in-demand seating in the house.</div>
+      </div>
+      <div class="seat-accord-item">
+        <button class="seat-accord-trigger" onclick="toggleAccord(this)">
+          <div class="seat-accord-left"><div class="seat-accord-dot" style="background:#C040A0"></div><div class="seat-accord-title">Category B — Spain &amp; Austria (Side Sections)</div></div>
+          <span class="seat-accord-chevron">▼</span>
+        </button>
+        <div class="seat-accord-body">Spain and Austria are positioned on the right side of the arena with an angled view of the performance floor. With only five rows and an intimate venue, you still see everything clearly — the horse charges, jousting runs, and fire effects. The side angle on a lance charge is a genuinely different perspective than center-facing sections. Often better value than Category A.</div>
+      </div>
+      <div class="seat-accord-item">
+        <button class="seat-accord-trigger" onclick="toggleAccord(this)">
+          <div class="seat-accord-left"><div class="seat-accord-dot" style="background:#6B4ABF"></div><div class="seat-accord-title">Category C — Back Rows</div></div>
+          <span class="seat-accord-chevron">▼</span>
+        </button>
+        <div class="seat-accord-body">The back rows of the main floor sections. With only five rows in the entire arena, even Category C puts you genuinely close to the action — you can clearly see every joust, every horse maneuver, and every fire effect. A solid option for seeing the full scope of the production from a slightly wider vantage point, usually at the best price in the house.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section fade-up" aria-labelledby="faq-heading">
+    <h2 id="faq-heading" class="section-title">Frequently Asked <span>Questions</span></h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Is dinner really included in the ticket price? <span class="faq-chevron">▼</span></button>
+        <div class="faq-a">Yes — a full medieval feast is included with every ticket. The meal consists of slow-roasted Cornish hen, herb-roasted potatoes, corn on the cob, fresh biscuits, and an apple square dessert, along with a ceremonial toast with the performers. Non-alcoholic beverages are included; cocktails and premium drinks are available for purchase separately.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Do we get utensils? <span class="faq-chevron">▼</span></button>
+        <div class="faq-a">No — and that's intentional. Tournament of Kings is a medieval dinner show, and you eat like a medieval lord: with your hands. The Cornish hen tears apart, and the soup comes in a bowl you drink from. It's part of the experience and genuinely more fun than it sounds. If accessibility requires utensils, ask your server and they'll accommodate you.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Does it matter which section we sit in? <span class="faq-chevron">▼</span></button>
+        <div class="faq-a">Each section is associated with a competing knight — Ireland, Romania, Norway, France, Dragon, Hungary, Spain, or Austria. You'll cheer for that knight throughout the show. Sightline-wise, the center sections (Romania and Dragon) offer the most direct head-on view of the jousting. With only five rows in the arena, all seats are genuinely close. Spain and Austria side sections offer a different angle, often at a lower price.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What is the age policy exactly? <span class="faq-chevron">▼</span></button>
+        <div class="faq-a">Tournament of Kings welcomes all ages. Children 3 years and under may attend for free — they must sit on an adult's lap and share the adult's meal. Guests 4 years and older must have their own ticket. Guests under 16 must be accompanied by an adult at all times.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Can we take photos or video? <span class="faq-chevron">▼</span></button>
+        <div class="faq-a">Still photography is welcome throughout the show. Please limit yourself to non-flash photos and be considerate of the guests around you — if your photography becomes disruptive, you may be asked to put the camera away. Video recording is not permitted.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Is there a dress code? <span class="faq-chevron">▼</span></button>
+        <div class="faq-a">No formal dress code. Come in whatever you'd wear for a casual night out. Since you're eating with your hands, you might skip your finest whites — but in practice most guests dress casually. Some lean into it and go medieval. Both work equally well.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Are tickets refundable? <span class="faq-chevron">▼</span></button>
+        <div class="faq-a">Tickets are generally non-refundable once purchased. If your travel plans change, some exchanges may be possible — check the cancellation terms at checkout before completing your order.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- YOU MIGHT ALSO LIKE -->
+  <section class="section fade-up" aria-labelledby="also-heading">
+    <h2 id="also-heading" class="section-title">You Might Also <span>Like</span></h2>
+    <div class="also-grid">
+      <a href="/shows/spectaculars/awakening/" class="also-card">
+        <div class="also-img"><img src="/images/awakening-hero.webp" alt="Awakening at Wynn Las Vegas" loading="lazy" /></div>
+        <div class="also-body">
+          <div class="also-venue">Wynn Las Vegas</div>
+          <div class="also-name">Awakening</div>
+          <div class="also-price">From $70</div>
+        </div>
+      </a>
+      <a href="/shows/music/blue-man-group/" class="also-card">
+        <div class="also-img"><img src="/images/blue-man-group-hero.webp" alt="Blue Man Group at Luxor Hotel Las Vegas" loading="lazy" /></div>
+        <div class="also-body">
+          <div class="also-venue">Luxor Hotel · Blue Man Theater</div>
+          <div class="also-name">Blue Man Group</div>
+          <div class="also-price">From $65</div>
+        </div>
+      </a>
+      <a href="/shows/magic/mac-king/" class="also-card">
+        <div class="also-img"><img src="/images/mac-king-hero.jpg" alt="Mac King Comedy Magic at Harrah's Las Vegas" loading="lazy" /></div>
+        <div class="also-body">
+          <div class="also-venue">Harrah's Las Vegas</div>
+          <div class="also-name">Mac King Comedy Magic</div>
+          <div class="also-price">From $28</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<aside class="sidebar" aria-label="Booking sidebar">
+  <div class="sb-price-lbl">Tickets From</div>
+  <div class="sb-price">$74</div>
+  <div class="sb-price-was">$122 box office</div>
+  <div class="sb-price-save">Save $48 · 39% Off</div>
+  <a href="https://spotlight.vegas/shows/production/tournament-of-kings/ref/vegassidekick" target="_blank" rel="noopener" class="sb-cta">🎟️ Get Tickets Now</a>
+  <div class="sb-div"></div>
+  <ul class="trust-list">
+    <li><div class="t-check">✓</div>No hidden fees</li>
+    <li><div class="t-check">✓</div>Instant ticket delivery</li>
+    <li><div class="t-check">✓</div>No account required</li>
+    <li><div class="t-check">✓</div>Dinner included</li>
+  </ul>
+  <div class="sb-div"></div>
+  <div class="sb-info-item"><span class="sb-info-icon">📍</span><div><span class="sb-info-lbl">Venue</span><span class="sb-info-val">King Arthur's Arena · Excalibur Hotel</span></div></div>
+  <div class="sb-info-item"><span class="sb-info-icon">🗓️</span><div><span class="sb-info-lbl">Schedule</span><span class="sb-info-val">Mon &amp; Fri 6:00 PM · Wed/Thu/Sat/Sun 6:00 &amp; 8:30 PM</span></div></div>
+  <div class="sb-info-item"><span class="sb-info-icon">⏱️</span><div><span class="sb-info-lbl">Duration</span><span class="sb-info-val">75 minutes · No intermission</span></div></div>
+  <div class="sb-info-item"><span class="sb-info-icon">👪</span><div><span class="sb-info-lbl">Age</span><span class="sb-info-val">All ages · Ages 3 &amp; under free</span></div></div>
+  <div class="sb-info-item"><span class="sb-info-icon">🍗</span><div><span class="sb-info-lbl">Meal</span><span class="sb-info-val">Full Cornish hen feast included</span></div></div>
+</aside>
+</div>
+
+<!-- FINAL CTA -->
+<div class="final-cta">
+  <div class="final-cta-inner">
+    <div class="final-cta-title">Claim Your Seat at the Table</div>
+    <div class="final-cta-sub">Tickets from $74 — includes a full medieval feast. Real horses, live jousting, fire, and a performance that earns every bit of the crowd reaction it gets.</div>
+    <a href="https://spotlight.vegas/shows/production/tournament-of-kings/ref/vegassidekick" class="final-cta-btn" target="_blank" rel="noopener">🎟️ Get Tickets Now</a>
+    <div class="final-cta-note">No hidden fees · Dinner included · Instant delivery</div>
+  </div>
+</div>
+
+<!-- MOBILE STICKY BAR -->
+<div class="mobile-sticky" aria-label="Buy tickets">
+  <div>
+    <div class="mob-price-lbl">From</div>
+    <div class="mob-price">$74</div>
+  </div>
+  <a href="https://spotlight.vegas/shows/production/tournament-of-kings/ref/vegassidekick" class="mob-cta" target="_blank" rel="noopener">Get Tickets →</a>
+</div>
+
+<div id="vs-footer"></div>
+<script src="/components/footer.js"></script>
+
+<script>
+  window.addEventListener('scroll', function() {
+    const el = document.getElementById('progress-bar');
+    const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+    el.style.width = Math.min(pct, 100) + '%';
+  });
+
+  let slides = document.querySelectorAll('.slide');
+  let dots   = document.querySelectorAll('.dot-btn');
+  let cur    = 0, timer;
+  function goToSlide(n) {
+    slides[cur].classList.remove('active'); dots[cur].classList.remove('active');
+    cur = (n + slides.length) % slides.length;
+    slides[cur].classList.add('active'); dots[cur].classList.add('active');
+    clearInterval(timer); timer = setInterval(() => goToSlide(cur + 1), 5000);
+  }
+  function sliderMove(dir) { goToSlide(cur + dir); }
+  timer = setInterval(() => goToSlide(cur + 1), 5000);
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+  function showSeen(id) {
+    document.querySelectorAll('.seen-resp').forEach(el => el.classList.remove('visible'));
+    document.getElementById('seen-' + id).classList.add('visible');
+  }
+
+  const zoneData = {
+    'cat-a': {
+      name: 'Category A — Front Floor',
+      pick: false,
+      desc: 'The front rows of the main sections — Ireland, Romania, Norway (top), and France, Dragon, Hungary (bottom). Closest to the arena floor. Romania and Dragon center sections face each other directly across the stage, giving a head-on view of every joust and charge. The most in-demand seats in the house.'
+    },
+    'cat-b': {
+      name: 'Category B — Spain & Austria',
+      pick: false,
+      desc: 'Spain and Austria sit on the right side of the arena with an angled perspective of the full performance floor. With only five rows and an intimate venue, you still see everything clearly. The side angle on a horse charge is genuinely different from the head-on view — and often available at a better price.'
+    },
+    'cat-c': {
+      name: 'Category C — Back Rows',
+      pick: false,
+      desc: 'The back rows of the main floor sections. With only five rows total, even Category C seats put you close to the action — you can clearly see every jousting run, horse maneuver, and fire effect. A great pick for seeing the full scope of the show from a wider vantage point, usually at the best price available.'
+    }
+  };
+  function selectZone(id) {
+    const z = zoneData[id];
+    document.getElementById('zoneName').textContent = z.name;
+    document.getElementById('zoneDesc').textContent = z.desc;
+    document.getElementById('zonePick').style.display = z.pick ? 'inline-block' : 'none';
+    const popup = document.getElementById('zonePopup');
+    popup.classList.add('visible');
+    popup.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function toggleAccord(btn) {
+    const body = btn.nextElementSibling;
+    const chev = btn.querySelector('.seat-accord-chevron');
+    const open = body.classList.toggle('open');
+    chev.style.transform = open ? 'rotate(180deg)' : '';
+  }
+
+  function toggleFaq(btn) {
+    const ans  = btn.nextElementSibling;
+    const chev = btn.querySelector('.faq-chevron');
+    const open = ans.classList.toggle('open');
+    chev.style.transform = open ? 'rotate(180deg)' : '';
+  }
+
+  async function submitEmail() {
+    const inp = document.getElementById('emailInp');
+    const email = inp.value.trim();
+    if (!email || !email.includes('@')) return;
+    document.getElementById('emailBtn').disabled = true;
+    try {
+      await fetch('https://brevo-subscribe.vegassidekickcom.workers.dev', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+    } catch(e) {}
+    inp.style.display = 'none';
+    document.getElementById('emailBtn').style.display = 'none';
+    document.getElementById('emailSuccess').classList.add('visible');
+  }
+</script>
+</body>
+</html>
