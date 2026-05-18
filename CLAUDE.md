@@ -172,8 +172,16 @@ Credentials are embedded in client-side code (read-only, restricted scope):
 | Brevo | API Key in source, List ID: `2` | `components/footer.js` |
 | GitHub OAuth | Client ID: `Ov23lit31UqvtSuPp7tJ` | `functions/api/auth.js` |
 | GitHub OAuth | Client Secret via `GITHUB_CLIENT_SECRET` env var | `functions/api/auth.js` |
+| Cloudinary | Cloud: `dvhunpinz`, API Key: `966995363786296`, Secret: in `.cloudinary` | OG image hosting |
 
 **Note:** The Algolia key is a search-only key and the Brevo key has restricted permissions. The GitHub Client Secret must be stored as an environment variable in Cloudflare Workers — never commit it to the repo.
+
+The Cloudinary API credentials are stored in `.cloudinary` (gitignored). However, server-to-server uploads are blocked by Cloudinary's IP restrictions. The established workflow for OG/social images is:
+1. Kris uploads the article image to Cloudinary from his phone (Cloudinary mobile or browser)
+2. He pastes the resulting URL (e.g. `https://res.cloudinary.com/dvhunpinz/image/upload/f_auto,q_auto/...`)
+3. Claude updates the `og:image` and `twitter:image` meta tags in the article with that URL
+
+This is a one-time step per article and takes ~10 seconds. Article content, in-page images, and all other publishing steps remain fully automated.
 
 ---
 
