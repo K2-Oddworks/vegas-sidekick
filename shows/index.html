@@ -15,7 +15,7 @@
     "name": "Las Vegas Shows",
     "description": "All Las Vegas shows and tickets.",
     "url": "https://vegassidekick.com/shows/",
-    "numberOfItems": 31,
+    "numberOfItems": 32,
     "itemListElement": [
       { "@type": "ListItem", "position": 1,  "name": "Carrot Top",                  "url": "https://vegassidekick.com/shows/comedy/carrot-top/" },
       { "@type": "ListItem", "position": 2,  "name": "Mad Apple",                   "url": "https://vegassidekick.com/shows/cirque/mad-apple/" },
@@ -47,7 +47,8 @@
       { "@type": "ListItem", "position": 28, "name": "Absinthe",                    "url": "https://vegassidekick.com/shows/adult/absinthe/" },
       { "@type": "ListItem", "position": 29, "name": "Awakening",                  "url": "https://vegassidekick.com/shows/spectaculars/awakening/" },
       { "@type": "ListItem", "position": 30, "name": "Tournament of Kings",        "url": "https://vegassidekick.com/shows/family/tournament-of-kings/" },
-      { "@type": "ListItem", "position": 31, "name": "The Wizard of Oz at Sphere","url": "https://vegassidekick.com/shows/spectaculars/wizard-of-oz/" }
+      { "@type": "ListItem", "position": 31, "name": "The Wizard of Oz at Sphere","url": "https://vegassidekick.com/shows/spectaculars/wizard-of-oz/" },
+      { "@type": "ListItem", "position": 32, "name": "RuPaul's Drag Race LIVE!",   "url": "https://vegassidekick.com/shows/music/rupauls-drag-race-live/" }
     ]
   }
   </script>
@@ -1318,6 +1319,38 @@
             </div>
           </a>
 
+          <!-- RUPAUL'S DRAG RACE LIVE! -->
+          <a href="/shows/music/rupauls-drag-race-live/"
+             class="show-grid-card"
+             data-name="RuPaul's Drag Race LIVE!"
+             data-price="91"
+             data-occasions="music adult date"
+             data-duration="90 min"
+             data-age="All Ages"
+             data-schedule="Mon/Thu/Sat/Sun 9:30PM · Fri 7PM &amp; 9:30PM"
+             data-venue="Flamingo Showroom · Flamingo Las Vegas"
+             data-bestfor="Best Drag Show">
+            <div class="card-img-wrap">
+              <img src="/images/rupauls-drag-race-live-hero.webp" alt="RuPaul's Drag Race LIVE! cast of six queens in silver costumes on stage at Flamingo Las Vegas" loading="lazy" />
+              <div class="card-best-badge">👑 Best Drag Show</div>
+              <div class="card-cat-pill">Music · Entertainment</div>
+            </div>
+            <div class="card-body">
+              <div class="card-venue">Flamingo Showroom · Flamingo Las Vegas</div>
+              <div class="card-name">RuPaul's Drag Race LIVE!</div>
+              <div class="card-tags">
+                <span class="card-tag">👨‍👩‍👧 All Ages</span>
+                <span class="card-tag">🗓️ Mon/Thu/Sat/Sun</span>
+                <span class="card-tag">90 min</span>
+              </div>
+              <button class="card-compare-inline" onclick="toggleCompare(event,this,this.closest('.show-grid-card').dataset.name)">+ Add to Compare</button>
+              <div class="card-footer">
+                <div class="card-price"><div class="card-price-our">$91</div><div class="card-price-was">$121</div></div>
+                <span class="card-cta">Get Tickets →</span>
+              </div>
+            </div>
+          </a>
+
           <!-- ALLSTARS OF MAGIC -->
           <a href="/shows/magic/allstars-of-magic/"
              class="show-grid-card"
@@ -1536,7 +1569,7 @@
 <script>
   let activeFilter = 'all';
   let activeSort = 'default';
-  const defaultOrder = ['The Wizard of Oz at Sphere','Tournament of Kings','Awakening','Absinthe','Carrot Top','Mad Apple','Rouge','VEGAS! The Show','Blue Man Group','Mystère','Mac King Comedy Magic','Criss Angel MINDFREAK','Shin Lim: LIMITLESS','Penn & Teller','Mat Franco: Magic Reinvented Nightly','The Mentalist','Colin Cloud: Mastermind','Allstars of Magic','Tape Face','Marriage Can Be Murder','O','KÀ','Michael Jackson ONE','Laugh Factory Las Vegas','Comedy Cellar',"Brad Garrett's Comedy Club",'LA Comedy Club Las Vegas','Marc Savard Comedy Hypnosis','Nathan Burton Comedy Magic','Las Vegas LIVE Comedy Club','Popovich Comedy Pet Theater'];
+  const defaultOrder = ['The Wizard of Oz at Sphere','Tournament of Kings','Awakening','Absinthe','Carrot Top','Mad Apple','Rouge','VEGAS! The Show','Blue Man Group',"RuPaul's Drag Race LIVE!",'Mystère','Mac King Comedy Magic','Criss Angel MINDFREAK','Shin Lim: LIMITLESS','Penn & Teller','Mat Franco: Magic Reinvented Nightly','The Mentalist','Colin Cloud: Mastermind','Allstars of Magic','Tape Face','Marriage Can Be Murder','O','KÀ','Michael Jackson ONE','Laugh Factory Las Vegas','Comedy Cellar',"Brad Garrett's Comedy Club",'LA Comedy Club Las Vegas','Marc Savard Comedy Hypnosis','Nathan Burton Comedy Magic','Las Vegas LIVE Comedy Club','Popovich Comedy Pet Theater'];
 
   function filterShows(f) {
     activeFilter = f;
