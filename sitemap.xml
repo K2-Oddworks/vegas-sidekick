@@ -11,81 +11,9 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://vegassidekick.com/shows/music/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <lastmod>2026-05-16</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/shows/music/vegas-the-show/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <lastmod>2026-05-16</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/shows/music/blue-man-group/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <lastmod>2026-05-17</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/shows/music/rupauls-drag-race-live/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <lastmod>2026-05-18</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/shows/adult/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <lastmod>2026-05-16</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/shows/adult/rouge/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <lastmod>2026-05-16</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/shows/adult/absinthe/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <lastmod>2026-05-17</lastmod>
-  </url>
-  <url>
     <loc>https://vegassidekick.com/shows/cirque/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/shows/spectaculars/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <lastmod>2026-05-17</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/shows/spectaculars/wizard-of-oz/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <lastmod>2026-05-17</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/shows/spectaculars/awakening/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <lastmod>2026-05-17</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/shows/family/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <lastmod>2026-05-17</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/shows/family/tournament-of-kings/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <lastmod>2026-05-17</lastmod>
   </url>
   <url>
     <loc>https://vegassidekick.com/shows/magic/</loc>
@@ -159,36 +87,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://vegassidekick.com/shows/magic/shin-lim/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <lastmod>2026-05-16</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/shows/magic/allstars-of-magic/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <lastmod>2026-05-16</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/shows/magic/mat-franco/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <lastmod>2026-05-15</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/shows/magic/the-mentalist/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <lastmod>2026-05-15</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/shows/magic/colin-cloud/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <lastmod>2026-05-16</lastmod>
-  </url>
-  <url>
     <loc>https://vegassidekick.com/shows/comedy/marriage-can-be-murder/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -233,6 +131,12 @@
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <lastmod>2026-05-12</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/news/smashing-pumpkins-rats-in-a-cage-tour-mgm-grand-october-30/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2026-05-18</lastmod>
   </url>
   <url>
     <loc>https://vegassidekick.com/news/new-shows-announced-may-14-2026/</loc>
