@@ -81,9 +81,10 @@
       --gray-400:   #94A3B8;
       --text:       #0F172A;
       --text-muted: #64748B;
-      --magenta:    #d946ef;
       --green:      #4ade80;
       --age-red:    #C0183A;
+      --show-red:   #C41230;
+      --show-red-lt:#E84060;
       --font-display: 'Bebas Neue', sans-serif;
       --font-price:   'Barlow Condensed', sans-serif;
       --font-body:    'Barlow', sans-serif;
@@ -99,7 +100,20 @@
     img  { max-width: 100%; display: block; }
     a    { text-decoration: none; color: inherit; }
     button { font-family: inherit; cursor: pointer; }
-    #progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--blue), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; }
+
+    #progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--show-red), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; box-shadow: 0 0 10px var(--show-red), 0 0 20px rgba(196,18,48,0.35); }
+
+    /* ── DOT NAV ── */
+    .dot-nav { position: fixed; right: 18px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 900; }
+    .dot-nav a { width: 8px; height: 8px; border-radius: 50%; background: rgba(196,18,48,0.25); border: 1px solid rgba(196,18,48,0.4); display: block; transition: background 0.25s, transform 0.25s; }
+    .dot-nav a.active { background: var(--show-red); transform: scale(1.5); }
+    .dot-nav a:hover { background: var(--show-red-lt); }
+    @media (max-width: 940px) { .dot-nav { display: none; } }
+
+    /* ── STICKY SAVE PILL ── */
+    .save-pill { position: fixed; top: 22px; right: 22px; z-index: 800; display: none; align-items: center; gap: 8px; padding: 8px 16px; background: var(--show-red); color: white; font-family: var(--font-price); font-size: 0.88rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; border-radius: 100px; box-shadow: 0 4px 16px rgba(196,18,48,0.4); opacity: 0; transform: translateY(-8px); transition: opacity 0.35s, transform 0.35s; }
+    .save-pill.visible { opacity: 1; transform: translateY(0); }
+    @media (max-width: 940px) { .save-pill { display: none !important; } }
 
     .hero { background: var(--navy); padding-top: 84px; }
 
@@ -110,26 +124,36 @@
     .breadcrumb a:hover { color: var(--orange); }
     .breadcrumb span { color: rgba(255,255,255,0.7); }
 
+    /* ── TICKER ── */
+    .ticker-wrap { overflow: hidden; background: var(--show-red); padding: 9px 0; border-top: 1px solid rgba(255,255,255,0.12); border-bottom: 1px solid rgba(255,255,255,0.12); }
+    .ticker-track { display: flex; width: max-content; animation: tickerScroll 32s linear infinite; }
+    @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .ticker-item { white-space: nowrap; padding: 0 28px; font-family: var(--font-mono); font-size: 0.67rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.92); }
+    .ticker-sep { color: rgba(255,255,255,0.45); padding: 0 4px; }
+
+    /* ── SLIDER ── */
     .slider { position: relative; width: 100%; aspect-ratio: 16/7; max-height: 480px; overflow: hidden; background: var(--navy-mid); }
     .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.65s ease; }
     .slide.active { opacity: 1; }
-    .slide img { width: 100%; height: 100%; object-fit: cover; }
+    .slide img { width: 100%; height: 100%; object-fit: cover; transform-origin: center center; }
+    @keyframes kenBurns { from { transform: scale(1) translate(0,0); } to { transform: scale(1.08) translate(0.4%,0.4%); } }
+    .slide.active img { animation: kenBurns 9s ease-out forwards; }
     .slider-dots { position: absolute; bottom: 13px; left: 50%; transform: translateX(-50%); display: flex; gap: 7px; z-index: 3; }
     .dot-btn { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.28); border: none; padding: 0; transition: background 0.2s, transform 0.2s; }
     .dot-btn.active { background: var(--orange); transform: scale(1.4); }
     .s-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; background: rgba(0,0,0,0.44); border: none; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; z-index: 3; transition: background 0.2s; }
-    .s-arrow:hover { background: rgba(255,107,0,0.75); }
+    .s-arrow:hover { background: rgba(196,18,48,0.75); }
     .s-arrow.prev { left: 13px; }
     .s-arrow.next { right: 13px; }
 
     .hero-content-wrap { max-width: 1200px; margin: 0 auto; }
     .hero-content { padding: 28px 24px 32px; }
-    .venue-label { font-family: var(--font-mono); font-size: 0.69rem; color: var(--blue-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 9px; }
+    .venue-label { font-family: var(--font-mono); font-size: 0.69rem; color: var(--show-red-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 9px; }
     .hero-title { font-family: var(--font-display); font-size: clamp(3.5rem, 7vw, 6.5rem); color: white; line-height: 0.9; letter-spacing: 0.04em; margin-bottom: 9px; }
     .hero-subtitle { font-family: var(--font-price); font-size: 1rem; font-weight: 700; color: var(--orange); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 20px; }
     .info-pills { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 15px; }
     .pill { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: 100px; font-family: var(--font-mono); font-size: 0.67rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.74); border: 1px solid rgba(255,255,255,0.11); }
-    .pill-blue { background: rgba(26,107,221,0.14); color: #7ab4ff; border-color: rgba(26,107,221,0.28); }
+    .pill-red { background: rgba(196,18,48,0.18); color: #ff8090; border-color: rgba(196,18,48,0.36); }
     .pill-orange { background: rgba(255,107,0,0.13); color: var(--orange-lt); border-color: rgba(255,107,0,0.26); }
     .pill-age { background: rgba(192,24,58,0.18); color: #ff8090; border-color: rgba(192,24,58,0.36); }
     .urgency-pills { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 20px; }
@@ -143,7 +167,9 @@
     .price-cur { font-family: var(--font-price); font-size: 2.9rem; font-weight: 800; color: var(--orange); line-height: 1; }
     .price-reg { font-family: var(--font-price); font-size: 0.92rem; font-weight: 600; color: rgba(255,255,255,0.26); text-decoration: line-through; }
     .price-save { display: inline-block; margin-top: 3px; font-family: var(--font-mono); font-size: 0.63rem; font-weight: 600; color: var(--green); background: rgba(74,222,128,0.09); padding: 2px 7px; border-radius: 4px; border: 1px solid rgba(74,222,128,0.2); }
-    .hero-cta { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.12rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); border: none; transition: background 0.2s, transform 0.2s; white-space: nowrap; }
+    .hero-cta { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.12rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); border: none; transition: background 0.2s, transform 0.2s; white-space: nowrap; position: relative; overflow: hidden; }
+    .hero-cta::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.13), transparent); animation: shimmer 2.6s infinite; }
+    @keyframes shimmer { 100%{ left:100%; } }
     .hero-cta:hover { background: var(--orange-lt); transform: translateY(-2px); }
     .urgency-txt { font-family: var(--font-mono); font-size: 0.62rem; color: rgba(255,255,255,0.32); }
 
@@ -158,13 +184,12 @@
     .sb-age-warn { display: flex; align-items: center; gap: 8px; background: rgba(192,24,58,0.15); border: 1px solid rgba(192,24,58,0.35); border-radius: var(--radius-sm); padding: 10px 12px; font-family: var(--font-mono); font-size: 0.67rem; color: #ff8090; font-weight: 600; letter-spacing: 0.04em; }
     .sb-cta { display: block; width: 100%; padding: 14px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.02rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; text-align: center; border-radius: var(--radius-sm); border: none; transition: background 0.2s; position: relative; overflow: hidden; }
     .sb-cta::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.13), transparent); animation: shimmer 2.6s infinite; }
-    @keyframes shimmer { 100%{ left:100%; } }
     .sb-cta:hover { background: var(--orange-lt); }
     .sb-urgency { font-family: var(--font-mono); font-size: 0.59rem; color: rgba(255,255,255,0.27); text-align: center; }
     .sb-div { height: 1px; background: rgba(255,255,255,0.07); }
     .trust-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
     .trust-list li { display: flex; align-items: center; gap: 9px; font-family: var(--font-mono); font-size: 0.67rem; color: rgba(255,255,255,0.58); }
-    .t-check { width: 16px; height: 16px; border-radius: 50%; background: rgba(26,107,221,0.15); border: 1px solid rgba(26,107,221,0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--blue-lt); font-size: 0.54rem; }
+    .t-check { width: 16px; height: 16px; border-radius: 50%; background: rgba(196,18,48,0.15); border: 1px solid rgba(196,18,48,0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--show-red-lt); font-size: 0.54rem; }
     .sb-info-item { display: flex; align-items: flex-start; gap: 8px; }
     .sb-info-icon { font-size: 0.88rem; margin-top: 1px; flex-shrink: 0; }
     .sb-info-lbl { font-family: var(--font-mono); font-size: 0.57rem; color: rgba(255,255,255,0.32); text-transform: uppercase; letter-spacing: 0.04em; display: block; margin-bottom: 1px; }
@@ -172,19 +197,21 @@
     .sb-disclosure { font-family: var(--font-mono); font-size: 0.57rem; color: rgba(255,255,255,0.25); line-height: 1.55; margin-top: auto; }
     .sb-disclosure a { color: rgba(255,255,255,0.4); text-decoration: underline; }
 
+    /* ── FADE UP ── */
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
     .section { margin-bottom: 50px; }
     .section-title { font-family: var(--font-display); font-size: clamp(1.85rem, 2.8vw, 2.55rem); color: var(--navy); line-height: 1; letter-spacing: 0.02em; margin-bottom: 20px; }
-    .section-title span { color: var(--orange); }
-    .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
-    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .section-title span { color: var(--show-red); }
 
     .age-callout { display: flex; gap: 13px; align-items: flex-start; background: rgba(192,24,58,0.05); border: 1px solid rgba(192,24,58,0.18); border-left: 4px solid var(--age-red); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 50px; }
     .age-callout-icon { font-size: 1.85rem; flex-shrink: 0; margin-top: 2px; }
     .age-callout-text { font-family: var(--font-mono); font-size: 0.82rem; color: var(--text); line-height: 1.62; }
     .age-callout-text strong { color: var(--age-red); display: block; margin-bottom: 4px; font-size: 0.65rem; letter-spacing: 0.06em; text-transform: uppercase; }
 
-    .seen-widget { background: linear-gradient(135deg, var(--navy) 0%, #0d2040 100%); border-radius: var(--radius-lg); padding: 28px; color: white; margin-bottom: 50px; }
-    .seen-tag { font-family: var(--font-mono); font-size: 0.65rem; color: var(--blue-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
+    .seen-widget { background: linear-gradient(135deg, var(--navy) 0%, #1a0a10 100%); border-radius: var(--radius-lg); padding: 28px; color: white; margin-bottom: 50px; }
+    .seen-tag { font-family: var(--font-mono); font-size: 0.65rem; color: var(--show-red-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
     .seen-q { font-family: var(--font-display); font-size: clamp(1.45rem, 2.6vw, 1.95rem); color: white; margin-bottom: 16px; line-height: 1.1; }
     .seen-btns { display: flex; gap: 10px; }
     .seen-btn { padding: 10px 22px; border-radius: var(--radius-sm); font-family: var(--font-price); font-size: 0.9rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; transition: all 0.2s; border: none; }
@@ -202,51 +229,64 @@
     .trust-card-title { font-family: var(--font-price); font-size: 0.86rem; font-weight: 800; color: var(--navy); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 3px; }
     .trust-card-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.52; }
 
+    /* ── STATS STRIP ── */
+    .stats-strip { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: rgba(196,18,48,0.15); border: 1px solid rgba(196,18,48,0.2); border-radius: var(--radius); overflow: hidden; margin-bottom: 50px; }
+    .stat-cell { background: linear-gradient(135deg, var(--navy) 0%, #1a0a10 100%); padding: 20px 14px; text-align: center; }
+    .stat-num { font-family: var(--font-display); font-size: clamp(2.2rem, 4vw, 3rem); color: var(--show-red-lt); line-height: 1; }
+    .stat-unit { font-family: var(--font-mono); font-size: 0.58rem; color: rgba(255,255,255,0.4); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px; }
+
     .about-body p { font-size: 0.98rem; color: var(--text); line-height: 1.78; margin-bottom: 16px; }
     .about-body p:last-child { margin-bottom: 0; }
-    .spike-callout { display: flex; gap: 13px; align-items: flex-start; background: linear-gradient(135deg, rgba(26,107,221,0.05), rgba(255,107,0,0.03)); border: 1px solid rgba(26,107,221,0.12); border-left: 4px solid var(--blue); border-radius: var(--radius); padding: 16px 20px; margin: 20px 0; }
+    .spike-callout { display: flex; gap: 13px; align-items: flex-start; background: linear-gradient(135deg, rgba(196,18,48,0.05), rgba(255,107,0,0.03)); border: 1px solid rgba(196,18,48,0.15); border-left: 4px solid var(--show-red); border-radius: var(--radius); padding: 16px 20px; margin: 20px 0; }
     .spike-emoji { font-size: 1.85rem; flex-shrink: 0; margin-top: 2px; }
     .spike-text { font-family: var(--font-mono); font-size: 0.81rem; color: var(--navy); line-height: 1.62; }
-    .spike-text strong { color: var(--blue); display: block; margin-bottom: 4px; font-size: 0.63rem; letter-spacing: 0.06em; text-transform: uppercase; }
+    .spike-text strong { color: var(--show-red); display: block; margin-bottom: 4px; font-size: 0.63rem; letter-spacing: 0.06em; text-transform: uppercase; }
 
+    /* ── EMAIL SIGNUP ── */
     .email-signup { background: var(--navy); border-radius: var(--radius-lg); padding: 32px 28px; margin-bottom: 50px; position: relative; overflow: hidden; display: flex; align-items: center; gap: 24px; }
-    .email-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: linear-gradient(180deg, var(--magenta), #9c27b0); }
-    .email-heading { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); color: var(--magenta); letter-spacing: 0.08em; flex-shrink: 0; line-height: 1; }
+    .email-orb { position: absolute; width: 180px; height: 180px; border-radius: 50%; background: radial-gradient(circle, rgba(196,18,48,0.18) 0%, transparent 70%); right: -30px; top: -40px; pointer-events: none; }
+    .email-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: linear-gradient(180deg, var(--show-red), #7b0a1f); }
+    .email-heading { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); color: var(--show-red-lt); letter-spacing: 0.08em; flex-shrink: 0; line-height: 1; }
     .email-body { flex: 1; }
     .email-body h3 { font-family: var(--font-price); font-size: 1rem; font-weight: 800; color: white; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
     .email-body p { font-size: 0.79rem; color: rgba(255,255,255,0.42); line-height: 1.5; margin-bottom: 12px; }
     .email-form { display: flex; gap: 8px; }
     .email-input { flex: 1; padding: 10px 13px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.11); border-radius: var(--radius-sm); color: white; font-family: var(--font-mono); font-size: 0.77rem; outline: none; }
     .email-input::placeholder { color: rgba(255,255,255,0.24); }
-    .email-input:focus { border-color: rgba(217,70,239,0.44); }
-    .email-submit { padding: 10px 15px; background: var(--magenta); color: white; font-family: var(--font-price); font-size: 0.84rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; border: none; border-radius: var(--radius-sm); transition: background 0.2s; white-space: nowrap; }
-    .email-submit:hover { background: #c026d3; }
+    .email-input:focus { border-color: rgba(196,18,48,0.5); }
+    .email-submit { padding: 10px 15px; background: var(--show-red); color: white; font-family: var(--font-price); font-size: 0.84rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; border: none; border-radius: var(--radius-sm); transition: background 0.2s; white-space: nowrap; cursor: pointer; }
+    .email-submit:hover { background: var(--show-red-lt); }
+    .email-success { display: none; font-family: var(--font-mono); font-size: 0.78rem; color: var(--green); }
+    .email-success.visible { display: block; }
 
     .details-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 50px; }
     .detail-card { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 17px; transition: box-shadow 0.2s, transform 0.2s; }
     .detail-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
     .detail-card-icon { font-size: 1.55rem; margin-bottom: 8px; }
-    .detail-card-lbl { font-family: var(--font-price); font-size: 0.68rem; font-weight: 800; color: var(--blue); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
+    .detail-card-lbl { font-family: var(--font-price); font-size: 0.68rem; font-weight: 800; color: var(--show-red); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
     .detail-card-val { font-family: var(--font-body); font-size: 0.87rem; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
     .detail-card-sub { font-size: 0.76rem; color: var(--text-muted); line-height: 1.52; }
     .detail-card-age { border-color: rgba(192,24,58,0.3); }
     .detail-card-age .detail-card-lbl { color: var(--age-red); }
 
     .expect-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; margin-bottom: 50px; }
-    .expect-card { background: var(--off-white); border-radius: var(--radius); padding: 20px; border-left: 3px solid var(--blue); }
+    .expect-card { background: var(--off-white); border-radius: var(--radius); padding: 20px; border-left: 3px solid var(--show-red); transition: transform 0.2s, box-shadow 0.2s; }
+    .expect-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
     .expect-title { font-family: var(--font-price); font-size: 0.88rem; font-weight: 800; color: var(--navy); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 7px; display: flex; align-items: center; gap: 6px; }
     .expect-desc { font-size: 0.81rem; color: var(--text-muted); line-height: 1.62; }
 
+    /* ── SEATING ── */
     .seating-section { margin-bottom: 50px; }
     .seating-diagram-wrap { background: var(--navy); border-radius: var(--radius-lg); padding: 26px 20px 30px; margin-bottom: 20px; position: relative; overflow: hidden; }
-    .seating-diagram-wrap::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--blue), var(--orange)); }
+    .seating-diagram-wrap::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--show-red), var(--orange)); }
     .seating-lbl { font-family: var(--font-mono); font-size: 0.64rem; color: rgba(255,255,255,0.32); text-align: center; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 20px; }
     .seat-svg-wrap { max-width: 520px; margin: 0 auto; }
     .seat-svg-wrap svg { width: 100%; height: auto; display: block; }
     .seat-zone { cursor: pointer; transition: opacity 0.18s; }
     .seat-zone:hover { opacity: 0.82; }
-    .zone-popup { display: none; background: rgba(255,255,255,0.055); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 16px; margin-top: 18px; color: white; }
-    .zone-popup.visible { display: block; }
+    .zone-popup { max-height: 0; overflow: hidden; transition: max-height 0.45s cubic-bezier(0.16,1,0.3,1); }
+    .zone-popup.visible { max-height: 300px; }
+    .zone-popup-inner { background: rgba(255,255,255,0.055); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 16px; margin-top: 18px; color: white; }
     .zone-popup-hdr { display: flex; align-items: center; gap: 9px; margin-bottom: 8px; }
     .zone-popup-name { font-family: var(--font-display); font-size: 1.22rem; color: white; }
     .zone-popup-desc { font-size: 0.82rem; color: rgba(255,255,255,0.64); line-height: 1.64; }
@@ -254,40 +294,48 @@
     .legend-item { display: flex; align-items: center; gap: 7px; font-family: var(--font-mono); font-size: 0.65rem; color: rgba(255,255,255,0.6); }
     .legend-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
 
+    /* ── FAQ ── */
     .faq-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 50px; }
     .faq-item { border: 1px solid var(--gray-200); border-radius: var(--radius-sm); overflow: hidden; }
-    .faq-q { display: flex; align-items: center; justify-content: space-between; padding: 15px 17px; background: white; border: none; width: 100%; text-align: left; transition: background 0.2s; }
+    .faq-q { display: flex; align-items: center; justify-content: space-between; padding: 15px 17px; background: white; border: none; width: 100%; text-align: left; transition: background 0.2s; cursor: pointer; }
     .faq-q:hover { background: var(--off-white); }
     .faq-q-text { font-family: var(--font-price); font-size: 0.92rem; font-weight: 700; color: var(--navy); letter-spacing: 0.02em; }
-    .faq-icon { color: var(--blue); font-size: 1.22rem; transition: transform 0.28s; flex-shrink: 0; margin-left: 10px; font-weight: 300; line-height: 1; }
+    .faq-icon { color: var(--show-red); font-size: 1.22rem; transition: transform 0.28s cubic-bezier(0.16,1,0.3,1); flex-shrink: 0; margin-left: 10px; font-weight: 300; line-height: 1; }
     .faq-item.open .faq-icon { transform: rotate(45deg); }
-    .faq-a { display: none; padding: 12px 17px; background: var(--off-white); border-top: 1px solid var(--gray-200); font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; }
-    .faq-item.open .faq-a { display: block; }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.45s cubic-bezier(0.16,1,0.3,1); }
+    .faq-item.open .faq-a { max-height: 400px; }
+    .faq-a-inner { padding: 12px 17px; background: var(--off-white); border-top: 1px solid var(--gray-200); font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; }
 
     .also-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 50px; }
     .also-card { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; transition: box-shadow 0.2s, transform 0.2s; }
     .also-card:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
     .also-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; background: var(--gray-200); }
     .also-body { padding: 13px; }
-    .also-cat { font-family: var(--font-mono); font-size: 0.59rem; color: var(--blue); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
+    .also-cat { font-family: var(--font-mono); font-size: 0.59rem; color: var(--show-red); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
     .also-title { font-family: var(--font-display); font-size: 1.12rem; color: var(--navy); margin-bottom: 2px; line-height: 1.1; }
     .also-venue { font-size: 0.73rem; color: var(--text-muted); margin-bottom: 10px; }
     .also-cta { display: block; width: 100%; padding: 9px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.82rem; font-weight: 800; text-align: center; border-radius: var(--radius-sm); text-transform: uppercase; letter-spacing: 0.05em; transition: background 0.2s; border: none; }
     .also-cta:hover { background: var(--orange-lt); }
 
-    .final-cta { background: var(--navy); padding: 50px 32px; border-radius: var(--radius-lg); text-align: center; margin-bottom: 50px; position: relative; overflow: hidden; }
-    .final-cta::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--blue), var(--orange)); }
-    .final-cta-tag { font-family: var(--font-mono); font-size: 0.64rem; color: var(--blue-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
-    .final-cta-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.1rem); color: white; line-height: 1; margin-bottom: 9px; }
-    .final-cta-sub { font-size: 0.88rem; color: rgba(255,255,255,0.42); margin-bottom: 22px; }
-    .final-cta-amount { font-family: var(--font-price); font-size: 3.3rem; font-weight: 800; color: var(--orange); line-height: 1; margin-bottom: 20px; }
-    .final-cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 15px 42px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.18rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); transition: all 0.2s; border: none; }
+    /* ── FINAL CTA ── */
+    .final-cta { background: linear-gradient(135deg, var(--show-red) 0%, #5a0010 60%, var(--navy) 100%); padding: 50px 32px; border-radius: var(--radius-lg); text-align: center; margin-bottom: 50px; position: relative; overflow: hidden; }
+    .final-cta-orb { position: absolute; border-radius: 50%; pointer-events: none; }
+    .orb1 { width: 260px; height: 260px; background: radial-gradient(circle, rgba(232,64,96,0.22) 0%, transparent 70%); top: -80px; right: -60px; animation: orbDrift 8s ease-in-out infinite; }
+    .orb2 { width: 180px; height: 180px; background: radial-gradient(circle, rgba(255,107,0,0.15) 0%, transparent 70%); bottom: -50px; left: -40px; animation: orbDrift 11s ease-in-out infinite reverse; }
+    @keyframes orbDrift { 0%,100%{transform:translate(0,0)} 33%{transform:translate(14px,-10px)} 66%{transform:translate(-8px,12px)} }
+    .final-cta-tag { font-family: var(--font-mono); font-size: 0.64rem; color: rgba(255,255,255,0.55); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; position: relative; }
+    .final-cta-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.1rem); color: white; line-height: 1; margin-bottom: 9px; position: relative; }
+    .final-cta-sub { font-size: 0.88rem; color: rgba(255,255,255,0.55); margin-bottom: 22px; position: relative; }
+    .final-cta-amount { font-family: var(--font-price); font-size: 3.3rem; font-weight: 800; color: white; line-height: 1; margin-bottom: 20px; position: relative; }
+    .final-cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 15px 42px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.18rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); transition: all 0.2s; border: none; position: relative; overflow: hidden; }
+    .final-cta-btn::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.13), transparent); animation: shimmer 2.6s infinite; }
     .final-cta-btn:hover { background: var(--orange-lt); transform: translateY(-2px); }
-    .final-cta-note { font-family: var(--font-mono); font-size: 0.61rem; color: rgba(255,255,255,0.25); margin-top: 13px; }
-    .final-cta-note a { color: rgba(255,255,255,0.4); text-decoration: underline; }
+    .final-cta-note { font-family: var(--font-mono); font-size: 0.61rem; color: rgba(255,255,255,0.32); margin-top: 13px; position: relative; }
+    .final-cta-note a { color: rgba(255,255,255,0.45); text-decoration: underline; }
 
+    /* ── MOBILE STICKY ── */
     .mobile-sticky { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--navy); z-index: 1000; padding: 10px 16px 14px; box-shadow: 0 -4px 22px rgba(0,0,0,0.28); }
-    .mob-progress { position: absolute; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--orange), var(--blue)); transition: width 0.1s linear; }
+    .mob-progress { position: absolute; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--show-red), var(--orange)); transition: width 0.1s linear; }
     .mob-inner { display: flex; align-items: center; justify-content: space-between; gap: 13px; }
     .mob-price-lbl { font-family: var(--font-mono); font-size: 0.55rem; color: rgba(255,255,255,0.28); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 1px; }
     .mob-price { font-family: var(--font-price); font-size: 2.4rem; font-weight: 800; color: var(--orange); line-height: 1; }
@@ -295,13 +343,37 @@
     .mob-cta::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.17), transparent); animation: shimmer 2s infinite; }
     .mob-cta:hover { background: var(--orange-lt); }
 
-    @media (max-width: 940px) { .page-layout { grid-template-columns: 1fr; } .sidebar { display: none; } .mobile-sticky { display: block; } .details-grid { grid-template-columns: repeat(2,1fr); } .also-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 940px) { .page-layout { grid-template-columns: 1fr; } .sidebar { display: none; } .mobile-sticky { display: block; } .details-grid { grid-template-columns: repeat(2,1fr); } .also-grid { grid-template-columns: repeat(2,1fr); } .stats-strip { grid-template-columns: repeat(2,1fr); } }
     @media (max-width: 600px) { .hero-content { padding: 22px 16px 26px; } .main-content { padding: 26px 16px 120px; } .trust-grid { grid-template-columns: 1fr; } .details-grid { grid-template-columns: 1fr; } .expect-grid { grid-template-columns: 1fr; } .also-grid { grid-template-columns: 1fr; } .email-signup { flex-direction: column; gap: 12px; } .email-form { flex-direction: column; } .price-strip { flex-direction: column; align-items: flex-start; gap: 13px; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fade-up { transition: none; opacity: 1; transform: none; }
+      .slide.active img { animation: none; }
+      .ticker-track { animation: none; }
+      .orb1, .orb2 { animation: none; }
+      .udot { animation: none; }
+      .hero-cta::after, .sb-cta::after, .mob-cta::after, .final-cta-btn::after { animation: none; }
+    }
   </style>
 </head>
 <body>
 <div id="vs-header"></div>
 <div id="progress-bar" aria-hidden="true"></div>
+
+<!-- RIGHT-EDGE DOT NAV -->
+<nav class="dot-nav" aria-label="Page sections">
+  <a href="#section-seen"    class="active" title="Have You Seen This?"></a>
+  <a href="#section-about"   title="About Rouge"></a>
+  <a href="#section-details" title="Show Details"></a>
+  <a href="#section-expect"  title="What to Expect"></a>
+  <a href="#section-seating" title="Seating Chart"></a>
+  <a href="#section-faq"     title="FAQ"></a>
+</nav>
+
+<!-- STICKY SAVE PILL -->
+<a href="https://spotlight.vegas/shows/adult/rouge/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="save-pill" id="savePill" style="display:inline-flex;">
+  Save $22 · Get Tickets →
+</a>
 
 <section class="hero" aria-label="Show hero">
 
@@ -315,7 +387,32 @@
     <a href="/">Home</a> › <a href="/shows/">Shows</a> › <a href="/shows/adult/">Adult</a> › <span>Rouge</span>
   </nav>
 
-  <div class="slider" role="region" aria-label="Show photos">
+  <!-- MARQUEE TICKER -->
+  <div class="ticker-wrap" aria-hidden="true">
+    <div class="ticker-track">
+      <span class="ticker-item">85 Minutes</span><span class="ticker-item ticker-sep">·</span>
+      <span class="ticker-item">The STRAT Theater</span><span class="ticker-item ticker-sep">·</span>
+      <span class="ticker-item">Adults 18+ Only</span><span class="ticker-item ticker-sep">·</span>
+      <span class="ticker-item">Valid ID at the Door</span><span class="ticker-item ticker-sep">·</span>
+      <span class="ticker-item">$79 with Vegas Sidekick</span><span class="ticker-item ticker-sep">·</span>
+      <span class="ticker-item">22% Off Regular Price</span><span class="ticker-item ticker-sep">·</span>
+      <span class="ticker-item">Topless Production Show</span><span class="ticker-item ticker-sep">·</span>
+      <span class="ticker-item">Nightly Performances</span><span class="ticker-item ticker-sep">·</span>
+      <span class="ticker-item">No Backpacks</span><span class="ticker-item ticker-sep">·</span>
+      <!-- duplicate for seamless loop -->
+      <span class="ticker-item">85 Minutes</span><span class="ticker-item ticker-sep">·</span>
+      <span class="ticker-item">The STRAT Theater</span><span class="ticker-item ticker-sep">·</span>
+      <span class="ticker-item">Adults 18+ Only</span><span class="ticker-item ticker-sep">·</span>
+      <span class="ticker-item">Valid ID at the Door</span><span class="ticker-item ticker-sep">·</span>
+      <span class="ticker-item">$79 with Vegas Sidekick</span><span class="ticker-item ticker-sep">·</span>
+      <span class="ticker-item">22% Off Regular Price</span><span class="ticker-item ticker-sep">·</span>
+      <span class="ticker-item">Topless Production Show</span><span class="ticker-item ticker-sep">·</span>
+      <span class="ticker-item">Nightly Performances</span><span class="ticker-item ticker-sep">·</span>
+      <span class="ticker-item">No Backpacks</span><span class="ticker-item ticker-sep">·</span>
+    </div>
+  </div>
+
+  <div class="slider" id="heroSlider" role="region" aria-label="Show photos">
     <div class="slide active">
       <img src="/images/rouge-hero.webp" alt="Rouge adult production show performers on stage at The STRAT Theater Las Vegas" loading="eager" />
     </div>
@@ -357,7 +454,7 @@
     </div>
   </div>
 
-  <div class="price-strip">
+  <div class="price-strip" id="priceStrip">
     <div class="price-block">
       <div class="price-lbl">Vegas Sidekick Price</div>
       <div class="price-cur">$79</div>
@@ -376,11 +473,12 @@
     <div class="age-callout-icon">🔞</div>
     <div class="age-callout-text">
       <strong>Adults 18+ · Topless Production Show</strong>
-      Rouge is a topless adult entertainment show. This is not ambiguous — performers are topless throughout. The age minimum is 18 years old, strictly enforced at the door with valid ID. No exceptions for any reason. If you're not sure whether this is the right show for your group, now you know. Still interested? It's a well-produced Las Vegas adult production show and $79 is a good price for it.
+      Rouge is a topless adult entertainment show. Performers are topless throughout. The age minimum is 18 years old, strictly enforced at the door with valid ID. No exceptions for any reason. If you're not sure whether this is the right show for your group, now you know. Still interested? It's a well-produced Las Vegas adult production show and $79 is a good price for it.
     </div>
   </div>
 
-  <div class="seen-widget fade-up">
+  <!-- HAVE YOU SEEN THIS -->
+  <div class="seen-widget fade-up" id="section-seen">
     <div class="seen-tag">🌵 Spike Wants to Know</div>
     <div class="seen-q">Have you seen Rouge before?</div>
     <div class="seen-btns">
@@ -397,6 +495,7 @@
     </div>
   </div>
 
+  <!-- TRUST GRID -->
   <div class="trust-grid fade-up">
     <div class="trust-card"><div class="trust-icon">🔒</div><div><div class="trust-card-title">Secure Booking</div><div class="trust-card-desc">Every transaction uses secure, encrypted checkout. Your payment information is always protected.</div></div></div>
     <div class="trust-card"><div class="trust-icon">⚡</div><div><div class="trust-card-title">Instant Delivery</div><div class="trust-card-desc">Tickets arrive by email immediately after purchase. No will-call, no waiting.</div></div></div>
@@ -404,7 +503,28 @@
     <div class="trust-card"><div class="trust-icon">🎫</div><div><div class="trust-card-title">No Account Required</div><div class="trust-card-desc">Buy without creating an account. Fast, clean, tickets straight to your inbox.</div></div></div>
   </div>
 
-  <section class="section fade-up" aria-labelledby="about-heading">
+  <!-- STATS STRIP -->
+  <div class="stats-strip fade-up">
+    <div class="stat-cell">
+      <div class="stat-num" data-target="85">0</div>
+      <div class="stat-unit">Min Runtime</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num" data-target="22" data-suffix="%">0</div>
+      <div class="stat-unit">You Save</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num" data-target="4">0</div>
+      <div class="stat-unit">Seating Zones</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num" data-target="7">0</div>
+      <div class="stat-unit">Nights a Week</div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="section fade-up" id="section-about" aria-labelledby="about-heading">
     <h2 id="about-heading" class="section-title">About <span>Rouge</span></h2>
     <div class="about-body">
       <p>Rouge is a topless adult entertainment production show running nightly at The STRAT Theater inside The STRAT Hotel, Casino &amp; SkyPod on the north end of the Strip. It's a Las Vegas adult show in the classic tradition — choreography, production design, music, and the kind of entertainment that the city has been famous for since the Rat Pack era. The show is 85 minutes and plays every night of the week at varying times.</p>
@@ -421,20 +541,24 @@
     </div>
   </section>
 
+  <!-- EMAIL SIGNUP -->
   <div class="email-signup fade-up">
+    <div class="email-orb"></div>
     <div class="email-bar"></div>
     <div class="email-heading">E-MAIL</div>
     <div class="email-body">
       <h3>Vegas deals straight to your inbox</h3>
       <p>Last-minute discounts, show updates, and the occasional tip from Spike. No spam. Unsubscribe whenever.</p>
       <div class="email-form">
-        <input type="email" class="email-input" placeholder="your@email.com" aria-label="Email address" />
-        <button class="email-submit" type="button">Subscribe</button>
+        <input type="email" id="emailInp" class="email-input" placeholder="your@email.com" aria-label="Email address" />
+        <button id="emailBtn" class="email-submit" type="button" onclick="submitEmail()">Subscribe</button>
       </div>
+      <div id="emailSuccess" class="email-success">You're in. Spike will be in touch.</div>
     </div>
   </div>
 
-  <section class="section fade-up" aria-labelledby="details-heading">
+  <!-- SHOW DETAILS -->
+  <section class="section fade-up" id="section-details" aria-labelledby="details-heading">
     <h2 id="details-heading" class="section-title">Show <span>Details</span></h2>
     <div class="details-grid">
       <div class="detail-card">
@@ -453,7 +577,7 @@
         <div class="detail-card-icon">⏱️</div>
         <div class="detail-card-lbl">Duration</div>
         <div class="detail-card-val">85 Minutes</div>
-        <div class="detail-card-sub">No intermission. Seating opens 30 minutes before showtime — plan to arrive at The STRAT 45 minutes early so you have time for ID check, bag check if needed, and getting settled.</div>
+        <div class="detail-card-sub">No intermission. Seating opens 30 minutes before showtime — plan to arrive at The STRAT 30 minutes early so you have time for the ID check, bag check if needed, restrooms, and getting to your seat.</div>
       </div>
       <div class="detail-card detail-card-age">
         <div class="detail-card-icon">🔞</div>
@@ -465,40 +589,42 @@
         <div class="detail-card-icon">👜</div>
         <div class="detail-card-lbl">Bag Policy</div>
         <div class="detail-card-val">Small Purses Only · 8"×8" Max</div>
-        <div class="detail-card-sub">Small purses up to 8"×8" are welcome. Backpacks of any size are not permitted. Oversized bags can be checked at the bell desk — plan ahead so you're not scrambling at the door.</div>
+        <div class="detail-card-sub">Small purses up to 8"×8" are welcome. Backpacks of any size are not permitted. Oversized bags can be checked at the bell desk — plan ahead.</div>
       </div>
       <div class="detail-card">
-        <div class="detail-card-icon">🚫</div>
-        <div class="detail-card-lbl">Photography &amp; Smoking</div>
+        <div class="detail-card-icon">📸</div>
+        <div class="detail-card-lbl">Photography</div>
         <div class="detail-card-val">No Cameras · No Smoking</div>
         <div class="detail-card-sub">Cameras and audio/video devices are strictly prohibited during the show. Smoking is not permitted inside the theater.</div>
       </div>
     </div>
   </section>
 
-  <section class="section fade-up" aria-labelledby="expect-heading">
+  <!-- WHAT TO EXPECT -->
+  <section class="section fade-up" id="section-expect" aria-labelledby="expect-heading">
     <h2 id="expect-heading" class="section-title">What to <span>Expect</span></h2>
     <div class="expect-grid">
       <div class="expect-card">
         <div class="expect-title"><span>🌹</span> This Is a Topless Show</div>
-        <div class="expect-desc">Spelled out clearly: Rouge is a topless adult entertainment show. Performers are topless throughout the performance. That's what the show is. If you're looking for Las Vegas adult entertainment in the classic tradition — production values, choreography, music, and topless performers — this is it. If that's not what you came to see, this isn't the show for you.</div>
+        <div class="expect-desc">Spelled out clearly: Rouge is a topless adult entertainment show. Performers are topless throughout the performance. That's what the show is. If you're looking for Las Vegas adult entertainment in the classic tradition — production values, choreography, music, and topless performers — this is it.</div>
       </div>
       <div class="expect-card">
         <div class="expect-title"><span>🎭</span> Production Show, Not a Club</div>
-        <div class="expect-desc">Rouge is a produced Las Vegas entertainment show with choreography, staging, lighting, and music — not a bar, not a club, not a lap dance venue. You sit in a theater seat, the curtain goes up, and you watch 85 minutes of adult entertainment with actual production values behind it. That's a specific experience that Las Vegas does better than anywhere else, and The STRAT Theater delivers the infrastructure for it.</div>
+        <div class="expect-desc">Rouge is a produced Las Vegas entertainment show with choreography, staging, lighting, and music — not a bar, not a club. You sit in a theater seat, the curtain goes up, and you watch 85 minutes of adult entertainment with actual production values behind it. That's a specific experience that Las Vegas does better than anywhere else.</div>
       </div>
       <div class="expect-card">
         <div class="expect-title"><span>🪪</span> ID at the Door — No Exceptions</div>
-        <div class="expect-desc">Valid photo ID is required for every guest at entry. The 18+ age minimum is strictly enforced with no exceptions for any reason. Bring a government-issued photo ID — driver's license, passport, or state ID. If someone in your group can't produce valid ID, they don't get in. Plan accordingly.</div>
+        <div class="expect-desc">Valid photo ID is required for every guest at entry. The 18+ age minimum is strictly enforced with no exceptions for any reason. Bring a government-issued photo ID — driver's license, passport, or state ID. If someone in your group can't produce valid ID, they don't get in.</div>
       </div>
       <div class="expect-card">
         <div class="expect-title"><span>👜</span> Travel Light</div>
-        <div class="expect-desc">Small purses up to 8"×8" are welcome inside the theater. Backpacks of any size are not allowed — not small ones, not slim ones. If your bag doesn't fit the policy, the bell desk can hold it before the show. The easiest approach: leave the bag at the hotel and bring only what fits in a small purse or your pockets.</div>
+        <div class="expect-desc">Small purses up to 8"×8" are welcome inside the theater. Backpacks of any size are not allowed. If your bag doesn't fit the policy, the bell desk can hold it before the show. The easiest approach: leave the bag at the hotel and bring only what fits in a small purse or your pockets.</div>
       </div>
     </div>
   </section>
 
-  <section class="seating-section fade-up" aria-labelledby="seating-heading">
+  <!-- SEATING CHART -->
+  <section class="seating-section fade-up" id="section-seating" aria-labelledby="seating-heading">
     <h2 id="seating-heading" class="section-title">The STRAT Theater <span>Seating</span></h2>
     <div class="seating-diagram-wrap">
       <div class="seating-lbl">The STRAT Theater · Las Vegas — Select a section to learn more</div>
@@ -562,13 +688,16 @@
         <div class="legend-item"><div class="legend-dot" style="background:#4ab86a; border-radius:50%;"></div>Rear · Outer Sections</div>
       </div>
       <div class="zone-popup" id="zone-popup">
-        <div class="zone-popup-hdr"><div class="zone-popup-name" id="zone-name"></div></div>
-        <div class="zone-popup-desc" id="zone-desc"></div>
+        <div class="zone-popup-inner">
+          <div class="zone-popup-hdr"><div class="zone-popup-name" id="zone-name"></div></div>
+          <div class="zone-popup-desc" id="zone-desc"></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="section fade-up" aria-labelledby="faq-heading">
+  <!-- FAQ -->
+  <section class="section fade-up" id="section-faq" aria-labelledby="faq-heading">
     <h2 id="faq-heading" class="section-title">Frequently <span>Asked</span></h2>
     <div class="faq-list">
       <div class="faq-item">
@@ -576,46 +705,54 @@
           <span class="faq-q-text">Is Rouge actually a topless show?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Yes. Rouge is a topless adult entertainment production show. Performers are topless throughout the performance. This is not a partially adult show or an "adult themes" show — it is a topless show. The 18+ age requirement exists for this reason and is enforced strictly at the door. If you're attending with a group, make sure everyone in the group understands what the show is before purchasing tickets.</div>
+        <div class="faq-a"><div class="faq-a-inner">Yes. Rouge is a topless adult entertainment production show. Performers are topless throughout the performance. This is not a partially adult show or an "adult themes" show — it is a topless show. The 18+ age requirement exists for this reason and is enforced strictly at the door. If you're attending with a group, make sure everyone in the group understands what the show is before purchasing tickets.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
           <span class="faq-q-text">What ID is accepted at the door?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Government-issued photo ID — driver's license, state ID card, or passport. The age minimum is 18 and is enforced with no exceptions. Bring valid ID for every person in your group. If anyone in your group cannot produce valid government-issued photo ID proving they are 18 or older, they will not be admitted to the theater.</div>
+        <div class="faq-a"><div class="faq-a-inner">Government-issued photo ID — driver's license, state ID card, or passport. The age minimum is 18 and is enforced with no exceptions. Bring valid ID for every person in your group. If anyone in your group cannot produce valid government-issued photo ID proving they are 18 or older, they will not be admitted to the theater.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
           <span class="faq-q-text">What bags are allowed inside?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Small purses measuring 8"×8" or smaller are permitted inside the theater. Backpacks of any size are not allowed. If you arrive with a bag that doesn't meet the policy, the bell desk can hold it for you before the show — just build extra time into your arrival so you're not scrambling. The easiest approach is to leave non-essential bags at your hotel and bring only what fits in a small purse or your pockets.</div>
+        <div class="faq-a"><div class="faq-a-inner">Small purses measuring 8"×8" or smaller are permitted inside the theater. Backpacks of any size are not allowed. If you arrive with a bag that doesn't meet the policy, the bell desk can hold it for you before the show — just build extra time into your arrival so you're not scrambling. The easiest approach is to leave non-essential bags at your hotel and bring only what fits in a small purse or your pockets.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
           <span class="faq-q-text">What time does Rouge start?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Rouge runs nightly but showtimes vary by day of the week. Always check the current schedule on the booking page before purchasing — the time listed at checkout is your confirmed showtime. Seating opens 30 minutes before showtime — plan to be at The STRAT 45 minutes early to allow time for ID check, bag check if needed, and getting to your seat.</div>
+        <div class="faq-a"><div class="faq-a-inner">Rouge runs nightly but showtimes vary by day of the week. Always check the current schedule on the booking page before purchasing — the time listed at checkout is your confirmed showtime. Seating opens 30 minutes before showtime — plan to arrive at The STRAT 30 minutes early so you have time for the ID check, bag check if needed, restrooms, and getting to your seat.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
           <span class="faq-q-text">Can I take photos or video?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">No. The use of cameras and audio/video devices are strictly prohibited during the show. This is enforced. Keep your device stowed once you take your seat. Smoking is also not permitted inside the theater.</div>
+        <div class="faq-a"><div class="faq-a-inner">No. The use of cameras and audio/video devices are strictly prohibited during the show. This is enforced. Keep your device stowed once you take your seat. Smoking is also not permitted inside the theater.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          <span class="faq-q-text">Are refunds available?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Refunds are available for exceptional circumstances such as the unlikely event that a show cancels. Check the full terms and conditions before purchasing.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
           <span class="faq-q-text">Where is The STRAT Hotel on the Strip?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">The STRAT Hotel, Casino &amp; SkyPod is located at 2000 S Las Vegas Blvd at the northern end of the Strip — north of Circus Circus, close to Sahara Avenue. It's easily accessible by rideshare from anywhere on the Strip and has on-site self-parking. The STRAT Theater is inside the hotel; follow signage from the main entrance.</div>
+        <div class="faq-a"><div class="faq-a-inner">The STRAT Hotel, Casino &amp; SkyPod is located at 2000 S Las Vegas Blvd at the northern end of the Strip — north of Circus Circus, close to Sahara Avenue. It's easily accessible by rideshare from anywhere on the Strip and has on-site self-parking. The STRAT Theater is inside the hotel; follow signage from the main entrance.</div></div>
       </div>
     </div>
   </section>
 
+  <!-- YOU MIGHT ALSO LIKE -->
   <section class="section fade-up" aria-labelledby="also-heading">
     <h2 id="also-heading" class="section-title">You Might <span>Also Like</span></h2>
     <div class="also-grid">
@@ -649,7 +786,10 @@
     </div>
   </section>
 
+  <!-- FINAL CTA -->
   <div class="final-cta fade-up">
+    <div class="final-cta-orb orb1"></div>
+    <div class="final-cta-orb orb2"></div>
     <div class="final-cta-tag">🌵 Vegas Sidekick — Vegas Without the Trauma</div>
     <div class="final-cta-title">Ready for a Night at Rouge?</div>
     <div class="final-cta-sub">Topless Adult Production Show · The STRAT Theater · Nightly · Adults 18+ with Valid ID</div>
@@ -717,15 +857,30 @@
 <script src="/components/header.js"></script>
 <script src="/components/footer.js"></script>
 <script>
-  function updateProgress() {
+  // ── PROGRESS BAR + PARALLAX ──
+  const heroSlider = document.getElementById('heroSlider');
+  const priceStrip = document.getElementById('priceStrip');
+  const savePill   = document.getElementById('savePill');
+
+  function onScroll() {
     const pct = (window.scrollY / Math.max(1, document.documentElement.scrollHeight - window.innerHeight)) * 100;
     const v = Math.min(pct, 100);
     document.getElementById('progress-bar').style.width = v + '%';
     const mob = document.getElementById('mob-progress');
     if (mob) mob.style.width = v + '%';
-  }
-  window.addEventListener('scroll', updateProgress, { passive: true });
 
+    if (heroSlider) heroSlider.style.transform = 'translateY(' + (window.scrollY * 0.28) + 'px)';
+
+    if (priceStrip && savePill) {
+      const bottom = priceStrip.getBoundingClientRect().bottom;
+      savePill.classList.toggle('visible', bottom < 0);
+    }
+
+    updateDotNav();
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // ── SLIDER ──
   let cur = 0;
   const slides = document.querySelectorAll('.slide');
   const dots   = document.querySelectorAll('.dot-btn');
@@ -739,15 +894,43 @@
   document.querySelector('.slider').addEventListener('mouseenter', () => clearInterval(si));
   document.querySelector('.slider').addEventListener('mouseleave', () => { si = setInterval(() => sliderMove(1), 5000); });
 
+  // ── SEEN WIDGET ──
   function showSeen(t) {
     document.querySelectorAll('.seen-resp').forEach(r => r.classList.remove('visible'));
     document.getElementById('seen-' + t).classList.add('visible');
   }
 
+  // ── STATS COUNT-UP ──
+  function countUp(el, target, suffix) {
+    const dur = 1800;
+    const start = performance.now();
+    function tick(now) {
+      const t = Math.min((now - start) / dur, 1);
+      const ease = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.round(ease * target) + (suffix || '');
+      if (t < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  const statsObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('[data-target]').forEach(el => {
+          countUp(el, parseInt(el.dataset.target), el.dataset.suffix || '');
+        });
+        statsObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  const statsStrip = document.querySelector('.stats-strip');
+  if (statsStrip) statsObs.observe(statsStrip);
+
+  // ── SEATING ZONES ──
   const zones = {
     'premium-vip': { name: 'Premium VIP', desc: 'The front-center cluster — the closest seats to the stage in The STRAT Theater. Dense arcs directly in front of the performance. Maximum proximity to the production, highest chance of being front and center for the full show.' },
     'vip':         { name: 'VIP', desc: 'The arcs surrounding Premium VIP — wrapping the center cluster on both sides and continuing into the mid-front sections. Still very close to the stage with excellent sight lines throughout.' },
-    'preferred':   { name: 'Preferred · Sidekick Pick', desc: 'Mid-house center arcs plus the flanking side wing sections. The Sidekick Pick for Rouge. Close enough to take in the full production with a clear, angled view of the stage. The right balance of proximity and perspective for a production show of this size. This is where Spike sits.' },
+    'preferred':   { name: 'Preferred · Sidekick Pick ⭐', desc: 'Mid-house center arcs plus the flanking side wing sections. The Sidekick Pick for Rouge. Close enough to take in the full production with a clear, angled view of the stage. The right balance of proximity and perspective for a production show of this size. This is where Spike sits.' },
     'rear':        { name: 'Rear', desc: 'The outer side blocks and rear center arcs — the largest section in The STRAT Theater. Further from the stage but still inside a proper Las Vegas showroom with maintained sight lines. The value option for an 85-minute adult production show.' }
   };
 
@@ -756,9 +939,16 @@
     document.getElementById('zone-name').textContent = z.name;
     document.getElementById('zone-desc').textContent = z.desc;
     document.getElementById('zone-popup').classList.add('visible');
-    document.getElementById('zone-popup').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    setTimeout(() => {
+      document.getElementById('zone-popup').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 50);
   }
 
+  document.querySelectorAll('.seat-zone').forEach(z => {
+    z.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); z.click(); } });
+  });
+
+  // ── FAQ ──
   function toggleFaq(btn) {
     const item = btn.closest('.faq-item'), was = item.classList.contains('open');
     document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
@@ -766,32 +956,48 @@
     if (!was) { item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
   }
 
+  // ── DOT NAV ──
+  const navSections = ['section-seen','section-about','section-details','section-expect','section-seating','section-faq'];
+  const navDots = document.querySelectorAll('.dot-nav a');
+  function updateDotNav() {
+    const mid = window.scrollY + window.innerHeight * 0.4;
+    let active = 0;
+    navSections.forEach((id, i) => {
+      const el = document.getElementById(id);
+      if (el && el.offsetTop <= mid) active = i;
+    });
+    navDots.forEach((d, i) => d.classList.toggle('active', i === active));
+  }
+
+  function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ── EMAIL ──
+  async function submitEmail() {
+    const inp = document.getElementById('emailInp');
+    const email = inp.value.trim();
+    if (!email || !email.includes('@')) return;
+    document.getElementById('emailBtn').disabled = true;
+    try {
+      await fetch('https://brevo-subscribe.vegassidekickcom.workers.dev', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+    } catch(e) {}
+    inp.style.display = 'none';
+    document.getElementById('emailBtn').style.display = 'none';
+    document.getElementById('emailSuccess').classList.add('visible');
+  }
+
+  // ── INTERSECTION OBSERVER (fade-up) ──
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((e, i) => {
       if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 50); observer.unobserve(e.target); }
     });
   }, { threshold: 0.06 });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-  document.querySelector('.email-submit').addEventListener('click', function() {
-    const inp = document.querySelector('.email-input'), val = inp.value.trim();
-    if (val && val.includes('@') && val.includes('.')) {
-      fetch('https://brevo-subscribe.vegassidekickcom.workers.dev', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: val })
-      });
-      inp.value = ''; inp.placeholder = 'You\'re in. Spike will be in touch.';
-      this.textContent = 'Done ✓'; this.style.background = '#16a34a';
-    } else {
-      inp.style.borderColor = 'rgba(255,107,0,0.5)'; inp.placeholder = 'Enter a valid email';
-      setTimeout(() => { inp.style.borderColor = ''; inp.placeholder = 'your@email.com'; }, 2500);
-    }
-  });
-
-  document.querySelectorAll('.seat-zone').forEach(z => {
-    z.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); z.click(); } });
-  });
 </script>
 </body>
 </html>

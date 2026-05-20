@@ -259,8 +259,6 @@
     .detail-card-lbl { font-family: var(--font-price); font-size: 0.68rem; font-weight: 800; color: var(--show-pink); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
     .detail-card-val { font-family: var(--font-body); font-size: 0.87rem; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
     .detail-card-sub { font-size: 0.76rem; color: var(--text-muted); line-height: 1.52; }
-    .cal-btn { display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; background: rgba(204,0,102,0.08); border: 1px solid rgba(204,0,102,0.2); color: var(--show-pink); font-family: var(--font-mono); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; cursor: pointer; transition: background 0.2s; }
-    .cal-btn:hover { background: rgba(204,0,102,0.15); }
 
     /* ── WHAT TO EXPECT ── */
     .expect-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; margin-bottom: 50px; }
@@ -620,7 +618,6 @@
         <div class="detail-card-lbl">Schedule</div>
         <div class="detail-card-val">5 Nights a Week</div>
         <div class="detail-card-sub">Mon, Thu, Sat &amp; Sun at 9:30 PM · Fri at 7:00 PM &amp; 9:30 PM · No Tuesday or Wednesday shows</div>
-        <button class="cal-btn" onclick="addToCalendar()">📅 Add to Calendar</button>
       </div>
       <div class="detail-card">
         <div class="detail-card-icon">⏱️</div>
@@ -981,36 +978,6 @@
   function scrollToSection(id) {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  // ── ADD TO CALENDAR ──
-  function addToCalendar() {
-    const showDays = [1, 4, 5, 6, 0]; // Mon Thu Fri Sat Sun
-    const now = new Date();
-    let next = null;
-    for (let i = 0; i <= 7; i++) {
-      const d = new Date(now);
-      d.setDate(d.getDate() + i);
-      const day = d.getDay();
-      if (showDays.includes(day)) {
-        d.setHours(day === 5 ? 19 : 21, 30, 0, 0);
-        if (d > now) { next = d; break; }
-      }
-    }
-    if (!next) return;
-    function fmt(d) {
-      return d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0') +
-        'T' + String(d.getHours()).padStart(2,'0') + String(d.getMinutes()).padStart(2,'0') + '00';
-    }
-    const end = new Date(next.getTime() + 90 * 60 * 1000);
-    window.open(
-      'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-      '&text=RuPaul%27s+Drag+Race+LIVE!' +
-      '&dates=' + fmt(next) + '/' + fmt(end) +
-      '&details=Tickets+from+%2491+%E2%80%94+Save+%2430+vs.+box+office.+Book+at+vegassidekick.com%2Fshows%2Fmusic%2Frupauls-drag-race-live%2F' +
-      '&location=Flamingo+Showroom%2C+Flamingo+Las+Vegas%2C+3555+S+Las+Vegas+Blvd%2C+Las+Vegas+NV+89109',
-      '_blank'
-    );
   }
 
   // ── EMAIL ──

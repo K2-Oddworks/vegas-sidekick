@@ -240,8 +240,6 @@
     .detail-card-lbl { font-family: var(--font-price); font-size: 0.68rem; font-weight: 800; color: var(--show-blue); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
     .detail-card-val { font-family: var(--font-body); font-size: 0.87rem; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
     .detail-card-sub { font-size: 0.76rem; color: var(--text-muted); line-height: 1.52; }
-    .cal-btn { display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; background: rgba(26,66,168,0.08); border: 1px solid rgba(26,66,168,0.2); color: var(--show-blue); font-family: var(--font-mono); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; cursor: pointer; transition: background 0.2s; }
-    .cal-btn:hover { background: rgba(26,66,168,0.15); }
 
     /* ── EXPECT GRID ── */
     .expect-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; margin-bottom: 50px; }
@@ -559,7 +557,6 @@
         <div class="detail-card-lbl">Show Days &amp; Times</div>
         <div class="detail-card-val">Mon, Tue, Fri &amp; Sat</div>
         <div class="detail-card-sub">6:30 PM &amp; 9:30 PM. Dark Wednesday &amp; Thursday.</div>
-        <button class="cal-btn" onclick="addToCalendar()">📅 Add to Calendar</button>
       </div>
       <div class="detail-card">
         <div class="detail-card-icon">🕓</div>
@@ -571,7 +568,7 @@
         <div class="detail-card-icon">⏱️</div>
         <div class="detail-card-lbl">Duration</div>
         <div class="detail-card-val">80 Minutes</div>
-        <div class="detail-card-sub">No intermission. Arrive 15–20 minutes early to find your seats.</div>
+        <div class="detail-card-sub">No intermission. Seating opens 30 minutes before showtime — plan to arrive at Wynn 30 minutes early so you have time for the restroom, a drink, and getting to your seats.</div>
       </div>
       <div class="detail-card">
         <div class="detail-card-icon">👶</div>
@@ -714,7 +711,7 @@
     <div class="faq-list">
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">How long is Awakening? <span class="faq-chevron">▼</span></button>
-        <div class="faq-a"><div class="faq-a-inner">Awakening runs approximately 80 minutes with no intermission. Plan to arrive 15–20 minutes early to find your seats and settle in before the show begins.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Awakening runs approximately 80 minutes with no intermission. Seating opens 30 minutes before showtime — plan to arrive at Wynn 30 minutes early so you have time for the restroom, a drink, and getting settled before the show begins.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">What is the age requirement for Awakening? <span class="faq-chevron">▼</span></button>
@@ -989,37 +986,6 @@
   function scrollToSection(id) {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  // ── ADD TO CALENDAR ──
-  function addToCalendar() {
-    const showDays = [1, 2, 5, 6, 0]; // Mon, Tue, Fri, Sat, Sun
-    const now = new Date();
-    let next = null;
-    for (let i = 0; i <= 7; i++) {
-      const d = new Date(now);
-      d.setDate(d.getDate() + i);
-      const day = d.getDay();
-      if (showDays.includes(day)) {
-        const h = day === 0 ? 16 : 18; // Sun 4PM, others 6:30PM
-        d.setHours(h, day === 0 ? 0 : 30, 0, 0);
-        if (d > now) { next = d; break; }
-      }
-    }
-    if (!next) return;
-    function fmt(d) {
-      return d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0') +
-        'T' + String(d.getHours()).padStart(2,'0') + String(d.getMinutes()).padStart(2,'0') + '00';
-    }
-    const end = new Date(next.getTime() + 80 * 60 * 1000);
-    window.open(
-      'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-      '&text=Awakening+at+Wynn+Las+Vegas' +
-      '&dates=' + fmt(next) + '/' + fmt(end) +
-      '&details=Tickets+from+%2470+%E2%80%94+Save+%2474+vs.+box+office.+Book+at+vegassidekick.com%2Fshows%2Fspectaculars%2Fawakening%2F' +
-      '&location=Awakening+Theater%2C+Wynn+Las+Vegas%2C+3131+Las+Vegas+Blvd+S%2C+Las+Vegas+NV+89109',
-      '_blank'
-    );
   }
 
   // ── EMAIL ──
