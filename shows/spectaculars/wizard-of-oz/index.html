@@ -10,14 +10,14 @@
   <link rel="canonical" href="https://vegassidekick.com/shows/spectaculars/wizard-of-oz/" />
   <meta property="og:title" content="The Wizard of Oz at Sphere | Vegas Sidekick" />
   <meta property="og:description" content="The 1939 classic reborn inside the most powerful screen ever built. Haptic seats, tornado winds, scent, and drone-powered flying monkeys. From $123." />
-  <meta property="og:image" content="https://vegassidekick.com/images/wizard-of-oz-hero.jpg" />
+  <meta property="og:image" content="https://vegassidekick.com/images/wizard-of-oz-hero.webp" />
   <meta property="og:url" content="https://vegassidekick.com/shows/spectaculars/wizard-of-oz/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Vegas Sidekick" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="The Wizard of Oz at Sphere | Vegas Sidekick" />
   <meta name="twitter:description" content="The 1939 classic reborn inside a 160,000 sq ft wraparound screen. Haptic seats, wind, scent, pyrotechnics. From $123." />
-  <meta name="twitter:image" content="https://vegassidekick.com/images/wizard-of-oz-hero.jpg" />
+  <meta name="twitter:image" content="https://vegassidekick.com/images/wizard-of-oz-hero.webp" />
 
   <script type="application/ld+json">
   {
@@ -25,7 +25,7 @@
     "@type": "EventSeries",
     "name": "The Wizard of Oz at Sphere",
     "description": "The 1939 MGM classic reimagined as a 75-minute immersive cinema experience inside MSG Sphere Las Vegas. Features haptic seats, 167,000 speakers, pyrotechnics, drone flying monkeys, scent, wind, and a 160,000 sq ft wraparound 16K screen. Ages 6+.",
-    "image": "https://vegassidekick.com/images/wizard-of-oz-hero.jpg",
+    "image": "https://vegassidekick.com/images/wizard-of-oz-hero.webp",
     "url": "https://vegassidekick.com/shows/spectaculars/wizard-of-oz/",
     "eventStatus": "https://schema.org/EventScheduled",
     "organizer": { "@type": "Organization", "name": "MSG Sphere Las Vegas" },
@@ -92,7 +92,24 @@
     a    { text-decoration: none; color: inherit; }
     button { font-family: inherit; cursor: pointer; }
 
-    #progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--show-emerald), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; }
+    /* ── PROGRESS BAR ── */
+    #progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--show-emerald), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; box-shadow: 0 0 10px var(--show-emerald), 0 0 20px rgba(11,122,82,0.35); }
+
+    /* ── SAVE PILL ── */
+    .save-pill { position: fixed; top: 88px; right: 20px; z-index: 500; display: flex; align-items: center; gap: 10px; background: var(--navy); border: 1px solid rgba(11,122,82,0.4); border-radius: 100px; padding: 8px 16px 8px 14px; box-shadow: 0 4px 24px rgba(0,0,0,0.35); opacity: 0; transform: translateX(20px); transition: opacity 0.4s cubic-bezier(0.16,1,0.3,1), transform 0.4s cubic-bezier(0.16,1,0.3,1); pointer-events: none; }
+    .save-pill.visible { opacity: 1; transform: translateX(0); pointer-events: auto; }
+    .sp-price { font-family: var(--font-price); font-size: 0.88rem; font-weight: 800; color: var(--show-emerald-lt); letter-spacing: 0.04em; white-space: nowrap; }
+    .sp-btn { display: inline-flex; align-items: center; padding: 6px 14px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.82rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; border-radius: 100px; transition: background 0.2s; white-space: nowrap; }
+    .sp-btn:hover { background: var(--orange-lt); }
+    @media (max-width: 940px) { .save-pill { display: none; } }
+
+    /* ── DOT NAV ── */
+    .dot-nav { position: fixed; right: 18px; top: 50%; transform: translateY(-50%); z-index: 400; display: flex; flex-direction: column; gap: 10px; }
+    .dnav-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.22); border: 1px solid rgba(255,255,255,0.18); transition: background 0.25s, transform 0.25s, box-shadow 0.25s; position: relative; }
+    .dnav-dot::after { content: attr(data-label); position: absolute; right: 18px; top: 50%; transform: translateY(-50%); background: var(--navy); color: rgba(255,255,255,0.82); font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.04em; padding: 3px 8px; border-radius: 4px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+    .dnav-dot:hover::after { opacity: 1; }
+    .dnav-dot.active { background: var(--show-emerald); border-color: var(--show-emerald); transform: scale(1.4); box-shadow: 0 0 8px rgba(11,122,82,0.6); }
+    @media (max-width: 940px) { .dot-nav { display: none; } }
 
     /* ── HERO ── */
     .hero { background: var(--navy); padding-top: 84px; }
@@ -104,7 +121,9 @@
     .slider { position: relative; width: 100%; aspect-ratio: 16/9; max-height: 560px; overflow: hidden; background: var(--navy-mid); }
     .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.65s ease; }
     .slide.active { opacity: 1; }
-    .slide img { width: 100%; height: 100%; object-fit: cover; }
+    .slide img { width: 100%; height: 100%; object-fit: cover; transform-origin: center center; }
+    .slide.active img { animation: kenBurns 7s ease-in-out forwards; }
+    @keyframes kenBurns { from { transform: scale(1) translate(0,0); } to { transform: scale(1.08) translate(0.4%,0.4%); } }
     .slider-dots { position: absolute; bottom: 13px; left: 50%; transform: translateX(-50%); display: flex; gap: 7px; z-index: 3; }
     .dot-btn { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.28); border: none; padding: 0; transition: background 0.2s, transform 0.2s; cursor: pointer; }
     .dot-btn.active { background: var(--orange); transform: scale(1.4); }
@@ -135,6 +154,22 @@
     .hero-cta:hover { background: var(--orange-lt); transform: translateY(-2px); }
     .urgency-txt { font-family: var(--font-mono); font-size: 0.62rem; color: rgba(255,255,255,0.32); }
 
+    /* ── TICKER ── */
+    .ticker-wrap { background: var(--show-emerald); overflow: hidden; white-space: nowrap; padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .ticker-track { display: inline-flex; gap: 0; animation: tickerScroll 36s linear infinite; }
+    .ticker-item { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-price); font-size: 0.88rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.92); padding: 0 32px; }
+    .ticker-sep { color: rgba(255,255,255,0.35); font-size: 0.6rem; }
+    @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ── STATS STRIP ── */
+    .stats-strip { background: var(--navy); border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .stats-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); }
+    .stat-item { padding: 22px 16px; text-align: center; border-right: 1px solid rgba(255,255,255,0.06); }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-family: var(--font-display); font-size: clamp(2.2rem, 4vw, 3.4rem); color: var(--show-emerald-lt); line-height: 1; letter-spacing: 0.02em; }
+    .stat-lbl { font-family: var(--font-mono); font-size: 0.62rem; color: rgba(255,255,255,0.38); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px; }
+    @media (max-width: 600px) { .stats-inner { grid-template-columns: repeat(2,1fr); } .stat-item:nth-child(2) { border-right: none; } }
+
     /* ── PAGE LAYOUT ── */
     .page-layout { display: grid; grid-template-columns: 1fr var(--sidebar); max-width: 1200px; margin: 0 auto; align-items: start; }
     .main-content { padding: 46px 36px 60px 22px; min-width: 0; }
@@ -159,7 +194,7 @@
     .section { margin-bottom: 50px; }
     .section-title { font-family: var(--font-display); font-size: clamp(1.85rem, 2.8vw, 2.55rem); color: var(--navy); line-height: 1; letter-spacing: 0.02em; margin-bottom: 20px; }
     .section-title span { color: var(--orange); }
-    .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .fade-up { opacity: 0; transform: translateY(22px); transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1); }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
     .seen-widget { background: linear-gradient(135deg, var(--navy) 0%, #0d2040 100%); border-radius: var(--radius-lg); padding: 28px; color: white; margin-bottom: 50px; }
@@ -216,6 +251,7 @@
     .expect-title { font-family: var(--font-price); font-size: 0.88rem; font-weight: 800; color: var(--navy); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 7px; display: flex; align-items: center; gap: 6px; }
     .expect-desc { font-size: 0.81rem; color: var(--text-muted); line-height: 1.62; }
 
+    /* ── SEATING ── */
     .seating-section { margin-bottom: 50px; }
     .seating-diagram-wrap { background: var(--navy); border-radius: var(--radius-lg); padding: 26px 20px 30px; margin-bottom: 20px; position: relative; overflow: hidden; }
     .seating-diagram-wrap::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--show-emerald), var(--orange)); }
@@ -224,11 +260,13 @@
     .seating-legend { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-bottom: 16px; }
     .legend-item { display: flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 0.62rem; color: rgba(255,255,255,0.6); letter-spacing: 0.03em; text-transform: uppercase; }
     .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
-    .zone-popup { display: none; background: rgba(255,255,255,0.055); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 16px; margin-top: 18px; color: white; }
-    .zone-popup.visible { display: block; }
+
+    .zone-popup { overflow: hidden; max-height: 0; transition: max-height 0.4s cubic-bezier(0.16,1,0.3,1); margin-top: 18px; }
+    .zone-popup.visible { max-height: 300px; }
+    .zone-popup-inner { background: rgba(255,255,255,0.055); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 16px; color: white; }
     .zone-popup-hdr { display: flex; align-items: center; gap: 9px; margin-bottom: 8px; }
     .zone-popup-name { font-family: var(--font-display); font-size: 1.22rem; color: white; }
-    .zone-popup-pick { background: var(--orange); color: white; font-family: var(--font-mono); font-size: 0.58rem; padding: 2px 7px; border-radius: 3px; letter-spacing: 0.04em; text-transform: uppercase; }
+    .zone-pick-badge { background: var(--orange); color: white; font-family: var(--font-mono); font-size: 0.58rem; padding: 2px 7px; border-radius: 3px; letter-spacing: 0.04em; text-transform: uppercase; }
     .zone-popup-desc { font-size: 0.82rem; color: rgba(255,255,255,0.64); line-height: 1.64; margin-bottom: 12px; }
     .zone-popup-cta { display: inline-flex; align-items: center; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.82rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; padding: 9px 16px; border-radius: var(--radius-sm); transition: background 0.2s; }
     .zone-popup-cta:hover { background: var(--orange-lt); }
@@ -242,19 +280,24 @@
     .seat-accord-dot { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
     .seat-accord-title { font-family: var(--font-price); font-size: 1rem; font-weight: 700; color: var(--navy); }
     .seat-accord-badge { background: var(--orange); color: white; font-family: var(--font-mono); font-size: 0.58rem; font-weight: 600; padding: 2px 7px; border-radius: 3px; letter-spacing: 0.04em; text-transform: uppercase; }
-    .seat-accord-chevron { color: var(--gray-400); font-size: 0.8rem; transition: transform 0.2s; }
-    .seat-accord-body { display: none; padding: 14px 18px 16px; background: var(--off-white); font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; border-top: 1px solid var(--gray-200); }
-    .seat-accord-body.open { display: block; }
+    .seat-accord-chevron { color: var(--gray-400); font-size: 0.8rem; transition: transform 0.25s cubic-bezier(0.16,1,0.3,1); flex-shrink: 0; }
+    .sa-body { overflow: hidden; max-height: 0; transition: max-height 0.4s cubic-bezier(0.16,1,0.3,1); }
+    .sa-body.open { max-height: 300px; }
+    .sa-body-inner { padding: 14px 18px 16px; background: var(--off-white); font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; border-top: 1px solid var(--gray-200); }
 
+    /* ── FAQ ── */
     .faq-list { border: 1px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; margin-bottom: 50px; }
     .faq-item { border-bottom: 1px solid var(--gray-200); }
     .faq-item:last-child { border-bottom: none; }
     .faq-q { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 15px 20px; background: white; border: none; cursor: pointer; text-align: left; font-family: var(--font-body); font-size: 0.9rem; font-weight: 700; color: var(--navy); transition: background 0.15s; }
     .faq-q:hover { background: var(--gray-100); }
-    .faq-chevron { color: var(--gray-400); font-size: 0.8rem; flex-shrink: 0; transition: transform 0.2s; }
-    .faq-a { display: none; padding: 14px 20px 16px; background: var(--off-white); font-size: 0.87rem; color: var(--text-muted); line-height: 1.7; border-top: 1px solid var(--gray-200); }
-    .faq-a.open { display: block; }
+    .faq-chevron { color: var(--gray-400); font-size: 0.8rem; flex-shrink: 0; transition: transform 0.25s cubic-bezier(0.16,1,0.3,1); }
+    .faq-a { overflow: hidden; max-height: 0; transition: max-height 0.4s cubic-bezier(0.16,1,0.3,1); }
+    .faq-a.open { max-height: 400px; }
+    .faq-a-inner { padding: 14px 20px 16px; background: var(--off-white); font-size: 0.87rem; color: var(--text-muted); line-height: 1.7; border-top: 1px solid var(--gray-200); }
+    .faq-a-inner p { margin-bottom: 0; }
 
+    /* ── ALSO LIKE ── */
     .also-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 50px; }
     .also-card { background: white; border: 1.5px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; text-decoration: none; color: var(--text); transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s; display: flex; flex-direction: column; }
     .also-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.15); transform: translateY(-3px); border-color: rgba(255,107,0,0.3); }
@@ -266,15 +309,21 @@
     .also-name { font-family: var(--font-price); font-size: 1.15rem; font-weight: 800; color: var(--navy); line-height: 1.1; margin-bottom: 6px; }
     .also-price { font-family: var(--font-price); font-weight: 800; font-size: 1rem; color: var(--orange); }
 
-    .final-cta { background: linear-gradient(135deg, #062E1E 0%, #0A1628 60%, #062E1E 100%); padding: 56px 40px; text-align: center; }
-    .final-cta-inner { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+    /* ── FINAL CTA ── */
+    .final-cta { background: linear-gradient(135deg, var(--show-emerald) 0%, #021a0e 60%, var(--navy) 100%); padding: 56px 40px; text-align: center; position: relative; overflow: hidden; }
+    .final-cta-inner { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 20px; position: relative; z-index: 2; }
     .final-cta-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); letter-spacing: 0.06em; color: #FFFFFF; line-height: 1; }
     .final-cta-sub { font-size: 0.95rem; color: rgba(255,255,255,0.75); line-height: 1.6; }
     .final-cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.05rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 16px 36px; border-radius: var(--radius-sm); transition: background 0.2s, transform 0.15s; }
     .final-cta-btn:hover { background: var(--orange-lt); transform: translateY(-2px); }
     .final-cta-note { font-size: 0.72rem; color: rgba(255,255,255,0.4); font-family: var(--font-mono); }
+    .orb-1, .orb-2 { position: absolute; border-radius: 50%; filter: blur(60px); pointer-events: none; z-index: 1; }
+    .orb-1 { width: 320px; height: 320px; background: rgba(11,122,82,0.3); top: -80px; left: -60px; animation: orbDrift 8s ease-in-out infinite alternate; }
+    .orb-2 { width: 240px; height: 240px; background: rgba(255,107,0,0.18); bottom: -60px; right: -40px; animation: orbDrift 11s ease-in-out infinite alternate-reverse; }
+    @keyframes orbDrift { from { transform: translate(0,0); } to { transform: translate(30px,20px); } }
 
-    .mobile-sticky { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--navy); border-top: 1px solid rgba(11,122,82,0.3); padding: 10px 16px; z-index: 100; align-items: center; justify-content: space-between; gap: 12px; }
+    /* ── MOBILE STICKY ── */
+    .mobile-sticky { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--navy); border-top: 1px solid rgba(11,122,82,0.2); padding: 10px 16px; z-index: 100; align-items: center; justify-content: space-between; gap: 12px; }
     .mob-price-lbl { font-family: var(--font-mono); font-size: 0.55rem; color: rgba(255,255,255,0.28); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 1px; }
     .mob-price { font-family: var(--font-price); font-size: 2.4rem; font-weight: 800; color: var(--orange); line-height: 1; }
     .mob-cta { flex: 1; max-width: 230px; padding: 13px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.02rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; text-align: center; border-radius: var(--radius-sm); border: none; position: relative; overflow: hidden; transition: background 0.2s; }
@@ -298,6 +347,12 @@
       .email-form { flex-direction: column; }
       .price-strip { flex-direction: column; align-items: flex-start; gap: 13px; }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+      .ticker-track { animation: none; }
+      .fade-up { opacity: 1; transform: none; }
+    }
   </style>
 </head>
 <body>
@@ -305,12 +360,28 @@
 <div id="progress-bar" aria-hidden="true"></div>
 <div id="vs-header"></div>
 
+<!-- STICKY SAVE PILL -->
+<div class="save-pill" id="savePill">
+  <span class="sp-price">From $123</span>
+  <a href="https://spotlight.vegas/shows/production/the-wizard-of-oz-at-sphere/ref/vegassidekick" target="_blank" rel="noopener" class="sp-btn">Get Tickets →</a>
+</div>
+
+<!-- DOT NAV -->
+<nav class="dot-nav" aria-label="Page sections">
+  <a href="#section-seen" class="dnav-dot" data-label="Seen It?" aria-label="Seen It?"></a>
+  <a href="#section-about" class="dnav-dot" data-label="About" aria-label="About"></a>
+  <a href="#section-details" class="dnav-dot" data-label="Details" aria-label="Details"></a>
+  <a href="#section-expect" class="dnav-dot" data-label="Expect" aria-label="What to Expect"></a>
+  <a href="#section-seating" class="dnav-dot" data-label="Seating" aria-label="Seating"></a>
+  <a href="#section-faq" class="dnav-dot" data-label="FAQ" aria-label="FAQ"></a>
+</nav>
+
 <section class="hero" aria-label="Show hero">
   <nav class="breadcrumb" aria-label="Breadcrumb">
     <a href="/">Home</a> › <a href="/shows/">Shows</a> › <a href="/shows/spectaculars/">Spectaculars</a> › <span>The Wizard of Oz at Sphere</span>
   </nav>
 
-  <div class="slider" role="region" aria-label="Show photos">
+  <div class="slider" id="heroSlider" role="region" aria-label="Show photos">
     <div class="slide active">
       <img src="/images/wizard-of-oz-hero.webp" alt="The Wizard of Oz at Sphere — Dorothy, Tin Man, Scarecrow, and Lion walking the yellow brick road inside a giant crystal bubble" loading="eager" />
     </div>
@@ -353,7 +424,7 @@
     </div>
   </div>
 
-  <div class="price-strip">
+  <div class="price-strip" id="priceStrip">
     <div class="price-block">
       <div class="price-lbl">Tickets From</div>
       <div class="price-cur">$123</div>
@@ -363,11 +434,57 @@
   </div>
 </section>
 
+<!-- TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item">🌪️ Feel the Tornado<span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">🎬 160,000 Sq Ft Wraparound Screen<span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">🔊 167,000 Spatial Audio Speakers<span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">💺 Haptic Seats Timed to Every Scene<span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">🌺 Smell the Poppy Field<span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">🦅 Real Drone-Powered Flying Monkeys<span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">🔥 Pyrotechnics &amp; Real Fire<span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">🌵 Spike's #1 Pick in Las Vegas<span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">🎟️ From $123 · Best Seats: Sections 305–307<span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">🌪️ Feel the Tornado<span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">🎬 160,000 Sq Ft Wraparound Screen<span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">🔊 167,000 Spatial Audio Speakers<span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">💺 Haptic Seats Timed to Every Scene<span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">🌺 Smell the Poppy Field<span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">🦅 Real Drone-Powered Flying Monkeys<span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">🔥 Pyrotechnics &amp; Real Fire<span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">🌵 Spike's #1 Pick in Las Vegas<span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">🎟️ From $123 · Best Seats: Sections 305–307<span class="ticker-sep">✦</span></span>
+  </div>
+</div>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-num" data-target="75">0</div>
+      <div class="stat-lbl">Minutes</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" data-target="3">0</div>
+      <div class="stat-lbl">Open Zones</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" data-target="167" data-suffix="K">0</div>
+      <div class="stat-lbl">Speakers</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" data-target="6" data-suffix="+">0</div>
+      <div class="stat-lbl">Shows Daily</div>
+    </div>
+  </div>
+</div>
+
 <div class="page-layout">
 <main class="main-content" role="main">
 
   <!-- SEEN WIDGET -->
-  <div class="seen-widget fade-up">
+  <div class="seen-widget fade-up" id="section-seen">
     <div class="seen-tag">🌵 Spike Wants to Know</div>
     <div class="seen-q">Have you seen The Wizard of Oz at Sphere before?</div>
     <div class="seen-btns">
@@ -415,7 +532,7 @@
   </div>
 
   <!-- ABOUT -->
-  <div class="section fade-up">
+  <div class="section fade-up" id="section-about">
     <h2 class="section-title">The Yellow Brick Road Has <span>Never</span> Looked Like This</h2>
     <div class="about-body">
       <p>The 1939 MGM classic that defined American cinema has been reborn inside MSG Sphere — and the word "movie" doesn't come close to covering what happens here. For 75 minutes, you're not watching The Wizard of Oz. You're inside it.</p>
@@ -448,7 +565,7 @@
   </div>
 
   <!-- DETAILS GRID -->
-  <div class="section fade-up">
+  <div class="section fade-up" id="section-details">
     <h2 class="section-title">Show <span>Details</span></h2>
     <div class="details-grid">
       <div class="detail-card">
@@ -491,7 +608,7 @@
   </div>
 
   <!-- WHAT TO EXPECT -->
-  <div class="section fade-up">
+  <div class="section fade-up" id="section-expect">
     <h2 class="section-title">What to <span>Expect</span></h2>
     <div class="expect-grid">
       <div class="expect-card">
@@ -522,7 +639,7 @@
   </div>
 
   <!-- SEATING CHART -->
-  <div class="seating-section fade-up">
+  <div class="seating-section fade-up" id="section-seating">
     <h2 class="section-title">Choose Your <span>Section</span></h2>
     <div class="seating-diagram-wrap">
       <div class="seating-lbl">MSG Sphere — Open Sections for This Experience</div>
@@ -534,80 +651,48 @@
       </div>
 
       <svg viewBox="0 0 480 420" style="width:100%;height:auto;display:block;overflow:visible" role="img" aria-label="Sphere seating chart showing available sections">
-        <!-- Background -->
         <rect width="480" height="420" fill="#060E1A" rx="10"/>
-
-        <!-- Screen area -->
         <ellipse cx="80" cy="210" rx="68" ry="130" fill="rgba(26,107,255,0.12)" stroke="rgba(26,107,255,0.3)" stroke-width="1.5"/>
         <text x="80" y="204" text-anchor="middle" fill="rgba(200,220,255,0.7)" font-size="11" font-family="'IBM Plex Mono',monospace" font-weight="600" letter-spacing="1">SCREEN</text>
         <text x="80" y="220" text-anchor="middle" fill="rgba(150,180,220,0.4)" font-size="8" font-family="'IBM Plex Mono',monospace">THE SPHERE</text>
-
-        <!-- Ring 1 (200s) gray upper — not available -->
-        <path d="M 246.1 87.2 A 150 150 0 0 1 289.9 135 L 250.9 157.5 A 105 105 0 0 0 220.3 124.0 Z"
-              fill="rgba(255,255,255,0.07)" stroke="#060E1A" stroke-width="1.5"
-              onclick="selectZone('zone-closed')" style="cursor:pointer"/>
-        <!-- Ring 1 (200s) green center — available, sections 205-207 -->
-        <path d="M 289.9 135 A 150 150 0 0 1 289.9 285 L 250.9 262.5 A 105 105 0 0 0 250.9 157.5 Z"
-              fill="#0B7A52" stroke="#060E1A" stroke-width="1.5"
-              onclick="selectZone('zone-inner')" style="cursor:pointer"/>
-        <!-- Ring 1 (200s) gray lower — not available -->
-        <path d="M 289.9 285 A 150 150 0 0 1 246.1 332.8 L 220.3 296.0 A 105 105 0 0 0 250.9 262.5 Z"
-              fill="rgba(255,255,255,0.07)" stroke="#060E1A" stroke-width="1.5"
-              onclick="selectZone('zone-closed')" style="cursor:pointer"/>
-
-        <!-- Ring 2 (300s) gray upper — not available -->
-        <path d="M 274.8 46.2 A 200 200 0 0 1 333.2 110 L 294.2 132.5 A 155 155 0 0 0 249.0 83.0 Z"
-              fill="rgba(255,255,255,0.07)" stroke="#060E1A" stroke-width="1.5"
-              onclick="selectZone('zone-closed')" style="cursor:pointer"/>
-        <!-- Ring 2 (300s) gold center — Sidekick Pick, sections 305-307 -->
-        <path d="M 333.2 110 A 200 200 0 0 1 333.2 310 L 294.2 287.5 A 155 155 0 0 0 294.2 132.5 Z"
-              fill="#B8860B" stroke="#060E1A" stroke-width="1.5"
-              onclick="selectZone('zone-center')" style="cursor:pointer"/>
-        <!-- Ring 2 (300s) gray lower — not available -->
-        <path d="M 333.2 310 A 200 200 0 0 1 274.8 373.8 L 249.0 337.0 A 155 155 0 0 0 294.2 287.5 Z"
-              fill="rgba(255,255,255,0.07)" stroke="#060E1A" stroke-width="1.5"
-              onclick="selectZone('zone-closed')" style="cursor:pointer"/>
-
-        <!-- Ring 3 (400s) gray upper — not available -->
-        <path d="M 303.5 5 A 250 250 0 0 1 376.5 85 L 337.5 107.5 A 205 205 0 0 0 277.7 42.1 Z"
-              fill="rgba(255,255,255,0.07)" stroke="#060E1A" stroke-width="1.5"
-              onclick="selectZone('zone-closed')" style="cursor:pointer"/>
-        <!-- Ring 3 (400s) green center — available, sections 405-407 -->
-        <path d="M 376.5 85 A 250 250 0 0 1 376.5 335 L 337.5 312.5 A 205 205 0 0 0 337.5 107.5 Z"
-              fill="#0B7A52" stroke="#060E1A" stroke-width="1.5"
-              onclick="selectZone('zone-outer')" style="cursor:pointer"/>
-        <!-- Ring 3 (400s) gray lower — not available -->
-        <path d="M 376.5 335 A 250 250 0 0 1 303.5 415 L 277.7 377.9 A 205 205 0 0 0 337.5 312.5 Z"
-              fill="rgba(255,255,255,0.07)" stroke="#060E1A" stroke-width="1.5"
-              onclick="selectZone('zone-closed')" style="cursor:pointer"/>
-
-        <!-- Section labels — Ring 1 inner green -->
+        <!-- Ring 1 upper gray -->
+        <path d="M 246.1 87.2 A 150 150 0 0 1 289.9 135 L 250.9 157.5 A 105 105 0 0 0 220.3 124.0 Z" fill="rgba(255,255,255,0.07)" stroke="#060E1A" stroke-width="1.5" onclick="selectZone('zone-closed')" style="cursor:pointer"/>
+        <!-- Ring 1 green center (205–207) -->
+        <path d="M 289.9 135 A 150 150 0 0 1 289.9 285 L 250.9 262.5 A 105 105 0 0 0 250.9 157.5 Z" fill="#0B7A52" stroke="#060E1A" stroke-width="1.5" onclick="selectZone('zone-inner')" style="cursor:pointer"/>
+        <!-- Ring 1 lower gray -->
+        <path d="M 289.9 285 A 150 150 0 0 1 246.1 332.8 L 220.3 296.0 A 105 105 0 0 0 250.9 262.5 Z" fill="rgba(255,255,255,0.07)" stroke="#060E1A" stroke-width="1.5" onclick="selectZone('zone-closed')" style="cursor:pointer"/>
+        <!-- Ring 2 upper gray -->
+        <path d="M 274.8 46.2 A 200 200 0 0 1 333.2 110 L 294.2 132.5 A 155 155 0 0 0 249.0 83.0 Z" fill="rgba(255,255,255,0.07)" stroke="#060E1A" stroke-width="1.5" onclick="selectZone('zone-closed')" style="cursor:pointer"/>
+        <!-- Ring 2 gold center (305–307) Spike's Pick -->
+        <path d="M 333.2 110 A 200 200 0 0 1 333.2 310 L 294.2 287.5 A 155 155 0 0 0 294.2 132.5 Z" fill="#B8860B" stroke="#060E1A" stroke-width="1.5" onclick="selectZone('zone-center')" style="cursor:pointer"/>
+        <!-- Ring 2 lower gray -->
+        <path d="M 333.2 310 A 200 200 0 0 1 274.8 373.8 L 249.0 337.0 A 155 155 0 0 0 294.2 287.5 Z" fill="rgba(255,255,255,0.07)" stroke="#060E1A" stroke-width="1.5" onclick="selectZone('zone-closed')" style="cursor:pointer"/>
+        <!-- Ring 3 upper gray -->
+        <path d="M 303.5 5 A 250 250 0 0 1 376.5 85 L 337.5 107.5 A 205 205 0 0 0 277.7 42.1 Z" fill="rgba(255,255,255,0.07)" stroke="#060E1A" stroke-width="1.5" onclick="selectZone('zone-closed')" style="cursor:pointer"/>
+        <!-- Ring 3 green outer (405–407) -->
+        <path d="M 376.5 85 A 250 250 0 0 1 376.5 335 L 337.5 312.5 A 205 205 0 0 0 337.5 107.5 Z" fill="#0B7A52" stroke="#060E1A" stroke-width="1.5" onclick="selectZone('zone-outer')" style="cursor:pointer"/>
+        <!-- Ring 3 lower gray -->
+        <path d="M 376.5 335 A 250 250 0 0 1 303.5 415 L 277.7 377.9 A 205 205 0 0 0 337.5 312.5 Z" fill="rgba(255,255,255,0.07)" stroke="#060E1A" stroke-width="1.5" onclick="selectZone('zone-closed')" style="cursor:pointer"/>
+        <!-- Labels -->
         <text x="270" y="208" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-size="7.5" font-family="'IBM Plex Mono',monospace" font-weight="600" style="pointer-events:none">205–207</text>
         <text x="270" y="218" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="6.5" font-family="'IBM Plex Mono',monospace" style="pointer-events:none">INNER</text>
-
-        <!-- Section labels — Ring 2 center gold (Spike's Pick) -->
         <text x="315" y="205" text-anchor="middle" fill="rgba(255,220,120,0.95)" font-size="7.5" font-family="'IBM Plex Mono',monospace" font-weight="600" style="pointer-events:none">305–307</text>
         <text x="315" y="215" text-anchor="middle" fill="rgba(255,200,80,0.7)" font-size="6" font-family="'IBM Plex Mono',monospace" style="pointer-events:none">★ PICK</text>
-
-        <!-- Section labels — Ring 3 outer green -->
         <text x="358" y="208" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-size="7.5" font-family="'IBM Plex Mono',monospace" font-weight="600" style="pointer-events:none">405–407</text>
         <text x="358" y="218" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="6.5" font-family="'IBM Plex Mono',monospace" style="pointer-events:none">OUTER</text>
-
-        <!-- Ring separator lines for visual clarity -->
-        <line x1="160" y1="210" x2="165" y2="210" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-
-        <!-- Overhang indicator labels -->
         <text x="175" y="20" text-anchor="middle" fill="rgba(255,255,255,0.22)" font-size="7" font-family="'IBM Plex Mono',monospace" style="pointer-events:none">OVERHANG</text>
         <text x="175" y="415" text-anchor="middle" fill="rgba(255,255,255,0.22)" font-size="7" font-family="'IBM Plex Mono',monospace" style="pointer-events:none">OVERHANG</text>
       </svg>
 
       <div class="zone-popup" id="zonePopup">
-        <div class="zone-popup-hdr">
-          <div class="zone-popup-name" id="zoneName">—</div>
-          <div class="zone-popup-pick" id="zonePick" style="display:none">🌵 Spike's Pick</div>
+        <div class="zone-popup-inner">
+          <div class="zone-popup-hdr">
+            <div class="zone-popup-name" id="zoneName">—</div>
+            <div class="zone-pick-badge" id="zonePick" style="display:none">🌵 Spike's Pick</div>
+          </div>
+          <div class="zone-popup-desc" id="zoneDesc"></div>
+          <a href="https://spotlight.vegas/shows/production/the-wizard-of-oz-at-sphere/ref/vegassidekick" class="zone-popup-cta" target="_blank" rel="noopener">Get Tickets in This Section →</a>
         </div>
-        <div class="zone-popup-desc" id="zoneDesc"></div>
-        <a href="https://spotlight.vegas/shows/production/the-wizard-of-oz-at-sphere/ref/vegassidekick" class="zone-popup-cta" target="_blank" rel="noopener">Get Tickets in This Section →</a>
       </div>
     </div>
 
@@ -620,7 +705,8 @@
           </div>
           <span class="seat-accord-chevron">▼</span>
         </button>
-        <div class="seat-accord-body">Dead center in the middle ring. The sweet spot for the full Sphere experience — close enough to feel completely surrounded by the screen, far enough back to take in the full scope of the dome above you. The most balanced view in the building. Spike's top pick for first-timers and repeat visitors alike. From $123.
+        <div class="sa-body">
+          <div class="sa-body-inner">Dead center in the middle ring. The sweet spot for the full Sphere experience — close enough to feel completely surrounded by the screen, far enough back to take in the full scope of the dome above you. The most balanced view in the building. Spike's top pick for first-timers and repeat visitors alike. From $123.</div>
         </div>
       </div>
       <div class="seat-accord-item">
@@ -631,7 +717,9 @@
           </div>
           <span class="seat-accord-chevron">▼</span>
         </button>
-        <div class="seat-accord-body">The closest open sections to the center of Sphere. The screen completely fills your field of vision — an almost overwhelming level of immersion. Best if you want to feel fully submerged in the experience. From $123.</div>
+        <div class="sa-body">
+          <div class="sa-body-inner">The closest open sections to the center of Sphere. The screen completely fills your field of vision — an almost overwhelming level of immersion. Best if you want to feel fully submerged in the experience. From $123.</div>
+        </div>
       </div>
       <div class="seat-accord-item">
         <button class="seat-accord-trigger" onclick="toggleAccord(this); selectZone('zone-outer')">
@@ -641,7 +729,9 @@
           </div>
           <span class="seat-accord-chevron">▼</span>
         </button>
-        <div class="seat-accord-body">Furthest back of the open sections. A slightly wider perspective — you can see more of the dome's full curve. Still fully immersive with all sensory effects. Great for guests who prefer not to feel enclosed. From $123.</div>
+        <div class="sa-body">
+          <div class="sa-body-inner">Furthest back of the open sections. A slightly wider perspective — you can see more of the dome's full curve. Still fully immersive with all sensory effects. Great for guests who prefer not to feel enclosed. From $123.</div>
+        </div>
       </div>
       <div class="seat-accord-item">
         <button class="seat-accord-trigger" onclick="toggleAccord(this); selectZone('zone-closed')">
@@ -651,46 +741,64 @@
           </div>
           <span class="seat-accord-chevron">▼</span>
         </button>
-        <div class="seat-accord-body">Sections outside the highlighted zones are not participating in this experience. Only the center-facing sections (205–207, 305–307, 405–407) are open, ensuring every guest in the building has a direct sightline to the screen.</div>
+        <div class="sa-body">
+          <div class="sa-body-inner">Sections outside the highlighted zones are not participating in this experience. Only the center-facing sections (205–207, 305–307, 405–407) are open, ensuring every guest in the building has a direct sightline to the screen.</div>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- FAQ -->
-  <div class="section fade-up">
+  <div class="section fade-up" id="section-faq">
     <h2 class="section-title">Questions <span>Answered</span></h2>
     <div class="faq-list">
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Is this the actual 1939 Wizard of Oz film? <span class="faq-chevron">▼</span></button>
-        <div class="faq-a"><p>It's the complete story — Dorothy, Oz, all of it — but the runtime is 75 minutes, which is shorter than the original film. Some scenes have been condensed or trimmed to fit the Sphere experience. The original vocal performances are preserved, the visuals are AI-remastered to 16K, and the score has been re-recorded for the venue's 167,000-speaker spatial audio system. Think of it as the definitive way to experience the story, not a shot-for-shot rescreen of the 1939 cut.</p></div>
+        <div class="faq-a">
+          <div class="faq-a-inner"><p>It's the complete story — Dorothy, Oz, all of it — but the runtime is 75 minutes, which is shorter than the original film. Some scenes have been condensed or trimmed to fit the Sphere experience. The original vocal performances are preserved, the visuals are AI-remastered to 16K, and the score has been re-recorded for the venue's 167,000-speaker spatial audio system. Think of it as the definitive way to experience the story, not a shot-for-shot rescreen of the 1939 cut.</p></div>
+        </div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">What exactly are the "haptic seats"? <span class="faq-chevron">▼</span></button>
-        <div class="faq-a"><p>Every seat in the open sections is equipped with infrasound haptic technology — the first implementation of this system in a live entertainment venue. The seats emit low-frequency vibrations timed precisely to the film, so you physically feel the tornado, the thunder, and other moments in the story. It's subtle when it needs to be and intense when it doesn't.</p></div>
+        <div class="faq-a">
+          <div class="faq-a-inner"><p>Every seat in the open sections is equipped with infrasound haptic technology — the first implementation of this system in a live entertainment venue. The seats emit low-frequency vibrations timed precisely to the film, so you physically feel the tornado, the thunder, and other moments in the story. It's subtle when it needs to be and intense when it doesn't.</p></div>
+        </div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Can I bring young kids? <span class="faq-chevron">▼</span></button>
-        <div class="faq-a"><p>The minimum age is 6. All guests including children require a ticket — no lap-sitting. The show includes loud sounds, flashing lights, pyrotechnics, wind, fog, and moving objects in the air above the audience. Most kids 6+ who enjoy the classic film handle it well, but it's worth considering if your child is sensitive to loud or intense sensory environments. The show does not have a quiet section.</p></div>
+        <div class="faq-a">
+          <div class="faq-a-inner"><p>The minimum age is 6. All guests including children require a ticket — no lap-sitting. The show includes loud sounds, flashing lights, pyrotechnics, wind, fog, and moving objects in the air above the audience. Most kids 6+ who enjoy the classic film handle it well, but it's worth considering if your child is sensitive to loud or intense sensory environments. The show does not have a quiet section.</p></div>
+        </div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">What if I'm sensitive to motion or sensory effects? <span class="faq-chevron">▼</span></button>
-        <div class="faq-a"><p>The experience includes seat haptics, movement sensations, flashing lights, intense lighting, loud sounds, pyrotechnics, falling and flying objects, and atmospheric simulations including fog, mist, wind, and scent. These elements may aggravate certain medical or physical conditions. If you have any concerns — including pregnancy — consult a physician before attending. The venue advises this directly.</p></div>
+        <div class="faq-a">
+          <div class="faq-a-inner"><p>The experience includes seat haptics, movement sensations, flashing lights, intense lighting, loud sounds, pyrotechnics, falling and flying objects, and atmospheric simulations including fog, mist, wind, and scent. These elements may aggravate certain medical or physical conditions. If you have any concerns — including pregnancy — consult a physician before attending. The venue advises this directly.</p></div>
+        </div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Is there late seating? <span class="faq-chevron">▼</span></button>
-        <div class="faq-a"><p>No. This is strictly enforced. The experience begins at the time on your ticket and no late seating is permitted for any reason. Plan to arrive at Sphere at least 30 minutes before your showtime — the atrium entry experience begins outside the main dome and is part of the show.</p></div>
+        <div class="faq-a">
+          <div class="faq-a-inner"><p>No. This is strictly enforced. The experience begins at the time on your ticket and no late seating is permitted for any reason. Seating opens 30 minutes before showtime — plan to arrive at Sphere 30 minutes early so you have time for the restroom, a drink, and finding your section. The Sphere atrium entry experience begins outside the main dome and is part of the show.</p></div>
+        </div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Where do I pick up my tickets? <span class="faq-chevron">▼</span></button>
-        <div class="faq-a"><p>Tickets are delivered to your email immediately after purchase. You'll access them digitally on your phone at the door — no will-call or physical pickup required. Sphere is located at 255 Sands Ave, just east of The Venetian and The Palazzo on the Las Vegas Strip.</p></div>
+        <div class="faq-a">
+          <div class="faq-a-inner"><p>Tickets are delivered to your email immediately after purchase. You'll access them digitally on your phone at the door — no will-call or physical pickup required. Sphere is located at 255 Sands Ave, just east of The Venetian and The Palazzo on the Las Vegas Strip.</p></div>
+        </div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Can I get a refund if my plans change? <span class="faq-chevron">▼</span></button>
-        <div class="faq-a"><p>Refunds are available for exceptional circumstances such as the unlikely event that a show cancels. Check the full terms and conditions before purchasing.</p></div>
+        <div class="faq-a">
+          <div class="faq-a-inner"><p>Refunds are available for exceptional circumstances such as the unlikely event that a show cancels. Check the full terms and conditions before purchasing.</p></div>
+        </div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Is there parking at the Sphere? <span class="faq-chevron">▼</span></button>
-        <div class="faq-a"><p>The Sphere has a dedicated parking structure. Rideshare (Uber/Lyft) drop-off is available directly at the venue. The Venetian and Palazzo also have connected parking if you're arriving from that side. Given the multiple showtime schedule, traffic in and out moves efficiently.</p></div>
+        <div class="faq-a">
+          <div class="faq-a-inner"><p>The Sphere has a dedicated parking structure. Rideshare (Uber/Lyft) drop-off is available directly at the venue. The Venetian and Palazzo also have connected parking if you're arriving from that side. Given the multiple showtime schedule, traffic in and out moves efficiently.</p></div>
+        </div>
       </div>
     </div>
   </div>
@@ -729,6 +837,18 @@
           <div class="also-price">From $108</div>
         </div>
       </a>
+    </div>
+  </div>
+
+  <!-- FINAL CTA -->
+  <div class="final-cta">
+    <div class="orb-1"></div>
+    <div class="orb-2"></div>
+    <div class="final-cta-inner">
+      <div class="final-cta-title">There's Nothing Else Like This on Earth</div>
+      <p class="final-cta-sub">The Wizard of Oz at Sphere is the most immersive entertainment experience ever built. 160,000 square feet of wraparound screen. 167,000 speakers. Haptic seats. Real wind. Real scent. Real fire. One legendary story.</p>
+      <a href="https://spotlight.vegas/shows/production/the-wizard-of-oz-at-sphere/ref/vegassidekick" target="_blank" rel="noopener" class="final-cta-btn">Get Tickets — From $123 →</a>
+      <span class="final-cta-note">Prices may increase closer to show date</span>
     </div>
   </div>
 
@@ -787,16 +907,6 @@
 </aside>
 </div>
 
-<!-- FINAL CTA -->
-<div class="final-cta">
-  <div class="final-cta-inner">
-    <div class="final-cta-title">There's Nothing Else Like This on Earth</div>
-    <p class="final-cta-sub">The Wizard of Oz at Sphere is the most immersive entertainment experience ever built. 160,000 square feet of wraparound screen. 167,000 speakers. Haptic seats. Real wind. Real scent. Real fire. One legendary story.</p>
-    <a href="https://spotlight.vegas/shows/production/the-wizard-of-oz-at-sphere/ref/vegassidekick" target="_blank" rel="noopener" class="final-cta-btn">Get Tickets — $123 →</a>
-    <span class="final-cta-note">Prices may increase closer to show date</span>
-  </div>
-</div>
-
 <!-- MOBILE STICKY -->
 <div class="mobile-sticky">
   <div>
@@ -815,9 +925,15 @@
   window.addEventListener('scroll', () => {
     const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
     document.getElementById('progress-bar').style.width = Math.min(pct, 100) + '%';
-  });
+  }, { passive: true });
 
-  // Slider
+  // Hero parallax
+  const heroSlider = document.getElementById('heroSlider');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY < 800) heroSlider.style.transform = 'translateY(' + (window.scrollY * 0.28) + 'px)';
+  }, { passive: true });
+
+  // Slider + Ken Burns
   let slideIdx = 0;
   const slides = document.querySelectorAll('.slide');
   const dots = document.querySelectorAll('.dot-btn');
@@ -829,6 +945,10 @@
     slides[slideIdx].classList.add('active');
     dots[slideIdx].classList.add('active');
     dots[slideIdx].setAttribute('aria-selected', 'true');
+    const img = slides[slideIdx].querySelector('img');
+    img.style.animation = 'none';
+    img.offsetHeight;
+    img.style.animation = '';
   }
   function sliderMove(dir) { goToSlide(slideIdx + dir); }
   setInterval(() => goToSlide(slideIdx + 1), 5500);
@@ -840,10 +960,56 @@
   }
 
   // Fade-up on scroll
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  const fadeObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); fadeObserver.unobserve(e.target); } });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+
+  // Count-up stats
+  let statsTriggered = false;
+  function countUp(el) {
+    const target = parseInt(el.dataset.target);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1400;
+    const start = performance.now();
+    function step(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.floor(ease * target) + (p >= 1 ? suffix : '');
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  const statsObserver = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && !statsTriggered) {
+      statsTriggered = true;
+      document.querySelectorAll('.stat-num').forEach(el => countUp(el));
+      statsObserver.disconnect();
+    }
+  }, { threshold: 0.3 });
+  statsObserver.observe(document.querySelector('.stats-strip'));
+
+  // Save pill
+  const priceStrip = document.getElementById('priceStrip');
+  const savePill = document.getElementById('savePill');
+  window.addEventListener('scroll', () => {
+    const show = priceStrip.getBoundingClientRect().bottom < 0;
+    savePill.classList.toggle('visible', show);
+  }, { passive: true });
+
+  // Dot nav
+  const sections = ['section-seen','section-about','section-details','section-expect','section-seating','section-faq'];
+  const dnavDots = document.querySelectorAll('.dnav-dot');
+  function updateDotNav() {
+    let active = 0;
+    sections.forEach((id, i) => {
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top < window.innerHeight * 0.55) active = i;
+    });
+    dnavDots.forEach((d, i) => d.classList.toggle('active', i === active));
+  }
+  window.addEventListener('scroll', updateDotNav, { passive: true });
+  updateDotNav();
 
   // Email signup
   async function submitEmail() {
@@ -885,7 +1051,6 @@
       desc: 'These sections are not participating in The Wizard of Oz at Sphere. Only sections 205–207, 305–307, and 405–407 are open — selected to ensure every guest in the building has a direct, unobstructed view of the wraparound screen.'
     }
   };
-
   function selectZone(id) {
     const z = zoneData[id];
     document.getElementById('zoneName').textContent = z.name;
@@ -893,33 +1058,34 @@
     document.getElementById('zonePick').style.display = z.pick ? 'inline-block' : 'none';
     const popup = document.getElementById('zonePopup');
     popup.classList.add('visible');
-    popup.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    setTimeout(() => popup.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
   }
 
-  // Seat accordion
+  // Seat accordion (smooth)
   function toggleAccord(btn) {
     const body = btn.nextElementSibling;
     const isOpen = body.classList.contains('open');
-    document.querySelectorAll('.seat-accord-body.open').forEach(el => el.classList.remove('open'));
-    document.querySelectorAll('.seat-accord-chevron').forEach(el => el.style.transform = '');
+    document.querySelectorAll('.sa-body.open').forEach(el => {
+      el.classList.remove('open');
+      el.previousElementSibling.querySelector('.seat-accord-chevron').style.transform = '';
+    });
     if (!isOpen) {
       body.classList.add('open');
       btn.querySelector('.seat-accord-chevron').style.transform = 'rotate(180deg)';
     }
   }
 
-  // FAQ accordion
+  // FAQ accordion (smooth)
   function toggleFaq(btn) {
     const item = btn.parentElement;
-    const wasOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq-item.open').forEach(el => {
+    const faqA = item.querySelector('.faq-a');
+    const isOpen = faqA.classList.contains('open');
+    document.querySelectorAll('.faq-a.open').forEach(el => {
       el.classList.remove('open');
-      el.querySelector('.faq-a').classList.remove('open');
-      el.querySelector('.faq-chevron').style.transform = '';
+      el.previousElementSibling.querySelector('.faq-chevron').style.transform = '';
     });
-    if (!wasOpen) {
-      item.classList.add('open');
-      item.querySelector('.faq-a').classList.add('open');
+    if (!isOpen) {
+      faqA.classList.add('open');
       btn.querySelector('.faq-chevron').style.transform = 'rotate(180deg)';
     }
   }
