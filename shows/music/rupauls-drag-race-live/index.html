@@ -148,12 +148,12 @@
     .urgency-txt { font-family: var(--font-mono); font-size: 0.62rem; color: rgba(255,255,255,0.32); }
 
     /* ── MARQUEE TICKER ── */
-    .ticker-wrap { background: rgba(204,0,102,0.1); border-top: 1px solid rgba(204,0,102,0.2); overflow: hidden; padding: 9px 0; cursor: default; }
+    .ticker-wrap { background: var(--show-pink); overflow: hidden; padding: 9px 0; cursor: default; }
     .ticker-inner { display: flex; white-space: nowrap; animation: ticker 36s linear infinite; width: max-content; }
     .ticker-wrap:hover .ticker-inner { animation-play-state: paused; }
     @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-    .ticker-item { font-family: var(--font-mono); font-size: 0.67rem; color: rgba(255,255,255,0.62); padding: 0 20px; }
-    .ticker-sep { color: var(--show-pink-lt); padding: 0 4px; }
+    .ticker-item { font-family: var(--font-mono); font-size: 0.67rem; color: rgba(255,255,255,0.92); padding: 0 20px; }
+    .ticker-sep { color: rgba(255,255,255,0.5); padding: 0 4px; }
 
     /* ── PAGE LAYOUT ── */
     .page-layout { display: grid; grid-template-columns: 1fr var(--sidebar); max-width: 1200px; margin: 0 auto; align-items: start; }
