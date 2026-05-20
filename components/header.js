@@ -87,11 +87,42 @@
     if (!banner) return;
     var TARGET = new Date('2026-05-23T06:59:00Z'); // 11:59 PM PDT Fri May 22
     var EXPIRE = new Date('2026-05-26T07:00:00Z'); // midnight PDT end of Memorial Day
+    var offsetApplied = false;
+
+    // Push body down by the banner height so fixed banner doesn't overlap page content
+    function applyBodyOffset() {
+      if (offsetApplied) return;
+      offsetApplied = true;
+      requestAnimationFrame(function() {
+        var bh = banner.offsetHeight;
+        if (bh > 0) {
+          var orig = parseFloat(window.getComputedStyle(document.body).paddingTop) || 0;
+          document.body.setAttribute('data-vsm-orig-pt', orig);
+          document.body.style.setProperty('padding-top', (orig + bh) + 'px', 'important');
+        }
+      });
+    }
+    function removeBodyOffset() {
+      if (!offsetApplied) return;
+      var orig = document.body.getAttribute('data-vsm-orig-pt');
+      document.body.style.setProperty('padding-top', (orig || '0') + 'px', 'important');
+    }
+
     function pad(n) { return n < 10 ? '0' + n : '' + n; }
+    function isMobile() { return window.innerWidth < 480; }
+
     function tick() {
       var now = new Date();
-      if (now >= EXPIRE) { banner.classList.remove('vsm-visible'); clearInterval(vsMemTimer); return; }
-      banner.classList.add('vsm-visible');
+      if (now >= EXPIRE) {
+        banner.classList.remove('vsm-visible');
+        removeBodyOffset();
+        clearInterval(vsMemTimer);
+        return;
+      }
+      if (!banner.classList.contains('vsm-visible')) {
+        banner.classList.add('vsm-visible');
+        applyBodyOffset();
+      }
       if (now >= TARGET) {
         banner.innerHTML = '<span class="vsm-stars">★ ★ ★</span><span class="vsm-enjoy">Happy Memorial Day Weekend &mdash; we honor all who served. 🇺🇸</span><span class="vsm-stars">★ ★ ★</span>';
         clearInterval(vsMemTimer);
@@ -102,15 +133,25 @@
       var h = Math.floor((diff % 86400000) / 3600000);
       var m = Math.floor((diff % 3600000) / 60000);
       var s = Math.floor((diff % 60000) / 1000);
-      banner.innerHTML =
-        '<span class="vsm-stars">★</span>' +
-        '&#127482;&#127480; Memorial Day Weekend kicks off in ' +
-        '<span class="vsm-unit">' + d + 'd</span> ' +
-        '<span class="vsm-unit">' + pad(h) + 'h</span> ' +
-        '<span class="vsm-unit">' + pad(m) + 'm</span> ' +
-        '<span class="vsm-unit">' + pad(s) + 's</span>' +
-        ' &mdash; <a class="vsm-link" href="/shows/">Plan Your Vegas Weekend &#8594;</a>' +
-        '<span class="vsm-stars">★</span>';
+      if (isMobile()) {
+        banner.innerHTML =
+          '&#127482;&#127480; Memorial Day Weekend in ' +
+          '<span class="vsm-unit">' + d + 'd</span> ' +
+          '<span class="vsm-unit">' + pad(h) + 'h</span> ' +
+          '<span class="vsm-unit">' + pad(m) + 'm</span> ' +
+          '<span class="vsm-unit">' + pad(s) + 's</span>' +
+          ' &mdash; <a class="vsm-link" href="/shows/">All Shows &#8594;</a>';
+      } else {
+        banner.innerHTML =
+          '<span class="vsm-stars">★</span>' +
+          '&#127482;&#127480; Memorial Day Weekend kicks off in ' +
+          '<span class="vsm-unit">' + d + 'd</span> ' +
+          '<span class="vsm-unit">' + pad(h) + 'h</span> ' +
+          '<span class="vsm-unit">' + pad(m) + 'm</span> ' +
+          '<span class="vsm-unit">' + pad(s) + 's</span>' +
+          ' &mdash; <a class="vsm-link" href="/shows/">Plan Your Vegas Weekend &#8594;</a>' +
+          '<span class="vsm-stars">★</span>';
+      }
     }
     tick();
     var vsMemTimer = setInterval(tick, 1000);
