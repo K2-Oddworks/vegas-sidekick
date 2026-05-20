@@ -1030,37 +1030,6 @@
     document.getElementById('emailSuccess').classList.add('visible');
   }
 
-  // ── GLITTER CURSOR TRAIL (desktop only) ──
-  (function() {
-    if (window.matchMedia('(hover: none)').matches) return;
-    const COLORS = ['#FF3399','#FF6B00','#FFD700','#FF99CC','#ffffff','#CC0066'];
-    let last = 0;
-    document.addEventListener('mousemove', e => {
-      const now = Date.now();
-      if (now - last < 40) return;
-      last = now;
-      if (Math.random() > 0.55) return;
-      const el = document.createElement('div');
-      const size = 3 + Math.random() * 5;
-      el.style.cssText = 'position:fixed;pointer-events:none;z-index:9998;border-radius:50%;' +
-        'width:' + size + 'px;height:' + size + 'px;' +
-        'background:' + COLORS[Math.floor(Math.random() * COLORS.length)] + ';' +
-        'left:' + e.clientX + 'px;top:' + e.clientY + 'px;' +
-        'transform:translate(-50%,-50%);opacity:0.85;';
-      document.body.appendChild(el);
-      let ox = (Math.random() - 0.5) * 2.5;
-      let oy = -1 - Math.random() * 2.5;
-      let op = 0.85;
-      let px = e.clientX, py = e.clientY;
-      (function animate() {
-        px += ox; py += oy; op -= 0.038;
-        el.style.left = px + 'px';
-        el.style.top = py + 'px';
-        el.style.opacity = op;
-        if (op > 0) requestAnimationFrame(animate); else el.remove();
-      })();
-    }, { passive: true });
-  })();
 </script>
 </body>
 </html>

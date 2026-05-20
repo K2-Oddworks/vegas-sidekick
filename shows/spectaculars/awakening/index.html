@@ -13,6 +13,11 @@
   <meta property="og:image" content="https://vegassidekick.com/images/awakening-hero.webp" />
   <meta property="og:url" content="https://vegassidekick.com/shows/spectaculars/awakening/" />
   <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Vegas Sidekick" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Awakening Las Vegas | Vegas Sidekick" />
+  <meta name="twitter:description" content="Wynn's original fantasy spectacular. From $70, save $74 vs box office." />
+  <meta name="twitter:image" content="https://vegassidekick.com/images/awakening-hero.webp" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -54,8 +59,6 @@
     :root {
       --navy:        #0A1628;
       --navy-mid:    #0f1e38;
-      --blue:        #1A6BDD;
-      --blue-lt:     #4d90f0;
       --orange:      #FF6B00;
       --orange-lt:   #ff8c33;
       --gold:        #C9A84C;
@@ -85,7 +88,8 @@
     a    { text-decoration: none; color: inherit; }
     button { font-family: inherit; cursor: pointer; }
 
-    #progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--show-blue), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; }
+    /* ── PROGRESS BAR ── */
+    #progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--show-blue), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; box-shadow: 0 0 10px var(--show-blue), 0 0 20px rgba(26,66,168,0.35); }
 
     /* ── HERO ── */
     .hero { background: var(--navy); padding-top: 84px; }
@@ -94,11 +98,13 @@
     .breadcrumb a:hover { color: var(--orange); }
     .breadcrumb span { color: rgba(255,255,255,0.7); }
 
-    /* Image slider — full width */
+    /* ── SLIDER ── */
     .slider { position: relative; width: 100%; aspect-ratio: 16/9; max-height: 560px; overflow: hidden; background: var(--navy-mid); }
     .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.65s ease; }
     .slide.active { opacity: 1; }
-    .slide img { width: 100%; height: 100%; object-fit: cover; }
+    .slide img { width: 100%; height: 100%; object-fit: cover; transform-origin: center center; }
+    @keyframes kenBurns { from { transform: scale(1) translate(0,0); } to { transform: scale(1.08) translate(0.4%,0.4%); } }
+    .slide.active img { animation: kenBurns 9s ease-out forwards; }
     .slider-dots { position: absolute; bottom: 13px; left: 50%; transform: translateX(-50%); display: flex; gap: 7px; z-index: 3; }
     .dot-btn { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.28); border: none; padding: 0; transition: background 0.2s, transform 0.2s; cursor: pointer; }
     .dot-btn.active { background: var(--orange); transform: scale(1.4); }
@@ -107,7 +113,7 @@
     .s-arrow.prev { left: 13px; }
     .s-arrow.next { right: 13px; }
 
-    /* Hero text block */
+    /* ── HERO CONTENT ── */
     .hero-content-wrap { max-width: 1200px; margin: 0 auto; }
     .hero-content { padding: 28px 24px 32px; }
     .venue-label { font-family: var(--font-mono); font-size: 0.69rem; color: var(--show-blue-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 9px; }
@@ -122,22 +128,32 @@
     .udot { width: 5px; height: 5px; border-radius: 50%; background: var(--orange); flex-shrink: 0; animation: blink 1.6s infinite; }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.36} }
 
-    /* Price strip */
+    /* ── PRICE STRIP ── */
     .price-strip { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 22px; padding: 17px 24px; background: rgba(255,255,255,0.03); border-top: 1px solid rgba(255,255,255,0.06); flex-wrap: wrap; }
     .price-block { display: flex; flex-direction: column; gap: 2px; }
     .price-lbl { font-family: var(--font-mono); font-size: 0.59rem; color: rgba(255,255,255,0.33); letter-spacing: 0.06em; text-transform: uppercase; }
-    .price-cur { font-family: var(--font-price); font-size: 2.9rem; font-weight: 800; color: var(--orange); line-height: 1; }
+    .price-cur { font-family: var(--font-price); font-size: 2.9rem; font-weight: 800; color: var(--orange); line-height: 1; text-shadow: 0 0 20px rgba(255,107,0,0.4); }
     .price-was { font-family: var(--font-price); font-size: 0.9rem; color: rgba(255,255,255,0.35); text-decoration: line-through; }
     .price-save { display: inline-block; background: rgba(40,168,40,0.18); border: 1px solid rgba(40,168,40,0.35); color: #78D878; font-family: var(--font-mono); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.05em; padding: 2px 8px; border-radius: 4px; margin-top: 2px; }
-    .hero-cta { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.12rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); border: none; transition: background 0.2s, transform 0.2s; white-space: nowrap; }
+    .hero-cta { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.12rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); border: none; transition: background 0.2s, transform 0.2s; white-space: nowrap; position: relative; overflow: hidden; }
+    .hero-cta::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent); transition: left 0.5s ease; }
+    .hero-cta:hover::after { left: 100%; }
     .hero-cta:hover { background: var(--orange-lt); transform: translateY(-2px); }
     .urgency-txt { font-family: var(--font-mono); font-size: 0.62rem; color: rgba(255,255,255,0.32); }
+
+    /* ── MARQUEE TICKER ── */
+    .ticker-wrap { background: var(--show-blue); overflow: hidden; padding: 9px 0; cursor: default; }
+    .ticker-inner { display: flex; white-space: nowrap; animation: ticker 38s linear infinite; width: max-content; }
+    .ticker-wrap:hover .ticker-inner { animation-play-state: paused; }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .ticker-item { font-family: var(--font-mono); font-size: 0.67rem; color: rgba(255,255,255,0.92); padding: 0 20px; }
+    .ticker-sep { color: rgba(255,255,255,0.45); padding: 0 4px; }
 
     /* ── PAGE LAYOUT ── */
     .page-layout { display: grid; grid-template-columns: 1fr var(--sidebar); max-width: 1200px; margin: 0 auto; align-items: start; }
     .main-content { padding: 46px 36px 60px 22px; min-width: 0; }
 
-    /* Desktop sidebar */
+    /* ── SIDEBAR ── */
     .sidebar { position: sticky; top: 0; background: var(--navy); min-height: 100vh; padding: 24px 20px 22px; display: flex; flex-direction: column; gap: 15px; }
     .sb-price-lbl { font-family: var(--font-mono); font-size: 0.59rem; color: rgba(255,255,255,0.33); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px; }
     .sb-price { font-family: var(--font-price); font-size: 2.9rem; font-weight: 800; color: var(--orange); line-height: 1; }
@@ -156,14 +172,14 @@
     .sb-info-lbl { font-family: var(--font-mono); font-size: 0.57rem; color: rgba(255,255,255,0.32); text-transform: uppercase; letter-spacing: 0.04em; display: block; margin-bottom: 1px; }
     .sb-info-val { font-family: var(--font-body); font-size: 0.77rem; color: rgba(255,255,255,0.7); }
 
-    /* ── MAIN CONTENT SECTIONS ── */
+    /* ── SECTIONS / FADE UP ── */
     .section { margin-bottom: 50px; }
     .section-title { font-family: var(--font-display); font-size: clamp(1.85rem, 2.8vw, 2.55rem); color: var(--navy); line-height: 1; letter-spacing: 0.02em; margin-bottom: 20px; }
     .section-title span { color: var(--orange); }
-    .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-    /* Seen widget */
+    /* ── SEEN WIDGET ── */
     .seen-widget { background: linear-gradient(135deg, var(--navy) 0%, #0d2040 100%); border-radius: var(--radius-lg); padding: 28px; color: white; margin-bottom: 50px; }
     .seen-tag { font-family: var(--font-mono); font-size: 0.65rem; color: var(--show-blue-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
     .seen-q { font-family: var(--font-display); font-size: clamp(1.45rem, 2.6vw, 1.95rem); color: white; margin-bottom: 16px; line-height: 1.1; }
@@ -177,14 +193,14 @@
     .seen-resp p { font-size: 0.89rem; color: rgba(255,255,255,0.73); line-height: 1.72; margin-bottom: 12px; }
     .seen-resp a { color: var(--orange); font-weight: 600; }
 
-    /* Trust grid */
+    /* ── TRUST GRID ── */
     .trust-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; margin-bottom: 50px; }
     .trust-card { background: var(--gray-100); border-radius: var(--radius); padding: 17px; display: flex; gap: 12px; align-items: flex-start; }
     .trust-icon { font-size: 1.55rem; flex-shrink: 0; }
     .trust-card-title { font-family: var(--font-price); font-size: 0.86rem; font-weight: 800; color: var(--navy); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 3px; }
     .trust-card-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.52; }
 
-    /* About */
+    /* ── ABOUT ── */
     .about-body p { font-size: 0.98rem; color: var(--text); line-height: 1.78; margin-bottom: 16px; }
     .about-body p:last-child { margin-bottom: 0; }
     .spike-callout { display: flex; gap: 13px; align-items: flex-start; background: linear-gradient(135deg, rgba(26,66,168,0.08), rgba(255,107,0,0.03)); border: 1px solid rgba(26,66,168,0.22); border-left: 4px solid var(--show-blue); border-radius: var(--radius); padding: 16px 20px; margin: 20px 0; }
@@ -192,8 +208,16 @@
     .spike-text { font-family: var(--font-mono); font-size: 0.81rem; color: var(--navy); line-height: 1.62; }
     .spike-text strong { color: var(--show-blue); display: block; margin-bottom: 4px; font-size: 0.63rem; letter-spacing: 0.06em; text-transform: uppercase; }
 
-    /* Email signup */
+    /* ── STATS STRIP ── */
+    .stats-strip { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--gray-200); border: 1px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; margin-bottom: 50px; }
+    .stat-block { background: white; padding: 20px 16px; text-align: center; }
+    .stat-num { font-family: var(--font-display); font-size: 2.8rem; color: var(--show-blue); line-height: 1; letter-spacing: 0.02em; }
+    .stat-suf { font-family: var(--font-price); font-size: 1.4rem; font-weight: 800; color: var(--show-blue); }
+    .stat-lbl { font-family: var(--font-mono); font-size: 0.62rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 5px; }
+
+    /* ── EMAIL SIGNUP ── */
     .email-signup { background: var(--navy); border-radius: var(--radius-lg); padding: 32px 28px; margin-bottom: 50px; position: relative; overflow: hidden; display: flex; align-items: center; gap: 24px; }
+    .email-signup::before { content:''; position:absolute; right:-60px; top:-60px; width:200px; height:200px; background: radial-gradient(ellipse, rgba(26,66,168,0.25) 0%, transparent 70%); pointer-events:none; }
     .email-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: linear-gradient(180deg, var(--show-blue), var(--orange)); }
     .email-heading { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); color: var(--show-blue-lt); letter-spacing: 0.08em; flex-shrink: 0; line-height: 1; }
     .email-body { flex: 1; }
@@ -208,7 +232,7 @@
     .email-success { display: none; font-size: 0.82rem; color: #78D878; margin-top: 8px; }
     .email-success.visible { display: block; }
 
-    /* Details grid */
+    /* ── DETAILS GRID ── */
     .details-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 50px; }
     .detail-card { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 17px; transition: box-shadow 0.2s, transform 0.2s; }
     .detail-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
@@ -216,14 +240,16 @@
     .detail-card-lbl { font-family: var(--font-price); font-size: 0.68rem; font-weight: 800; color: var(--show-blue); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
     .detail-card-val { font-family: var(--font-body); font-size: 0.87rem; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
     .detail-card-sub { font-size: 0.76rem; color: var(--text-muted); line-height: 1.52; }
+    .cal-btn { display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; background: rgba(26,66,168,0.08); border: 1px solid rgba(26,66,168,0.2); color: var(--show-blue); font-family: var(--font-mono); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; cursor: pointer; transition: background 0.2s; }
+    .cal-btn:hover { background: rgba(26,66,168,0.15); }
 
-    /* Expect grid */
+    /* ── EXPECT GRID ── */
     .expect-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; margin-bottom: 50px; }
     .expect-card { background: var(--off-white); border-radius: var(--radius); padding: 20px; border-left: 3px solid var(--show-blue); }
     .expect-title { font-family: var(--font-price); font-size: 0.88rem; font-weight: 800; color: var(--navy); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 7px; display: flex; align-items: center; gap: 6px; }
     .expect-desc { font-size: 0.81rem; color: var(--text-muted); line-height: 1.62; }
 
-    /* Seating */
+    /* ── SEATING ── */
     .seating-section { margin-bottom: 50px; }
     .seating-diagram-wrap { background: var(--navy); border-radius: var(--radius-lg); padding: 26px 20px 30px; margin-bottom: 20px; position: relative; overflow: hidden; }
     .seating-diagram-wrap::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--show-blue), var(--orange)); }
@@ -231,8 +257,9 @@
     .seating-legend { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-bottom: 16px; }
     .legend-item { display: flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 0.62rem; color: rgba(255,255,255,0.6); letter-spacing: 0.03em; text-transform: uppercase; }
     .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
-    .zone-popup { display: none; background: rgba(255,255,255,0.055); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 16px; margin-top: 18px; color: white; }
-    .zone-popup.visible { display: block; }
+    .zone-popup { max-height: 0; overflow: hidden; transition: max-height 0.45s cubic-bezier(0.16,1,0.3,1); }
+    .zone-popup.visible { max-height: 300px; }
+    .zone-popup-inner { background: rgba(255,255,255,0.055); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 16px; margin-top: 18px; color: white; }
     .zone-popup-hdr { display: flex; align-items: center; gap: 9px; margin-bottom: 8px; }
     .zone-popup-name { font-family: var(--font-display); font-size: 1.22rem; color: white; }
     .zone-popup-pick { background: var(--orange); color: white; font-family: var(--font-mono); font-size: 0.58rem; padding: 2px 7px; border-radius: 3px; letter-spacing: 0.04em; text-transform: uppercase; }
@@ -240,7 +267,7 @@
     .zone-popup-cta { display: inline-flex; align-items: center; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.82rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; padding: 9px 16px; border-radius: var(--radius-sm); transition: background 0.2s; }
     .zone-popup-cta:hover { background: var(--orange-lt); }
 
-    /* Seating accordion */
+    /* ── SEAT ACCORDION (smooth) ── */
     .seat-accord { border: 1px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; }
     .seat-accord-item { border-bottom: 1px solid var(--gray-200); }
     .seat-accord-item:last-child { border-bottom: none; }
@@ -250,48 +277,74 @@
     .seat-accord-dot { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
     .seat-accord-title { font-family: var(--font-price); font-size: 1rem; font-weight: 700; color: var(--navy); }
     .seat-accord-badge { background: var(--orange); color: white; font-family: var(--font-mono); font-size: 0.58rem; font-weight: 600; padding: 2px 7px; border-radius: 3px; letter-spacing: 0.04em; text-transform: uppercase; }
-    .seat-accord-chevron { color: var(--gray-400); font-size: 0.8rem; transition: transform 0.2s; }
-    .seat-accord-body { display: none; padding: 14px 18px 16px; background: var(--off-white); font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; border-top: 1px solid var(--gray-200); }
-    .seat-accord-body.open { display: block; }
+    .seat-accord-chevron { color: var(--gray-400); font-size: 0.8rem; transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); }
+    .seat-accord-body { max-height: 0; overflow: hidden; transition: max-height 0.45s cubic-bezier(0.16,1,0.3,1); }
+    .seat-accord-body-inner { padding: 14px 18px 16px; background: var(--off-white); font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; border-top: 1px solid var(--gray-200); }
 
-    /* FAQ */
+    /* ── FAQ (smooth max-height) ── */
     .faq-list { border: 1px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; margin-bottom: 50px; }
     .faq-item { border-bottom: 1px solid var(--gray-200); }
     .faq-item:last-child { border-bottom: none; }
     .faq-q { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 15px 20px; background: white; border: none; cursor: pointer; text-align: left; font-family: var(--font-body); font-size: 0.9rem; font-weight: 700; color: var(--navy); transition: background 0.15s; }
     .faq-q:hover { background: var(--gray-100); }
-    .faq-chevron { color: var(--gray-400); font-size: 0.8rem; flex-shrink: 0; transition: transform 0.2s; }
-    .faq-a { display: none; padding: 14px 20px 16px; background: var(--off-white); font-size: 0.87rem; color: var(--text-muted); line-height: 1.7; border-top: 1px solid var(--gray-200); }
-    .faq-a.open { display: block; }
+    .faq-chevron { color: var(--gray-400); font-size: 0.8rem; flex-shrink: 0; transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); }
+    .faq-a { max-height: 0; overflow: hidden; background: var(--off-white); font-size: 0.87rem; color: var(--text-muted); line-height: 1.7; transition: max-height 0.45s cubic-bezier(0.16,1,0.3,1); }
+    .faq-a-inner { padding: 14px 20px 16px; border-top: 1px solid var(--gray-200); }
 
-    /* Also Like */
+    /* ── ALSO LIKE ── */
     .also-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 50px; }
     .also-card { background: white; border: 1.5px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; text-decoration: none; color: var(--text); transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s; display: flex; flex-direction: column; }
     .also-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.15); transform: translateY(-3px); border-color: rgba(255,107,0,0.3); }
     .also-img { aspect-ratio: 16/10; overflow: hidden; background: var(--gray-100); }
     .also-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
-    .also-card:hover .also-img img { transform: scale(1.04); }
+    .also-card:hover .also-img img { transform: scale(1.05); }
     .also-body { padding: 14px 16px; flex: 1; }
     .also-venue { font-size: 0.62rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--show-blue); margin-bottom: 3px; }
     .also-name { font-family: var(--font-price); font-size: 1.15rem; font-weight: 800; color: var(--navy); line-height: 1.1; margin-bottom: 6px; }
     .also-price { font-family: var(--font-price); font-weight: 800; font-size: 1rem; color: var(--orange); }
 
-    /* Final CTA */
-    .final-cta { background: linear-gradient(135deg, var(--show-blue) 0%, #0D1F5C 100%); padding: 56px 40px; text-align: center; }
-    .final-cta-inner { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+    /* ── FINAL CTA ── */
+    .final-cta { background: linear-gradient(135deg, var(--show-blue) 0%, #0D1F5C 60%, #0A1628 100%); padding: 56px 40px; text-align: center; position: relative; overflow: hidden; }
+    .orb { position: absolute; border-radius: 50%; pointer-events: none; }
+    .orb-1 { width: 300px; height: 300px; background: radial-gradient(ellipse, rgba(91,142,232,0.2) 0%, transparent 70%); top: -80px; left: -80px; animation: orbDrift 8s ease-in-out infinite; }
+    .orb-2 { width: 250px; height: 250px; background: radial-gradient(ellipse, rgba(255,107,0,0.12) 0%, transparent 70%); bottom: -60px; right: -60px; animation: orbDrift 10s ease-in-out infinite reverse; }
+    .orb-3 { width: 180px; height: 180px; background: radial-gradient(ellipse, rgba(26,66,168,0.15) 0%, transparent 70%); top: 50%; right: 20%; animation: orbDrift 12s ease-in-out infinite 2s; }
+    @keyframes orbDrift { 0%,100%{transform:translate(0,0)} 33%{transform:translate(18px,-14px)} 66%{transform:translate(-12px,18px)} }
+    .final-cta-inner { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 20px; position: relative; z-index: 1; }
     .final-cta-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); letter-spacing: 0.06em; color: #FFFFFF; line-height: 1; }
     .final-cta-sub { font-size: 0.95rem; color: rgba(255,255,255,0.75); line-height: 1.6; }
-    .final-cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.05rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 16px 36px; border-radius: var(--radius-sm); transition: background 0.2s, transform 0.15s; }
+    .final-cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.05rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 16px 36px; border-radius: var(--radius-sm); transition: background 0.2s, transform 0.15s; position: relative; overflow: hidden; }
+    .final-cta-btn::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent); transition: left 0.5s ease; }
+    .final-cta-btn:hover::after { left: 100%; }
     .final-cta-btn:hover { background: var(--orange-lt); transform: translateY(-2px); }
     .final-cta-note { font-size: 0.72rem; color: rgba(255,255,255,0.4); font-family: var(--font-mono); }
 
-    /* Mobile sticky */
+    /* ── MOBILE STICKY ── */
     .mobile-sticky { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--navy); border-top: 1px solid rgba(26,66,168,0.3); padding: 10px 16px; z-index: 100; align-items: center; justify-content: space-between; gap: 12px; }
     .mob-price-lbl { font-family: var(--font-mono); font-size: 0.55rem; color: rgba(255,255,255,0.28); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 1px; }
     .mob-price { font-family: var(--font-price); font-size: 2.4rem; font-weight: 800; color: var(--orange); line-height: 1; }
-    .mob-cta { flex: 1; max-width: 230px; padding: 13px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.02rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; text-align: center; border-radius: var(--radius-sm); border: none; position: relative; overflow: hidden; transition: background 0.2s; }
+    .mob-cta { flex: 1; max-width: 230px; padding: 13px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.02rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; text-align: center; border-radius: var(--radius-sm); text-decoration: none; display: block; position: relative; overflow: hidden; transition: background 0.2s; }
     .mob-cta::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.17), transparent); animation: shimmer 2s infinite; }
 
+    /* ── STICKY SAVE PILL ── */
+    #save-pill { position: fixed; right: 24px; top: 110px; background: var(--navy); border: 1px solid rgba(26,66,168,0.5); border-radius: 100px; padding: 8px 14px 8px 12px; display: flex; align-items: center; gap: 10px; box-shadow: 0 4px 24px rgba(0,0,0,0.35), 0 0 0 1px rgba(26,66,168,0.1); z-index: 40; opacity: 0; transform: translateX(20px); transition: opacity 0.35s, transform 0.35s; pointer-events: none; }
+    #save-pill.visible { opacity: 1; transform: translateX(0); pointer-events: auto; }
+    .pill-price-wrap { display: flex; flex-direction: column; }
+    .pill-from { font-family: var(--font-mono); font-size: 0.52rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.04em; }
+    .pill-price { font-family: var(--font-price); font-size: 1.25rem; font-weight: 800; color: var(--orange); line-height: 1; }
+    .pill-save-tag { font-family: var(--font-mono); font-size: 0.52rem; color: #78D878; }
+    .pill-cta-btn { background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; padding: 6px 12px; border-radius: 100px; text-decoration: none; white-space: nowrap; transition: background 0.2s; }
+    .pill-cta-btn:hover { background: var(--orange-lt); }
+
+    /* ── RIGHT EDGE DOT NAV ── */
+    .dot-nav { position: fixed; right: 18px; top: 50%; transform: translateY(-50%); z-index: 45; display: flex; flex-direction: column; gap: 12px; }
+    .nav-dot-wrap { position: relative; display: flex; align-items: center; justify-content: flex-end; }
+    .nav-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(26,66,168,0.2); border: 2px solid rgba(26,66,168,0.4); cursor: pointer; transition: background 0.25s, transform 0.25s, border-color 0.25s; flex-shrink: 0; }
+    .nav-dot.active { background: var(--show-blue); border-color: var(--show-blue); transform: scale(1.5); }
+    .nav-dot-label { position: absolute; right: 18px; background: var(--navy); color: rgba(255,255,255,0.9); font-family: var(--font-mono); font-size: 0.6rem; padding: 4px 10px; border-radius: 4px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s; border: 1px solid rgba(255,255,255,0.1); }
+    .nav-dot-wrap:hover .nav-dot-label { opacity: 1; }
+
+    /* ── RESPONSIVE ── */
     @media (max-width: 940px) {
       .page-layout { grid-template-columns: 1fr; }
       .sidebar { display: none; }
@@ -299,6 +352,9 @@
       .details-grid { grid-template-columns: repeat(2,1fr); }
       .also-grid { grid-template-columns: repeat(2,1fr); }
       .main-content { padding: 26px 16px 120px; }
+      .stats-strip { grid-template-columns: repeat(2,1fr); }
+      .dot-nav { display: none; }
+      #save-pill { display: none; }
     }
     @media (max-width: 600px) {
       .hero-content { padding: 22px 16px 26px; }
@@ -309,6 +365,12 @@
       .email-signup { flex-direction: column; gap: 12px; }
       .email-form { flex-direction: column; }
       .price-strip { flex-direction: column; align-items: flex-start; gap: 13px; }
+      .stats-strip { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+      .fade-up { opacity: 1; transform: none; }
+      .slide.active img { animation: none; }
     }
   </style>
 </head>
@@ -323,7 +385,6 @@
     <a href="/">Home</a> › <a href="/shows/">Shows</a> › <a href="/shows/spectaculars/">Spectaculars</a> › <span>Awakening</span>
   </nav>
 
-  <!-- Full-width image slider -->
   <div class="slider" role="region" aria-label="Show photos">
     <div class="slide active">
       <img src="/images/awakening-hero.webp" alt="Awakening at Wynn Las Vegas — aerial acrobat in underwater fantasy scene with jellyfish" loading="eager" />
@@ -347,7 +408,6 @@
     </div>
   </div>
 
-  <!-- Hero text -->
   <div class="hero-content-wrap">
     <div class="hero-content">
       <div class="venue-label">Awakening Theater · Wynn Las Vegas · Las Vegas Blvd</div>
@@ -368,8 +428,7 @@
     </div>
   </div>
 
-  <!-- Price strip -->
-  <div class="price-strip">
+  <div class="price-strip" id="price-strip-anchor">
     <div class="price-block">
       <div class="price-lbl">Tickets From</div>
       <div class="price-cur">$70</div>
@@ -381,11 +440,36 @@
   </div>
 </section>
 
+<!-- MARQUEE TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-inner">
+    <span class="ticker-item">80 Minutes of Aerial Spectacle</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Mon &amp; Tue · Fri &amp; Sat · 6:30 PM &amp; 9:30 PM</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Sun · 4:00 PM &amp; 6:00 PM</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">From $70 · Save $74 vs Box Office</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Wynn Las Vegas · North Strip</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">An Original Story · Built Only for Las Vegas</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">🌵 Spike's Pick — Sapphire &amp; Ruby Zones</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Custom-Built Theater · Every Seat Has a View</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Pyrotechnics · Fire · Digital Projection ✨</span><span class="ticker-sep">✦</span>
+    <!-- duplicate for seamless loop -->
+    <span class="ticker-item">80 Minutes of Aerial Spectacle</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Mon &amp; Tue · Fri &amp; Sat · 6:30 PM &amp; 9:30 PM</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Sun · 4:00 PM &amp; 6:00 PM</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">From $70 · Save $74 vs Box Office</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Wynn Las Vegas · North Strip</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">An Original Story · Built Only for Las Vegas</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">🌵 Spike's Pick — Sapphire &amp; Ruby Zones</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Custom-Built Theater · Every Seat Has a View</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Pyrotechnics · Fire · Digital Projection ✨</span><span class="ticker-sep">✦</span>
+  </div>
+</div>
+
 <div class="page-layout">
 <main class="main-content" role="main">
 
-  <!-- HAVE YOU SEEN -->
-  <div class="seen-widget fade-up">
+  <!-- SEEN WIDGET -->
+  <div class="seen-widget fade-up" id="section-seen">
     <div class="seen-tag">🌵 Spike Wants to Know</div>
     <div class="seen-q">Have you seen Awakening before?</div>
     <div class="seen-btns">
@@ -402,28 +486,48 @@
 
   <!-- TRUST GRID -->
   <div class="trust-grid fade-up">
-    <div class="trust-card"><div class="trust-icon">🔒</div><div><div class="trust-card-title">Secure Booking</div><div class="trust-card-desc">Every transaction uses safe, encrypted checkout. Your payment info is always protected.</div></div></div>
+    <div class="trust-card"><div class="trust-icon">🔒</div><div><div class="trust-card-title">Secure Booking</div><div class="trust-card-desc">Every transaction uses secure, encrypted checkout. Your payment information is always protected.</div></div></div>
     <div class="trust-card"><div class="trust-icon">⚡</div><div><div class="trust-card-title">Instant Delivery</div><div class="trust-card-desc">Tickets arrive by email immediately after purchase. No will-call, no waiting.</div></div></div>
     <div class="trust-card"><div class="trust-icon">✅</div><div><div class="trust-card-title">No Hidden Fees</div><div class="trust-card-desc">The price you see is the price you pay. Nothing added at checkout.</div></div></div>
     <div class="trust-card"><div class="trust-icon">🎫</div><div><div class="trust-card-title">No Account Required</div><div class="trust-card-desc">Buy without creating an account. Fast, clean, tickets straight to your inbox.</div></div></div>
   </div>
 
   <!-- ABOUT -->
-  <section class="section fade-up" aria-labelledby="about-heading">
-    <h2 id="about-heading" class="section-title">About <span>Awakening</span></h2>
+  <div class="section fade-up" id="section-about">
+    <h2 class="section-title">About <span>Awakening</span></h2>
     <div class="about-body">
       <p>Awakening is one of the most ambitious original productions Las Vegas has seen in years — a full-scale fantasy spectacular built exclusively for Wynn Las Vegas. The show runs in the custom-designed Awakening Theater, a purpose-built venue engineered specifically around the production's demands for aerial flight paths, pyrotechnics, and immersive staging.</p>
       <p>The story follows a battle between ancient forces of nature. Over 80 minutes, the cast of world-class acrobats, aerialists, and dancers brings that conflict to life through aerial sequences, fire effects, digital projection, and choreography designed at a scale that puts most Las Vegas productions to shame. This is not a revue or a compilation show — it's a fully realized original work with a beginning, middle, and end.</p>
       <div class="spike-callout">
         <div class="spike-emoji">🌵</div>
         <div class="spike-text">
-          <strong>🌵 Spike's Pick — Vegas Sidekick Recommends</strong>
+          <strong>Spike's Pick — Vegas Sidekick Recommends</strong>
           Awakening is the kind of show Wynn builds when they're trying to remind the rest of the Strip what a real production looks like. A custom theater, a massive budget, and an original story make this one of the most complete theatrical experiences in Las Vegas. If you want to see something that feels genuinely unlike anything else — not a tribute show, not a touring act — this is it.
         </div>
       </div>
       <p>Non-flash photography is permitted during the show. Video recording is not. The production includes pyrotechnics, smoke, elevated sound, and dramatic lighting — guests with photosensitivity, epilepsy, or sensitivity to light and sound should take note before attending.</p>
     </div>
-  </section>
+  </div>
+
+  <!-- STATS STRIP -->
+  <div class="stats-strip fade-up">
+    <div class="stat-block">
+      <div class="stat-num"><span class="count-target" data-target="80">80</span></div>
+      <div class="stat-lbl">Minutes Runtime</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-num"><span class="count-target" data-target="51">51</span><span class="stat-suf">%</span></div>
+      <div class="stat-lbl">Off Box Office</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-num"><span class="count-target" data-target="5">5</span></div>
+      <div class="stat-lbl">Nights Per Week</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-num"><span class="count-target" data-target="2">2</span></div>
+      <div class="stat-lbl">Shows Per Night</div>
+    </div>
+  </div>
 
   <!-- EMAIL SIGNUP -->
   <div class="email-signup fade-up">
@@ -441,8 +545,8 @@
   </div>
 
   <!-- SHOW DETAILS -->
-  <section class="section fade-up" aria-labelledby="details-heading">
-    <h2 id="details-heading" class="section-title">Show <span>Details</span></h2>
+  <div class="section fade-up" id="section-details">
+    <h2 class="section-title">Show <span>Details</span></h2>
     <div class="details-grid">
       <div class="detail-card">
         <div class="detail-card-icon">📍</div>
@@ -455,6 +559,7 @@
         <div class="detail-card-lbl">Show Days &amp; Times</div>
         <div class="detail-card-val">Mon, Tue, Fri &amp; Sat</div>
         <div class="detail-card-sub">6:30 PM &amp; 9:30 PM. Dark Wednesday &amp; Thursday.</div>
+        <button class="cal-btn" onclick="addToCalendar()">📅 Add to Calendar</button>
       </div>
       <div class="detail-card">
         <div class="detail-card-icon">🕓</div>
@@ -478,14 +583,14 @@
         <div class="detail-card-icon">📸</div>
         <div class="detail-card-lbl">Photography</div>
         <div class="detail-card-val">Non-Flash OK</div>
-        <div class="detail-card-sub">Non-flash photos are permitted as long as they're not disruptive. Video recording is not allowed inside the theater.</div>
+        <div class="detail-card-sub">Still photos are generally welcome — check with your usher before shooting. No flash photography and no video recording.</div>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- WHAT TO EXPECT -->
-  <section class="section fade-up" aria-labelledby="expect-heading">
-    <h2 id="expect-heading" class="section-title">What to <span>Expect</span></h2>
+  <div class="section fade-up" id="section-expect">
+    <h2 class="section-title">What to <span>Expect</span></h2>
     <div class="expect-grid">
       <div class="expect-card">
         <div class="expect-title"><span>🔥</span> Pyrotechnics &amp; Visual Effects</div>
@@ -512,11 +617,11 @@
         <div class="expect-desc">This is a flagship production at one of Las Vegas's most premium resorts. Costumes, choreography, and technical execution are all at the highest level the Strip offers.</div>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- SEATING CHART -->
-  <section class="seating-section fade-up" aria-labelledby="seating-heading">
-    <h2 id="seating-heading" class="section-title">Awakening Theater <span>Seating Chart</span></h2>
+  <div class="seating-section fade-up" id="section-seating">
+    <h2 class="section-title">Awakening Theater <span>Seating Chart</span></h2>
     <p style="font-size:.94rem;color:var(--text-muted);line-height:1.7;margin-bottom:20px;">The Awakening Theater has six sections (A–F) arranged around a central circular stage, with five price zones from the stage outward. <strong>Spike's Pick: Sapphire &amp; Ruby</strong> — the sweet spot for sightlines and price. Click any zone to see Spike's notes.</p>
 
     <div class="seating-diagram-wrap">
@@ -537,14 +642,12 @@
         <circle cx="350" cy="340" r="100" fill="#E0E0E0" onclick="selectZone('diamond')" />
         <circle cx="350" cy="340" r="60" fill="#111827" />
         <text x="350" y="334" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="13" font-weight="700" fill="rgba(255,255,255,0.55)" letter-spacing="1" style="pointer-events:none">STAGE</text>
-        <!-- Aisle lines -->
         <line x1="350" y1="340" x2="350" y2="78" stroke="#060E1A" stroke-width="18" />
         <line x1="350" y1="340" x2="575" y2="210" stroke="#060E1A" stroke-width="10" />
         <line x1="350" y1="340" x2="575" y2="470" stroke="#060E1A" stroke-width="10" />
         <line x1="350" y1="340" x2="350" y2="602" stroke="#060E1A" stroke-width="10" />
         <line x1="350" y1="340" x2="125" y2="470" stroke="#060E1A" stroke-width="10" />
         <line x1="350" y1="340" x2="125" y2="210" stroke="#060E1A" stroke-width="10" />
-        <!-- Section labels -->
         <text x="469" y="134" text-anchor="middle" dominant-baseline="middle" font-family="Barlow Condensed,sans-serif" font-size="20" font-weight="800" fill="rgba(255,255,255,0.7)" style="pointer-events:none">E</text>
         <text x="585" y="340" text-anchor="middle" dominant-baseline="middle" font-family="Barlow Condensed,sans-serif" font-size="20" font-weight="800" fill="rgba(255,255,255,0.7)" style="pointer-events:none">F</text>
         <text x="469" y="546" text-anchor="middle" dominant-baseline="middle" font-family="Barlow Condensed,sans-serif" font-size="20" font-weight="800" fill="rgba(255,255,255,0.7)" style="pointer-events:none">A</text>
@@ -555,12 +658,14 @@
       </svg>
 
       <div class="zone-popup" id="zonePopup">
-        <div class="zone-popup-hdr">
-          <div class="zone-popup-name" id="zoneName">—</div>
-          <div class="zone-popup-pick" id="zonePick" style="display:none">🌵 Spike's Pick</div>
+        <div class="zone-popup-inner">
+          <div class="zone-popup-hdr">
+            <div class="zone-popup-name" id="zoneName">—</div>
+            <div class="zone-popup-pick" id="zonePick" style="display:none">🌵 Spike's Pick</div>
+          </div>
+          <div class="zone-popup-desc" id="zoneDesc"></div>
+          <a href="https://spotlight.vegas/shows/production/awakening/ref/vegassidekick" class="zone-popup-cta" target="_blank" rel="noopener">Get Tickets in This Zone →</a>
         </div>
-        <div class="zone-popup-desc" id="zoneDesc"></div>
-        <a href="https://spotlight.vegas/shows/production/awakening/ref/vegassidekick" class="zone-popup-cta" target="_blank" rel="noopener">Get Tickets in This Zone →</a>
       </div>
     </div>
 
@@ -570,81 +675,81 @@
           <div class="seat-accord-left"><div class="seat-accord-dot" style="background:#E0E0E0;border:1px solid #aaa"></div><div class="seat-accord-title">Diamond — Front Rows</div></div>
           <span class="seat-accord-chevron">▼</span>
         </button>
-        <div class="seat-accord-body">The closest zone to the stage in any section. Effects land at maximum intensity from Diamond, and aerial sequences pass directly overhead. Premium price for the most immersive experience in the house.</div>
+        <div class="seat-accord-body"><div class="seat-accord-body-inner">The closest zone to the stage in any section. Effects land at maximum intensity from Diamond, and aerial sequences pass directly overhead. Premium price for the most immersive experience in the house.</div></div>
       </div>
       <div class="seat-accord-item">
         <button class="seat-accord-trigger" onclick="toggleAccord(this)">
           <div class="seat-accord-left"><div class="seat-accord-dot" style="background:#38A050"></div><div class="seat-accord-title">Emerald — Second Tier</div></div>
           <span class="seat-accord-chevron">▼</span>
         </button>
-        <div class="seat-accord-body">One tier back from Diamond. Excellent proximity with a slightly broader view of the full stage — which some prefer for a show as visually complex as Awakening.</div>
+        <div class="seat-accord-body"><div class="seat-accord-body-inner">One tier back from Diamond. Excellent proximity with a slightly broader view of the full stage — which some prefer for a show as visually complex as Awakening.</div></div>
       </div>
       <div class="seat-accord-item">
         <button class="seat-accord-trigger" onclick="toggleAccord(this)">
           <div class="seat-accord-left"><div class="seat-accord-dot" style="background:#2860C0"></div><div class="seat-accord-title">Sapphire — Third Tier</div><span class="seat-accord-badge">🌵 Spike's Pick</span></div>
           <span class="seat-accord-chevron">▼</span>
         </button>
-        <div class="seat-accord-body"><strong>Spike's Pick.</strong> Far enough back to take in the full aerial picture while still close enough to feel every effect. Best balance of experience and price in the theater.</div>
+        <div class="seat-accord-body"><div class="seat-accord-body-inner"><strong>Spike's Pick.</strong> Far enough back to take in the full aerial picture while still close enough to feel every effect. Best balance of experience and price in the theater.</div></div>
       </div>
       <div class="seat-accord-item">
         <button class="seat-accord-trigger" onclick="toggleAccord(this)">
           <div class="seat-accord-left"><div class="seat-accord-dot" style="background:#C01828"></div><div class="seat-accord-title">Ruby — Fourth Tier</div><span class="seat-accord-badge">🌵 Spike's Pick</span></div>
           <span class="seat-accord-chevron">▼</span>
         </button>
-        <div class="seat-accord-body"><strong>Spike's Pick.</strong> Similar sightlines to Sapphire at a lower price point. The Awakening Theater was built for this show — even Ruby gives you a clear view of every aerial sequence and effect.</div>
+        <div class="seat-accord-body"><div class="seat-accord-body-inner"><strong>Spike's Pick.</strong> Similar sightlines to Sapphire at a lower price point. The Awakening Theater was built for this show — even Ruby gives you a clear view of every aerial sequence and effect.</div></div>
       </div>
       <div class="seat-accord-item">
         <button class="seat-accord-trigger" onclick="toggleAccord(this)">
           <div class="seat-accord-left"><div class="seat-accord-dot" style="background:#C85AAA"></div><div class="seat-accord-title">Topaz — Back Rows</div></div>
           <span class="seat-accord-chevron">▼</span>
         </button>
-        <div class="seat-accord-body">The furthest zone, but this is an intimate custom-built theater — not an arena. Topaz still has clear sightlines to the stage and aerial sequences. A smart buy if you want to see the show on a tighter budget.</div>
+        <div class="seat-accord-body"><div class="seat-accord-body-inner">The furthest zone, but this is an intimate custom-built theater — not an arena. Topaz still has clear sightlines to the stage and aerial sequences. A smart buy if you want to see the show on a tighter budget.</div></div>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- FAQ -->
-  <section class="section fade-up" aria-labelledby="faq-heading">
-    <h2 id="faq-heading" class="section-title">Frequently Asked <span>Questions</span></h2>
+  <div class="section fade-up" id="section-faq">
+    <h2 class="section-title">Frequently Asked <span>Questions</span></h2>
     <div class="faq-list">
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">How long is Awakening? <span class="faq-chevron">▼</span></button>
-        <div class="faq-a">Awakening runs approximately 80 minutes with no intermission. Plan to arrive 15–20 minutes early to find your seats and settle in before the show begins.</div>
+        <div class="faq-a"><div class="faq-a-inner">Awakening runs approximately 80 minutes with no intermission. Plan to arrive 15–20 minutes early to find your seats and settle in before the show begins.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">What is the age requirement for Awakening? <span class="faq-chevron">▼</span></button>
-        <div class="faq-a">Everyone in attendance must be at least 5 years of age. All guests, including children, must have a valid ticket to enter. The show's pyrotechnics and elevated sound may be too intense for very young children — use your best judgment.</div>
+        <div class="faq-a"><div class="faq-a-inner">Everyone in attendance must be at least 5 years of age. All guests, including children, must have a valid ticket to enter. The show's pyrotechnics and elevated sound may be too intense for very young children — use your best judgment.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Can I take photos or video at Awakening? <span class="faq-chevron">▼</span></button>
-        <div class="faq-a">Non-flash photography is permitted during the show as long as it's not disruptive to other guests. Video recording of any kind is not allowed inside the Awakening Theater.</div>
+        <div class="faq-a"><div class="faq-a-inner">Still photos are generally welcome — check with your usher before shooting. No flash photography and no video recording. Ushers may ask you to stop at any time.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">What special effects does Awakening use? <span class="faq-chevron">▼</span></button>
-        <div class="faq-a">Awakening features pyrotechnics, smoke effects, elevated sound design, and dramatic lighting changes throughout the show. Guests with photosensitivity, epilepsy, or other conditions with sensitivity to light and sound should be aware before attending.</div>
+        <div class="faq-a"><div class="faq-a-inner">Awakening features pyrotechnics, smoke effects, elevated sound design, and dramatic lighting changes throughout the show. Guests with photosensitivity, epilepsy, or other conditions with sensitivity to light and sound should be aware before attending.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Which seats are best for Awakening? <span class="faq-chevron">▼</span></button>
-        <div class="faq-a">Spike's Pick is Sapphire or Ruby — the sweet spot for price and sightlines. Both zones give you a full view of the aerial sequences and stage effects. Diamond is the most immersive if budget isn't a concern.</div>
+        <div class="faq-a"><div class="faq-a-inner">Spike's Pick is Sapphire or Ruby — the sweet spot for price and sightlines. Both zones give you a full view of the aerial sequences and stage effects. Diamond is the most immersive if budget isn't a concern.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">What days does Awakening perform? <span class="faq-chevron">▼</span></button>
-        <div class="faq-a">Awakening performs Monday, Tuesday, Friday, and Saturday at 6:30 PM and 9:30 PM, and Sunday at 4:00 PM and 6:00 PM. The show is dark on Wednesday and Thursday.</div>
+        <div class="faq-a"><div class="faq-a-inner">Awakening performs Monday, Tuesday, Friday, and Saturday at 6:30 PM and 9:30 PM, and Sunday at 4:00 PM and 6:00 PM. The show is dark on Wednesday and Thursday.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Where is Awakening located? <span class="faq-chevron">▼</span></button>
-        <div class="faq-a">Awakening performs in the Awakening Theater at Wynn Las Vegas, 3131 Las Vegas Blvd South. Wynn is on the north end of the Strip, between Spring Mountain Road and Sands Avenue. Self-parking and valet are available at the resort.</div>
+        <div class="faq-a"><div class="faq-a-inner">Awakening performs in the Awakening Theater at Wynn Las Vegas, 3131 Las Vegas Blvd South. Wynn is on the north end of the Strip, between Spring Mountain Road and Sands Avenue. Self-parking and valet are available at the resort.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Can I get a refund if my plans change? <span class="faq-chevron">▼</span></button>
-        <div class="faq-a">Tickets are generally non-refundable once purchased. If your travel plans change, some exchanges may be possible — check the cancellation terms at checkout before completing your order. We recommend booking once your trip dates are confirmed.</div>
+        <div class="faq-a"><div class="faq-a-inner">Refunds are available for exceptional circumstances such as the unlikely event that a show cancels. Check the full terms and conditions before purchasing.</div></div>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- ALSO LIKE -->
-  <section class="section fade-up" aria-labelledby="also-heading">
-    <h2 id="also-heading" class="section-title">You Might Also <span>Like</span></h2>
+  <div class="section fade-up">
+    <h2 class="section-title">You Might Also <span>Like</span></h2>
     <div class="also-grid">
       <a href="/shows/adult/absinthe/" class="also-card">
         <div class="also-img"><img src="/images/absinthe-hero.webp" alt="Absinthe at Caesars Palace Las Vegas" loading="lazy" /></div>
@@ -671,11 +776,11 @@
         </div>
       </a>
     </div>
-  </section>
+  </div>
 
 </main>
 
-<!-- DESKTOP SIDEBAR -->
+<!-- SIDEBAR -->
 <aside class="sidebar" aria-label="Ticket information">
   <div class="sb-price-lbl">Tickets From</div>
   <div class="sb-price">$70</div>
@@ -684,9 +789,9 @@
   <a href="https://spotlight.vegas/shows/production/awakening/ref/vegassidekick" target="_blank" rel="noopener" class="sb-cta">🎟️ Get Tickets Now</a>
   <div class="sb-div"></div>
   <ul class="trust-list">
+    <li><div class="t-check">✓</div>Secure, encrypted checkout</li>
+    <li><div class="t-check">✓</div>Instant email delivery</li>
     <li><div class="t-check">✓</div>No hidden fees</li>
-    <li><div class="t-check">✓</div>Instant ticket delivery</li>
-    <li><div class="t-check">✓</div>Choose your own seats</li>
     <li><div class="t-check">✓</div>No account required</li>
   </ul>
   <div class="sb-div"></div>
@@ -700,15 +805,18 @@
 
 <!-- FINAL CTA -->
 <div class="final-cta">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
   <div class="final-cta-inner">
     <div class="final-cta-title">Ready to See Awakening?</div>
-    <div class="final-cta-sub">Tickets from $70 — save $74 vs. the Wynn box office. Choose your zone, pick your seats, and get your tickets in under two minutes.</div>
-    <a href="https://spotlight.vegas/shows/production/awakening/ref/vegassidekick" class="final-cta-btn" target="_blank" rel="noopener">🎟️ Get Tickets Now</a>
-    <div class="final-cta-note">No hidden fees · Instant delivery · Choose your seats</div>
+    <p class="final-cta-sub">Tickets from $70 — save $74 vs. the Wynn box office. Choose your zone, pick your seats, and get your tickets in under two minutes.</p>
+    <a href="https://spotlight.vegas/shows/production/awakening/ref/vegassidekick" class="final-cta-btn" target="_blank" rel="noopener">Get Tickets — From $70 →</a>
+    <div class="final-cta-note">Save $74 vs. box office · Prices may increase closer to show date</div>
   </div>
 </div>
 
-<!-- MOBILE STICKY BAR -->
+<!-- MOBILE STICKY -->
 <div class="mobile-sticky" aria-label="Buy tickets">
   <div>
     <div class="mob-price-lbl">From</div>
@@ -717,43 +825,105 @@
   <a href="https://spotlight.vegas/shows/production/awakening/ref/vegassidekick" class="mob-cta" target="_blank" rel="noopener">Get Tickets →</a>
 </div>
 
+<!-- STICKY SAVE PILL (desktop) -->
+<div id="save-pill" aria-hidden="true">
+  <div class="pill-price-wrap">
+    <div class="pill-from">From</div>
+    <div class="pill-price">$70</div>
+    <div class="pill-save-tag">Save $74</div>
+  </div>
+  <a href="https://spotlight.vegas/shows/production/awakening/ref/vegassidekick" target="_blank" rel="noopener" class="pill-cta-btn">Get Tickets →</a>
+</div>
+
+<!-- RIGHT EDGE DOT NAV -->
+<nav class="dot-nav" aria-label="Page sections">
+  <div class="nav-dot-wrap"><div class="nav-dot-label">Seen It?</div><div class="nav-dot active" onclick="scrollToSection('section-seen')" role="button" tabindex="0"></div></div>
+  <div class="nav-dot-wrap"><div class="nav-dot-label">About</div><div class="nav-dot" onclick="scrollToSection('section-about')" role="button" tabindex="0"></div></div>
+  <div class="nav-dot-wrap"><div class="nav-dot-label">Details</div><div class="nav-dot" onclick="scrollToSection('section-details')" role="button" tabindex="0"></div></div>
+  <div class="nav-dot-wrap"><div class="nav-dot-label">Expect</div><div class="nav-dot" onclick="scrollToSection('section-expect')" role="button" tabindex="0"></div></div>
+  <div class="nav-dot-wrap"><div class="nav-dot-label">Seating</div><div class="nav-dot" onclick="scrollToSection('section-seating')" role="button" tabindex="0"></div></div>
+  <div class="nav-dot-wrap"><div class="nav-dot-label">FAQ</div><div class="nav-dot" onclick="scrollToSection('section-faq')" role="button" tabindex="0"></div></div>
+</nav>
+
 <div id="vs-footer"></div>
 <script src="/components/footer.js"></script>
 
 <script>
-  // Progress bar
-  window.addEventListener('scroll', function() {
-    const el = document.getElementById('progress-bar');
-    const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
-    el.style.width = Math.min(pct, 100) + '%';
-  });
+  // ── SCROLL HANDLER ──
+  const progressBar = document.getElementById('progress-bar');
+  const savePill = document.getElementById('save-pill');
+  const priceAnchor = document.getElementById('price-strip-anchor');
+  const heroSlider = document.querySelector('.slider');
 
-  // Image slider
-  let slides = document.querySelectorAll('.slide');
-  let dots   = document.querySelectorAll('.dot-btn');
-  let cur    = 0, timer;
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
+    progressBar.style.width = Math.min((scrollY / maxScroll) * 100, 100) + '%';
+
+    if (heroSlider) heroSlider.style.transform = 'translateY(' + (scrollY * 0.28) + 'px)';
+
+    if (priceAnchor) {
+      const rect = priceAnchor.getBoundingClientRect();
+      savePill.classList.toggle('visible', rect.bottom < 0);
+      savePill.setAttribute('aria-hidden', rect.bottom >= 0 ? 'true' : 'false');
+    }
+
+    updateDotNav();
+  }, { passive: true });
+
+  // ── SLIDER ──
+  let slideIdx = 0;
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot-btn');
+
   function goToSlide(n) {
-    slides[cur].classList.remove('active'); dots[cur].classList.remove('active');
-    cur = (n + slides.length) % slides.length;
-    slides[cur].classList.add('active'); dots[cur].classList.add('active');
-    clearInterval(timer); timer = setInterval(() => goToSlide(cur + 1), 5000);
+    const oldImg = slides[slideIdx].querySelector('img');
+    oldImg.style.animation = 'none';
+    slides[slideIdx].classList.remove('active');
+    dots[slideIdx].classList.remove('active');
+    dots[slideIdx].setAttribute('aria-selected', 'false');
+    slideIdx = (n + slides.length) % slides.length;
+    slides[slideIdx].classList.add('active');
+    dots[slideIdx].classList.add('active');
+    dots[slideIdx].setAttribute('aria-selected', 'true');
+    const newImg = slides[slideIdx].querySelector('img');
+    void newImg.offsetWidth;
+    newImg.style.animation = '';
   }
-  function sliderMove(dir) { goToSlide(cur + dir); }
-  timer = setInterval(() => goToSlide(cur + 1), 5000);
+  function sliderMove(dir) { goToSlide(slideIdx + dir); }
+  setInterval(() => goToSlide(slideIdx + 1), 5500);
 
-  // Fade-up on scroll
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  // ── FADE UP ──
+  const fadeObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); fadeObs.unobserve(e.target); } });
   }, { threshold: 0.08 });
-  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+  document.querySelectorAll('.fade-up').forEach(el => fadeObs.observe(el));
 
-  // Seen widget
+  // ── COUNT-UP ──
+  const countObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      const target = parseInt(el.dataset.target, 10);
+      const start = performance.now();
+      function step(now) {
+        const p = Math.min((now - start) / 1300, 1);
+        el.textContent = Math.round((1 - Math.pow(1 - p, 3)) * target);
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+      countObs.unobserve(el);
+    });
+  }, { threshold: 0.6 });
+  document.querySelectorAll('.count-target').forEach(el => countObs.observe(el));
+
+  // ── SEEN WIDGET ──
   function showSeen(id) {
     document.querySelectorAll('.seen-resp').forEach(el => el.classList.remove('visible'));
     document.getElementById('seen-' + id).classList.add('visible');
   }
 
-  // Zone select
+  // ── ZONE SELECT ──
   const zoneData = {
     diamond:  { name: 'Diamond',  pick: false, desc: 'The front rows in any section — effects land at maximum intensity, and aerial sequences pass directly overhead. Premium price for the most immersive experience in the house.' },
     emerald:  { name: 'Emerald',  pick: false, desc: 'One tier back from Diamond. Excellent proximity with a slightly broader view of the full stage — which some prefer for a show as visually complex as Awakening.' },
@@ -765,30 +935,94 @@
     const z = zoneData[id];
     document.getElementById('zoneName').textContent = z.name;
     document.getElementById('zoneDesc').textContent = z.desc;
-    const pick = document.getElementById('zonePick');
-    pick.style.display = z.pick ? 'inline-block' : 'none';
+    document.getElementById('zonePick').style.display = z.pick ? 'inline-block' : 'none';
     const popup = document.getElementById('zonePopup');
     popup.classList.add('visible');
-    popup.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    setTimeout(() => popup.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
   }
 
-  // Accordion
+  // ── SEAT ACCORDION (smooth) ──
   function toggleAccord(btn) {
     const body = btn.nextElementSibling;
+    const inner = body.querySelector('.seat-accord-body-inner');
     const chev = btn.querySelector('.seat-accord-chevron');
-    const open = body.classList.toggle('open');
-    chev.style.transform = open ? 'rotate(180deg)' : '';
+    const isOpen = body.style.maxHeight && body.style.maxHeight !== '0px';
+    body.style.maxHeight = isOpen ? '0' : inner.scrollHeight + 'px';
+    chev.style.transform = isOpen ? '' : 'rotate(180deg)';
   }
 
-  // FAQ
+  // ── FAQ (smooth max-height) ──
   function toggleFaq(btn) {
-    const ans  = btn.nextElementSibling;
-    const chev = btn.querySelector('.faq-chevron');
-    const open = ans.classList.toggle('open');
-    chev.style.transform = open ? 'rotate(180deg)' : '';
+    const item = btn.parentElement;
+    const ans = item.querySelector('.faq-a');
+    const inner = item.querySelector('.faq-a-inner');
+    const chevron = btn.querySelector('.faq-chevron');
+    const wasOpen = item.classList.contains('open');
+
+    document.querySelectorAll('.faq-item.open').forEach(el => {
+      el.classList.remove('open');
+      el.querySelector('.faq-a').style.maxHeight = '0';
+      el.querySelector('.faq-chevron').style.transform = '';
+    });
+
+    if (!wasOpen) {
+      item.classList.add('open');
+      ans.style.maxHeight = inner.scrollHeight + 'px';
+      chevron.style.transform = 'rotate(180deg)';
+    }
   }
 
-  // Email
+  // ── RIGHT-EDGE DOT NAV ──
+  const navSections = ['section-seen','section-about','section-details','section-expect','section-seating','section-faq'];
+  const navDots = document.querySelectorAll('.nav-dot');
+
+  function updateDotNav() {
+    const mid = window.scrollY + window.innerHeight * 0.4;
+    let active = 0;
+    navSections.forEach((id, i) => {
+      const el = document.getElementById(id);
+      if (el && el.offsetTop <= mid) active = i;
+    });
+    navDots.forEach((d, i) => d.classList.toggle('active', i === active));
+  }
+
+  function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ── ADD TO CALENDAR ──
+  function addToCalendar() {
+    const showDays = [1, 2, 5, 6, 0]; // Mon, Tue, Fri, Sat, Sun
+    const now = new Date();
+    let next = null;
+    for (let i = 0; i <= 7; i++) {
+      const d = new Date(now);
+      d.setDate(d.getDate() + i);
+      const day = d.getDay();
+      if (showDays.includes(day)) {
+        const h = day === 0 ? 16 : 18; // Sun 4PM, others 6:30PM
+        d.setHours(h, day === 0 ? 0 : 30, 0, 0);
+        if (d > now) { next = d; break; }
+      }
+    }
+    if (!next) return;
+    function fmt(d) {
+      return d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0') +
+        'T' + String(d.getHours()).padStart(2,'0') + String(d.getMinutes()).padStart(2,'0') + '00';
+    }
+    const end = new Date(next.getTime() + 80 * 60 * 1000);
+    window.open(
+      'https://calendar.google.com/calendar/render?action=TEMPLATE' +
+      '&text=Awakening+at+Wynn+Las+Vegas' +
+      '&dates=' + fmt(next) + '/' + fmt(end) +
+      '&details=Tickets+from+%2470+%E2%80%94+Save+%2474+vs.+box+office.+Book+at+vegassidekick.com%2Fshows%2Fspectaculars%2Fawakening%2F' +
+      '&location=Awakening+Theater%2C+Wynn+Las+Vegas%2C+3131+Las+Vegas+Blvd+S%2C+Las+Vegas+NV+89109',
+      '_blank'
+    );
+  }
+
+  // ── EMAIL ──
   async function submitEmail() {
     const inp = document.getElementById('emailInp');
     const email = inp.value.trim();
