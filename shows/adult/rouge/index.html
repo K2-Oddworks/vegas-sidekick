@@ -101,7 +101,12 @@
     a    { text-decoration: none; color: inherit; }
     button { font-family: inherit; cursor: pointer; }
 
-    #progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--show-red), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; box-shadow: 0 0 10px var(--show-red), 0 0 20px rgba(196,18,48,0.35); }
+    #progress-bar { overflow: hidden; position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--show-red), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; box-shadow: 0 0 10px var(--show-red), 0 0 20px rgba(196,18,48,0.35); }
+    #progress-bar-bottom { position: fixed; bottom: 0; left: 0; right: 0; height: 3px; width: 0%; background: linear-gradient(270deg, var(--show-red), var(--orange)); box-shadow: 0 0 10px var(--show-red), 0 0 20px rgba(196,18,48,0.35); z-index: 9999; pointer-events: none; transition: width 0.1s linear; overflow: hidden; }
+    #progress-bar::after, #progress-bar-bottom::after { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%); animation: pb-shimmer 2.2s linear infinite; }
+    @keyframes pb-shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
+    @media (max-width: 940px) { #progress-bar-bottom { bottom: 72px; } }
+    @keyframes pb-shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
 
     /* ── DOT NAV ── */
     .dot-nav { position: fixed; right: 18px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 900; }
@@ -359,6 +364,7 @@
 <body>
 <div id="vs-header"></div>
 <div id="progress-bar" aria-hidden="true"></div>
+<div id="progress-bar-bottom" aria-hidden="true"></div>
 
 <!-- RIGHT-EDGE DOT NAV -->
 <nav class="dot-nav" aria-label="Page sections">
@@ -864,6 +870,7 @@
     const pct = (window.scrollY / Math.max(1, document.documentElement.scrollHeight - window.innerHeight)) * 100;
     const v = Math.min(pct, 100);
     document.getElementById('progress-bar').style.width = v + '%';
+    document.getElementById('progress-bar-bottom').style.width = v + '%';
     const mob = document.getElementById('mob-progress');
     if (mob) mob.style.width = v + '%';
 
