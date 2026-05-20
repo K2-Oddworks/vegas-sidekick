@@ -10,14 +10,14 @@
   <link rel="canonical" href="https://vegassidekick.com/shows/music/rupauls-drag-race-live/" />
   <meta property="og:title" content="RuPaul's Drag Race LIVE! | Vegas Sidekick" />
   <meta property="og:description" content="The Emmy Award-winning franchise live on stage at Flamingo Las Vegas. 90 minutes of drag, lip syncs, comedy, and fire. From $91." />
-  <meta property="og:image" content="https://vegassidekick.com/images/rupauls-drag-race-live-hero.jpg" />
+  <meta property="og:image" content="https://vegassidekick.com/images/rupauls-drag-race-live-hero.webp" />
   <meta property="og:url" content="https://vegassidekick.com/shows/music/rupauls-drag-race-live/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Vegas Sidekick" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="RuPaul's Drag Race LIVE! | Vegas Sidekick" />
   <meta name="twitter:description" content="The Emmy Award-winning franchise live on stage at Flamingo. From $91, save $30." />
-  <meta name="twitter:image" content="https://vegassidekick.com/images/rupauls-drag-race-live-hero.jpg" />
+  <meta name="twitter:image" content="https://vegassidekick.com/images/rupauls-drag-race-live-hero.webp" />
 
   <script type="application/ld+json">
   {
@@ -25,7 +25,7 @@
     "@type": "EventSeries",
     "name": "RuPaul's Drag Race LIVE!",
     "description": "90-minute original production based on the Emmy Award-winning RuPaul's Drag Race. Features world-famous drag queens in lip syncs, comedy, and dance numbers at the Flamingo Showroom, Las Vegas.",
-    "image": "https://vegassidekick.com/images/rupauls-drag-race-live-hero.jpg",
+    "image": "https://vegassidekick.com/images/rupauls-drag-race-live-hero.webp",
     "url": "https://vegassidekick.com/shows/music/rupauls-drag-race-live/",
     "eventStatus": "https://schema.org/EventScheduled",
     "organizer": { "@type": "Organization", "name": "Flamingo Las Vegas" },
@@ -95,18 +95,23 @@
     a    { text-decoration: none; color: inherit; }
     button { font-family: inherit; cursor: pointer; }
 
-    #progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--show-pink), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; }
+    /* ── PROGRESS BAR ── */
+    #progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--show-pink), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; box-shadow: 0 0 10px var(--show-pink), 0 0 20px rgba(204,0,102,0.35); }
 
+    /* ── HERO ── */
     .hero { background: var(--navy); padding-top: 84px; }
     .breadcrumb { padding: 12px 24px; background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.05); font-family: var(--font-mono); font-size: 0.67rem; color: rgba(255,255,255,0.36); letter-spacing: 0.04em; }
     .breadcrumb a { color: rgba(255,255,255,0.36); transition: color 0.2s; }
     .breadcrumb a:hover { color: var(--orange); }
     .breadcrumb span { color: rgba(255,255,255,0.7); }
 
+    /* ── SLIDER ── */
     .slider { position: relative; width: 100%; aspect-ratio: 16/9; max-height: 560px; overflow: hidden; background: var(--navy-mid); }
     .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.65s ease; }
     .slide.active { opacity: 1; }
-    .slide img { width: 100%; height: 100%; object-fit: cover; }
+    .slide img { width: 100%; height: 100%; object-fit: cover; transform-origin: center center; }
+    @keyframes kenBurns { from { transform: scale(1) translate(0,0); } to { transform: scale(1.08) translate(0.4%,0.4%); } }
+    .slide.active img { animation: kenBurns 9s ease-out forwards; }
     .slider-dots { position: absolute; bottom: 13px; left: 50%; transform: translateX(-50%); display: flex; gap: 7px; z-index: 3; }
     .dot-btn { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.28); border: none; padding: 0; transition: background 0.2s, transform 0.2s; cursor: pointer; }
     .dot-btn.active { background: var(--orange); transform: scale(1.4); }
@@ -115,6 +120,7 @@
     .s-arrow.prev { left: 13px; }
     .s-arrow.next { right: 13px; }
 
+    /* ── HERO CONTENT ── */
     .hero-content-wrap { max-width: 1200px; margin: 0 auto; }
     .hero-content { padding: 28px 24px 32px; }
     .venue-label { font-family: var(--font-mono); font-size: 0.69rem; color: var(--show-pink-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 9px; }
@@ -123,25 +129,37 @@
     .info-pills { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 15px; }
     .pill { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: 100px; font-family: var(--font-mono); font-size: 0.67rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.74); border: 1px solid rgba(255,255,255,0.11); }
     .pill-pink { background: rgba(204,0,102,0.25); color: var(--show-pink-lt); border-color: rgba(255,51,153,0.4); }
-    .pill-pick { background: rgba(201,168,76,0.15); color: var(--gold-lt); border-color: rgba(201,168,76,0.35); }
     .urgency-pills { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 20px; }
     .upill { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 6px; font-family: var(--font-mono); font-size: 0.63rem; font-weight: 600; letter-spacing: 0.04em; background: rgba(255,107,0,0.09); color: var(--orange-lt); border: 1px solid rgba(255,107,0,0.2); }
     .udot { width: 5px; height: 5px; border-radius: 50%; background: var(--orange); flex-shrink: 0; animation: blink 1.6s infinite; }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.36} }
 
+    /* ── PRICE STRIP ── */
     .price-strip { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 22px; padding: 17px 24px; background: rgba(255,255,255,0.03); border-top: 1px solid rgba(255,255,255,0.06); flex-wrap: wrap; }
     .price-block { display: flex; flex-direction: column; gap: 2px; }
     .price-lbl { font-family: var(--font-mono); font-size: 0.59rem; color: rgba(255,255,255,0.33); letter-spacing: 0.06em; text-transform: uppercase; }
-    .price-cur { font-family: var(--font-price); font-size: 2.9rem; font-weight: 800; color: var(--orange); line-height: 1; }
+    .price-cur { font-family: var(--font-price); font-size: 2.9rem; font-weight: 800; color: var(--orange); line-height: 1; text-shadow: 0 0 20px rgba(255,107,0,0.4); }
     .price-was { font-family: var(--font-price); font-size: 0.9rem; color: rgba(255,255,255,0.35); text-decoration: line-through; }
     .price-save { display: inline-block; background: rgba(40,168,40,0.18); border: 1px solid rgba(40,168,40,0.35); color: #78D878; font-family: var(--font-mono); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.05em; padding: 2px 8px; border-radius: 4px; margin-top: 2px; }
-    .hero-cta { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.12rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); border: none; transition: background 0.2s, transform 0.2s; white-space: nowrap; }
+    .hero-cta { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.12rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); border: none; transition: background 0.2s, transform 0.2s; white-space: nowrap; position: relative; overflow: hidden; }
+    .hero-cta::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent); transition: left 0.5s ease; }
+    .hero-cta:hover::after { left: 100%; }
     .hero-cta:hover { background: var(--orange-lt); transform: translateY(-2px); }
     .urgency-txt { font-family: var(--font-mono); font-size: 0.62rem; color: rgba(255,255,255,0.32); }
 
+    /* ── MARQUEE TICKER ── */
+    .ticker-wrap { background: rgba(204,0,102,0.1); border-top: 1px solid rgba(204,0,102,0.2); overflow: hidden; padding: 9px 0; cursor: default; }
+    .ticker-inner { display: flex; white-space: nowrap; animation: ticker 36s linear infinite; width: max-content; }
+    .ticker-wrap:hover .ticker-inner { animation-play-state: paused; }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .ticker-item { font-family: var(--font-mono); font-size: 0.67rem; color: rgba(255,255,255,0.62); padding: 0 20px; }
+    .ticker-sep { color: var(--show-pink-lt); padding: 0 4px; }
+
+    /* ── PAGE LAYOUT ── */
     .page-layout { display: grid; grid-template-columns: 1fr var(--sidebar); max-width: 1200px; margin: 0 auto; align-items: start; }
     .main-content { padding: 46px 36px 60px 22px; min-width: 0; }
 
+    /* ── SIDEBAR ── */
     .sidebar { position: sticky; top: 0; background: var(--navy); min-height: 100vh; padding: 24px 20px 22px; display: flex; flex-direction: column; gap: 15px; }
     .sb-price-lbl { font-family: var(--font-mono); font-size: 0.59rem; color: rgba(255,255,255,0.33); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px; }
     .sb-price { font-family: var(--font-price); font-size: 2.9rem; font-weight: 800; color: var(--orange); line-height: 1; }
@@ -160,12 +178,14 @@
     .sb-info-lbl { font-family: var(--font-mono); font-size: 0.57rem; color: rgba(255,255,255,0.32); text-transform: uppercase; letter-spacing: 0.04em; display: block; margin-bottom: 1px; }
     .sb-info-val { font-family: var(--font-body); font-size: 0.77rem; color: rgba(255,255,255,0.7); }
 
+    /* ── SECTIONS / FADE UP ── */
     .section { margin-bottom: 50px; }
     .section-title { font-family: var(--font-display); font-size: clamp(1.85rem, 2.8vw, 2.55rem); color: var(--navy); line-height: 1; letter-spacing: 0.02em; margin-bottom: 20px; }
     .section-title span { color: var(--orange); }
-    .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
+    /* ── SEEN WIDGET ── */
     .seen-widget { background: linear-gradient(135deg, var(--navy) 0%, #0d2040 100%); border-radius: var(--radius-lg); padding: 28px; color: white; margin-bottom: 50px; }
     .seen-tag { font-family: var(--font-mono); font-size: 0.65rem; color: var(--show-pink-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
     .seen-q { font-family: var(--font-display); font-size: clamp(1.45rem, 2.6vw, 1.95rem); color: white; margin-bottom: 16px; line-height: 1.1; }
@@ -179,12 +199,14 @@
     .seen-resp p { font-size: 0.89rem; color: rgba(255,255,255,0.73); line-height: 1.72; margin-bottom: 12px; }
     .seen-resp a { color: var(--orange); font-weight: 600; }
 
+    /* ── TRUST GRID ── */
     .trust-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; margin-bottom: 50px; }
     .trust-card { background: var(--gray-100); border-radius: var(--radius); padding: 17px; display: flex; gap: 12px; align-items: flex-start; }
     .trust-icon { font-size: 1.55rem; flex-shrink: 0; }
     .trust-card-title { font-family: var(--font-price); font-size: 0.86rem; font-weight: 800; color: var(--navy); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 3px; }
     .trust-card-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.52; }
 
+    /* ── ABOUT ── */
     .about-body p { font-size: 0.98rem; color: var(--text); line-height: 1.78; margin-bottom: 16px; }
     .about-body p:last-child { margin-bottom: 0; }
     .spike-callout { display: flex; gap: 13px; align-items: flex-start; background: linear-gradient(135deg, rgba(204,0,102,0.07), rgba(255,107,0,0.03)); border: 1px solid rgba(204,0,102,0.2); border-left: 4px solid var(--show-pink); border-radius: var(--radius); padding: 16px 20px; margin: 20px 0; }
@@ -192,11 +214,29 @@
     .spike-text { font-family: var(--font-mono); font-size: 0.81rem; color: var(--navy); line-height: 1.62; }
     .spike-text strong { color: var(--show-pink); display: block; margin-bottom: 4px; font-size: 0.63rem; letter-spacing: 0.06em; text-transform: uppercase; }
 
-    /* Queens roster */
-    .queens-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin: 20px 0 0; }
-    .queen-chip { background: var(--gray-100); border-radius: var(--radius-sm); padding: 10px 14px; font-family: var(--font-price); font-size: 0.88rem; font-weight: 700; color: var(--navy); border-left: 3px solid var(--show-pink); }
+    /* ── QUEENS FLIP GRID ── */
+    .queens-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin: 20px 0 0; perspective: 1000px; }
+    .queen-flip { height: 76px; cursor: pointer; }
+    .queen-flip-inner { position: relative; width: 100%; height: 100%; transition: transform 0.55s cubic-bezier(0.16,1,0.3,1); transform-style: preserve-3d; }
+    .queen-flip:hover .queen-flip-inner,
+    .queen-flip.flipped .queen-flip-inner { transform: rotateY(180deg); }
+    .queen-front, .queen-back { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: var(--radius-sm); padding: 10px 14px; display: flex; flex-direction: column; justify-content: center; }
+    .queen-front { background: var(--gray-100); border-left: 3px solid var(--show-pink); }
+    .queen-front-name { font-family: var(--font-price); font-size: 0.88rem; font-weight: 700; color: var(--navy); line-height: 1.2; }
+    .queen-back { background: var(--show-pink); transform: rotateY(180deg); }
+    .queen-back-season { font-family: var(--font-mono); font-size: 0.58rem; color: rgba(255,255,255,0.72); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; }
+    .queen-back-desc { font-family: var(--font-price); font-size: 0.82rem; font-weight: 700; color: white; line-height: 1.2; }
 
+    /* ── STATS STRIP ── */
+    .stats-strip { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--gray-200); border: 1px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; margin-bottom: 50px; }
+    .stat-block { background: white; padding: 20px 16px; text-align: center; }
+    .stat-num { font-family: var(--font-display); font-size: 2.8rem; color: var(--show-pink); line-height: 1; letter-spacing: 0.02em; }
+    .stat-suf { font-family: var(--font-price); font-size: 1.4rem; font-weight: 800; color: var(--show-pink); }
+    .stat-lbl { font-family: var(--font-mono); font-size: 0.62rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 5px; }
+
+    /* ── EMAIL SIGNUP ── */
     .email-signup { background: var(--navy); border-radius: var(--radius-lg); padding: 32px 28px; margin-bottom: 50px; position: relative; overflow: hidden; display: flex; align-items: center; gap: 24px; }
+    .email-signup::before { content:''; position:absolute; right:-60px; top:-60px; width:200px; height:200px; background: radial-gradient(ellipse, rgba(204,0,102,0.2) 0%, transparent 70%); pointer-events:none; }
     .email-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: linear-gradient(180deg, var(--show-pink), var(--orange)); }
     .email-heading { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); color: var(--show-pink-lt); letter-spacing: 0.08em; flex-shrink: 0; line-height: 1; }
     .email-body { flex: 1; }
@@ -211,6 +251,7 @@
     .email-success { display: none; font-size: 0.82rem; color: #78D878; margin-top: 8px; }
     .email-success.visible { display: block; }
 
+    /* ── DETAILS GRID ── */
     .details-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 50px; }
     .detail-card { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 17px; transition: box-shadow 0.2s, transform 0.2s; }
     .detail-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
@@ -218,13 +259,16 @@
     .detail-card-lbl { font-family: var(--font-price); font-size: 0.68rem; font-weight: 800; color: var(--show-pink); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
     .detail-card-val { font-family: var(--font-body); font-size: 0.87rem; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
     .detail-card-sub { font-size: 0.76rem; color: var(--text-muted); line-height: 1.52; }
+    .cal-btn { display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; background: rgba(204,0,102,0.08); border: 1px solid rgba(204,0,102,0.2); color: var(--show-pink); font-family: var(--font-mono); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; cursor: pointer; transition: background 0.2s; }
+    .cal-btn:hover { background: rgba(204,0,102,0.15); }
 
+    /* ── WHAT TO EXPECT ── */
     .expect-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; margin-bottom: 50px; }
     .expect-card { background: var(--off-white); border-radius: var(--radius); padding: 20px; border-left: 3px solid var(--show-pink); }
     .expect-title { font-family: var(--font-price); font-size: 0.88rem; font-weight: 800; color: var(--navy); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 7px; display: flex; align-items: center; gap: 6px; }
     .expect-desc { font-size: 0.81rem; color: var(--text-muted); line-height: 1.62; }
 
-    /* Venue section (replaces seating chart) */
+    /* ── VENUE SECTION ── */
     .venue-section { background: var(--navy); border-radius: var(--radius-lg); padding: 28px; margin-bottom: 50px; position: relative; overflow: hidden; }
     .venue-section::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--show-pink), var(--orange)); }
     .venue-section-title { font-family: var(--font-price); font-size: 0.78rem; font-weight: 700; color: var(--show-pink-lt); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 14px; }
@@ -233,40 +277,70 @@
     .venue-cta { display: inline-flex; align-items: center; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.82rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; padding: 10px 18px; border-radius: var(--radius-sm); transition: background 0.2s; margin-top: 6px; }
     .venue-cta:hover { background: var(--orange-lt); }
 
+    /* ── FAQ (smooth max-height) ── */
     .faq-list { border: 1px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; margin-bottom: 50px; }
     .faq-item { border-bottom: 1px solid var(--gray-200); }
     .faq-item:last-child { border-bottom: none; }
     .faq-q { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 15px 20px; background: white; border: none; cursor: pointer; text-align: left; font-family: var(--font-body); font-size: 0.9rem; font-weight: 700; color: var(--navy); transition: background 0.15s; }
     .faq-q:hover { background: var(--gray-100); }
-    .faq-chevron { color: var(--gray-400); font-size: 0.8rem; flex-shrink: 0; transition: transform 0.2s; }
-    .faq-a { display: none; padding: 14px 20px 16px; background: var(--off-white); font-size: 0.87rem; color: var(--text-muted); line-height: 1.7; border-top: 1px solid var(--gray-200); }
-    .faq-a.open { display: block; }
+    .faq-chevron { color: var(--gray-400); font-size: 0.8rem; flex-shrink: 0; transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); }
+    .faq-a { max-height: 0; overflow: hidden; background: var(--off-white); font-size: 0.87rem; color: var(--text-muted); line-height: 1.7; transition: max-height 0.45s cubic-bezier(0.16,1,0.3,1); }
+    .faq-a-inner { padding: 14px 20px 16px; border-top: 1px solid var(--gray-200); }
 
+    /* ── YOU MIGHT ALSO LIKE ── */
     .also-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 50px; }
     .also-card { background: white; border: 1.5px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; text-decoration: none; color: var(--text); transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s; display: flex; flex-direction: column; }
     .also-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.15); transform: translateY(-3px); border-color: rgba(255,107,0,0.3); }
     .also-img { aspect-ratio: 16/10; overflow: hidden; background: var(--gray-100); }
     .also-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
-    .also-card:hover .also-img img { transform: scale(1.04); }
+    .also-card:hover .also-img img { transform: scale(1.05); }
     .also-body { padding: 14px 16px; flex: 1; }
     .also-venue { font-size: 0.62rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--show-pink); margin-bottom: 3px; }
     .also-name { font-family: var(--font-price); font-size: 1.15rem; font-weight: 800; color: var(--navy); line-height: 1.1; margin-bottom: 6px; }
     .also-price { font-family: var(--font-price); font-weight: 800; font-size: 1rem; color: var(--orange); }
 
-    .final-cta { background: linear-gradient(135deg, #3D0020 0%, #0A1628 60%, #3D0020 100%); padding: 56px 40px; text-align: center; }
-    .final-cta-inner { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+    /* ── FINAL CTA ── */
+    .final-cta { background: linear-gradient(135deg, #3D0020 0%, #0A1628 60%, #3D0020 100%); padding: 56px 40px; text-align: center; position: relative; overflow: hidden; }
+    .orb { position: absolute; border-radius: 50%; pointer-events: none; }
+    .orb-1 { width: 300px; height: 300px; background: radial-gradient(ellipse, rgba(204,0,102,0.18) 0%, transparent 70%); top: -80px; left: -80px; animation: orbDrift 8s ease-in-out infinite; }
+    .orb-2 { width: 250px; height: 250px; background: radial-gradient(ellipse, rgba(255,107,0,0.12) 0%, transparent 70%); bottom: -60px; right: -60px; animation: orbDrift 10s ease-in-out infinite reverse; }
+    .orb-3 { width: 180px; height: 180px; background: radial-gradient(ellipse, rgba(204,0,102,0.1) 0%, transparent 70%); top: 50%; right: 20%; animation: orbDrift 12s ease-in-out infinite 2s; }
+    @keyframes orbDrift { 0%,100%{transform:translate(0,0)} 33%{transform:translate(18px,-14px)} 66%{transform:translate(-12px,18px)} }
+    .final-cta-inner { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 20px; position: relative; z-index: 1; }
     .final-cta-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); letter-spacing: 0.06em; color: #FFFFFF; line-height: 1; }
     .final-cta-sub { font-size: 0.95rem; color: rgba(255,255,255,0.75); line-height: 1.6; }
-    .final-cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.05rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 16px 36px; border-radius: var(--radius-sm); transition: background 0.2s, transform 0.15s; }
+    .final-cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.05rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 16px 36px; border-radius: var(--radius-sm); transition: background 0.2s, transform 0.15s; position: relative; overflow: hidden; }
+    .final-cta-btn::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent); transition: left 0.5s ease; }
+    .final-cta-btn:hover::after { left: 100%; }
     .final-cta-btn:hover { background: var(--orange-lt); transform: translateY(-2px); }
     .final-cta-note { font-size: 0.72rem; color: rgba(255,255,255,0.4); font-family: var(--font-mono); }
 
+    /* ── MOBILE STICKY ── */
     .mobile-sticky { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--navy); border-top: 1px solid rgba(204,0,102,0.3); padding: 10px 16px; z-index: 100; align-items: center; justify-content: space-between; gap: 12px; }
     .mob-price-lbl { font-family: var(--font-mono); font-size: 0.55rem; color: rgba(255,255,255,0.28); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 1px; }
     .mob-price { font-family: var(--font-price); font-size: 2.4rem; font-weight: 800; color: var(--orange); line-height: 1; }
-    .mob-cta { flex: 1; max-width: 230px; padding: 13px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.02rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; text-align: center; border-radius: var(--radius-sm); border: none; position: relative; overflow: hidden; transition: background 0.2s; }
+    .mob-cta { flex: 1; max-width: 230px; padding: 13px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.02rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; text-align: center; border-radius: var(--radius-sm); border: none; position: relative; overflow: hidden; transition: background 0.2s; text-decoration: none; display: block; }
     .mob-cta::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.17), transparent); animation: shimmer 2s infinite; }
 
+    /* ── STICKY SAVE PILL ── */
+    #save-pill { position: fixed; right: 24px; top: 110px; background: var(--navy); border: 1px solid rgba(204,0,102,0.45); border-radius: 100px; padding: 8px 14px 8px 12px; display: flex; align-items: center; gap: 10px; box-shadow: 0 4px 24px rgba(0,0,0,0.35), 0 0 0 1px rgba(204,0,102,0.1); z-index: 40; opacity: 0; transform: translateX(20px); transition: opacity 0.35s, transform 0.35s; pointer-events: none; }
+    #save-pill.visible { opacity: 1; transform: translateX(0); pointer-events: auto; }
+    .pill-price-wrap { display: flex; flex-direction: column; gap: 0; }
+    .pill-from { font-family: var(--font-mono); font-size: 0.52rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.04em; }
+    .pill-price { font-family: var(--font-price); font-size: 1.25rem; font-weight: 800; color: var(--orange); line-height: 1; }
+    .pill-save-tag { font-family: var(--font-mono); font-size: 0.52rem; color: #78D878; }
+    .pill-cta-btn { background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; padding: 6px 12px; border-radius: 100px; text-decoration: none; white-space: nowrap; transition: background 0.2s; }
+    .pill-cta-btn:hover { background: var(--orange-lt); }
+
+    /* ── RIGHT EDGE DOT NAV ── */
+    .dot-nav { position: fixed; right: 18px; top: 50%; transform: translateY(-50%); z-index: 45; display: flex; flex-direction: column; gap: 12px; }
+    .nav-dot-wrap { position: relative; display: flex; align-items: center; justify-content: flex-end; }
+    .nav-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(204,0,102,0.2); border: 2px solid rgba(204,0,102,0.4); cursor: pointer; transition: background 0.25s, transform 0.25s, border-color 0.25s; flex-shrink: 0; }
+    .nav-dot.active { background: var(--show-pink); border-color: var(--show-pink); transform: scale(1.5); }
+    .nav-dot-label { position: absolute; right: 18px; background: var(--navy); color: rgba(255,255,255,0.9); font-family: var(--font-mono); font-size: 0.6rem; padding: 4px 10px; border-radius: 4px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s; border: 1px solid rgba(255,255,255,0.1); }
+    .nav-dot-wrap:hover .nav-dot-label { opacity: 1; }
+
+    /* ── RESPONSIVE ── */
     @media (max-width: 940px) {
       .page-layout { grid-template-columns: 1fr; }
       .sidebar { display: none; }
@@ -275,6 +349,9 @@
       .also-grid { grid-template-columns: repeat(2,1fr); }
       .main-content { padding: 26px 16px 120px; }
       .queens-grid { grid-template-columns: repeat(2,1fr); }
+      .stats-strip { grid-template-columns: repeat(2,1fr); }
+      .dot-nav { display: none; }
+      #save-pill { display: none; }
     }
     @media (max-width: 600px) {
       .hero-content { padding: 22px 16px 26px; }
@@ -286,6 +363,12 @@
       .email-signup { flex-direction: column; gap: 12px; }
       .email-form { flex-direction: column; }
       .price-strip { flex-direction: column; align-items: flex-start; gap: 13px; }
+      .stats-strip { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+      .fade-up { opacity: 1; transform: none; }
+      .slide.active img { animation: none; }
     }
   </style>
 </head>
@@ -340,7 +423,7 @@
     </div>
   </div>
 
-  <div class="price-strip">
+  <div class="price-strip" id="price-strip-anchor">
     <div class="price-block">
       <div class="price-lbl">Tickets From</div>
       <div class="price-cur">$91</div>
@@ -352,11 +435,36 @@
   </div>
 </section>
 
+<!-- MARQUEE TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-inner">
+    <span class="ticker-item">90 Minutes of World-Class Drag</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Mon · Thu · Sat · Sun at 9:30 PM</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Fri 7:00 PM &amp; 9:30 PM</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">From $91 · Save $30 vs Box Office</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Flamingo Las Vegas · Center Strip</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Emmy Award-Winning Franchise</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Rotating Cast of Legendary Queens 👑</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">All Ages Welcome · No Intermission</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Lip Syncs · Comedy · Fire · Dance 🔥</span><span class="ticker-sep">✦</span>
+    <!-- duplicate for seamless loop -->
+    <span class="ticker-item">90 Minutes of World-Class Drag</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Mon · Thu · Sat · Sun at 9:30 PM</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Fri 7:00 PM &amp; 9:30 PM</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">From $91 · Save $30 vs Box Office</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Flamingo Las Vegas · Center Strip</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Emmy Award-Winning Franchise</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Rotating Cast of Legendary Queens 👑</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">All Ages Welcome · No Intermission</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Lip Syncs · Comedy · Fire · Dance 🔥</span><span class="ticker-sep">✦</span>
+  </div>
+</div>
+
 <div class="page-layout">
 <main class="main-content" role="main">
 
   <!-- SEEN WIDGET -->
-  <div class="seen-widget fade-up">
+  <div class="seen-widget fade-up" id="section-seen">
     <div class="seen-tag">🌵 Spike Wants to Know</div>
     <div class="seen-q">Have you seen RuPaul's Drag Race LIVE! before?</div>
     <div class="seen-btns">
@@ -404,7 +512,7 @@
   </div>
 
   <!-- ABOUT -->
-  <div class="section fade-up">
+  <div class="section fade-up" id="section-about">
     <h2 class="section-title">All the <span>Drama.</span> Live on Stage.</h2>
     <div class="about-body">
       <p>RuPaul's Drag Race LIVE! has been packing the Flamingo Showroom since 2020 — and it's not hard to see why. The Emmy Award-winning franchise that defined modern drag culture brings its all-star cast to the Las Vegas Strip five nights a week, delivering 90 minutes of lip syncs, original music, comedy, and dance numbers that have no business being this good.</p>
@@ -419,16 +527,66 @@
         </div>
       </div>
 
-      <p style="font-family:var(--font-price);font-size:0.78rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin:24px 0 10px;">Featuring Queens Including</p>
+      <p style="font-family:var(--font-price);font-size:0.78rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin:24px 0 10px;">Featuring Queens Including — hover to learn more</p>
       <div class="queens-grid">
-        <div class="queen-chip">Asia O'Hara</div>
-        <div class="queen-chip">Jaida Essence Hall</div>
-        <div class="queen-chip">Derrick Barry</div>
-        <div class="queen-chip">Shannel</div>
-        <div class="queen-chip">Kyle Sonique Love</div>
-        <div class="queen-chip">Jewels Sparkles</div>
+        <div class="queen-flip" onclick="toggleFlip(this)">
+          <div class="queen-flip-inner">
+            <div class="queen-front"><div class="queen-front-name">Asia O'Hara</div></div>
+            <div class="queen-back"><div class="queen-back-season">Season 10</div><div class="queen-back-desc">Theatrical Fantasy Queen</div></div>
+          </div>
+        </div>
+        <div class="queen-flip" onclick="toggleFlip(this)">
+          <div class="queen-flip-inner">
+            <div class="queen-front"><div class="queen-front-name">Jaida Essence Hall</div></div>
+            <div class="queen-back"><div class="queen-back-season">Season 12 Winner</div><div class="queen-back-desc">America's Drag Superstar</div></div>
+          </div>
+        </div>
+        <div class="queen-flip" onclick="toggleFlip(this)">
+          <div class="queen-flip-inner">
+            <div class="queen-front"><div class="queen-front-name">Derrick Barry</div></div>
+            <div class="queen-back"><div class="queen-back-season">Season 8</div><div class="queen-back-desc">Vegas' Britney Spears</div></div>
+          </div>
+        </div>
+        <div class="queen-flip" onclick="toggleFlip(this)">
+          <div class="queen-flip-inner">
+            <div class="queen-front"><div class="queen-front-name">Shannel</div></div>
+            <div class="queen-back"><div class="queen-back-season">Season 1</div><div class="queen-back-desc">Crystal Glamour Diva</div></div>
+          </div>
+        </div>
+        <div class="queen-flip" onclick="toggleFlip(this)">
+          <div class="queen-flip-inner">
+            <div class="queen-front"><div class="queen-front-name">Kyle Sonique Love</div></div>
+            <div class="queen-back"><div class="queen-back-season">Season 2</div><div class="queen-back-desc">Trailblazer &amp; Powerhouse</div></div>
+          </div>
+        </div>
+        <div class="queen-flip" onclick="toggleFlip(this)">
+          <div class="queen-flip-inner">
+            <div class="queen-front"><div class="queen-front-name">Jewels Sparkles</div></div>
+            <div class="queen-back"><div class="queen-back-season">Season 11</div><div class="queen-back-desc">Bold &amp; Unforgettable</div></div>
+          </div>
+        </div>
       </div>
       <p style="font-size:0.75rem;color:var(--text-muted);margin-top:10px;">Lineup varies by show and is subject to change.</p>
+    </div>
+  </div>
+
+  <!-- STATS STRIP -->
+  <div class="stats-strip fade-up">
+    <div class="stat-block">
+      <div class="stat-num"><span class="count-target" data-target="90">90</span></div>
+      <div class="stat-lbl">Minutes Runtime</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-num"><span class="count-target" data-target="5">5</span></div>
+      <div class="stat-lbl">Nights Per Week</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-num"><span class="count-target" data-target="25">25</span><span class="stat-suf">%</span></div>
+      <div class="stat-lbl">Savings vs Box Office</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-num"><span class="count-target" data-target="6">6</span><span class="stat-suf">+</span></div>
+      <div class="stat-lbl">Resident Queens</div>
     </div>
   </div>
 
@@ -448,7 +606,7 @@
   </div>
 
   <!-- DETAILS GRID -->
-  <div class="section fade-up">
+  <div class="section fade-up" id="section-details">
     <h2 class="section-title">Show <span>Details</span></h2>
     <div class="details-grid">
       <div class="detail-card">
@@ -462,6 +620,7 @@
         <div class="detail-card-lbl">Schedule</div>
         <div class="detail-card-val">5 Nights a Week</div>
         <div class="detail-card-sub">Mon, Thu, Sat &amp; Sun at 9:30 PM · Fri at 7:00 PM &amp; 9:30 PM · No Tuesday or Wednesday shows</div>
+        <button class="cal-btn" onclick="addToCalendar()">📅 Add to Calendar</button>
       </div>
       <div class="detail-card">
         <div class="detail-card-icon">⏱️</div>
@@ -491,7 +650,7 @@
   </div>
 
   <!-- WHAT TO EXPECT -->
-  <div class="section fade-up">
+  <div class="section fade-up" id="section-expect">
     <h2 class="section-title">What to <span>Expect</span></h2>
     <div class="expect-grid">
       <div class="expect-card">
@@ -522,7 +681,7 @@
   </div>
 
   <!-- VENUE / SEATING -->
-  <div class="fade-up">
+  <div class="fade-up" id="section-venue">
     <h2 class="section-title" style="margin-bottom:16px">The <span>Venue</span></h2>
     <div class="venue-section">
       <div class="venue-section-title">Flamingo Showroom · Table &amp; Chair Seating</div>
@@ -533,32 +692,32 @@
   </div>
 
   <!-- FAQ -->
-  <div class="section fade-up">
+  <div class="section fade-up" id="section-faq">
     <h2 class="section-title">Questions <span>Answered</span></h2>
     <div class="faq-list">
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Do I need to know RuPaul's Drag Race to enjoy the show? <span class="faq-chevron">▼</span></button>
-        <div class="faq-a"><p>Not at all. The show is designed to work for first-timers and die-hard fans equally. If you know the franchise you'll catch the references and feel right at home. If you don't, you're still watching world-class performers do what they do — the entertainment speaks for itself.</p></div>
+        <div class="faq-a"><div class="faq-a-inner"><p>Not at all. The show is designed to work for first-timers and die-hard fans equally. If you know the franchise you'll catch the references and feel right at home. If you don't, you're still watching world-class performers do what they do — the entertainment speaks for itself.</p></div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Which queens will be performing on my date? <span class="faq-chevron">▼</span></button>
-        <div class="faq-a"><p>The lineup rotates and is subject to change, so specific queens on any given night aren't guaranteed in advance. The show features queens from the RuPaul's Drag Race roster including Asia O'Hara, Jaida Essence Hall, Derrick Barry, Shannel, Kyle Sonique Love, and Jewels Sparkles — but the exact performers vary. Check closer to your date for any announcements.</p></div>
+        <div class="faq-a"><div class="faq-a-inner"><p>The lineup rotates and is subject to change, so specific queens on any given night aren't guaranteed in advance. The show features queens from the RuPaul's Drag Race roster including Asia O'Hara, Jaida Essence Hall, Derrick Barry, Shannel, Kyle Sonique Love, and Jewels Sparkles — but the exact performers vary. Check closer to your date for any announcements.</p></div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Is it appropriate for kids? <span class="faq-chevron">▼</span></button>
-        <div class="faq-a"><p>There is no age restriction. That said, this is a high-energy adult entertainment show with suggestive humor, bold costuming, and adult-oriented comedy. Most families with older kids and teenagers do fine — use your own judgment based on what your family is comfortable with.</p></div>
+        <div class="faq-a"><div class="faq-a-inner"><p>There is no age restriction. That said, this is a high-energy adult entertainment show with suggestive humor, bold costuming, and adult-oriented comedy. Most families with older kids and teenagers do fine — use your own judgment based on what your family is comfortable with.</p></div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Where do I pick up my tickets? <span class="faq-chevron">▼</span></button>
-        <div class="faq-a"><p>Tickets are delivered to your email immediately after purchase and accessed digitally on your phone at the door. No will-call required. The Flamingo Showroom is located inside Flamingo Las Vegas at 3555 S Las Vegas Blvd, center Strip.</p></div>
+        <div class="faq-a"><div class="faq-a-inner"><p>Tickets are delivered to your email immediately after purchase and accessed digitally on your phone at the door. No will-call required. The Flamingo Showroom is located inside Flamingo Las Vegas at 3555 S Las Vegas Blvd, center Strip.</p></div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Is there parking at the Flamingo? <span class="faq-chevron">▼</span></button>
-        <div class="faq-a"><p>Yes — Flamingo Las Vegas has a parking garage. Rideshare drop-off is available on Flamingo Road. The property is also connected to the LINQ Promenade and within walking distance of several other Strip properties if you're coming from nearby.</p></div>
+        <div class="faq-a"><div class="faq-a-inner"><p>Yes — Flamingo Las Vegas has a parking garage. Rideshare drop-off is available on Flamingo Road. The property is also connected to the LINQ Promenade and within walking distance of several other Strip properties if you're coming from nearby.</p></div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Can I get a refund if my plans change? <span class="faq-chevron">▼</span></button>
-        <div class="faq-a"><p>Refunds are available for exceptional circumstances such as the unlikely event that a show cancels. Check the full terms and conditions before purchasing.</p></div>
+        <div class="faq-a"><div class="faq-a-inner"><p>Refunds are available for exceptional circumstances such as the unlikely event that a show cancels. Check the full terms and conditions before purchasing.</p></div></div>
       </div>
     </div>
   </div>
@@ -568,9 +727,7 @@
     <h2 class="section-title">You Might Also <span>Like</span></h2>
     <div class="also-grid">
       <a href="/shows/adult/absinthe/" class="also-card">
-        <div class="also-img">
-          <img src="/images/absinthe-hero.webp" alt="Absinthe at Caesars Palace Las Vegas" loading="lazy" />
-        </div>
+        <div class="also-img"><img src="/images/absinthe-hero.webp" alt="Absinthe at Caesars Palace Las Vegas" loading="lazy" /></div>
         <div class="also-body">
           <div class="also-venue">Caesars Palace · Adult</div>
           <div class="also-name">Absinthe</div>
@@ -578,19 +735,15 @@
         </div>
       </a>
       <a href="/shows/adult/rouge/" class="also-card">
-        <div class="also-img">
-          <img src="/images/rouge-hero.webp" alt="Rouge at Paris Las Vegas" loading="lazy" />
-        </div>
+        <div class="also-img"><img src="/images/rouge-hero.webp" alt="Rouge at The STRAT Las Vegas" loading="lazy" /></div>
         <div class="also-body">
-          <div class="also-venue">Paris Las Vegas · Adult</div>
+          <div class="also-venue">The STRAT · Adult</div>
           <div class="also-name">Rouge</div>
-          <div class="also-price">From $119</div>
+          <div class="also-price">From $79</div>
         </div>
       </a>
       <a href="/shows/music/vegas-the-show/" class="also-card">
-        <div class="also-img">
-          <img src="/images/vegas-the-show-hero.webp" alt="VEGAS! The Show at Saxe Theater" loading="lazy" />
-        </div>
+        <div class="also-img"><img src="/images/vegas-the-show-hero.webp" alt="VEGAS! The Show at Saxe Theater" loading="lazy" /></div>
         <div class="also-body">
           <div class="also-venue">Saxe Theater · Music &amp; Variety</div>
           <div class="also-name">VEGAS! The Show</div>
@@ -621,37 +774,28 @@
   <div class="sb-div"></div>
   <div class="sb-info-item">
     <span class="sb-info-icon">📍</span>
-    <div>
-      <span class="sb-info-lbl">Venue</span>
-      <span class="sb-info-val">Flamingo Showroom, Flamingo LV</span>
-    </div>
+    <div><span class="sb-info-lbl">Venue</span><span class="sb-info-val">Flamingo Showroom, Flamingo LV</span></div>
   </div>
   <div class="sb-info-item">
     <span class="sb-info-icon">🗓️</span>
-    <div>
-      <span class="sb-info-lbl">Schedule</span>
-      <span class="sb-info-val">Mon/Thu/Sat/Sun 9:30 PM · Fri 7 &amp; 9:30 PM</span>
-    </div>
+    <div><span class="sb-info-lbl">Schedule</span><span class="sb-info-val">Mon/Thu/Sat/Sun 9:30 PM · Fri 7 &amp; 9:30 PM</span></div>
   </div>
   <div class="sb-info-item">
     <span class="sb-info-icon">⏱️</span>
-    <div>
-      <span class="sb-info-lbl">Duration</span>
-      <span class="sb-info-val">90 minutes · No intermission</span>
-    </div>
+    <div><span class="sb-info-lbl">Duration</span><span class="sb-info-val">90 minutes · No intermission</span></div>
   </div>
   <div class="sb-info-item">
     <span class="sb-info-icon">✅</span>
-    <div>
-      <span class="sb-info-lbl">Age Policy</span>
-      <span class="sb-info-val">All ages welcome</span>
-    </div>
+    <div><span class="sb-info-lbl">Age Policy</span><span class="sb-info-val">All ages welcome</span></div>
   </div>
 </aside>
 </div>
 
 <!-- FINAL CTA -->
 <div class="final-cta">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
   <div class="final-cta-inner">
     <div class="final-cta-title">The Runway Is Ready. Are You?</div>
     <p class="final-cta-sub">90 minutes of the world's best drag performers, live on the Las Vegas Strip. Lip syncs, fire, comedy, and a crowd that's there to give it back every bit as hard as the queens dish it out.</p>
@@ -669,41 +813,207 @@
   <a href="https://spotlight.vegas/shows/production/rupauls-drag-race-live/ref/vegassidekick" target="_blank" rel="noopener" class="mob-cta">Get Tickets →</a>
 </div>
 
+<!-- STICKY SAVE PILL (desktop) -->
+<div id="save-pill" aria-hidden="true">
+  <div class="pill-price-wrap">
+    <div class="pill-from">From</div>
+    <div class="pill-price">$91</div>
+    <div class="pill-save-tag">Save $30</div>
+  </div>
+  <a href="https://spotlight.vegas/shows/production/rupauls-drag-race-live/ref/vegassidekick" target="_blank" rel="noopener" class="pill-cta-btn">Get Tickets →</a>
+</div>
+
+<!-- RIGHT EDGE DOT NAV -->
+<nav class="dot-nav" aria-label="Page sections">
+  <div class="nav-dot-wrap">
+    <div class="nav-dot-label">Seen It?</div>
+    <div class="nav-dot active" onclick="scrollToSection('section-seen')" role="button" tabindex="0" aria-label="Seen it section"></div>
+  </div>
+  <div class="nav-dot-wrap">
+    <div class="nav-dot-label">About</div>
+    <div class="nav-dot" onclick="scrollToSection('section-about')" role="button" tabindex="0" aria-label="About section"></div>
+  </div>
+  <div class="nav-dot-wrap">
+    <div class="nav-dot-label">Details</div>
+    <div class="nav-dot" onclick="scrollToSection('section-details')" role="button" tabindex="0" aria-label="Details section"></div>
+  </div>
+  <div class="nav-dot-wrap">
+    <div class="nav-dot-label">Expect</div>
+    <div class="nav-dot" onclick="scrollToSection('section-expect')" role="button" tabindex="0" aria-label="What to expect section"></div>
+  </div>
+  <div class="nav-dot-wrap">
+    <div class="nav-dot-label">Venue</div>
+    <div class="nav-dot" onclick="scrollToSection('section-venue')" role="button" tabindex="0" aria-label="Venue section"></div>
+  </div>
+  <div class="nav-dot-wrap">
+    <div class="nav-dot-label">FAQ</div>
+    <div class="nav-dot" onclick="scrollToSection('section-faq')" role="button" tabindex="0" aria-label="FAQ section"></div>
+  </div>
+</nav>
+
 <div id="vs-footer"></div>
 <script src="/components/header.js"></script>
 <script src="/components/footer.js"></script>
 
 <script>
-  window.addEventListener('scroll', () => {
-    const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
-    document.getElementById('progress-bar').style.width = Math.min(pct, 100) + '%';
-  });
+  // ── SCROLL HANDLER ──
+  const progressBar = document.getElementById('progress-bar');
+  const savePill = document.getElementById('save-pill');
+  const priceAnchor = document.getElementById('price-strip-anchor');
+  const slider = document.querySelector('.slider');
 
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
+    const pct = (scrollY / maxScroll) * 100;
+    progressBar.style.width = Math.min(pct, 100) + '%';
+
+    // Parallax on slider
+    if (slider) slider.style.transform = 'translateY(' + (scrollY * 0.28) + 'px)';
+
+    // Sticky save pill — show after price strip scrolls out of view
+    if (priceAnchor) {
+      const rect = priceAnchor.getBoundingClientRect();
+      savePill.classList.toggle('visible', rect.bottom < 0);
+      savePill.setAttribute('aria-hidden', rect.bottom >= 0 ? 'true' : 'false');
+    }
+
+    updateDotNav();
+  }, { passive: true });
+
+  // ── SLIDER ──
   let slideIdx = 0;
   const slides = document.querySelectorAll('.slide');
   const dots = document.querySelectorAll('.dot-btn');
+
   function goToSlide(n) {
+    const oldImg = slides[slideIdx].querySelector('img');
+    oldImg.style.animation = 'none';
     slides[slideIdx].classList.remove('active');
     dots[slideIdx].classList.remove('active');
-    dots[slideIdx].setAttribute('aria-selected','false');
+    dots[slideIdx].setAttribute('aria-selected', 'false');
+
     slideIdx = (n + slides.length) % slides.length;
     slides[slideIdx].classList.add('active');
     dots[slideIdx].classList.add('active');
-    dots[slideIdx].setAttribute('aria-selected','true');
+    dots[slideIdx].setAttribute('aria-selected', 'true');
+
+    const newImg = slides[slideIdx].querySelector('img');
+    void newImg.offsetWidth;
+    newImg.style.animation = '';
   }
   function sliderMove(dir) { goToSlide(slideIdx + dir); }
   setInterval(() => goToSlide(slideIdx + 1), 5500);
 
+  // ── SEEN WIDGET ──
   function showSeen(id) {
     document.querySelectorAll('.seen-resp').forEach(el => el.classList.remove('visible'));
     document.getElementById('seen-' + id).classList.add('visible');
   }
 
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  // ── FADE UP OBSERVER ──
+  const fadeObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); fadeObs.unobserve(e.target); } });
   }, { threshold: 0.08 });
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  document.querySelectorAll('.fade-up').forEach(el => fadeObs.observe(el));
 
+  // ── COUNT-UP ──
+  const countObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      const target = parseInt(el.dataset.target, 10);
+      const start = performance.now();
+      function step(now) {
+        const p = Math.min((now - start) / 1300, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(eased * target);
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+      countObs.unobserve(el);
+    });
+  }, { threshold: 0.6 });
+  document.querySelectorAll('.count-target').forEach(el => countObs.observe(el));
+
+  // ── FAQ SMOOTH MAX-HEIGHT ──
+  function toggleFaq(btn) {
+    const item = btn.parentElement;
+    const ans = item.querySelector('.faq-a');
+    const inner = item.querySelector('.faq-a-inner');
+    const chevron = btn.querySelector('.faq-chevron');
+    const wasOpen = item.classList.contains('open');
+
+    document.querySelectorAll('.faq-item.open').forEach(el => {
+      el.classList.remove('open');
+      el.querySelector('.faq-a').style.maxHeight = '0';
+      el.querySelector('.faq-chevron').style.transform = '';
+    });
+
+    if (!wasOpen) {
+      item.classList.add('open');
+      ans.style.maxHeight = inner.scrollHeight + 'px';
+      chevron.style.transform = 'rotate(180deg)';
+    }
+  }
+
+  // ── QUEENS FLIP ──
+  function toggleFlip(card) {
+    const inner = card.querySelector('.queen-flip-inner');
+    const isFlipped = inner.style.transform === 'rotateY(180deg)';
+    inner.style.transform = isFlipped ? '' : 'rotateY(180deg)';
+  }
+
+  // ── RIGHT-EDGE DOT NAV ──
+  const navSections = ['section-seen','section-about','section-details','section-expect','section-venue','section-faq'];
+  const navDots = document.querySelectorAll('.nav-dot');
+
+  function updateDotNav() {
+    const mid = window.scrollY + window.innerHeight * 0.4;
+    let active = 0;
+    navSections.forEach((id, i) => {
+      const el = document.getElementById(id);
+      if (el && el.offsetTop <= mid) active = i;
+    });
+    navDots.forEach((d, i) => d.classList.toggle('active', i === active));
+  }
+
+  function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ── ADD TO CALENDAR ──
+  function addToCalendar() {
+    const showDays = [1, 4, 5, 6, 0]; // Mon Thu Fri Sat Sun
+    const now = new Date();
+    let next = null;
+    for (let i = 0; i <= 7; i++) {
+      const d = new Date(now);
+      d.setDate(d.getDate() + i);
+      const day = d.getDay();
+      if (showDays.includes(day)) {
+        d.setHours(day === 5 ? 19 : 21, 30, 0, 0);
+        if (d > now) { next = d; break; }
+      }
+    }
+    if (!next) return;
+    function fmt(d) {
+      return d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0') +
+        'T' + String(d.getHours()).padStart(2,'0') + String(d.getMinutes()).padStart(2,'0') + '00';
+    }
+    const end = new Date(next.getTime() + 90 * 60 * 1000);
+    window.open(
+      'https://calendar.google.com/calendar/render?action=TEMPLATE' +
+      '&text=RuPaul%27s+Drag+Race+LIVE!' +
+      '&dates=' + fmt(next) + '/' + fmt(end) +
+      '&details=Tickets+from+%2491+%E2%80%94+Save+%2430+vs.+box+office.+Book+at+vegassidekick.com%2Fshows%2Fmusic%2Frupauls-drag-race-live%2F' +
+      '&location=Flamingo+Showroom%2C+Flamingo+Las+Vegas%2C+3555+S+Las+Vegas+Blvd%2C+Las+Vegas+NV+89109',
+      '_blank'
+    );
+  }
+
+  // ── EMAIL ──
   async function submitEmail() {
     const inp = document.getElementById('emailInp');
     const email = inp.value.trim();
@@ -720,20 +1030,37 @@
     document.getElementById('emailSuccess').classList.add('visible');
   }
 
-  function toggleFaq(btn) {
-    const item = btn.parentElement;
-    const wasOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq-item.open').forEach(el => {
-      el.classList.remove('open');
-      el.querySelector('.faq-a').classList.remove('open');
-      el.querySelector('.faq-chevron').style.transform = '';
-    });
-    if (!wasOpen) {
-      item.classList.add('open');
-      item.querySelector('.faq-a').classList.add('open');
-      btn.querySelector('.faq-chevron').style.transform = 'rotate(180deg)';
-    }
-  }
+  // ── GLITTER CURSOR TRAIL (desktop only) ──
+  (function() {
+    if (window.matchMedia('(hover: none)').matches) return;
+    const COLORS = ['#FF3399','#FF6B00','#FFD700','#FF99CC','#ffffff','#CC0066'];
+    let last = 0;
+    document.addEventListener('mousemove', e => {
+      const now = Date.now();
+      if (now - last < 40) return;
+      last = now;
+      if (Math.random() > 0.55) return;
+      const el = document.createElement('div');
+      const size = 3 + Math.random() * 5;
+      el.style.cssText = 'position:fixed;pointer-events:none;z-index:9998;border-radius:50%;' +
+        'width:' + size + 'px;height:' + size + 'px;' +
+        'background:' + COLORS[Math.floor(Math.random() * COLORS.length)] + ';' +
+        'left:' + e.clientX + 'px;top:' + e.clientY + 'px;' +
+        'transform:translate(-50%,-50%);opacity:0.85;';
+      document.body.appendChild(el);
+      let ox = (Math.random() - 0.5) * 2.5;
+      let oy = -1 - Math.random() * 2.5;
+      let op = 0.85;
+      let px = e.clientX, py = e.clientY;
+      (function animate() {
+        px += ox; py += oy; op -= 0.038;
+        el.style.left = px + 'px';
+        el.style.top = py + 'px';
+        el.style.opacity = op;
+        if (op > 0) requestAnimationFrame(animate); else el.remove();
+      })();
+    }, { passive: true });
+  })();
 </script>
 </body>
 </html>
