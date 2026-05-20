@@ -27,7 +27,8 @@
   <a href="/news/" class="mobile-drawer-dispatch">Vegas Dispatch</a>
   <a href="/shows/" class="mobile-drawer-cta">All Shows →</a>
 </div>
-<div class="nav-overlay" id="vsNavOverlay" onclick="vsToggleMenu()"></div>`;
+<div class="nav-overlay" id="vsNavOverlay" onclick="vsToggleMenu()"></div>
+<div id="vs-memorial-banner" role="banner" aria-live="polite"></div>`;
 
   const styles = `
 <style>
@@ -55,6 +56,15 @@
   .nav-mobile-menu { display: block; }
   .nav-mobile-drawer { display: flex; }
 }
+#vs-memorial-banner { display: none; position: fixed; top: 84px; left: 0; right: 0; z-index: 199; background: linear-gradient(90deg, #B22234 0%, #3C3B6E 50%, #B22234 100%); color: #fff; text-align: center; padding: 7px 16px; font-family: 'Barlow Condensed', 'Barlow', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 1.2px; text-transform: uppercase; border-bottom: 2px solid #fff; box-shadow: 0 2px 12px rgba(0,0,0,0.4); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#vs-memorial-banner.vsm-visible { display: block; }
+#vs-memorial-banner .vsm-stars { color: #FFD700; margin: 0 6px; letter-spacing: 3px; }
+#vs-memorial-banner .vsm-unit { display: inline-block; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.25); padding: 1px 5px; border-radius: 3px; font-variant-numeric: tabular-nums; margin: 0 1px; min-width: 2.2ch; text-align: center; }
+#vs-memorial-banner .vsm-link { color: #FFD700; text-decoration: none; font-weight: 800; border-bottom: 1px solid rgba(255,215,0,0.5); transition: color 0.2s, border-color 0.2s; }
+#vs-memorial-banner .vsm-link:hover { color: #fff; border-color: rgba(255,255,255,0.6); }
+#vs-memorial-banner .vsm-enjoy { font-size: 1rem; letter-spacing: 1.5px; }
+@media (max-width: 900px) { #vs-memorial-banner { top: 60px; font-size: 0.75rem; padding: 6px 10px; letter-spacing: 0.8px; white-space: normal; text-align: center; line-height: 1.4; } }
+@media (max-width: 480px) { #vs-memorial-banner { font-size: 0.7rem; padding: 5px 8px; } #vs-memorial-banner .vsm-stars { margin: 0 3px; } }
 </style>`;
 
   const target = document.getElementById('vs-header');
@@ -68,6 +78,43 @@
     drawer.classList.toggle('open');
     overlay.classList.toggle('visible');
   };
+
+  // Memorial Day Weekend Countdown
+  // Counts down to 11:59 PM PT Friday May 22 2026 (= May 23 06:59 UTC, PDT is UTC-7)
+  // Switches to "enjoy your weekend" through end of Memorial Day (May 26 07:00 UTC)
+  (function() {
+    var banner = document.getElementById('vs-memorial-banner');
+    if (!banner) return;
+    var TARGET = new Date('2026-05-23T06:59:00Z'); // 11:59 PM PDT Fri May 22
+    var EXPIRE = new Date('2026-05-26T07:00:00Z'); // midnight PDT end of Memorial Day
+    function pad(n) { return n < 10 ? '0' + n : '' + n; }
+    function tick() {
+      var now = new Date();
+      if (now >= EXPIRE) { banner.classList.remove('vsm-visible'); clearInterval(vsMemTimer); return; }
+      banner.classList.add('vsm-visible');
+      if (now >= TARGET) {
+        banner.innerHTML = '<span class="vsm-stars">★ ★ ★</span><span class="vsm-enjoy">Happy Memorial Day Weekend &mdash; we honor all who served. 🇺🇸</span><span class="vsm-stars">★ ★ ★</span>';
+        clearInterval(vsMemTimer);
+        return;
+      }
+      var diff = TARGET - now;
+      var d = Math.floor(diff / 86400000);
+      var h = Math.floor((diff % 86400000) / 3600000);
+      var m = Math.floor((diff % 3600000) / 60000);
+      var s = Math.floor((diff % 60000) / 1000);
+      banner.innerHTML =
+        '<span class="vsm-stars">★</span>' +
+        '&#127482;&#127480; Memorial Day Weekend kicks off in ' +
+        '<span class="vsm-unit">' + d + 'd</span> ' +
+        '<span class="vsm-unit">' + pad(h) + 'h</span> ' +
+        '<span class="vsm-unit">' + pad(m) + 'm</span> ' +
+        '<span class="vsm-unit">' + pad(s) + 's</span>' +
+        ' &mdash; <a class="vsm-link" href="/shows/">Plan Your Vegas Weekend &#8594;</a>' +
+        '<span class="vsm-stars">★</span>';
+    }
+    tick();
+    var vsMemTimer = setInterval(tick, 1000);
+  })();
 
   // Google Analytics — injected once via header, covers every page
   const gtagScript = document.createElement('script');
