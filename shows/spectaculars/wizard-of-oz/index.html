@@ -474,7 +474,7 @@
       <div class="stat-lbl">Speakers</div>
     </div>
     <div class="stat-item">
-      <div class="stat-num" data-target="6" data-suffix="+">0</div>
+      <div class="stat-num">Multiple</div>
       <div class="stat-lbl">Shows Daily</div>
     </div>
   </div>
@@ -983,7 +983,7 @@
   const statsObserver = new IntersectionObserver(entries => {
     if (entries[0].isIntersecting && !statsTriggered) {
       statsTriggered = true;
-      document.querySelectorAll('.stat-num').forEach(el => countUp(el));
+      document.querySelectorAll('.stat-num[data-target]').forEach(el => countUp(el));
       statsObserver.disconnect();
     }
   }, { threshold: 0.3 });
