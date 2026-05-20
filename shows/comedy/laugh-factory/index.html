@@ -321,7 +321,10 @@
     .final-cta-note a { color: rgba(255,255,255,0.4); text-decoration: underline; }
 
     /* MOBILE STICKY */
-    .mobile-sticky { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--navy); z-index: 1000; padding: 10px 16px 14px; box-shadow: 0 -4px 22px rgba(0,0,0,0.28); }
+    @keyframes sweep { 0% { background-position: -100% 0; } 100% { background-position: 250% 0; } }
+    .mobile-sticky { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--navy); z-index: 1000; padding: 10px 16px 14px; box-shadow: 0 -4px 22px rgba(0,0,0,0.28); border-top: 3px solid var(--orange); }
+    .mobile-sticky::before { content: ''; position: absolute; top: -3px; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--orange) 0%, var(--orange) 35%, #FFE0A0 50%, var(--orange) 65%, var(--orange) 100%); background-size: 300% 100%; animation: sweep 1.8s linear infinite; }
+
     .mob-progress { position: absolute; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--orange), var(--blue)); transition: width 0.1s linear; }
     .mob-inner { display: flex; align-items: center; justify-content: space-between; gap: 13px; }
     .mob-price-lbl { font-family: var(--font-mono); font-size: 0.55rem; color: rgba(255,255,255,0.28); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 1px; }
