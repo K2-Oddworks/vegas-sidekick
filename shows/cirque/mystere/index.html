@@ -50,7 +50,7 @@
       "aggregateRating": {
           "@type": "AggregateRating",
           "ratingValue": "4.7",
-          "reviewCount": "3200",
+          "ratingCount": "3200",
           "bestRating": "5",
           "worstRating": "1"
       }
@@ -147,7 +147,6 @@
     .u-seat { background: rgba(26,127,232,.1); border: 1px solid rgba(26,127,232,.25); color: #60B4FF; }
     .rating-row { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
     .r-score { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 2rem; color: #fff; line-height: 1; }
-    .r-count { font-size: .78rem; color: rgba(255,255,255,.5); }
     .cta-strip { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding: 18px 0 6px; border-top: 1px solid rgba(255,255,255,.1); }
     .price-block { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
     .p-our { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 3.2rem; color: var(--orange); line-height: 1; }
@@ -301,12 +300,6 @@
     .faq-a { max-height: 0; overflow: hidden; transition: max-height .35s ease, padding .35s ease; padding: 0 22px; font-size: .9rem; color: var(--subtext); line-height: 1.7; }
     .faq-item.open .faq-a { max-height: 400px; padding: 0 22px 18px; }
 
-    /* review block */
-    .review-block { background: var(--blue-card); border: 1px solid var(--blue-border); border-radius: 12px; padding: 22px 26px; }
-    .review-stars { font-size: 1.1rem; margin-bottom: 8px; }
-    .review-ttl { font-family: 'Bebas Neue', sans-serif; font-size: 1.35rem; letter-spacing: 2px; color: var(--navy); margin-bottom: 5px; }
-    .review-sub { font-size: .85rem; color: var(--gray); }
-
     /* similar */
     .sim-sections { display: flex; flex-direction: column; gap: 28px; }
     .sim-section-lbl { font-family: 'Barlow Condensed', sans-serif; font-size: .7rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--blue-bright); border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 12px; }
@@ -413,7 +406,6 @@
       <div class="rating-row">
         <div>⭐⭐⭐⭐⭐</div>
         <div class="r-score">4.7</div>
-        <div class="r-count">3,200+ reviews · as of March 2026</div>
       </div>
       <div class="cta-strip">
         <div class="price-block">
@@ -618,16 +610,6 @@
         <div class="faq-item fu"><button class="faq-q" onclick="faq(this)">Where should I park at TI Hotel?<span class="faq-ch">▼</span></button><div class="faq-a">TI Hotel has self-parking available on property. Rideshare is the easiest option — drops right at the main entrance. Give yourself 45 minutes before showtime to find the Mystère Theatre inside the hotel.</div></div>
       </div>
     </div>
-
-    <!-- REVIEWS -->
-    <div class="section fu">
-      <div class="sec-lbl">Reviews</div>
-      <h2 class="sec-ttl">What People Are <span>Saying</span></h2>
-      <div class="review-block">
-        <div class="review-stars">⭐⭐⭐⭐⭐</div>
-        <div class="review-ttl">Rated 4.7 / 5 — 3,200+ Reviews</div>
-        <div class="review-sub">The original Las Vegas Cirque production, still delivering after more than 30 years. Audiences consistently call it the best value Cirque experience on the Strip.</div>
-      </div>
     </div>
 
     <!-- SIMILAR -->
