@@ -29,13 +29,6 @@
           "@type": "Organization",
           "name": "KÀ Theatre at MGM Grand"
       },
-      "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.8",
-          "ratingCount": "3500",
-          "bestRating": "5",
-          "worstRating": "1"
-      },
       "eventStatus": "https://schema.org/EventScheduled",
       "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode"
   }
@@ -61,9 +54,13 @@
     }
     html { scroll-behavior: smooth; }
     body { margin: 0; padding: 0; background: var(--navy); color: var(--text); font-family: 'Barlow', sans-serif; font-size: 16px; line-height: 1.6; }
-
-    /* ── PROGRESS BAR ── */
-    #prog { position: fixed; top: 0; left: 0; width: 0; height: 3px; background: linear-gradient(90deg, var(--orange), #FFB84D); z-index: 9999; pointer-events: none; transition: width .1s linear; }
+    /* ── PROGRESS BARS ── */
+    #progress-bar { position: fixed; top: 0; left: 0; right: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--orange), #FFB84D); z-index: 9999; pointer-events: none; transition: width 0.1s linear; overflow: hidden; animation: pb-glow 2s ease-in-out infinite; }
+    #progress-bar-bottom { position: fixed; bottom: 0; left: 0; right: 0; height: 3px; width: 0%; background: linear-gradient(270deg, var(--orange), #FFB84D); z-index: 9999; pointer-events: none; transition: width 0.1s linear; overflow: hidden; animation: pb-glow 2s ease-in-out infinite; }
+    #progress-bar::after, #progress-bar-bottom::after { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%); animation: pb-shimmer 2.2s linear infinite; }
+    @keyframes pb-shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
+    @keyframes pb-glow { 0%, 100% { box-shadow: 0 0 3px rgba(255,107,0,0.3); } 50% { box-shadow: 0 0 12px rgba(255,184,77,0.8), 0 0 4px rgba(255,107,0,0.5); } }
+    @media (max-width: 940px) { #progress-bar-bottom { bottom: 72px; } }
 
     /* ── SCROLL FADE ── */
     .fu { opacity: 0; transform: translateY(22px); transition: opacity .55s ease, transform .55s ease; }
@@ -129,8 +126,6 @@
     .u-fire { background: rgba(239,68,68,.1); border: 1px solid rgba(239,68,68,.25); color: #FCA5A5; }
     .u-clock { background: rgba(245,158,11,.1); border: 1px solid rgba(245,158,11,.25); color: #FCD34D; }
     .u-seat { background: rgba(26,127,232,.1); border: 1px solid rgba(26,127,232,.25); color: #60B4FF; }
-    .rating-row { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
-    .r-score { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 2rem; color: #fff; line-height: 1; }
     .cta-strip { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding: 18px 0 6px; border-top: 1px solid rgba(255,255,255,.1); }
     .price-block { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
     .p-our { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 3.2rem; color: var(--orange); line-height: 1; }
@@ -329,7 +324,8 @@
 </head>
 <body>
 
-<div id="prog"></div>
+<div id="progress-bar" aria-hidden="true"></div>
+<div id="progress-bar-bottom" aria-hidden="true"></div>
 <div id="vs-header"></div>
 
 <!-- BREADCRUMB -->
@@ -388,9 +384,6 @@
         <span class="u-pill u-clock">⏰ Prices may increase closer to show date</span>
         <span class="u-pill u-seat">🪑 Better seats fill first</span>
       </div>
-      <div class="rating-row">
-        <div>⭐⭐⭐⭐⭐</div>
-        <div class="r-score">4.8</div>
       </div>
       <div class="cta-strip">
         <div class="price-block">
@@ -764,7 +757,8 @@
   // READING PROGRESS
   window.addEventListener('scroll', () => {
     const p = Math.min((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100, 100);
-    document.getElementById('prog').style.width = p + '%';
+    document.getElementById('progress-bar').style.width = p + '%';
+    document.getElementById('progress-bar-bottom').style.width = p + '%';
   }, { passive: true });
 </script>
 <script src="/components/header.js"></script>
