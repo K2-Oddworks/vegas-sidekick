@@ -39,15 +39,9 @@
               "addressCountry": "US"
           }
       },
-      "performer": {
-          "@type": "Person",
-          "name": "Tape Face"
-      },
+      "performer": { "@type": "Person", "name": "Tape Face" },
       "eventStatus": "https://schema.org/EventScheduled",
-      "organizer": {
-          "@type": "Organization",
-          "name": "Underground Theater at MGM Grand"
-      },
+      "organizer": { "@type": "Organization", "name": "Underground Theater at MGM Grand" },
       "offers": {
           "@type": "Offer",
           "url": "https://spotlight.vegas/shows/comedy/tape-face/ref/vegassidekick",
@@ -57,14 +51,7 @@
       },
       "eventSchedule": {
           "@type": "Schedule",
-          "byDay": [
-              "Monday",
-              "Tuesday",
-              "Thursday",
-              "Friday",
-              "Saturday",
-              "Sunday"
-          ],
+          "byDay": ["Monday","Tuesday","Thursday","Friday","Saturday","Sunday"],
           "startTime": "19:30"
       },
       "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode"
@@ -111,30 +98,30 @@
     a    { text-decoration: none; color: inherit; }
     button { font-family: inherit; cursor: pointer; }
 
-    #progress-bar { overflow: hidden; position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--blue), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; }
-    #progress-bar-bottom { position: fixed; bottom: 0; left: 0; right: 0; height: 3px; width: 0%; animation: pb-glow 2s ease-in-out infinite; background: linear-gradient(270deg, var(--blue), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; overflow: hidden; }
+    /* ── PROGRESS BARS ── */
+    #progress-bar { position: fixed; top: 0; left: 0; right: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--blue), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; overflow: hidden; animation: pb-glow 2s ease-in-out infinite; }
+    #progress-bar-bottom { position: fixed; bottom: 0; left: 0; right: 0; height: 3px; width: 0%; background: linear-gradient(270deg, var(--blue), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; overflow: hidden; animation: pb-glow 2s ease-in-out infinite; }
     #progress-bar::after, #progress-bar-bottom::after { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%); animation: pb-shimmer 2.2s linear infinite; }
     @keyframes pb-shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
-    @keyframes pb-glow { 0%, 100% { box-shadow: 0 0 3px rgba(255,255,255,0.15); } 50% { box-shadow: 0 0 10px rgba(255,255,255,0.5), 0 0 3px rgba(255,255,255,0.2); } }
+    @keyframes pb-glow { 0%, 100% { box-shadow: 0 0 3px rgba(26,107,221,0.3); } 50% { box-shadow: 0 0 12px rgba(26,107,221,0.8), 0 0 4px rgba(26,107,221,0.5); } }
     @media (max-width: 940px) { #progress-bar-bottom { bottom: 72px; } }
-    @keyframes pb-shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
-    @keyframes pb-glow { 0%, 100% { box-shadow: 0 0 3px rgba(255,255,255,0.15); } 50% { box-shadow: 0 0 10px rgba(255,255,255,0.5), 0 0 3px rgba(255,255,255,0.2); } }
 
-    /* HERO */
+    /* ── HERO ── */
     .hero { background: var(--navy); padding-top: 84px; }
-
     .breadcrumb { padding: 12px 24px; background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.05); font-family: var(--font-mono); font-size: 0.67rem; color: rgba(255,255,255,0.36); letter-spacing: 0.04em; }
     .breadcrumb a { color: rgba(255,255,255,0.36); transition: color 0.2s; }
     .breadcrumb a:hover { color: var(--orange); }
     .breadcrumb span { color: rgba(255,255,255,0.7); }
 
-    /* SLIDER */
+    /* ── SLIDER ── */
     .slider { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; background: var(--navy-mid); }
     .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.65s ease; }
     .slide.active { opacity: 1; }
-    .slide img { width: 100%; height: 100%; object-fit: cover; }
+    .slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .slide:not(.yt-slide).active img { animation: kenBurns 9s ease-in-out forwards; }
+    @keyframes kenBurns { from { transform: scale(1.0) translate(0,0); } to { transform: scale(1.08) translate(0.5%,0.3%); } }
 
-    /* YT SLIDE */
+    /* ── YT SLIDE ── */
     .slide.yt-slide { cursor: pointer; display: flex; align-items: center; justify-content: center; background: #000; overflow: hidden; }
     .slide.yt-slide > .yt-thumb { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.32; transition: opacity 0.3s; }
     .slide.yt-slide:hover > .yt-thumb { opacity: 0.42; }
@@ -146,7 +133,7 @@
     .yt-pill:hover { transform: scale(1.06); background: var(--orange-lt); box-shadow: 0 0 38px rgba(255,107,0,0.6), 0 4px 12px rgba(0,0,0,0.4); }
     .yt-pill-sub { font-family: var(--font-mono); font-size: 0.6rem; color: rgba(255,255,255,0.45); letter-spacing: 0.08em; text-transform: uppercase; text-align: center; }
     .yt-iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; z-index: 10; }
-    @media (max-width: 480px) { .yt-spike { display: none; } .yt-pill-wrap { right: 50%; transform: translate(50%, -50%); } }
+    @media (max-width: 480px) { .yt-spike { display: none; } .yt-pill-wrap { right: 50%; transform: translate(50%,-50%); } }
 
     .slider-dots { position: absolute; bottom: 13px; left: 50%; transform: translateX(-50%); display: flex; gap: 7px; z-index: 3; }
     .dot-btn { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.28); border: none; padding: 0; transition: background 0.2s, transform 0.2s; }
@@ -156,21 +143,19 @@
     .s-arrow.prev { left: 13px; }
     .s-arrow.next { right: 13px; }
 
+    /* ── HERO CONTENT ── */
     .hero-content { padding: 28px 24px 32px; }
     .venue-label { font-family: var(--font-mono); font-size: 0.69rem; color: var(--blue-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 9px; }
     .hero-title { font-family: var(--font-display); font-size: clamp(2.8rem, 5.5vw, 5rem); color: white; line-height: 0.94; letter-spacing: 0.02em; margin-bottom: 9px; }
     .hero-subtitle { font-family: var(--font-price); font-size: 1rem; font-weight: 700; color: var(--orange); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 20px; }
-
     .info-pills { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 15px; }
     .pill { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: 100px; font-family: var(--font-mono); font-size: 0.67rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.74); border: 1px solid rgba(255,255,255,0.11); }
     .pill-blue { background: rgba(26,107,221,0.14); color: #7ab4ff; border-color: rgba(26,107,221,0.28); }
     .pill-orange { background: rgba(255,107,0,0.13); color: var(--orange-lt); border-color: rgba(255,107,0,0.26); }
-
     .urgency-pills { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 20px; }
     .upill { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 6px; font-family: var(--font-mono); font-size: 0.63rem; font-weight: 600; letter-spacing: 0.04em; background: rgba(255,107,0,0.09); color: var(--orange-lt); border: 1px solid rgba(255,107,0,0.2); }
     .udot { width: 5px; height: 5px; border-radius: 50%; background: var(--orange); flex-shrink: 0; animation: blink 1.6s infinite; }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.36} }
-
     .price-strip { display: flex; align-items: center; gap: 22px; padding: 17px 24px; background: rgba(255,255,255,0.03); border-top: 1px solid rgba(255,255,255,0.06); flex-wrap: wrap; }
     .price-block { display: flex; flex-direction: column; gap: 1px; }
     .price-lbl { font-family: var(--font-mono); font-size: 0.59rem; color: rgba(255,255,255,0.33); letter-spacing: 0.06em; text-transform: uppercase; }
@@ -181,11 +166,38 @@
     .hero-cta:hover { background: var(--orange-lt); transform: translateY(-2px); }
     .urgency-txt { font-family: var(--font-mono); font-size: 0.62rem; color: rgba(255,255,255,0.32); }
 
-    /* LAYOUT */
+    /* ── STATS STRIP ── */
+    .stats-strip { background: var(--navy); display: flex; justify-content: center; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .stat-item { flex: 1; max-width: 220px; display: flex; flex-direction: column; align-items: center; padding: 22px 16px; border-right: 1px solid rgba(255,255,255,0.06); }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-family: var(--font-display); font-size: 2.8rem; color: var(--orange); line-height: 1; letter-spacing: 0.02em; }
+    .stat-lbl { font-family: var(--font-mono); font-size: 0.59rem; color: rgba(255,255,255,0.38); text-transform: uppercase; letter-spacing: 0.07em; margin-top: 5px; text-align: center; }
+    @media (max-width: 600px) { .stats-strip { flex-wrap: wrap; } .stat-item { max-width: 50%; min-width: 50%; border-bottom: 1px solid rgba(255,255,255,0.06); } }
+
+    /* ── TICKER ── */
+    .ticker-wrap { background: var(--navy-mid); border-bottom: 1px solid rgba(255,255,255,0.07); overflow: hidden; padding: 9px 0; }
+    .ticker-track { display: flex; width: max-content; animation: tickerScroll 44s linear infinite; }
+    .ticker-item { font-family: var(--font-mono); font-size: 0.65rem; font-weight: 600; color: rgba(255,255,255,0.38); text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; padding: 0 24px; }
+    .ticker-item::after { content: ' ·'; color: rgba(26,107,221,0.55); margin-left: 24px; }
+    @keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* ── DOT NAV ── */
+    .dot-nav { position: fixed; right: 14px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 800; }
+    .dot-nav-btn { width: 8px; height: 8px; border-radius: 50%; background: rgba(26,107,221,0.22); border: none; padding: 0; cursor: pointer; transition: background 0.25s, transform 0.25s; }
+    .dot-nav-btn.active { background: var(--blue); transform: scale(1.45); }
+    @media (max-width: 940px) { .dot-nav { display: none; } }
+
+    /* ── SAVE PILL ── */
+    .save-pill { position: fixed; top: 80px; right: 18px; z-index: 900; background: var(--navy); border: 1px solid rgba(74,222,128,0.28); border-radius: 100px; padding: 7px 15px; display: flex; align-items: center; gap: 7px; opacity: 0; pointer-events: none; transition: opacity 0.35s; box-shadow: 0 4px 16px rgba(0,0,0,0.35); }
+    .save-pill.visible { opacity: 1; pointer-events: auto; }
+    .save-pill-text { font-family: var(--font-mono); font-size: 0.64rem; color: var(--green); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+    @media (max-width: 940px) { .save-pill { display: none; } }
+
+    /* ── LAYOUT ── */
     .page-layout { display: grid; grid-template-columns: 1fr var(--sidebar); max-width: 1200px; margin: 0 auto; align-items: start; }
     .main-content { padding: 46px 36px 60px 22px; min-width: 0; }
 
-    /* SIDEBAR */
+    /* ── SIDEBAR ── */
     .sidebar { position: sticky; top: 0; background: var(--navy); min-height: 100vh; padding: 24px 20px 22px; display: flex; flex-direction: column; gap: 15px; }
     .sb-price-lbl { font-family: var(--font-mono); font-size: 0.59rem; color: rgba(255,255,255,0.33); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px; }
     .sb-price { font-family: var(--font-price); font-size: 2.9rem; font-weight: 800; color: var(--orange); line-height: 1; }
@@ -207,14 +219,14 @@
     .sb-disclosure { font-family: var(--font-mono); font-size: 0.57rem; color: rgba(255,255,255,0.25); line-height: 1.55; margin-top: auto; }
     .sb-disclosure a { color: rgba(255,255,255,0.4); text-decoration: underline; }
 
-    /* SHARED */
+    /* ── SHARED ── */
     .section { margin-bottom: 50px; }
     .section-title { font-family: var(--font-display); font-size: clamp(1.85rem, 2.8vw, 2.55rem); color: var(--navy); line-height: 1; letter-spacing: 0.02em; margin-bottom: 20px; }
     .section-title span { color: var(--orange); }
     .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-    /* HAVE YOU SEEN */
+    /* ── HAVE YOU SEEN ── */
     .seen-widget { background: linear-gradient(135deg, var(--navy) 0%, #0d2040 100%); border-radius: var(--radius-lg); padding: 28px; color: white; margin-bottom: 50px; }
     .seen-tag { font-family: var(--font-mono); font-size: 0.65rem; color: var(--blue-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
     .seen-q { font-family: var(--font-display); font-size: clamp(1.45rem, 2.6vw, 1.95rem); color: white; margin-bottom: 16px; line-height: 1.1; }
@@ -228,14 +240,14 @@
     .seen-resp p { font-size: 0.89rem; color: rgba(255,255,255,0.73); line-height: 1.72; margin-bottom: 12px; }
     .seen-resp a { color: var(--orange); font-weight: 600; }
 
-    /* TRUST GRID */
+    /* ── TRUST GRID ── */
     .trust-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; margin-bottom: 50px; }
     .trust-card { background: var(--gray-100); border-radius: var(--radius); padding: 17px; display: flex; gap: 12px; align-items: flex-start; }
     .trust-icon { font-size: 1.55rem; flex-shrink: 0; }
     .trust-card-title { font-family: var(--font-price); font-size: 0.86rem; font-weight: 800; color: var(--navy); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 3px; }
     .trust-card-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.52; }
 
-    /* ABOUT */
+    /* ── ABOUT ── */
     .about-body p { font-size: 0.98rem; color: var(--text); line-height: 1.78; margin-bottom: 16px; }
     .about-body p:last-child { margin-bottom: 0; }
     .spike-callout { display: flex; gap: 13px; align-items: flex-start; background: linear-gradient(135deg, rgba(26,107,221,0.05), rgba(255,107,0,0.03)); border: 1px solid rgba(26,107,221,0.12); border-left: 4px solid var(--blue); border-radius: var(--radius); padding: 16px 20px; margin: 20px 0; }
@@ -243,7 +255,7 @@
     .spike-text { font-family: var(--font-mono); font-size: 0.81rem; color: var(--navy); line-height: 1.62; }
     .spike-text strong { color: var(--blue); display: block; margin-bottom: 4px; font-size: 0.63rem; letter-spacing: 0.06em; text-transform: uppercase; }
 
-    /* EMAIL SIGNUP */
+    /* ── EMAIL SIGNUP ── */
     .email-signup { background: var(--navy); border-radius: var(--radius-lg); padding: 32px 28px; margin-bottom: 50px; position: relative; overflow: hidden; display: flex; align-items: center; gap: 24px; }
     .email-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: linear-gradient(180deg, var(--magenta), #9c27b0); }
     .email-heading { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); color: var(--magenta); letter-spacing: 0.08em; flex-shrink: 0; line-height: 1; }
@@ -257,7 +269,7 @@
     .email-submit { padding: 10px 15px; background: var(--magenta); color: white; font-family: var(--font-price); font-size: 0.84rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; border: none; border-radius: var(--radius-sm); transition: background 0.2s; white-space: nowrap; }
     .email-submit:hover { background: #c026d3; }
 
-    /* SHOW DETAILS GRID */
+    /* ── DETAILS GRID ── */
     .details-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 50px; }
     .detail-card { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 17px; transition: box-shadow 0.2s, transform 0.2s; }
     .detail-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
@@ -266,13 +278,13 @@
     .detail-card-val { font-family: var(--font-body); font-size: 0.87rem; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
     .detail-card-sub { font-size: 0.76rem; color: var(--text-muted); line-height: 1.52; }
 
-    /* WHAT TO EXPECT */
+    /* ── EXPECT GRID ── */
     .expect-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; margin-bottom: 50px; }
     .expect-card { background: var(--off-white); border-radius: var(--radius); padding: 20px; border-left: 3px solid var(--blue); }
     .expect-title { font-family: var(--font-price); font-size: 0.88rem; font-weight: 800; color: var(--navy); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 7px; display: flex; align-items: center; gap: 6px; }
     .expect-desc { font-size: 0.81rem; color: var(--text-muted); line-height: 1.62; }
 
-    /* SEATING CHART */
+    /* ── SEATING CHART ── */
     .seating-section { margin-bottom: 50px; }
     .seating-diagram-wrap { background: var(--navy); border-radius: var(--radius-lg); padding: 26px 20px 30px; margin-bottom: 20px; position: relative; overflow: hidden; }
     .seating-diagram-wrap::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--blue), var(--orange)); }
@@ -292,7 +304,7 @@
     .legend-item { display: flex; align-items: center; gap: 7px; font-family: var(--font-mono); font-size: 0.65rem; color: rgba(255,255,255,0.6); }
     .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
 
-    /* Seating Accordion */
+    /* ── SEATING ACCORDION — smooth ── */
     .seat-accord { display: flex; flex-direction: column; gap: 8px; }
     .sa-item { border: 1px solid var(--gray-200); border-radius: var(--radius-sm); overflow: hidden; }
     .sa-hdr { display: flex; align-items: center; justify-content: space-between; padding: 13px 16px; background: white; border: none; width: 100%; text-align: left; transition: background 0.2s; }
@@ -303,10 +315,11 @@
     .sa-badge { font-family: var(--font-mono); font-size: 0.57rem; font-weight: 600; padding: 2px 6px; border-radius: 4px; background: rgba(255,107,0,0.09); color: var(--orange); border: 1px solid rgba(255,107,0,0.19); }
     .sa-chev { color: var(--gray-400); transition: transform 0.28s; font-size: 0.84rem; }
     .sa-item.open .sa-chev { transform: rotate(180deg); }
-    .sa-body { display: none; padding: 12px 16px; background: var(--off-white); border-top: 1px solid var(--gray-200); font-size: 0.82rem; color: var(--text-muted); line-height: 1.64; }
-    .sa-item.open .sa-body { display: block; }
+    .sa-body { max-height: 0; overflow: hidden; transition: max-height 0.38s ease; }
+    .sa-item.open .sa-body { max-height: 320px; }
+    .sa-body-inner { padding: 12px 16px; background: var(--off-white); border-top: 1px solid var(--gray-200); font-size: 0.82rem; color: var(--text-muted); line-height: 1.64; }
 
-    /* FAQ */
+    /* ── FAQ — smooth ── */
     .faq-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 50px; }
     .faq-item { border: 1px solid var(--gray-200); border-radius: var(--radius-sm); overflow: hidden; }
     .faq-q { display: flex; align-items: center; justify-content: space-between; padding: 15px 17px; background: white; border: none; width: 100%; text-align: left; transition: background 0.2s; }
@@ -314,10 +327,11 @@
     .faq-q-text { font-family: var(--font-price); font-size: 0.92rem; font-weight: 700; color: var(--navy); letter-spacing: 0.02em; }
     .faq-icon { color: var(--blue); font-size: 1.22rem; transition: transform 0.28s; flex-shrink: 0; margin-left: 10px; font-weight: 300; line-height: 1; }
     .faq-item.open .faq-icon { transform: rotate(45deg); }
-    .faq-a { display: none; padding: 12px 17px; background: var(--off-white); border-top: 1px solid var(--gray-200); font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; }
-    .faq-item.open .faq-a { display: block; }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.38s ease; }
+    .faq-item.open .faq-a { max-height: 320px; }
+    .faq-a-inner { padding: 12px 17px; background: var(--off-white); border-top: 1px solid var(--gray-200); font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; }
 
-    /* YOU MIGHT ALSO LIKE */
+    /* ── ALSO LIKE ── */
     .also-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 50px; }
     .also-card { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; transition: box-shadow 0.2s, transform 0.2s; }
     .also-card:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
@@ -329,19 +343,22 @@
     .also-cta { display: block; width: 100%; padding: 9px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.82rem; font-weight: 800; text-align: center; border-radius: var(--radius-sm); text-transform: uppercase; letter-spacing: 0.05em; transition: background 0.2s; border: none; }
     .also-cta:hover { background: var(--orange-lt); }
 
-    /* FINAL CTA */
+    /* ── FINAL CTA ── */
     .final-cta { background: var(--navy); padding: 50px 32px; border-radius: var(--radius-lg); text-align: center; margin-bottom: 50px; position: relative; overflow: hidden; }
     .final-cta::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--blue), var(--orange)); }
-    .final-cta-tag { font-family: var(--font-mono); font-size: 0.64rem; color: var(--blue-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
-    .final-cta-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.1rem); color: white; line-height: 1; margin-bottom: 9px; }
-    .final-cta-sub { font-size: 0.88rem; color: rgba(255,255,255,0.42); margin-bottom: 22px; }
-    .final-cta-amount { font-family: var(--font-price); font-size: 3.3rem; font-weight: 800; color: var(--orange); line-height: 1; margin-bottom: 20px; }
-    .final-cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 15px 42px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.18rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); transition: all 0.2s; border: none; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(72px); pointer-events: none; }
+    .orb-1 { width: 280px; height: 280px; background: var(--blue); opacity: 0.12; top: -80px; left: -60px; }
+    .orb-2 { width: 220px; height: 220px; background: var(--orange); opacity: 0.10; bottom: -50px; right: -40px; }
+    .final-cta-tag { font-family: var(--font-mono); font-size: 0.64rem; color: var(--blue-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; position: relative; z-index: 1; }
+    .final-cta-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.1rem); color: white; line-height: 1; margin-bottom: 9px; position: relative; z-index: 1; }
+    .final-cta-sub { font-size: 0.88rem; color: rgba(255,255,255,0.42); margin-bottom: 22px; position: relative; z-index: 1; }
+    .final-cta-amount { font-family: var(--font-price); font-size: 3.3rem; font-weight: 800; color: var(--orange); line-height: 1; margin-bottom: 20px; position: relative; z-index: 1; }
+    .final-cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 15px 42px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.18rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); transition: all 0.2s; border: none; position: relative; z-index: 1; }
     .final-cta-btn:hover { background: var(--orange-lt); transform: translateY(-2px); }
-    .final-cta-note { font-family: var(--font-mono); font-size: 0.61rem; color: rgba(255,255,255,0.25); margin-top: 13px; }
+    .final-cta-note { font-family: var(--font-mono); font-size: 0.61rem; color: rgba(255,255,255,0.25); margin-top: 13px; position: relative; z-index: 1; }
     .final-cta-note a { color: rgba(255,255,255,0.4); text-decoration: underline; }
 
-    /* MOBILE STICKY */
+    /* ── MOBILE STICKY ── */
     .mobile-sticky { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--navy); z-index: 1000; padding: 10px 16px 14px; box-shadow: 0 -4px 22px rgba(0,0,0,0.28); }
     .mob-progress { position: absolute; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--orange), var(--blue)); transition: width 0.1s linear; }
     .mob-inner { display: flex; align-items: center; justify-content: space-between; gap: 13px; }
@@ -351,7 +368,7 @@
     .mob-cta::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.17), transparent); animation: shimmer 2s infinite; }
     .mob-cta:hover { background: var(--orange-lt); }
 
-    /* RESPONSIVE */
+    /* ── RESPONSIVE ── */
     @media (max-width: 940px) {
       .page-layout { grid-template-columns: 1fr; }
       .sidebar { display: none; }
@@ -370,6 +387,8 @@
       .email-form { flex-direction: column; }
       .price-strip { flex-direction: column; align-items: flex-start; gap: 13px; }
     }
+
+    @media (prefers-reduced-motion: reduce) { *, *::after { animation: none !important; transition-duration: 0.01ms !important; } }
   </style>
 </head>
 <body>
@@ -378,6 +397,21 @@
 
 <div id="progress-bar" aria-hidden="true"></div>
 <div id="progress-bar-bottom" aria-hidden="true"></div>
+
+<!-- SAVE PILL -->
+<a href="https://spotlight.vegas/shows/comedy/tape-face/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="save-pill" id="save-pill" aria-label="Save $41 on Tape Face tickets">
+  <span class="save-pill-text">Save $41 → Get Tickets</span>
+</a>
+
+<!-- DOT NAV -->
+<nav class="dot-nav" aria-label="Page sections">
+  <button class="dot-nav-btn active" onclick="scrollToSection('sec-seen')" aria-label="Have You Seen"></button>
+  <button class="dot-nav-btn" onclick="scrollToSection('sec-about')" aria-label="About"></button>
+  <button class="dot-nav-btn" onclick="scrollToSection('sec-details')" aria-label="Show Details"></button>
+  <button class="dot-nav-btn" onclick="scrollToSection('sec-expect')" aria-label="What to Expect"></button>
+  <button class="dot-nav-btn" onclick="scrollToSection('sec-seating')" aria-label="Seating"></button>
+  <button class="dot-nav-btn" onclick="scrollToSection('sec-faq')" aria-label="FAQ"></button>
+</nav>
 
 <!-- HERO -->
 <section class="hero" aria-label="Show hero">
@@ -450,12 +484,58 @@
   </div>
 </section>
 
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stat-item">
+    <div class="stat-num" data-target="75">0</div>
+    <div class="stat-lbl">Minutes</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num" data-target="6">0</div>
+    <div class="stat-lbl">Nights Weekly</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num" data-prefix="$" data-target="57">$0</div>
+    <div class="stat-lbl">From</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num" style="font-size:1.8rem;letter-spacing:0.01em">All Ages</div>
+    <div class="stat-lbl">Welcome</div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item">No Words. All Show.</span>
+    <span class="ticker-item">As Seen on America's Got Talent</span>
+    <span class="ticker-item">75 Minutes · All Ages</span>
+    <span class="ticker-item">Underground Theater · MGM Grand</span>
+    <span class="ticker-item">Mon · Tue · Thu · Fri · Sat · Sun · 7:30 PM</span>
+    <span class="ticker-item">Props · Music · Stunts · Audience Chaos</span>
+    <span class="ticker-item">The Show That Works on Everyone</span>
+    <span class="ticker-item">Save $41 on Tickets</span>
+    <span class="ticker-item">A Modern-Day Jester</span>
+    <span class="ticker-item">Wordless Comedy · Huge Laughs</span>
+    <span class="ticker-item">No Words. All Show.</span>
+    <span class="ticker-item">As Seen on America's Got Talent</span>
+    <span class="ticker-item">75 Minutes · All Ages</span>
+    <span class="ticker-item">Underground Theater · MGM Grand</span>
+    <span class="ticker-item">Mon · Tue · Thu · Fri · Sat · Sun · 7:30 PM</span>
+    <span class="ticker-item">Props · Music · Stunts · Audience Chaos</span>
+    <span class="ticker-item">The Show That Works on Everyone</span>
+    <span class="ticker-item">Save $41 on Tickets</span>
+    <span class="ticker-item">A Modern-Day Jester</span>
+    <span class="ticker-item">Wordless Comedy · Huge Laughs</span>
+  </div>
+</div>
+
 <!-- PAGE LAYOUT -->
 <div class="page-layout">
 <main class="main-content" role="main">
 
   <!-- HAVE YOU SEEN -->
-  <div class="seen-widget fade-up">
+  <div class="seen-widget fade-up" id="sec-seen">
     <div class="seen-tag">🌵 Spike Wants to Know</div>
     <div class="seen-q">Have you seen Tape Face before?</div>
     <div class="seen-btns">
@@ -481,7 +561,7 @@
   </div>
 
   <!-- ABOUT -->
-  <section class="section fade-up" aria-labelledby="about-heading">
+  <section class="section fade-up" id="sec-about" aria-labelledby="about-heading">
     <h2 id="about-heading" class="section-title">About <span>Tape Face</span></h2>
     <div class="about-body">
       <p>He doesn't say a word. He doesn't need to. Tape Face — as seen on America's Got Talent — has built one of the most genuinely original shows on the Las Vegas Strip out of art, music, props, and pure physical comedy. Performing nightly at the Underground Theater inside MGM Grand, the show is enjoyed by audiences of every age, language, and background because it doesn't require any of them to have the same frame of reference. The comedy is universal in the most literal sense of the word.</p>
@@ -513,7 +593,7 @@
   </div>
 
   <!-- SHOW DETAILS -->
-  <section class="section fade-up" aria-labelledby="details-heading">
+  <section class="section fade-up" id="sec-details" aria-labelledby="details-heading">
     <h2 id="details-heading" class="section-title">Show <span>Details</span></h2>
     <div class="details-grid">
       <div class="detail-card">
@@ -550,13 +630,13 @@
         <div class="detail-card-icon">📷</div>
         <div class="detail-card-lbl">Photography</div>
         <div class="detail-card-val">Check with Your Usher</div>
-        <div class="detail-card-sub">Still photos may be welcome — check with your usher before shooting. Flash and video are not permitted. Ushers may ask you to stop.</div>
+        <div class="detail-card-sub">Still photos may be welcome — check with your usher before shooting. Flash and video are not permitted.</div>
       </div>
     </div>
   </section>
 
   <!-- WHAT TO EXPECT -->
-  <section class="section fade-up" aria-labelledby="expect-heading">
+  <section class="section fade-up" id="sec-expect" aria-labelledby="expect-heading">
     <h2 id="expect-heading" class="section-title">What to <span>Expect</span></h2>
     <div class="expect-grid">
       <div class="expect-card">
@@ -579,20 +659,13 @@
   </section>
 
   <!-- SEATING CHART -->
-  <section class="seating-section fade-up" aria-labelledby="seating-heading">
+  <section class="seating-section fade-up" id="sec-seating" aria-labelledby="seating-heading">
     <h2 id="seating-heading" class="section-title">Tape Face <span>Seating Chart</span></h2>
 
     <div class="seating-diagram-wrap">
       <div class="seating-lbl">Underground Theater · MGM Grand — Select a category to learn more</div>
 
       <div class="seat-svg-wrap">
-        <!--
-          Rebuilt from uploaded seating chart image.
-          3 categories: Category A (red) = tight curved arc around stage center,
-          Category B (yellow) = main surrounding floor, Sidekick Pick,
-          Category C (blue) = outer scattered seats far left/right.
-          No row or seat numbers.
-        -->
         <svg viewBox="0 0 580 400" xmlns="http://www.w3.org/2000/svg" aria-label="Tape Face seating chart — Underground Theater, MGM Grand" role="img">
 
           <!-- STAGE -->
@@ -600,198 +673,88 @@
           <text x="290" y="35" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="19" fill="white" letter-spacing="3">STAGE</text>
           <text x="290" y="54" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7" fill="rgba(255,255,255,0.5)" letter-spacing="1">TAPE FACE PERFORMS HERE</text>
 
-          <!-- ===== CATEGORY A — RED — tight arc around stage ===== -->
-          <!-- These are dot-style seats, matching the original chart feel -->
+          <!-- CATEGORY A — RED — tight arc around stage -->
           <g class="seat-zone" onclick="selectZone('catA')" tabindex="0" role="button" aria-label="Category A — click for details">
-            <!-- Arc row 1 — very close to stage -->
-            <circle cx="210" cy="90"  r="7" fill="#e74c3c"/>
-            <circle cx="228" cy="82"  r="7" fill="#e74c3c"/>
-            <circle cx="247" cy="76"  r="7" fill="#e74c3c"/>
-            <circle cx="268" cy="73"  r="7" fill="#e74c3c"/>
-            <circle cx="290" cy="72"  r="7" fill="#e74c3c"/>
-            <circle cx="312" cy="73"  r="7" fill="#e74c3c"/>
-            <circle cx="333" cy="76"  r="7" fill="#e74c3c"/>
-            <circle cx="352" cy="82"  r="7" fill="#e74c3c"/>
-            <circle cx="370" cy="90"  r="7" fill="#e74c3c"/>
-            <!-- Arc row 2 -->
-            <circle cx="192" cy="106" r="7" fill="#e74c3c"/>
-            <circle cx="211" cy="97"  r="7" fill="#e74c3c"/>
-            <circle cx="232" cy="91"  r="7" fill="#e74c3c"/>
-            <circle cx="254" cy="87"  r="7" fill="#e74c3c"/>
-            <circle cx="276" cy="85"  r="7" fill="#e74c3c"/>
-            <circle cx="290" cy="85"  r="7" fill="#e74c3c"/>
-            <circle cx="304" cy="85"  r="7" fill="#e74c3c"/>
-            <circle cx="326" cy="87"  r="7" fill="#e74c3c"/>
-            <circle cx="348" cy="91"  r="7" fill="#e74c3c"/>
-            <circle cx="369" cy="97"  r="7" fill="#e74c3c"/>
-            <circle cx="388" cy="106" r="7" fill="#e74c3c"/>
-            <!-- Arc row 3 -->
-            <circle cx="180" cy="123" r="7" fill="#e74c3c"/>
-            <circle cx="200" cy="113" r="7" fill="#e74c3c"/>
-            <circle cx="221" cy="106" r="7" fill="#e74c3c"/>
-            <circle cx="243" cy="101" r="7" fill="#e74c3c"/>
-            <circle cx="265" cy="99"  r="7" fill="#e74c3c"/>
-            <circle cx="290" cy="98"  r="7" fill="#e74c3c"/>
-            <circle cx="315" cy="99"  r="7" fill="#e74c3c"/>
-            <circle cx="337" cy="101" r="7" fill="#e74c3c"/>
-            <circle cx="359" cy="106" r="7" fill="#e74c3c"/>
-            <circle cx="380" cy="113" r="7" fill="#e74c3c"/>
-            <circle cx="400" cy="123" r="7" fill="#e74c3c"/>
-            <!-- Row 4 — outermost Cat A -->
-            <circle cx="170" cy="141" r="7" fill="#e74c3c"/>
-            <circle cx="190" cy="130" r="7" fill="#e74c3c"/>
-            <circle cx="212" cy="122" r="7" fill="#e74c3c"/>
-            <circle cx="235" cy="117" r="7" fill="#e74c3c"/>
-            <circle cx="258" cy="114" r="7" fill="#e74c3c"/>
-            <circle cx="290" cy="113" r="7" fill="#e74c3c"/>
-            <circle cx="322" cy="114" r="7" fill="#e74c3c"/>
-            <circle cx="345" cy="117" r="7" fill="#e74c3c"/>
-            <circle cx="368" cy="122" r="7" fill="#e74c3c"/>
-            <circle cx="390" cy="130" r="7" fill="#e74c3c"/>
-            <circle cx="410" cy="141" r="7" fill="#e74c3c"/>
+            <circle cx="210" cy="90"  r="7" fill="#e74c3c"/><circle cx="228" cy="82"  r="7" fill="#e74c3c"/><circle cx="247" cy="76"  r="7" fill="#e74c3c"/>
+            <circle cx="268" cy="73"  r="7" fill="#e74c3c"/><circle cx="290" cy="72"  r="7" fill="#e74c3c"/><circle cx="312" cy="73"  r="7" fill="#e74c3c"/>
+            <circle cx="333" cy="76"  r="7" fill="#e74c3c"/><circle cx="352" cy="82"  r="7" fill="#e74c3c"/><circle cx="370" cy="90"  r="7" fill="#e74c3c"/>
+            <circle cx="192" cy="106" r="7" fill="#e74c3c"/><circle cx="211" cy="97"  r="7" fill="#e74c3c"/><circle cx="232" cy="91"  r="7" fill="#e74c3c"/>
+            <circle cx="254" cy="87"  r="7" fill="#e74c3c"/><circle cx="276" cy="85"  r="7" fill="#e74c3c"/><circle cx="290" cy="85"  r="7" fill="#e74c3c"/>
+            <circle cx="304" cy="85"  r="7" fill="#e74c3c"/><circle cx="326" cy="87"  r="7" fill="#e74c3c"/><circle cx="348" cy="91"  r="7" fill="#e74c3c"/>
+            <circle cx="369" cy="97"  r="7" fill="#e74c3c"/><circle cx="388" cy="106" r="7" fill="#e74c3c"/>
+            <circle cx="180" cy="123" r="7" fill="#e74c3c"/><circle cx="200" cy="113" r="7" fill="#e74c3c"/><circle cx="221" cy="106" r="7" fill="#e74c3c"/>
+            <circle cx="243" cy="101" r="7" fill="#e74c3c"/><circle cx="265" cy="99"  r="7" fill="#e74c3c"/><circle cx="290" cy="98"  r="7" fill="#e74c3c"/>
+            <circle cx="315" cy="99"  r="7" fill="#e74c3c"/><circle cx="337" cy="101" r="7" fill="#e74c3c"/><circle cx="359" cy="106" r="7" fill="#e74c3c"/>
+            <circle cx="380" cy="113" r="7" fill="#e74c3c"/><circle cx="400" cy="123" r="7" fill="#e74c3c"/>
+            <circle cx="170" cy="141" r="7" fill="#e74c3c"/><circle cx="190" cy="130" r="7" fill="#e74c3c"/><circle cx="212" cy="122" r="7" fill="#e74c3c"/>
+            <circle cx="235" cy="117" r="7" fill="#e74c3c"/><circle cx="258" cy="114" r="7" fill="#e74c3c"/><circle cx="290" cy="113" r="7" fill="#e74c3c"/>
+            <circle cx="322" cy="114" r="7" fill="#e74c3c"/><circle cx="345" cy="117" r="7" fill="#e74c3c"/><circle cx="368" cy="122" r="7" fill="#e74c3c"/>
+            <circle cx="390" cy="130" r="7" fill="#e74c3c"/><circle cx="410" cy="141" r="7" fill="#e74c3c"/>
           </g>
 
-          <!-- ===== CATEGORY B — YELLOW — main surrounding floor + Sidekick Pick ===== -->
-          <g class="seat-zone" onclick="selectZone('catB')" tabindex="0" role="button" aria-label="Category B — Sidekick Pick — click for details">
-            <!-- Left floor sweep -->
-            <circle cx="100" cy="92"  r="7" fill="#f1c40f"/>
-            <circle cx="118" cy="80"  r="7" fill="#f1c40f"/>
-            <circle cx="137" cy="70"  r="7" fill="#f1c40f"/>
-            <circle cx="80"  cy="108" r="7" fill="#f1c40f"/>
-            <circle cx="98"  cy="108" r="7" fill="#f1c40f"/>
-            <circle cx="117" cy="96"  r="7" fill="#f1c40f"/>
-            <circle cx="137" cy="86"  r="7" fill="#f1c40f"/>
-            <circle cx="158" cy="78"  r="7" fill="#f1c40f"/>
-            <circle cx="68"  cy="126" r="7" fill="#f1c40f"/>
-            <circle cx="86"  cy="124" r="7" fill="#f1c40f"/>
-            <circle cx="105" cy="122" r="7" fill="#f1c40f"/>
-            <circle cx="124" cy="113" r="7" fill="#f1c40f"/>
-            <circle cx="143" cy="104" r="7" fill="#f1c40f"/>
-            <circle cx="162" cy="96"  r="7" fill="#f1c40f"/>
-            <circle cx="60"  cy="145" r="7" fill="#f1c40f"/>
-            <circle cx="78"  cy="143" r="7" fill="#f1c40f"/>
-            <circle cx="97"  cy="140" r="7" fill="#f1c40f"/>
-            <circle cx="116" cy="132" r="7" fill="#f1c40f"/>
-            <circle cx="135" cy="122" r="7" fill="#f1c40f"/>
-            <circle cx="154" cy="114" r="7" fill="#f1c40f"/>
-            <!-- Right floor sweep (mirrored) -->
-            <circle cx="480" cy="92"  r="7" fill="#f1c40f"/>
-            <circle cx="462" cy="80"  r="7" fill="#f1c40f"/>
-            <circle cx="443" cy="70"  r="7" fill="#f1c40f"/>
-            <circle cx="500" cy="108" r="7" fill="#f1c40f"/>
-            <circle cx="482" cy="108" r="7" fill="#f1c40f"/>
-            <circle cx="463" cy="96"  r="7" fill="#f1c40f"/>
-            <circle cx="443" cy="86"  r="7" fill="#f1c40f"/>
-            <circle cx="422" cy="78"  r="7" fill="#f1c40f"/>
-            <circle cx="512" cy="126" r="7" fill="#f1c40f"/>
-            <circle cx="494" cy="124" r="7" fill="#f1c40f"/>
-            <circle cx="475" cy="122" r="7" fill="#f1c40f"/>
-            <circle cx="456" cy="113" r="7" fill="#f1c40f"/>
-            <circle cx="437" cy="104" r="7" fill="#f1c40f"/>
-            <circle cx="418" cy="96"  r="7" fill="#f1c40f"/>
-            <circle cx="520" cy="145" r="7" fill="#f1c40f"/>
-            <circle cx="502" cy="143" r="7" fill="#f1c40f"/>
-            <circle cx="483" cy="140" r="7" fill="#f1c40f"/>
-            <circle cx="464" cy="132" r="7" fill="#f1c40f"/>
-            <circle cx="445" cy="122" r="7" fill="#f1c40f"/>
-            <circle cx="426" cy="114" r="7" fill="#f1c40f"/>
-            <!-- Center-rear block (below Cat A) -->
-            <circle cx="155" cy="160" r="7" fill="#f1c40f"/>
-            <circle cx="175" cy="152" r="7" fill="#f1c40f"/>
-            <circle cx="196" cy="147" r="7" fill="#f1c40f"/>
-            <circle cx="218" cy="144" r="7" fill="#f1c40f"/>
-            <circle cx="240" cy="142" r="7" fill="#f1c40f"/>
-            <circle cx="264" cy="141" r="7" fill="#f1c40f"/>
-            <circle cx="290" cy="141" r="7" fill="#f1c40f"/>
-            <circle cx="316" cy="141" r="7" fill="#f1c40f"/>
-            <circle cx="340" cy="142" r="7" fill="#f1c40f"/>
-            <circle cx="362" cy="144" r="7" fill="#f1c40f"/>
-            <circle cx="384" cy="147" r="7" fill="#f1c40f"/>
-            <circle cx="405" cy="152" r="7" fill="#f1c40f"/>
+          <!-- CATEGORY B — YELLOW — main surrounding floor + Sidekick Pick -->
+          <g class="seat-zone" onclick="selectZone('catB')" tabindex="0" role="button" aria-label="Category B Sidekick Pick — click for details">
+            <circle cx="100" cy="92"  r="7" fill="#f1c40f"/><circle cx="118" cy="80"  r="7" fill="#f1c40f"/><circle cx="137" cy="70"  r="7" fill="#f1c40f"/>
+            <circle cx="80"  cy="108" r="7" fill="#f1c40f"/><circle cx="98"  cy="108" r="7" fill="#f1c40f"/><circle cx="117" cy="96"  r="7" fill="#f1c40f"/>
+            <circle cx="137" cy="86"  r="7" fill="#f1c40f"/><circle cx="158" cy="78"  r="7" fill="#f1c40f"/>
+            <circle cx="68"  cy="126" r="7" fill="#f1c40f"/><circle cx="86"  cy="124" r="7" fill="#f1c40f"/><circle cx="105" cy="122" r="7" fill="#f1c40f"/>
+            <circle cx="124" cy="113" r="7" fill="#f1c40f"/><circle cx="143" cy="104" r="7" fill="#f1c40f"/><circle cx="162" cy="96"  r="7" fill="#f1c40f"/>
+            <circle cx="60"  cy="145" r="7" fill="#f1c40f"/><circle cx="78"  cy="143" r="7" fill="#f1c40f"/><circle cx="97"  cy="140" r="7" fill="#f1c40f"/>
+            <circle cx="116" cy="132" r="7" fill="#f1c40f"/><circle cx="135" cy="122" r="7" fill="#f1c40f"/><circle cx="154" cy="114" r="7" fill="#f1c40f"/>
+            <circle cx="480" cy="92"  r="7" fill="#f1c40f"/><circle cx="462" cy="80"  r="7" fill="#f1c40f"/><circle cx="443" cy="70"  r="7" fill="#f1c40f"/>
+            <circle cx="500" cy="108" r="7" fill="#f1c40f"/><circle cx="482" cy="108" r="7" fill="#f1c40f"/><circle cx="463" cy="96"  r="7" fill="#f1c40f"/>
+            <circle cx="443" cy="86"  r="7" fill="#f1c40f"/><circle cx="422" cy="78"  r="7" fill="#f1c40f"/>
+            <circle cx="512" cy="126" r="7" fill="#f1c40f"/><circle cx="494" cy="124" r="7" fill="#f1c40f"/><circle cx="475" cy="122" r="7" fill="#f1c40f"/>
+            <circle cx="456" cy="113" r="7" fill="#f1c40f"/><circle cx="437" cy="104" r="7" fill="#f1c40f"/><circle cx="418" cy="96"  r="7" fill="#f1c40f"/>
+            <circle cx="520" cy="145" r="7" fill="#f1c40f"/><circle cx="502" cy="143" r="7" fill="#f1c40f"/><circle cx="483" cy="140" r="7" fill="#f1c40f"/>
+            <circle cx="464" cy="132" r="7" fill="#f1c40f"/><circle cx="445" cy="122" r="7" fill="#f1c40f"/><circle cx="426" cy="114" r="7" fill="#f1c40f"/>
+            <circle cx="155" cy="160" r="7" fill="#f1c40f"/><circle cx="175" cy="152" r="7" fill="#f1c40f"/><circle cx="196" cy="147" r="7" fill="#f1c40f"/>
+            <circle cx="218" cy="144" r="7" fill="#f1c40f"/><circle cx="240" cy="142" r="7" fill="#f1c40f"/><circle cx="264" cy="141" r="7" fill="#f1c40f"/>
+            <circle cx="290" cy="141" r="7" fill="#f1c40f"/><circle cx="316" cy="141" r="7" fill="#f1c40f"/><circle cx="340" cy="142" r="7" fill="#f1c40f"/>
+            <circle cx="362" cy="144" r="7" fill="#f1c40f"/><circle cx="384" cy="147" r="7" fill="#f1c40f"/><circle cx="405" cy="152" r="7" fill="#f1c40f"/>
             <circle cx="425" cy="160" r="7" fill="#f1c40f"/>
-            <circle cx="145" cy="178" r="7" fill="#f1c40f"/>
-            <circle cx="166" cy="171" r="7" fill="#f1c40f"/>
-            <circle cx="188" cy="165" r="7" fill="#f1c40f"/>
-            <circle cx="210" cy="161" r="7" fill="#f1c40f"/>
-            <circle cx="233" cy="159" r="7" fill="#f1c40f"/>
-            <circle cx="256" cy="158" r="7" fill="#f1c40f"/>
-            <circle cx="290" cy="157" r="7" fill="#f1c40f"/>
-            <circle cx="324" cy="158" r="7" fill="#f1c40f"/>
-            <circle cx="347" cy="159" r="7" fill="#f1c40f"/>
-            <circle cx="370" cy="161" r="7" fill="#f1c40f"/>
-            <circle cx="392" cy="165" r="7" fill="#f1c40f"/>
-            <circle cx="414" cy="171" r="7" fill="#f1c40f"/>
+            <circle cx="145" cy="178" r="7" fill="#f1c40f"/><circle cx="166" cy="171" r="7" fill="#f1c40f"/><circle cx="188" cy="165" r="7" fill="#f1c40f"/>
+            <circle cx="210" cy="161" r="7" fill="#f1c40f"/><circle cx="233" cy="159" r="7" fill="#f1c40f"/><circle cx="256" cy="158" r="7" fill="#f1c40f"/>
+            <circle cx="290" cy="157" r="7" fill="#f1c40f"/><circle cx="324" cy="158" r="7" fill="#f1c40f"/><circle cx="347" cy="159" r="7" fill="#f1c40f"/>
+            <circle cx="370" cy="161" r="7" fill="#f1c40f"/><circle cx="392" cy="165" r="7" fill="#f1c40f"/><circle cx="414" cy="171" r="7" fill="#f1c40f"/>
             <circle cx="435" cy="178" r="7" fill="#f1c40f"/>
-            <!-- Rear row -->
-            <circle cx="160" cy="196" r="7" fill="#f1c40f"/>
-            <circle cx="182" cy="190" r="7" fill="#f1c40f"/>
-            <circle cx="205" cy="185" r="7" fill="#f1c40f"/>
-            <circle cx="228" cy="181" r="7" fill="#f1c40f"/>
-            <circle cx="251" cy="179" r="7" fill="#f1c40f"/>
-            <circle cx="274" cy="178" r="7" fill="#f1c40f"/>
-            <circle cx="290" cy="178" r="7" fill="#f1c40f"/>
-            <circle cx="306" cy="178" r="7" fill="#f1c40f"/>
-            <circle cx="329" cy="179" r="7" fill="#f1c40f"/>
-            <circle cx="352" cy="181" r="7" fill="#f1c40f"/>
-            <circle cx="375" cy="185" r="7" fill="#f1c40f"/>
-            <circle cx="398" cy="190" r="7" fill="#f1c40f"/>
+            <circle cx="160" cy="196" r="7" fill="#f1c40f"/><circle cx="182" cy="190" r="7" fill="#f1c40f"/><circle cx="205" cy="185" r="7" fill="#f1c40f"/>
+            <circle cx="228" cy="181" r="7" fill="#f1c40f"/><circle cx="251" cy="179" r="7" fill="#f1c40f"/><circle cx="274" cy="178" r="7" fill="#f1c40f"/>
+            <circle cx="290" cy="178" r="7" fill="#f1c40f"/><circle cx="306" cy="178" r="7" fill="#f1c40f"/><circle cx="329" cy="179" r="7" fill="#f1c40f"/>
+            <circle cx="352" cy="181" r="7" fill="#f1c40f"/><circle cx="375" cy="185" r="7" fill="#f1c40f"/><circle cx="398" cy="190" r="7" fill="#f1c40f"/>
             <circle cx="420" cy="196" r="7" fill="#f1c40f"/>
-            <!-- Bottom row (bar-style) -->
-            <circle cx="165" cy="240" r="7" fill="#f1c40f"/>
-            <circle cx="183" cy="240" r="7" fill="#f1c40f"/>
-            <circle cx="201" cy="240" r="7" fill="#f1c40f"/>
-            <circle cx="219" cy="240" r="7" fill="#f1c40f"/>
-            <circle cx="237" cy="240" r="7" fill="#f1c40f"/>
-            <circle cx="255" cy="240" r="7" fill="#f1c40f"/>
-            <!-- Sidekick Pick label -->
+            <circle cx="165" cy="240" r="7" fill="#f1c40f"/><circle cx="183" cy="240" r="7" fill="#f1c40f"/><circle cx="201" cy="240" r="7" fill="#f1c40f"/>
+            <circle cx="219" cy="240" r="7" fill="#f1c40f"/><circle cx="237" cy="240" r="7" fill="#f1c40f"/><circle cx="255" cy="240" r="7" fill="#f1c40f"/>
             <rect x="218" y="206" width="144" height="20" rx="4" fill="rgba(255,107,0,0.2)" stroke="rgba(255,107,0,0.45)" stroke-width="1"/>
             <text x="290" y="219" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" font-weight="600" fill="#ffb380" letter-spacing="0.3">⭐ SIDEKICK PICK</text>
           </g>
 
-          <!-- ===== CATEGORY C — BLUE — outer scattered seats ===== -->
+          <!-- CATEGORY C — BLUE — outer scattered seats -->
           <g class="seat-zone" onclick="selectZone('catC')" tabindex="0" role="button" aria-label="Category C — click for details">
-            <!-- Far left outer -->
-            <circle cx="30"  cy="92"  r="7" fill="#3498db"/>
-            <circle cx="48"  cy="80"  r="7" fill="#3498db"/>
-            <circle cx="30"  cy="112" r="7" fill="#3498db"/>
-            <circle cx="48"  cy="100" r="7" fill="#3498db"/>
-            <circle cx="30"  cy="132" r="7" fill="#3498db"/>
-            <circle cx="48"  cy="120" r="7" fill="#3498db"/>
-            <circle cx="30"  cy="152" r="7" fill="#3498db"/>
-            <circle cx="48"  cy="140" r="7" fill="#3498db"/>
-            <!-- Far right outer -->
-            <circle cx="550" cy="92"  r="7" fill="#3498db"/>
-            <circle cx="532" cy="80"  r="7" fill="#3498db"/>
-            <circle cx="550" cy="112" r="7" fill="#3498db"/>
-            <circle cx="532" cy="100" r="7" fill="#3498db"/>
-            <circle cx="550" cy="132" r="7" fill="#3498db"/>
-            <circle cx="532" cy="120" r="7" fill="#3498db"/>
-            <circle cx="550" cy="152" r="7" fill="#3498db"/>
-            <circle cx="532" cy="140" r="7" fill="#3498db"/>
-            <!-- Right side lower cluster -->
-            <circle cx="440" cy="196" r="7" fill="#3498db"/>
-            <circle cx="458" cy="208" r="7" fill="#3498db"/>
-            <circle cx="440" cy="216" r="7" fill="#3498db"/>
-            <circle cx="458" cy="228" r="7" fill="#3498db"/>
-            <circle cx="440" cy="236" r="7" fill="#3498db"/>
-            <circle cx="458" cy="248" r="7" fill="#3498db"/>
-            <circle cx="440" cy="256" r="7" fill="#3498db"/>
-            <circle cx="458" cy="268" r="7" fill="#3498db"/>
+            <circle cx="30"  cy="92"  r="7" fill="#3498db"/><circle cx="48"  cy="80"  r="7" fill="#3498db"/>
+            <circle cx="30"  cy="112" r="7" fill="#3498db"/><circle cx="48"  cy="100" r="7" fill="#3498db"/>
+            <circle cx="30"  cy="132" r="7" fill="#3498db"/><circle cx="48"  cy="120" r="7" fill="#3498db"/>
+            <circle cx="30"  cy="152" r="7" fill="#3498db"/><circle cx="48"  cy="140" r="7" fill="#3498db"/>
+            <circle cx="550" cy="92"  r="7" fill="#3498db"/><circle cx="532" cy="80"  r="7" fill="#3498db"/>
+            <circle cx="550" cy="112" r="7" fill="#3498db"/><circle cx="532" cy="100" r="7" fill="#3498db"/>
+            <circle cx="550" cy="132" r="7" fill="#3498db"/><circle cx="532" cy="120" r="7" fill="#3498db"/>
+            <circle cx="550" cy="152" r="7" fill="#3498db"/><circle cx="532" cy="140" r="7" fill="#3498db"/>
+            <circle cx="440" cy="196" r="7" fill="#3498db"/><circle cx="458" cy="208" r="7" fill="#3498db"/>
+            <circle cx="440" cy="216" r="7" fill="#3498db"/><circle cx="458" cy="228" r="7" fill="#3498db"/>
+            <circle cx="440" cy="236" r="7" fill="#3498db"/><circle cx="458" cy="248" r="7" fill="#3498db"/>
+            <circle cx="440" cy="256" r="7" fill="#3498db"/><circle cx="458" cy="268" r="7" fill="#3498db"/>
           </g>
 
-          <!-- ENTRANCE -->
           <text x="290" y="385" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" fill="rgba(255,255,255,0.2)" letter-spacing="1">← ENTRANCE</text>
         </svg>
       </div>
 
-      <!-- Legend -->
       <div class="seat-legend">
         <div class="legend-item"><div class="legend-dot" style="background:#e74c3c;"></div>Category A · Closest to Stage</div>
         <div class="legend-item"><div class="legend-dot" style="background:#f1c40f;"></div>Category B · Main Floor</div>
         <div class="legend-item"><div class="legend-dot" style="background:#3498db;"></div>Category C · Outer</div>
       </div>
 
-      <!-- Zone popup -->
       <div class="zone-popup" id="zone-popup">
         <div class="zone-popup-hdr">
           <div class="zone-popup-name" id="zone-name"></div>
@@ -801,7 +764,6 @@
       </div>
     </div>
 
-    <!-- Accordion -->
     <div class="seat-accord">
       <div class="sa-item">
         <button class="sa-hdr" onclick="toggleSA(this)" aria-expanded="false">
@@ -811,7 +773,9 @@
           </div>
           <span class="sa-chev">▾</span>
         </button>
-        <div class="sa-body">The curved arc of seats directly surrounding the stage — as close as the Underground Theater gets. Category A puts you inside the action. Given how much Tape Face works with the crowd, being in the front arc means you have a real chance of ending up as part of the show. Every expression and every prop lands at full impact from here.</div>
+        <div class="sa-body">
+          <div class="sa-body-inner">The curved arc of seats directly surrounding the stage — as close as the Underground Theater gets. Category A puts you inside the action. Given how much Tape Face works with the crowd, being in the front arc means you have a real chance of ending up as part of the show. Every expression and every prop lands at full impact from here.</div>
+        </div>
       </div>
 
       <div class="sa-item">
@@ -823,7 +787,9 @@
           </div>
           <span class="sa-chev">▾</span>
         </button>
-        <div class="sa-body">The main floor of the Underground Theater surrounds Category A on the left, right, and rear sections. Category B is the sweet spot — close enough to catch every physical bit and read every reaction on stage, far enough to see the full picture without craning your neck. Strong sight lines throughout. This is where the room lives, and it's a comfortable place to be. This is where Spike sits.</div>
+        <div class="sa-body">
+          <div class="sa-body-inner">The main floor of the Underground Theater surrounds Category A on the left, right, and rear sections. Category B is the sweet spot — close enough to catch every physical bit and read every reaction on stage, far enough to see the full picture without craning your neck. Strong sight lines throughout. This is where the room lives, and it's a comfortable place to be. This is where Spike sits.</div>
+        </div>
       </div>
 
       <div class="sa-item">
@@ -834,13 +800,15 @@
           </div>
           <span class="sa-chev">▾</span>
         </button>
-        <div class="sa-body">The outer seats on the far left and right edges of the Underground Theater. Tape Face is a physical comedian — sight lines matter more here than in a show built around a microphone. Category C is the furthest from center stage, but the room is intimate enough to stay connected to the performance. Good value if you're watching the budget without skipping the show.</div>
+        <div class="sa-body">
+          <div class="sa-body-inner">The outer seats on the far left and right edges of the Underground Theater. Tape Face is a physical comedian — sight lines matter more here than in a show built around a microphone. Category C is the furthest from center stage, but the room is intimate enough to stay connected to the performance. Good value if you're watching the budget without skipping the show.</div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- FAQ -->
-  <section class="section fade-up" aria-labelledby="faq-heading">
+  <section class="section fade-up" id="sec-faq" aria-labelledby="faq-heading">
     <h2 id="faq-heading" class="section-title">Frequently <span>Asked</span></h2>
     <div class="faq-list">
 
@@ -849,7 +817,7 @@
           <span class="faq-q-text">Is Tape Face appropriate for kids?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Yes. Tape Face is an all-ages show — one of the genuinely rare Vegas productions that works for children and adults equally. Because there's no spoken language, there's no adult content to navigate around. Guests ages 3 and older need a ticket. Children 2 and under may be admitted as a lap seat at no charge. It's a solid family call.</div>
+        <div class="faq-a"><div class="faq-a-inner">Yes. Tape Face is an all-ages show — one of the genuinely rare Vegas productions that works for children and adults equally. Because there's no spoken language, there's no adult content to navigate around. Guests ages 3 and older need a ticket. Children 2 and under may be admitted as a lap seat at no charge. It's a solid family call.</div></div>
       </div>
 
       <div class="faq-item">
@@ -857,7 +825,7 @@
           <span class="faq-q-text">Does Tape Face speak at all during the show?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">No. That's the whole premise. The show is built entirely out of physical comedy, music, props, and audience interaction — no dialogue, no narration, nothing verbal. It works because Tape Face is genuinely skilled at building a show that communicates without words. The lack of language is the point, not a limitation.</div>
+        <div class="faq-a"><div class="faq-a-inner">No. That's the whole premise. The show is built entirely out of physical comedy, music, props, and audience interaction — no dialogue, no narration, nothing verbal. It works because Tape Face is genuinely skilled at building a show that communicates without words. The lack of language is the point, not a limitation.</div></div>
       </div>
 
       <div class="faq-item">
@@ -865,7 +833,7 @@
           <span class="faq-q-text">Can I take photos during the show?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Still photos may be welcome — check with your usher before you shoot. Flash photography is not permitted. Video recording is not permitted. If an usher asks you to stop, put the phone away. This is enforced.</div>
+        <div class="faq-a"><div class="faq-a-inner">Still photos may be welcome — check with your usher before you shoot. Flash photography is not permitted. Video recording is not permitted. If an usher asks you to stop, put the phone away. This is enforced.</div></div>
       </div>
 
       <div class="faq-item">
@@ -873,7 +841,7 @@
           <span class="faq-q-text">When does Tape Face perform?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Tape Face performs Monday, Tuesday, Thursday, Friday, Saturday, and Sunday at 7:30 PM. The show is dark on Wednesdays. Always verify the current schedule before purchasing.</div>
+        <div class="faq-a"><div class="faq-a-inner">Tape Face performs Monday, Tuesday, Thursday, Friday, Saturday, and Sunday at 7:30 PM. The show is dark on Wednesdays. Always verify the current schedule before purchasing.</div></div>
       </div>
 
       <div class="faq-item">
@@ -881,7 +849,7 @@
           <span class="faq-q-text">Where is the Underground Theater inside MGM Grand?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">The Underground Theater is located inside MGM Grand at 3799 S Las Vegas Blvd. Follow signs for the Underground Theater once inside the property. MGM Grand has a parking structure on the property and is accessible by rideshare directly off Las Vegas Boulevard.</div>
+        <div class="faq-a"><div class="faq-a-inner">The Underground Theater is located inside MGM Grand at 3799 S Las Vegas Blvd. Follow signs for the Underground Theater once inside the property. MGM Grand has a parking structure on the property and is accessible by rideshare directly off Las Vegas Boulevard.</div></div>
       </div>
 
       <div class="faq-item">
@@ -889,7 +857,7 @@
           <span class="faq-q-text">What is the refund and cancellation policy?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Refunds are available for exceptional circumstances such as the unlikely event that a show cancels. Check the full terms and conditions before purchasing.</div>
+        <div class="faq-a"><div class="faq-a-inner">Refunds are available for exceptional circumstances such as the unlikely event that a show cancels. Check the full terms and conditions before purchasing.</div></div>
       </div>
 
     </div>
@@ -905,7 +873,7 @@
           <div class="also-cat">Comedy</div>
           <div class="also-title">Carrot Top</div>
           <div class="also-venue">Atrium Showroom · Luxor</div>
-          <a href="https://vegassidekick.com/shows/comedy/carrot-top/" class="also-cta">See Show →</a>
+          <a href="/shows/comedy/carrot-top/" class="also-cta">See Show →</a>
         </div>
       </div>
       <div class="also-card">
@@ -914,7 +882,7 @@
           <div class="also-cat">Cirque</div>
           <div class="also-title">Mystère</div>
           <div class="also-venue">Treasure Island</div>
-          <a href="https://vegassidekick.com/shows/cirque/mystere/" class="also-cta">See Show →</a>
+          <a href="/shows/cirque/mystere/" class="also-cta">See Show →</a>
         </div>
       </div>
       <div class="also-card">
@@ -923,7 +891,7 @@
           <div class="also-cat">Cirque</div>
           <div class="also-title">Mad Apple</div>
           <div class="also-venue">New York-New York</div>
-          <a href="https://vegassidekick.com/shows/cirque/mad-apple/" class="also-cta">See Show →</a>
+          <a href="/shows/cirque/mad-apple/" class="also-cta">See Show →</a>
         </div>
       </div>
     </div>
@@ -931,6 +899,8 @@
 
   <!-- FINAL CTA -->
   <div class="final-cta fade-up">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
     <div class="final-cta-tag">🌵 Vegas Sidekick — Vegas Without the Trauma</div>
     <div class="final-cta-title">Ready to See the Show?</div>
     <div class="final-cta-sub">Tape Face · Underground Theater at MGM Grand · Mon · Tue · Thu · Fri · Sat · Sun at 7:30 PM</div>
@@ -995,7 +965,7 @@
 </div>
 
 <script>
-  /* PROGRESS BAR */
+  /* PROGRESS BARS */
   function updateProgress() {
     const pct = (window.pageYOffset / Math.max(1, document.documentElement.scrollHeight - window.innerHeight)) * 100;
     const v = Math.min(pct, 100);
@@ -1014,14 +984,23 @@
     slide.style.cursor = 'default';
   }
 
-  /* SLIDER */
+  /* SLIDER — Ken Burns with requestAnimationFrame restart */
   let cur = 0;
   const slides = document.querySelectorAll('.slide');
   const dots   = document.querySelectorAll('.dot-btn');
+  const N = slides.length;
+
   function goToSlide(n) {
-    slides[cur].classList.remove('active'); dots[cur].classList.remove('active'); dots[cur].setAttribute('aria-selected','false');
-    cur = (n + slides.length) % slides.length;
-    slides[cur].classList.add('active'); dots[cur].classList.add('active'); dots[cur].setAttribute('aria-selected','true');
+    slides[cur].classList.remove('active');
+    dots[cur].classList.remove('active');
+    dots[cur].setAttribute('aria-selected', 'false');
+    cur = (n + N) % N;
+    slides[cur].classList.remove('active');
+    requestAnimationFrame(() => {
+      slides[cur].classList.add('active');
+      dots[cur].classList.add('active');
+      dots[cur].setAttribute('aria-selected', 'true');
+    });
   }
   function sliderMove(d) { goToSlide(cur + d); }
   let si = setInterval(() => sliderMove(1), 5000);
@@ -1040,21 +1019,9 @@
 
   /* SEATING ZONES */
   const zones = {
-    catA: {
-      name: 'Category A',
-      pick: false,
-      desc: 'The curved arc directly surrounding the stage — as close as the Underground Theater gets. Tape Face works the crowd heavily, so Category A puts you inside the action. Being in the front arc means a real chance of ending up as part of the show. Every prop, every physical bit, every reaction lands at full impact from here.'
-    },
-    catB: {
-      name: 'Category B · Main Floor',
-      pick: true,
-      desc: 'The main floor of the Underground Theater surrounding Category A on left, right, and rear. Close enough to catch every bit and read every reaction, far enough to see the full picture. Strong sight lines throughout and a comfortable position for the whole show. This is where the room lives — and where Spike sits.'
-    },
-    catC: {
-      name: 'Category C · Outer',
-      pick: false,
-      desc: 'The outer seats on the far edges of the Underground Theater. Tape Face is a physical comedian, so sight lines matter more than in a mic-stand show. Category C is the furthest from center stage but the room is intimate enough to stay connected. Good value option for the budget-conscious who still want to be in the room.'
-    }
+    catA: { name: 'Category A', pick: false, desc: 'The curved arc directly surrounding the stage — as close as the Underground Theater gets. Tape Face works the crowd heavily, so Category A puts you inside the action. Being in the front arc means a real chance of ending up as part of the show. Every prop, every physical bit, every reaction lands at full impact from here.' },
+    catB: { name: 'Category B · Main Floor', pick: true, desc: 'The main floor of the Underground Theater surrounding Category A on left, right, and rear. Close enough to catch every bit and read every reaction, far enough to see the full picture. Strong sight lines throughout and a comfortable position for the whole show. This is where the room lives — and where Spike sits.' },
+    catC: { name: 'Category C · Outer', pick: false, desc: 'The outer seats on the far edges of the Underground Theater. Tape Face is a physical comedian, so sight lines matter more than in a mic-stand show. Category C is the furthest from center stage but the room is intimate enough to stay connected. Good value option for the budget-conscious who still want to be in the room.' }
   };
 
   function selectZone(id) {
@@ -1067,20 +1034,20 @@
     popup.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
-  /* ACCORDION */
+  /* SMOOTH SEATING ACCORDION */
   function toggleSA(btn) {
     const item = btn.closest('.sa-item'), was = item.classList.contains('open');
     document.querySelectorAll('.sa-item').forEach(i => i.classList.remove('open'));
-    document.querySelectorAll('.sa-hdr').forEach(b => b.setAttribute('aria-expanded','false'));
-    if (!was) { item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
+    document.querySelectorAll('.sa-hdr').forEach(b => b.setAttribute('aria-expanded', 'false'));
+    if (!was) { item.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
   }
 
-  /* FAQ */
+  /* SMOOTH FAQ */
   function toggleFaq(btn) {
     const item = btn.closest('.faq-item'), was = item.classList.contains('open');
     document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-    document.querySelectorAll('.faq-q').forEach(b => b.setAttribute('aria-expanded','false'));
-    if (!was) { item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
+    document.querySelectorAll('.faq-q').forEach(b => b.setAttribute('aria-expanded', 'false'));
+    if (!was) { item.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
   }
 
   /* FADE UP */
@@ -1107,6 +1074,51 @@
   document.querySelectorAll('.seat-zone').forEach(z => {
     z.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); z.click(); } });
   });
+
+  /* SAVE PILL */
+  const savePill = document.getElementById('save-pill');
+  const heroEl = document.querySelector('.hero');
+  function checkPill() {
+    if (savePill && heroEl) savePill.classList.toggle('visible', heroEl.getBoundingClientRect().bottom < 0);
+  }
+  window.addEventListener('scroll', checkPill, { passive: true });
+
+  /* DOT NAV */
+  const navSections = ['sec-seen','sec-about','sec-details','sec-expect','sec-seating','sec-faq']
+    .map(id => document.getElementById(id)).filter(Boolean);
+  const navDots = document.querySelectorAll('.dot-nav-btn');
+  function updateDotNav() {
+    const mid = window.innerHeight * 0.5;
+    let active = 0;
+    navSections.forEach((s, i) => { if (s.getBoundingClientRect().top <= mid) active = i; });
+    navDots.forEach((d, i) => d.classList.toggle('active', i === active));
+  }
+  function scrollToSection(id) { document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  window.addEventListener('scroll', updateDotNav, { passive: true });
+  updateDotNav();
+
+  /* COUNT-UP STATS */
+  const statEls = document.querySelectorAll('.stat-num[data-target]');
+  if (statEls.length) {
+    const statsObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const target = +el.dataset.target;
+        const prefix = el.dataset.prefix || '';
+        const start = performance.now();
+        const dur = 1400;
+        (function step(now) {
+          const p = Math.min((now - start) / dur, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = prefix + Math.round(eased * target);
+          if (p < 1) requestAnimationFrame(step);
+        })(start);
+        statsObs.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    statEls.forEach(el => statsObs.observe(el));
+  }
 </script>
 
 <div id="vs-footer"></div>
