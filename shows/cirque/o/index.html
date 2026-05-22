@@ -51,7 +51,7 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,600;0,700;1,400&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,600;0,700;1,400&family=Barlow+Condensed:wght@700;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -59,6 +59,7 @@
       --blue-bright: #1A6BDD;
       --orange: #FF6B00;
       --orange-bright: #FF8C2A;
+      --teal: #1A9E8A;
       --white: #FFFFFF;
       --gray: #6B7A90;
       --sidebar-w: 320px;
@@ -67,9 +68,13 @@
       --border: #E2E8F0;
       --text: #1A2236;
       --subtext: #4A5568;
+      --off-white: #F6F9FF;
+      --gray-200: #E2E8F0;
+      --text-muted: #5A6A82;
     }
     html { scroll-behavior: smooth; }
     body { margin: 0; padding: 0; background: var(--navy); color: var(--text); font-family: 'Barlow', sans-serif; font-size: 16px; line-height: 1.6; }
+
     /* ── PROGRESS BARS ── */
     #progress-bar { position: fixed; top: 0; left: 0; right: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--orange), #FFB84D); z-index: 9999; pointer-events: none; transition: width 0.1s linear; overflow: hidden; animation: pb-glow 2s ease-in-out infinite; }
     #progress-bar-bottom { position: fixed; bottom: 0; left: 0; right: 0; height: 3px; width: 0%; background: linear-gradient(270deg, var(--orange), #FFB84D); z-index: 9999; pointer-events: none; transition: width 0.1s linear; overflow: hidden; animation: pb-glow 2s ease-in-out infinite; }
@@ -77,6 +82,18 @@
     @keyframes pb-shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
     @keyframes pb-glow { 0%, 100% { box-shadow: 0 0 3px rgba(255,107,0,0.3); } 50% { box-shadow: 0 0 12px rgba(255,184,77,0.8), 0 0 4px rgba(255,107,0,0.5); } }
     @media (max-width: 940px) { #progress-bar-bottom { bottom: 72px; } }
+
+    /* ── DOT NAV ── */
+    .dot-nav { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); z-index: 500; display: flex; flex-direction: column; gap: 12px; }
+    .dn-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.25); border: none; cursor: pointer; padding: 0; transition: background .2s, transform .2s; position: relative; }
+    .dn-dot.active { background: var(--orange); transform: scale(1.4); }
+    .dn-dot:hover::after { content: attr(data-label); position: absolute; right: 20px; top: 50%; transform: translateY(-50%); background: rgba(10,22,40,.92); color: #fff; font-family: 'Barlow Condensed', sans-serif; font-size: .72rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 5px 10px; border-radius: 5px; white-space: nowrap; pointer-events: none; }
+    @media (max-width: 960px) { .dot-nav { display: none; } }
+
+    /* ── SAVE PILL ── */
+    .save-pill { position: fixed; top: 14px; right: 16px; z-index: 600; background: var(--orange); color: #fff; font-family: 'Barlow Condensed', sans-serif; font-size: .8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 8px 16px; border-radius: 100px; text-decoration: none; opacity: 0; transform: translateY(-8px); transition: opacity .3s, transform .3s; pointer-events: none; white-space: nowrap; box-shadow: 0 2px 12px rgba(255,107,0,.35); }
+    .save-pill.on { opacity: 1; transform: none; pointer-events: auto; }
+    @media (max-width: 960px) { .save-pill { display: none; } }
 
     /* ── SCROLL FADE ── */
     .fu { opacity: 0; transform: translateY(22px); transition: opacity .55s ease, transform .55s ease; }
@@ -99,20 +116,12 @@
     .s-track { display: flex; height: 100%; transition: transform .5s cubic-bezier(.4,0,.2,1); }
     .slide { flex: 0 0 100%; height: 100%; position: relative; overflow: hidden; }
     .slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    @keyframes kenBurns { from { transform: scale(1.0) translate(0,0); } to { transform: scale(1.08) translate(0.5%,0.3%); } }
+    .slide:not(.slide-vid).active img { animation: kenBurns 9s ease-in-out forwards; }
     .slide-ph { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: linear-gradient(135deg,#122448,#0D1F3C); }
     .slide-ph .em { font-size: 4rem; opacity: .35; }
     .slide-ph .pt { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 3px; color: rgba(255,255,255,.18); }
     .slide-ph .pl { font-size: .72rem; color: rgba(255,255,255,.2); letter-spacing: 2px; text-transform: uppercase; }
-    .slide-trust { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg,#0D1F3C,#0A1628); padding: 20px; }
-    .st-inner { display: flex; flex-direction: column; align-items: center; gap: 24px; max-width: 480px; text-align: center; }
-    .st-ey { font-family: 'Barlow Condensed', sans-serif; font-size: .72rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--orange); }
-    .st-ttl { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 2px; color: #fff; }
-    .st-ttl span { color: #60B4FF; }
-    .st-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; }
-    .st-item { background: rgba(26,127,232,.12); border: 1px solid rgba(26,127,232,.25); border-radius: 10px; padding: 14px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
-    .st-icon { font-size: 1.5rem; }
-    .st-label { font-family: 'Barlow Condensed', sans-serif; font-size: .8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #fff; }
-    .st-sub { font-size: .7rem; color: rgba(255,255,255,.6); line-height: 1.4; }
     .slide-vid { width: 100%; height: 100%; position: relative; background: #000; }
     .slide-vid iframe { width: 100%; height: 100%; border: none; display: block; }
     .vid-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg,rgba(10,22,40,.85),rgba(10,22,40,.7)); cursor: pointer; transition: opacity .3s; }
@@ -128,7 +137,6 @@
     .dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.3); border: none; cursor: pointer; padding: 0; transition: background .2s, transform .2s; }
     .dot.on { background: var(--orange); transform: scale(1.3); }
     .s-cat { position: absolute; top: 16px; left: 16px; z-index: 5; background: var(--orange); color: var(--navy); font-family: 'Barlow Condensed', sans-serif; font-size: .7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 12px; border-radius: 4px; }
-    .s-badge { position: absolute; top: 16px; right: 16px; z-index: 5; background: rgba(10,22,40,.85); border: 1px solid var(--orange); color: var(--orange); font-family: 'Barlow Condensed', sans-serif; font-size: .7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 12px; border-radius: 4px; backdrop-filter: blur(8px); }
 
     /* title block */
     .title-block { padding: 24px 0 0; }
@@ -152,6 +160,23 @@
     .btn-o:hover { background: var(--orange-bright); border-color: var(--orange-bright); box-shadow: 0 6px 20px rgba(255,107,0,.3); transform: translateY(-2px); }
     .btn-o-full { display: flex; align-items: center; justify-content: center; gap: 8px; background: var(--orange); color: #fff; font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 18px 24px; border-radius: 8px; text-decoration: none; border: 2px solid var(--orange); cursor: pointer; transition: background .2s, transform .15s, box-shadow .2s; width: 100%; }
     .btn-o-full:hover { background: var(--orange-bright); border-color: var(--orange-bright); box-shadow: 0 6px 20px rgba(255,107,0,.3); transform: translateY(-2px); }
+
+    /* ── STATS STRIP ── */
+    .stats-strip { background: var(--navy); padding: 0 40px 28px; }
+    .stats-strip-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); border: 1px solid rgba(255,255,255,.1); border-radius: 12px; overflow: hidden; }
+    .stat-item { padding: 22px 24px; display: flex; flex-direction: column; gap: 4px; border-right: 1px solid rgba(255,255,255,.08); }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.6rem; line-height: 1; color: var(--orange); letter-spacing: 1px; }
+    .stat-lbl { font-family: 'Barlow Condensed', sans-serif; font-size: .72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.5); }
+    @media (max-width: 960px) { .stats-strip { padding: 0 20px 20px; } .stats-strip-inner { grid-template-columns: 1fr 1fr; } .stat-item:nth-child(2) { border-right: none; } .stat-item:nth-child(3) { border-top: 1px solid rgba(255,255,255,.08); } .stat-item:nth-child(4) { border-top: 1px solid rgba(255,255,255,.08); } }
+
+    /* ── TICKER ── */
+    .ticker-wrap { background: var(--navy); overflow: hidden; border-top: 1px solid rgba(255,107,0,.15); border-bottom: 1px solid rgba(255,107,0,.15); padding: 10px 0; margin-bottom: 0; }
+    .ticker-track { display: flex; width: max-content; animation: tickerScroll 40s linear infinite; }
+    .ticker-item { display: flex; align-items: center; gap: 12px; padding: 0 28px; white-space: nowrap; font-family: 'Barlow Condensed', sans-serif; font-size: .85rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,.75); }
+    .ticker-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,107,0,.55); flex-shrink: 0; }
+    @keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .ticker-wrap:hover .ticker-track { animation-play-state: paused; }
 
     /* ── PAGE LAYOUT ── */
     .page { max-width: 1280px; margin: 0 auto; padding: 40px 40px 60px; display: grid; grid-template-columns: 1fr var(--sidebar-w); gap: 48px; align-items: start; background: #fff; }
@@ -285,15 +310,16 @@
     .sp-desc { font-size: .87rem; color: rgba(255,255,255,.7); line-height: 1.6; }
     .sp-badge { display: inline-block; background: var(--orange); color: var(--navy); font-family: 'Barlow Condensed', sans-serif; font-size: .7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; margin-top: 10px; }
 
-    /* faq */
+    /* faq — smooth max-height with inner wrapper */
     .faq-list { display: flex; flex-direction: column; gap: 10px; }
     .faq-item { background: var(--blue-card); border: 1px solid var(--blue-border); border-radius: 10px; overflow: hidden; }
     .faq-q { width: 100%; background: none; border: none; color: var(--text); font-family: 'Barlow', sans-serif; font-size: .95rem; font-weight: 700; text-align: left; padding: 18px 22px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 14px; transition: color .2s; }
     .faq-q:hover { color: var(--blue-bright); }
     .faq-ch { font-size: .7rem; color: var(--orange); transition: transform .3s; flex-shrink: 0; }
     .faq-item.open .faq-ch { transform: rotate(180deg); }
-    .faq-a { max-height: 0; overflow: hidden; transition: max-height .35s ease, padding .35s ease; padding: 0 22px; font-size: .9rem; color: var(--subtext); line-height: 1.7; }
-    .faq-item.open .faq-a { max-height: 400px; padding: 0 22px 18px; }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height .38s ease; }
+    .faq-item.open .faq-a { max-height: 320px; }
+    .faq-a-inner { padding: 12px 22px 18px; background: var(--off-white); border-top: 1px solid var(--gray-200); font-size: .9rem; color: var(--text-muted); line-height: 1.7; }
 
     /* similar */
     .sim-sections { display: flex; flex-direction: column; gap: 28px; }
@@ -308,6 +334,17 @@
     .sim-foot { display: flex; align-items: center; justify-content: space-between; padding: 7px 12px; border-top: 1px solid var(--border); }
     .sim-price { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.05rem; color: var(--orange); }
     .sim-cta { font-size: .66rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--blue-bright); }
+
+    /* final cta with ambient orbs */
+    .final-cta { position: relative; overflow: hidden; background: linear-gradient(135deg, rgba(255,107,0,.07), rgba(26,107,221,.05)); border: 1px solid rgba(255,107,0,.2); border-radius: 14px; padding: 40px 44px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    .final-cta-text { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 3px; }
+    .final-cta-hl { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 2px; color: var(--navy); }
+    .final-cta-hl span { color: var(--orange); }
+    .final-cta-sub { font-size: .9rem; color: var(--gray); }
+    .final-cta .btn-o { position: relative; z-index: 1; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(60px); pointer-events: none; }
+    .orb-1 { width: 280px; height: 280px; top: -60px; left: -60px; background: var(--orange); opacity: .10; }
+    .orb-2 { width: 220px; height: 220px; bottom: -40px; right: -40px; background: var(--teal); opacity: .10; }
 
     /* mobile bar */
     @keyframes sweep { 0% { background-position: -100% 0; } 100% { background-position: 250% 0; } }
@@ -329,6 +366,7 @@
       .sidebar { display: none; }
       .mob-bar { display: flex; }
       .mid-cta { flex-direction: column; align-items: flex-start; }
+      .final-cta { flex-direction: column; align-items: flex-start; padding: 28px 24px; }
       .detail-cards, .blue-cards { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 480px) {
@@ -336,12 +374,28 @@
       .sim-grid { grid-template-columns: 1fr 1fr; }
       .detail-cards, .blue-cards { grid-template-columns: 1fr 1fr; }
     }
+
+    @media (prefers-reduced-motion: reduce) { *, *::after { animation: none !important; transition-duration: 0.01ms !important; } }
   </style>
 </head>
 <body>
 
 <div id="progress-bar" aria-hidden="true"></div>
 <div id="progress-bar-bottom" aria-hidden="true"></div>
+
+<!-- DOT NAV -->
+<nav class="dot-nav" aria-label="Page sections">
+  <button class="dn-dot active" data-label="Have You Seen It?" onclick="scrollToSection('sec-seen')"></button>
+  <button class="dn-dot" data-label="About the Show" onclick="scrollToSection('sec-about')"></button>
+  <button class="dn-dot" data-label="Show Details" onclick="scrollToSection('sec-details')"></button>
+  <button class="dn-dot" data-label="Your Blueprint" onclick="scrollToSection('sec-blueprint')"></button>
+  <button class="dn-dot" data-label="Seating Chart" onclick="scrollToSection('sec-seating')"></button>
+  <button class="dn-dot" data-label="FAQ" onclick="scrollToSection('sec-faq')"></button>
+</nav>
+
+<!-- SAVE PILL -->
+<a href="https://spotlight.vegas/shows/cirque-du-soleil/o/ref/vegassidekick" class="save-pill" id="savePill" target="_blank" rel="noopener">Save $69 → Get Tickets</a>
+
 <div id="vs-header"></div>
 
 <!-- BREADCRUMB -->
@@ -360,8 +414,8 @@
     <!-- SLIDER -->
     <div class="slider" id="slider">
       <span class="s-cat">Cirque du Soleil</span>
-            <div class="s-track" id="sTrack">
-        <div class="slide slide-photo">
+      <div class="s-track" id="sTrack">
+        <div class="slide slide-photo active">
           <img src="/images/o-hero.jpg" alt="O by Cirque du Soleil at Bellagio Las Vegas" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
           <div class="slide-ph" style="display:none"><div class="em">💧</div><div class="pt">"O"</div><div class="pl">Photo 1</div></div>
         </div>
@@ -399,7 +453,6 @@
         <span class="u-pill u-clock">⏰ Prices may increase closer to show date</span>
         <span class="u-pill u-seat">🪑 Better seats fill first</span>
       </div>
-      </div>
       <div class="cta-strip">
         <div class="price-block">
           <div class="p-our">$119</div>
@@ -414,6 +467,55 @@
   </div>
 </div>
 
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stats-strip-inner">
+    <div class="stat-item">
+      <div class="stat-num" data-target="90">0</div>
+      <div class="stat-lbl">Minutes of Show</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" data-target="80">0</div>
+      <div class="stat-lbl">World-Class Performers</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" data-prefix="$" data-target="119">$0</div>
+      <div class="stat-lbl">Tickets From</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" style="font-size:1.9rem;letter-spacing:0">Ages 5+</div>
+      <div class="stat-lbl">All Ages Welcome</div>
+    </div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-track">
+    <div class="ticker-item">💧 1.5-Million-Gallon Pool<span class="ticker-dot"></span></div>
+    <div class="ticker-item">🎭 80 World-Class Performers<span class="ticker-dot"></span></div>
+    <div class="ticker-item">⭐ 27 Years Running at Bellagio<span class="ticker-dot"></span></div>
+    <div class="ticker-item">🌊 Aquatic Acrobatics & Aerial Acts<span class="ticker-dot"></span></div>
+    <div class="ticker-item">🏆 Las Vegas' Most Iconic Show<span class="ticker-dot"></span></div>
+    <div class="ticker-item">💦 Splash Zone Experience<span class="ticker-dot"></span></div>
+    <div class="ticker-item">🎪 Circus Arts Meet Water Ballet<span class="ticker-dot"></span></div>
+    <div class="ticker-item">🎟️ No Hidden Fees — Ever<span class="ticker-dot"></span></div>
+    <div class="ticker-item">🌵 Spike's Pick: The 9PM Show<span class="ticker-dot"></span></div>
+    <div class="ticker-item">✓ Instant Ticket Delivery<span class="ticker-dot"></span></div>
+    <!-- duplicate for seamless loop -->
+    <div class="ticker-item">💧 1.5-Million-Gallon Pool<span class="ticker-dot"></span></div>
+    <div class="ticker-item">🎭 80 World-Class Performers<span class="ticker-dot"></span></div>
+    <div class="ticker-item">⭐ 27 Years Running at Bellagio<span class="ticker-dot"></span></div>
+    <div class="ticker-item">🌊 Aquatic Acrobatics & Aerial Acts<span class="ticker-dot"></span></div>
+    <div class="ticker-item">🏆 Las Vegas' Most Iconic Show<span class="ticker-dot"></span></div>
+    <div class="ticker-item">💦 Splash Zone Experience<span class="ticker-dot"></span></div>
+    <div class="ticker-item">🎪 Circus Arts Meet Water Ballet<span class="ticker-dot"></span></div>
+    <div class="ticker-item">🎟️ No Hidden Fees — Ever<span class="ticker-dot"></span></div>
+    <div class="ticker-item">🌵 Spike's Pick: The 9PM Show<span class="ticker-dot"></span></div>
+    <div class="ticker-item">✓ Instant Ticket Delivery<span class="ticker-dot"></span></div>
+  </div>
+</div>
+
 <!-- PAGE BODY: content + sticky sidebar -->
 <div class="page-wrap"><div class="page">
 
@@ -421,7 +523,7 @@
   <div class="content">
 
     <!-- SEEN WIDGET -->
-    <div class="seen fu">
+    <div class="seen fu" id="sec-seen">
       <div class="seen-q">Have You Seen <span>"O"</span> Before?</div>
       <div class="seen-btns" id="seenBtns">
         <button class="seen-btn" onclick="seen('yes')">👍 Yes, I Have</button>
@@ -458,7 +560,7 @@
     </div>
 
     <!-- ABOUT -->
-    <div class="section fu">
+    <div class="section fu" id="sec-about">
       <div class="sec-lbl">About the Show</div>
       <h2 class="sec-ttl">What to <span>Expect</span></h2>
       <div class="body-text">
@@ -497,21 +599,21 @@
     </div>
 
     <!-- SHOW DETAILS -->
-    <div class="section fu">
+    <div class="section fu" id="sec-details">
       <div class="sec-lbl">Logistics</div>
       <h2 class="sec-ttl">Show <span>Details</span></h2>
       <div class="detail-cards">
         <div class="dc"><div class="dc-icon">📍</div><div class="dc-lbl">Venue</div><div class="dc-val">O Theatre</div><div class="dc-sub">Bellagio Hotel, 3600 S Las Vegas Blvd</div></div>
         <div class="dc"><div class="dc-icon">🕗</div><div class="dc-lbl">Show Days & Time</div><div class="dc-val">Wed–Sun, 6:30PM & 9:00PM</div><div class="dc-sub">Dark Monday & Tuesday</div></div>
         <div class="dc"><div class="dc-icon">⏱️</div><div class="dc-lbl">Duration</div><div class="dc-val">90 Minutes</div><div class="dc-sub">No intermission</div></div>
-        <div class="dc"><div class="dc-icon">🔞</div><div class="dc-lbl">Age Requirement</div><div class="dc-val">Ages 5+</div><div class="dc-sub">This show welcomes guests ages 5 and up. Children under 5 are not admitted. All guests must be accompanied by a legal adult.</div></div>
-        <div class="dc"><div class="dc-icon">👗</div><div class="dc-lbl">What to Wear</div><div class="dc-val">Smart Casual</div><div class="dc-sub">The Bellagio has a slightly elevated vibe. You'll feel most comfortable in neat casual — no need to dress up, but this isn't a t-shirt-and-flip-flops crowd either. Use your judgment.</div></div>
-        <div class="dc"><div class="dc-icon">📸</div><div class="dc-lbl">Photography</div><div class="dc-val">No Video / No Flash</div><div class="dc-sub">Still photos may be fine — check with your usher before the show starts. Flash and video are strictly prohibited. When in doubt, ask first.</div></div>
+        <div class="dc"><div class="dc-icon">🔞</div><div class="dc-lbl">Age Requirement</div><div class="dc-val">Ages 5+</div><div class="dc-sub">Children under 5 are not admitted. All guests must be accompanied by a legal adult.</div></div>
+        <div class="dc"><div class="dc-icon">👗</div><div class="dc-lbl">What to Wear</div><div class="dc-val">Smart Casual</div><div class="dc-sub">The Bellagio has a slightly elevated vibe. Neat casual works — no need to dress up, but this isn't flip-flops crowd either.</div></div>
+        <div class="dc"><div class="dc-icon">📸</div><div class="dc-lbl">Photography</div><div class="dc-val">No Video / No Flash</div><div class="dc-sub">Still photos may be fine — check with your usher before the show starts. Flash and video are strictly prohibited.</div></div>
       </div>
     </div>
 
     <!-- BLUEPRINT -->
-    <div class="section fu">
+    <div class="section fu" id="sec-blueprint">
       <div class="sec-lbl">Plan Your Night</div>
       <h2 class="sec-ttl">Your Evening <span>Blueprint</span></h2>
       <div class="blueprint">
@@ -550,7 +652,7 @@
     </div>
 
     <!-- SEATING CHART -->
-    <div class="section fu">
+    <div class="section fu" id="sec-seating">
       <div class="sec-lbl">"O" Seating Chart</div>
       <h2 class="sec-ttl">O Theatre <span>Seating</span></h2>
       <div class="seat-wrap">
@@ -590,20 +692,43 @@
     </div>
 
     <!-- FAQ -->
-    <div class="section fu">
+    <div class="section fu" id="sec-faq">
       <div class="sec-lbl">Questions</div>
       <h2 class="sec-ttl">Frequently <span>Asked</span></h2>
       <div class="faq-list">
-        <div class="faq-item fu"><button class="faq-q" onclick="faq(this)">Will I actually get splashed?<span class="faq-ch">▼</span></button><div class="faq-a">The splash zone in the front rows can get a light misting during certain sequences — it's part of the experience. If you're in the first few rows, expect it. If you'd rather stay dry, choose seats in the lower orchestra center or further back. The theatre will let you know at booking if your seats are in the splash zone.</div></div>
-        <div class="faq-item fu"><button class="faq-q" onclick="faq(this)">Is "O" appropriate for kids?<span class="faq-ch">▼</span></button><div class="faq-a">Yes — ages 5 and up are welcome. "O" is visually stunning and moves fast enough to hold most kids' attention. It's not loud or scary — just spectacular. All guests under 18 must be accompanied by an adult.</div></div>
-        <div class="faq-item fu"><button class="faq-q" onclick="faq(this)">What nights does "O" run?<span class="faq-ch">▼</span></button><div class="faq-a">"O" runs Wednesday through Sunday with two shows nightly at 6:30 PM and 9:00 PM. The show is dark Monday and Tuesday. Always verify your specific date at checkout.</div></div>
-        <div class="faq-item fu"><button class="faq-q" onclick="faq(this)">Which show time is better — 7PM or 9:30PM?<span class="faq-ch">▼</span></button><div class="faq-a">Both are identical shows. The 7PM works better for families or if you want the evening ahead of you. The 9:30PM has a slightly livelier crowd energy — and the Bellagio fountains are running when you walk out. Spike recommends the late show.</div></div>
-        <div class="faq-item fu"><button class="faq-q" onclick="faq(this)">Are there good seats and bad seats?<span class="faq-ch">▼</span></button><div class="faq-a">Every seat has a clear view of the pool and stage. Lower orchestra center is the sweet spot. The balcony offers a unique bird's-eye perspective that some guests actually prefer for the synchronized swimming sequences. No bad seats — just different experiences.</div></div>
-        <div class="faq-item fu"><button class="faq-q" onclick="faq(this)">How long is the show?<span class="faq-ch">▼</span></button><div class="faq-a">Approximately 90 minutes with no intermission. Use the restroom before doors open. Plan to arrive at the Bellagio at least 45 minutes before showtime.</div></div>
-        <div class="faq-item fu"><button class="faq-q" onclick="faq(this)">Will there be surprise fees at checkout?<span class="faq-ch">▼</span></button><div class="faq-a">No. The price shown is the price you pay. No surprises — ever.</div></div>
-        <div class="faq-item fu"><button class="faq-q" onclick="faq(this)">Where should I park at the Bellagio?<span class="faq-ch">▼</span></button><div class="faq-a">The Bellagio has a self-parking garage attached to the property. Rideshare on Las Vegas Blvd is the smoothest option. Give yourself 30 minutes to walk from the entrance to the O Theatre.</div></div>
+        <div class="faq-item fu">
+          <button class="faq-q" onclick="faq(this)">Will I actually get splashed?<span class="faq-ch">▼</span></button>
+          <div class="faq-a"><div class="faq-a-inner">The splash zone in the front rows can get a light misting during certain sequences — it's part of the experience. If you're in the first few rows, expect it. If you'd rather stay dry, choose seats in the lower orchestra center or further back. The theatre will let you know at booking if your seats are in the splash zone.</div></div>
+        </div>
+        <div class="faq-item fu">
+          <button class="faq-q" onclick="faq(this)">Is "O" appropriate for kids?<span class="faq-ch">▼</span></button>
+          <div class="faq-a"><div class="faq-a-inner">Yes — ages 5 and up are welcome. "O" is visually stunning and moves fast enough to hold most kids' attention. It's not loud or scary — just spectacular. All guests under 18 must be accompanied by an adult.</div></div>
+        </div>
+        <div class="faq-item fu">
+          <button class="faq-q" onclick="faq(this)">What nights does "O" run?<span class="faq-ch">▼</span></button>
+          <div class="faq-a"><div class="faq-a-inner">"O" runs Wednesday through Sunday with two shows nightly at 6:30 PM and 9:00 PM. The show is dark Monday and Tuesday. Always verify your specific date at checkout.</div></div>
+        </div>
+        <div class="faq-item fu">
+          <button class="faq-q" onclick="faq(this)">Which show time is better — 6:30PM or 9:00PM?<span class="faq-ch">▼</span></button>
+          <div class="faq-a"><div class="faq-a-inner">Both are identical shows. The 6:30PM works better for families or if you want the evening ahead of you. The 9:00PM has a slightly livelier crowd energy — and the Bellagio fountains are running when you walk out. Spike recommends the late show.</div></div>
+        </div>
+        <div class="faq-item fu">
+          <button class="faq-q" onclick="faq(this)">Are there good seats and bad seats?<span class="faq-ch">▼</span></button>
+          <div class="faq-a"><div class="faq-a-inner">Every seat has a clear view of the pool and stage. Lower orchestra center is the sweet spot. The balcony offers a unique bird's-eye perspective that some guests actually prefer for the synchronized swimming sequences. No bad seats — just different experiences.</div></div>
+        </div>
+        <div class="faq-item fu">
+          <button class="faq-q" onclick="faq(this)">How long is the show?<span class="faq-ch">▼</span></button>
+          <div class="faq-a"><div class="faq-a-inner">Approximately 90 minutes with no intermission. Use the restroom before doors open. Plan to arrive at the Bellagio at least 45 minutes before showtime.</div></div>
+        </div>
+        <div class="faq-item fu">
+          <button class="faq-q" onclick="faq(this)">Will there be surprise fees at checkout?<span class="faq-ch">▼</span></button>
+          <div class="faq-a"><div class="faq-a-inner">No. The price shown is the price you pay. No surprises — ever.</div></div>
+        </div>
+        <div class="faq-item fu">
+          <button class="faq-q" onclick="faq(this)">Where should I park at the Bellagio?<span class="faq-ch">▼</span></button>
+          <div class="faq-a"><div class="faq-a-inner">The Bellagio has a self-parking garage attached to the property. Rideshare on Las Vegas Blvd is the smoothest option. Give yourself 30 minutes to walk from the entrance to the O Theatre.</div></div>
+        </div>
       </div>
-    </div>
     </div>
 
     <!-- SIMILAR -->
@@ -629,10 +754,12 @@
     </div>
 
     <!-- FINAL CTA -->
-    <div class="mid-cta fu">
-      <div class="mid-cta-text">
-        <div class="mid-cta-hl">Don't Wait — <span>Book Tonight</span></div>
-        <div class="mid-cta-sub">From $68. Save $20. Most nights sell out — prices may increase closer to show date.</div>
+    <div class="final-cta fu">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="final-cta-text">
+        <div class="final-cta-hl">Don't Wait — <span>Book Tonight</span></div>
+        <div class="final-cta-sub">From $119. Save $69. Most nights sell out — prices may increase closer to show date.</div>
       </div>
       <a href="https://spotlight.vegas/shows/cirque-du-soleil/o/ref/vegassidekick" class="btn-o" target="_blank" rel="noopener">Get Tickets →</a>
     </div>
@@ -687,23 +814,35 @@
 <script src="/components/footer.js"></script>
 
 <script>
-  // SLIDER
-  const N = 4, track = document.getElementById('sTrack'), dotsEl = document.getElementById('sDots');
+  // SLIDER with Ken Burns support
+  const N = 4;
+  const track = document.getElementById('sTrack');
+  const dotsEl = document.getElementById('sDots');
+  const slides = document.querySelectorAll('.slide');
   let cur = 0, timer;
+
   for (let i = 0; i < N; i++) {
     const b = document.createElement('button');
     b.className = 'dot' + (i === 0 ? ' on' : '');
-    b.setAttribute('aria-label', 'Slide ' + (i+1));
+    b.setAttribute('aria-label', 'Slide ' + (i + 1));
     b.onclick = () => go(i);
     dotsEl.appendChild(b);
   }
+
   function go(i) {
+    slides[cur].classList.remove('active');
     cur = (i + N) % N;
+    slides[cur].classList.remove('active');
+    requestAnimationFrame(() => slides[cur].classList.add('active'));
     track.style.transform = 'translateX(-' + (cur * 100) + '%)';
-    document.querySelectorAll('.dot').forEach((d,j) => d.classList.toggle('on', j === cur));
-    if (cur !== 3) { document.getElementById('ytFrame').src = 'about:blank'; document.getElementById('vidOverlay').classList.remove('off'); }
+    document.querySelectorAll('.dot').forEach((d, j) => d.classList.toggle('on', j === cur));
+    if (cur !== 3) {
+      document.getElementById('ytFrame').src = 'about:blank';
+      document.getElementById('vidOverlay').classList.remove('off');
+    }
     reset();
   }
+
   function sMove(d) { go(cur + d); }
   function reset() { clearInterval(timer); timer = setInterval(() => { if (cur !== 3) go(cur + 1); }, 5000); }
   document.getElementById('slider').addEventListener('mouseenter', () => clearInterval(timer));
@@ -711,7 +850,11 @@
   let tx = 0;
   track.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
   track.addEventListener('touchend', e => { const d = tx - e.changedTouches[0].clientX; if (Math.abs(d) > 40) sMove(d > 0 ? 1 : -1); });
-  document.getElementById('vidOverlay').addEventListener('click', function() { document.getElementById('ytFrame').src = document.getElementById('ytFrame').dataset.src; this.classList.add('off'); clearInterval(timer); });
+  document.getElementById('vidOverlay').addEventListener('click', function () {
+    document.getElementById('ytFrame').src = document.getElementById('ytFrame').dataset.src;
+    this.classList.add('off');
+    clearInterval(timer);
+  });
   reset();
 
   // SEEN WIDGET
@@ -748,7 +891,7 @@
     document.querySelector('[data-s="' + s + '"]').classList.add('active');
   }
 
-  // EMAIL — via Cloudflare Worker proxy
+  // EMAIL
   async function submitEmail() {
     const email = document.getElementById('emailInp').value.trim();
     if (!email || !email.includes('@')) { document.getElementById('emailInp').style.borderColor = '#FCA5A5'; return; }
@@ -756,9 +899,9 @@
       await fetch('https://brevo-subscribe.vegassidekickcom.workers.dev', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email })
+        body: JSON.stringify({ email })
       });
-    } catch(e) { /* silent fail */ }
+    } catch (e) { /* silent fail */ }
     document.getElementById('emailForm').style.display = 'none';
     document.getElementById('emailOk').classList.add('on');
   }
@@ -770,12 +913,59 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.fu').forEach(el => io.observe(el));
 
-  // READING PROGRESS
+  // READING PROGRESS + SAVE PILL
+  const heroEl = document.querySelector('.hero');
   window.addEventListener('scroll', () => {
     const p = Math.min((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100, 100);
     document.getElementById('progress-bar').style.width = p + '%';
     document.getElementById('progress-bar-bottom').style.width = p + '%';
+    const heroBottom = heroEl.getBoundingClientRect().bottom;
+    document.getElementById('savePill').classList.toggle('on', heroBottom < 0);
   }, { passive: true });
+
+  // COUNT-UP STATS
+  const countUp = (el) => {
+    const target = +el.dataset.target;
+    const prefix = el.dataset.prefix || '';
+    const dur = 1400;
+    const start = performance.now();
+    const tick = (now) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / dur, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      el.textContent = prefix + Math.round(ease * target);
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+  const statsObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting && e.target.dataset.target) {
+        countUp(e.target);
+        statsObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.stat-num[data-target]').forEach(el => statsObs.observe(el));
+
+  // DOT NAV
+  const dnDots = document.querySelectorAll('.dn-dot');
+  const dnSections = ['sec-seen', 'sec-about', 'sec-details', 'sec-blueprint', 'sec-seating', 'sec-faq'];
+  function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  const dnObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const idx = dnSections.indexOf(e.target.id);
+        if (idx !== -1) {
+          dnDots.forEach((d, i) => d.classList.toggle('active', i === idx));
+        }
+      }
+    });
+  }, { threshold: 0.3 });
+  dnSections.forEach(id => { const el = document.getElementById(id); if (el) dnObs.observe(el); });
 </script>
 <script src="/components/header.js"></script>
 </body>
