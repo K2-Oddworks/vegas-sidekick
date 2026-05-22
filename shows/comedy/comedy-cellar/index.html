@@ -53,15 +53,7 @@
       },
       "eventSchedule": {
           "@type": "Schedule",
-          "byDay": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday",
-              "Saturday",
-              "Sunday"
-          ],
+          "byDay": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
           "startTime": "19:00"
       },
       "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode"
@@ -82,6 +74,7 @@
       --blue-lt:    #4d90f0;
       --orange:     #FF6B00;
       --orange-lt:  #ff8c33;
+      --amber:      #D97706;
       --white:      #FFFFFF;
       --off-white:  #F7F9FC;
       --gray-100:   #F1F4F9;
@@ -108,18 +101,27 @@
     a    { text-decoration: none; color: inherit; }
     button { font-family: inherit; cursor: pointer; }
 
-    #progress-bar { overflow: hidden; position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--blue), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; }
-    #progress-bar-bottom { position: fixed; bottom: 0; left: 0; right: 0; height: 3px; width: 0%; animation: pb-glow 2s ease-in-out infinite; background: linear-gradient(270deg, var(--blue), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; overflow: hidden; }
-    #progress-bar::after, #progress-bar-bottom::after { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%); animation: pb-shimmer 2.2s linear infinite; }
+    /* PROGRESS BAR */
+    #progress-bar { overflow: hidden; position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--amber), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; }
+    #progress-bar::after { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%); animation: pb-shimmer 2.2s linear infinite; }
     @keyframes pb-shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
-    @keyframes pb-glow { 0%, 100% { box-shadow: 0 0 3px rgba(255,255,255,0.15); } 50% { box-shadow: 0 0 10px rgba(255,255,255,0.5), 0 0 3px rgba(255,255,255,0.2); } }
-    @media (max-width: 940px) { #progress-bar-bottom { bottom: 72px; } }
-    @keyframes pb-shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
-    @keyframes pb-glow { 0%, 100% { box-shadow: 0 0 3px rgba(255,255,255,0.15); } 50% { box-shadow: 0 0 10px rgba(255,255,255,0.5), 0 0 3px rgba(255,255,255,0.2); } }
 
-    /* =============================================
-       HERO — fixed height cap + centered content
-    ============================================= */
+    /* SAVE PILL */
+    .save-pill { position: fixed; top: 90px; right: 20px; z-index: 900; display: none; align-items: center; gap: 8px; padding: 9px 16px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.88rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; border-radius: 100px; box-shadow: 0 4px 16px rgba(255,107,0,0.4); transition: opacity 0.3s, transform 0.3s; opacity: 0; transform: translateY(-8px); text-decoration: none; white-space: nowrap; }
+    .save-pill.visible { opacity: 1; transform: translateY(0); display: flex; }
+    .save-pill:hover { background: var(--orange-lt); }
+    @media (max-width: 940px) { .save-pill { display: none !important; } }
+
+    /* DOT NAV */
+    .dot-nav { position: fixed; right: 18px; top: 50%; transform: translateY(-50%); z-index: 800; display: flex; flex-direction: column; gap: 10px; }
+    .dn-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(26,107,221,0.22); border: 2px solid rgba(26,107,221,0.35); cursor: pointer; transition: background 0.2s, border-color 0.2s, transform 0.2s; position: relative; }
+    .dn-dot.active { background: var(--orange); border-color: var(--orange); transform: scale(1.35); }
+    .dn-dot:hover { border-color: var(--orange); }
+    .dn-tooltip { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); background: var(--navy); color: white; font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.04em; padding: 3px 8px; border-radius: 4px; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity 0.18s; }
+    .dn-dot:hover .dn-tooltip { opacity: 1; }
+    @media (max-width: 940px) { .dot-nav { display: none; } }
+
+    /* HERO */
     .hero { background: var(--navy); padding-top: 84px; }
 
     .breadcrumb { padding: 12px 24px; background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.05); font-family: var(--font-mono); font-size: 0.67rem; color: rgba(255,255,255,0.36); letter-spacing: 0.04em; }
@@ -127,15 +129,15 @@
     .breadcrumb a:hover { color: var(--orange); }
     .breadcrumb span { color: rgba(255,255,255,0.7); }
 
-    /* SLIDER — aspect ratio + max-height cap */
-    .slider {
-      position: relative; width: 100%;
-      aspect-ratio: 16/9; max-height: 480px;
-      overflow: hidden; background: var(--navy-mid);
-    }
+    /* SLIDER */
+    .slider { position: relative; width: 100%; aspect-ratio: 16/9; max-height: 480px; overflow: hidden; background: var(--navy-mid); }
     .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.65s ease; }
     .slide.active { opacity: 1; }
-    .slide img { width: 100%; height: 100%; object-fit: cover; }
+    .slide img { width: 100%; height: 100%; object-fit: cover; transform-origin: center center; }
+
+    /* Ken Burns — skips yt-slide */
+    @keyframes kenBurns { from { transform: scale(1.0) translate(0,0); } to { transform: scale(1.08) translate(0.5%,0.3%); } }
+    .slide:not(.yt-slide).active img { animation: kenBurns 9s ease-in-out forwards; }
 
     /* YT SLIDE */
     .slide.yt-slide { cursor: pointer; display: flex; align-items: center; justify-content: center; background: #000; overflow: hidden; }
@@ -159,24 +161,22 @@
     .s-arrow.prev { left: 13px; }
     .s-arrow.next { right: 13px; }
 
-    /* Hero content — centered, max-width matched to page */
+    /* Hero content */
     .hero-content-wrap { max-width: 1200px; margin: 0 auto; }
     .hero-content { padding: 28px 24px 32px; }
     .venue-label { font-family: var(--font-mono); font-size: 0.69rem; color: var(--blue-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 9px; }
     .hero-title { font-family: var(--font-display); font-size: clamp(2.8rem, 5.5vw, 5rem); color: white; line-height: 0.94; letter-spacing: 0.02em; margin-bottom: 9px; }
     .hero-subtitle { font-family: var(--font-price); font-size: 1rem; font-weight: 700; color: var(--orange); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 20px; }
-
     .info-pills { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 15px; }
     .pill { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: 100px; font-family: var(--font-mono); font-size: 0.67rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.74); border: 1px solid rgba(255,255,255,0.11); }
     .pill-blue { background: rgba(26,107,221,0.14); color: #7ab4ff; border-color: rgba(26,107,221,0.28); }
     .pill-orange { background: rgba(255,107,0,0.13); color: var(--orange-lt); border-color: rgba(255,107,0,0.26); }
-
     .urgency-pills { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 20px; }
     .upill { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 6px; font-family: var(--font-mono); font-size: 0.63rem; font-weight: 600; letter-spacing: 0.04em; background: rgba(255,107,0,0.09); color: var(--orange-lt); border: 1px solid rgba(255,107,0,0.2); }
     .udot { width: 5px; height: 5px; border-radius: 50%; background: var(--orange); flex-shrink: 0; animation: blink 1.6s infinite; }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.36} }
 
-    /* Price strip — centered */
+    /* Price strip */
     .price-strip { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 22px; padding: 17px 24px; background: rgba(255,255,255,0.03); border-top: 1px solid rgba(255,255,255,0.06); flex-wrap: wrap; }
     .price-block { display: flex; flex-direction: column; gap: 1px; }
     .price-lbl { font-family: var(--font-mono); font-size: 0.59rem; color: rgba(255,255,255,0.33); letter-spacing: 0.06em; text-transform: uppercase; }
@@ -186,6 +186,23 @@
     .hero-cta { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.12rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); border: none; transition: background 0.2s, transform 0.2s; white-space: nowrap; }
     .hero-cta:hover { background: var(--orange-lt); transform: translateY(-2px); }
     .urgency-txt { font-family: var(--font-mono); font-size: 0.62rem; color: rgba(255,255,255,0.32); }
+
+    /* STATS STRIP */
+    .stats-strip { background: var(--navy-mid); border-top: 1px solid rgba(255,255,255,0.05); }
+    .stats-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: center; padding: 22px 24px; gap: 0; }
+    .stat-item { flex: 1; text-align: center; padding: 8px 16px; }
+    .stat-num { font-family: var(--font-display); font-size: 2.8rem; color: var(--orange); line-height: 1; letter-spacing: 0.02em; }
+    .stat-lbl { font-family: var(--font-mono); font-size: 0.6rem; color: rgba(255,255,255,0.38); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 3px; }
+    .stat-divider { width: 1px; height: 44px; background: rgba(255,255,255,0.08); flex-shrink: 0; }
+    @media (max-width: 600px) { .stat-num { font-size: 2rem; } .stat-item { padding: 6px 10px; } }
+
+    /* TICKER */
+    .ticker-wrap { background: var(--orange); overflow: hidden; padding: 9px 0; }
+    .ticker-track { display: flex; width: max-content; animation: tickerScroll 38s linear infinite; }
+    @keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .ticker-item { display: flex; align-items: center; gap: 10px; font-family: var(--font-price); font-size: 0.88rem; font-weight: 800; color: white; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; padding: 0 28px; }
+    .ticker-sep { color: rgba(255,255,255,0.45); font-size: 0.5rem; }
+    .ticker-wrap:hover .ticker-track { animation-play-state: paused; }
 
     /* LAYOUT */
     .page-layout { display: grid; grid-template-columns: 1fr var(--sidebar); max-width: 1200px; margin: 0 auto; align-items: start; }
@@ -278,9 +295,7 @@
     .expect-title { font-family: var(--font-price); font-size: 0.88rem; font-weight: 800; color: var(--navy); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 7px; display: flex; align-items: center; gap: 6px; }
     .expect-desc { font-size: 0.81rem; color: var(--text-muted); line-height: 1.62; }
 
-    /* =============================================
-       SEATING CHART
-    ============================================= */
+    /* SEATING CHART */
     .seating-section { margin-bottom: 50px; }
     .seating-diagram-wrap { background: var(--navy); border-radius: var(--radius-lg); padding: 26px 20px 30px; margin-bottom: 20px; position: relative; overflow: hidden; }
     .seating-diagram-wrap::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--blue), var(--orange)); }
@@ -313,7 +328,7 @@
     .sa-body { display: none; padding: 12px 16px; background: var(--off-white); border-top: 1px solid var(--gray-200); font-size: 0.82rem; color: var(--text-muted); line-height: 1.64; }
     .sa-item.open .sa-body { display: block; }
 
-    /* FAQ */
+    /* FAQ — smooth accordion */
     .faq-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 50px; }
     .faq-item { border: 1px solid var(--gray-200); border-radius: var(--radius-sm); overflow: hidden; }
     .faq-q { display: flex; align-items: center; justify-content: space-between; padding: 15px 17px; background: white; border: none; width: 100%; text-align: left; transition: background 0.2s; }
@@ -321,8 +336,9 @@
     .faq-q-text { font-family: var(--font-price); font-size: 0.92rem; font-weight: 700; color: var(--navy); letter-spacing: 0.02em; }
     .faq-icon { color: var(--blue); font-size: 1.22rem; transition: transform 0.28s; flex-shrink: 0; margin-left: 10px; font-weight: 300; line-height: 1; }
     .faq-item.open .faq-icon { transform: rotate(45deg); }
-    .faq-a { display: none; padding: 12px 17px; background: var(--off-white); border-top: 1px solid var(--gray-200); font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; }
-    .faq-item.open .faq-a { display: block; }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.38s ease; }
+    .faq-item.open .faq-a { max-height: 320px; }
+    .faq-a-inner { padding: 12px 17px 18px; background: var(--off-white); border-top: 1px solid var(--gray-200); font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; }
 
     /* YOU MIGHT ALSO LIKE */
     .also-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 50px; }
@@ -337,20 +353,23 @@
     .also-cta:hover { background: var(--orange-lt); }
 
     /* FINAL CTA */
-    .final-cta { background: var(--navy); padding: 50px 32px; border-radius: var(--radius-lg); text-align: center; margin-bottom: 50px; position: relative; overflow: hidden; }
-    .final-cta::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--blue), var(--orange)); }
-    .final-cta-tag { font-family: var(--font-mono); font-size: 0.64rem; color: var(--blue-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
-    .final-cta-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.1rem); color: white; line-height: 1; margin-bottom: 9px; }
-    .final-cta-sub { font-size: 0.88rem; color: rgba(255,255,255,0.42); margin-bottom: 22px; }
-    .final-cta-amount { font-family: var(--font-price); font-size: 3.3rem; font-weight: 800; color: var(--orange); line-height: 1; margin-bottom: 20px; }
-    .final-cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 15px 42px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.18rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); transition: all 0.2s; border: none; }
+    .final-cta { background: linear-gradient(135deg, rgba(255,107,0,.07), rgba(217,119,6,.05)); border: 1px solid rgba(255,107,0,.2); padding: 50px 32px; border-radius: var(--radius-lg); text-align: center; margin-bottom: 50px; position: relative; overflow: hidden; }
+    .final-cta::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--amber), var(--orange)); }
+    .orb { position: absolute; border-radius: 50%; filter: blur(60px); pointer-events: none; }
+    .orb-1 { width: 280px; height: 280px; top: -60px; left: -60px; background: var(--orange); opacity: .10; }
+    .orb-2 { width: 220px; height: 220px; bottom: -40px; right: -40px; background: var(--amber); opacity: .10; }
+    .final-cta-tag { font-family: var(--font-mono); font-size: 0.64rem; color: var(--blue-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; position: relative; }
+    .final-cta-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.1rem); color: var(--navy); line-height: 1; margin-bottom: 9px; position: relative; }
+    .final-cta-sub { font-size: 0.88rem; color: rgba(0,0,0,0.42); margin-bottom: 22px; position: relative; }
+    .final-cta-amount { font-family: var(--font-price); font-size: 3.3rem; font-weight: 800; color: var(--orange); line-height: 1; margin-bottom: 20px; position: relative; }
+    .final-cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 15px 42px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.18rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); transition: all 0.2s; border: none; position: relative; }
     .final-cta-btn:hover { background: var(--orange-lt); transform: translateY(-2px); }
-    .final-cta-note { font-family: var(--font-mono); font-size: 0.61rem; color: rgba(255,255,255,0.25); margin-top: 13px; }
-    .final-cta-note a { color: rgba(255,255,255,0.4); text-decoration: underline; }
+    .final-cta-note { font-family: var(--font-mono); font-size: 0.61rem; color: rgba(0,0,0,0.3); margin-top: 13px; position: relative; }
+    .final-cta-note a { color: rgba(0,0,0,0.45); text-decoration: underline; }
 
     /* MOBILE STICKY */
     .mobile-sticky { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--navy); z-index: 1000; padding: 10px 16px 14px; box-shadow: 0 -4px 22px rgba(0,0,0,0.28); }
-    .mob-progress { position: absolute; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--orange), var(--blue)); transition: width 0.1s linear; }
+    .mob-progress { position: absolute; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--orange), var(--amber)); transition: width 0.1s linear; }
     .mob-inner { display: flex; align-items: center; justify-content: space-between; gap: 13px; }
     .mob-price-lbl { font-family: var(--font-mono); font-size: 0.55rem; color: rgba(255,255,255,0.28); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 1px; }
     .mob-price { font-family: var(--font-price); font-size: 2.4rem; font-weight: 800; color: var(--orange); line-height: 1; }
@@ -377,14 +396,29 @@
       .email-form { flex-direction: column; }
       .price-strip { flex-direction: column; align-items: flex-start; gap: 13px; }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::after { animation: none !important; transition-duration: 0.01ms !important; }
+    }
   </style>
 </head>
 <body>
 
+<div id="progress-bar" aria-hidden="true"></div>
 <div id="vs-header"></div>
 
-<div id="progress-bar" aria-hidden="true"></div>
-<div id="progress-bar-bottom" aria-hidden="true"></div>
+<!-- DOT NAV -->
+<nav class="dot-nav" aria-label="Section navigation">
+  <div class="dn-dot active" onclick="scrollToSection('sec-seen')"><span class="dn-tooltip">Seen It?</span></div>
+  <div class="dn-dot" onclick="scrollToSection('sec-about')"><span class="dn-tooltip">About</span></div>
+  <div class="dn-dot" onclick="scrollToSection('sec-details')"><span class="dn-tooltip">Details</span></div>
+  <div class="dn-dot" onclick="scrollToSection('sec-blueprint')"><span class="dn-tooltip">Expect</span></div>
+  <div class="dn-dot" onclick="scrollToSection('sec-seating')"><span class="dn-tooltip">Seating</span></div>
+  <div class="dn-dot" onclick="scrollToSection('sec-faq')"><span class="dn-tooltip">FAQ</span></div>
+</nav>
+
+<!-- SAVE PILL -->
+<a href="https://spotlight.vegas/shows/comedy/comedy-cellar/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="save-pill" id="save-pill">Save $21 → Get Tickets</a>
 
 <!-- HERO -->
 <section class="hero" aria-label="Show hero">
@@ -428,7 +462,6 @@
     </div>
   </div>
 
-  <!-- Centered hero content -->
   <div class="hero-content-wrap">
     <div class="hero-content">
       <div class="venue-label">Comedy Cellar · Rio All-Suite Hotel &amp; Casino · Las Vegas</div>
@@ -460,12 +493,64 @@
   </div>
 </section>
 
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-num" data-target="90">0</div>
+      <div class="stat-lbl">Minutes</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-num" data-target="5">0</div>
+      <div class="stat-lbl">Headliners</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-num" data-prefix="$" data-target="41">$0</div>
+      <div class="stat-lbl">From</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-num" style="font-size:2.2rem;">18+</div>
+      <div class="stat-lbl">Only</div>
+    </div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-track">
+    <div class="ticker-item">🎤 Five Headliners Every Night<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">🗽 36+ Years Selling Out NYC<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">👥 300-Seat Purpose-Built Room<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">😂 90 Minutes Non-Stop Comedy<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">🔞 18+ Adults Only<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">💰 Save $21 — 34% Off<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">🌙 7 PM &amp; 9:30 PM Nightly<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">⭐ West Coast's First Comedy Cellar<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">🎭 No Filler — Five Pros Only<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">📍 Rio Hotel · Off-Strip<span class="ticker-sep">●</span></div>
+    <!-- duplicate for seamless loop -->
+    <div class="ticker-item">🎤 Five Headliners Every Night<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">🗽 36+ Years Selling Out NYC<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">👥 300-Seat Purpose-Built Room<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">😂 90 Minutes Non-Stop Comedy<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">🔞 18+ Adults Only<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">💰 Save $21 — 34% Off<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">🌙 7 PM &amp; 9:30 PM Nightly<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">⭐ West Coast's First Comedy Cellar<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">🎭 No Filler — Five Pros Only<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">📍 Rio Hotel · Off-Strip<span class="ticker-sep">●</span></div>
+  </div>
+</div>
+
 <!-- PAGE LAYOUT -->
 <div class="page-layout">
 <main class="main-content" role="main">
 
   <!-- HAVE YOU SEEN -->
-  <div class="seen-widget fade-up">
+  <div class="seen-widget fade-up" id="sec-seen">
     <div class="seen-tag">🌵 Spike Wants to Know</div>
     <div class="seen-q">Have you been to Comedy Cellar before?</div>
     <div class="seen-btns">
@@ -491,7 +576,7 @@
   </div>
 
   <!-- ABOUT -->
-  <section class="section fade-up" aria-labelledby="about-heading">
+  <section class="section fade-up" id="sec-about" aria-labelledby="about-heading">
     <h2 id="about-heading" class="section-title">About <span>Comedy Cellar</span></h2>
     <div class="about-body">
       <p>Thirty-six years. That's how long the original Comedy Cellar in New York City has been selling out every show. The name carries weight in stand-up comedy — it's not a branding exercise, it's a track record. Now the West Coast's first Comedy Cellar location is running nightly at the Rio All-Suite Hotel &amp; Casino, bringing the same format that built the legend to Las Vegas.</p>
@@ -523,7 +608,7 @@
   </div>
 
   <!-- SHOW DETAILS -->
-  <section class="section fade-up" aria-labelledby="details-heading">
+  <section class="section fade-up" id="sec-details" aria-labelledby="details-heading">
     <h2 id="details-heading" class="section-title">Show <span>Details</span></h2>
     <div class="details-grid">
       <div class="detail-card">
@@ -566,7 +651,7 @@
   </section>
 
   <!-- WHAT TO EXPECT -->
-  <section class="section fade-up" aria-labelledby="expect-heading">
+  <section class="section fade-up" id="sec-blueprint" aria-labelledby="expect-heading">
     <h2 id="expect-heading" class="section-title">What to <span>Expect</span></h2>
     <div class="expect-grid">
       <div class="expect-card">
@@ -589,20 +674,13 @@
   </section>
 
   <!-- SEATING CHART -->
-  <section class="seating-section fade-up" aria-labelledby="seating-heading">
+  <section class="seating-section fade-up" id="sec-seating" aria-labelledby="seating-heading">
     <h2 id="seating-heading" class="section-title">Comedy Cellar <span>Seating Chart</span></h2>
 
     <div class="seating-diagram-wrap">
       <div class="seating-lbl">Comedy Cellar · Rio Hotel — Select a zone to learn more</div>
 
       <div class="seat-svg-wrap">
-        <!--
-          Three nested zones from uploaded chart image.
-          Stage at bottom center.
-          VIP (red/salmon) = innermost horseshoe tight to stage.
-          Preferred (gold) = middle ring. Sidekick Pick.
-          GA (teal) = outer wrap.
-        -->
         <svg viewBox="0 0 560 400" xmlns="http://www.w3.org/2000/svg" aria-label="Comedy Cellar seating chart" role="img">
 
           <!-- GA — outer teal zone -->
@@ -615,7 +693,6 @@
           <g class="seat-zone" onclick="selectZone('preferred')" tabindex="0" role="button" aria-label="Preferred — Sidekick Pick — click for details">
             <path d="M100,80 L460,80 L490,365 L70,365 Z" fill="#e8a020" opacity="0.95"/>
             <text x="280" y="120" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="17" fill="white" letter-spacing="2">PREFERRED</text>
-            <!-- Sidekick Pick badge -->
             <rect x="178" y="128" width="204" height="22" rx="5" fill="rgba(255,107,0,0.25)" stroke="rgba(255,107,0,0.55)" stroke-width="1.5"/>
             <text x="280" y="143" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="600" fill="#ffe0b2" letter-spacing="0.5">⭐ SIDEKICK PICK</text>
           </g>
@@ -631,7 +708,6 @@
           <rect x="210" y="358" width="140" height="36" rx="6" fill="#1A6BDD"/>
           <text x="280" y="372" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="14" fill="white" letter-spacing="2">STAGE</text>
           <text x="280" y="386" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7" fill="rgba(255,255,255,0.55)" letter-spacing="1">COMEDY CELLAR</text>
-
         </svg>
       </div>
 
@@ -691,7 +767,7 @@
   </section>
 
   <!-- FAQ -->
-  <section class="section fade-up" aria-labelledby="faq-heading">
+  <section class="section fade-up" id="sec-faq" aria-labelledby="faq-heading">
     <h2 id="faq-heading" class="section-title">Frequently <span>Asked</span></h2>
     <div class="faq-list">
 
@@ -700,7 +776,7 @@
           <span class="faq-q-text">Which show should I book — 7 PM or 9:30 PM?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Both shows run the same format — five headliners, 90 minutes — but with different lineups. Check who's on the bill for each show before you decide. As a general rule, the 7 PM show works better for earlier dinners and a fuller evening, while the 9:30 PM show tends to attract a crowd that's already warmed up and wants to run later. Either is a solid choice.</div>
+        <div class="faq-a"><div class="faq-a-inner">Both shows run the same format — five headliners, 90 minutes — but with different lineups. Check who's on the bill for each show before you decide. As a general rule, the 7 PM show works better for earlier dinners and a fuller evening, while the 9:30 PM show tends to attract a crowd that's already warmed up and wants to run later. Either is a solid choice.</div></div>
       </div>
 
       <div class="faq-item">
@@ -708,7 +784,7 @@
           <span class="faq-q-text">Who are the comedians performing?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">The lineup rotates constantly — that's the Comedy Cellar model. Five headlining comedians per show, each doing 15 to 20 minutes of their best material. The bill includes both established names and rising talent. Check the current schedule before purchasing to see who's running the room the night you want to attend.</div>
+        <div class="faq-a"><div class="faq-a-inner">The lineup rotates constantly — that's the Comedy Cellar model. Five headlining comedians per show, each doing 15 to 20 minutes of their best material. The bill includes both established names and rising talent. Check the current schedule before purchasing to see who's running the room the night you want to attend.</div></div>
       </div>
 
       <div class="faq-item">
@@ -716,7 +792,7 @@
           <span class="faq-q-text">What is the age requirement?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Comedy Cellar Las Vegas is strictly 18 and older. No exceptions, no matter how mature they seem. Bring a valid government-issued photo ID — it will be checked at the door. Guests who cannot verify their age will not be admitted.</div>
+        <div class="faq-a"><div class="faq-a-inner">Comedy Cellar Las Vegas is strictly 18 and older. No exceptions, no matter how mature they seem. Bring a valid government-issued photo ID — it will be checked at the door. Guests who cannot verify their age will not be admitted.</div></div>
       </div>
 
       <div class="faq-item">
@@ -724,7 +800,7 @@
           <span class="faq-q-text">Where is the Rio Hotel from the Strip?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">The Rio All-Suite Hotel &amp; Casino is located just west of the Strip at 3700 W Flamingo Rd — about a 10-minute drive or rideshare from the center of Las Vegas Boulevard. It's not on the Strip itself, but rideshare access is easy and the Rio has its own parking structure on property.</div>
+        <div class="faq-a"><div class="faq-a-inner">The Rio All-Suite Hotel &amp; Casino is located just west of the Strip at 3700 W Flamingo Rd — about a 10-minute drive or rideshare from the center of Las Vegas Boulevard. It's not on the Strip itself, but rideshare access is easy and the Rio has its own parking structure on property.</div></div>
       </div>
 
       <div class="faq-item">
@@ -732,7 +808,7 @@
           <span class="faq-q-text">How long is the show?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">90 minutes with no intermission. Five comedians, 15 to 20 minutes each, back to back. Seating opens 30 minutes before showtime — plan to be at the Rio 45 minutes early so you have time to find the room, use the restroom, and grab a drink before the first comedian hits the stage.</div>
+        <div class="faq-a"><div class="faq-a-inner">90 minutes with no intermission. Five comedians, 15 to 20 minutes each, back to back. Seating opens 30 minutes before showtime — plan to be at the Rio 45 minutes early so you have time to find the room, use the restroom, and grab a drink before the first comedian hits the stage.</div></div>
       </div>
 
       <div class="faq-item">
@@ -740,7 +816,7 @@
           <span class="faq-q-text">What is the refund and cancellation policy?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Refunds are available for exceptional circumstances such as the unlikely event that a show cancels. Check the full terms and conditions before purchasing.</div>
+        <div class="faq-a"><div class="faq-a-inner">Refunds are available for exceptional circumstances such as the unlikely event that a show cancels. Check the full terms and conditions before purchasing.</div></div>
       </div>
 
     </div>
@@ -756,7 +832,16 @@
           <div class="also-cat">Comedy</div>
           <div class="also-title">Carrot Top</div>
           <div class="also-venue">Atrium Showroom · Luxor</div>
-          <a href="https://vegassidekick.com/shows/comedy/carrot-top/" class="also-cta">See Show →</a>
+          <a href="/shows/comedy/carrot-top/" class="also-cta">See Show →</a>
+        </div>
+      </div>
+      <div class="also-card">
+        <img class="also-img" src="/images/laugh-factory-hero.jpg" alt="Laugh Factory Las Vegas at Horseshoe Las Vegas" loading="lazy" />
+        <div class="also-body">
+          <div class="also-cat">Comedy</div>
+          <div class="also-title">Laugh Factory</div>
+          <div class="also-venue">Horseshoe Las Vegas</div>
+          <a href="/shows/comedy/laugh-factory/" class="also-cta">See Show →</a>
         </div>
       </div>
       <div class="also-card">
@@ -765,16 +850,7 @@
           <div class="also-cat">Cirque</div>
           <div class="also-title">Mystère</div>
           <div class="also-venue">Treasure Island</div>
-          <a href="https://vegassidekick.com/shows/cirque/mystere/" class="also-cta">See Show →</a>
-        </div>
-      </div>
-      <div class="also-card">
-        <img class="also-img" src="/images/mad-apple-hero.jpg" alt="Mad Apple by Cirque du Soleil at New York-New York Las Vegas" loading="lazy" />
-        <div class="also-body">
-          <div class="also-cat">Cirque</div>
-          <div class="also-title">Mad Apple</div>
-          <div class="also-venue">New York-New York</div>
-          <a href="https://vegassidekick.com/shows/cirque/mad-apple/" class="also-cta">See Show →</a>
+          <a href="/shows/cirque/mystere/" class="also-cta">See Show →</a>
         </div>
       </div>
     </div>
@@ -782,6 +858,8 @@
 
   <!-- FINAL CTA -->
   <div class="final-cta fade-up">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
     <div class="final-cta-tag">🌵 Vegas Sidekick — Vegas Without the Trauma</div>
     <div class="final-cta-title">Ready to Catch the Show?</div>
     <div class="final-cta-sub">Comedy Cellar · Rio All-Suite Hotel &amp; Casino · Nightly at 7 PM &amp; 9:30 PM</div>
@@ -845,19 +923,32 @@
   </div>
 </div>
 
+<div id="vs-footer"></div>
+<script src="/components/footer.js"></script>
+
 <script>
   /* PROGRESS BAR */
   function updateProgress() {
     const pct = (window.pageYOffset / Math.max(1, document.documentElement.scrollHeight - window.innerHeight)) * 100;
     const v = Math.min(pct, 100);
     document.getElementById('progress-bar').style.width = v + '%';
-    document.getElementById('progress-bar-bottom').style.width = v + '%';
     const mob = document.getElementById('mob-progress');
     if (mob) mob.style.width = v + '%';
   }
   window.addEventListener('scroll', updateProgress, { passive: true });
 
-  /* PLAY YOUTUBE */
+  /* SAVE PILL */
+  const heroEl = document.querySelector('.hero');
+  const pillEl = document.getElementById('save-pill');
+  const pillObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) { pillEl.style.display = 'flex'; requestAnimationFrame(() => pillEl.classList.add('visible')); }
+      else { pillEl.classList.remove('visible'); setTimeout(() => { if (!pillEl.classList.contains('visible')) pillEl.style.display = 'none'; }, 300); }
+    });
+  }, { threshold: 0.1 });
+  pillObs.observe(heroEl);
+
+  /* YOUTUBE */
   function playYouTube() {
     clearInterval(si);
     const slide = document.getElementById('yt-slide');
@@ -865,14 +956,30 @@
     slide.style.cursor = 'default';
   }
 
-  /* SLIDER */
+  /* SLIDER — Ken Burns on photo slides, skip yt-slide */
   let cur = 0;
   const slides = document.querySelectorAll('.slide');
   const dots   = document.querySelectorAll('.dot-btn');
+  const N = slides.length;
+
   function goToSlide(n) {
-    slides[cur].classList.remove('active'); dots[cur].classList.remove('active'); dots[cur].setAttribute('aria-selected','false');
-    cur = (n + slides.length) % slides.length;
-    slides[cur].classList.add('active'); dots[cur].classList.add('active'); dots[cur].setAttribute('aria-selected','true');
+    slides[cur].classList.remove('active');
+    dots[cur].classList.remove('active');
+    dots[cur].setAttribute('aria-selected', 'false');
+    cur = (n + N) % N;
+    slides[cur].classList.remove('active');
+    requestAnimationFrame(() => {
+      slides[cur].classList.add('active');
+      dots[cur].classList.add('active');
+      dots[cur].setAttribute('aria-selected', 'true');
+    });
+    if (cur !== 3) {
+      const ytSlide = document.getElementById('yt-slide');
+      if (ytSlide.querySelector('iframe')) {
+        ytSlide.innerHTML = '<img class="yt-thumb" src="https://img.youtube.com/vi/jJPxYBaH_s8/maxresdefault.jpg" alt="Comedy Cellar Las Vegas — official trailer" loading="lazy" /><div class="yt-overlay"></div><img class="yt-spike" src="/images/spike.png" alt="" aria-hidden="true" /><div class="yt-pill-wrap"><button class="yt-pill" onclick="event.stopPropagation(); playYouTube()" aria-label="Play trailer"><span>▶</span><span>VIDEO PREVIEW</span></button><div class="yt-pill-sub">Comedy Cellar · Las Vegas</div></div>';
+        ytSlide.style.cursor = 'pointer';
+      }
+    }
   }
   function sliderMove(d) { goToSlide(cur + d); }
   let si = setInterval(() => sliderMove(1), 5000);
@@ -882,6 +989,49 @@
   document.getElementById('yt-slide').addEventListener('keydown', e => {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); playYouTube(); }
   });
+
+  /* COUNT-UP */
+  const countUp = (el) => {
+    const target = +el.dataset.target;
+    const prefix = el.dataset.prefix || '';
+    const dur = 1400;
+    const start = performance.now();
+    const tick = (now) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / dur, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      el.textContent = prefix + Math.round(ease * target);
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+  const statsObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('[data-target]').forEach(countUp);
+        statsObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  const statsEl = document.querySelector('.stats-strip');
+  if (statsEl) statsObs.observe(statsEl);
+
+  /* DOT NAV */
+  const dnDots = document.querySelectorAll('.dn-dot');
+  const dnSections = ['sec-seen', 'sec-about', 'sec-details', 'sec-blueprint', 'sec-seating', 'sec-faq'];
+  function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  const dnObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const idx = dnSections.indexOf(e.target.id);
+        if (idx !== -1) dnDots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      }
+    });
+  }, { threshold: 0.3 });
+  dnSections.forEach(id => { const el = document.getElementById(id); if (el) dnObs.observe(el); });
 
   /* HAVE YOU SEEN */
   function showSeen(t) {
@@ -918,7 +1068,7 @@
     popup.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
-  /* ACCORDION */
+  /* SEATING ACCORDION */
   function toggleSA(btn) {
     const item = btn.closest('.sa-item'), was = item.classList.contains('open');
     document.querySelectorAll('.sa-item').forEach(i => i.classList.remove('open'));
@@ -926,7 +1076,7 @@
     if (!was) { item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
   }
 
-  /* FAQ */
+  /* FAQ — smooth accordion */
   function toggleFaq(btn) {
     const item = btn.closest('.faq-item'), was = item.classList.contains('open');
     document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
@@ -946,6 +1096,11 @@
   document.querySelector('.email-submit').addEventListener('click', function() {
     const inp = document.querySelector('.email-input'), val = inp.value.trim();
     if (val && val.includes('@') && val.includes('.')) {
+      fetch('https://brevo-subscribe.vegassidekickcom.workers.dev', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: val })
+      }).catch(() => {});
       inp.value = ''; inp.placeholder = 'You\'re in. Spike will be in touch.';
       this.textContent = 'Done ✓'; this.style.background = '#16a34a';
     } else {
@@ -959,9 +1114,6 @@
     z.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); z.click(); } });
   });
 </script>
-
-<div id="vs-footer"></div>
-<script src="/components/footer.js"></script>
 <script src="/components/header.js"></script>
 </body>
 </html>
