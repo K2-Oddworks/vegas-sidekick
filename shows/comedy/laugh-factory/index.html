@@ -58,13 +58,7 @@
       "eventSchedule": {
           "@type": "Schedule",
           "byDay": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday",
-              "Saturday",
-              "Sunday"
+              "Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"
           ],
           "startTime": "20:30"
       },
@@ -86,6 +80,7 @@
       --blue-lt:    #4d90f0;
       --orange:     #FF6B00;
       --orange-lt:  #ff8c33;
+      --gold:       #F59E0B;
       --white:      #FFFFFF;
       --off-white:  #F7F9FC;
       --gray-100:   #F1F4F9;
@@ -112,14 +107,25 @@
     a    { text-decoration: none; color: inherit; }
     button { font-family: inherit; cursor: pointer; }
 
-    #progress-bar { overflow: hidden; position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--blue), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; }
-    #progress-bar-bottom { position: fixed; bottom: 0; left: 0; right: 0; height: 3px; width: 0%; animation: pb-glow 2s ease-in-out infinite; background: linear-gradient(270deg, var(--blue), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; overflow: hidden; }
-    #progress-bar::after, #progress-bar-bottom::after { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%); animation: pb-shimmer 2.2s linear infinite; }
+    /* PROGRESS BAR */
+    #progress-bar { overflow: hidden; position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--gold), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; }
+    #progress-bar::after { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%); animation: pb-shimmer 2.2s linear infinite; }
     @keyframes pb-shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
-    @keyframes pb-glow { 0%, 100% { box-shadow: 0 0 3px rgba(255,255,255,0.15); } 50% { box-shadow: 0 0 10px rgba(255,255,255,0.5), 0 0 3px rgba(255,255,255,0.2); } }
-    @media (max-width: 940px) { #progress-bar-bottom { bottom: 72px; } }
-    @keyframes pb-shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
-    @keyframes pb-glow { 0%, 100% { box-shadow: 0 0 3px rgba(255,255,255,0.15); } 50% { box-shadow: 0 0 10px rgba(255,255,255,0.5), 0 0 3px rgba(255,255,255,0.2); } }
+
+    /* SAVE PILL */
+    .save-pill { position: fixed; top: 90px; right: 20px; z-index: 900; display: none; align-items: center; gap: 8px; padding: 9px 16px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.88rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; border-radius: 100px; box-shadow: 0 4px 16px rgba(255,107,0,0.4); transition: opacity 0.3s, transform 0.3s; opacity: 0; transform: translateY(-8px); text-decoration: none; white-space: nowrap; }
+    .save-pill.visible { opacity: 1; transform: translateY(0); display: flex; }
+    .save-pill:hover { background: var(--orange-lt); }
+    @media (max-width: 940px) { .save-pill { display: none !important; } }
+
+    /* DOT NAV */
+    .dot-nav { position: fixed; right: 18px; top: 50%; transform: translateY(-50%); z-index: 800; display: flex; flex-direction: column; gap: 10px; }
+    .dn-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(26,107,221,0.22); border: 2px solid rgba(26,107,221,0.35); cursor: pointer; transition: background 0.2s, border-color 0.2s, transform 0.2s; position: relative; }
+    .dn-dot.active { background: var(--orange); border-color: var(--orange); transform: scale(1.35); }
+    .dn-dot:hover { border-color: var(--orange); }
+    .dn-tooltip { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); background: var(--navy); color: white; font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.04em; padding: 3px 8px; border-radius: 4px; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity 0.18s; }
+    .dn-dot:hover .dn-tooltip { opacity: 1; }
+    @media (max-width: 940px) { .dot-nav { display: none; } }
 
     /* HERO */
     .hero { background: var(--navy); padding-top: 84px; }
@@ -129,11 +135,16 @@
     .breadcrumb a:hover { color: var(--orange); }
     .breadcrumb span { color: rgba(255,255,255,0.7); }
 
-    /* SLIDER — 3 photos only */
+    /* SLIDER */
     .slider { position: relative; width: 100%; aspect-ratio: 16/9; max-height: 480px; overflow: hidden; background: var(--navy-mid); }
     .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.65s ease; }
     .slide.active { opacity: 1; }
-    .slide img { width: 100%; height: 100%; object-fit: cover; }
+    .slide img { width: 100%; height: 100%; object-fit: cover; transform-origin: center center; }
+
+    /* Ken Burns */
+    @keyframes kenBurns { from { transform: scale(1.0) translate(0,0); } to { transform: scale(1.08) translate(0.5%,0.3%); } }
+    .slide.active img { animation: kenBurns 9s ease-in-out forwards; }
+
     .slider-dots { position: absolute; bottom: 13px; left: 50%; transform: translateX(-50%); display: flex; gap: 7px; z-index: 3; }
     .dot-btn { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.28); border: none; padding: 0; transition: background 0.2s, transform 0.2s; }
     .dot-btn.active { background: var(--orange); transform: scale(1.4); }
@@ -167,6 +178,23 @@
     .hero-cta { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.12rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); border: none; transition: background 0.2s, transform 0.2s; white-space: nowrap; }
     .hero-cta:hover { background: var(--orange-lt); transform: translateY(-2px); }
     .urgency-txt { font-family: var(--font-mono); font-size: 0.62rem; color: rgba(255,255,255,0.32); }
+
+    /* STATS STRIP */
+    .stats-strip { background: var(--navy-mid); border-top: 1px solid rgba(255,255,255,0.05); }
+    .stats-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: center; padding: 22px 24px; gap: 0; }
+    .stat-item { flex: 1; text-align: center; padding: 8px 16px; }
+    .stat-num { font-family: var(--font-display); font-size: 2.8rem; color: var(--orange); line-height: 1; letter-spacing: 0.02em; }
+    .stat-lbl { font-family: var(--font-mono); font-size: 0.6rem; color: rgba(255,255,255,0.38); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 3px; }
+    .stat-divider { width: 1px; height: 44px; background: rgba(255,255,255,0.08); flex-shrink: 0; }
+    @media (max-width: 600px) { .stat-num { font-size: 2rem; } .stat-item { padding: 6px 10px; } }
+
+    /* TICKER */
+    .ticker-wrap { background: var(--orange); overflow: hidden; padding: 9px 0; }
+    .ticker-track { display: flex; width: max-content; animation: tickerScroll 36s linear infinite; }
+    @keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .ticker-item { display: flex; align-items: center; gap: 10px; font-family: var(--font-price); font-size: 0.88rem; font-weight: 800; color: white; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; padding: 0 28px; }
+    .ticker-sep { color: rgba(255,255,255,0.45); font-size: 0.5rem; }
+    .ticker-wrap:hover .ticker-track { animation-play-state: paused; }
 
     /* LAYOUT */
     .page-layout { display: grid; grid-template-columns: 1fr var(--sidebar); max-width: 1200px; margin: 0 auto; align-items: start; }
@@ -292,7 +320,7 @@
     .sa-body { display: none; padding: 12px 16px; background: var(--off-white); border-top: 1px solid var(--gray-200); font-size: 0.82rem; color: var(--text-muted); line-height: 1.64; }
     .sa-item.open .sa-body { display: block; }
 
-    /* FAQ */
+    /* FAQ — smooth accordion */
     .faq-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 50px; }
     .faq-item { border: 1px solid var(--gray-200); border-radius: var(--radius-sm); overflow: hidden; }
     .faq-q { display: flex; align-items: center; justify-content: space-between; padding: 15px 17px; background: white; border: none; width: 100%; text-align: left; transition: background 0.2s; }
@@ -300,8 +328,9 @@
     .faq-q-text { font-family: var(--font-price); font-size: 0.92rem; font-weight: 700; color: var(--navy); letter-spacing: 0.02em; }
     .faq-icon { color: var(--blue); font-size: 1.22rem; transition: transform 0.28s; flex-shrink: 0; margin-left: 10px; font-weight: 300; line-height: 1; }
     .faq-item.open .faq-icon { transform: rotate(45deg); }
-    .faq-a { display: none; padding: 12px 17px; background: var(--off-white); border-top: 1px solid var(--gray-200); font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; }
-    .faq-item.open .faq-a { display: block; }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.38s ease; }
+    .faq-item.open .faq-a { max-height: 320px; }
+    .faq-a-inner { padding: 12px 17px 18px; background: var(--off-white); border-top: 1px solid var(--gray-200); font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; }
 
     /* YOU MIGHT ALSO LIKE */
     .also-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 50px; }
@@ -316,20 +345,23 @@
     .also-cta:hover { background: var(--orange-lt); }
 
     /* FINAL CTA */
-    .final-cta { background: var(--navy); padding: 50px 32px; border-radius: var(--radius-lg); text-align: center; margin-bottom: 50px; position: relative; overflow: hidden; }
-    .final-cta::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--blue), var(--orange)); }
-    .final-cta-tag { font-family: var(--font-mono); font-size: 0.64rem; color: var(--blue-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
-    .final-cta-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.1rem); color: white; line-height: 1; margin-bottom: 9px; }
-    .final-cta-sub { font-size: 0.88rem; color: rgba(255,255,255,0.42); margin-bottom: 22px; }
-    .final-cta-amount { font-family: var(--font-price); font-size: 3.3rem; font-weight: 800; color: var(--orange); line-height: 1; margin-bottom: 20px; }
-    .final-cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 15px 42px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.18rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); transition: all 0.2s; border: none; }
+    .final-cta { background: linear-gradient(135deg, rgba(255,107,0,.07), rgba(245,158,11,.05)); border: 1px solid rgba(255,107,0,.2); padding: 50px 32px; border-radius: var(--radius-lg); text-align: center; margin-bottom: 50px; position: relative; overflow: hidden; }
+    .final-cta::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--gold), var(--orange)); }
+    .orb { position: absolute; border-radius: 50%; filter: blur(60px); pointer-events: none; }
+    .orb-1 { width: 280px; height: 280px; top: -60px; left: -60px; background: var(--orange); opacity: .10; }
+    .orb-2 { width: 220px; height: 220px; bottom: -40px; right: -40px; background: var(--gold); opacity: .10; }
+    .final-cta-tag { font-family: var(--font-mono); font-size: 0.64rem; color: var(--blue-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; position: relative; }
+    .final-cta-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.1rem); color: var(--navy); line-height: 1; margin-bottom: 9px; position: relative; }
+    .final-cta-sub { font-size: 0.88rem; color: rgba(0,0,0,0.42); margin-bottom: 22px; position: relative; }
+    .final-cta-amount { font-family: var(--font-price); font-size: 3.3rem; font-weight: 800; color: var(--orange); line-height: 1; margin-bottom: 20px; position: relative; }
+    .final-cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 15px 42px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.18rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); transition: all 0.2s; border: none; position: relative; }
     .final-cta-btn:hover { background: var(--orange-lt); transform: translateY(-2px); }
-    .final-cta-note { font-family: var(--font-mono); font-size: 0.61rem; color: rgba(255,255,255,0.25); margin-top: 13px; }
-    .final-cta-note a { color: rgba(255,255,255,0.4); text-decoration: underline; }
+    .final-cta-note { font-family: var(--font-mono); font-size: 0.61rem; color: rgba(0,0,0,0.3); margin-top: 13px; position: relative; }
+    .final-cta-note a { color: rgba(0,0,0,0.45); text-decoration: underline; }
 
     /* MOBILE STICKY */
     .mobile-sticky { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--navy); z-index: 1000; padding: 10px 16px 14px; box-shadow: 0 -4px 22px rgba(0,0,0,0.28); }
-    .mob-progress { position: absolute; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--orange), var(--blue)); transition: width 0.1s linear; }
+    .mob-progress { position: absolute; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--orange), var(--gold)); transition: width 0.1s linear; }
     .mob-inner { display: flex; align-items: center; justify-content: space-between; gap: 13px; }
     .mob-price-lbl { font-family: var(--font-mono); font-size: 0.55rem; color: rgba(255,255,255,0.28); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 1px; }
     .mob-price { font-family: var(--font-price); font-size: 2.4rem; font-weight: 800; color: var(--orange); line-height: 1; }
@@ -356,13 +388,29 @@
       .email-form { flex-direction: column; }
       .price-strip { flex-direction: column; align-items: flex-start; gap: 13px; }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::after { animation: none !important; transition-duration: 0.01ms !important; }
+    }
   </style>
 </head>
 <body>
 
 <div id="progress-bar" aria-hidden="true"></div>
-<div id="progress-bar-bottom" aria-hidden="true"></div>
 <div id="vs-header"></div>
+
+<!-- DOT NAV -->
+<nav class="dot-nav" aria-label="Section navigation">
+  <div class="dn-dot active" onclick="scrollToSection('sec-seen')" title="Seen It?"><span class="dn-tooltip">Seen It?</span></div>
+  <div class="dn-dot" onclick="scrollToSection('sec-about')" title="About"><span class="dn-tooltip">About</span></div>
+  <div class="dn-dot" onclick="scrollToSection('sec-details')" title="Details"><span class="dn-tooltip">Details</span></div>
+  <div class="dn-dot" onclick="scrollToSection('sec-blueprint')" title="Expect"><span class="dn-tooltip">Expect</span></div>
+  <div class="dn-dot" onclick="scrollToSection('sec-seating')" title="Seating"><span class="dn-tooltip">Seating</span></div>
+  <div class="dn-dot" onclick="scrollToSection('sec-faq')" title="FAQ"><span class="dn-tooltip">FAQ</span></div>
+</nav>
+
+<!-- SAVE PILL -->
+<a href="https://spotlight.vegas/shows/comedy/laugh-factory/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="save-pill" id="save-pill" aria-label="Save $54 — Get Tickets">Save $54 → Get Tickets</a>
 
 <!-- HERO -->
 <section class="hero" aria-label="Show hero">
@@ -370,7 +418,7 @@
     <a href="/">Home</a> › <a href="/shows/comedy/">Comedy</a> › <span>Laugh Factory Las Vegas</span>
   </nav>
 
-  <!-- 3-photo slider, no YouTube -->
+  <!-- 3-photo slider -->
   <div class="slider" role="region" aria-label="Show photos">
     <div class="slide active">
       <img src="/images/laugh-factory-hero.jpg" alt="Laugh Factory Las Vegas comedy club logo with microphone stand and seating at Horseshoe Las Vegas" loading="eager" />
@@ -425,12 +473,64 @@
   </div>
 </section>
 
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-num" data-target="75">0</div>
+      <div class="stat-lbl">Minutes</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-num" data-target="47">0</div>
+      <div class="stat-lbl">Years Running</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-num" data-prefix="$" data-target="32">$0</div>
+      <div class="stat-lbl">From</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-num" style="font-size:2.2rem;">18+</div>
+      <div class="stat-lbl">Only</div>
+    </div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-track">
+    <div class="ticker-item">🎤 Rotating Comedy Headliners<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">🌟 Two Shows Every Night<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">🏆 Original Since 1979<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">😂 75 Minutes Non-Stop Laughs<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">🔞 18+ Adults Only<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">💰 Save $54 — 63% Off<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">📍 Horseshoe Las Vegas · The Strip<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">⭐ Biggest Comedy Brand in Vegas<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">🎯 8:30 PM &amp; 10:30 PM Nightly<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">🎭 Real Stand-Up in a Real Club<span class="ticker-sep">●</span></div>
+    <!-- duplicate for seamless loop -->
+    <div class="ticker-item">🎤 Rotating Comedy Headliners<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">🌟 Two Shows Every Night<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">🏆 Original Since 1979<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">😂 75 Minutes Non-Stop Laughs<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">🔞 18+ Adults Only<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">💰 Save $54 — 63% Off<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">📍 Horseshoe Las Vegas · The Strip<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">⭐ Biggest Comedy Brand in Vegas<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">🎯 8:30 PM &amp; 10:30 PM Nightly<span class="ticker-sep">●</span></div>
+    <div class="ticker-item">🎭 Real Stand-Up in a Real Club<span class="ticker-sep">●</span></div>
+  </div>
+</div>
+
 <!-- PAGE LAYOUT -->
 <div class="page-layout">
 <main class="main-content" role="main">
 
   <!-- HAVE YOU SEEN -->
-  <div class="seen-widget fade-up">
+  <div class="seen-widget fade-up" id="sec-seen">
     <div class="seen-tag">🌵 Spike Wants to Know</div>
     <div class="seen-q">Have you been to Laugh Factory before?</div>
     <div class="seen-btns">
@@ -456,7 +556,7 @@
   </div>
 
   <!-- ABOUT -->
-  <section class="section fade-up" aria-labelledby="about-heading">
+  <section class="section fade-up" id="sec-about" aria-labelledby="about-heading">
     <h2 id="about-heading" class="section-title">About <span>Laugh Factory</span></h2>
     <div class="about-body">
       <p>The Laugh Factory has been one of the most important comedy clubs in the world since 1979. The original Hollywood location launched the careers of Richard Pryor, Jim Carrey, Jerry Seinfeld, and a roster of names that reads like a history of American stand-up comedy. That reputation doesn't travel on its own — but the Las Vegas location earns it. Located inside Horseshoe Las Vegas right on the Strip, the room runs two shows a night, every night, with rotating headliners that keep the bill fresh.</p>
@@ -465,7 +565,7 @@
         <div class="spike-emoji">🌵</div>
         <div class="spike-text">
           <strong>Spike's Take</strong>
-          $32 for a ticket to the Laugh Factory. The regular price is $86. That's a 63% discount on a club with a 40-year track record. If you're choosing between comedy shows on the Strip, this is the value call — and it's not close.
+          $32 for a ticket to the Laugh Factory. The regular price is $86. That's a 63% discount on a club with a 47-year track record. If you're choosing between comedy shows on the Strip, this is the value call — and it's not close.
         </div>
       </div>
 
@@ -488,7 +588,7 @@
   </div>
 
   <!-- SHOW DETAILS -->
-  <section class="section fade-up" aria-labelledby="details-heading">
+  <section class="section fade-up" id="sec-details" aria-labelledby="details-heading">
     <h2 id="details-heading" class="section-title">Show <span>Details</span></h2>
     <div class="details-grid">
       <div class="detail-card">
@@ -531,7 +631,7 @@
   </section>
 
   <!-- WHAT TO EXPECT -->
-  <section class="section fade-up" aria-labelledby="expect-heading">
+  <section class="section fade-up" id="sec-blueprint" aria-labelledby="expect-heading">
     <h2 id="expect-heading" class="section-title">What to <span>Expect</span></h2>
     <div class="expect-grid">
       <div class="expect-card">
@@ -554,7 +654,7 @@
   </section>
 
   <!-- SEATING CHART -->
-  <section class="seating-section fade-up" aria-labelledby="seating-heading">
+  <section class="seating-section fade-up" id="sec-seating" aria-labelledby="seating-heading">
     <h2 id="seating-heading" class="section-title">Laugh Factory <span>Seating Chart</span></h2>
 
     <div class="seating-diagram-wrap">
@@ -669,7 +769,7 @@
   </section>
 
   <!-- FAQ -->
-  <section class="section fade-up" aria-labelledby="faq-heading">
+  <section class="section fade-up" id="sec-faq" aria-labelledby="faq-heading">
     <h2 id="faq-heading" class="section-title">Frequently <span>Asked</span></h2>
     <div class="faq-list">
 
@@ -678,7 +778,7 @@
           <span class="faq-q-text">Which show should I book — 8:30 PM or 10:30 PM?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Both shows run the same 75-minute format but with different lineups. The 8:30 PM show works naturally after a Strip dinner and fits an earlier evening. The 10:30 PM show runs later and typically draws a crowd that's already been out — the energy tends to run looser and the comics know it. Check the bill for each show before deciding.</div>
+        <div class="faq-a"><div class="faq-a-inner">Both shows run the same 75-minute format but with different lineups. The 8:30 PM show works naturally after a Strip dinner and fits an earlier evening. The 10:30 PM show runs later and typically draws a crowd that's already been out — the energy tends to run looser and the comics know it. Check the bill for each show before deciding.</div></div>
       </div>
 
       <div class="faq-item">
@@ -686,7 +786,7 @@
           <span class="faq-q-text">Who are the comedians performing?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">The lineup rotates regularly — that's the Laugh Factory model. The bill features a mix of established headliners and rising talent. Check the current schedule before purchasing to see who's on stage the night you're attending.</div>
+        <div class="faq-a"><div class="faq-a-inner">The lineup rotates regularly — that's the Laugh Factory model. The bill features a mix of established headliners and rising talent. Check the current schedule before purchasing to see who's on stage the night you're attending.</div></div>
       </div>
 
       <div class="faq-item">
@@ -694,7 +794,7 @@
           <span class="faq-q-text">Can I take photos during the show?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">No. No photos or video during the show. Stow your device when the show starts and watch the comedy. This is standard practice at serious stand-up clubs and it's enforced here.</div>
+        <div class="faq-a"><div class="faq-a-inner">No. No photos or video during the show. Stow your device when the show starts and watch the comedy. This is standard practice at serious stand-up clubs and it's enforced here.</div></div>
       </div>
 
       <div class="faq-item">
@@ -702,7 +802,7 @@
           <span class="faq-q-text">What is the age requirement?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Laugh Factory Las Vegas is strictly 18 and older. No exceptions. Bring a valid government-issued photo ID — it will be checked at the door. Guests who cannot verify their age will not be admitted.</div>
+        <div class="faq-a"><div class="faq-a-inner">Laugh Factory Las Vegas is strictly 18 and older. No exceptions. Bring a valid government-issued photo ID — it will be checked at the door. Guests who cannot verify their age will not be admitted.</div></div>
       </div>
 
       <div class="faq-item">
@@ -710,7 +810,7 @@
           <span class="faq-q-text">Where is Horseshoe Las Vegas on the Strip?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Horseshoe Las Vegas is located at 3645 S Las Vegas Blvd, between Flamingo Road and the Bellagio on the central Strip. Previously known as Bally's Las Vegas. Easily walkable from Paris Las Vegas, Caesars, and the Bellagio. Rideshare drop-off is straightforward off Las Vegas Boulevard.</div>
+        <div class="faq-a"><div class="faq-a-inner">Horseshoe Las Vegas is located at 3645 S Las Vegas Blvd, between Flamingo Road and the Bellagio on the central Strip. Previously known as Bally's Las Vegas. Easily walkable from Paris Las Vegas, Caesars, and the Bellagio. Rideshare drop-off is straightforward off Las Vegas Boulevard.</div></div>
       </div>
 
       <div class="faq-item">
@@ -718,7 +818,7 @@
           <span class="faq-q-text">What is the refund and cancellation policy?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Refunds are available for exceptional circumstances such as the unlikely event that a show cancels. Check the full terms and conditions before purchasing.</div>
+        <div class="faq-a"><div class="faq-a-inner">Refunds are available for exceptional circumstances such as the unlikely event that a show cancels. Check the full terms and conditions before purchasing.</div></div>
       </div>
 
     </div>
@@ -760,10 +860,12 @@
 
   <!-- FINAL CTA -->
   <div class="final-cta fade-up">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
     <div class="final-cta-tag">🌵 Vegas Sidekick — Vegas Without the Trauma</div>
     <div class="final-cta-title">Ready to Catch the Show?</div>
     <div class="final-cta-sub">Laugh Factory · Horseshoe Las Vegas · Nightly at 8:30 PM &amp; 10:30 PM</div>
-    <div class="final-cta-amount">$32</div>
+    <div class="final-cta-amount">From $32 — Save $54</div>
     <a href="https://spotlight.vegas/shows/comedy/laugh-factory/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="final-cta-btn">Get Tickets →</a>
     <div class="final-cta-note">Prices may increase closer to show date &nbsp;·&nbsp; <a href="/affiliate-disclosure/">Affiliate disclosure</a></div>
   </div>
@@ -831,26 +933,88 @@
   function updateProgress() {
     const pct = (window.pageYOffset / Math.max(1, document.documentElement.scrollHeight - window.innerHeight)) * 100;
     document.getElementById('progress-bar').style.width = Math.min(pct,100) + '%';
-    document.getElementById('progress-bar-bottom').style.width = Math.min(pct,100) + '%';
     const mob = document.getElementById('mob-progress');
     if (mob) mob.style.width = Math.min(pct,100) + '%';
   }
   window.addEventListener('scroll', updateProgress, { passive: true });
 
-  /* SLIDER — 3 photos only */
+  /* SAVE PILL */
+  const heroEl = document.querySelector('.hero');
+  const pillEl = document.getElementById('save-pill');
+  const pillObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) { pillEl.style.display = 'flex'; requestAnimationFrame(() => pillEl.classList.add('visible')); }
+      else { pillEl.classList.remove('visible'); setTimeout(() => { if (!pillEl.classList.contains('visible')) pillEl.style.display = 'none'; }, 300); }
+    });
+  }, { threshold: 0.1 });
+  pillObs.observe(heroEl);
+
+  /* SLIDER — 3 photos, Ken Burns via rAF on active class */
   let cur = 0;
   const slides = document.querySelectorAll('.slide');
   const dots   = document.querySelectorAll('.dot-btn');
+  const N = slides.length;
+
   function goToSlide(n) {
-    slides[cur].classList.remove('active'); dots[cur].classList.remove('active'); dots[cur].setAttribute('aria-selected','false');
-    cur = (n + slides.length) % slides.length;
-    slides[cur].classList.add('active'); dots[cur].classList.add('active'); dots[cur].setAttribute('aria-selected','true');
+    slides[cur].classList.remove('active');
+    dots[cur].classList.remove('active');
+    dots[cur].setAttribute('aria-selected', 'false');
+    cur = (n + N) % N;
+    slides[cur].classList.remove('active');
+    requestAnimationFrame(() => {
+      slides[cur].classList.add('active');
+      dots[cur].classList.add('active');
+      dots[cur].setAttribute('aria-selected', 'true');
+    });
   }
   function sliderMove(d) { goToSlide(cur + d); }
   let si = setInterval(() => sliderMove(1), 5000);
   const sliderEl = document.querySelector('.slider');
   sliderEl.addEventListener('mouseenter', () => clearInterval(si));
   sliderEl.addEventListener('mouseleave', () => { si = setInterval(() => sliderMove(1), 5000); });
+
+  /* COUNT-UP */
+  const countUp = (el) => {
+    const target = +el.dataset.target;
+    const prefix = el.dataset.prefix || '';
+    const dur = 1400;
+    const start = performance.now();
+    const tick = (now) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / dur, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      el.textContent = prefix + Math.round(ease * target);
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+  const statsObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('[data-target]').forEach(countUp);
+        statsObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  const statsEl = document.querySelector('.stats-strip');
+  if (statsEl) statsObs.observe(statsEl);
+
+  /* DOT NAV */
+  const dnDots = document.querySelectorAll('.dn-dot');
+  const dnSections = ['sec-seen', 'sec-about', 'sec-details', 'sec-blueprint', 'sec-seating', 'sec-faq'];
+  function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  const dnObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const idx = dnSections.indexOf(e.target.id);
+        if (idx !== -1) dnDots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      }
+    });
+  }, { threshold: 0.3 });
+  dnSections.forEach(id => { const el = document.getElementById(id); if (el) dnObs.observe(el); });
 
   /* HAVE YOU SEEN */
   function showSeen(t) {
@@ -892,7 +1056,7 @@
     popup.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
-  /* ACCORDION */
+  /* SEATING ACCORDION */
   function toggleSA(btn) {
     const item = btn.closest('.sa-item'), was = item.classList.contains('open');
     document.querySelectorAll('.sa-item').forEach(i => i.classList.remove('open'));
@@ -900,7 +1064,7 @@
     if (!was) { item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
   }
 
-  /* FAQ */
+  /* FAQ — smooth accordion */
   function toggleFaq(btn) {
     const item = btn.closest('.faq-item'), was = item.classList.contains('open');
     document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
@@ -920,6 +1084,11 @@
   document.querySelector('.email-submit').addEventListener('click', function() {
     const inp = document.querySelector('.email-input'), val = inp.value.trim();
     if (val && val.includes('@') && val.includes('.')) {
+      fetch('https://brevo-subscribe.vegassidekickcom.workers.dev', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: val })
+      }).catch(() => {});
       inp.value = ''; inp.placeholder = 'You\'re in. Spike will be in touch.';
       this.textContent = 'Done ✓'; this.style.background = '#16a34a';
     } else {
