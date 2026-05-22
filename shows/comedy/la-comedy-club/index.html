@@ -57,15 +57,7 @@
       },
       "eventSchedule": {
           "@type": "Schedule",
-          "byDay": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday",
-              "Saturday",
-              "Sunday"
-          ],
+          "byDay": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
           "startTime": "18:00"
       },
       "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode"
@@ -113,13 +105,8 @@
     button { font-family: inherit; cursor: pointer; }
 
     #progress-bar { overflow: hidden; position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--blue), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; }
-    #progress-bar-bottom { position: fixed; bottom: 0; left: 0; right: 0; height: 3px; width: 0%; animation: pb-glow 2s ease-in-out infinite; background: linear-gradient(270deg, var(--blue), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; overflow: hidden; }
-    #progress-bar::after, #progress-bar-bottom::after { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%); animation: pb-shimmer 2.2s linear infinite; }
+    #progress-bar::after { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%); animation: pb-shimmer 2.2s linear infinite; }
     @keyframes pb-shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
-    @keyframes pb-glow { 0%, 100% { box-shadow: 0 0 3px rgba(255,255,255,0.15); } 50% { box-shadow: 0 0 10px rgba(255,255,255,0.5), 0 0 3px rgba(255,255,255,0.2); } }
-    @media (max-width: 940px) { #progress-bar-bottom { bottom: 72px; } }
-    @keyframes pb-shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
-    @keyframes pb-glow { 0%, 100% { box-shadow: 0 0 3px rgba(255,255,255,0.15); } 50% { box-shadow: 0 0 10px rgba(255,255,255,0.5), 0 0 3px rgba(255,255,255,0.2); } }
 
     /* HERO */
     .hero { background: var(--navy); padding-top: 84px; }
@@ -128,11 +115,13 @@
     .breadcrumb a:hover { color: var(--orange); }
     .breadcrumb span { color: rgba(255,255,255,0.7); }
 
-    /* SLIDER — 3 photos only */
+    /* SLIDER */
     .slider { position: relative; width: 100%; aspect-ratio: 16/9; max-height: 480px; overflow: hidden; background: var(--navy-mid); }
     .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.65s ease; }
     .slide.active { opacity: 1; }
     .slide img { width: 100%; height: 100%; object-fit: cover; }
+    @keyframes kenBurns { from { transform: scale(1.0) translate(0,0); } to { transform: scale(1.08) translate(0.5%,0.3%); } }
+    .slide.active img { animation: kenBurns 9s ease-in-out forwards; }
     .slider-dots { position: absolute; bottom: 13px; left: 50%; transform: translateX(-50%); display: flex; gap: 7px; z-index: 3; }
     .dot-btn { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.28); border: none; padding: 0; transition: background 0.2s, transform 0.2s; }
     .dot-btn.active { background: var(--orange); transform: scale(1.4); }
@@ -167,6 +156,39 @@
     .hero-cta:hover { background: var(--orange-lt); transform: translateY(-2px); }
     .urgency-txt { font-family: var(--font-mono); font-size: 0.62rem; color: rgba(255,255,255,0.32); }
 
+    /* STATS STRIP */
+    .stats-strip { background: var(--white); border-bottom: 1px solid var(--gray-200); display: flex; justify-content: center; align-items: stretch; flex-wrap: wrap; }
+    .stat-item { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 22px 36px; gap: 3px; }
+    .stat-num { font-family: var(--font-display); font-size: clamp(2.2rem, 4vw, 3rem); color: var(--navy); line-height: 1; letter-spacing: 0.02em; }
+    .stat-lbl { font-family: var(--font-mono); font-size: 0.62rem; color: var(--text-muted); letter-spacing: 0.07em; text-transform: uppercase; }
+    .stat-sep { width: 1px; background: var(--gray-200); margin: 18px 0; align-self: stretch; }
+    @media (max-width: 600px) { .stat-sep { display: none; } .stat-item { padding: 16px 20px; } }
+
+    /* TICKER */
+    .ticker-wrap { background: var(--orange); overflow: hidden; padding: 10px 0; white-space: nowrap; position: relative; }
+    .ticker-wrap::before, .ticker-wrap::after { content: ''; position: absolute; top: 0; bottom: 0; width: 60px; z-index: 2; pointer-events: none; }
+    .ticker-wrap::before { left: 0; background: linear-gradient(90deg, var(--orange), transparent); }
+    .ticker-wrap::after  { right: 0; background: linear-gradient(270deg, var(--orange), transparent); }
+    .ticker-track { display: inline-flex; gap: 0; animation: ticker 32s linear infinite; }
+    .ticker-wrap:hover .ticker-track { animation-play-state: paused; }
+    @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .ticker-item { display: inline-flex; align-items: center; gap: 7px; padding: 0 28px; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600; color: white; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap; }
+    .ticker-item::after { content: '·'; margin-left: 28px; opacity: 0.45; }
+
+    /* DOT NAV */
+    .dot-nav { position: fixed; right: 18px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 800; }
+    .dn-dot { width: 9px; height: 9px; border-radius: 50%; background: rgba(26,107,221,0.25); border: 1.5px solid rgba(26,107,221,0.4); transition: background 0.25s, transform 0.25s; cursor: pointer; position: relative; }
+    .dn-dot.active { background: var(--orange); border-color: var(--orange); transform: scale(1.35); }
+    .dn-dot:hover { background: var(--blue); border-color: var(--blue); }
+    .dn-dot[data-tip]::after { content: attr(data-tip); position: absolute; right: 20px; top: 50%; transform: translateY(-50%); background: var(--navy); color: white; font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.04em; padding: 4px 9px; border-radius: 5px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+    .dn-dot:hover[data-tip]::after { opacity: 1; }
+    @media (max-width: 940px) { .dot-nav { display: none; } }
+
+    /* SAVE PILL */
+    .save-pill { position: fixed; top: 72px; right: 18px; z-index: 700; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.82rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; padding: 8px 15px; border-radius: 100px; box-shadow: 0 3px 14px rgba(255,107,0,0.38); opacity: 0; transform: translateY(-10px) scale(0.9); transition: opacity 0.3s, transform 0.3s; pointer-events: none; white-space: nowrap; }
+    .save-pill.visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+    @media (max-width: 940px) { .save-pill { display: none; } }
+
     /* LAYOUT */
     .page-layout { display: grid; grid-template-columns: 1fr var(--sidebar); max-width: 1200px; margin: 0 auto; align-items: start; }
     .main-content { padding: 46px 36px 60px 22px; min-width: 0; }
@@ -200,7 +222,7 @@
     .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-    /* SHOW SCHEDULE — 3-show callout */
+    /* SHOW SCHEDULE */
     .show-schedule { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 50px; }
     .show-time-card { background: var(--navy); border-radius: var(--radius); padding: 20px 16px; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.07); }
     .show-time-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
@@ -306,7 +328,7 @@
     .sa-body { display: none; padding: 12px 16px; background: var(--off-white); border-top: 1px solid var(--gray-200); font-size: 0.82rem; color: var(--text-muted); line-height: 1.64; }
     .sa-item.open .sa-body { display: block; }
 
-    /* FAQ */
+    /* FAQ — smooth accordion */
     .faq-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 50px; }
     .faq-item { border: 1px solid var(--gray-200); border-radius: var(--radius-sm); overflow: hidden; }
     .faq-q { display: flex; align-items: center; justify-content: space-between; padding: 15px 17px; background: white; border: none; width: 100%; text-align: left; transition: background 0.2s; }
@@ -314,8 +336,9 @@
     .faq-q-text { font-family: var(--font-price); font-size: 0.92rem; font-weight: 700; color: var(--navy); letter-spacing: 0.02em; }
     .faq-icon { color: var(--blue); font-size: 1.22rem; transition: transform 0.28s; flex-shrink: 0; margin-left: 10px; font-weight: 300; line-height: 1; }
     .faq-item.open .faq-icon { transform: rotate(45deg); }
-    .faq-a { display: none; padding: 12px 17px; background: var(--off-white); border-top: 1px solid var(--gray-200); font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; }
-    .faq-item.open .faq-a { display: block; }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.38s ease; }
+    .faq-item.open .faq-a { max-height: 320px; }
+    .faq-a-inner { padding: 12px 17px 18px; background: var(--off-white); border-top: 1px solid var(--gray-200); font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; }
 
     /* YOU MIGHT ALSO LIKE */
     .also-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 50px; }
@@ -329,17 +352,20 @@
     .also-cta { display: block; width: 100%; padding: 9px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.82rem; font-weight: 800; text-align: center; border-radius: var(--radius-sm); text-transform: uppercase; letter-spacing: 0.05em; transition: background 0.2s; border: none; }
     .also-cta:hover { background: var(--orange-lt); }
 
-    /* FINAL CTA */
-    .final-cta { background: var(--navy); padding: 50px 32px; border-radius: var(--radius-lg); text-align: center; margin-bottom: 50px; position: relative; overflow: hidden; }
+    /* FINAL CTA — light bg with orbs */
+    .final-cta { background: var(--off-white); border: 1px solid var(--gray-200); padding: 50px 32px; border-radius: var(--radius-lg); text-align: center; margin-bottom: 50px; position: relative; overflow: hidden; }
     .final-cta::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--blue), var(--orange)); }
-    .final-cta-tag { font-family: var(--font-mono); font-size: 0.64rem; color: var(--blue-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
-    .final-cta-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.1rem); color: white; line-height: 1; margin-bottom: 9px; }
-    .final-cta-sub { font-size: 0.88rem; color: rgba(255,255,255,0.42); margin-bottom: 22px; }
-    .final-cta-amount { font-family: var(--font-price); font-size: 3.3rem; font-weight: 800; color: var(--orange); line-height: 1; margin-bottom: 20px; }
-    .final-cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 15px 42px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.18rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); transition: all 0.2s; border: none; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(60px); pointer-events: none; }
+    .orb-1 { width: 280px; height: 280px; top: -60px; left: -60px; background: var(--orange); opacity: .10; }
+    .orb-2 { width: 220px; height: 220px; bottom: -40px; right: -40px; background: var(--blue); opacity: .10; }
+    .final-cta-tag { font-family: var(--font-mono); font-size: 0.64rem; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; position: relative; }
+    .final-cta-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.1rem); color: var(--navy); line-height: 1; margin-bottom: 9px; position: relative; }
+    .final-cta-sub { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 22px; position: relative; }
+    .final-cta-amount { font-family: var(--font-price); font-size: 3.3rem; font-weight: 800; color: var(--orange); line-height: 1; margin-bottom: 20px; position: relative; }
+    .final-cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 15px 42px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.18rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); transition: all 0.2s; border: none; position: relative; }
     .final-cta-btn:hover { background: var(--orange-lt); transform: translateY(-2px); }
-    .final-cta-note { font-family: var(--font-mono); font-size: 0.61rem; color: rgba(255,255,255,0.25); margin-top: 13px; }
-    .final-cta-note a { color: rgba(255,255,255,0.4); text-decoration: underline; }
+    .final-cta-note { font-family: var(--font-mono); font-size: 0.61rem; color: var(--text-muted); margin-top: 13px; position: relative; }
+    .final-cta-note a { color: var(--text-muted); text-decoration: underline; }
 
     /* MOBILE STICKY */
     .mobile-sticky { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--navy); z-index: 1000; padding: 10px 16px 14px; box-shadow: 0 -4px 22px rgba(0,0,0,0.28); }
@@ -371,12 +397,16 @@
       .email-form { flex-direction: column; }
       .price-strip { flex-direction: column; align-items: flex-start; gap: 13px; }
     }
+
+    /* REDUCED MOTION */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; }
+    }
   </style>
 </head>
 <body>
 
 <div id="progress-bar" aria-hidden="true"></div>
-<div id="progress-bar-bottom" aria-hidden="true"></div>
 <div id="vs-header"></div>
 
 <!-- HERO -->
@@ -385,7 +415,6 @@
     <a href="/">Home</a> › <a href="/shows/comedy/">Comedy</a> › <span>LA Comedy Club Las Vegas</span>
   </nav>
 
-  <!-- 3-photo slider, no YouTube -->
   <div class="slider" role="region" aria-label="Show photos">
     <div class="slide active">
       <img src="/images/la-comedy-club-hero.jpg" alt="LA Comedy Club Las Vegas logo with twin vintage microphones and wings on red stage curtain at The STRAT Hotel" loading="eager" />
@@ -440,11 +469,73 @@
   </div>
 </section>
 
+<!-- STATS STRIP -->
+<div class="stats-strip" id="stats-strip">
+  <div class="stat-item">
+    <div class="stat-num" data-target="75" data-prefix="">75</div>
+    <div class="stat-lbl">Min</div>
+  </div>
+  <div class="stat-sep"></div>
+  <div class="stat-item">
+    <div class="stat-num" data-target="3" data-prefix="">3</div>
+    <div class="stat-lbl">Shows Nightly</div>
+  </div>
+  <div class="stat-sep"></div>
+  <div class="stat-item">
+    <div class="stat-num" data-target="43" data-prefix="$">$43</div>
+    <div class="stat-lbl">From</div>
+  </div>
+  <div class="stat-sep"></div>
+  <div class="stat-item">
+    <div class="stat-num" data-target="27" data-prefix="" data-suffix="%">27%</div>
+    <div class="stat-lbl">You Save</div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item">🎤 Three Shows Every Night</span>
+    <span class="ticker-item">🏨 Dragon Room · The STRAT Hotel</span>
+    <span class="ticker-item">💰 Save $16 — 27% Off</span>
+    <span class="ticker-item">🎭 Happy Hour · Touring · Headliner</span>
+    <span class="ticker-item">⭐ Bret Ernst &amp; Butch Bradley</span>
+    <span class="ticker-item">🌵 Spike's Pick · Both Sections</span>
+    <span class="ticker-item">🎟️ Ages 15+ · 75 Minutes</span>
+    <span class="ticker-item">📍 North End of the Strip</span>
+    <span class="ticker-item">🎙️ Rotating Comics Weekly</span>
+    <span class="ticker-item">🌙 10 PM Headliner Nightly</span>
+    <span class="ticker-item">🎤 Three Shows Every Night</span>
+    <span class="ticker-item">🏨 Dragon Room · The STRAT Hotel</span>
+    <span class="ticker-item">💰 Save $16 — 27% Off</span>
+    <span class="ticker-item">🎭 Happy Hour · Touring · Headliner</span>
+    <span class="ticker-item">⭐ Bret Ernst &amp; Butch Bradley</span>
+    <span class="ticker-item">🌵 Spike's Pick · Both Sections</span>
+    <span class="ticker-item">🎟️ Ages 15+ · 75 Minutes</span>
+    <span class="ticker-item">📍 North End of the Strip</span>
+    <span class="ticker-item">🎙️ Rotating Comics Weekly</span>
+    <span class="ticker-item">🌙 10 PM Headliner Nightly</span>
+  </div>
+</div>
+
+<!-- DOT NAV -->
+<nav class="dot-nav" aria-label="Page sections">
+  <div class="dn-dot active" data-tip="Have You Seen" onclick="document.getElementById('sec-seen').scrollIntoView({behavior:'smooth'})"></div>
+  <div class="dn-dot" data-tip="About" onclick="document.getElementById('sec-about').scrollIntoView({behavior:'smooth'})"></div>
+  <div class="dn-dot" data-tip="Details" onclick="document.getElementById('sec-details').scrollIntoView({behavior:'smooth'})"></div>
+  <div class="dn-dot" data-tip="What to Expect" onclick="document.getElementById('sec-blueprint').scrollIntoView({behavior:'smooth'})"></div>
+  <div class="dn-dot" data-tip="Seating" onclick="document.getElementById('sec-seating').scrollIntoView({behavior:'smooth'})"></div>
+  <div class="dn-dot" data-tip="FAQ" onclick="document.getElementById('sec-faq').scrollIntoView({behavior:'smooth'})"></div>
+</nav>
+
+<!-- SAVE PILL -->
+<a href="https://spotlight.vegas/shows/comedy/la-comedy-club/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="save-pill" id="save-pill">Save $16 → Get Tickets</a>
+
 <!-- PAGE LAYOUT -->
 <div class="page-layout">
 <main class="main-content" role="main">
 
-  <!-- SHOW SCHEDULE — 3 distinct shows -->
+  <!-- SHOW SCHEDULE -->
   <div class="show-schedule fade-up" aria-label="Show schedule">
     <div class="show-time-card happy">
       <div class="stc-time">6 PM</div>
@@ -465,7 +556,7 @@
   </div>
 
   <!-- HAVE YOU SEEN -->
-  <div class="seen-widget fade-up">
+  <div id="sec-seen" class="seen-widget fade-up">
     <div class="seen-tag">🌵 Spike Wants to Know</div>
     <div class="seen-q">Have you been to LA Comedy Club before?</div>
     <div class="seen-btns">
@@ -491,7 +582,7 @@
   </div>
 
   <!-- ABOUT -->
-  <section class="section fade-up" aria-labelledby="about-heading">
+  <section id="sec-about" class="section fade-up" aria-labelledby="about-heading">
     <h2 id="about-heading" class="section-title">About <span>LA Comedy Club</span></h2>
     <div class="about-body">
       <p>The Dragon Room inside The STRAT Hotel Casino Tower runs three separate comedy shows every night of the week — and they're three genuinely distinct products. The 6 PM Happy Hour Variety Show is a lighter mix of stand-up and variety acts. The 8 PM show brings rotating touring comics. The 10 PM slot features named headliners: Bret Ernst on Tuesday and Wednesday, Butch Bradley Thursday through Monday. One venue, three different reasons to show up depending on the night and the time.</p>
@@ -523,7 +614,7 @@
   </div>
 
   <!-- SHOW DETAILS -->
-  <section class="section fade-up" aria-labelledby="details-heading">
+  <section id="sec-details" class="section fade-up" aria-labelledby="details-heading">
     <h2 id="details-heading" class="section-title">Show <span>Details</span></h2>
     <div class="details-grid">
       <div class="detail-card">
@@ -566,7 +657,7 @@
   </section>
 
   <!-- WHAT TO EXPECT -->
-  <section class="section fade-up" aria-labelledby="expect-heading">
+  <section id="sec-blueprint" class="section fade-up" aria-labelledby="expect-heading">
     <h2 id="expect-heading" class="section-title">What to <span>Expect</span></h2>
     <div class="expect-grid">
       <div class="expect-card">
@@ -589,7 +680,7 @@
   </section>
 
   <!-- SEATING CHART -->
-  <section class="seating-section fade-up" aria-labelledby="seating-heading">
+  <section id="sec-seating" class="seating-section fade-up" aria-labelledby="seating-heading">
     <h2 id="seating-heading" class="section-title">LA Comedy Club <span>Seating Chart</span></h2>
 
     <div class="seating-diagram-wrap">
@@ -603,7 +694,7 @@
           <text x="260" y="37" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="18" fill="white" letter-spacing="3">STAGE</text>
           <text x="260" y="53" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7" fill="rgba(255,255,255,0.5)" letter-spacing="1">LA COMEDY CLUB</text>
 
-          <!-- VIP zone — arc around stage -->
+          <!-- VIP zone -->
           <g class="seat-zone" onclick="selectZone('vip')" tabindex="0" role="button" aria-label="VIP — click for details">
             <circle cx="130" cy="82"  r="9" fill="#e05a50"/>
             <circle cx="108" cy="96"  r="9" fill="#e05a50"/>
@@ -728,7 +819,7 @@
             <text x="260" y="320" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="14" fill="rgba(255,255,255,0.3)" letter-spacing="2">GA</text>
           </g>
 
-          <!-- Sidekick Pick badges — both sections -->
+          <!-- Sidekick Pick badges -->
           <rect x="90" y="148" width="122" height="17" rx="4" fill="rgba(255,107,0,0.2)" stroke="rgba(255,107,0,0.45)" stroke-width="1"/>
           <text x="151" y="159" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" font-weight="600" fill="#ffb380" letter-spacing="0.3">⭐ SIDEKICK PICK</text>
           <rect x="186" y="395" width="148" height="17" rx="4" fill="rgba(255,107,0,0.2)" stroke="rgba(255,107,0,0.45)" stroke-width="1"/>
@@ -780,7 +871,7 @@
   </section>
 
   <!-- FAQ -->
-  <section class="section fade-up" aria-labelledby="faq-heading">
+  <section id="sec-faq" class="section fade-up" aria-labelledby="faq-heading">
     <h2 id="faq-heading" class="section-title">Frequently <span>Asked</span></h2>
     <div class="faq-list">
 
@@ -789,7 +880,7 @@
           <span class="faq-q-text">What's the difference between the three shows?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Each time slot is a different show. The 6 PM Happy Hour Variety Show is a lighter mix of stand-up and variety acts — a good fit before dinner or earlier in an evening. The 8 PM show brings rotating touring comics, different every week. The 10 PM show features named headliners: Bret Ernst on Tuesday and Wednesday, Butch Bradley Thursday through Monday. Three distinct products in one venue every night.</div>
+        <div class="faq-a"><div class="faq-a-inner">Each time slot is a different show. The 6 PM Happy Hour Variety Show is a lighter mix of stand-up and variety acts — a good fit before dinner or earlier in an evening. The 8 PM show brings rotating touring comics, different every week. The 10 PM show features named headliners: Bret Ernst on Tuesday and Wednesday, Butch Bradley Thursday through Monday. Three distinct products in one venue every night.</div></div>
       </div>
 
       <div class="faq-item">
@@ -797,7 +888,7 @@
           <span class="faq-q-text">Who are Bret Ernst and Butch Bradley?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Both are seasoned touring stand-ups with serious credits. Bret Ernst has appeared on Comedy Central and multiple late-night programs; he's known for high-energy storytelling with a sharp edge. Butch Bradley has been a Las Vegas comedy staple for years — he's the kind of comic who knows exactly how to work a room. They have different styles, so knowing which one is on stage the night you're attending is worth a quick check before you buy.</div>
+        <div class="faq-a"><div class="faq-a-inner">Both are seasoned touring stand-ups with serious credits. Bret Ernst has appeared on Comedy Central and multiple late-night programs; he's known for high-energy storytelling with a sharp edge. Butch Bradley has been a Las Vegas comedy staple for years — he's the kind of comic who knows exactly how to work a room. They have different styles, so knowing which one is on stage the night you're attending is worth a quick check before you buy.</div></div>
       </div>
 
       <div class="faq-item">
@@ -805,7 +896,7 @@
           <span class="faq-q-text">Are VIP and GA really both good seats?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Yes — that's not marketing language. The Dragon Room is an intimate venue, and the GA section behind VIP doesn't have the distance problem you'd find in a larger showroom. VIP puts you tighter to the stage; GA gives you a wider angle on the full room. Both deliver a solid stand-up experience. Spike recommends either section without reservation.</div>
+        <div class="faq-a"><div class="faq-a-inner">Yes — that's not marketing language. The Dragon Room is an intimate venue, and the GA section behind VIP doesn't have the distance problem you'd find in a larger showroom. VIP puts you tighter to the stage; GA gives you a wider angle on the full room. Both deliver a solid stand-up experience. Spike recommends either section without reservation.</div></div>
       </div>
 
       <div class="faq-item">
@@ -813,7 +904,7 @@
           <span class="faq-q-text">What is the age requirement?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">LA Comedy Club Las Vegas admits guests ages 15 and older. Guests ages 15 through 17 must be accompanied by a parent or legal guardian. Valid ID may be required at the door.</div>
+        <div class="faq-a"><div class="faq-a-inner">LA Comedy Club Las Vegas admits guests ages 15 and older. Guests ages 15 through 17 must be accompanied by a parent or legal guardian. Valid ID may be required at the door.</div></div>
       </div>
 
       <div class="faq-item">
@@ -821,7 +912,7 @@
           <span class="faq-q-text">Where is The STRAT on the Strip?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">The STRAT Hotel Casino Tower is located at 2000 S Las Vegas Blvd, at the north end of the Las Vegas Strip near Sahara Avenue. It's about a 10–15 minute drive or rideshare from the center of the Strip. The STRAT is a full resort property with on-site parking, restaurants, and of course the observation deck and thrill rides on top of the tower if you want to make a full evening of it.</div>
+        <div class="faq-a"><div class="faq-a-inner">The STRAT Hotel Casino Tower is located at 2000 S Las Vegas Blvd, at the north end of the Las Vegas Strip near Sahara Avenue. It's about a 10–15 minute drive or rideshare from the center of the Strip. The STRAT is a full resort property with on-site parking, restaurants, and of course the observation deck and thrill rides on top of the tower if you want to make a full evening of it.</div></div>
       </div>
 
       <div class="faq-item">
@@ -829,7 +920,7 @@
           <span class="faq-q-text">What is the refund and cancellation policy?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Refunds are available for exceptional circumstances such as the unlikely event that a show cancels. Check the full terms and conditions before purchasing.</div>
+        <div class="faq-a"><div class="faq-a-inner">Refunds are available for exceptional circumstances such as the unlikely event that a show cancels. Check the full terms and conditions before purchasing.</div></div>
       </div>
 
     </div>
@@ -871,6 +962,8 @@
 
   <!-- FINAL CTA -->
   <div class="final-cta fade-up">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
     <div class="final-cta-tag">🌵 Vegas Sidekick — Vegas Without the Trauma</div>
     <div class="final-cta-title">Ready to Catch the Show?</div>
     <div class="final-cta-sub">LA Comedy Club · Dragon Room at The STRAT · Nightly at 6 PM · 8 PM · 10 PM</div>
@@ -943,26 +1036,76 @@
     const pct = (window.pageYOffset / Math.max(1, document.documentElement.scrollHeight - window.innerHeight)) * 100;
     const v = Math.min(pct, 100);
     document.getElementById('progress-bar').style.width = v + '%';
-    document.getElementById('progress-bar-bottom').style.width = v + '%';
     const mob = document.getElementById('mob-progress');
     if (mob) mob.style.width = v + '%';
   }
   window.addEventListener('scroll', updateProgress, { passive: true });
 
-  /* SLIDER — 3 photos only */
+  /* SLIDER */
   let cur = 0;
   const slides = document.querySelectorAll('.slide');
   const dots   = document.querySelectorAll('.dot-btn');
   function goToSlide(n) {
-    slides[cur].classList.remove('active'); dots[cur].classList.remove('active'); dots[cur].setAttribute('aria-selected','false');
-    cur = (n + slides.length) % slides.length;
-    slides[cur].classList.add('active'); dots[cur].classList.add('active'); dots[cur].setAttribute('aria-selected','true');
+    requestAnimationFrame(() => {
+      slides[cur].classList.remove('active'); dots[cur].classList.remove('active'); dots[cur].setAttribute('aria-selected','false');
+      cur = (n + slides.length) % slides.length;
+      requestAnimationFrame(() => {
+        slides[cur].classList.add('active'); dots[cur].classList.add('active'); dots[cur].setAttribute('aria-selected','true');
+      });
+    });
   }
   function sliderMove(d) { goToSlide(cur + d); }
   let si = setInterval(() => sliderMove(1), 5000);
   const sliderEl = document.querySelector('.slider');
   sliderEl.addEventListener('mouseenter', () => clearInterval(si));
   sliderEl.addEventListener('mouseleave', () => { si = setInterval(() => sliderMove(1), 5000); });
+
+  /* STATS COUNT-UP */
+  function animateStat(el) {
+    const target = +el.dataset.target;
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    const dur = 1800;
+    const start = performance.now();
+    function step(now) {
+      const p = Math.min((now - start) / dur, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = prefix + Math.round(ease * target) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.stat-num[data-target]').forEach(animateStat);
+        statsObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  const statsStrip = document.getElementById('stats-strip');
+  if (statsStrip) statsObserver.observe(statsStrip);
+
+  /* DOT NAV */
+  const dnDots = document.querySelectorAll('.dn-dot');
+  const dnSections = ['sec-seen','sec-about','sec-details','sec-blueprint','sec-seating','sec-faq'].map(id => document.getElementById(id));
+  const dnObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const idx = dnSections.indexOf(e.target);
+        if (idx !== -1) { dnDots.forEach(d => d.classList.remove('active')); dnDots[idx].classList.add('active'); }
+      }
+    });
+  }, { threshold: 0.25 });
+  dnSections.forEach(s => { if (s) dnObserver.observe(s); });
+
+  /* SAVE PILL */
+  const savePill = document.getElementById('save-pill');
+  const heroSection = document.querySelector('.hero');
+  const pillObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => { savePill.classList.toggle('visible', !e.isIntersecting); });
+  }, { threshold: 0 });
+  if (heroSection) pillObserver.observe(heroSection);
 
   /* HAVE YOU SEEN */
   function showSeen(t) {
@@ -983,7 +1126,6 @@
       desc: 'GA fills the main floor and rear of the Dragon Room. The venue is intimate enough that GA stays genuinely connected to the performance — you\'re not watching from a distance. Strong sight lines throughout and a wider angle that lets you take in the full room. Spike recommends this section too. Both work — pick based on preference.'
     }
   };
-
   function selectZone(id) {
     const z = zones[id];
     document.getElementById('zone-name').textContent = z.name;
@@ -994,7 +1136,7 @@
     popup.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
-  /* ACCORDION */
+  /* SEATING ACCORDION */
   function toggleSA(btn) {
     const item = btn.closest('.sa-item'), was = item.classList.contains('open');
     document.querySelectorAll('.sa-item').forEach(i => i.classList.remove('open'));
@@ -1002,7 +1144,7 @@
     if (!was) { item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
   }
 
-  /* FAQ */
+  /* FAQ — smooth */
   function toggleFaq(btn) {
     const item = btn.closest('.faq-item'), was = item.classList.contains('open');
     document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
@@ -1022,6 +1164,11 @@
   document.querySelector('.email-submit').addEventListener('click', function() {
     const inp = document.querySelector('.email-input'), val = inp.value.trim();
     if (val && val.includes('@') && val.includes('.')) {
+      fetch('https://brevo-subscribe.vegassidekickcom.workers.dev', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: val })
+      }).catch(() => {});
       inp.value = ''; inp.placeholder = 'You\'re in. Spike will be in touch.';
       this.textContent = 'Done ✓'; this.style.background = '#16a34a';
     } else {
