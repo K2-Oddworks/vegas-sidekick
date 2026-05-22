@@ -1083,6 +1083,11 @@
   document.querySelector('.email-submit').addEventListener('click', function() {
     const inp = document.querySelector('.email-input'), val = inp.value.trim();
     if (val && val.includes('@') && val.includes('.')) {
+      fetch('https://brevo-subscribe.vegassidekickcom.workers.dev', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: val })
+      }).catch(() => {});
       inp.value = ''; inp.placeholder = 'You\'re in. Spike will be in touch.';
       this.textContent = 'Done ✓'; this.style.background = '#16a34a';
     } else {
