@@ -124,7 +124,7 @@
         applyBodyOffset();
       }
       if (now >= TARGET) {
-        banner.innerHTML = '<span class="vsm-stars">★ ★ ★</span><span class="vsm-enjoy">Happy Memorial Day Weekend &mdash; we honor all who served. 🇺🇸</span><span class="vsm-stars">★ ★ ★</span>';
+        banner.innerHTML = '<span class="vsm-stars">★ ★ ★</span><span class="vsm-enjoy">We Remember. We Are Thankful. Memorial Day 2026. 🇺🇸</span><span class="vsm-stars">★ ★ ★</span>';
         clearInterval(vsMemTimer);
         return;
       }
