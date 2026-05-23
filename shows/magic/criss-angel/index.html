@@ -101,13 +101,40 @@
     a    { text-decoration: none; color: inherit; }
     button { font-family: inherit; cursor: pointer; }
     #progress-bar { overflow: hidden; position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--blue), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; }
-    #progress-bar-bottom { position: fixed; bottom: 0; left: 0; right: 0; height: 3px; width: 0%; animation: pb-glow 2s ease-in-out infinite; background: linear-gradient(270deg, var(--blue), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; overflow: hidden; }
-    #progress-bar::after, #progress-bar-bottom::after { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%); animation: pb-shimmer 2.2s linear infinite; }
+    #progress-bar::after { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%); animation: pb-shimmer 2.2s linear infinite; }
     @keyframes pb-shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
-    @keyframes pb-glow { 0%, 100% { box-shadow: 0 0 3px rgba(255,255,255,0.15); } 50% { box-shadow: 0 0 10px rgba(255,255,255,0.5), 0 0 3px rgba(255,255,255,0.2); } }
-    @media (max-width: 940px) { #progress-bar-bottom { bottom: 72px; } }
-    @keyframes pb-shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
-    @keyframes pb-glow { 0%, 100% { box-shadow: 0 0 3px rgba(255,255,255,0.15); } 50% { box-shadow: 0 0 10px rgba(255,255,255,0.5), 0 0 3px rgba(255,255,255,0.2); } }
+
+    /* STATS STRIP */
+    .stats-strip { background: var(--navy); border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .stats-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); }
+    .stat-item { padding: 18px 20px; text-align: center; border-right: 1px solid rgba(255,255,255,0.06); }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-family: var(--font-price); font-size: 2.2rem; font-weight: 800; color: var(--orange); line-height: 1; margin-bottom: 3px; }
+    .stat-lbl { font-family: var(--font-mono); font-size: 0.6rem; color: rgba(255,255,255,0.38); text-transform: uppercase; letter-spacing: 0.07em; }
+
+    /* TICKER */
+    .ticker-wrap { background: var(--blue); overflow: hidden; padding: 9px 0; cursor: default; user-select: none; }
+    .ticker-track { display: flex; width: max-content; animation: ticker-scroll 38s linear infinite; }
+    .ticker-track:hover { animation-play-state: paused; }
+    .ticker-item { white-space: nowrap; padding: 0 28px; font-family: var(--font-price); font-size: 0.88rem; font-weight: 700; color: white; letter-spacing: 0.05em; text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
+    .ticker-item::after { content: '·'; margin-left: 28px; opacity: 0.5; }
+    @keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* DOT NAV */
+    .dot-nav { position: fixed; right: 18px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 800; }
+    .dn-dot { width: 9px; height: 9px; border-radius: 50%; background: transparent; border: 2px solid rgba(255,255,255,0.35); transition: all 0.25s; cursor: pointer; position: relative; }
+    .dn-dot:hover { border-color: rgba(255,255,255,0.7); }
+    .dn-dot.active { background: var(--orange); border-color: var(--orange); transform: scale(1.35); }
+    .dn-dot[data-tip]::after { content: attr(data-tip); position: absolute; right: calc(100% + 10px); top: 50%; transform: translateY(-50%); background: rgba(10,22,40,0.92); color: white; font-family: var(--font-mono); font-size: 0.6rem; white-space: nowrap; padding: 4px 8px; border-radius: 4px; opacity: 0; pointer-events: none; transition: opacity 0.2s; letter-spacing: 0.04em; }
+    .dn-dot:hover::after { opacity: 1; }
+    @media (max-width: 940px) { .dot-nav { display: none; } }
+
+    /* SAVE PILL */
+    .save-pill { position: fixed; top: 72px; right: 18px; z-index: 810; opacity: 0; transform: translateY(-8px); transition: opacity 0.35s, transform 0.35s; pointer-events: none; }
+    .save-pill.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .save-pill a { display: flex; align-items: center; gap: 7px; padding: 9px 16px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.88rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; border-radius: 100px; box-shadow: 0 4px 16px rgba(255,107,0,0.38); white-space: nowrap; transition: background 0.2s; }
+    .save-pill a:hover { background: var(--orange-lt); }
+    @media (max-width: 940px) { .save-pill { display: none; } }
 
     .hero { background: var(--navy); padding-top: 84px; }
     .breadcrumb { padding: 12px 24px; background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.05); font-family: var(--font-mono); font-size: 0.67rem; color: rgba(255,255,255,0.36); letter-spacing: 0.04em; }
@@ -118,7 +145,9 @@
     .slider { position: relative; width: 100%; aspect-ratio: 16/9; max-height: 480px; overflow: hidden; background: var(--navy-mid); }
     .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.65s ease; }
     .slide.active { opacity: 1; }
-    .slide img { width: 100%; height: 100%; object-fit: cover; }
+    .slide img { width: 100%; height: 100%; object-fit: cover; transform-origin: center center; }
+    @keyframes kenBurns { 0% { transform: scale(1) translate(0,0); } 100% { transform: scale(1.07) translate(-1%,-.5%); } }
+    .slide.active img { animation: kenBurns 9s ease-in-out forwards; }
     .slider-dots { position: absolute; bottom: 13px; left: 50%; transform: translateX(-50%); display: flex; gap: 7px; z-index: 3; }
     .dot-btn { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.28); border: none; padding: 0; transition: background 0.2s, transform 0.2s; }
     .dot-btn.active { background: var(--orange); transform: scale(1.4); }
@@ -265,6 +294,7 @@
     .sa-body { display: none; padding: 12px 16px; background: var(--off-white); border-top: 1px solid var(--gray-200); font-size: 0.82rem; color: var(--text-muted); line-height: 1.64; }
     .sa-item.open .sa-body { display: block; }
 
+    /* SMOOTH FAQ */
     .faq-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 50px; }
     .faq-item { border: 1px solid var(--gray-200); border-radius: var(--radius-sm); overflow: hidden; }
     .faq-q { display: flex; align-items: center; justify-content: space-between; padding: 15px 17px; background: white; border: none; width: 100%; text-align: left; transition: background 0.2s; }
@@ -272,8 +302,9 @@
     .faq-q-text { font-family: var(--font-price); font-size: 0.92rem; font-weight: 700; color: var(--navy); letter-spacing: 0.02em; }
     .faq-icon { color: var(--blue); font-size: 1.22rem; transition: transform 0.28s; flex-shrink: 0; margin-left: 10px; font-weight: 300; line-height: 1; }
     .faq-item.open .faq-icon { transform: rotate(45deg); }
-    .faq-a { display: none; padding: 12px 17px; background: var(--off-white); border-top: 1px solid var(--gray-200); font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; }
-    .faq-item.open .faq-a { display: block; }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; background: var(--off-white); border-top: 0px solid var(--gray-200); }
+    .faq-item.open .faq-a { max-height: 320px; border-top-width: 1px; }
+    .faq-a-inner { padding: 12px 17px; font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; }
 
     .also-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 50px; }
     .also-card { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; transition: box-shadow 0.2s, transform 0.2s; }
@@ -286,19 +317,23 @@
     .also-cta { display: block; width: 100%; padding: 9px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.82rem; font-weight: 800; text-align: center; border-radius: var(--radius-sm); text-transform: uppercase; letter-spacing: 0.05em; transition: background 0.2s; border: none; }
     .also-cta:hover { background: var(--orange-lt); }
 
+    /* FINAL CTA + AMBIENT ORBS */
     .final-cta { background: var(--navy); padding: 50px 32px; border-radius: var(--radius-lg); text-align: center; margin-bottom: 50px; position: relative; overflow: hidden; }
     .final-cta::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--blue), var(--orange)); }
-    .final-cta-tag { font-family: var(--font-mono); font-size: 0.64rem; color: var(--blue-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
-    .final-cta-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.1rem); color: white; line-height: 1; margin-bottom: 9px; }
-    .final-cta-sub { font-size: 0.88rem; color: rgba(255,255,255,0.42); margin-bottom: 22px; }
-    .final-cta-amount { font-family: var(--font-price); font-size: 3.3rem; font-weight: 800; color: var(--orange); line-height: 1; margin-bottom: 20px; }
-    .final-cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 15px 42px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.18rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); transition: all 0.2s; border: none; }
+    .cta-orb { position: absolute; border-radius: 50%; filter: blur(52px); pointer-events: none; }
+    .cta-orb-1 { width: 280px; height: 280px; background: rgba(255,107,0,0.10); top: -60px; right: -60px; }
+    .cta-orb-2 { width: 220px; height: 220px; background: rgba(26,107,221,0.10); bottom: -50px; left: -50px; }
+    .final-cta-tag { font-family: var(--font-mono); font-size: 0.64rem; color: var(--blue-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; position: relative; }
+    .final-cta-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.1rem); color: white; line-height: 1; margin-bottom: 9px; position: relative; }
+    .final-cta-sub { font-size: 0.88rem; color: rgba(255,255,255,0.42); margin-bottom: 22px; position: relative; }
+    .final-cta-amount { font-family: var(--font-price); font-size: 3.3rem; font-weight: 800; color: var(--orange); line-height: 1; margin-bottom: 20px; position: relative; }
+    .final-cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 15px 42px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.18rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); transition: all 0.2s; border: none; position: relative; }
     .final-cta-btn:hover { background: var(--orange-lt); transform: translateY(-2px); }
-    .final-cta-note { font-family: var(--font-mono); font-size: 0.61rem; color: rgba(255,255,255,0.25); margin-top: 13px; }
+    .final-cta-note { font-family: var(--font-mono); font-size: 0.61rem; color: rgba(255,255,255,0.25); margin-top: 13px; position: relative; }
     .final-cta-note a { color: rgba(255,255,255,0.4); text-decoration: underline; }
 
     .mobile-sticky { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--navy); z-index: 1000; padding: 10px 16px 14px; box-shadow: 0 -4px 22px rgba(0,0,0,0.28); }
-    .mob-progress { position: absolute; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--orange), var(--blue)); transition: width 0.1s linear; }
+    .mob-progress { position: absolute; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--blue), var(--orange)); transition: width 0.1s linear; }
     .mob-inner { display: flex; align-items: center; justify-content: space-between; gap: 13px; }
     .mob-price-lbl { font-family: var(--font-mono); font-size: 0.55rem; color: rgba(255,255,255,0.28); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 1px; }
     .mob-price { font-family: var(--font-price); font-size: 2.4rem; font-weight: 800; color: var(--orange); line-height: 1; }
@@ -308,14 +343,12 @@
 
     @media (max-width: 940px) { .page-layout { grid-template-columns: 1fr; } .sidebar { display: none; } .mobile-sticky { display: block; } .details-grid { grid-template-columns: repeat(2,1fr); } .also-grid { grid-template-columns: repeat(2,1fr); } }
     @media (max-width: 600px) { .hero-content { padding: 22px 16px 26px; } .main-content { padding: 26px 16px 120px; } .trust-grid { grid-template-columns: 1fr; } .details-grid { grid-template-columns: 1fr; } .expect-grid { grid-template-columns: 1fr; } .also-grid { grid-template-columns: 1fr; } .email-signup { flex-direction: column; gap: 12px; } .email-form { flex-direction: column; } .price-strip { flex-direction: column; align-items: flex-start; gap: 13px; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; } }
   </style>
 </head>
 <body>
-<div id="vs-header"></div>
-<script src="/components/header.js"></script>
-
 <div id="progress-bar" aria-hidden="true"></div>
-<div id="progress-bar-bottom" aria-hidden="true"></div>
+<div id="vs-header"></div>
 
 <section class="hero" aria-label="Show hero">
   <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -376,11 +409,74 @@
   </div>
 </section>
 
+<!-- STATS STRIP -->
+<div class="stats-strip" aria-hidden="true">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-num" data-target="75" data-suffix=" Min">75 Min</div>
+      <div class="stat-lbl">Show Duration</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" data-target="75" data-suffix="+">75+</div>
+      <div class="stat-lbl">Illusions Live</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" data-target="117" data-prefix="$">$117</div>
+      <div class="stat-lbl">From</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" data-target="28" data-suffix="% Off">28% Off</div>
+      <div class="stat-lbl">Box Office</div>
+    </div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-track">
+    <div class="ticker-item">🎩 75 Illusions in 75 Minutes</div>
+    <div class="ticker-item">🏨 Criss Angel Theater · Planet Hollywood</div>
+    <div class="ticker-item">💰 Save $45 — 28% Off Box Office</div>
+    <div class="ticker-item">⚡ Concert-Level Lighting &amp; Pyro</div>
+    <div class="ticker-item">⭐ #1 Magic Show · Las Vegas Sun</div>
+    <div class="ticker-item">🌵 Purpose-Built Theater on the Strip</div>
+    <div class="ticker-item">🎟️ Ages 10+ Rec · No Cameras</div>
+    <div class="ticker-item">📍 Planet Hollywood · Center Strip</div>
+    <div class="ticker-item">🔥 Greatest Illusion of All Time</div>
+    <div class="ticker-item">🎭 Fully Immersive Spectacular</div>
+    <div class="ticker-item">🎩 75 Illusions in 75 Minutes</div>
+    <div class="ticker-item">🏨 Criss Angel Theater · Planet Hollywood</div>
+    <div class="ticker-item">💰 Save $45 — 28% Off Box Office</div>
+    <div class="ticker-item">⚡ Concert-Level Lighting &amp; Pyro</div>
+    <div class="ticker-item">⭐ #1 Magic Show · Las Vegas Sun</div>
+    <div class="ticker-item">🌵 Purpose-Built Theater on the Strip</div>
+    <div class="ticker-item">🎟️ Ages 10+ Rec · No Cameras</div>
+    <div class="ticker-item">📍 Planet Hollywood · Center Strip</div>
+    <div class="ticker-item">🔥 Greatest Illusion of All Time</div>
+    <div class="ticker-item">🎭 Fully Immersive Spectacular</div>
+  </div>
+</div>
+
+<!-- DOT NAV -->
+<nav class="dot-nav" aria-label="Page sections">
+  <button class="dn-dot" data-tip="Have You Seen" onclick="document.getElementById('sec-seen').scrollIntoView({behavior:'smooth'})" aria-label="Have You Seen section"></button>
+  <button class="dn-dot" data-tip="About" onclick="document.getElementById('sec-about').scrollIntoView({behavior:'smooth'})" aria-label="About section"></button>
+  <button class="dn-dot" data-tip="Show Details" onclick="document.getElementById('sec-details').scrollIntoView({behavior:'smooth'})" aria-label="Show Details section"></button>
+  <button class="dn-dot" data-tip="What to Expect" onclick="document.getElementById('sec-blueprint').scrollIntoView({behavior:'smooth'})" aria-label="What to Expect section"></button>
+  <button class="dn-dot" data-tip="Seating Chart" onclick="document.getElementById('sec-seating').scrollIntoView({behavior:'smooth'})" aria-label="Seating Chart section"></button>
+  <button class="dn-dot" data-tip="FAQ" onclick="document.getElementById('sec-faq').scrollIntoView({behavior:'smooth'})" aria-label="FAQ section"></button>
+</nav>
+
+<!-- SAVE PILL -->
+<div class="save-pill" id="save-pill" aria-hidden="true">
+  <a href="https://spotlight.vegas/shows/magic/criss-angel/ref/vegassidekick" target="_blank" rel="noopener sponsored">Save $45 → Get Tickets</a>
+</div>
+
 <div class="page-layout">
 <main class="main-content" role="main">
 
   <!-- HAVE YOU SEEN -->
-  <div class="seen-widget fade-up">
+  <div class="seen-widget fade-up" id="sec-seen">
     <div class="seen-tag">🌵 Spike Wants to Know</div>
     <div class="seen-q">Have you seen MINDFREAK before?</div>
     <div class="seen-btns">
@@ -406,7 +502,7 @@
   </div>
 
   <!-- ABOUT -->
-  <section class="section fade-up" aria-labelledby="about-heading">
+  <section class="section fade-up" id="sec-about" aria-labelledby="about-heading">
     <h2 id="about-heading" class="section-title">About <span>MINDFREAK</span></h2>
     <div class="about-body">
       <p>Criss Angel has been the most-watched magician in television history, with billions of online views across his A&amp;E series and specials. MINDFREAK takes everything he built over those years and delivers it live for the first time — 75+ illusions in 75 minutes inside the Criss Angel Theater, a purpose-built venue on the mezzanine level of Planet Hollywood that was designed specifically for this production. The theater's design, the lighting grid, the pyrotechnics systems, and the video infrastructure were all engineered around the show. That's not a standard showroom with a performer dropped in — it's a machine built to do one thing.</p>
@@ -431,14 +527,14 @@
       <h3>Vegas deals straight to your inbox</h3>
       <p>Last-minute discounts, show updates, and the occasional tip from Spike. No spam. Unsubscribe whenever.</p>
       <div class="email-form">
-        <input type="email" class="email-input" placeholder="your@email.com" aria-label="Email address" />
-        <button class="email-submit" type="button">Subscribe</button>
+        <input type="email" class="email-input" id="emailInput" placeholder="your@email.com" aria-label="Email address" />
+        <button class="email-submit" type="button" id="emailSubmit">Subscribe</button>
       </div>
     </div>
   </div>
 
   <!-- SHOW DETAILS -->
-  <section class="section fade-up" aria-labelledby="details-heading">
+  <section class="section fade-up" id="sec-details" aria-labelledby="details-heading">
     <h2 id="details-heading" class="section-title">Show <span>Details</span></h2>
     <div class="details-grid">
       <div class="detail-card">
@@ -481,7 +577,7 @@
   </section>
 
   <!-- WHAT TO EXPECT -->
-  <section class="section fade-up" aria-labelledby="expect-heading">
+  <section class="section fade-up" id="sec-blueprint" aria-labelledby="expect-heading">
     <h2 id="expect-heading" class="section-title">What to <span>Expect</span></h2>
     <div class="expect-grid">
       <div class="expect-card">
@@ -504,7 +600,7 @@
   </section>
 
   <!-- SEATING CHART -->
-  <section class="seating-section fade-up" aria-labelledby="seating-heading">
+  <section class="seating-section fade-up" id="sec-seating" aria-labelledby="seating-heading">
     <h2 id="seating-heading" class="section-title">MINDFREAK <span>Seating Chart</span></h2>
 
     <div class="seating-diagram-wrap">
@@ -607,7 +703,7 @@
   </section>
 
   <!-- FAQ -->
-  <section class="section fade-up" aria-labelledby="faq-heading">
+  <section class="section fade-up" id="sec-faq" aria-labelledby="faq-heading">
     <h2 id="faq-heading" class="section-title">Frequently <span>Asked</span></h2>
     <div class="faq-list">
 
@@ -616,7 +712,7 @@
           <span class="faq-q-text">Which seating zone should I choose?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">The 200 zone is the Sidekick Pick. Mid-house sections 201, 202, and 203 give you the optimal balance for this particular show — close enough to watch every illusion clearly, far enough to see the full scope of the production including the lighting, pyrotechnics, and video that make MINDFREAK what it is. The 100 zone puts you closest to the stage and is the right call if you want the most immersive, front-of-house experience. The 300 zone gives you the widest view of the production's scale and is a legitimate choice for a show designed to be experienced at a distance as much as up close.</div>
+        <div class="faq-a"><div class="faq-a-inner">The 200 zone is the Sidekick Pick. Mid-house sections 201, 202, and 203 give you the optimal balance for this particular show — close enough to watch every illusion clearly, far enough to see the full scope of the production including the lighting, pyrotechnics, and video that make MINDFREAK what it is. The 100 zone puts you closest to the stage and is the right call if you want the most immersive, front-of-house experience. The 300 zone gives you the widest view of the production's scale and is a legitimate choice for a show designed to be experienced at a distance as much as up close.</div></div>
       </div>
 
       <div class="faq-item">
@@ -624,7 +720,7 @@
           <span class="faq-q-text">Is this a magic show or more of a production?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Both, and it's worth knowing that before you go. MINDFREAK is a fully immersive illusion spectacular with concert-level production: pyrotechnics, theatrical lighting, video projections, and a purpose-built theater engineered around the show. Opinions divide fairly predictably between guests who find the production extraordinary and guests who wanted more pure stand-alone magic with less spectacle. If you're drawn to the scale and immersive experience, this show delivers it. If you're coming specifically for close-up or intimate sleight-of-hand magic, this is a different format.</div>
+        <div class="faq-a"><div class="faq-a-inner">Both, and it's worth knowing that before you go. MINDFREAK is a fully immersive illusion spectacular with concert-level production: pyrotechnics, theatrical lighting, video projections, and a purpose-built theater engineered around the show. Opinions divide fairly predictably between guests who find the production extraordinary and guests who wanted more pure stand-alone magic with less spectacle. If you're drawn to the scale and immersive experience, this show delivers it. If you're coming specifically for close-up or intimate sleight-of-hand magic, this is a different format.</div></div>
       </div>
 
       <div class="faq-item">
@@ -632,7 +728,7 @@
           <span class="faq-q-text">Can I take photos or videos?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">No. The use of cameras and audio/video devices are strictly prohibited during the show. This is enforced — security monitors the audience throughout the performance. Put the phone away when you take your seat and leave it there. You'll get more out of the show for it.</div>
+        <div class="faq-a"><div class="faq-a-inner">No. The use of cameras and audio/video devices are strictly prohibited during the show. This is enforced — security monitors the audience throughout the performance. Put the phone away when you take your seat and leave it there. You'll get more out of the show for it.</div></div>
       </div>
 
       <div class="faq-item">
@@ -640,7 +736,7 @@
           <span class="faq-q-text">Is this show appropriate for kids?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Ages 10 and older are recommended due to mature content. This is a recommendation, not a hard restriction. Everyone must have a ticket to enter. Guests 18 and under must be accompanied by an adult. The show includes death-defying stunts and some dramatic visual content that may not be appropriate for younger children.</div>
+        <div class="faq-a"><div class="faq-a-inner">Ages 10 and older are recommended due to mature content. This is a recommendation, not a hard restriction. Everyone must have a ticket to enter. Guests 18 and under must be accompanied by an adult. The show includes death-defying stunts and some dramatic visual content that may not be appropriate for younger children.</div></div>
       </div>
 
       <div class="faq-item">
@@ -648,7 +744,7 @@
           <span class="faq-q-text">Where is the Criss Angel Theater inside Planet Hollywood?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">The Criss Angel Theater is located on the mezzanine level of Planet Hollywood Resort &amp; Casino at 3667 S Las Vegas Blvd. Enter through Planet Hollywood and follow the signs — the theater has a distinctive futuristic design and a large sign that makes it easy to identify. The mezzanine level means you'll take an escalator or elevator up from the casino floor. Arrive at least 20 minutes before showtime to allow time to navigate the property and get to your seat.</div>
+        <div class="faq-a"><div class="faq-a-inner">The Criss Angel Theater is located on the mezzanine level of Planet Hollywood Resort &amp; Casino at 3667 S Las Vegas Blvd. Enter through Planet Hollywood and follow the signs — the theater has a distinctive futuristic design and a large sign that makes it easy to identify. The mezzanine level means you'll take an escalator or elevator up from the casino floor. Arrive at least 20 minutes before showtime to allow time to navigate the property and get to your seat.</div></div>
       </div>
 
       <div class="faq-item">
@@ -656,7 +752,7 @@
           <span class="faq-q-text">What is the refund and cancellation policy?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Refunds are available for exceptional circumstances such as the unlikely event that a show cancels. Check the full terms and conditions before purchasing.</div>
+        <div class="faq-a"><div class="faq-a-inner">Refunds are available for exceptional circumstances such as the unlikely event that a show cancels. Check the full terms and conditions before purchasing.</div></div>
       </div>
 
     </div>
@@ -698,6 +794,8 @@
 
   <!-- FINAL CTA -->
   <div class="final-cta fade-up">
+    <div class="cta-orb cta-orb-1"></div>
+    <div class="cta-orb cta-orb-2"></div>
     <div class="final-cta-tag">🌵 Vegas Sidekick — Vegas Without the Trauma</div>
     <div class="final-cta-title">Ready to See the Show?</div>
     <div class="final-cta-sub">Criss Angel MINDFREAK · Criss Angel Theater at Planet Hollywood · Wed–Sun at 7 PM</div>
@@ -762,26 +860,29 @@
 </div>
 
 <div id="vs-footer"></div>
-<script src="/components/footer.js"></script>
 
 <script>
+  /* Progress bar */
   function updateProgress() {
-    const pct = (window.pageYOffset / Math.max(1, document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    const pct = (window.scrollY / Math.max(1, document.documentElement.scrollHeight - window.innerHeight)) * 100;
     const v = Math.min(pct, 100);
     document.getElementById('progress-bar').style.width = v + '%';
-    document.getElementById('progress-bar-bottom').style.width = v + '%';
     const mob = document.getElementById('mob-progress');
     if (mob) mob.style.width = v + '%';
   }
   window.addEventListener('scroll', updateProgress, { passive: true });
 
+  /* Slider with Ken Burns rAF restart */
   let cur = 0;
   const slides = document.querySelectorAll('.slide');
   const dots   = document.querySelectorAll('.dot-btn');
   function goToSlide(n) {
     slides[cur].classList.remove('active'); dots[cur].classList.remove('active'); dots[cur].setAttribute('aria-selected','false');
     cur = (n + slides.length) % slides.length;
-    slides[cur].classList.add('active'); dots[cur].classList.add('active'); dots[cur].setAttribute('aria-selected','true');
+    requestAnimationFrame(() => {
+      slides[cur].classList.remove('active');
+      requestAnimationFrame(() => { slides[cur].classList.add('active'); dots[cur].classList.add('active'); dots[cur].setAttribute('aria-selected','true'); });
+    });
   }
   function sliderMove(d) { goToSlide(cur + d); }
   let si = setInterval(() => sliderMove(1), 5000);
@@ -789,11 +890,13 @@
   sliderEl.addEventListener('mouseenter', () => clearInterval(si));
   sliderEl.addEventListener('mouseleave', () => { si = setInterval(() => sliderMove(1), 5000); });
 
+  /* Seen widget */
   function showSeen(t) {
     document.querySelectorAll('.seen-resp').forEach(r => r.classList.remove('visible'));
     document.getElementById('seen-' + t).classList.add('visible');
   }
 
+  /* Seating zones */
   const zones = {
     '100s': {
       name: '100 Zone — Sections 101 · 102 · 103',
@@ -811,7 +914,6 @@
       desc: 'The rear arc — five sections across the back of the theater. From here the full scale of the production is most visible: the entire lighting grid, the full video surfaces, the complete stage picture. MINDFREAK was designed to be consumed at a distance as much as up close. A legitimate choice for a show this large — not a compromise seat.'
     }
   };
-
   function selectZone(id) {
     const z = zones[id];
     document.getElementById('zone-name').textContent = z.name;
@@ -821,7 +923,11 @@
     popup.classList.add('visible');
     popup.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
+  document.querySelectorAll('.seat-zone').forEach(z => {
+    z.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); z.click(); } });
+  });
 
+  /* Seat accordion */
   function toggleSA(btn) {
     const item = btn.closest('.sa-item'), was = item.classList.contains('open');
     document.querySelectorAll('.sa-item').forEach(i => i.classList.remove('open'));
@@ -829,6 +935,7 @@
     if (!was) { item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
   }
 
+  /* Smooth FAQ */
   function toggleFaq(btn) {
     const item = btn.closest('.faq-item'), was = item.classList.contains('open');
     document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
@@ -836,27 +943,70 @@
     if (!was) { item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
   }
 
-  const observer = new IntersectionObserver((entries) => {
+  /* Fade-up observer */
+  const fadeObs = new IntersectionObserver((entries) => {
     entries.forEach((e, i) => {
-      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 50); observer.unobserve(e.target); }
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 50); fadeObs.unobserve(e.target); }
     });
   }, { threshold: 0.06 });
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  document.querySelectorAll('.fade-up').forEach(el => fadeObs.observe(el));
 
-  document.querySelector('.email-submit').addEventListener('click', function() {
-    const inp = document.querySelector('.email-input'), val = inp.value.trim();
-    if (val && val.includes('@') && val.includes('.')) {
-      inp.value = ''; inp.placeholder = 'You\'re in. Spike will be in touch.';
-      this.textContent = 'Done ✓'; this.style.background = '#16a34a';
-    } else {
-      inp.style.borderColor = 'rgba(255,107,0,0.5)'; inp.placeholder = 'Enter a valid email';
-      setTimeout(() => { inp.style.borderColor = ''; inp.placeholder = 'your@email.com'; }, 2500);
+  /* Stats count-up */
+  function animateStat(el) {
+    const target = +el.dataset.target, prefix = el.dataset.prefix || '', suffix = el.dataset.suffix || '';
+    const duration = 1400, start = performance.now();
+    function step(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = prefix + Math.round(ease * target) + suffix;
+      if (p < 1) requestAnimationFrame(step);
     }
-  });
+    requestAnimationFrame(step);
+  }
+  const statObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { animateStat(e.target); statObs.unobserve(e.target); } });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.stat-num[data-target]').forEach(el => statObs.observe(el));
 
-  document.querySelectorAll('.seat-zone').forEach(z => {
-    z.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); z.click(); } });
+  /* Dot nav section tracking */
+  const secIds = ['sec-seen','sec-about','sec-details','sec-blueprint','sec-seating','sec-faq'];
+  const dnDots = document.querySelectorAll('.dn-dot');
+  const secObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const idx = secIds.indexOf(e.target.id);
+        if (idx !== -1) { dnDots.forEach(d => d.classList.remove('active')); dnDots[idx].classList.add('active'); }
+      }
+    });
+  }, { threshold: 0.3 });
+  secIds.forEach(id => { const el = document.getElementById(id); if (el) secObs.observe(el); });
+
+  /* Save pill visibility */
+  const pillObs = new IntersectionObserver((entries) => {
+    document.getElementById('save-pill').classList.toggle('visible', !entries[0].isIntersecting);
+  }, { threshold: 0 });
+  pillObs.observe(document.querySelector('.hero'));
+
+  /* Email signup */
+  document.getElementById('emailSubmit').addEventListener('click', function() {
+    const inp = document.getElementById('emailInput');
+    const val = inp.value.trim();
+    if (!val || !val.includes('@') || !val.includes('.')) {
+      inp.style.borderColor = 'rgba(255,107,0,0.5)';
+      inp.placeholder = 'Enter a valid email';
+      setTimeout(() => { inp.style.borderColor = ''; inp.placeholder = 'your@email.com'; }, 2500);
+      return;
+    }
+    fetch('https://brevo-subscribe.vegassidekickcom.workers.dev', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: val })
+    }).catch(() => {});
+    inp.value = '';
+    inp.placeholder = "You're in. Spike will be in touch.";
+    this.textContent = 'Done ✓';
+    this.style.background = '#16a34a';
   });
 </script>
+<script src="/components/footer.js"></script>
+<script src="/components/header.js"></script>
 </body>
 </html>
