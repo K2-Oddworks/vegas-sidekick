@@ -100,14 +100,41 @@
     img  { max-width: 100%; display: block; }
     a    { text-decoration: none; color: inherit; }
     button { font-family: inherit; cursor: pointer; }
-    #progress-bar { overflow: hidden; position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--blue), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; }
-    #progress-bar-bottom { position: fixed; bottom: 0; left: 0; right: 0; height: 3px; width: 0%; animation: pb-glow 2s ease-in-out infinite; background: linear-gradient(270deg, var(--blue), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; overflow: hidden; }
-    #progress-bar::after, #progress-bar-bottom::after { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%); animation: pb-shimmer 2.2s linear infinite; }
+    #progress-bar { overflow: hidden; position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--blue), var(--magenta)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; }
+    #progress-bar::after { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%); animation: pb-shimmer 2.2s linear infinite; }
     @keyframes pb-shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
-    @keyframes pb-glow { 0%, 100% { box-shadow: 0 0 3px rgba(255,255,255,0.15); } 50% { box-shadow: 0 0 10px rgba(255,255,255,0.5), 0 0 3px rgba(255,255,255,0.2); } }
-    @media (max-width: 940px) { #progress-bar-bottom { bottom: 72px; } }
-    @keyframes pb-shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
-    @keyframes pb-glow { 0%, 100% { box-shadow: 0 0 3px rgba(255,255,255,0.15); } 50% { box-shadow: 0 0 10px rgba(255,255,255,0.5), 0 0 3px rgba(255,255,255,0.2); } }
+
+    /* STATS STRIP */
+    .stats-strip { background: var(--navy); border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .stats-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); }
+    .stat-item { padding: 18px 20px; text-align: center; border-right: 1px solid rgba(255,255,255,0.06); }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-family: var(--font-price); font-size: 2.2rem; font-weight: 800; color: var(--orange); line-height: 1; margin-bottom: 3px; }
+    .stat-lbl { font-family: var(--font-mono); font-size: 0.6rem; color: rgba(255,255,255,0.38); text-transform: uppercase; letter-spacing: 0.07em; }
+
+    /* TICKER */
+    .ticker-wrap { background: var(--magenta); overflow: hidden; padding: 9px 0; cursor: default; user-select: none; }
+    .ticker-track { display: flex; width: max-content; animation: ticker-scroll 38s linear infinite; }
+    .ticker-track:hover { animation-play-state: paused; }
+    .ticker-item { white-space: nowrap; padding: 0 28px; font-family: var(--font-price); font-size: 0.88rem; font-weight: 700; color: white; letter-spacing: 0.05em; text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
+    .ticker-item::after { content: '·'; margin-left: 28px; opacity: 0.5; }
+    @keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* DOT NAV */
+    .dot-nav { position: fixed; right: 18px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 800; }
+    .dn-dot { width: 9px; height: 9px; border-radius: 50%; background: transparent; border: 2px solid rgba(255,255,255,0.35); transition: all 0.25s; cursor: pointer; position: relative; }
+    .dn-dot:hover { border-color: rgba(255,255,255,0.7); }
+    .dn-dot.active { background: var(--magenta); border-color: var(--magenta); transform: scale(1.35); }
+    .dn-dot[data-tip]::after { content: attr(data-tip); position: absolute; right: calc(100% + 10px); top: 50%; transform: translateY(-50%); background: rgba(10,22,40,0.92); color: white; font-family: var(--font-mono); font-size: 0.6rem; white-space: nowrap; padding: 4px 8px; border-radius: 4px; opacity: 0; pointer-events: none; transition: opacity 0.2s; letter-spacing: 0.04em; }
+    .dn-dot:hover::after { opacity: 1; }
+    @media (max-width: 940px) { .dot-nav { display: none; } }
+
+    /* SAVE PILL */
+    .save-pill { position: fixed; top: 72px; right: 18px; z-index: 810; opacity: 0; transform: translateY(-8px); transition: opacity 0.35s, transform 0.35s; pointer-events: none; }
+    .save-pill.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .save-pill a { display: flex; align-items: center; gap: 7px; padding: 9px 16px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.88rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; border-radius: 100px; box-shadow: 0 4px 16px rgba(255,107,0,0.38); white-space: nowrap; transition: background 0.2s; }
+    .save-pill a:hover { background: var(--orange-lt); }
+    @media (max-width: 940px) { .save-pill { display: none; } }
 
     .hero { background: var(--navy); padding-top: 84px; }
     .breadcrumb { padding: 12px 24px; background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.05); font-family: var(--font-mono); font-size: 0.67rem; color: rgba(255,255,255,0.36); letter-spacing: 0.04em; }
@@ -118,7 +145,9 @@
     .slider { position: relative; width: 100%; aspect-ratio: 16/7; max-height: 480px; overflow: hidden; background: var(--navy-mid); }
     .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.65s ease; }
     .slide.active { opacity: 1; }
-    .slide img { width: 100%; height: 100%; object-fit: cover; }
+    .slide img { width: 100%; height: 100%; object-fit: cover; transform-origin: center center; }
+    @keyframes kenBurns { 0% { transform: scale(1) translate(0,0); } 100% { transform: scale(1.07) translate(-1%,-.5%); } }
+    .slide.active img { animation: kenBurns 9s ease-in-out forwards; }
     .slider-dots { position: absolute; bottom: 13px; left: 50%; transform: translateX(-50%); display: flex; gap: 7px; z-index: 3; }
     .dot-btn { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.28); border: none; padding: 0; transition: background 0.2s, transform 0.2s; }
     .dot-btn.active { background: var(--orange); transform: scale(1.4); }
@@ -249,6 +278,7 @@
     .showroom-note-text { font-family: var(--font-mono); font-size: 0.77rem; color: rgba(255,255,255,0.7); line-height: 1.6; }
     .showroom-note-text strong { color: var(--green); display: block; margin-bottom: 3px; font-size: 0.63rem; letter-spacing: 0.06em; text-transform: uppercase; }
 
+    /* SMOOTH FAQ */
     .faq-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 50px; }
     .faq-item { border: 1px solid var(--gray-200); border-radius: var(--radius-sm); overflow: hidden; }
     .faq-q { display: flex; align-items: center; justify-content: space-between; padding: 15px 17px; background: white; border: none; width: 100%; text-align: left; transition: background 0.2s; }
@@ -256,8 +286,9 @@
     .faq-q-text { font-family: var(--font-price); font-size: 0.92rem; font-weight: 700; color: var(--navy); letter-spacing: 0.02em; }
     .faq-icon { color: var(--blue); font-size: 1.22rem; transition: transform 0.28s; flex-shrink: 0; margin-left: 10px; font-weight: 300; line-height: 1; }
     .faq-item.open .faq-icon { transform: rotate(45deg); }
-    .faq-a { display: none; padding: 12px 17px; background: var(--off-white); border-top: 1px solid var(--gray-200); font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; }
-    .faq-item.open .faq-a { display: block; }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; background: var(--off-white); border-top: 0px solid var(--gray-200); }
+    .faq-item.open .faq-a { max-height: 320px; border-top-width: 1px; }
+    .faq-a-inner { padding: 12px 17px; font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; }
 
     .also-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 50px; }
     .also-card { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; transition: box-shadow 0.2s, transform 0.2s; }
@@ -270,19 +301,23 @@
     .also-cta { display: block; width: 100%; padding: 9px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.82rem; font-weight: 800; text-align: center; border-radius: var(--radius-sm); text-transform: uppercase; letter-spacing: 0.05em; transition: background 0.2s; border: none; }
     .also-cta:hover { background: var(--orange-lt); }
 
+    /* FINAL CTA + AMBIENT ORBS */
     .final-cta { background: var(--navy); padding: 50px 32px; border-radius: var(--radius-lg); text-align: center; margin-bottom: 50px; position: relative; overflow: hidden; }
     .final-cta::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--blue), var(--orange)); }
-    .final-cta-tag { font-family: var(--font-mono); font-size: 0.64rem; color: var(--blue-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
-    .final-cta-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.1rem); color: white; line-height: 1; margin-bottom: 9px; }
-    .final-cta-sub { font-size: 0.88rem; color: rgba(255,255,255,0.42); margin-bottom: 22px; }
-    .final-cta-amount { font-family: var(--font-price); font-size: 3.3rem; font-weight: 800; color: var(--orange); line-height: 1; margin-bottom: 20px; }
-    .final-cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 15px 42px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.18rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); transition: all 0.2s; border: none; }
+    .cta-orb { position: absolute; border-radius: 50%; filter: blur(52px); pointer-events: none; }
+    .cta-orb-1 { width: 280px; height: 280px; background: rgba(217,70,239,0.10); top: -60px; right: -60px; }
+    .cta-orb-2 { width: 220px; height: 220px; background: rgba(26,107,221,0.10); bottom: -50px; left: -50px; }
+    .final-cta-tag { font-family: var(--font-mono); font-size: 0.64rem; color: var(--blue-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; position: relative; }
+    .final-cta-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.1rem); color: white; line-height: 1; margin-bottom: 9px; position: relative; }
+    .final-cta-sub { font-size: 0.88rem; color: rgba(255,255,255,0.42); margin-bottom: 22px; position: relative; }
+    .final-cta-amount { font-family: var(--font-price); font-size: 3.3rem; font-weight: 800; color: var(--orange); line-height: 1; margin-bottom: 20px; position: relative; }
+    .final-cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 15px 42px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.18rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); transition: all 0.2s; border: none; position: relative; }
     .final-cta-btn:hover { background: var(--orange-lt); transform: translateY(-2px); }
-    .final-cta-note { font-family: var(--font-mono); font-size: 0.61rem; color: rgba(255,255,255,0.25); margin-top: 13px; }
+    .final-cta-note { font-family: var(--font-mono); font-size: 0.61rem; color: rgba(255,255,255,0.25); margin-top: 13px; position: relative; }
     .final-cta-note a { color: rgba(255,255,255,0.4); text-decoration: underline; }
 
     .mobile-sticky { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--navy); z-index: 1000; padding: 10px 16px 14px; box-shadow: 0 -4px 22px rgba(0,0,0,0.28); }
-    .mob-progress { position: absolute; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--orange), var(--blue)); transition: width 0.1s linear; }
+    .mob-progress { position: absolute; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--blue), var(--magenta)); transition: width 0.1s linear; }
     .mob-inner { display: flex; align-items: center; justify-content: space-between; gap: 13px; }
     .mob-price-lbl { font-family: var(--font-mono); font-size: 0.55rem; color: rgba(255,255,255,0.28); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 1px; }
     .mob-price { font-family: var(--font-price); font-size: 2.4rem; font-weight: 800; color: var(--orange); line-height: 1; }
@@ -292,11 +327,11 @@
 
     @media (max-width: 940px) { .page-layout { grid-template-columns: 1fr; } .sidebar { display: none; } .mobile-sticky { display: block; } .details-grid { grid-template-columns: repeat(2,1fr); } .also-grid { grid-template-columns: repeat(2,1fr); } }
     @media (max-width: 600px) { .hero-content { padding: 22px 16px 26px; } .main-content { padding: 26px 16px 120px; } .trust-grid { grid-template-columns: 1fr; } .details-grid { grid-template-columns: 1fr; } .expect-grid { grid-template-columns: 1fr; } .also-grid { grid-template-columns: 1fr; } .email-signup { flex-direction: column; gap: 12px; } .email-form { flex-direction: column; } .price-strip { flex-direction: column; align-items: flex-start; gap: 13px; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; } }
   </style>
 </head>
 <body>
 <div id="progress-bar" aria-hidden="true"></div>
-<div id="progress-bar-bottom" aria-hidden="true"></div>
 <div id="vs-header"></div>
 
 <section class="hero" aria-label="Show hero">
@@ -358,11 +393,74 @@
   </div>
 </section>
 
+<!-- STATS STRIP -->
+<div class="stats-strip" aria-hidden="true">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-num" data-target="90" data-suffix=" Min">90 Min</div>
+      <div class="stat-lbl">Show Duration</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" data-target="40" data-prefix="$">$40</div>
+      <div class="stat-lbl">You Save</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" data-target="51" data-prefix="$">$51</div>
+      <div class="stat-lbl">From</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" data-target="44" data-suffix="%">44%</div>
+      <div class="stat-lbl">Off Box Office</div>
+    </div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-track">
+    <div class="ticker-item">🧠 Deductive Mind-Reading Live</div>
+    <div class="ticker-item">🏨 Harrah's Cabaret · Center Strip</div>
+    <div class="ticker-item">💰 Save $40 — 44% Off Box Office</div>
+    <div class="ticker-item">🔍 The Real-Life Sherlock Holmes</div>
+    <div class="ticker-item">⭐ Britain's Got Talent Sensation</div>
+    <div class="ticker-item">🌵 90 Minutes · No Intermission</div>
+    <div class="ticker-item">🎟️ Ages 10+ · All Seats Reserved</div>
+    <div class="ticker-item">📍 Center Strip · Next to Caesars</div>
+    <div class="ticker-item">⚡ Confrontational &amp; Fast-Paced</div>
+    <div class="ticker-item">🎩 No Props — Pure Deduction</div>
+    <div class="ticker-item">🧠 Deductive Mind-Reading Live</div>
+    <div class="ticker-item">🏨 Harrah's Cabaret · Center Strip</div>
+    <div class="ticker-item">💰 Save $40 — 44% Off Box Office</div>
+    <div class="ticker-item">🔍 The Real-Life Sherlock Holmes</div>
+    <div class="ticker-item">⭐ Britain's Got Talent Sensation</div>
+    <div class="ticker-item">🌵 90 Minutes · No Intermission</div>
+    <div class="ticker-item">🎟️ Ages 10+ · All Seats Reserved</div>
+    <div class="ticker-item">📍 Center Strip · Next to Caesars</div>
+    <div class="ticker-item">⚡ Confrontational &amp; Fast-Paced</div>
+    <div class="ticker-item">🎩 No Props — Pure Deduction</div>
+  </div>
+</div>
+
+<!-- DOT NAV -->
+<nav class="dot-nav" aria-label="Page sections">
+  <button class="dn-dot" data-tip="Have You Seen" onclick="document.getElementById('sec-seen').scrollIntoView({behavior:'smooth'})" aria-label="Have You Seen section"></button>
+  <button class="dn-dot" data-tip="About" onclick="document.getElementById('sec-about').scrollIntoView({behavior:'smooth'})" aria-label="About section"></button>
+  <button class="dn-dot" data-tip="Show Details" onclick="document.getElementById('sec-details').scrollIntoView({behavior:'smooth'})" aria-label="Show Details section"></button>
+  <button class="dn-dot" data-tip="What to Expect" onclick="document.getElementById('sec-blueprint').scrollIntoView({behavior:'smooth'})" aria-label="What to Expect section"></button>
+  <button class="dn-dot" data-tip="Seating Chart" onclick="document.getElementById('sec-seating').scrollIntoView({behavior:'smooth'})" aria-label="Seating Chart section"></button>
+  <button class="dn-dot" data-tip="FAQ" onclick="document.getElementById('sec-faq').scrollIntoView({behavior:'smooth'})" aria-label="FAQ section"></button>
+</nav>
+
+<!-- SAVE PILL -->
+<div class="save-pill" id="save-pill" aria-hidden="true">
+  <a href="https://spotlight.vegas/shows/magic/colin-cloud/ref/vegassidekick" target="_blank" rel="noopener sponsored">Save $40 → Get Tickets</a>
+</div>
+
 <div class="page-layout">
 <main class="main-content" role="main">
 
   <!-- HAVE YOU SEEN -->
-  <div class="seen-widget fade-up">
+  <div class="seen-widget fade-up" id="sec-seen">
     <div class="seen-tag">🌵 Spike Wants to Know</div>
     <div class="seen-q">Have you seen Colin Cloud before?</div>
     <div class="seen-btns">
@@ -388,7 +486,7 @@
   </div>
 
   <!-- ABOUT -->
-  <section class="section fade-up" aria-labelledby="about-heading">
+  <section class="section fade-up" id="sec-about" aria-labelledby="about-heading">
     <h2 id="about-heading" class="section-title">About <span>Colin Cloud</span></h2>
     <div class="about-body">
       <p>Colin Cloud is a Scottish forensic scientist turned mentalist who was dubbed The Real-Life Sherlock Holmes after his performances on Britain's Got Talent captivated audiences — and judges — who couldn't explain what they'd just watched. His method isn't traditional magic. He reads people: deducing facts about their lives, predicting their choices before they make them, and revealing information no one told him. He has performed for heads of state, royal families, and packed showrooms across three continents. Now he's headlining Harrah's Cabaret on the Las Vegas Strip.</p>
@@ -420,7 +518,7 @@
   </div>
 
   <!-- SHOW DETAILS -->
-  <section class="section fade-up" aria-labelledby="details-heading">
+  <section class="section fade-up" id="sec-details" aria-labelledby="details-heading">
     <h2 id="details-heading" class="section-title">Show <span>Details</span></h2>
     <div class="details-grid">
       <div class="detail-card">
@@ -463,7 +561,7 @@
   </section>
 
   <!-- WHAT TO EXPECT -->
-  <section class="section fade-up" aria-labelledby="expect-heading">
+  <section class="section fade-up" id="sec-blueprint" aria-labelledby="expect-heading">
     <h2 id="expect-heading" class="section-title">What to <span>Expect</span></h2>
     <div class="expect-grid">
       <div class="expect-card">
@@ -486,7 +584,7 @@
   </section>
 
   <!-- SEATING -->
-  <section class="seating-section fade-up" aria-labelledby="seating-heading">
+  <section class="seating-section fade-up" id="sec-seating" aria-labelledby="seating-heading">
     <h2 id="seating-heading" class="section-title">Harrah's Cabaret <span>Seating Chart</span></h2>
 
     <div class="seating-diagram-wrap">
@@ -635,7 +733,7 @@
   </section>
 
   <!-- FAQ -->
-  <section class="section fade-up" aria-labelledby="faq-heading">
+  <section class="section fade-up" id="sec-faq" aria-labelledby="faq-heading">
     <h2 id="faq-heading" class="section-title">Frequently <span>Asked</span></h2>
     <div class="faq-list">
 
@@ -644,7 +742,7 @@
           <span class="faq-q-text">What is Colin Cloud known for?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Colin Cloud is a Scottish forensic scientist and mentalist known as The Real-Life Sherlock Holmes. He became a sensation on Britain's Got Talent, where his ability to deduce facts about complete strangers — their professions, relationships, psychology — left both audiences and celebrity judges unable to explain what they'd witnessed. He has since performed for heads of state and royal families internationally before bringing Mastermind to Las Vegas. His mentalism is sharper and faster than the traditional stage format, closer to live detective work than a magic show.</div>
+        <div class="faq-a"><div class="faq-a-inner">Colin Cloud is a Scottish forensic scientist and mentalist known as The Real-Life Sherlock Holmes. He became a sensation on Britain's Got Talent, where his ability to deduce facts about complete strangers — their professions, relationships, psychology — left both audiences and celebrity judges unable to explain what they'd witnessed. He has since performed for heads of state and royal families internationally before bringing Mastermind to Las Vegas. His mentalism is sharper and faster than the traditional stage format, closer to live detective work than a magic show.</div></div>
       </div>
 
       <div class="faq-item">
@@ -652,7 +750,7 @@
           <span class="faq-q-text">Should I sit closer to the stage if I want to be in the show?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">P1 (front-center) gives you the highest chance of being directly involved in a routine. That said, Colin Cloud pulls volunteers from all sections throughout the show — sitting in P2 or P3 doesn't guarantee you won't be called on. The mentalism reaches the full room. If participation is specifically what you want, P1 is the strategic call. If you just want to watch the best deduction performance in Las Vegas right now, every seat delivers that.</div>
+        <div class="faq-a"><div class="faq-a-inner">P1 (front-center) gives you the highest chance of being directly involved in a routine. That said, Colin Cloud pulls volunteers from all sections throughout the show — sitting in P2 or P3 doesn't guarantee you won't be called on. The mentalism reaches the full room. If participation is specifically what you want, P1 is the strategic call. If you just want to watch the best deduction performance in Las Vegas right now, every seat delivers that.</div></div>
       </div>
 
       <div class="faq-item">
@@ -660,7 +758,7 @@
           <span class="faq-q-text">How is this different from The Mentalist at Planet Hollywood?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Both are mentalism shows but they operate very differently. Gerry McCambridge at The Mentalist builds atmospherically and works the room in a warmer, more theatrical style. Colin Cloud is faster, more confrontational, and leans harder into the deduction mechanism — the Sherlock Holmes comparison isn't marketing; it's genuinely the operational mode of the show. McCambridge is a classic mentalist; Cloud performs more like an interrogator. Different shows for different preferences in the same category.</div>
+        <div class="faq-a"><div class="faq-a-inner">Both are mentalism shows but they operate very differently. Gerry McCambridge at The Mentalist builds atmospherically and works the room in a warmer, more theatrical style. Colin Cloud is faster, more confrontational, and leans harder into the deduction mechanism — the Sherlock Holmes comparison isn't marketing; it's genuinely the operational mode of the show. McCambridge is a classic mentalist; Cloud performs more like an interrogator. Different shows for different preferences in the same category.</div></div>
       </div>
 
       <div class="faq-item">
@@ -668,7 +766,7 @@
           <span class="faq-q-text">Is the show appropriate for younger guests?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Ages 10 and older are welcome. Everyone requires a ticket regardless of age — no exceptions. The show contains psychological content and some confrontational moments that work best for guests 10 and up. No explicit content, no strong language. The age floor is appropriate — younger children may not engage with the psychological dimension of the mentalism the way older audiences do.</div>
+        <div class="faq-a"><div class="faq-a-inner">Ages 10 and older are welcome. Everyone requires a ticket regardless of age — no exceptions. The show contains psychological content and some confrontational moments that work best for guests 10 and up. No explicit content, no strong language. The age floor is appropriate — younger children may not engage with the psychological dimension of the mentalism the way older audiences do.</div></div>
       </div>
 
       <div class="faq-item">
@@ -676,7 +774,7 @@
           <span class="faq-q-text">Where is Harrah's Las Vegas on the Strip?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Harrah's Las Vegas is located at 3475 S Las Vegas Blvd, centrally positioned on the Strip between The LINQ Hotel and Caesars Palace. It's one of the most walkable Strip properties — close to the High Roller, Flamingo, and Bally's. Easy rideshare access and on-site self-parking. Harrah's Cabaret is inside the hotel; follow signage from the main entrance.</div>
+        <div class="faq-a"><div class="faq-a-inner">Harrah's Las Vegas is located at 3475 S Las Vegas Blvd, centrally positioned on the Strip between The LINQ Hotel and Caesars Palace. It's one of the most walkable Strip properties — close to the High Roller, Flamingo, and Bally's. Easy rideshare access and on-site self-parking. Harrah's Cabaret is inside the hotel; follow signage from the main entrance.</div></div>
       </div>
 
       <div class="faq-item">
@@ -684,7 +782,7 @@
           <span class="faq-q-text">What is the refund and cancellation policy?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Refunds are available for exceptional circumstances such as the unlikely event that a show cancels. Check the full terms and conditions before purchasing.</div>
+        <div class="faq-a"><div class="faq-a-inner">Refunds are available for exceptional circumstances such as the unlikely event that a show cancels. Check the full terms and conditions before purchasing.</div></div>
       </div>
 
     </div>
@@ -726,6 +824,8 @@
 
   <!-- FINAL CTA -->
   <div class="final-cta fade-up">
+    <div class="cta-orb cta-orb-1"></div>
+    <div class="cta-orb cta-orb-2"></div>
     <div class="final-cta-tag">🌵 Vegas Sidekick — Vegas Without the Trauma</div>
     <div class="final-cta-title">Ready to See the Show?</div>
     <div class="final-cta-sub">Colin Cloud: Mastermind · Harrah's Cabaret · Tue · Wed · Thu · Fri · Sat at 6 PM</div>
@@ -790,37 +890,42 @@
 </div>
 
 <div id="vs-footer"></div>
-<script src="/components/footer.js"></script>
 
 <script>
+  /* Progress bar */
   function updateProgress() {
     const pct = (window.scrollY / Math.max(1, document.documentElement.scrollHeight - window.innerHeight)) * 100;
     const v = Math.min(pct, 100);
     document.getElementById('progress-bar').style.width = v + '%';
-    document.getElementById('progress-bar-bottom').style.width = v + '%';
     const mob = document.getElementById('mob-progress');
     if (mob) mob.style.width = v + '%';
   }
   window.addEventListener('scroll', updateProgress, { passive: true });
 
+  /* Slider with Ken Burns rAF restart */
   let cur = 0;
   const slides = document.querySelectorAll('.slide');
   const dots   = document.querySelectorAll('.dot-btn');
   function goToSlide(n) {
     slides[cur].classList.remove('active'); dots[cur].classList.remove('active'); dots[cur].setAttribute('aria-selected','false');
     cur = (n + slides.length) % slides.length;
-    slides[cur].classList.add('active'); dots[cur].classList.add('active'); dots[cur].setAttribute('aria-selected','true');
+    requestAnimationFrame(() => {
+      slides[cur].classList.remove('active');
+      requestAnimationFrame(() => { slides[cur].classList.add('active'); dots[cur].classList.add('active'); dots[cur].setAttribute('aria-selected','true'); });
+    });
   }
   function sliderMove(d) { goToSlide(cur + d); }
   let si = setInterval(() => sliderMove(1), 5000);
   document.querySelector('.slider').addEventListener('mouseenter', () => clearInterval(si));
   document.querySelector('.slider').addEventListener('mouseleave', () => { si = setInterval(() => sliderMove(1), 5000); });
 
+  /* Seen widget */
   function showSeen(t) {
     document.querySelectorAll('.seen-resp').forEach(r => r.classList.remove('visible'));
     document.getElementById('seen-' + t).classList.add('visible');
   }
 
+  /* Smooth FAQ */
   function toggleFaq(btn) {
     const item = btn.closest('.faq-item'), was = item.classList.contains('open');
     document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
@@ -828,14 +933,52 @@
     if (!was) { item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
   }
 
-  const observer = new IntersectionObserver((entries) => {
+  /* Fade-up observer */
+  const fadeObs = new IntersectionObserver((entries) => {
     entries.forEach((e, i) => {
-      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 50); observer.unobserve(e.target); }
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 50); fadeObs.unobserve(e.target); }
     });
   }, { threshold: 0.06 });
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  document.querySelectorAll('.fade-up').forEach(el => fadeObs.observe(el));
 
-  document.getElementById('emailSubmit').addEventListener('click', async function() {
+  /* Stats count-up */
+  function animateStat(el) {
+    const target = +el.dataset.target, prefix = el.dataset.prefix || '', suffix = el.dataset.suffix || '';
+    const duration = 1400, start = performance.now();
+    function step(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = prefix + Math.round(ease * target) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  const statObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { animateStat(e.target); statObs.unobserve(e.target); } });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.stat-num[data-target]').forEach(el => statObs.observe(el));
+
+  /* Dot nav section tracking */
+  const secIds = ['sec-seen','sec-about','sec-details','sec-blueprint','sec-seating','sec-faq'];
+  const dnDots = document.querySelectorAll('.dn-dot');
+  const secObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const idx = secIds.indexOf(e.target.id);
+        if (idx !== -1) { dnDots.forEach(d => d.classList.remove('active')); dnDots[idx].classList.add('active'); }
+      }
+    });
+  }, { threshold: 0.3 });
+  secIds.forEach(id => { const el = document.getElementById(id); if (el) secObs.observe(el); });
+
+  /* Save pill visibility */
+  const pillObs = new IntersectionObserver((entries) => {
+    document.getElementById('save-pill').classList.toggle('visible', !entries[0].isIntersecting);
+  }, { threshold: 0 });
+  pillObs.observe(document.querySelector('.hero'));
+
+  /* Email signup */
+  document.getElementById('emailSubmit').addEventListener('click', function() {
     const inp = document.getElementById('emailInput');
     const val = inp.value.trim();
     if (!val || !val.includes('@') || !val.includes('.')) {
@@ -844,17 +987,16 @@
       setTimeout(() => { inp.style.borderColor = ''; inp.placeholder = 'your@email.com'; }, 2500);
       return;
     }
-    try {
-      await fetch('https://brevo-subscribe.vegassidekickcom.workers.dev', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: val })
-      });
-    } catch(e) {}
+    fetch('https://brevo-subscribe.vegassidekickcom.workers.dev', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: val })
+    }).catch(() => {});
     inp.value = '';
     inp.placeholder = "You're in. Spike will be in touch.";
     this.textContent = 'Done ✓';
     this.style.background = '#16a34a';
   });
 </script>
+<script src="/components/footer.js"></script>
 <script src="/components/header.js"></script>
 </body>
 </html>
