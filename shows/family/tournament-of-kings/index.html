@@ -84,25 +84,55 @@
     button { font-family: inherit; cursor: pointer; }
 
     #progress-bar { overflow: hidden; position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--show-red), var(--show-gold)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; }
-    #progress-bar-bottom { position: fixed; bottom: 0; left: 0; right: 0; height: 3px; width: 0%; animation: pb-glow 2s ease-in-out infinite; background: linear-gradient(270deg, var(--show-red), var(--show-gold)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; overflow: hidden; }
-    #progress-bar::after, #progress-bar-bottom::after { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%); animation: pb-shimmer 2.2s linear infinite; }
+    #progress-bar::after { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%); animation: pb-shimmer 2.2s linear infinite; }
     @keyframes pb-shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
-    @keyframes pb-glow { 0%, 100% { box-shadow: 0 0 3px rgba(255,255,255,0.15); } 50% { box-shadow: 0 0 10px rgba(255,255,255,0.5), 0 0 3px rgba(255,255,255,0.2); } }
-    @media (max-width: 940px) { #progress-bar-bottom { bottom: 72px; } }
-    @keyframes pb-shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
-    @keyframes pb-glow { 0%, 100% { box-shadow: 0 0 3px rgba(255,255,255,0.15); } 50% { box-shadow: 0 0 10px rgba(255,255,255,0.5), 0 0 3px rgba(255,255,255,0.2); } }
 
-    /* ── HERO ── */
+    /* STATS STRIP */
+    .stats-strip { background: var(--navy); border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .stats-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); }
+    .stat-cell { padding: 18px 20px; text-align: center; border-right: 1px solid rgba(255,255,255,0.06); }
+    .stat-cell:last-child { border-right: none; }
+    .stat-num { font-family: var(--font-price); font-size: 2.2rem; font-weight: 800; color: var(--show-gold-lt); line-height: 1; margin-bottom: 3px; }
+    .stat-lbl { font-family: var(--font-mono); font-size: 0.58rem; color: rgba(255,255,255,0.36); letter-spacing: 0.07em; text-transform: uppercase; }
+    @media (max-width: 600px) { .stats-inner { grid-template-columns: repeat(2,1fr); } .stat-cell:nth-child(2) { border-right: none; } .stat-cell:nth-child(3) { border-right: 1px solid rgba(255,255,255,0.06); } }
+
+    /* TICKER */
+    .ticker-wrap { background: var(--show-red); overflow: hidden; padding: 9px 0; }
+    .ticker-track { display: flex; width: max-content; animation: ticker-scroll 38s linear infinite; }
+    .ticker-wrap:hover .ticker-track { animation-play-state: paused; }
+    .ticker-item { font-family: var(--font-price); font-size: 0.82rem; font-weight: 700; color: white; letter-spacing: 0.06em; text-transform: uppercase; padding: 0 28px; white-space: nowrap; }
+    .ticker-item::after { content: '·'; margin-left: 28px; opacity: 0.5; }
+    @keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* DOT NAV */
+    .dot-nav { position: fixed; right: 18px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 800; }
+    .dn-dot { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,0.22); border: 1.5px solid rgba(255,255,255,0.35); cursor: pointer; transition: background 0.25s, transform 0.25s; position: relative; }
+    .dn-dot.active { background: var(--show-gold); border-color: var(--show-gold); transform: scale(1.35); }
+    .dn-dot:hover { background: var(--show-gold-lt); transform: scale(1.25); }
+    .dn-dot::after { content: attr(data-label); position: absolute; right: 18px; top: 50%; transform: translateY(-50%); background: var(--navy); color: white; font-family: var(--font-mono); font-size: 0.6rem; white-space: nowrap; padding: 3px 8px; border-radius: 5px; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+    .dn-dot:hover::after { opacity: 1; }
+    @media (max-width: 940px) { .dot-nav { display: none; } }
+
+    /* SAVE PILL */
+    .save-pill { position: fixed; top: 72px; right: 18px; z-index: 810; opacity: 0; transform: translateY(-8px); transition: opacity 0.35s, transform 0.35s; pointer-events: none; }
+    .save-pill.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .save-pill a { display: flex; align-items: center; gap: 7px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.82rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; padding: 8px 14px; border-radius: 100px; box-shadow: 0 4px 14px rgba(255,107,0,0.42); white-space: nowrap; transition: background 0.2s; }
+    .save-pill a:hover { background: var(--orange-lt); }
+    @media (max-width: 940px) { .save-pill { display: none; } }
+
     .hero { background: var(--navy); padding-top: 84px; }
     .breadcrumb { padding: 12px 24px; background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.05); font-family: var(--font-mono); font-size: 0.67rem; color: rgba(255,255,255,0.36); letter-spacing: 0.04em; }
     .breadcrumb a { color: rgba(255,255,255,0.36); transition: color 0.2s; }
     .breadcrumb a:hover { color: var(--orange); }
     .breadcrumb span { color: rgba(255,255,255,0.7); }
 
+    /* SLIDER */
     .slider { position: relative; width: 100%; aspect-ratio: 16/9; max-height: 560px; overflow: hidden; background: var(--navy-mid); }
     .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.65s ease; }
     .slide.active { opacity: 1; }
-    .slide img { width: 100%; height: 100%; object-fit: cover; }
+    .slide img { width: 100%; height: 100%; object-fit: cover; transform-origin: center center; }
+    .slide.active img { animation: kenBurns 9s ease-in-out forwards; }
+    @keyframes kenBurns { 0% { transform: scale(1) translate(0,0); } 100% { transform: scale(1.07) translate(-1%,-.5%); } }
     .slider-dots { position: absolute; bottom: 13px; left: 50%; transform: translateX(-50%); display: flex; gap: 7px; z-index: 3; }
     .dot-btn { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.28); border: none; padding: 0; transition: background 0.2s, transform 0.2s; cursor: pointer; }
     .dot-btn.active { background: var(--show-gold); transform: scale(1.4); }
@@ -135,7 +165,6 @@
     .hero-cta:hover { background: var(--orange-lt); transform: translateY(-2px); }
     .urgency-txt { font-family: var(--font-mono); font-size: 0.62rem; color: rgba(255,255,255,0.32); }
 
-    /* ── PAGE LAYOUT ── */
     .page-layout { display: grid; grid-template-columns: 1fr var(--sidebar); max-width: 1200px; margin: 0 auto; align-items: start; }
     .main-content { padding: 46px 36px 60px 22px; min-width: 0; }
 
@@ -157,7 +186,6 @@
     .sb-info-lbl { font-family: var(--font-mono); font-size: 0.57rem; color: rgba(255,255,255,0.32); text-transform: uppercase; letter-spacing: 0.04em; display: block; margin-bottom: 1px; }
     .sb-info-val { font-family: var(--font-body); font-size: 0.77rem; color: rgba(255,255,255,0.7); }
 
-    /* ── MAIN CONTENT SECTIONS ── */
     .section { margin-bottom: 50px; }
     .section-title { font-family: var(--font-display); font-size: clamp(1.85rem, 2.8vw, 2.55rem); color: var(--navy); line-height: 1; letter-spacing: 0.02em; margin-bottom: 20px; }
     .section-title span { color: var(--orange); }
@@ -218,6 +246,7 @@
     .expect-title { font-family: var(--font-price); font-size: 0.88rem; font-weight: 800; color: var(--navy); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 7px; display: flex; align-items: center; gap: 6px; }
     .expect-desc { font-size: 0.81rem; color: var(--text-muted); line-height: 1.62; }
 
+    /* SEATING */
     .seating-section { margin-bottom: 50px; }
     .seating-diagram-wrap { background: var(--navy); border-radius: var(--radius-lg); padding: 26px 20px 30px; margin-bottom: 20px; position: relative; overflow: hidden; }
     .seating-diagram-wrap::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--show-red), var(--show-gold)); }
@@ -246,14 +275,17 @@
     .seat-accord-body { display: none; padding: 14px 18px 16px; background: var(--off-white); font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; border-top: 1px solid var(--gray-200); }
     .seat-accord-body.open { display: block; }
 
-    .faq-list { border: 1px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; margin-bottom: 50px; }
-    .faq-item { border-bottom: 1px solid var(--gray-200); }
-    .faq-item:last-child { border-bottom: none; }
-    .faq-q { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 15px 20px; background: white; border: none; cursor: pointer; text-align: left; font-family: var(--font-body); font-size: 0.9rem; font-weight: 700; color: var(--navy); transition: background 0.15s; }
-    .faq-q:hover { background: var(--gray-100); }
-    .faq-chevron { color: var(--gray-400); font-size: 0.8rem; flex-shrink: 0; transition: transform 0.2s; }
-    .faq-a { display: none; padding: 14px 20px 16px; background: var(--off-white); font-size: 0.87rem; color: var(--text-muted); line-height: 1.7; border-top: 1px solid var(--gray-200); }
-    .faq-a.open { display: block; }
+    /* SMOOTH FAQ */
+    .faq-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 50px; }
+    .faq-item { border: 1px solid var(--gray-200); border-radius: var(--radius-sm); overflow: hidden; }
+    .faq-q { display: flex; align-items: center; justify-content: space-between; padding: 15px 17px; background: white; border: none; width: 100%; text-align: left; transition: background 0.2s; cursor: pointer; }
+    .faq-q:hover { background: var(--off-white); }
+    .faq-q-text { font-family: var(--font-price); font-size: 0.92rem; font-weight: 700; color: var(--navy); letter-spacing: 0.02em; }
+    .faq-icon { color: var(--show-red); font-size: 1.22rem; transition: transform 0.28s; flex-shrink: 0; margin-left: 10px; font-weight: 300; line-height: 1; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; background: var(--off-white); border-top: 0px solid var(--gray-200); }
+    .faq-item.open .faq-a { max-height: 320px; border-top-width: 1px; }
+    .faq-a-inner { padding: 12px 17px; font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; }
 
     .also-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 50px; }
     .also-card { background: white; border: 1.5px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; text-decoration: none; color: var(--text); transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s; display: flex; flex-direction: column; }
@@ -266,8 +298,12 @@
     .also-name { font-family: var(--font-price); font-size: 1.15rem; font-weight: 800; color: var(--navy); line-height: 1.1; margin-bottom: 6px; }
     .also-price { font-family: var(--font-price); font-weight: 800; font-size: 1rem; color: var(--orange); }
 
-    .final-cta { background: linear-gradient(135deg, #6B0A0A 0%, #2A0808 100%); padding: 56px 40px; text-align: center; }
-    .final-cta-inner { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+    /* FINAL CTA — dark red with ambient orbs */
+    .final-cta { background: linear-gradient(135deg, #6B0A0A 0%, #2A0808 100%); padding: 56px 40px; text-align: center; position: relative; overflow: hidden; }
+    .cta-orb { position: absolute; border-radius: 50%; filter: blur(52px); pointer-events: none; }
+    .cta-orb-1 { width: 280px; height: 280px; background: rgba(201,168,76,0.12); top: -60px; right: -60px; }
+    .cta-orb-2 { width: 220px; height: 220px; background: rgba(139,26,26,0.22); bottom: -50px; left: -50px; }
+    .final-cta-inner { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 20px; position: relative; }
     .final-cta-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); letter-spacing: 0.06em; color: #FFFFFF; line-height: 1; }
     .final-cta-sub { font-size: 0.95rem; color: rgba(255,255,255,0.75); line-height: 1.6; }
     .final-cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.05rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 16px 36px; border-radius: var(--radius-sm); transition: background 0.2s, transform 0.15s; }
@@ -275,6 +311,7 @@
     .final-cta-note { font-size: 0.72rem; color: rgba(255,255,255,0.4); font-family: var(--font-mono); }
 
     .mobile-sticky { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--navy); border-top: 1px solid rgba(139,26,26,0.3); padding: 10px 16px; z-index: 100; align-items: center; justify-content: space-between; gap: 12px; }
+    .mob-progress { position: absolute; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--show-red), var(--show-gold)); transition: width 0.1s linear; }
     .mob-price-lbl { font-family: var(--font-mono); font-size: 0.55rem; color: rgba(255,255,255,0.28); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 1px; }
     .mob-price { font-family: var(--font-price); font-size: 2.4rem; font-weight: 800; color: var(--orange); line-height: 1; }
     .mob-cta { flex: 1; max-width: 230px; padding: 13px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.02rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; text-align: center; border-radius: var(--radius-sm); border: none; position: relative; overflow: hidden; transition: background 0.2s; }
@@ -298,14 +335,31 @@
       .email-form { flex-direction: column; }
       .price-strip { flex-direction: column; align-items: flex-start; gap: 13px; }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; }
+    }
   </style>
 </head>
 <body>
 
 <div id="progress-bar" aria-hidden="true"></div>
-<div id="progress-bar-bottom" aria-hidden="true"></div>
 <div id="vs-header"></div>
-<script src="/components/header.js"></script>
+
+<!-- DOT NAV -->
+<nav class="dot-nav" aria-label="Page sections">
+  <div class="dn-dot active" data-label="Seen It?" onclick="scrollToSec('sec-seen')"></div>
+  <div class="dn-dot" data-label="About" onclick="scrollToSec('sec-about')"></div>
+  <div class="dn-dot" data-label="Details" onclick="scrollToSec('sec-details')"></div>
+  <div class="dn-dot" data-label="Expect" onclick="scrollToSec('sec-blueprint')"></div>
+  <div class="dn-dot" data-label="Seating" onclick="scrollToSec('sec-seating')"></div>
+  <div class="dn-dot" data-label="FAQ" onclick="scrollToSec('sec-faq')"></div>
+</nav>
+
+<!-- SAVE PILL -->
+<div class="save-pill" id="save-pill">
+  <a href="https://spotlight.vegas/shows/production/tournament-of-kings/ref/vegassidekick" target="_blank" rel="noopener">Save $48 → Get Tickets</a>
+</div>
 
 <section class="hero" aria-label="Show hero">
   <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -367,11 +421,59 @@
   </div>
 </section>
 
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-cell">
+      <div class="stat-num" data-target="75" data-suffix=" Min">0</div>
+      <div class="stat-lbl">Duration</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num" data-prefix="$" data-target="48">0</div>
+      <div class="stat-lbl">You Save</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num" data-prefix="$" data-target="74">0</div>
+      <div class="stat-lbl">From · Feast Included</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num" data-target="39" data-suffix="% Off">0</div>
+      <div class="stat-lbl">vs. Box Office</div>
+    </div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item">⚔️ Live Jousting & Real Horses</span>
+    <span class="ticker-item">🏰 King Arthur's Arena · Excalibur Hotel</span>
+    <span class="ticker-item">💰 Save $48 — 39% Off Box Office</span>
+    <span class="ticker-item">🍗 Full Medieval Feast Included</span>
+    <span class="ticker-item">🐎 Real Trained Horses Indoors</span>
+    <span class="ticker-item">🌵 Spike's Pick for Family Night</span>
+    <span class="ticker-item">🎟️ All Ages · Ages 3 & Under Free</span>
+    <span class="ticker-item">📍 Excalibur Hotel · South Strip</span>
+    <span class="ticker-item">🔥 Fire & Pyrotechnics Included</span>
+    <span class="ticker-item">👑 Pick Your Kingdom & Cheer</span>
+    <span class="ticker-item">⚔️ Live Jousting & Real Horses</span>
+    <span class="ticker-item">🏰 King Arthur's Arena · Excalibur Hotel</span>
+    <span class="ticker-item">💰 Save $48 — 39% Off Box Office</span>
+    <span class="ticker-item">🍗 Full Medieval Feast Included</span>
+    <span class="ticker-item">🐎 Real Trained Horses Indoors</span>
+    <span class="ticker-item">🌵 Spike's Pick for Family Night</span>
+    <span class="ticker-item">🎟️ All Ages · Ages 3 & Under Free</span>
+    <span class="ticker-item">📍 Excalibur Hotel · South Strip</span>
+    <span class="ticker-item">🔥 Fire & Pyrotechnics Included</span>
+    <span class="ticker-item">👑 Pick Your Kingdom & Cheer</span>
+  </div>
+</div>
+
 <div class="page-layout">
 <main class="main-content" role="main">
 
   <!-- SEEN WIDGET -->
-  <div class="seen-widget fade-up">
+  <div id="sec-seen" class="seen-widget fade-up">
     <div class="seen-tag">🌵 Spike Wants to Know</div>
     <div class="seen-q">Have you seen Tournament of Kings before?</div>
     <div class="seen-btns">
@@ -395,7 +497,7 @@
   </div>
 
   <!-- ABOUT -->
-  <section class="section fade-up" aria-labelledby="about-heading">
+  <section id="sec-about" class="section fade-up" aria-labelledby="about-heading">
     <h2 id="about-heading" class="section-title">About <span>Tournament of Kings</span></h2>
     <div class="about-body">
       <p>Tournament of Kings is the most thrilling dinner and show experience in Las Vegas — live-action jousting, sword combat, horsemanship, music, and crowd participation all rolled into 75 minutes of non-stop entertainment. King Arthur and his valiant knights compete in a full tournament inside a massive arena while you eat, drink, and pick sides.</p>
@@ -427,7 +529,7 @@
   </div>
 
   <!-- SHOW DETAILS -->
-  <section class="section fade-up" aria-labelledby="details-heading">
+  <section id="sec-details" class="section fade-up" aria-labelledby="details-heading">
     <h2 id="details-heading" class="section-title">Show <span>Details</span></h2>
     <div class="details-grid">
       <div class="detail-card">
@@ -470,7 +572,7 @@
   </section>
 
   <!-- WHAT TO EXPECT -->
-  <section class="section fade-up" aria-labelledby="expect-heading">
+  <section id="sec-blueprint" class="section fade-up" aria-labelledby="expect-heading">
     <h2 id="expect-heading" class="section-title">What to <span>Expect</span></h2>
     <div class="expect-grid">
       <div class="expect-card">
@@ -501,7 +603,7 @@
   </section>
 
   <!-- SEATING CHART -->
-  <section class="seating-section fade-up" aria-labelledby="seating-heading">
+  <section id="sec-seating" class="seating-section fade-up" aria-labelledby="seating-heading">
     <h2 id="seating-heading" class="section-title">King Arthur's Arena <span>Seating Chart</span></h2>
     <p style="font-size:.94rem;color:var(--text-muted);line-height:1.7;margin-bottom:20px;">The arena wraps around a central performance floor on three sides, with eight named sections each representing a competing kingdom. With only five rows in the entire arena, every seat has a clear view of the action. <strong>Click a category</strong> to see what each offers.</p>
 
@@ -515,16 +617,12 @@
 
       <svg viewBox="0 0 700 500" style="width:100%;max-width:620px;display:block;margin:0 auto;cursor:pointer" role="img" aria-label="King Arthur's Arena seating chart — click a category to select">
         <rect width="700" height="500" rx="16" fill="#0A1628"/>
-
-        <!-- Category C — back rows (purple) -->
         <g onclick="selectZone('cat-c')" style="cursor:pointer">
           <rect x="60" y="8" width="405" height="47" fill="#4A2E8A" rx="5" opacity="0.9"/>
           <rect x="60" y="445" width="405" height="47" fill="#4A2E8A" rx="5" opacity="0.9"/>
           <text x="262" y="36" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="10" font-weight="700" fill="rgba(190,160,255,0.85)" letter-spacing="1" style="pointer-events:none">CATEGORY C · BACK ROWS</text>
           <text x="262" y="472" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="10" font-weight="700" fill="rgba(190,160,255,0.85)" letter-spacing="1" style="pointer-events:none">CATEGORY C · BACK ROWS</text>
         </g>
-
-        <!-- Category A — front floor sections (gold) -->
         <g onclick="selectZone('cat-a')" style="cursor:pointer">
           <rect x="60" y="58" width="120" height="102" fill="#6B4C10" rx="4"/>
           <text x="120" y="115" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="11" font-weight="800" fill="#E8C87A" letter-spacing="0.5" style="pointer-events:none">IRELAND</text>
@@ -539,21 +637,15 @@
           <rect x="310" y="340" width="155" height="102" fill="#6B4C10" rx="4"/>
           <text x="387" y="396" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="11" font-weight="800" fill="#E8C87A" letter-spacing="0.5" style="pointer-events:none">HUNGARY</text>
         </g>
-
-        <!-- Category B — Spain & Austria (magenta) -->
         <g onclick="selectZone('cat-b')" style="cursor:pointer">
           <rect x="476" y="58" width="178" height="195" fill="#6B1A5A" rx="4" opacity="0.9"/>
           <text x="565" y="158" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="13" font-weight="800" fill="rgba(255,175,230,0.9)" letter-spacing="0.5" style="pointer-events:none">SPAIN</text>
           <rect x="476" y="263" width="178" height="179" fill="#6B1A5A" rx="4" opacity="0.9"/>
           <text x="565" y="355" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="13" font-weight="800" fill="rgba(255,175,230,0.9)" letter-spacing="0.5" style="pointer-events:none">AUSTRIA</text>
         </g>
-
-        <!-- Stage — drawn last -->
         <rect x="50" y="163" width="422" height="174" fill="#1A2A12" rx="8" stroke="#3A6020" stroke-width="1.5"/>
         <text x="261" y="253" text-anchor="middle" font-family="Bebas Neue,sans-serif" font-size="38" fill="#C9A84C" letter-spacing="5" style="pointer-events:none">STAGE</text>
         <text x="261" y="278" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="11" fill="rgba(201,168,76,0.38)" letter-spacing="2" style="pointer-events:none">ARENA FLOOR</text>
-
-        <!-- Castle entrance marker -->
         <rect x="10" y="175" width="38" height="150" fill="#060E1A" rx="4"/>
         <text x="29" y="263" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="9" fill="rgba(255,255,255,0.2)" transform="rotate(-90,29,263)" letter-spacing="1.5" style="pointer-events:none">CASTLE</text>
       </svg>
@@ -594,37 +686,66 @@
   </section>
 
   <!-- FAQ -->
-  <section class="section fade-up" aria-labelledby="faq-heading">
+  <section id="sec-faq" class="section fade-up" aria-labelledby="faq-heading">
     <h2 id="faq-heading" class="section-title">Frequently Asked <span>Questions</span></h2>
     <div class="faq-list">
+
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Is dinner really included in the ticket price? <span class="faq-chevron">▼</span></button>
-        <div class="faq-a">Yes — a full medieval feast is included with every ticket. The meal consists of slow-roasted Cornish hen, herb-roasted potatoes, corn on the cob, fresh biscuits, and an apple square dessert, along with a ceremonial toast with the performers. Non-alcoholic beverages are included; cocktails and premium drinks are available for purchase separately.</div>
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          <span class="faq-q-text">Is dinner really included in the ticket price?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Yes — a full medieval feast is included with every ticket. The meal consists of slow-roasted Cornish hen, herb-roasted potatoes, corn on the cob, fresh biscuits, and an apple square dessert, along with a ceremonial toast with the performers. Non-alcoholic beverages are included; cocktails and premium drinks are available for purchase separately.</div></div>
       </div>
+
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Do we get utensils? <span class="faq-chevron">▼</span></button>
-        <div class="faq-a">No — and that's intentional. Tournament of Kings is a medieval dinner show, and you eat like a medieval lord: with your hands. The Cornish hen tears apart, and the soup comes in a bowl you drink from. It's part of the experience and genuinely more fun than it sounds. If accessibility requires utensils, ask your server and they'll accommodate you.</div>
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          <span class="faq-q-text">Do we get utensils?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">No — and that's intentional. Tournament of Kings is a medieval dinner show, and you eat like a medieval lord: with your hands. The Cornish hen tears apart, and the soup comes in a bowl you drink from. It's part of the experience and genuinely more fun than it sounds. If accessibility requires utensils, ask your server and they'll accommodate you.</div></div>
       </div>
+
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Does it matter which section we sit in? <span class="faq-chevron">▼</span></button>
-        <div class="faq-a">Each section is associated with a competing knight — Ireland, Romania, Norway, France, Dragon, Hungary, Spain, or Austria. You'll cheer for that knight throughout the show. Sightline-wise, the center sections (Romania and Dragon) offer the most direct head-on view of the jousting. With only five rows in the arena, all seats are genuinely close. Spain and Austria side sections offer a different angle, often at a lower price.</div>
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          <span class="faq-q-text">Does it matter which section we sit in?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Each section is associated with a competing knight — Ireland, Romania, Norway, France, Dragon, Hungary, Spain, or Austria. You'll cheer for that knight throughout the show. Sightline-wise, the center sections (Romania and Dragon) offer the most direct head-on view of the jousting. With only five rows in the arena, all seats are genuinely close. Spain and Austria side sections offer a different angle, often at a lower price.</div></div>
       </div>
+
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">What is the age policy exactly? <span class="faq-chevron">▼</span></button>
-        <div class="faq-a">Tournament of Kings welcomes all ages. Children 3 years and under may attend for free — they must sit on an adult's lap and share the adult's meal. Guests 4 years and older must have their own ticket. Guests under 16 must be accompanied by an adult at all times.</div>
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          <span class="faq-q-text">What is the age policy exactly?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Tournament of Kings welcomes all ages. Children 3 years and under may attend for free — they must sit on an adult's lap and share the adult's meal. Guests 4 years and older must have their own ticket. Guests under 16 must be accompanied by an adult at all times.</div></div>
       </div>
+
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Can we take photos or video? <span class="faq-chevron">▼</span></button>
-        <div class="faq-a">Still photography is welcome throughout the show. Please limit yourself to non-flash photos and be considerate of the guests around you — if your photography becomes disruptive, you may be asked to put the camera away. Video recording is not permitted.</div>
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          <span class="faq-q-text">Can we take photos or video?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Still photography is welcome throughout the show. Please limit yourself to non-flash photos and be considerate of the guests around you — if your photography becomes disruptive, you may be asked to put the camera away. Video recording is not permitted.</div></div>
       </div>
+
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Is there a dress code? <span class="faq-chevron">▼</span></button>
-        <div class="faq-a">No formal dress code. Come in whatever you'd wear for a casual night out. Since you're eating with your hands, you might skip your finest whites — but in practice most guests dress casually. Some lean into it and go medieval. Both work equally well.</div>
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          <span class="faq-q-text">Is there a dress code?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">No formal dress code. Come in whatever you'd wear for a casual night out. Since you're eating with your hands, you might skip your finest whites — but in practice most guests dress casually. Some lean into it and go medieval. Both work equally well.</div></div>
       </div>
+
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Are tickets refundable? <span class="faq-chevron">▼</span></button>
-        <div class="faq-a">Tickets are generally non-refundable once purchased. If your travel plans change, some exchanges may be possible — check the cancellation terms at checkout before completing your order.</div>
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          <span class="faq-q-text">Are tickets refundable?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Tickets are generally non-refundable once purchased. If your travel plans change, some exchanges may be possible — check the cancellation terms at checkout before completing your order.</div></div>
       </div>
+
     </div>
   </section>
 
@@ -685,6 +806,8 @@
 
 <!-- FINAL CTA -->
 <div class="final-cta">
+  <div class="cta-orb cta-orb-1"></div>
+  <div class="cta-orb cta-orb-2"></div>
   <div class="final-cta-inner">
     <div class="final-cta-title">Claim Your Seat at the Table</div>
     <div class="final-cta-sub">Tickets from $74 — includes a full medieval feast. Real horses, live jousting, fire, and a performance that earns every bit of the crowd reaction it gets.</div>
@@ -695,6 +818,7 @@
 
 <!-- MOBILE STICKY BAR -->
 <div class="mobile-sticky" aria-label="Buy tickets">
+  <div class="mob-progress" id="mob-progress"></div>
   <div>
     <div class="mob-price-lbl">From</div>
     <div class="mob-price">$74</div>
@@ -703,29 +827,80 @@
 </div>
 
 <div id="vs-footer"></div>
+<script src="/components/header.js"></script>
 <script src="/components/footer.js"></script>
 
 <script>
-  window.addEventListener('scroll', function() {
-    const el = document.getElementById('progress-bar');
-    const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
-    el.style.width = Math.min(pct, 100) + '%';
-  });
+  function updateProgress() {
+    const pct = (window.pageYOffset / Math.max(1, document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    const v = Math.min(pct, 100);
+    document.getElementById('progress-bar').style.width = v + '%';
+    const mob = document.getElementById('mob-progress');
+    if (mob) mob.style.width = v + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
 
   let slides = document.querySelectorAll('.slide');
   let dots   = document.querySelectorAll('.dot-btn');
-  let cur    = 0, timer;
+  let cur = 0, timer;
   function goToSlide(n) {
     slides[cur].classList.remove('active'); dots[cur].classList.remove('active');
     cur = (n + slides.length) % slides.length;
-    slides[cur].classList.add('active'); dots[cur].classList.add('active');
+    requestAnimationFrame(() => {
+      slides[cur].classList.remove('active');
+      requestAnimationFrame(() => { slides[cur].classList.add('active'); dots[cur].classList.add('active'); });
+    });
     clearInterval(timer); timer = setInterval(() => goToSlide(cur + 1), 5000);
   }
   function sliderMove(dir) { goToSlide(cur + dir); }
   timer = setInterval(() => goToSlide(cur + 1), 5000);
 
+  /* STATS COUNT-UP */
+  function animateStat(el) {
+    const target = +el.dataset.target;
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    const duration = 1400;
+    const start = performance.now();
+    function step(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = prefix + Math.round(ease * target) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  const statsObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { animateStat(e.target); statsObs.unobserve(e.target); } });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.stat-num[data-target]').forEach(el => statsObs.observe(el));
+
+  /* DOT NAV */
+  const secIds = ['sec-seen','sec-about','sec-details','sec-blueprint','sec-seating','sec-faq'];
+  const dnDots = document.querySelectorAll('.dn-dot');
+  const secObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const idx = secIds.indexOf(e.target.id);
+        if (idx !== -1) { dnDots.forEach(d => d.classList.remove('active')); dnDots[idx].classList.add('active'); }
+      }
+    });
+  }, { threshold: 0.3 });
+  secIds.forEach(id => { const el = document.getElementById(id); if (el) secObs.observe(el); });
+  function scrollToSec(id) { document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+
+  /* SAVE PILL */
+  const heroSection = document.querySelector('.hero');
+  const pillObs = new IntersectionObserver((entries) => {
+    document.getElementById('save-pill').classList.toggle('visible', !entries[0].isIntersecting);
+  }, { threshold: 0 });
+  pillObs.observe(heroSection);
+
+  /* FADE UP */
   const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 50); obs.unobserve(e.target); }
+    });
   }, { threshold: 0.08 });
   document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
 
@@ -735,21 +910,9 @@
   }
 
   const zoneData = {
-    'cat-a': {
-      name: 'Category A — Front Floor',
-      pick: false,
-      desc: 'The front rows of the main sections — Ireland, Romania, Norway (top), and France, Dragon, Hungary (bottom). Closest to the arena floor. Romania and Dragon center sections face each other directly across the stage, giving a head-on view of every joust and charge. The most in-demand seats in the house.'
-    },
-    'cat-b': {
-      name: 'Category B — Spain & Austria',
-      pick: false,
-      desc: 'Spain and Austria sit on the right side of the arena with an angled perspective of the full performance floor. With only five rows and an intimate venue, you still see everything clearly. The side angle on a horse charge is genuinely different from the head-on view — and often available at a better price.'
-    },
-    'cat-c': {
-      name: 'Category C — Back Rows',
-      pick: false,
-      desc: 'The back rows of the main floor sections. With only five rows total, even Category C seats put you close to the action — you can clearly see every jousting run, horse maneuver, and fire effect. A great pick for seeing the full scope of the show from a wider vantage point, usually at the best price available.'
-    }
+    'cat-a': { name: 'Category A — Front Floor', pick: false, desc: 'The front rows of the main sections — Ireland, Romania, Norway (top), and France, Dragon, Hungary (bottom). Closest to the arena floor. Romania and Dragon center sections face each other directly across the stage, giving a head-on view of every joust and charge. The most in-demand seats in the house.' },
+    'cat-b': { name: 'Category B — Spain & Austria', pick: false, desc: 'Spain and Austria sit on the right side of the arena with an angled perspective of the full performance floor. With only five rows and an intimate venue, you still see everything clearly. The side angle on a horse charge is genuinely different from the head-on view — and often available at a better price.' },
+    'cat-c': { name: 'Category C — Back Rows', pick: false, desc: 'The back rows of the main floor sections. With only five rows total, even Category C seats put you close to the action — you can clearly see every jousting run, horse maneuver, and fire effect. A great pick for seeing the full scope of the show from a wider vantage point, usually at the best price available.' }
   };
   function selectZone(id) {
     const z = zoneData[id];
@@ -769,10 +932,10 @@
   }
 
   function toggleFaq(btn) {
-    const ans  = btn.nextElementSibling;
-    const chev = btn.querySelector('.faq-chevron');
-    const open = ans.classList.toggle('open');
-    chev.style.transform = open ? 'rotate(180deg)' : '';
+    const item = btn.closest('.faq-item'), was = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    document.querySelectorAll('.faq-q').forEach(b => b.setAttribute('aria-expanded','false'));
+    if (!was) { item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
   }
 
   async function submitEmail() {
