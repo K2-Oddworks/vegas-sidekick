@@ -30,11 +30,7 @@
     "startDate": "2026-05-05T16:00",
     "endDate": "2027-05-05T16:00",
     "eventStatus": "https://schema.org/EventScheduled",
-    "organizer": {
-      "@type": "Organization",
-      "name": "Allstars of Magic",
-      "url": "https://vegassidekick.com/shows/magic/allstars-of-magic/"
-    },
+    "organizer": { "@type": "Organization", "name": "Allstars of Magic", "url": "https://vegassidekick.com/shows/magic/allstars-of-magic/" },
     "location": {
       "@type": "Place",
       "name": "V Theater at Miracle Mile Shops, Planet Hollywood Resort & Casino",
@@ -100,14 +96,10 @@
     img  { max-width: 100%; display: block; }
     a    { text-decoration: none; color: inherit; }
     button { font-family: inherit; cursor: pointer; }
+
     #progress-bar { overflow: hidden; position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--blue), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; }
-    #progress-bar-bottom { position: fixed; bottom: 0; left: 0; right: 0; height: 3px; width: 0%; animation: pb-glow 2s ease-in-out infinite; background: linear-gradient(270deg, var(--blue), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; overflow: hidden; }
-    #progress-bar::after, #progress-bar-bottom::after { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%); animation: pb-shimmer 2.2s linear infinite; }
+    #progress-bar::after { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%); animation: pb-shimmer 2.2s linear infinite; }
     @keyframes pb-shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
-    @keyframes pb-glow { 0%, 100% { box-shadow: 0 0 3px rgba(255,255,255,0.15); } 50% { box-shadow: 0 0 10px rgba(255,255,255,0.5), 0 0 3px rgba(255,255,255,0.2); } }
-    @media (max-width: 940px) { #progress-bar-bottom { bottom: 72px; } }
-    @keyframes pb-shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
-    @keyframes pb-glow { 0%, 100% { box-shadow: 0 0 3px rgba(255,255,255,0.15); } 50% { box-shadow: 0 0 10px rgba(255,255,255,0.5), 0 0 3px rgba(255,255,255,0.2); } }
 
     .hero { background: var(--navy); padding-top: 84px; }
     .breadcrumb { padding: 12px 24px; background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.05); font-family: var(--font-mono); font-size: 0.67rem; color: rgba(255,255,255,0.36); letter-spacing: 0.04em; }
@@ -115,10 +107,13 @@
     .breadcrumb a:hover { color: var(--orange); }
     .breadcrumb span { color: rgba(255,255,255,0.7); }
 
+    /* SLIDER */
     .slider { position: relative; width: 100%; aspect-ratio: 16/7; max-height: 480px; overflow: hidden; background: var(--navy-mid); }
     .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.65s ease; }
     .slide.active { opacity: 1; }
     .slide img { width: 100%; height: 100%; object-fit: cover; }
+    @keyframes kenBurns { from { transform: scale(1.0) translate(0,0); } to { transform: scale(1.08) translate(0.5%,0.3%); } }
+    .slide.active img { animation: kenBurns 9s ease-in-out forwards; }
     .slider-dots { position: absolute; bottom: 13px; left: 50%; transform: translateX(-50%); display: flex; gap: 7px; z-index: 3; }
     .dot-btn { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.28); border: none; padding: 0; transition: background 0.2s, transform 0.2s; }
     .dot-btn.active { background: var(--orange); transform: scale(1.4); }
@@ -150,6 +145,39 @@
     .hero-cta { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.12rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); border: none; transition: background 0.2s, transform 0.2s; white-space: nowrap; }
     .hero-cta:hover { background: var(--orange-lt); transform: translateY(-2px); }
     .urgency-txt { font-family: var(--font-mono); font-size: 0.62rem; color: rgba(255,255,255,0.32); }
+
+    /* STATS STRIP */
+    .stats-strip { background: var(--white); border-bottom: 1px solid var(--gray-200); display: flex; justify-content: center; align-items: stretch; flex-wrap: wrap; }
+    .stat-item { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 22px 36px; gap: 3px; }
+    .stat-num { font-family: var(--font-display); font-size: clamp(2.2rem, 4vw, 3rem); color: var(--navy); line-height: 1; letter-spacing: 0.02em; }
+    .stat-lbl { font-family: var(--font-mono); font-size: 0.62rem; color: var(--text-muted); letter-spacing: 0.07em; text-transform: uppercase; }
+    .stat-sep { width: 1px; background: var(--gray-200); margin: 18px 0; align-self: stretch; }
+    @media (max-width: 600px) { .stat-sep { display: none; } .stat-item { padding: 16px 20px; } }
+
+    /* TICKER */
+    .ticker-wrap { background: var(--orange); overflow: hidden; padding: 10px 0; white-space: nowrap; position: relative; }
+    .ticker-wrap::before, .ticker-wrap::after { content: ''; position: absolute; top: 0; bottom: 0; width: 60px; z-index: 2; pointer-events: none; }
+    .ticker-wrap::before { left: 0; background: linear-gradient(90deg, var(--orange), transparent); }
+    .ticker-wrap::after  { right: 0; background: linear-gradient(270deg, var(--orange), transparent); }
+    .ticker-track { display: inline-flex; gap: 0; animation: ticker 32s linear infinite; }
+    .ticker-wrap:hover .ticker-track { animation-play-state: paused; }
+    @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .ticker-item { display: inline-flex; align-items: center; gap: 7px; padding: 0 28px; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600; color: white; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap; }
+    .ticker-item::after { content: '·'; margin-left: 28px; opacity: 0.45; }
+
+    /* DOT NAV */
+    .dot-nav { position: fixed; right: 18px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 800; }
+    .dn-dot { width: 9px; height: 9px; border-radius: 50%; background: rgba(26,107,221,0.25); border: 1.5px solid rgba(26,107,221,0.4); transition: background 0.25s, transform 0.25s; cursor: pointer; position: relative; }
+    .dn-dot.active { background: var(--orange); border-color: var(--orange); transform: scale(1.35); }
+    .dn-dot:hover { background: var(--blue); border-color: var(--blue); }
+    .dn-dot[data-tip]::after { content: attr(data-tip); position: absolute; right: 20px; top: 50%; transform: translateY(-50%); background: var(--navy); color: white; font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.04em; padding: 4px 9px; border-radius: 5px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+    .dn-dot:hover[data-tip]::after { opacity: 1; }
+    @media (max-width: 940px) { .dot-nav { display: none; } }
+
+    /* SAVE PILL */
+    .save-pill { position: fixed; top: 72px; right: 18px; z-index: 700; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.82rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; padding: 8px 15px; border-radius: 100px; box-shadow: 0 3px 14px rgba(255,107,0,0.38); opacity: 0; transform: translateY(-10px) scale(0.9); transition: opacity 0.3s, transform 0.3s; pointer-events: none; white-space: nowrap; }
+    .save-pill.visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+    @media (max-width: 940px) { .save-pill { display: none; } }
 
     .page-layout { display: grid; grid-template-columns: 1fr var(--sidebar); max-width: 1200px; margin: 0 auto; align-items: start; }
     .main-content { padding: 46px 36px 60px 22px; min-width: 0; }
@@ -265,6 +293,7 @@
     .sa-body { display: none; padding: 12px 16px; background: var(--off-white); border-top: 1px solid var(--gray-200); font-size: 0.82rem; color: var(--text-muted); line-height: 1.64; }
     .sa-item.open .sa-body { display: block; }
 
+    /* FAQ — smooth accordion */
     .faq-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 50px; }
     .faq-item { border: 1px solid var(--gray-200); border-radius: var(--radius-sm); overflow: hidden; }
     .faq-q { display: flex; align-items: center; justify-content: space-between; padding: 15px 17px; background: white; border: none; width: 100%; text-align: left; transition: background 0.2s; }
@@ -272,8 +301,9 @@
     .faq-q-text { font-family: var(--font-price); font-size: 0.92rem; font-weight: 700; color: var(--navy); letter-spacing: 0.02em; }
     .faq-icon { color: var(--blue); font-size: 1.22rem; transition: transform 0.28s; flex-shrink: 0; margin-left: 10px; font-weight: 300; line-height: 1; }
     .faq-item.open .faq-icon { transform: rotate(45deg); }
-    .faq-a { display: none; padding: 12px 17px; background: var(--off-white); border-top: 1px solid var(--gray-200); font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; }
-    .faq-item.open .faq-a { display: block; }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.38s ease; }
+    .faq-item.open .faq-a { max-height: 320px; }
+    .faq-a-inner { padding: 12px 17px 18px; background: var(--off-white); border-top: 1px solid var(--gray-200); font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; }
 
     .also-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 50px; }
     .also-card { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; transition: box-shadow 0.2s, transform 0.2s; }
@@ -286,16 +316,20 @@
     .also-cta { display: block; width: 100%; padding: 9px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.82rem; font-weight: 800; text-align: center; border-radius: var(--radius-sm); text-transform: uppercase; letter-spacing: 0.05em; transition: background 0.2s; border: none; }
     .also-cta:hover { background: var(--orange-lt); }
 
-    .final-cta { background: var(--navy); padding: 50px 32px; border-radius: var(--radius-lg); text-align: center; margin-bottom: 50px; position: relative; overflow: hidden; }
+    /* FINAL CTA — light bg with orbs */
+    .final-cta { background: var(--off-white); border: 1px solid var(--gray-200); padding: 50px 32px; border-radius: var(--radius-lg); text-align: center; margin-bottom: 50px; position: relative; overflow: hidden; }
     .final-cta::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--blue), var(--orange)); }
-    .final-cta-tag { font-family: var(--font-mono); font-size: 0.64rem; color: var(--blue-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
-    .final-cta-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.1rem); color: white; line-height: 1; margin-bottom: 9px; }
-    .final-cta-sub { font-size: 0.88rem; color: rgba(255,255,255,0.42); margin-bottom: 22px; }
-    .final-cta-amount { font-family: var(--font-price); font-size: 3.3rem; font-weight: 800; color: var(--orange); line-height: 1; margin-bottom: 20px; }
-    .final-cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 15px 42px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.18rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); transition: all 0.2s; border: none; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(60px); pointer-events: none; }
+    .orb-1 { width: 280px; height: 280px; top: -60px; left: -60px; background: var(--orange); opacity: .10; }
+    .orb-2 { width: 220px; height: 220px; bottom: -40px; right: -40px; background: var(--blue); opacity: .10; }
+    .final-cta-tag { font-family: var(--font-mono); font-size: 0.64rem; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; position: relative; }
+    .final-cta-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.1rem); color: var(--navy); line-height: 1; margin-bottom: 9px; position: relative; }
+    .final-cta-sub { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 22px; position: relative; }
+    .final-cta-amount { font-family: var(--font-price); font-size: 3.3rem; font-weight: 800; color: var(--orange); line-height: 1; margin-bottom: 20px; position: relative; }
+    .final-cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 15px 42px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.18rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); transition: all 0.2s; border: none; position: relative; }
     .final-cta-btn:hover { background: var(--orange-lt); transform: translateY(-2px); }
-    .final-cta-note { font-family: var(--font-mono); font-size: 0.61rem; color: rgba(255,255,255,0.25); margin-top: 13px; }
-    .final-cta-note a { color: rgba(255,255,255,0.4); text-decoration: underline; }
+    .final-cta-note { font-family: var(--font-mono); font-size: 0.61rem; color: var(--text-muted); margin-top: 13px; position: relative; }
+    .final-cta-note a { color: var(--text-muted); text-decoration: underline; }
 
     .mobile-sticky { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--navy); z-index: 1000; padding: 10px 16px 14px; box-shadow: 0 -4px 22px rgba(0,0,0,0.28); }
     .mob-progress { position: absolute; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--orange), var(--blue)); transition: width 0.1s linear; }
@@ -308,12 +342,15 @@
 
     @media (max-width: 940px) { .page-layout { grid-template-columns: 1fr; } .sidebar { display: none; } .mobile-sticky { display: block; } .details-grid { grid-template-columns: repeat(2,1fr); } .also-grid { grid-template-columns: repeat(2,1fr); } }
     @media (max-width: 600px) { .hero-content { padding: 22px 16px 26px; } .main-content { padding: 26px 16px 120px; } .trust-grid { grid-template-columns: 1fr; } .details-grid { grid-template-columns: 1fr; } .expect-grid { grid-template-columns: 1fr; } .also-grid { grid-template-columns: 1fr; } .email-signup { flex-direction: column; gap: 12px; } .email-form { flex-direction: column; } .price-strip { flex-direction: column; align-items: flex-start; gap: 13px; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; }
+    }
   </style>
 </head>
 <body>
-<div id="vs-header"></div>
 <div id="progress-bar" aria-hidden="true"></div>
-<div id="progress-bar-bottom" aria-hidden="true"></div>
+<div id="vs-header"></div>
 
 <section class="hero" aria-label="Show hero">
   <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -374,11 +411,73 @@
   </div>
 </section>
 
+<!-- STATS STRIP -->
+<div class="stats-strip" id="stats-strip">
+  <div class="stat-item">
+    <div class="stat-num" data-target="60" data-prefix="">60</div>
+    <div class="stat-lbl">Min</div>
+  </div>
+  <div class="stat-sep"></div>
+  <div class="stat-item">
+    <div class="stat-num" data-target="72" data-prefix="" data-suffix="%">72%</div>
+    <div class="stat-lbl">You Save</div>
+  </div>
+  <div class="stat-sep"></div>
+  <div class="stat-item">
+    <div class="stat-num" data-target="31" data-prefix="$">$31</div>
+    <div class="stat-lbl">From</div>
+  </div>
+  <div class="stat-sep"></div>
+  <div class="stat-item">
+    <div class="stat-num" data-target="3" data-prefix="">3</div>
+    <div class="stat-lbl">Shows / Week</div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item">🎩 Multiple World-Class Magicians</span>
+    <span class="ticker-item">🏨 V Theater · Planet Hollywood Strip</span>
+    <span class="ticker-item">💰 Save $79 — 72% Off</span>
+    <span class="ticker-item">✨ Rotating Magic Lineup</span>
+    <span class="ticker-item">👨‍👩‍👧 All Ages Welcome</span>
+    <span class="ticker-item">🌵 Spike's Pick · Preferred Section</span>
+    <span class="ticker-item">🎟️ 60 Minutes · No Intermission</span>
+    <span class="ticker-item">📍 Miracle Mile Shops · 4 PM</span>
+    <span class="ticker-item">🎪 Tue · Thu · Sat Every Week</span>
+    <span class="ticker-item">🃏 Stage Illusion · Sleight of Hand</span>
+    <span class="ticker-item">🎩 Multiple World-Class Magicians</span>
+    <span class="ticker-item">🏨 V Theater · Planet Hollywood Strip</span>
+    <span class="ticker-item">💰 Save $79 — 72% Off</span>
+    <span class="ticker-item">✨ Rotating Magic Lineup</span>
+    <span class="ticker-item">👨‍👩‍👧 All Ages Welcome</span>
+    <span class="ticker-item">🌵 Spike's Pick · Preferred Section</span>
+    <span class="ticker-item">🎟️ 60 Minutes · No Intermission</span>
+    <span class="ticker-item">📍 Miracle Mile Shops · 4 PM</span>
+    <span class="ticker-item">🎪 Tue · Thu · Sat Every Week</span>
+    <span class="ticker-item">🃏 Stage Illusion · Sleight of Hand</span>
+  </div>
+</div>
+
+<!-- DOT NAV -->
+<nav class="dot-nav" aria-label="Page sections">
+  <div class="dn-dot active" data-tip="Have You Seen" onclick="document.getElementById('sec-seen').scrollIntoView({behavior:'smooth'})"></div>
+  <div class="dn-dot" data-tip="About" onclick="document.getElementById('sec-about').scrollIntoView({behavior:'smooth'})"></div>
+  <div class="dn-dot" data-tip="Details" onclick="document.getElementById('sec-details').scrollIntoView({behavior:'smooth'})"></div>
+  <div class="dn-dot" data-tip="What to Expect" onclick="document.getElementById('sec-blueprint').scrollIntoView({behavior:'smooth'})"></div>
+  <div class="dn-dot" data-tip="Seating" onclick="document.getElementById('sec-seating').scrollIntoView({behavior:'smooth'})"></div>
+  <div class="dn-dot" data-tip="FAQ" onclick="document.getElementById('sec-faq').scrollIntoView({behavior:'smooth'})"></div>
+</nav>
+
+<!-- SAVE PILL -->
+<a href="https://spotlight.vegas/shows/magic/allstars-of-magic/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="save-pill" id="save-pill">Save $79 → Get Tickets</a>
+
 <div class="page-layout">
 <main class="main-content" role="main">
 
   <!-- HAVE YOU SEEN -->
-  <div class="seen-widget fade-up">
+  <div id="sec-seen" class="seen-widget fade-up">
     <div class="seen-tag">🌵 Spike Wants to Know</div>
     <div class="seen-q">Have you seen Allstars of Magic before?</div>
     <div class="seen-btns">
@@ -404,7 +503,7 @@
   </div>
 
   <!-- ABOUT -->
-  <section class="section fade-up" aria-labelledby="about-heading">
+  <section id="sec-about" class="section fade-up" aria-labelledby="about-heading">
     <h2 id="about-heading" class="section-title">About <span>Allstars of Magic</span></h2>
     <div class="about-body">
       <p>Allstars of Magic puts multiple world-class magicians on the same stage in a single 60-minute afternoon show at the main V Theater inside Miracle Mile Shops. The format is deliberate — each performer does their specialty, back to back, giving the audience a genuine cross-section of what Las Vegas-caliber magic looks like across different disciplines. Close-up, stage illusion, comedy magic, sleight of hand — what's on the bill rotates, which means the show evolves with its lineup.</p>
@@ -413,7 +512,7 @@
         <div class="spike-emoji">🌵</div>
         <div class="spike-text">
           <strong>Spike's Take</strong>
-          $31 for 60 minutes of multiple world-class magicians in a main-floor V Theater showroom at Planet Hollywood. Regular price is $110 — that's a 72% discount, the highest savings ratio in the entire VS magic lineup. Preferred seating is the pick. Main floor center, clear sight lines, right in the heart of the room. All ages, afternoon time slot, easy to build a day around. Tickets are available directly through our link below.
+          $31 for 60 minutes of multiple world-class magicians in a main-floor V Theater showroom at Planet Hollywood. Regular price is $110 — that's a 72% discount, the highest savings ratio in the entire VS magic lineup. Preferred seating is the pick. Main floor center, clear sight lines, right in the heart of the room. All ages, afternoon time slot, easy to build a day around.
         </div>
       </div>
 
@@ -429,14 +528,14 @@
       <h3>Vegas deals straight to your inbox</h3>
       <p>Last-minute discounts, show updates, and the occasional tip from Spike. No spam. Unsubscribe whenever.</p>
       <div class="email-form">
-        <input type="email" id="emailInput" class="email-input" placeholder="your@email.com" aria-label="Email address" />
-        <button id="emailSubmit" class="email-submit" type="button">Subscribe</button>
+        <input type="email" class="email-input" placeholder="your@email.com" aria-label="Email address" />
+        <button class="email-submit" type="button">Subscribe</button>
       </div>
     </div>
   </div>
 
   <!-- SHOW DETAILS -->
-  <section class="section fade-up" aria-labelledby="details-heading">
+  <section id="sec-details" class="section fade-up" aria-labelledby="details-heading">
     <h2 id="details-heading" class="section-title">Show <span>Details</span></h2>
     <div class="details-grid">
       <div class="detail-card">
@@ -479,7 +578,7 @@
   </section>
 
   <!-- WHAT TO EXPECT -->
-  <section class="section fade-up" aria-labelledby="expect-heading">
+  <section id="sec-blueprint" class="section fade-up" aria-labelledby="expect-heading">
     <h2 id="expect-heading" class="section-title">What to <span>Expect</span></h2>
     <div class="expect-grid">
       <div class="expect-card">
@@ -502,7 +601,7 @@
   </section>
 
   <!-- SEATING CHART -->
-  <section class="seating-section fade-up" aria-labelledby="seating-heading">
+  <section id="sec-seating" class="seating-section fade-up" aria-labelledby="seating-heading">
     <h2 id="seating-heading" class="section-title">V Theater <span>Seating Chart</span></h2>
 
     <div class="seating-diagram-wrap">
@@ -520,59 +619,49 @@
           <rect x="200" y="16" width="140" height="28" rx="5" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
           <text x="270" y="33" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" fill="rgba(255,255,255,0.45)" letter-spacing="0.5">SOUND BOOTH</text>
 
-          <!-- ===== GENERAL ADMISSION — teal, rear rows H–L ===== -->
+          <!-- GENERAL ADMISSION -->
           <g class="seat-zone" onclick="selectZone('ga')" tabindex="0" role="button" aria-label="General Admission — click for details">
-            <!-- Left GA block -->
             <rect x="16" y="58" width="104" height="240" rx="6" fill="#3a8a8a" opacity="0.85"/>
             <text x="68" y="176" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="11" fill="white" letter-spacing="1" transform="rotate(-90,68,176)">GENERAL ADMISSION</text>
-            <!-- Center GA upper rows -->
             <rect x="132" y="58" width="276" height="100" rx="6" fill="#3a8a8a" opacity="0.85"/>
             <text x="270" y="114" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="15" fill="white" letter-spacing="1.5">GENERAL ADMISSION</text>
-            <!-- Right GA block -->
             <rect x="420" y="58" width="104" height="240" rx="6" fill="#3a8a8a" opacity="0.85"/>
             <text x="472" y="176" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="11" fill="white" letter-spacing="1" transform="rotate(90,472,176)">GENERAL ADMISSION</text>
           </g>
 
-          <!-- ===== PREFERRED — green, main center rows B–K. Sidekick Pick ===== -->
+          <!-- PREFERRED — Sidekick Pick -->
           <g class="seat-zone" onclick="selectZone('preferred')" tabindex="0" role="button" aria-label="Preferred — Sidekick Pick — click for details">
             <rect x="132" y="168" width="276" height="216" rx="6" fill="#3a8a50" opacity="0.95"/>
             <text x="270" y="272" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="20" fill="white" letter-spacing="2">PREFERRED</text>
             <text x="270" y="292" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="rgba(255,255,255,0.65)" letter-spacing="0.5">Main Theater Seats · Rows B–K</text>
-            <!-- Sidekick Pick badge -->
             <rect x="168" y="308" width="204" height="20" rx="4" fill="rgba(255,107,0,0.28)" stroke="rgba(255,107,0,0.55)" stroke-width="1"/>
             <text x="270" y="321" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" font-weight="600" fill="#ffb380" letter-spacing="0.3">⭐ SIDEKICK PICK</text>
           </g>
 
-          <!-- ===== VIP — gold/yellow, cabaret front arc rows A–C ===== -->
-          <!-- Left VIP arc -->
+          <!-- VIP -->
           <g class="seat-zone" onclick="selectZone('vip')" tabindex="0" role="button" aria-label="VIP Seating — click for details">
             <rect x="60" y="330" width="62" height="100" rx="6" fill="#c8a020" opacity="0.92"/>
             <text x="91" y="379" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="10" fill="white" letter-spacing="0.5" transform="rotate(-90,91,379)">VIP</text>
           </g>
-          <!-- Center VIP front tables -->
           <g class="seat-zone" onclick="selectZone('vip')" tabindex="0" role="button" aria-label="VIP Seating — click for details">
             <rect x="132" y="394" width="276" height="46" rx="6" fill="#c8a020" opacity="0.95"/>
             <text x="270" y="422" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="17" fill="white" letter-spacing="2">VIP SEATING</text>
           </g>
-          <!-- Right VIP arc -->
           <g class="seat-zone" onclick="selectZone('vip')" tabindex="0" role="button" aria-label="VIP Seating — click for details">
             <rect x="418" y="330" width="62" height="100" rx="6" fill="#c8a020" opacity="0.92"/>
             <text x="449" y="379" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="10" fill="white" letter-spacing="0.5" transform="rotate(90,449,379)">VIP</text>
           </g>
 
-          <!-- Entrance -->
           <text x="270" y="10" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" fill="rgba(255,255,255,0.2)" letter-spacing="1">← ENTRANCE</text>
         </svg>
       </div>
 
-      <!-- Legend -->
       <div class="seat-legend">
         <div class="legend-item"><div class="legend-dot" style="background:#c8a020;"></div>VIP · Cabaret Tables · Closest to Stage</div>
         <div class="legend-item"><div class="legend-dot" style="background:#3a8a50;"></div>Preferred · Main Theater Seats ⭐</div>
         <div class="legend-item"><div class="legend-dot" style="background:#3a8a8a;"></div>General Admission · Rear &amp; Sides</div>
       </div>
 
-      <!-- Zone popup -->
       <div class="zone-popup" id="zone-popup">
         <div class="zone-popup-hdr">
           <div class="zone-popup-name" id="zone-name"></div>
@@ -582,7 +671,6 @@
       </div>
     </div>
 
-    <!-- Accordion -->
     <div class="seat-accord">
       <div class="sa-item">
         <button class="sa-hdr" onclick="toggleSA(this)" aria-expanded="false">
@@ -621,7 +709,7 @@
   </section>
 
   <!-- FAQ -->
-  <section class="section fade-up" aria-labelledby="faq-heading">
+  <section id="sec-faq" class="section fade-up" aria-labelledby="faq-heading">
     <h2 id="faq-heading" class="section-title">Frequently <span>Asked</span></h2>
     <div class="faq-list">
 
@@ -630,7 +718,7 @@
           <span class="faq-q-text">Who are the magicians performing?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">The lineup rotates — Allstars of Magic features multiple world-class performers whose specific acts change regularly. Check the current bill before purchasing to see who's on stage for your date. The multi-performer format means the show always features a range of magic styles: the roster changes but the commitment to world-class acts does not.</div>
+        <div class="faq-a"><div class="faq-a-inner">The lineup rotates — Allstars of Magic features multiple world-class performers whose specific acts change regularly. Check the current bill before purchasing to see who's on stage for your date. The multi-performer format means the show always features a range of magic styles: the roster changes but the commitment to world-class acts does not.</div></div>
       </div>
 
       <div class="faq-item">
@@ -638,7 +726,7 @@
           <span class="faq-q-text">Is this the upstairs V Theater or the main floor?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Allstars of Magic performs at the main floor V Theater — not the upstairs V2 showroom. The V Theater inside Miracle Mile Shops runs two different performance spaces. The upstairs V2 hosts Las Vegas LIVE Comedy Club and The Mentalist. Allstars of Magic is on the main floor. When you navigate inside Miracle Mile Shops, stay on the ground level and follow signs to the V Theater rather than taking stairs or escalators up.</div>
+        <div class="faq-a"><div class="faq-a-inner">Allstars of Magic performs at the main floor V Theater — not the upstairs V2 showroom. The V Theater inside Miracle Mile Shops runs two different performance spaces. The upstairs V2 hosts Las Vegas LIVE Comedy Club and The Mentalist. Allstars of Magic is on the main floor. When you navigate inside Miracle Mile Shops, stay on the ground level and follow signs to the V Theater rather than taking stairs or escalators up.</div></div>
       </div>
 
       <div class="faq-item">
@@ -646,7 +734,7 @@
           <span class="faq-q-text">Is this show good for kids?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Yes — Allstars of Magic is one of the most family-friendly magic shows on the Strip. All ages welcome, no restrictions. Children 2 and under sit on a lap at no charge. The multi-performer format and 60-minute runtime work particularly well for younger audiences: no single act overstays its welcome and the variety keeps attention through the full hour. The 4 PM time slot also works well for families who want an afternoon activity before dinner.</div>
+        <div class="faq-a"><div class="faq-a-inner">Yes — Allstars of Magic is one of the most family-friendly magic shows on the Strip. All ages welcome, no restrictions. Children 2 and under sit on a lap at no charge. The multi-performer format and 60-minute runtime work particularly well for younger audiences: no single act overstays its welcome and the variety keeps attention through the full hour. The 4 PM time slot also works well for families who want an afternoon activity before dinner.</div></div>
       </div>
 
       <div class="faq-item">
@@ -654,7 +742,7 @@
           <span class="faq-q-text">How do I find the V Theater inside Miracle Mile Shops?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Enter through Planet Hollywood Resort &amp; Casino at 3663 S Las Vegas Blvd and follow signs through Miracle Mile Shops to the V Theater. Stay on the main floor — Allstars of Magic is at the main V Theater, not the upstairs V2 space. Miracle Mile Shops can be disorienting to navigate. Seating opens 30 minutes before showtime — plan to be at the hotel 45 minutes early so you have time to find the theater, use the restroom, and grab a drink before you sit down.</div>
+        <div class="faq-a"><div class="faq-a-inner">Enter through Planet Hollywood Resort &amp; Casino at 3663 S Las Vegas Blvd and follow signs through Miracle Mile Shops to the V Theater. Stay on the main floor — Allstars of Magic is at the main V Theater, not the upstairs V2 space. Miracle Mile Shops can be disorienting to navigate. Seating opens 30 minutes before showtime — plan to be at the hotel 45 minutes early so you have time to find the theater, use the restroom, and grab a drink before you sit down.</div></div>
       </div>
 
       <div class="faq-item">
@@ -662,7 +750,7 @@
           <span class="faq-q-text">Why does this show only run three days a week?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Allstars of Magic runs Tuesday, Thursday, and Saturday at 4 PM. The V Theater hosts multiple productions — this schedule is built around the venue's programming across its multiple shows. Three performance days per week is consistent and gives you flexibility to plan around. Always verify the current schedule before purchasing.</div>
+        <div class="faq-a"><div class="faq-a-inner">Allstars of Magic runs Tuesday, Thursday, and Saturday at 4 PM. The V Theater hosts multiple productions — this schedule is built around the venue's programming across its multiple shows. Three performance days per week is consistent and gives you flexibility to plan around. Always verify the current schedule before purchasing.</div></div>
       </div>
 
       <div class="faq-item">
@@ -670,7 +758,7 @@
           <span class="faq-q-text">What is the refund and cancellation policy?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Refunds are available for exceptional circumstances such as the unlikely event that a show cancels. Check the full terms and conditions before purchasing.</div>
+        <div class="faq-a"><div class="faq-a-inner">Refunds are available for exceptional circumstances such as the unlikely event that a show cancels. Check the full terms and conditions before purchasing.</div></div>
       </div>
 
     </div>
@@ -712,6 +800,8 @@
 
   <!-- FINAL CTA -->
   <div class="final-cta fade-up">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
     <div class="final-cta-tag">🌵 Vegas Sidekick — Vegas Without the Trauma</div>
     <div class="final-cta-title">Ready to See the Show?</div>
     <div class="final-cta-sub">Allstars of Magic · V Theater at Miracle Mile Shops · Tue · Thu · Sat at 4 PM</div>
@@ -779,34 +869,88 @@
 <script src="/components/footer.js"></script>
 
 <script>
+  /* PROGRESS BAR */
   function updateProgress() {
     const pct = (window.scrollY / Math.max(1, document.documentElement.scrollHeight - window.innerHeight)) * 100;
     const v = Math.min(pct, 100);
     document.getElementById('progress-bar').style.width = v + '%';
-    document.getElementById('progress-bar-bottom').style.width = v + '%';
     const mob = document.getElementById('mob-progress');
     if (mob) mob.style.width = v + '%';
   }
   window.addEventListener('scroll', updateProgress, { passive: true });
 
+  /* SLIDER */
   let cur = 0;
   const slides = document.querySelectorAll('.slide');
   const dots   = document.querySelectorAll('.dot-btn');
   function goToSlide(n) {
-    slides[cur].classList.remove('active'); dots[cur].classList.remove('active'); dots[cur].setAttribute('aria-selected','false');
-    cur = (n + slides.length) % slides.length;
-    slides[cur].classList.add('active'); dots[cur].classList.add('active'); dots[cur].setAttribute('aria-selected','true');
+    requestAnimationFrame(() => {
+      slides[cur].classList.remove('active'); dots[cur].classList.remove('active'); dots[cur].setAttribute('aria-selected','false');
+      cur = (n + slides.length) % slides.length;
+      requestAnimationFrame(() => {
+        slides[cur].classList.add('active'); dots[cur].classList.add('active'); dots[cur].setAttribute('aria-selected','true');
+      });
+    });
   }
   function sliderMove(d) { goToSlide(cur + d); }
   let si = setInterval(() => sliderMove(1), 5000);
   document.querySelector('.slider').addEventListener('mouseenter', () => clearInterval(si));
   document.querySelector('.slider').addEventListener('mouseleave', () => { si = setInterval(() => sliderMove(1), 5000); });
 
+  /* STATS COUNT-UP */
+  function animateStat(el) {
+    const target = +el.dataset.target;
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    const dur = 1800;
+    const start = performance.now();
+    function step(now) {
+      const p = Math.min((now - start) / dur, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = prefix + Math.round(ease * target) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.stat-num[data-target]').forEach(animateStat);
+        statsObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  const statsStrip = document.getElementById('stats-strip');
+  if (statsStrip) statsObserver.observe(statsStrip);
+
+  /* DOT NAV */
+  const dnDots = document.querySelectorAll('.dn-dot');
+  const dnSections = ['sec-seen','sec-about','sec-details','sec-blueprint','sec-seating','sec-faq'].map(id => document.getElementById(id));
+  const dnObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const idx = dnSections.indexOf(e.target);
+        if (idx !== -1) { dnDots.forEach(d => d.classList.remove('active')); dnDots[idx].classList.add('active'); }
+      }
+    });
+  }, { threshold: 0.25 });
+  dnSections.forEach(s => { if (s) dnObserver.observe(s); });
+
+  /* SAVE PILL */
+  const savePill = document.getElementById('save-pill');
+  const heroSection = document.querySelector('.hero');
+  const pillObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => { savePill.classList.toggle('visible', !e.isIntersecting); });
+  }, { threshold: 0 });
+  if (heroSection) pillObserver.observe(heroSection);
+
+  /* HAVE YOU SEEN */
   function showSeen(t) {
     document.querySelectorAll('.seen-resp').forEach(r => r.classList.remove('visible'));
     document.getElementById('seen-' + t).classList.add('visible');
   }
 
+  /* SEATING ZONES */
   const zones = {
     vip: {
       name: 'VIP Seating',
@@ -824,7 +968,6 @@
       desc: 'The rear and side sections of the V Theater — outer left and right blocks plus upper center rows H through L. Furthest from the stage in a proper Las Vegas showroom. Still inside a purpose-built theater watching world-class magic at $31. Sight lines are maintained throughout.'
     }
   };
-
   function selectZone(id) {
     const z = zones[id];
     document.getElementById('zone-name').textContent = z.name;
@@ -835,6 +978,7 @@
     popup.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
+  /* SEATING ACCORDION */
   function toggleSA(btn) {
     const item = btn.closest('.sa-item'), was = item.classList.contains('open');
     document.querySelectorAll('.sa-item').forEach(i => i.classList.remove('open'));
@@ -842,6 +986,7 @@
     if (!was) { item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
   }
 
+  /* FAQ — smooth */
   function toggleFaq(btn) {
     const item = btn.closest('.faq-item'), was = item.classList.contains('open');
     document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
@@ -849,6 +994,7 @@
     if (!was) { item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
   }
 
+  /* FADE UP */
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((e, i) => {
       if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 50); observer.unobserve(e.target); }
@@ -856,26 +1002,24 @@
   }, { threshold: 0.06 });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-  document.getElementById('emailSubmit').addEventListener('click', async function() {
-    const inp = document.getElementById('emailInput');
-    const val = inp.value.trim();
-    if (!val || !val.includes('@') || !val.includes('.')) {
-      inp.style.borderColor = 'rgba(255,107,0,0.5)';
-      inp.placeholder = 'Enter a valid email';
+  /* EMAIL */
+  document.querySelector('.email-submit').addEventListener('click', function() {
+    const inp = document.querySelector('.email-input'), val = inp.value.trim();
+    if (val && val.includes('@') && val.includes('.')) {
+      fetch('https://brevo-subscribe.vegassidekickcom.workers.dev', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: val })
+      }).catch(() => {});
+      inp.value = ''; inp.placeholder = 'You\'re in. Spike will be in touch.';
+      this.textContent = 'Done ✓'; this.style.background = '#16a34a';
+    } else {
+      inp.style.borderColor = 'rgba(255,107,0,0.5)'; inp.placeholder = 'Enter a valid email';
       setTimeout(() => { inp.style.borderColor = ''; inp.placeholder = 'your@email.com'; }, 2500);
-      return;
     }
-    try {
-      await fetch('https://brevo-subscribe.vegassidekickcom.workers.dev', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: val })
-      });
-    } catch(e) {}
-    inp.value = '';
-    inp.placeholder = "You're in. Spike will be in touch.";
-    this.textContent = 'Done ✓';
-    this.style.background = '#16a34a';
   });
 
+  /* KEYBOARD — seating zones */
   document.querySelectorAll('.seat-zone').forEach(z => {
     z.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); z.click(); } });
   });
