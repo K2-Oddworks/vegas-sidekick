@@ -183,6 +183,101 @@
     target.innerHTML = styles + html;
   }
 
+  // Post-affiliate-click deal alert overlay
+  (function() {
+    const STORAGE_KEY = 'vs_deal_alert_captured';
+
+    const overlayHTML = `
+<div id="vs-deal-overlay" role="dialog" aria-modal="true" aria-label="Vegas deal alerts">
+  <div class="vs-deal-backdrop"></div>
+  <div class="vs-deal-card">
+    <button class="vs-deal-close" onclick="vsDealClose()" aria-label="Close">✕</button>
+    <div class="vs-deal-opening">Your tickets are opening now →</div>
+    <div class="vs-deal-headline">Want deal alerts for Vegas shows?</div>
+    <div class="vs-deal-form" id="vsDealForm">
+      <input type="email" class="vs-deal-input" id="vsDealInput" placeholder="your@email.com" autocomplete="email" />
+      <button class="vs-deal-btn" type="button" onclick="vsDealSubmit()">Yes, Send Me Deals</button>
+    </div>
+    <div class="vs-deal-success" id="vsDealSuccess">✅ You're in — Spike's on it.</div>
+    <div class="vs-deal-tagline">Spike finds the discounts. You just show up.</div>
+    <button class="vs-deal-skip" onclick="vsDealClose()">No thanks</button>
+  </div>
+</div>`;
+
+    const overlayStyles = `
+#vs-deal-overlay { position: fixed; inset: 0; z-index: 9000; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.28s ease; }
+#vs-deal-overlay.visible { opacity: 1; pointer-events: auto; }
+.vs-deal-backdrop { position: absolute; inset: 0; background: rgba(6,14,26,0.88); backdrop-filter: blur(5px); cursor: pointer; }
+.vs-deal-card { position: relative; z-index: 1; background: #0A1628; border: 1px solid rgba(255,107,0,0.22); border-top: 3px solid #FF6B00; border-radius: 16px; padding: 36px 32px 28px; max-width: 400px; width: 100%; box-shadow: 0 24px 60px rgba(0,0,0,0.55); transform: translateY(12px); transition: transform 0.28s ease; }
+#vs-deal-overlay.visible .vs-deal-card { transform: translateY(0); }
+.vs-deal-close { position: absolute; top: 14px; right: 16px; background: none; border: none; color: rgba(255,255,255,0.3); font-size: 1rem; cursor: pointer; padding: 4px 6px; line-height: 1; transition: color 0.2s; }
+.vs-deal-close:hover { color: rgba(255,255,255,0.7); }
+.vs-deal-opening { font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; color: #4d90f0; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 12px; }
+.vs-deal-headline { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: #FFFFFF; line-height: 1.05; letter-spacing: 0.03em; margin-bottom: 20px; }
+.vs-deal-form { display: flex; flex-direction: column; gap: 9px; margin-bottom: 14px; }
+.vs-deal-input { padding: 12px 14px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; color: #fff; font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; outline: none; transition: border-color 0.2s; }
+.vs-deal-input:focus { border-color: rgba(255,107,0,0.5); }
+.vs-deal-input::placeholder { color: rgba(255,255,255,0.25); }
+.vs-deal-btn { padding: 13px; background: #FF6B00; color: #fff; font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border: none; border-radius: 8px; cursor: pointer; transition: background 0.2s; }
+.vs-deal-btn:hover { background: #ff8c33; }
+.vs-deal-success { display: none; font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; color: #4ade80; margin-bottom: 14px; }
+.vs-deal-success.visible { display: block; }
+.vs-deal-tagline { font-family: 'IBM Plex Mono', monospace; font-size: 0.67rem; color: rgba(255,255,255,0.32); letter-spacing: 0.04em; margin-bottom: 16px; }
+.vs-deal-skip { background: none; border: none; color: rgba(255,255,255,0.22); font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem; cursor: pointer; text-decoration: underline; padding: 0; transition: color 0.2s; }
+.vs-deal-skip:hover { color: rgba(255,255,255,0.5); }
+@media (max-width: 480px) { .vs-deal-card { padding: 28px 20px 22px; } .vs-deal-headline { font-size: 1.7rem; } }`;
+
+    function init() {
+      if (localStorage.getItem(STORAGE_KEY)) return;
+      document.head.insertAdjacentHTML('beforeend', '<style>' + overlayStyles + '</style>');
+      document.body.insertAdjacentHTML('beforeend', overlayHTML);
+      document.querySelector('.vs-deal-backdrop').addEventListener('click', window.vsDealClose);
+
+      document.addEventListener('click', function(e) {
+        if (localStorage.getItem(STORAGE_KEY)) return;
+        const link = e.target.closest('a[href*="spotlight.vegas"]');
+        if (!link) return;
+        e.preventDefault();
+        window.open(link.href, '_blank', 'noopener,noreferrer');
+        setTimeout(function() {
+          const overlay = document.getElementById('vs-deal-overlay');
+          if (overlay) overlay.classList.add('visible');
+        }, 200);
+      }, true);
+    }
+
+    window.vsDealClose = function() {
+      const overlay = document.getElementById('vs-deal-overlay');
+      if (overlay) { overlay.classList.remove('visible'); }
+    };
+
+    window.vsDealSubmit = async function() {
+      const input = document.getElementById('vsDealInput');
+      const val = input ? input.value.trim() : '';
+      if (!val || !val.includes('@') || !val.includes('.')) {
+        if (input) { input.style.borderColor = 'rgba(255,107,0,0.6)'; setTimeout(() => { input.style.borderColor = ''; }, 2000); }
+        return;
+      }
+      try {
+        await fetch('https://brevo-subscribe.vegassidekickcom.workers.dev', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: val })
+        });
+      } catch(e) { /* silent */ }
+      localStorage.setItem(STORAGE_KEY, '1');
+      const form = document.getElementById('vsDealForm');
+      const success = document.getElementById('vsDealSuccess');
+      if (form) form.style.display = 'none';
+      if (success) success.classList.add('visible');
+      setTimeout(window.vsDealClose, 2200);
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+
   window.vsSubmitEmail = async function(e) {
     e.preventDefault();
     const email = document.getElementById('vsEmailInput').value.trim();
