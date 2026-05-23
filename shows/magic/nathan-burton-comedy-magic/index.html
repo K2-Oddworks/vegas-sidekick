@@ -57,14 +57,7 @@
       },
       "eventSchedule": {
           "@type": "Schedule",
-          "byDay": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Friday",
-              "Saturday",
-              "Sunday"
-          ],
+          "byDay": ["Monday","Tuesday","Wednesday","Friday","Saturday","Sunday"],
           "startTime": "16:00"
       },
       "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode"
@@ -112,13 +105,40 @@
     button { font-family: inherit; cursor: pointer; }
 
     #progress-bar { overflow: hidden; position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--blue), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; }
-    #progress-bar-bottom { position: fixed; bottom: 0; left: 0; right: 0; height: 3px; width: 0%; animation: pb-glow 2s ease-in-out infinite; background: linear-gradient(270deg, var(--blue), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; overflow: hidden; }
-    #progress-bar::after, #progress-bar-bottom::after { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%); animation: pb-shimmer 2.2s linear infinite; }
+    #progress-bar::after { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%); animation: pb-shimmer 2.2s linear infinite; }
     @keyframes pb-shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
-    @keyframes pb-glow { 0%, 100% { box-shadow: 0 0 3px rgba(255,255,255,0.15); } 50% { box-shadow: 0 0 10px rgba(255,255,255,0.5), 0 0 3px rgba(255,255,255,0.2); } }
-    @media (max-width: 940px) { #progress-bar-bottom { bottom: 72px; } }
-    @keyframes pb-shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
-    @keyframes pb-glow { 0%, 100% { box-shadow: 0 0 3px rgba(255,255,255,0.15); } 50% { box-shadow: 0 0 10px rgba(255,255,255,0.5), 0 0 3px rgba(255,255,255,0.2); } }
+
+    /* STATS STRIP */
+    .stats-strip { background: var(--navy); border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .stats-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); }
+    .stat-cell { padding: 18px 24px; border-right: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; align-items: center; gap: 3px; }
+    .stat-cell:last-child { border-right: none; }
+    .stat-num { font-family: var(--font-price); font-size: 2.2rem; font-weight: 800; color: var(--orange); line-height: 1; margin-bottom: 3px; }
+    .stat-lbl { font-family: var(--font-mono); font-size: 0.6rem; color: rgba(255,255,255,0.38); letter-spacing: 0.07em; text-transform: uppercase; }
+    @media (max-width: 600px) { .stats-inner { grid-template-columns: repeat(2,1fr); } .stat-cell:nth-child(2) { border-right: none; } }
+
+    /* TICKER */
+    .ticker-wrap { background: var(--blue); overflow: hidden; padding: 9px 0; cursor: default; user-select: none; }
+    .ticker-track { display: flex; width: max-content; animation: ticker-scroll 38s linear infinite; }
+    .ticker-track:hover { animation-play-state: paused; }
+    .ticker-item { display: flex; align-items: center; gap: 7px; padding: 0 28px; font-family: var(--font-mono); font-size: 0.72rem; color: rgba(255,255,255,0.88); white-space: nowrap; letter-spacing: 0.03em; }
+    .ticker-sep { color: rgba(255,255,255,0.3); font-size: 0.55rem; }
+    @keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* DOT NAV */
+    .dot-nav { position: fixed; right: 18px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 800; }
+    .dn-dot { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,0.18); border: 1.5px solid rgba(255,255,255,0.28); transition: background 0.25s, border-color 0.25s, transform 0.25s; cursor: pointer; position: relative; }
+    .dn-dot.active { background: var(--orange); border-color: var(--orange); transform: scale(1.35); }
+    .dn-dot[data-tip]::after { content: attr(data-tip); position: absolute; right: calc(100% + 10px); top: 50%; transform: translateY(-50%); background: rgba(10,22,40,0.92); color: rgba(255,255,255,0.85); font-family: var(--font-mono); font-size: 0.6rem; white-space: nowrap; padding: 3px 8px; border-radius: 4px; letter-spacing: 0.03em; pointer-events: none; opacity: 0; transition: opacity 0.2s; }
+    .dn-dot:hover::after { opacity: 1; }
+    @media (max-width: 940px) { .dot-nav { display: none; } }
+
+    /* SAVE PILL */
+    .save-pill { position: fixed; top: 72px; right: 18px; z-index: 810; opacity: 0; transform: translateY(-8px); transition: opacity 0.35s, transform 0.35s; pointer-events: none; }
+    .save-pill.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .save-pill a { display: flex; align-items: center; gap: 7px; padding: 8px 16px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.88rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; border-radius: 100px; box-shadow: 0 4px 18px rgba(255,107,0,0.38); white-space: nowrap; transition: background 0.2s; }
+    .save-pill a:hover { background: var(--orange-lt); }
+    @media (max-width: 940px) { .save-pill { display: none; } }
 
     .hero { background: var(--navy); padding-top: 84px; }
     .breadcrumb { padding: 12px 24px; background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.05); font-family: var(--font-mono); font-size: 0.67rem; color: rgba(255,255,255,0.36); letter-spacing: 0.04em; }
@@ -126,11 +146,13 @@
     .breadcrumb a:hover { color: var(--orange); }
     .breadcrumb span { color: rgba(255,255,255,0.7); }
 
-    /* SLIDER — 3 photos only */
+    /* SLIDER */
     .slider { position: relative; width: 100%; aspect-ratio: 16/9; max-height: 480px; overflow: hidden; background: var(--navy-mid); }
     .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.65s ease; }
     .slide.active { opacity: 1; }
     .slide img { width: 100%; height: 100%; object-fit: cover; }
+    .slide.active img { animation: kenBurns 9s ease-in-out forwards; }
+    @keyframes kenBurns { 0% { transform: scale(1) translate(0,0); } 100% { transform: scale(1.07) translate(-1%,-.5%); } }
     .slider-dots { position: absolute; bottom: 13px; left: 50%; transform: translateX(-50%); display: flex; gap: 7px; z-index: 3; }
     .dot-btn { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.28); border: none; padding: 0; transition: background 0.2s, transform 0.2s; }
     .dot-btn.active { background: var(--orange); transform: scale(1.4); }
@@ -273,6 +295,7 @@
     .sa-body { display: none; padding: 12px 16px; background: var(--off-white); border-top: 1px solid var(--gray-200); font-size: 0.82rem; color: var(--text-muted); line-height: 1.64; }
     .sa-item.open .sa-body { display: block; }
 
+    /* SMOOTH FAQ */
     .faq-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 50px; }
     .faq-item { border: 1px solid var(--gray-200); border-radius: var(--radius-sm); overflow: hidden; }
     .faq-q { display: flex; align-items: center; justify-content: space-between; padding: 15px 17px; background: white; border: none; width: 100%; text-align: left; transition: background 0.2s; }
@@ -280,8 +303,9 @@
     .faq-q-text { font-family: var(--font-price); font-size: 0.92rem; font-weight: 700; color: var(--navy); letter-spacing: 0.02em; }
     .faq-icon { color: var(--blue); font-size: 1.22rem; transition: transform 0.28s; flex-shrink: 0; margin-left: 10px; font-weight: 300; line-height: 1; }
     .faq-item.open .faq-icon { transform: rotate(45deg); }
-    .faq-a { display: none; padding: 12px 17px; background: var(--off-white); border-top: 1px solid var(--gray-200); font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; }
-    .faq-item.open .faq-a { display: block; }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; background: var(--off-white); border-top: 0px solid var(--gray-200); }
+    .faq-item.open .faq-a { max-height: 320px; border-top-width: 1px; }
+    .faq-a-inner { padding: 12px 17px; font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; }
 
     .also-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 50px; }
     .also-card { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; transition: box-shadow 0.2s, transform 0.2s; }
@@ -296,13 +320,16 @@
 
     .final-cta { background: var(--navy); padding: 50px 32px; border-radius: var(--radius-lg); text-align: center; margin-bottom: 50px; position: relative; overflow: hidden; }
     .final-cta::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--blue), var(--orange)); }
-    .final-cta-tag { font-family: var(--font-mono); font-size: 0.64rem; color: var(--blue-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
-    .final-cta-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.1rem); color: white; line-height: 1; margin-bottom: 9px; }
-    .final-cta-sub { font-size: 0.88rem; color: rgba(255,255,255,0.42); margin-bottom: 22px; }
-    .final-cta-amount { font-family: var(--font-price); font-size: 3.3rem; font-weight: 800; color: var(--orange); line-height: 1; margin-bottom: 20px; }
-    .final-cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 15px 42px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.18rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); transition: all 0.2s; border: none; }
+    .cta-orb { position: absolute; border-radius: 50%; filter: blur(52px); pointer-events: none; }
+    .cta-orb-1 { width: 280px; height: 280px; background: rgba(255,107,0,0.10); top: -60px; right: -60px; }
+    .cta-orb-2 { width: 220px; height: 220px; background: rgba(26,107,221,0.10); bottom: -50px; left: -50px; }
+    .final-cta-tag { font-family: var(--font-mono); font-size: 0.64rem; color: var(--blue-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; position: relative; }
+    .final-cta-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.1rem); color: white; line-height: 1; margin-bottom: 9px; position: relative; }
+    .final-cta-sub { font-size: 0.88rem; color: rgba(255,255,255,0.42); margin-bottom: 22px; position: relative; }
+    .final-cta-amount { font-family: var(--font-price); font-size: 3.3rem; font-weight: 800; color: var(--orange); line-height: 1; margin-bottom: 20px; position: relative; }
+    .final-cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 15px 42px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.18rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); transition: all 0.2s; border: none; position: relative; }
     .final-cta-btn:hover { background: var(--orange-lt); transform: translateY(-2px); }
-    .final-cta-note { font-family: var(--font-mono); font-size: 0.61rem; color: rgba(255,255,255,0.25); margin-top: 13px; }
+    .final-cta-note { font-family: var(--font-mono); font-size: 0.61rem; color: rgba(255,255,255,0.25); margin-top: 13px; position: relative; }
     .final-cta-note a { color: rgba(255,255,255,0.4); text-decoration: underline; }
 
     .mobile-sticky { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--navy); z-index: 1000; padding: 10px 16px 14px; box-shadow: 0 -4px 22px rgba(0,0,0,0.28); }
@@ -332,15 +359,16 @@
       .email-form { flex-direction: column; }
       .price-strip { flex-direction: column; align-items: flex-start; gap: 13px; }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; }
+    }
   </style>
 </head>
 <body>
 
 <div id="progress-bar" aria-hidden="true"></div>
-<div id="progress-bar-bottom" aria-hidden="true"></div>
-
 <div id="vs-header"></div>
-<script src="/components/header.js"></script>
 
 <section class="hero" aria-label="Show hero">
   <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -399,11 +427,74 @@
   </div>
 </section>
 
+<!-- STATS STRIP -->
+<div class="stats-strip" aria-hidden="true">
+  <div class="stats-inner">
+    <div class="stat-cell">
+      <div class="stat-num" data-target="70" data-suffix=" Min">70 Min</div>
+      <div class="stat-lbl">Duration</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num" data-prefix="$" data-target="28">$28</div>
+      <div class="stat-lbl">From</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num" data-target="6" data-suffix=" Days/Wk">6 Days/Wk</div>
+      <div class="stat-lbl">Schedule</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">All Ages</div>
+      <div class="stat-lbl">Age Req</div>
+    </div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-track">
+    <div class="ticker-item">🎩 America's Got Talent Fan Favorite</div><div class="ticker-sep">✦</div>
+    <div class="ticker-item">🏨 FlyOver Las Vegas · Center Strip</div><div class="ticker-sep">✦</div>
+    <div class="ticker-item">💰 From $28 · No Hidden Fees</div><div class="ticker-sep">✦</div>
+    <div class="ticker-item">⭐ On the Strip Since 2001</div><div class="ticker-sep">✦</div>
+    <div class="ticker-item">🌵 Purpose-Built Magic Theater</div><div class="ticker-sep">✦</div>
+    <div class="ticker-item">🎟️ All Ages · Kids Welcome</div><div class="ticker-sep">✦</div>
+    <div class="ticker-item">📍 Between Hard Rock Cafe &amp; Ross</div><div class="ticker-sep">✦</div>
+    <div class="ticker-item">🤝 Meet Nathan After Every Show</div><div class="ticker-sep">✦</div>
+    <div class="ticker-item">✨ Large Illusions + Close-Up Magic</div><div class="ticker-sep">✦</div>
+    <div class="ticker-item">🎭 70 Minutes · No Intermission</div><div class="ticker-sep">✦</div>
+    <div class="ticker-item">🎩 America's Got Talent Fan Favorite</div><div class="ticker-sep">✦</div>
+    <div class="ticker-item">🏨 FlyOver Las Vegas · Center Strip</div><div class="ticker-sep">✦</div>
+    <div class="ticker-item">💰 From $28 · No Hidden Fees</div><div class="ticker-sep">✦</div>
+    <div class="ticker-item">⭐ On the Strip Since 2001</div><div class="ticker-sep">✦</div>
+    <div class="ticker-item">🌵 Purpose-Built Magic Theater</div><div class="ticker-sep">✦</div>
+    <div class="ticker-item">🎟️ All Ages · Kids Welcome</div><div class="ticker-sep">✦</div>
+    <div class="ticker-item">📍 Between Hard Rock Cafe &amp; Ross</div><div class="ticker-sep">✦</div>
+    <div class="ticker-item">🤝 Meet Nathan After Every Show</div><div class="ticker-sep">✦</div>
+    <div class="ticker-item">✨ Large Illusions + Close-Up Magic</div><div class="ticker-sep">✦</div>
+    <div class="ticker-item">🎭 70 Minutes · No Intermission</div><div class="ticker-sep">✦</div>
+  </div>
+</div>
+
+<!-- DOT NAV -->
+<nav class="dot-nav" aria-label="Page sections">
+  <div class="dn-dot" data-tip="Have You Seen It?" onclick="document.getElementById('sec-seen').scrollIntoView({behavior:'smooth'})"></div>
+  <div class="dn-dot" data-tip="About" onclick="document.getElementById('sec-about').scrollIntoView({behavior:'smooth'})"></div>
+  <div class="dn-dot" data-tip="Show Details" onclick="document.getElementById('sec-details').scrollIntoView({behavior:'smooth'})"></div>
+  <div class="dn-dot" data-tip="What to Expect" onclick="document.getElementById('sec-blueprint').scrollIntoView({behavior:'smooth'})"></div>
+  <div class="dn-dot" data-tip="Seating" onclick="document.getElementById('sec-seating').scrollIntoView({behavior:'smooth'})"></div>
+  <div class="dn-dot" data-tip="FAQ" onclick="document.getElementById('sec-faq').scrollIntoView({behavior:'smooth'})"></div>
+</nav>
+
+<!-- SAVE PILL -->
+<div class="save-pill" id="save-pill" aria-hidden="true">
+  <a href="https://spotlight.vegas/shows/magic/nathan-burton-comedy-magic/ref/vegassidekick" target="_blank" rel="noopener sponsored">From $28 → Get Tickets</a>
+</div>
+
 <div class="page-layout">
 <main class="main-content" role="main">
 
   <!-- HAVE YOU SEEN -->
-  <div class="seen-widget fade-up">
+  <div class="seen-widget fade-up" id="sec-seen">
     <div class="seen-tag">🌵 Spike Wants to Know</div>
     <div class="seen-q">Have you seen Nathan Burton before?</div>
     <div class="seen-btns">
@@ -429,7 +520,7 @@
   </div>
 
   <!-- ABOUT -->
-  <section class="section fade-up" aria-labelledby="about-heading">
+  <section class="section fade-up" id="sec-about" aria-labelledby="about-heading">
     <h2 id="about-heading" class="section-title">About <span>Nathan Burton Comedy Magic</span></h2>
     <div class="about-body">
       <p>Nathan Burton has been headlining on the Las Vegas Strip since 2001. That's more than two decades of nightly performances — a track record that doesn't happen without a show worth coming back to. Multiple seasons on America's Got Talent gave him a national profile, but the performance that had an estimated 1.4 billion viewers watching was a live appearance on China's Got Talent. The Strip career came first, and it's what's kept him here. Now he performs in his own purpose-built theater inside FlyOver Las Vegas, between Hard Rock Cafe and Ross on the Strip.</p>
@@ -461,7 +552,7 @@
   </div>
 
   <!-- SHOW DETAILS -->
-  <section class="section fade-up" aria-labelledby="details-heading">
+  <section class="section fade-up" id="sec-details" aria-labelledby="details-heading">
     <h2 id="details-heading" class="section-title">Show <span>Details</span></h2>
     <div class="details-grid">
       <div class="detail-card">
@@ -504,7 +595,7 @@
   </section>
 
   <!-- WHAT TO EXPECT -->
-  <section class="section fade-up" aria-labelledby="expect-heading">
+  <section class="section fade-up" id="sec-blueprint" aria-labelledby="expect-heading">
     <h2 id="expect-heading" class="section-title">What to <span>Expect</span></h2>
     <div class="expect-grid">
       <div class="expect-card">
@@ -527,7 +618,7 @@
   </section>
 
   <!-- SEATING CHART -->
-  <section class="seating-section fade-up" aria-labelledby="seating-heading">
+  <section class="seating-section fade-up" id="sec-seating" aria-labelledby="seating-heading">
     <h2 id="seating-heading" class="section-title">Nathan Burton Theater <span>Seating Chart</span></h2>
 
     <div class="seating-diagram-wrap">
@@ -653,7 +744,7 @@
   </section>
 
   <!-- FAQ -->
-  <section class="section fade-up" aria-labelledby="faq-heading">
+  <section class="section fade-up" id="sec-faq" aria-labelledby="faq-heading">
     <h2 id="faq-heading" class="section-title">Frequently <span>Asked</span></h2>
     <div class="faq-list">
 
@@ -662,7 +753,7 @@
           <span class="faq-q-text">Is this show good for kids?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Yes — Nathan Burton Comedy Magic is one of the best family magic shows on the Strip. All ages welcome, no age restrictions, and children 2 and under sit on a lap for free. The comedy and magic combination works on every age in the room simultaneously, and Nathan stays after the show to meet the audience and take photos. For families with young children, that post-show meet-and-greet tends to be a highlight.</div>
+        <div class="faq-a"><div class="faq-a-inner">Yes — Nathan Burton Comedy Magic is one of the best family magic shows on the Strip. All ages welcome, no age restrictions, and children 2 and under sit on a lap for free. The comedy and magic combination works on every age in the room simultaneously, and Nathan stays after the show to meet the audience and take photos. For families with young children, that post-show meet-and-greet tends to be a highlight.</div></div>
       </div>
 
       <div class="faq-item">
@@ -670,7 +761,7 @@
           <span class="faq-q-text">Can I take photos during the show?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Still photos may be welcome as long as they don't interfere with the show or other guests — check with your usher before shooting. Flash photography is strictly prohibited. Video recording is not permitted. If an usher asks you to stop, put the phone away. Nathan does meet the audience after the show, so there will be a clear opportunity for photos then.</div>
+        <div class="faq-a"><div class="faq-a-inner">Still photos may be welcome as long as they don't interfere with the show or other guests — check with your usher before shooting. Flash photography is strictly prohibited. Video recording is not permitted. If an usher asks you to stop, put the phone away. Nathan does meet the audience after the show, so there will be a clear opportunity for photos then.</div></div>
       </div>
 
       <div class="faq-item">
@@ -678,7 +769,7 @@
           <span class="faq-q-text">Where exactly is the Nathan Burton Theater?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">The Nathan Burton Theater is located inside FlyOver Las Vegas at 3771 S Las Vegas Blvd, Suite 160 — between Hard Rock Cafe and Ross Dress for Less on the Strip. Enter through the FlyOver Las Vegas entrance on the Strip; the theater is just inside. Note that the show no longer performs at Planet Hollywood — some older listings may still show that address. Paid self-parking is available in the garage off Las Vegas Boulevard.</div>
+        <div class="faq-a"><div class="faq-a-inner">The Nathan Burton Theater is located inside FlyOver Las Vegas at 3771 S Las Vegas Blvd, Suite 160 — between Hard Rock Cafe and Ross Dress for Less on the Strip. Enter through the FlyOver Las Vegas entrance on the Strip; the theater is just inside. Note that the show no longer performs at Planet Hollywood — some older listings may still show that address. Paid self-parking is available in the garage off Las Vegas Boulevard.</div></div>
       </div>
 
       <div class="faq-item">
@@ -686,7 +777,7 @@
           <span class="faq-q-text">Does Nathan Burton perform every day?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">The show performs Monday, Tuesday, Wednesday, Friday, Saturday, and Sunday at 4:00 PM. The show is dark on Thursdays. Always verify the current schedule before purchasing.</div>
+        <div class="faq-a"><div class="faq-a-inner">The show performs Monday, Tuesday, Wednesday, Friday, Saturday, and Sunday at 4:00 PM. The show is dark on Thursdays. Always verify the current schedule before purchasing.</div></div>
       </div>
 
       <div class="faq-item">
@@ -694,7 +785,7 @@
           <span class="faq-q-text">How important is it to arrive early?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Arriving at least 30 minutes before showtime is recommended. Your seat may be given away to walk-up guests if you haven't arrived by showtime — this is standard policy at the Nathan Burton Theater. The FlyOver building is easy to find on the Strip, so give yourself enough time to park or get dropped off and get settled in your section before the show starts.</div>
+        <div class="faq-a"><div class="faq-a-inner">Arriving at least 30 minutes before showtime is recommended. Your seat may be given away to walk-up guests if you haven't arrived by showtime — this is standard policy at the Nathan Burton Theater. The FlyOver building is easy to find on the Strip, so give yourself enough time to park or get dropped off and get settled in your section before the show starts.</div></div>
       </div>
 
       <div class="faq-item">
@@ -702,7 +793,7 @@
           <span class="faq-q-text">What is the refund and cancellation policy?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">Refunds are available for exceptional circumstances such as the unlikely event that a show cancels. Check the full terms and conditions before purchasing.</div>
+        <div class="faq-a"><div class="faq-a-inner">Refunds are available for exceptional circumstances such as the unlikely event that a show cancels. Check the full terms and conditions before purchasing.</div></div>
       </div>
 
     </div>
@@ -744,6 +835,8 @@
 
   <!-- FINAL CTA -->
   <div class="final-cta fade-up">
+    <div class="cta-orb cta-orb-1"></div>
+    <div class="cta-orb cta-orb-2"></div>
     <div class="final-cta-tag">🌵 Vegas Sidekick — Vegas Without the Trauma</div>
     <div class="final-cta-title">Ready to See the Show?</div>
     <div class="final-cta-sub">Nathan Burton Comedy Magic · Nathan Burton Theater at FlyOver Las Vegas · Mon · Tue · Wed · Fri · Sat · Sun at 4 PM</div>
@@ -806,26 +899,31 @@
 </div>
 
 <div id="vs-footer"></div>
+<script src="/components/header.js"></script>
 <script src="/components/footer.js"></script>
 
 <script>
+  /* Progress bar */
   function updateProgress() {
     const pct = (window.pageYOffset / Math.max(1, document.documentElement.scrollHeight - window.innerHeight)) * 100;
     const v = Math.min(pct, 100);
     document.getElementById('progress-bar').style.width = v + '%';
-    document.getElementById('progress-bar-bottom').style.width = v + '%';
     const mob = document.getElementById('mob-progress');
     if (mob) mob.style.width = v + '%';
   }
   window.addEventListener('scroll', updateProgress, { passive: true });
 
+  /* Slider with rAF double-frame Ken Burns restart */
   let cur = 0;
   const slides = document.querySelectorAll('.slide');
   const dots   = document.querySelectorAll('.dot-btn');
   function goToSlide(n) {
     slides[cur].classList.remove('active'); dots[cur].classList.remove('active'); dots[cur].setAttribute('aria-selected','false');
     cur = (n + slides.length) % slides.length;
-    slides[cur].classList.add('active'); dots[cur].classList.add('active'); dots[cur].setAttribute('aria-selected','true');
+    requestAnimationFrame(() => {
+      slides[cur].classList.remove('active');
+      requestAnimationFrame(() => { slides[cur].classList.add('active'); dots[cur].classList.add('active'); dots[cur].setAttribute('aria-selected','true'); });
+    });
   }
   function sliderMove(d) { goToSlide(cur + d); }
   let si = setInterval(() => sliderMove(1), 5000);
@@ -833,11 +931,13 @@
   sliderEl.addEventListener('mouseenter', () => clearInterval(si));
   sliderEl.addEventListener('mouseleave', () => { si = setInterval(() => sliderMove(1), 5000); });
 
+  /* Seen widget */
   function showSeen(t) {
     document.querySelectorAll('.seen-resp').forEach(r => r.classList.remove('visible'));
     document.getElementById('seen-' + t).classList.add('visible');
   }
 
+  /* Seating zones */
   const zones = {
     couches: {
       name: 'VIP Couches',
@@ -878,6 +978,7 @@
     if (!was) { item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
   }
 
+  /* Smooth FAQ */
   function toggleFaq(btn) {
     const item = btn.closest('.faq-item'), was = item.classList.contains('open');
     document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
@@ -885,6 +986,7 @@
     if (!was) { item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
   }
 
+  /* Fade-up observer */
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((e, i) => {
       if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 50); observer.unobserve(e.target); }
@@ -892,9 +994,55 @@
   }, { threshold: 0.06 });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
+  /* Stats count-up */
+  function animateStat(el) {
+    const target = +el.dataset.target, prefix = el.dataset.prefix || '', suffix = el.dataset.suffix || '';
+    const duration = 1400, start = performance.now();
+    function step(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = prefix + Math.round(ease * target) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  const statObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.stat-num[data-target]').forEach(animateStat);
+        statObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  const stripEl = document.querySelector('.stats-strip');
+  if (stripEl) statObs.observe(stripEl);
+
+  /* Dot nav section tracking */
+  const secIds = ['sec-seen','sec-about','sec-details','sec-blueprint','sec-seating','sec-faq'];
+  const dnDots = document.querySelectorAll('.dn-dot');
+  const secObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const idx = secIds.indexOf(e.target.id);
+        if (idx !== -1) { dnDots.forEach(d => d.classList.remove('active')); dnDots[idx].classList.add('active'); }
+      }
+    });
+  }, { threshold: 0.3 });
+  secIds.forEach(id => { const el = document.getElementById(id); if (el) secObs.observe(el); });
+
+  /* Save pill visibility */
+  const pillObs = new IntersectionObserver((entries) => {
+    document.getElementById('save-pill').classList.toggle('visible', !entries[0].isIntersecting);
+  }, { threshold: 0 });
+  pillObs.observe(document.querySelector('.hero'));
+
+  /* Email signup — Brevo */
   document.querySelector('.email-submit').addEventListener('click', function() {
     const inp = document.querySelector('.email-input'), val = inp.value.trim();
     if (val && val.includes('@') && val.includes('.')) {
+      fetch('https://brevo-subscribe.vegassidekickcom.workers.dev', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: val })
+      }).catch(() => {});
       inp.value = ''; inp.placeholder = 'You\'re in. Spike will be in touch.';
       this.textContent = 'Done ✓'; this.style.background = '#16a34a';
     } else {
@@ -903,6 +1051,7 @@
     }
   });
 
+  /* Seat zone keyboard */
   document.querySelectorAll('.seat-zone').forEach(z => {
     z.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); z.click(); } });
   });
