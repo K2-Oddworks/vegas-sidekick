@@ -1,2 +1,4 @@
-/admin /admin/index.html 200 
+/admin /admin/index.html 200
 /admin/ /admin/index.html 200
+/favicon.png /favicon.svg 200
+/favicon.ico /favicon.svg 200
