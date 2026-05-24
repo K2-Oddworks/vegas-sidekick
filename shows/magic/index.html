@@ -159,9 +159,10 @@
     .cmp-col-cta { display: block; width: 100%; padding: 12px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.93rem; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; text-align: center; border-radius: var(--radius-sm); border: none; transition: background 0.2s; margin-top: 16px; }
     .cmp-col-cta:hover { background: var(--orange-lt); }
     @media (max-width: 680px) {
-      .cmp-cols.c2, .cmp-cols.c3 { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+      .cmp-panel { overflow: hidden; }
+      .cmp-cols.c2, .cmp-cols.c3 { display: flex; flex: none; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; max-height: calc(90vh - 68px); }
       .cmp-cols.c2::-webkit-scrollbar, .cmp-cols.c3::-webkit-scrollbar { display: none; }
-      .cmp-col { min-width: 82vw; flex-shrink: 0; scroll-snap-align: start; border-right: 1px solid var(--border); border-bottom: none; }
+      .cmp-col { flex: 0 0 calc(100vw - 32px); scroll-snap-align: start; border-right: 1px solid var(--border); border-bottom: none; overflow-y: auto; max-height: calc(90vh - 68px); }
       .cmp-col:last-child { border-right: none; }
     }
 
