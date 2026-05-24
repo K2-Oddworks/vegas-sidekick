@@ -160,11 +160,20 @@
     .cmp-col-cta:hover { background: var(--orange-lt); }
     @media (max-width: 680px) {
       .cmp-panel { overflow: hidden; }
-      .cmp-cols.c2, .cmp-cols.c3 { display: flex; flex: none; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; max-height: calc(90vh - 68px); }
+      .cmp-cols.c2, .cmp-cols.c3 { display: flex; flex: none; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; max-height: calc(90vh - 84px); }
       .cmp-cols.c2::-webkit-scrollbar, .cmp-cols.c3::-webkit-scrollbar { display: none; }
-      .cmp-col { flex: 0 0 calc(100vw - 32px); scroll-snap-align: start; border-right: 1px solid var(--border); border-bottom: none; overflow-y: auto; max-height: calc(90vh - 68px); }
+      .cmp-col { flex: 0 0 calc(100vw - 32px); scroll-snap-align: start; border-right: 1px solid var(--border); border-bottom: none; overflow-y: auto; max-height: calc(90vh - 84px); }
       .cmp-col:last-child { border-right: none; }
     }
+    /* SWIPE HINT */
+    .cmp-swipe-hint { display: none; font-family: var(--font-mono); font-size: 0.6rem; color: var(--muted); letter-spacing: 0.02em; align-items: center; gap: 6px; margin-top: 3px; }
+    @media (max-width: 680px) { .cmp-swipe-hint { display: flex; } }
+    .cmp-swipe-hint.hidden { display: none !important; }
+    .swipe-arr { display: inline-block; font-size: 0.78rem; }
+    .swipe-arr-l { animation: nudgeL 1.4s ease-in-out infinite; }
+    .swipe-arr-r { animation: nudgeR 1.4s ease-in-out infinite; }
+    @keyframes nudgeL { 0%,100%{transform:translateX(0)} 50%{transform:translateX(-5px)} }
+    @keyframes nudgeR { 0%,100%{transform:translateX(0)} 50%{transform:translateX(5px)} }
 
     /* CATEGORY DESCRIPTION */
     .cat-desc { background: var(--white); border-top: 1px solid var(--border); padding: 52px 24px 60px; }
@@ -268,7 +277,10 @@
   <div class="cmp-backdrop" onclick="closeCompare()"></div>
   <div class="cmp-panel">
     <div class="cmp-header">
-      <div class="cmp-title">Side by Side</div>
+      <div>
+        <div class="cmp-title">Side by Side</div>
+        <div class="cmp-swipe-hint" id="cmp-swipe-hint"><span class="swipe-arr swipe-arr-l">←</span> swipe to compare <span class="swipe-arr swipe-arr-r">→</span></div>
+      </div>
       <button class="cmp-close" onclick="closeCompare()">✕ Close</button>
     </div>
     <div class="cmp-cols" id="cmp-cols"></div>
@@ -396,11 +408,24 @@ function openCompare() {
     </div>`).join('');
   document.getElementById('cmp-modal').classList.add('visible');
   document.body.style.overflow = 'hidden';
+  const hint = document.getElementById('cmp-swipe-hint');
+  if (hint) {
+    hint.classList.remove('hidden');
+    if (shows.length > 1) {
+      document.getElementById('cmp-cols').addEventListener('scroll', function() {
+        hint.classList.add('hidden');
+      }, { once: true });
+    } else {
+      hint.classList.add('hidden');
+    }
+  }
 }
 
 function closeCompare() {
   document.getElementById('cmp-modal').classList.remove('visible');
   document.body.style.overflow = '';
+  const hint = document.getElementById('cmp-swipe-hint');
+  if (hint) hint.classList.remove('hidden');
 }
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCompare(); });

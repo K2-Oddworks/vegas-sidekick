@@ -2,296 +2,440 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" href="/favicon.png" type="image/png" />
-  <link rel="shortcut icon" href="/favicon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Las Vegas Adult Shows — Tickets 2026 | Vegas Sidekick</title>
-  <meta name="description" content="Las Vegas adult entertainment shows — Rouge at The STRAT Theater. Topless production shows 18+ only. Real prices, no hidden fees. Book tickets direct." />
+  <title>Las Vegas Adult Shows 2026 — Tickets & Prices | Vegas Sidekick</title>
+  <meta name="description" content="Browse Las Vegas 18+ adult shows — Absinthe at Caesars Palace, Rouge at The STRAT. Compare prices, venues, and details. Real discounts, instant delivery, no hidden fees." />
   <link rel="canonical" href="https://vegassidekick.com/shows/adult/" />
+  <link rel="icon" href="/favicon.png" type="image/png" />
+  <meta property="og:title" content="Las Vegas Adult Shows 2026 | Vegas Sidekick" />
+  <meta property="og:description" content="2 adult shows. Real prices. No guesswork. Compare and book in seconds." />
+  <meta property="og:url" content="https://vegassidekick.com/shows/adult/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Vegas Sidekick" />
+  <meta name="twitter:card" content="summary_large_image" />
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": "Las Vegas Adult Shows",
-    "description": "Adult entertainment shows currently running in Las Vegas. Ages 18+ only.",
-    "url": "https://vegassidekick.com/shows/adult/",
-    "numberOfItems": 2,
+    "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Rouge",    "url": "https://vegassidekick.com/shows/adult/rouge/" },
-      { "@type": "ListItem", "position": 2, "name": "Absinthe", "url": "https://vegassidekick.com/shows/adult/absinthe/" }
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://vegassidekick.com/"},
+      {"@type": "ListItem", "position": 2, "name": "Adult Shows", "item": "https://vegassidekick.com/shows/adult/"}
     ]
   }
   </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,600;0,700;1,400&family=Barlow+Condensed:wght@700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --navy: #0A1628; --navy-mid: #0f1e38;
-      --blue: #1A7FE8; --blue-bright: #1A6BDD; --blue-lt: #4d90f0;
-      --orange: #FF6B00; --orange-lt: #FF8C2A;
-      --red: #CC1A1A; --red-lt: #E02020;
-      --white: #FFFFFF; --off-white: #F7F9FC;
-      --gray-100: #F1F4F9; --gray-200: #E2E8F2; --gray-400: #94A3B8;
-      --blue-card: #EEF4FF; --blue-border: #C3D9F8;
-      --border: #E2E8F0; --text: #1A2236; --subtext: #4A5568;
-      --sidebar-w: 300px;
-      --radius: 12px; --radius-sm: 8px; --radius-lg: 20px;
-      --shadow: 0 4px 20px rgba(0,0,0,0.09);
-      --shadow-lg: 0 12px 40px rgba(0,0,0,0.15);
+      --navy:      #0A1628;
+      --blue:      #1A6BDD;
+      --blue-lt:   #4d90f0;
+      --orange:    #FF6B00;
+      --orange-lt: #ff8c33;
+      --white:     #FFFFFF;
+      --page-bg:   #F4F7FB;
+      --border:    #E2E8F2;
+      --text:      #0F172A;
+      --muted:     #64748B;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-price:   'Barlow Condensed', sans-serif;
+      --font-body:    'Barlow', sans-serif;
+      --font-mono:    'IBM Plex Mono', monospace;
+      --radius:    12px;
+      --radius-sm: 8px;
     }
     html { scroll-behavior: smooth; }
-    body { background: var(--navy); color: var(--text); font-family: 'Barlow', sans-serif; font-size: 16px; line-height: 1.6; }
+    body { font-family: var(--font-body); background: var(--page-bg); color: var(--text); overflow-x: hidden; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; }
 
-    /* ── AGE GATE BANNER ── */
-    .age-banner { background: var(--red); padding: 10px 40px; text-align: center; }
-    .age-banner-inner { max-width: 1280px; margin: 0 auto; font-family: 'Barlow Condensed', sans-serif; font-size: .82rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #FFFFFF; }
+    /* AGE BANNER */
+    .age-banner { background: #CC1A1A; padding: 9px 24px; text-align: center; position: fixed; top: 0; left: 0; right: 0; z-index: 50; }
+    .age-banner-inner { font-family: var(--font-mono); font-size: 0.62rem; color: #fff; letter-spacing: 0.07em; text-transform: uppercase; }
 
-    /* ── BREADCRUMB ── */
-    .bc { max-width: 1280px; margin: 0 auto; padding: 90px 40px 0; }
-    .bc-inner { display: flex; align-items: center; gap: 8px; font-size: .78rem; color: rgba(255,255,255,.4); padding-top: 20px; }
-    .bc-inner a { color: rgba(255,255,255,.4); text-decoration: none; }
-    .bc-inner a:hover { color: #60B4FF; }
-    .bc-sep { color: rgba(255,255,255,.2); }
-    .bc-cur { color: rgba(255,255,255,.75); }
+    /* HERO */
+    .cat-hero { background: var(--navy); padding: 134px 24px 52px; position: relative; overflow: hidden; }
+    .cat-hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #CC1A1A, var(--orange)); }
+    .cat-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 50%, rgba(204,26,26,0.10) 0%, transparent 60%); pointer-events: none; }
+    .cat-hero-inner { max-width: 820px; margin: 0 auto; position: relative; z-index: 1; }
+    .cat-badge { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.68rem; color: #e87070; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 14px; }
+    .cat-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #CC1A1A; animation: blink 1.6s infinite; flex-shrink: 0; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .cat-headline { font-family: var(--font-display); font-size: clamp(3rem, 7vw, 5.5rem); color: white; line-height: 0.94; letter-spacing: 0.02em; margin-bottom: 16px; }
+    .cat-sub { font-size: 1.05rem; color: rgba(255,255,255,0.55); line-height: 1.6; max-width: 520px; margin-bottom: 28px; }
+    .cat-stats { display: flex; flex-wrap: wrap; gap: 32px; }
+    .cat-stat-num { font-family: var(--font-price); font-size: 1.55rem; font-weight: 800; color: var(--orange); line-height: 1; margin-bottom: 2px; }
+    .cat-stat-lbl { font-family: var(--font-mono); font-size: 0.58rem; color: rgba(255,255,255,0.32); letter-spacing: 0.06em; text-transform: uppercase; }
 
-    /* ── HERO ── */
-    .hero { padding: 32px 40px 48px; }
-    .hero-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr var(--sidebar-w); gap: 48px; align-items: start; }
-    .hero-left { display: flex; flex-direction: column; gap: 20px; }
-    .hero-eyebrow { font-family: 'Barlow Condensed', sans-serif; font-size: .72rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--red); }
-    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.8rem, 5vw, 4.2rem); letter-spacing: 2px; line-height: .95; color: #FFFFFF; }
-    .hero-title span { color: #FF6B80; }
-    .hero-sub { font-size: 1rem; color: rgba(255,255,255,.65); line-height: 1.7; max-width: 560px; }
-    .hero-stats { display: flex; gap: 32px; flex-wrap: wrap; padding-top: 8px; border-top: 1px solid rgba(255,255,255,.1); }
-    .hero-stat { display: flex; flex-direction: column; gap: 2px; }
-    .hero-stat-num { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 2rem; color: var(--orange); line-height: 1; }
-    .hero-stat-lbl { font-size: .72rem; color: rgba(255,255,255,.45); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+    /* FILTER BAR */
+    .filter-bar { position: sticky; top: 112px; z-index: 100; background: var(--white); border-bottom: 1px solid var(--border); padding: 11px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    .filter-bar-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 14px; }
+    .filter-label { font-family: var(--font-mono); font-size: 0.6rem; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; }
+    .filter-btns { display: flex; gap: 7px; overflow-x: auto; scrollbar-width: none; }
+    .filter-btns::-webkit-scrollbar { display: none; }
+    .filter-btn { padding: 7px 15px; border-radius: 100px; font-family: var(--font-price); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.04em; border: 1.5px solid var(--border); background: var(--white); color: var(--muted); transition: all 0.18s; white-space: nowrap; }
+    .filter-btn:hover { border-color: var(--orange); color: var(--orange); }
+    .filter-btn.active { background: var(--navy); color: var(--white); border-color: var(--navy); }
+    .show-count-wrap { margin-left: auto; font-family: var(--font-mono); font-size: 0.6rem; color: var(--muted); white-space: nowrap; flex-shrink: 0; }
+    @media (max-width: 940px) { .filter-bar { top: 88px; } }
+    @media (max-width: 600px) { .filter-bar { padding: 10px 14px; } .show-count-wrap { display: none; } .filter-label { display: none; } }
 
-    /* ── HERO SIDEBAR ── */
-    .hero-sidebar { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 16px; }
-    .sb-card { background: rgba(255,255,255,.04); border: 1px solid rgba(204,26,26,.3); border-radius: 14px; padding: 24px; display: flex; flex-direction: column; gap: 14px; }
-    .sb-ttl { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 2px; color: #fff; }
-    .sb-ttl span { color: #FF6B80; }
-    .sb-links { display: flex; flex-direction: column; gap: 2px; }
-    .sb-link { display: flex; align-items: center; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,.06); text-decoration: none; transition: color .2s; }
-    .sb-link:last-child { border-bottom: none; }
-    .sb-link-left { display: flex; flex-direction: column; gap: 1px; }
-    .sb-link-name { font-family: 'Barlow Condensed', sans-serif; font-size: .95rem; font-weight: 700; color: rgba(255,255,255,.85); }
-    .sb-link:hover .sb-link-name { color: var(--orange); }
-    .sb-link-venue { font-size: .65rem; color: rgba(255,255,255,.32); text-transform: uppercase; letter-spacing: 1px; }
-    .sb-link-price { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--orange); flex-shrink: 0; }
-    .sb-div { height: 1px; background: rgba(255,255,255,.08); }
-    .sb-cta-btn { display: block; width: 100%; text-align: center; background: var(--orange); color: #fff; font-family: 'Barlow Condensed', sans-serif; font-size: .95rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 13px; border-radius: 8px; text-decoration: none; transition: background .2s; }
-    .sb-cta-btn:hover { background: var(--orange-lt); }
+    /* GRID */
+    .grid-wrap { max-width: 1200px; margin: 0 auto; padding: 28px 24px 52px; }
+    .show-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    @media (max-width: 900px) { .show-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 520px) { .show-grid { grid-template-columns: 1fr; gap: 14px; } }
 
-    /* ── PAGE BODY ── */
-    .page-body { background: #fff; }
-    .page-inner { max-width: 1280px; margin: 0 auto; padding: 48px 40px 80px; display: grid; grid-template-columns: 1fr var(--sidebar-w); gap: 48px; align-items: start; }
+    /* CARD */
+    .show-card { background: var(--white); border-radius: var(--radius); border: 1.5px solid var(--border); overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+    .show-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.09); }
+    .show-card.selected { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(26,107,221,0.10), 0 4px 16px rgba(0,0,0,0.07); }
+    .show-card.compare-disabled { opacity: 0.45; }
+    .show-card.compare-disabled .card-cta { pointer-events: none; }
 
-    /* ── SHOW GRID ── */
-    .shows-section-hdr { display: flex; align-items: baseline; gap: 12px; margin-bottom: 24px; }
-    .shows-section-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--navy); letter-spacing: 1.5px; }
-    .show-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-    .show-grid-card { background: white; border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; text-decoration: none; color: var(--text); display: flex; flex-direction: column; transition: box-shadow .2s, transform .2s, border-color .2s; }
-    .show-grid-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); border-color: rgba(204,26,26,.3); }
-    .card-img-wrap { position: relative; aspect-ratio: 16/10; overflow: hidden; background: var(--gray-100); }
-    .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s; }
-    .show-grid-card:hover .card-img-wrap img { transform: scale(1.03); }
-    .card-best-badge { position: absolute; bottom: 10px; left: 10px; background: rgba(10,22,40,.82); backdrop-filter: blur(6px); color: white; font-family: 'IBM Plex Mono', monospace; font-size: .6rem; font-weight: 600; padding: 4px 10px; border-radius: 100px; letter-spacing: .03em; }
-    .card-age-badge { position: absolute; top: 10px; left: 10px; background: var(--red); color: white; font-family: 'IBM Plex Mono', monospace; font-size: .57rem; font-weight: 600; padding: 3px 8px; border-radius: 4px; letter-spacing: .04em; text-transform: uppercase; }
-    .card-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
-    .card-venue { font-size: .66rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--blue-bright); }
-    .card-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--navy); line-height: 1.1; }
-    .card-tags { display: flex; gap: 5px; flex-wrap: wrap; }
-    .card-tag { background: var(--blue-card); border: 1px solid var(--blue-border); border-radius: 100px; padding: 2px 9px; font-size: .63rem; color: var(--subtext); font-weight: 600; }
-    .card-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; padding-top: 10px; border-top: 1px solid var(--border); }
-    .card-price { display: flex; align-items: baseline; gap: 6px; }
-    .card-price-our { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.8rem; color: var(--orange); line-height: 1; }
-    .card-price-was { font-family: 'Barlow Condensed', sans-serif; font-size: .95rem; color: var(--gray-400); text-decoration: line-through; }
-    .card-cta { display: inline-flex; align-items: center; gap: 4px; background: var(--orange); color: white; font-family: 'Barlow Condensed', sans-serif; font-size: .8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 9px 14px; border-radius: 6px; white-space: nowrap; transition: background .2s; flex-shrink: 0; }
+    .card-img-wrap { position: relative; aspect-ratio: 16/9; overflow: hidden; background: #1a2540; flex-shrink: 0; }
+    .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .show-card:hover .card-img-wrap img { transform: scale(1.04); }
+
+    .card-sp-badge { position: absolute; top: 10px; left: 10px; display: flex; align-items: center; gap: 4px; padding: 3px 9px; background: var(--orange); color: white; font-family: var(--font-mono); font-size: 0.58rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; border-radius: 100px; }
+    .card-age-badge { position: absolute; bottom: 10px; left: 10px; background: #CC1A1A; color: white; font-family: var(--font-mono); font-size: 0.57rem; font-weight: 600; padding: 3px 8px; border-radius: 4px; letter-spacing: 0.04em; text-transform: uppercase; }
+
+    .cb-label { position: absolute; top: 10px; right: 10px; width: 24px; height: 24px; display: block; cursor: pointer; }
+    .cb-label input[type="checkbox"] { position: absolute; opacity: 0; width: 0; height: 0; }
+    .cb-custom { position: absolute; inset: 0; border-radius: 6px; border: 2px solid rgba(255,255,255,0.75); background: rgba(10,22,40,0.35); backdrop-filter: blur(4px); transition: background 0.15s, border-color 0.15s; }
+    .cb-label input:checked ~ .cb-custom { background: var(--blue); border-color: var(--blue); }
+    .cb-check { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.7rem; font-weight: 700; opacity: 0; transition: opacity 0.15s; pointer-events: none; }
+    .cb-label input:checked ~ .cb-check { opacity: 1; }
+
+    .card-body { padding: 14px 14px 16px; display: flex; flex-direction: column; flex: 1; gap: 0; }
+    .card-name { font-family: var(--font-display); font-size: 1.45rem; color: var(--navy); line-height: 1.05; letter-spacing: 0.02em; margin-bottom: 4px; }
+    .card-subtitle { font-family: var(--font-display); font-size: 0.95rem; color: rgba(10,22,40,0.45); letter-spacing: 0.04em; }
+    .card-venue { font-family: var(--font-mono); font-size: 0.59rem; color: var(--muted); letter-spacing: 0.03em; margin-bottom: 10px; margin-top: 2px; }
+    .card-pills { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 13px; }
+    .card-pill { padding: 3px 9px; border-radius: 100px; font-family: var(--font-price); font-size: 0.67rem; font-weight: 700; letter-spacing: 0.03em; }
+    .cp1 { background: rgba(26,107,221,0.07); color: #1A5FCC; border: 1px solid rgba(26,107,221,0.16); }
+    .cp2 { background: rgba(15,23,42,0.05); color: #475569; border: 1px solid rgba(15,23,42,0.09); }
+    .card-price-row { display: flex; align-items: baseline; gap: 5px; margin-top: auto; margin-bottom: 12px; }
+    .card-from { font-family: var(--font-mono); font-size: 0.57rem; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; }
+    .card-price { font-family: var(--font-price); font-size: 2rem; font-weight: 800; color: var(--orange); line-height: 1; }
+    .card-cta { display: block; width: 100%; padding: 11px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.93rem; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; text-align: center; border-radius: var(--radius-sm); border: none; transition: background 0.2s; }
     .card-cta:hover { background: var(--orange-lt); }
 
-    /* ── BODY SIDEBAR ── */
-    .body-sidebar { position: sticky; top: 100px; display: flex; flex-direction: column; gap: 16px; }
-    .bsb-card { background: var(--blue-card); border: 1px solid var(--blue-border); border-radius: 14px; padding: 22px; display: flex; flex-direction: column; gap: 12px; }
-    .bsb-ttl { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 2px; color: var(--navy); }
-    .bsb-text { font-size: .84rem; color: var(--subtext); line-height: 1.6; }
-    .bsb-links { display: flex; flex-direction: column; gap: 0; }
-    .bsb-link { display: flex; align-items: center; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid var(--border); text-decoration: none; font-size: .84rem; font-weight: 700; color: var(--navy); transition: color .2s; }
-    .bsb-link:last-child { border-bottom: none; }
-    .bsb-link:hover { color: var(--orange); }
-    .bsb-link-label { font-size: .72rem; color: var(--subtext); font-weight: 400; display: block; }
+    /* COMPARE BAR */
+    .compare-bar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 500; background: var(--navy); border-top: 1px solid rgba(255,107,0,0.25); padding: 13px 24px; transform: translateY(110%); transition: transform 0.3s ease; box-shadow: 0 -4px 28px rgba(0,0,0,0.35); }
+    .compare-bar.visible { transform: translateY(0); }
+    .compare-bar-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 12px; }
+    .compare-info { font-family: var(--font-mono); font-size: 0.68rem; color: rgba(255,255,255,0.45); flex: 1; line-height: 1.4; }
+    .compare-info strong { color: white; font-family: var(--font-price); font-size: 1rem; font-weight: 800; display: block; letter-spacing: 0.03em; }
+    .compare-go { padding: 11px 26px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.95rem; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; border: none; border-radius: var(--radius-sm); transition: background 0.2s; white-space: nowrap; }
+    .compare-go:hover:not(:disabled) { background: var(--orange-lt); }
+    .compare-go:disabled { background: #2d3d56; color: rgba(255,255,255,0.3); cursor: not-allowed; }
+    .compare-clr { padding: 11px 16px; background: transparent; color: rgba(255,255,255,0.38); font-family: var(--font-price); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-sm); transition: all 0.2s; white-space: nowrap; }
+    .compare-clr:hover { color: white; border-color: rgba(255,255,255,0.28); }
 
-    /* ── CONTENT SECTION ── */
-    .content-section { padding: 48px 40px; background: var(--navy); }
-    .content-inner { max-width: 1280px; margin: 0 auto; }
-    .content-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem, 3vw, 2.4rem); color: #FFFFFF; letter-spacing: 2px; margin-bottom: 16px; }
-    .content-body { font-size: .95rem; color: rgba(255,255,255,.7); line-height: 1.75; max-width: 720px; }
-    .content-body p { margin-bottom: 14px; }
-    .content-body p:last-child { margin-bottom: 0; }
-    .content-body strong { color: rgba(255,255,255,.9); }
+    /* COMPARE MODAL */
+    .cmp-modal { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 16px; opacity: 0; pointer-events: none; transition: opacity 0.28s; }
+    .cmp-modal.visible { opacity: 1; pointer-events: auto; }
+    .cmp-backdrop { position: absolute; inset: 0; background: rgba(6,14,26,0.9); backdrop-filter: blur(5px); cursor: pointer; }
+    .cmp-panel { position: relative; z-index: 1; background: var(--white); border-radius: 16px; width: 100%; max-width: 940px; max-height: 90vh; overflow-y: auto; box-shadow: 0 28px 70px rgba(0,0,0,0.45); display: flex; flex-direction: column; }
+    .cmp-header { padding: 18px 22px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; background: white; z-index: 2; border-radius: 16px 16px 0 0; flex-shrink: 0; }
+    .cmp-title { font-family: var(--font-display); font-size: 1.7rem; color: var(--navy); letter-spacing: 0.03em; }
+    .cmp-close { background: none; border: 1px solid var(--border); color: var(--muted); font-size: 0.78rem; font-family: var(--font-price); font-weight: 700; letter-spacing: 0.05em; padding: 7px 14px; border-radius: 8px; cursor: pointer; transition: all 0.18s; }
+    .cmp-close:hover { border-color: var(--navy); color: var(--navy); }
+    .cmp-cols { display: grid; flex: 1; }
+    .cmp-cols.c1 { grid-template-columns: 1fr; }
+    .cmp-cols.c2 { grid-template-columns: 1fr 1fr; }
+    .cmp-cols.c3 { grid-template-columns: 1fr 1fr 1fr; }
+    .cmp-col { padding: 20px; border-right: 1px solid var(--border); display: flex; flex-direction: column; }
+    .cmp-col:last-child { border-right: none; }
+    .cmp-col-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 8px; margin-bottom: 12px; background: #1a2540; }
+    .cmp-col-name { font-family: var(--font-display); font-size: 1.35rem; color: var(--navy); line-height: 1.05; margin-bottom: 3px; }
+    .cmp-col-venue { font-family: var(--font-mono); font-size: 0.57rem; color: var(--muted); letter-spacing: 0.03em; margin-bottom: 13px; padding-bottom: 13px; border-bottom: 1px solid var(--border); }
+    .cmp-row { padding: 9px 0; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; gap: 3px; }
+    .cmp-row-lbl { font-family: var(--font-mono); font-size: 0.57rem; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+    .cmp-row-val { font-family: var(--font-body); font-size: 0.86rem; font-weight: 600; color: var(--navy); }
+    .cmp-row-price { font-family: var(--font-price); font-size: 1.65rem; font-weight: 800; color: var(--orange); line-height: 1; }
+    .cmp-col-cta { display: block; width: 100%; padding: 12px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.93rem; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; text-align: center; border-radius: var(--radius-sm); border: none; transition: background 0.2s; margin-top: 16px; }
+    .cmp-col-cta:hover { background: var(--orange-lt); }
+    @media (max-width: 680px) {
+      .cmp-panel { overflow: hidden; }
+      .cmp-cols.c2, .cmp-cols.c3 { display: flex; flex: none; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; max-height: calc(90vh - 84px); }
+      .cmp-cols.c2::-webkit-scrollbar, .cmp-cols.c3::-webkit-scrollbar { display: none; }
+      .cmp-col { flex: 0 0 calc(100vw - 32px); scroll-snap-align: start; border-right: 1px solid var(--border); border-bottom: none; overflow-y: auto; max-height: calc(90vh - 84px); }
+      .cmp-col:last-child { border-right: none; }
+    }
+    /* SWIPE HINT */
+    .cmp-swipe-hint { display: none; font-family: var(--font-mono); font-size: 0.6rem; color: var(--muted); letter-spacing: 0.02em; align-items: center; gap: 6px; margin-top: 3px; }
+    @media (max-width: 680px) { .cmp-swipe-hint { display: flex; } }
+    .cmp-swipe-hint.hidden { display: none !important; }
+    .swipe-arr { display: inline-block; font-size: 0.78rem; }
+    .swipe-arr-l { animation: nudgeL 1.4s ease-in-out infinite; }
+    .swipe-arr-r { animation: nudgeR 1.4s ease-in-out infinite; }
+    @keyframes nudgeL { 0%,100%{transform:translateX(0)} 50%{transform:translateX(-5px)} }
+    @keyframes nudgeR { 0%,100%{transform:translateX(0)} 50%{transform:translateX(5px)} }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 960px) {
-      .age-banner { padding: 10px 20px; }
-      .bc { padding: 80px 20px 0; }
-      .hero { padding: 24px 20px 36px; }
-      .hero-inner { grid-template-columns: 1fr; }
-      .hero-sidebar { display: none; }
-      .page-inner { grid-template-columns: 1fr; padding: 32px 20px 60px; }
-      .body-sidebar { display: none; }
-      .content-section { padding: 40px 20px; }
-    }
-    @media (max-width: 600px) {
-      .show-grid { grid-template-columns: 1fr; }
-    }
+    /* CATEGORY DESCRIPTION */
+    .cat-desc { background: var(--white); border-top: 1px solid var(--border); padding: 52px 24px 60px; }
+    .cat-desc-inner { max-width: 760px; margin: 0 auto; }
+    .cat-desc h2 { font-family: var(--font-display); font-size: 2.2rem; color: var(--navy); letter-spacing: 0.03em; margin-bottom: 14px; }
+    .cat-desc p { font-size: 0.95rem; color: var(--muted); line-height: 1.8; margin-bottom: 14px; }
+    .cat-desc p:last-of-type { margin-bottom: 32px; }
+    .cat-other-lbl { font-family: var(--font-mono); font-size: 0.6rem; color: var(--muted); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 11px; }
+    .cat-other-links { display: flex; flex-wrap: wrap; gap: 8px; }
+    .cat-other-link { padding: 7px 16px; border-radius: 100px; font-family: var(--font-price); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.04em; background: var(--page-bg); color: var(--navy); border: 1.5px solid var(--border); transition: all 0.18s; }
+    .cat-other-link:hover { border-color: var(--orange); color: var(--orange); background: white; }
+    .cat-nav-bar { background: var(--white); border-bottom: 1px solid var(--border); padding: 10px 24px; }
+    .cat-nav-bar-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 10px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+    .cat-nav-bar-inner::-webkit-scrollbar { display: none; }
+    .cat-nav-lbl { font-family: var(--font-mono); font-size: 0.58rem; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; }
+    .cat-nav-link { padding: 5px 13px; border-radius: 100px; font-family: var(--font-price); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; background: var(--page-bg); color: var(--navy); border: 1.5px solid var(--border); transition: all 0.18s; white-space: nowrap; flex-shrink: 0; }
+    .cat-nav-link:hover { border-color: var(--orange); color: var(--orange); background: white; }
+    .cat-nav-link.current { background: var(--navy); color: white; border-color: var(--navy); }
+
+    /* TOAST */
+    .max-toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(10px); background: var(--navy); color: white; font-family: var(--font-mono); font-size: 0.7rem; padding: 10px 18px; border-radius: 8px; border: 1px solid rgba(255,107,0,0.3); opacity: 0; transition: opacity 0.22s, transform 0.22s; pointer-events: none; white-space: nowrap; z-index: 600; }
+    .max-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   </style>
 </head>
 <body>
-
 <div id="vs-header"></div>
-<script src="/components/header.js"></script>
 
-<!-- AGE GATE BANNER -->
-<div class="age-banner" style="margin-top: 84px;">
+<div class="age-banner">
   <div class="age-banner-inner">🔞 Adults 18+ Only — Valid ID Required at the Door for All Shows on This Page</div>
 </div>
 
-<!-- BREADCRUMB -->
-<div class="bc" style="padding-top: 20px;">
-  <div class="bc-inner">
-    <a href="/">Home</a><span class="bc-sep">›</span>
-    <a href="/shows/">Shows</a><span class="bc-sep">›</span>
-    <span class="bc-cur">Adult Shows</span>
+<section class="cat-hero">
+  <div class="cat-hero-inner">
+    <div class="cat-badge"><span class="cat-badge-dot"></span>Las Vegas Adult Shows — 2026</div>
+    <h1 class="cat-headline">Find Your Adult Show</h1>
+    <p class="cat-sub">Absinthe to Rouge — real prices, no guesswork. The kind of shows Vegas was built for. ID required at the door.</p>
+    <div class="cat-stats">
+      <div class="cat-stat"><div class="cat-stat-num">$79</div><div class="cat-stat-lbl">From</div></div>
+      <div class="cat-stat"><div class="cat-stat-num">18+</div><div class="cat-stat-lbl">Age Required</div></div>
+      <div class="cat-stat"><div class="cat-stat-num">Instant</div><div class="cat-stat-lbl">Email Delivery</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="cat-nav-bar">
+  <div class="cat-nav-bar-inner">
+    <span class="cat-nav-lbl">Categories</span>
+    <a class="cat-nav-link" href="/shows/magic/">Magic</a>
+    <a class="cat-nav-link" href="/shows/comedy/">Comedy</a>
+    <a class="cat-nav-link" href="/shows/cirque/">Cirque</a>
+    <a class="cat-nav-link" href="/shows/music/">Music</a>
+    <a class="cat-nav-link" href="/shows/spectaculars/">Spectaculars</a>
+    <a class="cat-nav-link" href="/shows/family/">Family</a>
+    <a class="cat-nav-link current" href="/shows/adult/">Adult</a>
+    <a class="cat-nav-link" href="/shows/">All Shows</a>
   </div>
 </div>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-inner">
-    <div class="hero-left">
-      <div class="hero-eyebrow">Las Vegas · 18+ Entertainment</div>
-      <h1 class="hero-title">Las Vegas Adult Shows — <span>Tickets & Prices</span></h1>
-      <p class="hero-sub">Full-scale adult entertainment productions on the Strip — topless shows, burlesque, and 18+ revues. Real prices, no hidden fees. Everyone at the door gets carded.</p>
-      <div class="hero-stats">
-        <div class="hero-stat"><div class="hero-stat-num">18+</div><div class="hero-stat-lbl">Age Required</div></div>
-        <div class="hero-stat"><div class="hero-stat-num">$79</div><div class="hero-stat-lbl">Starting Price</div></div>
-        <div class="hero-stat"><div class="hero-stat-num">Zero</div><div class="hero-stat-lbl">Hidden Fees</div></div>
-      </div>
+<div class="filter-bar">
+  <div class="filter-bar-inner">
+    <span class="filter-label">Sort</span>
+    <div class="filter-btns">
+      <button class="filter-btn active" onclick="setSort('order',this)">🌵 Sidekick Order</button>
+      <button class="filter-btn" onclick="setSort('name',this)">A – Z</button>
+      <button class="filter-btn" onclick="setSort('price',this)">Price: Low → High</button>
     </div>
-
-    <!-- HERO SIDEBAR -->
-    <div class="hero-sidebar">
-      <div class="sb-card">
-        <div class="sb-ttl">Adult <span>Shows</span></div>
-        <div class="sb-links">
-          <a href="/shows/adult/rouge/" class="sb-link"><div class="sb-link-left"><div class="sb-link-name">Rouge</div><div class="sb-link-venue">STRAT Theater · The STRAT Hotel</div></div><div class="sb-link-price">$79</div></a>
-          <a href="/shows/adult/absinthe/" class="sb-link"><div class="sb-link-left"><div class="sb-link-name">Absinthe</div><div class="sb-link-venue">Spiegeltent · Caesars Palace</div></div><div class="sb-link-price">$122</div></a>
-        </div>
-        <div class="sb-div"></div>
-        <a href="/shows/adult/rouge/" class="sb-cta-btn">Browse Shows →</a>
-      </div>
-    </div>
+    <div class="show-count-wrap">Showing <strong id="show-count">2</strong> shows</div>
   </div>
 </div>
 
-<!-- PAGE BODY -->
-<div class="page-body">
-  <div class="page-inner">
-    <div>
-      <div class="shows-section-hdr">
-        <div class="shows-section-title">All Adult Shows</div>
-      </div>
+<div class="grid-wrap">
+  <div class="show-grid" id="show-grid"></div>
+</div>
 
-      <div class="show-grid">
-
-        <!-- ROUGE -->
-        <a href="/shows/adult/rouge/"
-           class="show-grid-card">
-          <div class="card-img-wrap">
-            <img src="/images/rouge-hero.webp" alt="Rouge adult entertainment show at The STRAT Theater Las Vegas — performers in red costumes" loading="lazy" />
-            <div class="card-age-badge">🔞 18+ Only</div>
-            <div class="card-best-badge">🌹 Best Adult Show</div>
-          </div>
-          <div class="card-body">
-            <div class="card-venue">STRAT Theater · The STRAT Hotel</div>
-            <div class="card-name">Rouge</div>
-            <div class="card-tags">
-              <span class="card-tag">🔞 18+</span>
-              <span class="card-tag">🗓️ Nightly · 2 Shows</span>
-              <span class="card-tag">7PM &amp; 9:30PM</span>
-              <span class="card-tag">85 min</span>
-            </div>
-            <div class="card-footer">
-              <div class="card-price"><div class="card-price-our">$79</div><div class="card-price-was">$101</div></div>
-              <span class="card-cta">Get Tickets →</span>
-            </div>
-          </div>
-        </a>
-
-        <!-- ABSINTHE -->
-        <a href="/shows/adult/absinthe/"
-           class="show-grid-card">
-          <div class="card-img-wrap">
-            <img src="/images/absinthe-2.webp" alt="Absinthe circus performers on aerial rigging above the Spiegeltent stage at Caesars Palace Las Vegas" loading="lazy" />
-            <div class="card-age-badge">🔞 18+ Only</div>
-            <div class="card-best-badge">🌵 Spike's Pick · Most Acclaimed Show</div>
-          </div>
-          <div class="card-body">
-            <div class="card-venue">Spiegeltent · Caesars Palace</div>
-            <div class="card-name">Absinthe</div>
-            <div class="card-tags">
-              <span class="card-tag">🔞 18+</span>
-              <span class="card-tag">🗓️ Nightly · 2–3 Shows</span>
-              <span class="card-tag">7PM &amp; 9PM</span>
-              <span class="card-tag">70 min</span>
-            </div>
-            <div class="card-footer">
-              <div class="card-price"><div class="card-price-our">$122</div></div>
-              <span class="card-cta">Get Tickets →</span>
-            </div>
-          </div>
-        </a>
-
-      </div>
+<section class="cat-desc">
+  <div class="cat-desc-inner">
+    <h2>Las Vegas Adult Shows</h2>
+    <p>Las Vegas has always had a category of show that doesn't exist anywhere else — full theatrical productions built around adult audiences. Not a strip club. Not a bar act. Produced shows with real costumes, lighting design, choreography, and the kind of staging that requires an actual venue. Absinthe has been running at Caesars for over a decade because nothing else quite matches what it does.</p>
+    <p>Every show links to a trusted ticketing partner — real prices, no hidden fees, instant email delivery to your inbox. The price you see is the price you pay. Everyone at the door gets carded, no exceptions.</p>
+    <div class="cat-other-lbl">Browse other categories</div>
+    <div class="cat-other-links">
+      <a class="cat-other-link" href="/shows/magic/">Magic</a>
+      <a class="cat-other-link" href="/shows/comedy/">Comedy</a>
+      <a class="cat-other-link" href="/shows/cirque/">Cirque</a>
+      <a class="cat-other-link" href="/shows/music/">Music</a>
+      <a class="cat-other-link" href="/shows/spectaculars/">Spectaculars</a>
+      <a class="cat-other-link" href="/shows/family/">Family</a>
+      <a class="cat-other-link" href="/shows/">All Shows</a>
     </div>
+  </div>
+</section>
 
-    <!-- BODY SIDEBAR -->
-    <div class="body-sidebar">
-      <div class="bsb-card">
-        <div class="bsb-ttl">Need to Know</div>
-        <div class="bsb-text">All adult shows on this page require guests to be 18 or older. Valid government-issued ID is checked at the door — no exceptions, no matter how old you look.</div>
-      </div>
-      <div class="bsb-card">
-        <div class="bsb-ttl">Browse by Category</div>
-        <div class="bsb-links">
-          <a href="/shows/comedy/" class="bsb-link"><div><span class="bsb-link-label">From $28</span>😂 Comedy Shows</div></a>
-          <a href="/shows/cirque/" class="bsb-link"><div><span class="bsb-link-label">From $53</span>🎪 Cirque du Soleil</div></a>
-          <a href="/shows/magic/" class="bsb-link"><div><span class="bsb-link-label">From $28</span>🎩 Magic Shows</div></a>
-          <a href="/shows/" class="bsb-link"><div><span class="bsb-link-label">All categories</span>All Shows →</div></a>
-        </div>
-      </div>
+<div class="compare-bar" id="compare-bar">
+  <div class="compare-bar-inner">
+    <div class="compare-info">
+      <strong id="cmp-label">0 selected</strong>
+      Select both shows to compare
     </div>
+    <button class="compare-clr" onclick="clearCompare()">Clear</button>
+    <button class="compare-go" id="cmp-go" onclick="openCompare()" disabled>Compare →</button>
   </div>
 </div>
 
-<!-- CONTENT SECTION -->
-<div class="content-section">
-  <div class="content-inner">
-    <div class="content-title">About Las Vegas Adult Shows</div>
-    <div class="content-body">
-      <p>Las Vegas has a long tradition of adult entertainment productions — full-scale theatrical shows featuring topless performers, acrobatics, burlesque, and choreography that simply can't be staged anywhere else. These aren't strip clubs. They're produced shows with costumes, lighting design, live music, and real theatrical craft.</p>
-      <p><strong>Who should go:</strong> Adults looking for a distinctly Las Vegas experience. Bachelorette parties, couples celebrating a special occasion, or anyone who wants to see something they can't see at home. First-timers to Vegas often put this on the list specifically because it's the kind of show that only exists here.</p>
-      <p><strong>What to expect:</strong> Topless performances in a theatrical context — not a burlesque bar, but a full venue with assigned seating, professional staging, and a clear start and end time. Drinks are available. Shows run 75–90 minutes with no intermission.</p>
-      <p><strong>Age enforcement:</strong> 18+ is strictly enforced at every show on this page. Valid government-issued ID is required. Hotels and venues take this seriously — you will be turned away without ID regardless of your age.</p>
+<div class="cmp-modal" id="cmp-modal">
+  <div class="cmp-backdrop" onclick="closeCompare()"></div>
+  <div class="cmp-panel">
+    <div class="cmp-header">
+      <div>
+        <div class="cmp-title">Side by Side</div>
+        <div class="cmp-swipe-hint" id="cmp-swipe-hint"><span class="swipe-arr swipe-arr-l">←</span> swipe to compare <span class="swipe-arr swipe-arr-r">→</span></div>
+      </div>
+      <button class="cmp-close" onclick="closeCompare()">✕ Close</button>
     </div>
+    <div class="cmp-cols" id="cmp-cols"></div>
   </div>
 </div>
+
+<div class="max-toast" id="max-toast">Max 3 shows — deselect one to swap</div>
 
 <div id="vs-footer"></div>
-<script src="/components/footer.js"></script>
 
+<script>
+const SHOWS = [
+  { order:1, slug:'absinthe', name:'Absinthe', subtitle:'', venue:'Spiegeltent · Caesars Palace', price:122, pd:'$122', sp:true, pills:['Vegas Must-See','Totally Outrageous'], img:'/images/absinthe-2.webp', duration:'90 min', age:'Ages 18+', schedule:'Check current schedule' },
+  { order:2, slug:'rouge', name:'Rouge', subtitle:'', venue:'STRAT Theater · The STRAT Hotel', price:79, pd:'$79', sp:false, pills:['Intimate Setting','Stunning Performers'], img:'/images/rouge-hero.webp', duration:'85 min', age:'Ages 18+', schedule:'Nightly · 7 PM & 9:30 PM' },
+];
+
+let sort = 'order';
+let sel = new Set();
+
+function getSorted() {
+  const s = [...SHOWS];
+  if (sort === 'name') s.sort((a,b) => a.name.localeCompare(b.name));
+  else if (sort === 'price') s.sort((a,b) => a.price - b.price);
+  else s.sort((a,b) => a.order - b.order);
+  return s;
+}
+
+function renderGrid() {
+  const shows = getSorted();
+  document.getElementById('show-grid').innerHTML = shows.map(s => {
+    const on = sel.has(s.slug);
+    const dis = !on && sel.size >= 3;
+    return `<div class="show-card${on?' selected':''}${dis?' compare-disabled':''}" id="c-${s.slug}">
+  <div class="card-img-wrap">
+    <img src="${s.img}" alt="${s.name} Las Vegas" loading="lazy" />
+    ${s.sp ? '<div class="card-sp-badge">🌵 Sidekick Pick</div>' : ''}
+    <div class="card-age-badge">🔞 18+ Only</div>
+    <label class="cb-label" title="${dis?'Max 3 selected — deselect one to swap':'Compare'}">
+      <input type="checkbox" ${on?'checked':''} ${dis?'disabled':''} onchange="toggleSel('${s.slug}',this)" />
+      <span class="cb-custom"></span>
+      <span class="cb-check">✓</span>
+    </label>
+  </div>
+  <div class="card-body">
+    <div class="card-name">${s.name}${s.subtitle?'<br><span class="card-subtitle">'+s.subtitle+'</span>':''}</div>
+    <div class="card-venue">${s.venue}</div>
+    <div class="card-pills">
+      <span class="card-pill cp1">${s.pills[0]}</span>
+      <span class="card-pill cp2">${s.pills[1]}</span>
+    </div>
+    <div class="card-price-row">
+      <span class="card-from">From</span>
+      <span class="card-price">${s.pd}</span>
+    </div>
+    <a href="/shows/adult/${s.slug}/" class="card-cta">See Show →</a>
+  </div>
+</div>`;
+  }).join('');
+  document.getElementById('show-count').textContent = shows.length;
+}
+
+function setSort(type, btn) {
+  sort = type;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderGrid();
+}
+
+function toggleSel(slug, cb) {
+  if (cb.checked) {
+    if (sel.size >= 3) { cb.checked = false; showToast(); return; }
+    sel.add(slug);
+  } else {
+    sel.delete(slug);
+  }
+  renderGrid();
+  updateBar();
+}
+
+function updateBar() {
+  const n = sel.size;
+  const bar = document.getElementById('compare-bar');
+  const lbl = document.getElementById('cmp-label');
+  const btn = document.getElementById('cmp-go');
+  if (n > 0) {
+    bar.classList.add('visible');
+    lbl.textContent = n === 1 ? '1 show selected' : n + ' shows selected';
+    btn.disabled = n < 2;
+    btn.textContent = n >= 2 ? 'Compare ' + n + ' →' : 'Compare →';
+  } else {
+    bar.classList.remove('visible');
+  }
+}
+
+function clearCompare() { sel.clear(); renderGrid(); updateBar(); }
+
+function showToast() {
+  const t = document.getElementById('max-toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+function openCompare() {
+  if (sel.size < 2) return;
+  const shows = SHOWS.filter(s => sel.has(s.slug));
+  const cols = document.getElementById('cmp-cols');
+  cols.className = 'cmp-cols c' + shows.length;
+  cols.innerHTML = shows.map(s => `
+    <div class="cmp-col">
+      <img class="cmp-col-img" src="${s.img}" alt="${s.name}" loading="lazy" />
+      <div class="cmp-col-name">${s.name}</div>
+      <div class="cmp-col-venue">${s.venue}</div>
+      <div class="cmp-row"><div class="cmp-row-lbl">From Price</div><div class="cmp-row-price">${s.pd}</div></div>
+      <div class="cmp-row"><div class="cmp-row-lbl">Duration</div><div class="cmp-row-val">${s.duration}</div></div>
+      <div class="cmp-row"><div class="cmp-row-lbl">Age Requirement</div><div class="cmp-row-val">${s.age}</div></div>
+      <div class="cmp-row"><div class="cmp-row-lbl">Schedule</div><div class="cmp-row-val">${s.schedule}</div></div>
+      <div class="cmp-row"><div class="cmp-row-lbl">Sidekick Pick</div><div class="cmp-row-val">${s.sp?'🌵 Yes':'—'}</div></div>
+      <a href="/shows/adult/${s.slug}/" class="cmp-col-cta">See Show →</a>
+    </div>`).join('');
+  document.getElementById('cmp-modal').classList.add('visible');
+  document.body.style.overflow = 'hidden';
+  const hint = document.getElementById('cmp-swipe-hint');
+  if (hint) {
+    hint.classList.remove('hidden');
+    if (shows.length > 1) {
+      document.getElementById('cmp-cols').addEventListener('scroll', function() {
+        hint.classList.add('hidden');
+      }, { once: true });
+    } else {
+      hint.classList.add('hidden');
+    }
+  }
+}
+
+function closeCompare() {
+  document.getElementById('cmp-modal').classList.remove('visible');
+  document.body.style.overflow = '';
+  const hint = document.getElementById('cmp-swipe-hint');
+  if (hint) hint.classList.remove('hidden');
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCompare(); });
+
+renderGrid();
+</script>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
 </body>
 </html>
