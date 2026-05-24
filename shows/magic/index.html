@@ -174,6 +174,13 @@
     .cat-other-links { display: flex; flex-wrap: wrap; gap: 8px; }
     .cat-other-link { padding: 7px 16px; border-radius: 100px; font-family: var(--font-price); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.04em; background: var(--page-bg); color: var(--navy); border: 1.5px solid var(--border); transition: all 0.18s; }
     .cat-other-link:hover { border-color: var(--orange); color: var(--orange); background: white; }
+    .cat-nav-bar { background: var(--white); border-bottom: 1px solid var(--border); padding: 10px 24px; }
+    .cat-nav-bar-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 10px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+    .cat-nav-bar-inner::-webkit-scrollbar { display: none; }
+    .cat-nav-lbl { font-family: var(--font-mono); font-size: 0.58rem; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; }
+    .cat-nav-link { padding: 5px 13px; border-radius: 100px; font-family: var(--font-price); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; background: var(--page-bg); color: var(--navy); border: 1.5px solid var(--border); transition: all 0.18s; white-space: nowrap; flex-shrink: 0; }
+    .cat-nav-link:hover { border-color: var(--orange); color: var(--orange); background: white; }
+    .cat-nav-link.current { background: var(--navy); color: white; border-color: var(--navy); }
 
     /* TOAST */
     .max-toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(10px); background: var(--navy); color: white; font-family: var(--font-mono); font-size: 0.7rem; padding: 10px 18px; border-radius: 8px; border: 1px solid rgba(255,107,0,0.3); opacity: 0; transition: opacity 0.22s, transform 0.22s; pointer-events: none; white-space: nowrap; z-index: 600; }
@@ -189,13 +196,26 @@
     <h1 class="cat-headline">Find Your Magic Show</h1>
     <p class="cat-sub">Penn & Teller to Shin Lim — 9 shows, real prices, no guesswork. Compare and book in seconds.</p>
     <div class="cat-stats">
-      <div class="cat-stat"><div class="cat-stat-num">9</div><div class="cat-stat-lbl">Shows</div></div>
       <div class="cat-stat"><div class="cat-stat-num">$28</div><div class="cat-stat-lbl">From</div></div>
       <div class="cat-stat"><div class="cat-stat-num">72%</div><div class="cat-stat-lbl">Max Savings</div></div>
-      <div class="cat-stat"><div class="cat-stat-num">Instant</div><div class="cat-stat-lbl">Delivery</div></div>
+      <div class="cat-stat"><div class="cat-stat-num">Instant</div><div class="cat-stat-lbl">Email Delivery</div></div>
     </div>
   </div>
 </section>
+
+<div class="cat-nav-bar">
+  <div class="cat-nav-bar-inner">
+    <span class="cat-nav-lbl">Categories</span>
+    <a class="cat-nav-link current" href="/shows/magic/">Magic</a>
+    <a class="cat-nav-link" href="/shows/comedy/">Comedy</a>
+    <a class="cat-nav-link" href="/shows/cirque/">Cirque</a>
+    <a class="cat-nav-link" href="/shows/music/">Music</a>
+    <a class="cat-nav-link" href="/shows/spectaculars/">Spectaculars</a>
+    <a class="cat-nav-link" href="/shows/family/">Family</a>
+    <a class="cat-nav-link" href="/shows/adult/">Adult</a>
+    <a class="cat-nav-link" href="/shows/">All Shows</a>
+  </div>
+</div>
 
 <div class="filter-bar">
   <div class="filter-bar-inner">
@@ -217,7 +237,7 @@
   <div class="cat-desc-inner">
     <h2>Las Vegas Magic Shows</h2>
     <p>Las Vegas has more world-class magic shows per square mile than anywhere else on earth — and the range is genuinely wide. You've got intimate mentalism in an upstairs showroom and arena-scale illusion at Planet Hollywood. Two-time AGT champions sharing the Strip with comedy magicians who've been running the same plaid-suit show for 25 years. There's something here for every budget, every group, and every level of interest in the impossible.</p>
-    <p>Every show on this page is booked through Vegas Sidekick — real prices, no hidden fees, instant delivery. The price you see is the price you pay.</p>
+    <p>Every show links to a trusted ticketing partner — real prices, no hidden fees, instant email delivery to your inbox. The price you see is the price you pay.</p>
     <div class="cat-other-lbl">Browse other categories</div>
     <div class="cat-other-links">
       <a class="cat-other-link" href="/shows/comedy/">Comedy</a>
