@@ -159,9 +159,10 @@
     .cmp-col-cta { display: block; width: 100%; padding: 12px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.93rem; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; text-align: center; border-radius: var(--radius-sm); border: none; transition: background 0.2s; margin-top: 16px; }
     .cmp-col-cta:hover { background: var(--orange-lt); }
     @media (max-width: 680px) {
-      .cmp-cols.c2, .cmp-cols.c3 { grid-template-columns: 1fr; }
-      .cmp-col { border-right: none; border-bottom: 1px solid var(--border); }
-      .cmp-col:last-child { border-bottom: none; }
+      .cmp-cols.c2, .cmp-cols.c3 { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+      .cmp-cols.c2::-webkit-scrollbar, .cmp-cols.c3::-webkit-scrollbar { display: none; }
+      .cmp-col { min-width: 82vw; flex-shrink: 0; scroll-snap-align: start; border-right: 1px solid var(--border); border-bottom: none; }
+      .cmp-col:last-child { border-right: none; }
     }
 
     /* CATEGORY DESCRIPTION */
@@ -194,7 +195,7 @@
   <div class="cat-hero-inner">
     <div class="cat-badge"><span class="cat-badge-dot"></span>Las Vegas Magic Shows — 2026</div>
     <h1 class="cat-headline">Find Your Magic Show</h1>
-    <p class="cat-sub">Penn & Teller to Shin Lim — 9 shows, real prices, no guesswork. Compare and book in seconds.</p>
+    <p class="cat-sub">Penn & Teller to Shin Lim — real prices, no guesswork. Compare and book in seconds.</p>
     <div class="cat-stats">
       <div class="cat-stat"><div class="cat-stat-num">$28</div><div class="cat-stat-lbl">From</div></div>
       <div class="cat-stat"><div class="cat-stat-num">72%</div><div class="cat-stat-lbl">Max Savings</div></div>
@@ -282,11 +283,11 @@ const SHOWS = [
   { order:1, slug:'mat-franco', name:'Mat Franco', subtitle:'Magic Reinvented Nightly', venue:'Mat Franco Theater · The LINQ', price:57, pd:'$57', sp:true, pills:['Great Date Night','AGT Champion'], img:'/images/mat-franco-hero.jpg', duration:'90 min', age:'All ages', schedule:'Check current schedule' },
   { order:2, slug:'shin-lim', name:'Shin Lim: LIMITLESS', subtitle:'', venue:'Palazzo Theatre · The Venetian', price:67, pd:'$67', sp:true, pills:['World-Class Card Magic','Must-See in Vegas'], img:'/images/shin-lim-limitless-hero.jpg', duration:'90 min', age:'Ages 5+', schedule:'Mon · Thu · Fri · Sat · Sun · 7:30 PM' },
   { order:3, slug:'penn-and-teller', name:'Penn & Teller', subtitle:'', venue:'Penn & Teller Theater · Rio Hotel', price:90, pd:'$90', sp:true, pills:['Vegas Legend','Great for Groups'], img:'/images/penn-and-teller-hero.jpg', duration:'90 min', age:'Ages 5+ · Strong language', schedule:'Most nights · 9 PM' },
-  { order:4, slug:'nathan-burton-comedy-magic', name:'Nathan Burton', subtitle:'Comedy Magic', venue:'Nathan Burton Theater · FlyOver Las Vegas', price:28, pd:'$28', sp:true, pills:['Best for Families','Cheapest on Strip'], img:'/images/nathan-burton-comedy-magic-hero.jpg', duration:'70 min', age:'All ages', schedule:'6 days/week' },
-  { order:5, slug:'allstars-of-magic', name:'Allstars of Magic', subtitle:'', venue:'V Theater · Planet Hollywood', price:31, pd:'$31', sp:true, pills:['Best Overall Value','Multi-Performer Show'], img:'/images/allstars-of-magic-hero.jpg', duration:'75 min', age:'All ages', schedule:'Check current schedule' },
+  { order:4, slug:'nathan-burton-comedy-magic', name:'Nathan Burton', subtitle:'Comedy Magic', venue:'Nathan Burton Theater · FlyOver Las Vegas', price:28, pd:'$28', sp:false, pills:['Best for Families','Cheapest on Strip'], img:'/images/nathan-burton-comedy-magic-hero.jpg', duration:'70 min', age:'All ages', schedule:'6 days/week' },
+  { order:5, slug:'allstars-of-magic', name:'Allstars of Magic', subtitle:'', venue:'V Theater · Planet Hollywood', price:31, pd:'$31', sp:false, pills:['Best Overall Value','Multi-Performer Show'], img:'/images/allstars-of-magic-hero.jpg', duration:'75 min', age:'All ages', schedule:'Check current schedule' },
   { order:6, slug:'the-mentalist', name:'The Mentalist', subtitle:'', venue:'V Theater Upstairs · Planet Hollywood', price:40, pd:'$40', sp:false, pills:['Most Unique Show','67% Off Regular Price'], img:'/images/the-mentalist-hero.jpg', duration:'75 min', age:'All ages · Rec. 16+', schedule:'Mon · Tue · Thu · Fri · Sat · Sun · 7:30 PM' },
   { order:7, slug:'criss-angel', name:'Criss Angel MINDFREAK', subtitle:'', venue:'Criss Angel Theater · Planet Hollywood', price:117, pd:'$117', sp:true, pills:['Most Theatrical','Premium Production'], img:'/images/criss-angel-hero.jpg', duration:'110 min', age:'Ages 13+', schedule:'Wed – Sun' },
-  { order:8, slug:'mac-king', name:'Mac King', subtitle:'Comedy Magic', venue:'Thunderland Theater · Excalibur', price:33, pd:'$33', sp:false, pills:['Best for Kids','Classic Vegas Comedy'], img:'/images/mac-king-hero.jpg', duration:'60 min', age:'All ages', schedule:'Mon – Sat · 1 PM & 3 PM' },
+  { order:8, slug:'mac-king', name:'Mac King', subtitle:'Comedy Magic', venue:'Thunderland Theater · Excalibur', price:33, pd:'$33', sp:true, pills:['Best for Kids','Classic Vegas Comedy'], img:'/images/mac-king-hero.jpg', duration:'60 min', age:'All ages', schedule:'Mon – Sat · 1 PM & 3 PM' },
   { order:9, slug:'colin-cloud', name:'Colin Cloud Mastermind', subtitle:'', venue:"Harrah's Cabaret · Harrah's Las Vegas", price:51, pd:'$51', sp:false, pills:['Real Mind Reading','Intimate Setting'], img:'/images/colin-cloud-hero.jpg', duration:'75 min', age:'Ages 16+', schedule:'Check current schedule' },
 ];
 
