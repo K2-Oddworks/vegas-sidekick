@@ -116,6 +116,71 @@
     .cat-nav-link { padding: 5px 13px; border-radius: 100px; font-family: var(--font-price); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; background: var(--page-bg); color: var(--navy); border: 1.5px solid var(--border); transition: all 0.18s; white-space: nowrap; flex-shrink: 0; }
     .cat-nav-link:hover { border-color: var(--orange); color: var(--orange); background: white; }
     .cat-nav-link.current { background: var(--navy); color: white; border-color: var(--navy); }
+
+    /* CARD COMPARE */
+    .show-card.selected { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(26,107,221,0.10), 0 4px 16px rgba(0,0,0,0.07); }
+    .show-card.compare-disabled { opacity: 0.45; }
+    .show-card.compare-disabled .card-cta { pointer-events: none; }
+    .cb-label { position: absolute; top: 10px; right: 10px; width: 24px; height: 24px; display: block; cursor: pointer; }
+    .cb-label input[type="checkbox"] { position: absolute; opacity: 0; width: 0; height: 0; }
+    .cb-custom { position: absolute; inset: 0; border-radius: 6px; border: 2px solid rgba(255,255,255,0.75); background: rgba(10,22,40,0.35); backdrop-filter: blur(4px); transition: background 0.15s, border-color 0.15s; }
+    .cb-label input:checked ~ .cb-custom { background: var(--blue); border-color: var(--blue); }
+    .cb-check { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.7rem; font-weight: 700; opacity: 0; transition: opacity 0.15s; pointer-events: none; }
+    .cb-label input:checked ~ .cb-check { opacity: 1; }
+
+    /* COMPARE BAR */
+    .compare-bar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 500; background: var(--navy); border-top: 1px solid rgba(255,107,0,0.25); padding: 13px 24px; transform: translateY(110%); transition: transform 0.3s ease; box-shadow: 0 -4px 28px rgba(0,0,0,0.35); }
+    .compare-bar.visible { transform: translateY(0); }
+    .compare-bar-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 12px; }
+    .compare-info { font-family: var(--font-mono); font-size: 0.68rem; color: rgba(255,255,255,0.45); flex: 1; line-height: 1.4; }
+    .compare-info strong { color: white; font-family: var(--font-price); font-size: 1rem; font-weight: 800; display: block; letter-spacing: 0.03em; }
+    .compare-go { padding: 11px 26px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.95rem; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; border: none; border-radius: var(--radius-sm); transition: background 0.2s; white-space: nowrap; }
+    .compare-go:hover:not(:disabled) { background: var(--orange-lt); }
+    .compare-go:disabled { background: #2d3d56; color: rgba(255,255,255,0.3); cursor: not-allowed; }
+    .compare-clr { padding: 11px 16px; background: transparent; color: rgba(255,255,255,0.38); font-family: var(--font-price); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-sm); transition: all 0.2s; white-space: nowrap; }
+    .compare-clr:hover { color: white; border-color: rgba(255,255,255,0.28); }
+
+    /* COMPARE MODAL */
+    .cmp-modal { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 16px; opacity: 0; pointer-events: none; transition: opacity 0.28s; }
+    .cmp-modal.visible { opacity: 1; pointer-events: auto; }
+    .cmp-backdrop { position: absolute; inset: 0; background: rgba(6,14,26,0.9); backdrop-filter: blur(5px); cursor: pointer; }
+    .cmp-panel { position: relative; z-index: 1; background: var(--white); border-radius: 16px; width: 100%; max-width: 940px; max-height: 90vh; overflow-y: auto; box-shadow: 0 28px 70px rgba(0,0,0,0.45); display: flex; flex-direction: column; }
+    .cmp-header { padding: 18px 22px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; background: white; z-index: 2; border-radius: 16px 16px 0 0; flex-shrink: 0; }
+    .cmp-title { font-family: var(--font-display); font-size: 1.7rem; color: var(--navy); letter-spacing: 0.03em; }
+    .cmp-close { background: none; border: 1px solid var(--border); color: var(--muted); font-size: 0.78rem; font-family: var(--font-price); font-weight: 700; letter-spacing: 0.05em; padding: 7px 14px; border-radius: 8px; cursor: pointer; transition: all 0.18s; }
+    .cmp-close:hover { border-color: var(--navy); color: var(--navy); }
+    .cmp-cols { display: grid; flex: 1; }
+    .cmp-cols.c1 { grid-template-columns: 1fr; }
+    .cmp-cols.c2 { grid-template-columns: 1fr 1fr; }
+    .cmp-cols.c3 { grid-template-columns: 1fr 1fr 1fr; }
+    .cmp-col { padding: 20px; border-right: 1px solid var(--border); display: flex; flex-direction: column; }
+    .cmp-col:last-child { border-right: none; }
+    .cmp-col-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 8px; margin-bottom: 12px; background: #1a2540; }
+    .cmp-col-name { font-family: var(--font-display); font-size: 1.35rem; color: var(--navy); line-height: 1.05; margin-bottom: 3px; }
+    .cmp-col-venue { font-family: var(--font-mono); font-size: 0.57rem; color: var(--muted); letter-spacing: 0.03em; margin-bottom: 13px; padding-bottom: 13px; border-bottom: 1px solid var(--border); }
+    .cmp-row { padding: 9px 0; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; gap: 3px; }
+    .cmp-row-lbl { font-family: var(--font-mono); font-size: 0.57rem; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+    .cmp-row-val { font-family: var(--font-body); font-size: 0.86rem; font-weight: 600; color: var(--navy); }
+    .cmp-row-price { font-family: var(--font-price); font-size: 1.65rem; font-weight: 800; color: var(--orange); line-height: 1; }
+    .cmp-col-cta { display: block; width: 100%; padding: 12px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.93rem; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; text-align: center; border-radius: var(--radius-sm); border: none; transition: background 0.2s; margin-top: 16px; }
+    .cmp-col-cta:hover { background: var(--orange-lt); }
+    @media (max-width: 680px) {
+      .cmp-panel { overflow: hidden; }
+      .cmp-cols.c2, .cmp-cols.c3 { display: flex; flex: none; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; max-height: calc(90vh - 84px); }
+      .cmp-cols.c2::-webkit-scrollbar, .cmp-cols.c3::-webkit-scrollbar { display: none; }
+      .cmp-col { flex: 0 0 calc(100vw - 32px); scroll-snap-align: start; border-right: 1px solid var(--border); border-bottom: none; overflow-y: auto; max-height: calc(90vh - 84px); }
+      .cmp-col:last-child { border-right: none; }
+    }
+    .cmp-swipe-hint { display: none; font-family: var(--font-mono); font-size: 0.6rem; color: var(--muted); letter-spacing: 0.02em; align-items: center; gap: 6px; margin-top: 3px; }
+    @media (max-width: 680px) { .cmp-swipe-hint { display: flex; } }
+    .cmp-swipe-hint.hidden { display: none !important; }
+    .swipe-arr { display: inline-block; font-size: 0.78rem; }
+    .swipe-arr-l { animation: nudgeL 1.4s ease-in-out infinite; }
+    .swipe-arr-r { animation: nudgeR 1.4s ease-in-out infinite; }
+    @keyframes nudgeL { 0%,100%{transform:translateX(0)} 50%{transform:translateX(-5px)} }
+    @keyframes nudgeR { 0%,100%{transform:translateX(0)} 50%{transform:translateX(5px)} }
+    .max-toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(10px); background: var(--navy); color: white; font-family: var(--font-mono); font-size: 0.7rem; padding: 10px 18px; border-radius: 8px; border: 1px solid rgba(255,107,0,0.3); opacity: 0; transition: opacity 0.22s, transform 0.22s; pointer-events: none; white-space: nowrap; z-index: 600; }
+    .max-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   </style>
 </head>
 <body>
@@ -125,9 +190,9 @@
   <div class="cat-hero-inner">
     <div class="cat-badge"><span class="cat-badge-dot"></span>Las Vegas Family Shows — 2026</div>
     <h1 class="cat-headline">Family Shows in Vegas</h1>
-    <p class="cat-sub">Tournament of Kings — the ultimate family night in Las Vegas. Real prices, book in seconds.</p>
+    <p class="cat-sub">Tournament of Kings to Wizard of Oz at Sphere — all-ages entertainment from every category. Real prices, book in seconds.</p>
     <div class="cat-stats">
-      <div class="cat-stat"><div class="cat-stat-num">$74</div><div class="cat-stat-lbl">From</div></div>
+      <div class="cat-stat"><div class="cat-stat-num">$28</div><div class="cat-stat-lbl">From</div></div>
       <div class="cat-stat"><div class="cat-stat-num">All Ages</div><div class="cat-stat-lbl">Welcome</div></div>
       <div class="cat-stat"><div class="cat-stat-num">Instant</div><div class="cat-stat-lbl">Email Delivery</div></div>
     </div>
@@ -156,7 +221,7 @@
       <button class="filter-btn" onclick="setSort('name',this)">A – Z</button>
       <button class="filter-btn" onclick="setSort('price',this)">Price: Low → High</button>
     </div>
-    <div class="show-count-wrap">Showing <strong id="show-count">1</strong> show</div>
+    <div class="show-count-wrap">Showing <strong id="show-count">8</strong> shows</div>
   </div>
 </div>
 
@@ -167,8 +232,8 @@
 <section class="cat-desc">
   <div class="cat-desc-inner">
     <h2>Las Vegas Family Shows</h2>
-    <p>Tournament of Kings at Excalibur is the gold standard for family entertainment in Las Vegas — a full medieval dinner show with jousting, fire, horsemanship, and a feast served the moment you sit down. No utensils. The king picks a champion. Your section cheers. Kids go absolutely wild, and the adults get a surprisingly good time out of it too.</p>
-    <p>It's been running at Excalibur for decades for a reason: the formula works. Every show links to a trusted ticketing partner — real prices, no hidden fees, instant email delivery to your inbox.</p>
+    <p>Las Vegas has a reputation as an adults-only destination, but the best family shows here are genuinely great — not just "kid-friendly" by default. Tournament of Kings puts real horses and knights in an arena. Wizard of Oz at Sphere gives you wind, scent, haptic seats, and drone flying monkeys. Mac King has been doing polished comedy magic for all-ages afternoon crowds at Excalibur for years. Blue Man Group is weird and loud and exactly the kind of thing kids and adults both remember.</p>
+    <p>This page pulls all-ages shows from across every category — magic, cirque, music, spectaculars — so you don't have to check each one separately. Every show links to a trusted ticketing partner. Real prices, no hidden fees, instant email delivery to your inbox.</p>
     <div class="cat-other-lbl">Browse other categories</div>
     <div class="cat-other-links">
       <a class="cat-other-link" href="/shows/magic/">Magic</a>
@@ -182,14 +247,49 @@
   </div>
 </section>
 
+<div class="compare-bar" id="compare-bar">
+  <div class="compare-bar-inner">
+    <div class="compare-info">
+      <strong id="cmp-label">0 selected</strong>
+      Select up to 3 shows to compare
+    </div>
+    <button class="compare-clr" onclick="clearCompare()">Clear</button>
+    <button class="compare-go" id="cmp-go" onclick="openCompare()" disabled>Compare →</button>
+  </div>
+</div>
+
+<div class="cmp-modal" id="cmp-modal">
+  <div class="cmp-backdrop" onclick="closeCompare()"></div>
+  <div class="cmp-panel">
+    <div class="cmp-header">
+      <div>
+        <div class="cmp-title">Side by Side</div>
+        <div class="cmp-swipe-hint" id="cmp-swipe-hint"><span class="swipe-arr swipe-arr-l">←</span> swipe to compare <span class="swipe-arr swipe-arr-r">→</span></div>
+      </div>
+      <button class="cmp-close" onclick="closeCompare()">✕ Close</button>
+    </div>
+    <div class="cmp-cols" id="cmp-cols"></div>
+  </div>
+</div>
+
+<div class="max-toast" id="max-toast">Max 3 shows — deselect one to swap</div>
+
 <div id="vs-footer"></div>
 
 <script>
 const SHOWS = [
-  { order:1, slug:'tournament-of-kings', name:'Tournament of Kings', subtitle:'', venue:'Excalibur Theater · Excalibur Hotel', price:74, pd:'$74', sp:true, pills:['Medieval Feast Included','Kids Absolutely Love It'], img:'/images/tournament-of-kings-hero.webp', duration:'75 min', age:'All ages', schedule:'Check current schedule' },
+  { order:1, slug:'tournament-of-kings', cat:'family', name:'Tournament of Kings', subtitle:'', venue:'King Arthur\'s Arena · Excalibur Hotel', price:74, pd:'$74', sp:true, pills:['Dinner Included','Live Jousting & Horses'], img:'/images/tournament-of-kings-hero.webp', duration:'75 min', age:'All ages', schedule:'Check current schedule' },
+  { order:2, slug:'wizard-of-oz', cat:'spectaculars', name:'The Wizard of Oz', subtitle:'at MSG Sphere', venue:'MSG Sphere · Las Vegas', price:123, pd:'$123', sp:true, pills:['Vegas Bucket List','Inside the Sphere'], img:'/images/wizard-of-oz-hero.webp', duration:'75 min', age:'Ages 6+', schedule:'Check current schedule' },
+  { order:3, slug:'mac-king', cat:'magic', name:'Mac King', subtitle:'Comedy Magic', venue:'Thunderland Theater · Excalibur', price:33, pd:'$33', sp:true, pills:['Best for Kids','Afternoon Shows'], img:'/images/mac-king-hero.jpg', duration:'60 min', age:'All ages', schedule:'Mon – Sat · 1 PM & 3 PM' },
+  { order:4, slug:'blue-man-group', cat:'music', name:'Blue Man Group', subtitle:'', venue:'Blue Man Theater · Luxor Hotel', price:65, pd:'$65', sp:true, pills:['All Ages Hit','Comedy & Music Combined'], img:'/images/blue-man-group-hero.webp', duration:'90 min', age:'All ages', schedule:'Check current schedule' },
+  { order:5, slug:'awakening', cat:'spectaculars', name:'Awakening', subtitle:'', venue:'Awakening Theater · Wynn Las Vegas', price:70, pd:'$70', sp:true, pills:['Wynn Production','Massive Stage Effects'], img:'/images/awakening-hero.webp', duration:'80 min', age:'Ages 5+', schedule:'Check current schedule' },
+  { order:6, slug:'michael-jackson-one', cat:'cirque', name:'Michael Jackson ONE', subtitle:'by Cirque du Soleil', venue:'Mandalay Bay Theatre', price:111, pd:'$111', sp:true, pills:['MJ Tribute','Family Favorite'], img:'/images/mj-one-hero.jpg', duration:'90 min', age:'Ages 5+', schedule:'Check current schedule' },
+  { order:7, slug:'nathan-burton-comedy-magic', cat:'magic', name:'Nathan Burton', subtitle:'Comedy Magic', venue:'Nathan Burton Theater · FlyOver Las Vegas', price:28, pd:'$28', sp:false, pills:['Cheapest on Strip','Great for Families'], img:'/images/nathan-burton-comedy-magic-hero.jpg', duration:'70 min', age:'All ages', schedule:'6 days/week' },
+  { order:8, slug:'popovich-comedy-pet-theater', cat:'comedy', name:'Popovich', subtitle:'Comedy Pet Theater', venue:'V Theater · Planet Hollywood', price:31, pd:'$31', sp:false, pills:['Pets on Stage','Great for Kids'], img:'/images/popovich-comedy-pet-theater-hero.jpg', duration:'70 min', age:'All ages', schedule:'Check current schedule' },
 ];
 
 let sort = 'order';
+let sel = new Set();
 
 function getSorted() {
   const s = [...SHOWS];
@@ -201,11 +301,18 @@ function getSorted() {
 
 function renderGrid() {
   const shows = getSorted();
-  document.getElementById('show-grid').innerHTML = shows.map(s => `
-<div class="show-card" id="c-${s.slug}">
+  document.getElementById('show-grid').innerHTML = shows.map(s => {
+    const on = sel.has(s.slug);
+    const dis = !on && sel.size >= 3;
+    return `<div class="show-card${on?' selected':''}${dis?' compare-disabled':''}" id="c-${s.slug}">
   <div class="card-img-wrap">
     <img src="${s.img}" alt="${s.name} Las Vegas" loading="lazy" />
     ${s.sp ? '<div class="card-sp-badge">🌵 Sidekick Pick</div>' : ''}
+    <label class="cb-label" title="${dis?'Max 3 selected — deselect one to swap':'Compare'}">
+      <input type="checkbox" ${on?'checked':''} ${dis?'disabled':''} onchange="toggleSel('${s.slug}',this)" />
+      <span class="cb-custom"></span>
+      <span class="cb-check">✓</span>
+    </label>
   </div>
   <div class="card-body">
     <div class="card-name">${s.name}${s.subtitle?'<br><span class="card-subtitle">'+s.subtitle+'</span>':''}</div>
@@ -218,9 +325,10 @@ function renderGrid() {
       <span class="card-from">From</span>
       <span class="card-price">${s.pd}</span>
     </div>
-    <a href="/shows/family/${s.slug}/" class="card-cta">See Show →</a>
+    <a href="/shows/${s.cat}/${s.slug}/" class="card-cta">See Show →</a>
   </div>
-</div>`).join('');
+</div>`;
+  }).join('');
   document.getElementById('show-count').textContent = shows.length;
 }
 
@@ -230,6 +338,81 @@ function setSort(type, btn) {
   btn.classList.add('active');
   renderGrid();
 }
+
+function toggleSel(slug, cb) {
+  if (cb.checked) {
+    if (sel.size >= 3) { cb.checked = false; showToast(); return; }
+    sel.add(slug);
+  } else {
+    sel.delete(slug);
+  }
+  renderGrid();
+  updateBar();
+}
+
+function updateBar() {
+  const n = sel.size;
+  const bar = document.getElementById('compare-bar');
+  const lbl = document.getElementById('cmp-label');
+  const btn = document.getElementById('cmp-go');
+  if (n > 0) {
+    bar.classList.add('visible');
+    lbl.textContent = n === 1 ? '1 show selected' : n + ' shows selected';
+    btn.disabled = n < 2;
+    btn.textContent = n >= 2 ? 'Compare ' + n + ' →' : 'Compare →';
+  } else {
+    bar.classList.remove('visible');
+  }
+}
+
+function clearCompare() { sel.clear(); renderGrid(); updateBar(); }
+
+function showToast() {
+  const t = document.getElementById('max-toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+function openCompare() {
+  if (sel.size < 2) return;
+  const shows = SHOWS.filter(s => sel.has(s.slug));
+  const cols = document.getElementById('cmp-cols');
+  cols.className = 'cmp-cols c' + shows.length;
+  cols.innerHTML = shows.map(s => `
+    <div class="cmp-col">
+      <img class="cmp-col-img" src="${s.img}" alt="${s.name}" loading="lazy" />
+      <div class="cmp-col-name">${s.name}</div>
+      <div class="cmp-col-venue">${s.venue}</div>
+      <div class="cmp-row"><div class="cmp-row-lbl">From Price</div><div class="cmp-row-price">${s.pd}</div></div>
+      <div class="cmp-row"><div class="cmp-row-lbl">Duration</div><div class="cmp-row-val">${s.duration}</div></div>
+      <div class="cmp-row"><div class="cmp-row-lbl">Age Requirement</div><div class="cmp-row-val">${s.age}</div></div>
+      <div class="cmp-row"><div class="cmp-row-lbl">Schedule</div><div class="cmp-row-val">${s.schedule}</div></div>
+      <div class="cmp-row"><div class="cmp-row-lbl">Sidekick Pick</div><div class="cmp-row-val">${s.sp?'🌵 Yes':'—'}</div></div>
+      <a href="/shows/${s.cat}/${s.slug}/" class="cmp-col-cta">See Show →</a>
+    </div>`).join('');
+  document.getElementById('cmp-modal').classList.add('visible');
+  document.body.style.overflow = 'hidden';
+  const hint = document.getElementById('cmp-swipe-hint');
+  if (hint) {
+    hint.classList.remove('hidden');
+    if (shows.length > 1) {
+      document.getElementById('cmp-cols').addEventListener('scroll', function() {
+        hint.classList.add('hidden');
+      }, { once: true });
+    } else {
+      hint.classList.add('hidden');
+    }
+  }
+}
+
+function closeCompare() {
+  document.getElementById('cmp-modal').classList.remove('visible');
+  document.body.style.overflow = '';
+  const hint = document.getElementById('cmp-swipe-hint');
+  if (hint) hint.classList.remove('hidden');
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCompare(); });
 
 renderGrid();
 </script>

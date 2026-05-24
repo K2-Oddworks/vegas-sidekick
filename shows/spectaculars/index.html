@@ -184,9 +184,9 @@
   <div class="cat-hero-inner">
     <div class="cat-badge"><span class="cat-badge-dot"></span>Las Vegas Spectacular Shows — 2026</div>
     <h1 class="cat-headline">Vegas Spectaculars</h1>
-    <p class="cat-sub">The Sphere to Wynn — two of Vegas's most ambitious productions. Real prices, book in seconds.</p>
+    <p class="cat-sub">Sphere to Bellagio — the biggest productions in Las Vegas, pulled from every category. Real prices, book in seconds.</p>
     <div class="cat-stats">
-      <div class="cat-stat"><div class="cat-stat-num">$70</div><div class="cat-stat-lbl">From</div></div>
+      <div class="cat-stat"><div class="cat-stat-num">$53</div><div class="cat-stat-lbl">From</div></div>
       <div class="cat-stat"><div class="cat-stat-num">Premium</div><div class="cat-stat-lbl">Productions</div></div>
       <div class="cat-stat"><div class="cat-stat-num">Instant</div><div class="cat-stat-lbl">Email Delivery</div></div>
     </div>
@@ -215,7 +215,7 @@
       <button class="filter-btn" onclick="setSort('name',this)">A – Z</button>
       <button class="filter-btn" onclick="setSort('price',this)">Price: Low → High</button>
     </div>
-    <div class="show-count-wrap">Showing <strong id="show-count">2</strong> shows</div>
+    <div class="show-count-wrap">Showing <strong id="show-count">10</strong> shows</div>
   </div>
 </div>
 
@@ -226,8 +226,8 @@
 <section class="cat-desc">
   <div class="cat-desc-inner">
     <h2>Las Vegas Spectacular Shows</h2>
-    <p>Two shows, two completely different definitions of spectacular. The Wizard of Oz at the Sphere is an immersive experience inside the world's most technologically advanced venue — the building itself is part of the show, with a 160,000 square foot LED screen wrapping the entire interior. There's nothing else like it anywhere on earth.</p>
-    <p>Awakening at Wynn is a high-concept original production with a cast of over 100, a stage that moves in ways you won't believe, and some of the best lighting design in Las Vegas history. Neither one fits neatly in any other category. Every show links to a trusted ticketing partner — real prices, no hidden fees, instant email delivery to your inbox.</p>
+    <p>Spectaculars is a cross-category page for the biggest productions in Las Vegas — it doesn't matter if they're technically Cirque, Music, or Adult. "O" at Bellagio is a water spectacular. KÀ at MGM is a battle epic on a tilting stage. Wizard of Oz at Sphere is a 160,000 sq ft wraparound LED experience with real wind. Absinthe at Caesars has been running for over a decade because nothing matches it. These are shows where the production value is the point.</p>
+    <p>Every show links to a trusted ticketing partner — real prices, no hidden fees, instant email delivery to your inbox. The price you see is the price you pay.</p>
     <div class="cat-other-lbl">Browse other categories</div>
     <div class="cat-other-links">
       <a class="cat-other-link" href="/shows/magic/">Magic</a>
@@ -245,7 +245,7 @@
   <div class="compare-bar-inner">
     <div class="compare-info">
       <strong id="cmp-label">0 selected</strong>
-      Select both shows to compare
+      Select up to 3 shows to compare
     </div>
     <button class="compare-clr" onclick="clearCompare()">Clear</button>
     <button class="compare-go" id="cmp-go" onclick="openCompare()" disabled>Compare →</button>
@@ -271,8 +271,16 @@
 
 <script>
 const SHOWS = [
-  { order:1, slug:'wizard-of-oz', name:'The Wizard of Oz', subtitle:'at MSG Sphere', venue:'MSG Sphere · Las Vegas', price:123, pd:'$123', sp:true, pills:['Vegas Bucket List','Inside the Sphere'], img:'/images/wizard-of-oz-hero.webp', duration:'75 min', age:'Ages 6+', schedule:'Check current schedule' },
-  { order:2, slug:'awakening', name:'Awakening', subtitle:'', venue:'Awakening Theater · Wynn Las Vegas', price:70, pd:'$70', sp:true, pills:['Wynn Production','Massive Stage Effects'], img:'/images/awakening-hero.webp', duration:'80 min', age:'Ages 5+', schedule:'Check current schedule' },
+  { order:1, slug:'wizard-of-oz', cat:'spectaculars', name:'The Wizard of Oz', subtitle:'at MSG Sphere', venue:'MSG Sphere · Las Vegas', price:123, pd:'$123', sp:true, pills:['Vegas Bucket List','Inside the Sphere'], img:'/images/wizard-of-oz-hero.webp', duration:'75 min', age:'Ages 6+', schedule:'Check current schedule' },
+  { order:2, slug:'absinthe', cat:'adult', name:'Absinthe', subtitle:'', venue:'Spiegeltent · Caesars Palace', price:122, pd:'$122', sp:true, pills:['Most Acclaimed Show','Vegas Must-See'], img:'/images/absinthe-2.webp', duration:'90 min', age:'Ages 18+', schedule:'Check current schedule' },
+  { order:3, slug:'o', cat:'cirque', name:'"O"', subtitle:'by Cirque du Soleil', venue:'O Theatre · Bellagio', price:119, pd:'$119', sp:true, pills:['Most Iconic Show','Aquatic Spectacle'], img:'/images/o-hero.jpg', duration:'90 min', age:'Ages 5+', schedule:'Wed – Sun' },
+  { order:4, slug:'michael-jackson-one', cat:'cirque', name:'Michael Jackson ONE', subtitle:'by Cirque du Soleil', venue:'Mandalay Bay Theatre', price:111, pd:'$111', sp:true, pills:['MJ Tribute','Family Favorite'], img:'/images/mj-one-hero.jpg', duration:'90 min', age:'Ages 5+', schedule:'Check current schedule' },
+  { order:5, slug:'ka', cat:'cirque', name:'KÀ', subtitle:'by Cirque du Soleil', venue:'KÀ Theatre · MGM Grand', price:86, pd:'$86', sp:true, pills:['Most Dramatic','Battle Spectacle'], img:'/images/ka-hero.jpg', duration:'90 min', age:'All ages', schedule:'Tue · Wed · Fri · Sat · Sun' },
+  { order:6, slug:'awakening', cat:'spectaculars', name:'Awakening', subtitle:'', venue:'Awakening Theater · Wynn Las Vegas', price:70, pd:'$70', sp:true, pills:['Wynn Production','Massive Stage Effects'], img:'/images/awakening-hero.webp', duration:'80 min', age:'Ages 5+', schedule:'Check current schedule' },
+  { order:7, slug:'blue-man-group', cat:'music', name:'Blue Man Group', subtitle:'', venue:'Blue Man Theater · Luxor Hotel', price:65, pd:'$65', sp:true, pills:['All Ages','Comedy & Music Combined'], img:'/images/blue-man-group-hero.webp', duration:'90 min', age:'All ages', schedule:'Check current schedule' },
+  { order:8, slug:'vegas-the-show', cat:'music', name:'VEGAS! The Show', subtitle:'', venue:'Saxe Theater · Planet Hollywood', price:55, pd:'$55', sp:true, pills:['Vegas History Tribute','Best Overall Value'], img:'/images/vegas-the-show-hero.webp', duration:'75 min', age:'All ages', schedule:'Check current schedule' },
+  { order:9, slug:'mystere', cat:'cirque', name:'Mystère', subtitle:'by Cirque du Soleil', venue:'Mystère Theatre · TI Hotel', price:55, pd:'$55', sp:false, pills:['The Original','Classic Cirque'], img:'/images/mystere-hero.jpg', duration:'90 min', age:'All ages', schedule:'Check current schedule' },
+  { order:10, slug:'mad-apple', cat:'cirque', name:'Mad Apple', subtitle:'by Cirque du Soleil', venue:'New York-New York Theater', price:53, pd:'$53', sp:false, pills:['Cirque Goes Wild','Adult & Urban'], img:'/images/mad-apple-hero.jpg', duration:'90 min', age:'Ages 18+', schedule:'Check current schedule' },
 ];
 
 let sort = 'order';
@@ -295,7 +303,7 @@ function renderGrid() {
   <div class="card-img-wrap">
     <img src="${s.img}" alt="${s.name} Las Vegas" loading="lazy" />
     ${s.sp ? '<div class="card-sp-badge">🌵 Sidekick Pick</div>' : ''}
-    <label class="cb-label" title="Compare">
+    <label class="cb-label" title="${dis?'Max 3 selected — deselect one to swap':'Compare'}">
       <input type="checkbox" ${on?'checked':''} ${dis?'disabled':''} onchange="toggleSel('${s.slug}',this)" />
       <span class="cb-custom"></span>
       <span class="cb-check">✓</span>
@@ -312,7 +320,7 @@ function renderGrid() {
       <span class="card-from">From</span>
       <span class="card-price">${s.pd}</span>
     </div>
-    <a href="/shows/spectaculars/${s.slug}/" class="card-cta">See Show →</a>
+    <a href="/shows/${s.cat}/${s.slug}/" class="card-cta">See Show →</a>
   </div>
 </div>`;
   }).join('');
@@ -328,7 +336,7 @@ function setSort(type, btn) {
 
 function toggleSel(slug, cb) {
   if (cb.checked) {
-    if (sel.size >= 3) { cb.checked = false; return; }
+    if (sel.size >= 3) { cb.checked = false; showToast(); return; }
     sel.add(slug);
   } else {
     sel.delete(slug);
@@ -354,6 +362,12 @@ function updateBar() {
 
 function clearCompare() { sel.clear(); renderGrid(); updateBar(); }
 
+function showToast() {
+  const t = document.getElementById('max-toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2600);
+}
+
 function openCompare() {
   if (sel.size < 2) return;
   const shows = SHOWS.filter(s => sel.has(s.slug));
@@ -369,7 +383,7 @@ function openCompare() {
       <div class="cmp-row"><div class="cmp-row-lbl">Age Requirement</div><div class="cmp-row-val">${s.age}</div></div>
       <div class="cmp-row"><div class="cmp-row-lbl">Schedule</div><div class="cmp-row-val">${s.schedule}</div></div>
       <div class="cmp-row"><div class="cmp-row-lbl">Sidekick Pick</div><div class="cmp-row-val">${s.sp?'🌵 Yes':'—'}</div></div>
-      <a href="/shows/spectaculars/${s.slug}/" class="cmp-col-cta">See Show →</a>
+      <a href="/shows/${s.cat}/${s.slug}/" class="cmp-col-cta">See Show →</a>
     </div>`).join('');
   document.getElementById('cmp-modal').classList.add('visible');
   document.body.style.overflow = 'hidden';
