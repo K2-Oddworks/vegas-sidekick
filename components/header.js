@@ -79,17 +79,16 @@
     overlay.classList.toggle('visible');
   };
 
-  // Memorial Day Weekend Countdown
-  // Counts down to 11:59 PM PT Friday May 22 2026 (= May 23 06:59 UTC, PDT is UTC-7)
-  // Switches to "enjoy your weekend" through end of Memorial Day (May 26 07:00 UTC)
+  // July 4th Weekend Countdown (PDT = UTC-7)
+  // Counts down to midnight PDT Friday July 3 2026 (= 2026-07-03T07:00:00Z)
+  // Switches to "Happy 4th" message through end of July 4 (2026-07-05T07:00:00Z)
   (function() {
     var banner = document.getElementById('vs-memorial-banner');
     if (!banner) return;
-    var TARGET = new Date('2026-05-23T06:59:00Z'); // 11:59 PM PDT Fri May 22
-    var EXPIRE = new Date('2026-05-26T07:00:00Z'); // midnight PDT end of Memorial Day
+    var TARGET = new Date('2026-07-03T07:00:00Z'); // midnight PDT Fri Jul 3 — weekend starts
+    var EXPIRE = new Date('2026-07-05T07:00:00Z'); // midnight PDT end of Jul 4
     var offsetApplied = false;
 
-    // Push body down by the banner height so fixed banner doesn't overlap page content
     function applyBodyOffset() {
       if (offsetApplied) return;
       offsetApplied = true;
@@ -124,7 +123,7 @@
         applyBodyOffset();
       }
       if (now >= TARGET) {
-        banner.innerHTML = '<span class="vsm-stars">★ ★ ★</span><span class="vsm-enjoy">We Remember. We Are Thankful. Memorial Day 2026. 🇺🇸</span><span class="vsm-stars">★ ★ ★</span>';
+        banner.innerHTML = '<span class="vsm-stars">★ ★ ★</span><span class="vsm-enjoy">Happy 4th of July 2026! 🎆🇺🇸 Enjoy the fireworks — and the shows.</span><span class="vsm-stars">★ ★ ★</span>';
         clearInterval(vsMemTimer);
         return;
       }
@@ -135,7 +134,7 @@
       var s = Math.floor((diff % 60000) / 1000);
       if (isMobile()) {
         banner.innerHTML =
-          '&#127482;&#127480; Memorial Day Weekend in ' +
+          '🎆 July 4th Weekend in ' +
           '<span class="vsm-unit">' + d + 'd</span> ' +
           '<span class="vsm-unit">' + pad(h) + 'h</span> ' +
           '<span class="vsm-unit">' + pad(m) + 'm</span> ' +
@@ -144,12 +143,12 @@
       } else {
         banner.innerHTML =
           '<span class="vsm-stars">★</span>' +
-          '&#127482;&#127480; Memorial Day Weekend kicks off in ' +
+          '🎆 July 4th Weekend kicks off in ' +
           '<span class="vsm-unit">' + d + 'd</span> ' +
           '<span class="vsm-unit">' + pad(h) + 'h</span> ' +
           '<span class="vsm-unit">' + pad(m) + 'm</span> ' +
           '<span class="vsm-unit">' + pad(s) + 's</span>' +
-          ' &mdash; <a class="vsm-link" href="/shows/">Plan Your Vegas Weekend &#8594;</a>' +
+          ' &mdash; <a class="vsm-link" href="/shows/">Plan Your Vegas Night &#8594;</a>' +
           '<span class="vsm-stars">★</span>';
       }
     }
