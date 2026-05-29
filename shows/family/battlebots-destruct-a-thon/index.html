@@ -357,6 +357,7 @@
 
     /* ── FINAL CTA ── */
     .final-cta { position: relative; overflow: hidden; background: linear-gradient(135deg, var(--navy) 0%, #1a2d50 100%); padding: 64px 24px; text-align: center; border-top: 1px solid rgba(0,85,204,0.15); margin-top: 40px; }
+    @media (max-width: 940px) { .final-cta { display: none; } }
     .orb { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
     .orb-1 { width: 420px; height: 420px; background: radial-gradient(circle, rgba(0,85,204,0.22) 0%, transparent 70%); top: -100px; left: -80px; animation: orbDrift 9s ease-in-out infinite; }
     .orb-2 { width: 320px; height: 320px; background: radial-gradient(circle, rgba(255,68,0,0.18) 0%, transparent 70%); bottom: -80px; right: -60px; animation: orbDrift 11s ease-in-out infinite reverse; }
@@ -839,6 +840,19 @@
     </div>
   </section>
 
+  <div class="final-cta fade-up">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="final-cta-inner">
+      <div class="final-cta-tag">&#x1F335; Vegas Sidekick &mdash; Vegas Without the Trauma</div>
+      <div class="final-cta-title">Ready to Watch Robots Fight?</div>
+      <div class="final-cta-sub">BattleBots: Destruct-A-Thon &middot; BattleBots Arena &middot; Wed&ndash;Sun</div>
+      <div class="final-cta-amount">$58</div>
+      <a href="https://spotlight.vegas/shows/production/battlebots/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="final-cta-btn">Get BattleBots Tickets &rarr;</a>
+      <div class="final-cta-note">Prices may increase closer to show date &nbsp;&middot;&nbsp; <a href="/affiliate-disclosure/">Affiliate disclosure</a></div>
+    </div>
+  </div>
+
   <section class="section fade-up" id="section-also" aria-labelledby="also-heading">
     <h2 id="also-heading" class="section-title">You Might <span>Also Like</span></h2>
     <div class="also-grid">
@@ -871,19 +885,6 @@
       </a>
     </div>
   </section>
-
-  <div class="final-cta fade-up">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="final-cta-inner">
-      <div class="final-cta-tag">&#x1F335; Vegas Sidekick &mdash; Vegas Without the Trauma</div>
-      <div class="final-cta-title">Ready to Watch Robots Fight?</div>
-      <div class="final-cta-sub">BattleBots: Destruct-A-Thon &middot; BattleBots Arena &middot; Wed&ndash;Sun</div>
-      <div class="final-cta-amount">$58</div>
-      <a href="https://spotlight.vegas/shows/production/battlebots/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="final-cta-btn">Get BattleBots Tickets &rarr;</a>
-      <div class="final-cta-note">Prices may increase closer to show date &nbsp;&middot;&nbsp; <a href="/affiliate-disclosure/">Affiliate disclosure</a></div>
-    </div>
-  </div>
 
 </main>
 
