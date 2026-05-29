@@ -341,12 +341,52 @@
     .mobile-buy-amount { font-family: var(--font-price); font-size: 1.5rem; font-weight: 800; color: var(--orange); line-height: 1; }
     .mobile-buy-btn { flex: 1; padding: 13px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1rem; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; text-align: center; border-radius: var(--radius-sm); border: none; cursor: pointer; transition: background 0.2s; }
     .mobile-buy-btn:hover { background: var(--orange-lt); }
+
+    /* ── Sidekick Build ── */
+    #progress-bar-bottom { overflow: hidden; position: fixed; bottom: 0; right: 0; height: 3px; width: 0%; background: linear-gradient(270deg, var(--electric), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; box-shadow: 0 0 10px var(--electric), 0 0 20px rgba(0,85,204,0.35); animation: pb-glow 3s ease-in-out infinite reverse; }
+    #progress-bar-bottom::after { content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: linear-gradient(270deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%); animation: pb-shimmer-rev 2.2s linear infinite; }
+    @keyframes pb-shimmer-rev { 0% { transform: translateX(100%); } 100% { transform: translateX(-300%); } }
+    @keyframes pb-glow { 0%,100% { box-shadow: 0 0 10px var(--electric), 0 0 20px rgba(0,85,204,0.35); } 50% { box-shadow: 0 0 16px var(--orange), 0 0 28px rgba(255,107,0,0.45); } }
+    #progress-bar { animation: pb-glow 3s ease-in-out infinite; }
+
+    .slide.active img { animation: kenBurns 7s ease-in-out forwards; }
+    @keyframes kenBurns { from { transform: scale(1) translate(0,0); } to { transform: scale(1.08) translate(0.4%,0.4%); } }
+
+    .ticker-wrap { background: var(--navy); border-top: 1px solid rgba(0,85,204,0.2); border-bottom: 1px solid rgba(0,85,204,0.2); overflow: hidden; padding: 10px 0; }
+    .ticker-track { display: flex; width: max-content; animation: tickerScroll 36s linear infinite; }
+    .ticker-item { padding: 0 32px; font-family: var(--font-price); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.58); white-space: nowrap; display: flex; align-items: center; gap: 10px; }
+    .ticker-item::after { content: '⚡'; font-size: 0.65rem; opacity: 0.5; }
+    @keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    .stats-strip { background: var(--navy); border-bottom: 1px solid rgba(0,85,204,0.12); padding: 28px 24px; display: grid; grid-template-columns: repeat(4,1fr); text-align: center; }
+    @media (max-width: 640px) { .stats-strip { grid-template-columns: repeat(2,1fr); gap: 24px 0; } }
+    .stat-item { padding: 0 12px; border-right: 1px solid rgba(255,255,255,0.06); }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-family: var(--font-display); font-size: 2.8rem; color: var(--electric-lt); line-height: 1; display: inline; }
+    .stat-unit { font-family: var(--font-price); font-size: 0.95rem; font-weight: 700; color: var(--orange); margin-left: 2px; }
+    .stat-label { font-family: var(--font-mono); font-size: 0.58rem; color: rgba(255,255,255,0.36); text-transform: uppercase; letter-spacing: 0.07em; margin-top: 4px; }
+
+    .final-cta { position: relative; overflow: hidden; }
+    .final-cta-inner { position: relative; z-index: 2; }
+    .orb-1, .orb-2 { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 1; }
+    .orb-1 { width: 420px; height: 420px; background: radial-gradient(circle, rgba(0,85,204,0.22) 0%, transparent 70%); top: -100px; left: -80px; animation: orbDrift 12s ease-in-out infinite alternate; }
+    .orb-2 { width: 320px; height: 320px; background: radial-gradient(circle, rgba(255,107,0,0.15) 0%, transparent 70%); bottom: -80px; right: -60px; animation: orbDrift 9s ease-in-out infinite alternate-reverse; }
+    @keyframes orbDrift { from { transform: translate(0,0) scale(1); } to { transform: translate(30px,20px) scale(1.08); } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .slide.active img { animation: none; }
+      .ticker-track { animation: none; }
+      .orb-1, .orb-2 { animation: none; }
+      #progress-bar { animation: none; }
+      #progress-bar-bottom { animation: none; }
+    }
   </style>
 </head>
 <body>
 
 <div id="vs-header"></div>
 <div id="progress-bar"></div>
+<div id="progress-bar-bottom"></div>
 
 <nav class="dot-nav" aria-label="Page sections">
   <a class="dnav-dot" data-label="Overview" href="#overview"></a>
@@ -354,6 +394,7 @@
   <a class="dnav-dot" data-label="What to Expect" href="#expect"></a>
   <a class="dnav-dot" data-label="Seating" href="#seating"></a>
   <a class="dnav-dot" data-label="FAQ" href="#faq"></a>
+  <a class="dnav-dot" data-label="More Shows" href="#also"></a>
 </nav>
 
 <div class="save-pill" id="savePill">
@@ -399,6 +440,50 @@
     <div class="price-reg">Reg. $90</div>
     <div class="price-save">Save $32 &mdash; 36% Off</div>
     <a href="https://spotlight.vegas/shows/production/battlebots/ref/vegassidekick" class="price-strip-btn">Get Tickets &rarr;</a>
+  </div>
+</div>
+
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span class="ticker-item">Live Robotic Combat</span>
+    <span class="ticker-item">TV Robots On Stage</span>
+    <span class="ticker-item">Every Match Is Real</span>
+    <span class="ticker-item">75-Minute Show</span>
+    <span class="ticker-item">All Ages Welcome</span>
+    <span class="ticker-item">From $58</span>
+    <span class="ticker-item">Daily Battles</span>
+    <span class="ticker-item">Championship Machines</span>
+    <span class="ticker-item">BattleBots Arena LV</span>
+    <span class="ticker-item">Save 36% Off</span>
+    <span class="ticker-item">Live Robotic Combat</span>
+    <span class="ticker-item">TV Robots On Stage</span>
+    <span class="ticker-item">Every Match Is Real</span>
+    <span class="ticker-item">75-Minute Show</span>
+    <span class="ticker-item">All Ages Welcome</span>
+    <span class="ticker-item">From $58</span>
+    <span class="ticker-item">Daily Battles</span>
+    <span class="ticker-item">Championship Machines</span>
+    <span class="ticker-item">BattleBots Arena LV</span>
+    <span class="ticker-item">Save 36% Off</span>
+  </div>
+</div>
+
+<div class="stats-strip">
+  <div class="stat-item">
+    <div><span class="stat-num" data-target="75">0</span><span class="stat-unit">min</span></div>
+    <div class="stat-label">Show Duration</div>
+  </div>
+  <div class="stat-item">
+    <div><span class="stat-num" data-target="5">0</span><span class="stat-unit">×/wk</span></div>
+    <div class="stat-label">Shows Per Week</div>
+  </div>
+  <div class="stat-item">
+    <div><span class="stat-unit">$</span><span class="stat-num" data-target="32">0</span></div>
+    <div class="stat-label">You Save</div>
+  </div>
+  <div class="stat-item">
+    <div><span class="stat-num" data-target="36">0</span><span class="stat-unit">%</span></div>
+    <div class="stat-label">Discount Off Reg. Price</div>
   </div>
 </div>
 
@@ -632,7 +717,7 @@
       </div>
     </section>
 
-    <section class="section fade-up">
+    <section class="section fade-up" id="also">
       <h2 class="section-title">You Might <span>Also Like</span></h2>
       <div class="also-grid">
         <a href="/shows/family/tournament-of-kings/" class="also-card">
@@ -700,9 +785,13 @@
 </div>
 
 <section class="final-cta">
-  <h2>Ready to Watch Robots Fight?</h2>
-  <p>The only daily live robotic combat show on earth. Get your tickets before they&rsquo;re gone.</p>
-  <a href="https://spotlight.vegas/shows/production/battlebots/ref/vegassidekick" class="final-cta-btn">Get BattleBots Tickets &rarr;</a>
+  <div class="orb-1"></div>
+  <div class="orb-2"></div>
+  <div class="final-cta-inner">
+    <h2>Ready to Watch Robots Fight?</h2>
+    <p>The only daily live robotic combat show on earth. Get your tickets before they&rsquo;re gone.</p>
+    <a href="https://spotlight.vegas/shows/production/battlebots/ref/vegassidekick" class="final-cta-btn">Get BattleBots Tickets &rarr;</a>
+  </div>
 </section>
 
 <div class="mobile-buy-bar">
@@ -723,6 +812,7 @@
     var d = document.documentElement;
     var pct = d.scrollTop / (d.scrollHeight - d.clientHeight) * 100;
     document.getElementById('progress-bar').style.width = pct + '%';
+    document.getElementById('progress-bar-bottom').style.width = pct + '%';
     var pill = document.getElementById('savePill');
     if (d.scrollTop > 400) pill.classList.add('visible');
     else pill.classList.remove('visible');
@@ -743,7 +833,7 @@
   setInterval(function() { shiftSlide(1); }, 5000);
 
   // Dot nav
-  var sections = ['overview','details','expect','seating','faq'];
+  var sections = ['overview','details','expect','seating','faq','also'];
   var dots = document.querySelectorAll('.dnav-dot');
   window.addEventListener('scroll', function() {
     var sy = window.scrollY + 200;
@@ -790,6 +880,28 @@
     document.getElementById('seenResult').style.display = 'block';
     document.getElementById('seenResult').textContent = 'You are going to love it. Spike guarantees it.';
   }
+
+  // Stats count-up
+  var statsObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) return;
+      entry.target.querySelectorAll('.stat-num').forEach(function(el) {
+        var target = parseInt(el.dataset.target, 10);
+        var start = performance.now();
+        var dur = 1400;
+        function tick(now) {
+          var t = Math.min((now - start) / dur, 1);
+          var ease = 1 - Math.pow(1 - t, 3);
+          el.textContent = Math.round(ease * target);
+          if (t < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      });
+      statsObserver.unobserve(entry.target);
+    });
+  }, { threshold: 0.3 });
+  var statsEl = document.querySelector('.stats-strip');
+  if (statsEl) statsObserver.observe(statsEl);
 
   // Email
   function submitEmail() {
