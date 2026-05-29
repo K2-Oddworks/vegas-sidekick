@@ -1,0 +1,2581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vegas Sidekick — Preview Redesign</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:    #0A1628;
+      --navy2:   #0d1e38;
+      --blue:    #1A6BFF;
+      --orange:  #FF6B00;
+      --gold:    #F0A500;
+      --white:   #FFFFFF;
+      --tint:    #F0F5FF;
+      --offwhite:#F7F9FC;
+      --gray:    #8896A8;
+      --gray-dk: #4A5568;
+      --border:  #D8E2F0;
+      --header-h: 120px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--offwhite);
+      color: var(--navy);
+      font-family: 'Barlow', sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ═══════════════════════════════════════
+       TOP UTILITY BAR  (Amazon's black strip)
+    ═══════════════════════════════════════ */
+    .util-bar {
+      background: var(--navy);
+      padding: 6px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 24px;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.75);
+    }
+    .util-bar a { color: rgba(255,255,255,0.75); transition: color .15s; }
+    .util-bar a:hover { color: var(--orange); }
+    .util-bar .util-sep { opacity: .3; }
+
+    /* ═══════════════════════════════════════
+       MAIN NAV BAR
+    ═══════════════════════════════════════ */
+    .main-nav {
+      background: var(--navy2);
+      position: sticky;
+      top: 0;
+      z-index: 900;
+      border-bottom: 3px solid var(--orange);
+    }
+
+    .main-nav-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 10px 20px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Logo */
+    .nav-logo img { height: 42px; display: block; }
+
+    /* Search bar */
+    .nav-search {
+      display: flex;
+      height: 42px;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 2px solid var(--orange);
+    }
+
+    .nav-search-cat {
+      background: rgba(255,255,255,0.1);
+      color: var(--white);
+      border: none;
+      padding: 0 10px;
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.8rem;
+      cursor: pointer;
+      border-right: 1px solid rgba(255,255,255,0.15);
+      min-width: 90px;
+    }
+
+    .nav-search input {
+      flex: 1;
+      background: var(--white);
+      border: none;
+      padding: 0 14px;
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.9rem;
+      color: var(--navy);
+      outline: none;
+    }
+
+    .nav-search-btn {
+      background: var(--orange);
+      border: none;
+      padding: 0 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .15s;
+    }
+    .nav-search-btn:hover { background: #e05e00; }
+    .nav-search-btn svg { width: 20px; height: 20px; fill: var(--white); }
+
+    /* Nav right */
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-action {
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      font-size: 0.72rem;
+      line-height: 1.2;
+      cursor: pointer;
+      transition: color .15s;
+    }
+    .nav-action:hover { color: var(--orange); }
+    .nav-action strong { font-size: 0.88rem; font-weight: 700; }
+
+    .nav-cart {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--white);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: .05em;
+      transition: color .15s;
+    }
+    .nav-cart:hover { color: var(--orange); }
+    .nav-cart svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+    /* ═══════════════════════════════════════
+       CATEGORY PILLS NAV
+    ═══════════════════════════════════════ */
+    .cat-nav {
+      background: #112240;
+      border-bottom: 1px solid rgba(26,107,255,.2);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .cat-nav::-webkit-scrollbar { display: none; }
+
+    .cat-nav-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    .cat-nav-link {
+      display: inline-block;
+      padding: 9px 16px;
+      font-family: 'Barlow', sans-serif;
+      font-weight: 600;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,.82);
+      border-bottom: 3px solid transparent;
+      transition: color .15s, border-color .15s;
+    }
+    .cat-nav-link:hover,
+    .cat-nav-link.active { color: var(--white); border-color: var(--orange); }
+
+    /* ═══════════════════════════════════════
+       PAGE WRAPPER
+    ═══════════════════════════════════════ */
+    .page-body { max-width: 1440px; margin: 0 auto; }
+
+    /* ═══════════════════════════════════════
+       HERO CAROUSEL
+    ═══════════════════════════════════════ */
+    .hero-carousel {
+      position: relative;
+      overflow: hidden;
+      background: var(--navy);
+    }
+
+    .hero-slides {
+      display: flex;
+      transition: transform .55s cubic-bezier(.4,0,.2,1);
+    }
+
+    .hero-slide {
+      flex: 0 0 100%;
+      min-height: 460px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-slide-1 { background: linear-gradient(135deg, #0A1628 0%, #0d1e38 40%, #1a2a4a 100%); }
+    .hero-slide-2 { background: linear-gradient(135deg, #1a0a28 0%, #280d38 40%, #2a1a4a 100%); }
+    .hero-slide-3 { background: linear-gradient(135deg, #0A1628 0%, #0a2818 40%, #1a4a2a 100%); }
+
+    /* starfield overlay */
+    .hero-slide::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 25% 70%, rgba(255,255,255,.3) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 45% 12%, rgba(255,255,255,.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 60% 55%, rgba(255,255,255,.35) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 78% 28%, rgba(255,255,255,.45) 0%, transparent 100%),
+        radial-gradient(1px 1px at 88% 78%, rgba(255,255,255,.25) 0%, transparent 100%),
+        radial-gradient(1px 1px at 33% 88%, rgba(255,255,255,.3) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .hero-slide-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 48px 60px;
+      display: flex;
+      align-items: center;
+      gap: 60px;
+      width: 100%;
+    }
+
+    .hero-text { flex: 1 1 0; max-width: 600px; }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--orange);
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: .15em;
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 18px;
+    }
+
+    .hero-h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 5.5vw, 5.2rem);
+      line-height: .98;
+      margin-bottom: 18px;
+      color: var(--white);
+    }
+
+    .hero-h1 .accent-blue   { color: var(--blue); }
+    .hero-h1 .accent-orange { color: var(--orange); }
+    .hero-h1 .accent-gold   { color: var(--gold); }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: rgba(255,255,255,.78);
+      line-height: 1.65;
+      margin-bottom: 28px;
+      max-width: 480px;
+    }
+
+    .hero-trust {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+
+    .hero-trust-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: rgba(255,255,255,.85);
+    }
+
+    .hero-trust-item .check {
+      width: 18px;
+      height: 18px;
+      background: var(--blue);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .65rem;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    .btn-hero-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--orange);
+      color: var(--white);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: .06em;
+      padding: 13px 32px;
+      border-radius: 6px;
+      border: 2px solid var(--orange);
+      transition: background .2s, transform .2s, box-shadow .2s;
+    }
+    .btn-hero-primary:hover {
+      background: #e05e00;
+      border-color: #e05e00;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(255,107,0,.35);
+    }
+
+    .btn-hero-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--white);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: .06em;
+      padding: 13px 32px;
+      border-radius: 6px;
+      border: 2px solid rgba(255,255,255,.4);
+      transition: border-color .2s, transform .2s;
+    }
+    .btn-hero-secondary:hover {
+      border-color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    /* Spike visual in hero */
+    .hero-visual {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: flex-end;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-visual img {
+      width: 320px;
+      max-width: 100%;
+      display: block;
+      filter: drop-shadow(0 12px 40px rgba(26,107,255,.3)) drop-shadow(0 0 80px rgba(255,107,0,.12));
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-10px); }
+    }
+
+    /* price badge in hero slide 2 */
+    .hero-price-badge {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-start;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 10px;
+      padding: 14px 20px;
+      margin-bottom: 28px;
+      backdrop-filter: blur(8px);
+    }
+    .hero-price-badge .from { font-size: .75rem; color: var(--gray); font-weight: 600; text-transform: uppercase; letter-spacing: .1em; }
+    .hero-price-badge .price { font-family: 'Bebas Neue', sans-serif; font-size: 2.6rem; color: var(--orange); line-height: 1; }
+    .hero-price-badge .was { font-size: .78rem; color: var(--gray); text-decoration: line-through; }
+
+    /* Carousel arrows */
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 44px;
+      height: 80px;
+      background: rgba(0,0,0,.4);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s;
+    }
+    .carousel-arrow:hover { background: rgba(0,0,0,.65); }
+    .carousel-arrow.prev { left: 0; border-radius: 0 8px 8px 0; }
+    .carousel-arrow.next { right: 0; border-radius: 8px 0 0 8px; }
+    .carousel-arrow svg { width: 20px; height: 20px; fill: none; stroke: white; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* Carousel dots */
+    .carousel-dots {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+    }
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.35);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background .2s, transform .2s;
+    }
+    .carousel-dot.active { background: var(--orange); transform: scale(1.3); }
+
+    /* ═══════════════════════════════════════
+       DEAL OF THE DAY STRIP
+    ═══════════════════════════════════════ */
+    .deal-strip {
+      background: var(--white);
+      border-bottom: 3px solid var(--orange);
+    }
+
+    .deal-strip-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .deal-strip-inner::-webkit-scrollbar { display: none; }
+
+    .deal-strip-label {
+      flex: 0 0 auto;
+      background: var(--orange);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 20px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: .06em;
+      text-align: center;
+      line-height: 1.2;
+      min-width: 90px;
+    }
+
+    .deal-strip-label .fire { font-size: 1.4rem; margin-bottom: 4px; }
+
+    .deal-item {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 20px;
+      border-left: 1px solid var(--border);
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .deal-item:hover { background: var(--tint); }
+
+    .deal-item-img {
+      width: 54px;
+      height: 54px;
+      border-radius: 6px;
+      object-fit: cover;
+      flex-shrink: 0;
+      background: var(--tint);
+    }
+
+    .deal-item-info { min-width: 120px; }
+
+    .deal-item-name {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 700;
+      font-size: .8rem;
+      color: var(--navy);
+      margin-bottom: 2px;
+      white-space: nowrap;
+    }
+
+    .deal-item-price {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--orange);
+    }
+
+    .deal-item-was {
+      font-size: .72rem;
+      color: var(--gray);
+      text-decoration: line-through;
+    }
+
+    .deal-item-pct {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: .72rem;
+      background: #e6ffe6;
+      color: #1a7a1a;
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+
+    /* ═══════════════════════════════════════
+       SECTION COMMON STYLES
+    ═══════════════════════════════════════ */
+    .section-block {
+      background: var(--white);
+      margin: 16px 16px 0;
+      border-radius: 8px;
+      padding: 22px 22px 28px;
+      border: 1px solid var(--border);
+    }
+
+    .section-block.bg-dark {
+      background: var(--navy);
+      border-color: rgba(26,107,255,.2);
+    }
+
+    .section-block.bg-tint {
+      background: var(--tint);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.5rem, 2vw, 2rem);
+      color: var(--navy);
+      letter-spacing: .02em;
+      line-height: 1;
+    }
+
+    .section-title.light { color: var(--white); }
+
+    .section-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: .2em;
+      color: var(--orange);
+      margin-bottom: 4px;
+    }
+
+    .see-all {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 600;
+      font-size: .82rem;
+      color: var(--blue);
+      white-space: nowrap;
+      transition: color .15s;
+    }
+    .see-all:hover { color: var(--orange); }
+    .see-all.light { color: #6aaeff; }
+    .see-all.light:hover { color: var(--orange); }
+
+    /* ═══════════════════════════════════════
+       CATEGORY TILES
+    ═══════════════════════════════════════ */
+    .cat-tiles {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+    }
+
+    .cat-tile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      padding: 20px 12px;
+      background: var(--tint);
+      border: 2px solid transparent;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: border-color .2s, transform .2s, box-shadow .2s;
+      text-align: center;
+    }
+    .cat-tile:hover {
+      border-color: var(--orange);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(255,107,0,.15);
+    }
+
+    .cat-tile-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .cat-tile-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: .95rem;
+      letter-spacing: .04em;
+      color: var(--navy);
+    }
+
+    .cat-tile-count {
+      font-size: .7rem;
+      color: var(--gray);
+      font-weight: 600;
+    }
+
+    /* ═══════════════════════════════════════
+       SHOW CARDS (Amazon-style product cards)
+    ═══════════════════════════════════════ */
+    .shows-carousel-wrap {
+      position: relative;
+    }
+
+    .shows-carousel {
+      display: flex;
+      overflow-x: auto;
+      gap: 14px;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      padding-bottom: 4px;
+    }
+    .shows-carousel::-webkit-scrollbar { display: none; }
+
+    .scroll-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 5;
+      width: 36px;
+      height: 72px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,.15);
+      transition: box-shadow .2s, background .15s;
+    }
+    .scroll-btn:hover { box-shadow: 0 4px 20px rgba(0,0,0,.25); background: var(--tint); }
+    .scroll-btn.left  { left: -18px; }
+    .scroll-btn.right { right: -18px; }
+    .scroll-btn svg { width: 16px; height: 16px; fill: none; stroke: var(--navy); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+    .show-card {
+      flex: 0 0 210px;
+      scroll-snap-align: start;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: box-shadow .2s, transform .2s;
+    }
+    .show-card:hover {
+      box-shadow: 0 6px 24px rgba(0,0,0,.14);
+      transform: translateY(-3px);
+    }
+
+    .show-card a { display: block; color: inherit; }
+
+    .card-img-wrap {
+      position: relative;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      background: var(--tint);
+    }
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .35s;
+    }
+    .show-card:hover .card-img-wrap img { transform: scale(1.05); }
+
+    .card-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: var(--orange);
+      color: white;
+      font-family: 'Barlow', sans-serif;
+      font-weight: 700;
+      font-size: .65rem;
+      letter-spacing: .04em;
+      padding: 3px 8px;
+      border-radius: 3px;
+    }
+
+    .card-badge.badge-deal {
+      background: #c7230a;
+    }
+
+    .card-body { padding: 12px 14px 16px; }
+
+    .card-venue {
+      font-size: .7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--blue);
+      margin-bottom: 4px;
+    }
+
+    .card-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      color: var(--navy);
+      line-height: 1.1;
+      margin-bottom: 5px;
+      letter-spacing: .02em;
+    }
+
+    /* Star ratings */
+    .card-stars {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 7px;
+    }
+    .stars { color: var(--gold); font-size: .8rem; letter-spacing: -.5px; }
+    .star-count { font-size: .72rem; color: var(--blue); }
+
+    .card-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .card-price {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--orange);
+    }
+    .card-was {
+      font-size: .75rem;
+      color: var(--gray);
+      text-decoration: line-through;
+    }
+    .card-save {
+      font-size: .7rem;
+      font-weight: 700;
+      color: #1a8c1a;
+    }
+
+    .card-cta {
+      display: block;
+      background: var(--orange);
+      color: white;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: .9rem;
+      letter-spacing: .06em;
+      text-align: center;
+      padding: 8px;
+      border-radius: 5px;
+      transition: background .15s;
+    }
+    .card-cta:hover { background: #e05e00; }
+
+    .card-sidekick-badge {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: .68rem;
+      font-weight: 700;
+      color: var(--blue);
+      margin-bottom: 8px;
+    }
+    .card-sidekick-badge .dot {
+      width: 7px; height: 7px;
+      background: var(--blue);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ═══════════════════════════════════════
+       FEATURED SPOTLIGHT (Deal of the Day)
+    ═══════════════════════════════════════ */
+    .featured-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .featured-card {
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      min-height: 280px;
+      display: flex;
+      align-items: flex-end;
+      cursor: pointer;
+    }
+
+    .featured-card-bg {
+      position: absolute;
+      inset: 0;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      transition: transform .5s;
+    }
+    .featured-card:hover .featured-card-bg { transform: scale(1.04); }
+
+    .featured-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.82) 0%, rgba(0,0,0,.1) 60%, transparent 100%);
+    }
+
+    .featured-card-body {
+      position: relative;
+      z-index: 2;
+      padding: 24px;
+      width: 100%;
+    }
+
+    .featured-eyebrow {
+      display: inline-block;
+      background: var(--orange);
+      color: white;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: .15em;
+      padding: 3px 10px;
+      border-radius: 3px;
+      margin-bottom: 10px;
+    }
+
+    .featured-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      color: white;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .featured-venue {
+      font-size: .8rem;
+      font-weight: 600;
+      color: rgba(255,255,255,.7);
+      margin-bottom: 12px;
+    }
+
+    .featured-price-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .featured-price {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1.6rem;
+      color: var(--orange);
+    }
+
+    .featured-was { font-size: .82rem; color: rgba(255,255,255,.6); text-decoration: line-through; }
+
+    .featured-btn {
+      display: inline-block;
+      background: var(--orange);
+      color: white;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: .06em;
+      padding: 9px 22px;
+      border-radius: 5px;
+      margin-top: 14px;
+      transition: background .15s, transform .15s;
+    }
+    .featured-btn:hover { background: #e05e00; transform: translateY(-2px); }
+
+    /* ═══════════════════════════════════════
+       TWIN PROMO BLOCKS (2 side by side)
+    ═══════════════════════════════════════ */
+    .twin-promos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 16px 16px 0;
+    }
+
+    .promo-block {
+      background: var(--navy);
+      border-radius: 8px;
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(26,107,255,.15);
+    }
+
+    .promo-block::after {
+      content: '';
+      position: absolute;
+      right: -20px;
+      bottom: -20px;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: rgba(26,107,255,.08);
+    }
+
+    .promo-block-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      color: white;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .promo-block-sub {
+      font-size: .88rem;
+      color: rgba(255,255,255,.65);
+      line-height: 1.55;
+      margin-bottom: 20px;
+      max-width: 280px;
+    }
+
+    .promo-tag {
+      display: inline-block;
+      background: rgba(26,107,255,.2);
+      color: #6aaeff;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .15em;
+      padding: 4px 10px;
+      border-radius: 100px;
+      border: 1px solid rgba(26,107,255,.3);
+      margin-bottom: 16px;
+    }
+
+    .btn-promo {
+      display: inline-block;
+      background: var(--blue);
+      color: white;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: .06em;
+      padding: 11px 26px;
+      border-radius: 6px;
+      transition: background .15s, transform .15s;
+    }
+    .btn-promo:hover { background: #1258d4; transform: translateY(-2px); }
+
+    .btn-promo-orange {
+      background: var(--orange);
+    }
+    .btn-promo-orange:hover { background: #e05e00; }
+
+    /* Spike float in promo */
+    .promo-spike {
+      position: absolute;
+      right: 20px;
+      bottom: 0;
+      height: 140px;
+      opacity: .7;
+    }
+
+    /* ═══════════════════════════════════════
+       VIBE QUIZ STRIP
+    ═══════════════════════════════════════ */
+    .vibe-strip {
+      background: linear-gradient(135deg, #0A1628 0%, #1a2840 100%);
+      margin: 16px 16px 0;
+      border-radius: 8px;
+      border: 1px solid rgba(255,107,0,.25);
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .vibe-strip-text {}
+    .vibe-strip-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .2em;
+      color: var(--orange);
+      margin-bottom: 4px;
+    }
+    .vibe-strip-heading {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      color: white;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .vibe-strip-sub {
+      font-size: .85rem;
+      color: rgba(255,255,255,.65);
+    }
+
+    .vibe-quiz-answers {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .vibe-answer-btn {
+      background: rgba(255,255,255,.07);
+      border: 1.5px solid rgba(255,255,255,.2);
+      color: white;
+      font-family: 'Barlow', sans-serif;
+      font-weight: 600;
+      font-size: .82rem;
+      padding: 9px 18px;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+    }
+    .vibe-answer-btn:hover {
+      border-color: var(--orange);
+      background: rgba(255,107,0,.12);
+    }
+
+    /* ═══════════════════════════════════════
+       EMAIL SIGNUP (Amazon Prime-inspired)
+    ═══════════════════════════════════════ */
+    .email-block {
+      background: linear-gradient(135deg, #0A1628 0%, #0d2040 100%);
+      margin: 16px 16px 0;
+      border-radius: 8px;
+      border: 1px solid rgba(26,107,255,.2);
+      padding: 36px 40px;
+      display: flex;
+      align-items: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .email-block-icon {
+      font-size: 3.5rem;
+      flex-shrink: 0;
+    }
+
+    .email-block-text { flex: 1 1 200px; }
+
+    .email-block-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .2em;
+      color: var(--orange);
+      margin-bottom: 6px;
+    }
+
+    .email-block-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem;
+      color: white;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .email-block-sub {
+      font-size: .88rem;
+      color: rgba(255,255,255,.65);
+    }
+
+    .email-block-perks {
+      display: flex;
+      gap: 20px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .email-perk {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .8rem;
+      font-weight: 600;
+      color: rgba(255,255,255,.8);
+    }
+    .email-perk .perk-dot {
+      width: 6px; height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .email-form-area { flex: 0 0 auto; }
+
+    .email-form {
+      display: flex;
+      gap: 10px;
+    }
+
+    .email-form input {
+      height: 46px;
+      width: 260px;
+      background: rgba(255,255,255,.09);
+      border: 1.5px solid rgba(255,255,255,.2);
+      border-radius: 6px;
+      padding: 0 16px;
+      font-family: 'Barlow', sans-serif;
+      font-size: .9rem;
+      color: white;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .email-form input::placeholder { color: rgba(255,255,255,.4); }
+    .email-form input:focus { border-color: var(--blue); }
+
+    .email-form button {
+      height: 46px;
+      background: var(--orange);
+      color: white;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: .95rem;
+      letter-spacing: .06em;
+      padding: 0 24px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background .15s;
+    }
+    .email-form button:hover { background: #e05e00; }
+
+    /* ═══════════════════════════════════════
+       DISPATCH / NEWS
+    ═══════════════════════════════════════ */
+    .dispatch-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .dispatch-card {
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 8px;
+      overflow: hidden;
+      background: rgba(255,255,255,.04);
+      cursor: pointer;
+      transition: border-color .2s, transform .2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .dispatch-card:hover {
+      border-color: var(--orange);
+      transform: translateY(-3px);
+    }
+
+    .dispatch-card-img {
+      aspect-ratio: 16/9;
+      overflow: hidden;
+    }
+    .dispatch-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .4s;
+    }
+    .dispatch-card:hover .dispatch-card-img img { transform: scale(1.05); }
+
+    .dispatch-card-body {
+      padding: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .dispatch-date {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: .15em;
+      color: var(--orange);
+    }
+
+    .dispatch-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.15rem;
+      color: white;
+      line-height: 1.15;
+    }
+
+    .dispatch-desc {
+      font-size: .82rem;
+      color: var(--gray);
+      line-height: 1.55;
+      flex: 1;
+    }
+
+    .dispatch-read {
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--blue);
+      margin-top: 4px;
+      transition: color .15s;
+    }
+    .dispatch-card:hover .dispatch-read { color: var(--orange); }
+
+    /* ═══════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════ */
+    footer {
+      background: var(--navy);
+      margin-top: 32px;
+      border-top: 3px solid var(--orange);
+    }
+
+    .footer-top {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 40px;
+    }
+
+    .footer-brand img { height: 36px; margin-bottom: 16px; }
+
+    .footer-brand-text {
+      font-size: .85rem;
+      color: rgba(255,255,255,.6);
+      line-height: 1.6;
+      margin-bottom: 16px;
+      max-width: 280px;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 10px;
+    }
+
+    .footer-social-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: .82rem;
+      cursor: pointer;
+      transition: background .15s, border-color .15s;
+    }
+    .footer-social-btn:hover { background: var(--orange); border-color: var(--orange); }
+
+    .footer-col h4 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      color: white;
+      letter-spacing: .06em;
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+
+    .footer-col ul li a {
+      font-size: .82rem;
+      color: rgba(255,255,255,.58);
+      transition: color .15s;
+    }
+    .footer-col ul li a:hover { color: var(--orange); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding: 16px 20px;
+      max-width: 1440px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: .75rem;
+      color: rgba(255,255,255,.4);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .footer-bottom a { color: rgba(255,255,255,.4); transition: color .15s; }
+    .footer-bottom a:hover { color: var(--orange); }
+
+    /* ═══════════════════════════════════════
+       MOBILE STICKY BAR
+    ═══════════════════════════════════════ */
+    .mobile-sticky {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 800;
+      display: none;
+    }
+
+    @media (max-width: 768px) { .mobile-sticky { display: block; } }
+
+    .mobile-sticky a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      background: var(--orange);
+      color: white;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: .08em;
+      background: linear-gradient(90deg, var(--orange) 30%, #FF9B6A 50%, var(--orange) 70%);
+      background-size: 300% auto;
+      animation: shimmer 2.5s linear infinite;
+    }
+
+    @keyframes shimmer {
+      0%   { background-position: -300% center; }
+      100% { background-position:  300% center; }
+    }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════ */
+    @media (max-width: 1100px) {
+      .cat-tiles { grid-template-columns: repeat(3, 1fr); }
+      .featured-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 24px; }
+    }
+
+    @media (max-width: 900px) {
+      .main-nav-inner { grid-template-columns: auto 1fr; }
+      .nav-right { display: none; }
+      .hero-slide-content { padding: 36px 24px; }
+      .hero-visual { display: none; }
+      .dispatch-grid { grid-template-columns: 1fr 1fr; }
+      .twin-promos { grid-template-columns: 1fr; }
+      .email-block { flex-direction: column; text-align: center; }
+    }
+
+    @media (max-width: 640px) {
+      .cat-tiles { grid-template-columns: repeat(2, 1fr); }
+      .dispatch-grid { grid-template-columns: 1fr; }
+      .section-block { margin: 10px 8px 0; padding: 16px 16px 20px; }
+      .twin-promos { margin: 10px 8px 0; }
+      .vibe-strip { margin: 10px 8px 0; }
+      .email-block { margin: 10px 8px 0; padding: 24px 20px; }
+      .footer-top { grid-template-columns: 1fr; }
+    }
+
+    /* ═══════════════════════════════════════
+       FADE-UP
+    ═══════════════════════════════════════ */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: none; }
+
+    /* Preview notice */
+    .preview-banner {
+      background: #fff3cd;
+      color: #7a5500;
+      text-align: center;
+      padding: 10px 16px;
+      font-size: .82rem;
+      font-weight: 600;
+      border-bottom: 2px solid #ffc107;
+    }
+    .preview-banner strong { color: #cc7700; }
+  </style>
+</head>
+<body>
+
+<!-- ─── PREVIEW NOTICE ─── -->
+<div class="preview-banner">
+  ⚠️ <strong>DESIGN PREVIEW ONLY</strong> — This is a local mockup. Image placeholders may appear if running from filesystem. Serve with <code>python3 -m http.server 8080</code> from the project root for full fidelity.
+</div>
+
+<!-- ─── UTILITY BAR ─── -->
+<div class="util-bar">
+  <a href="#">Las Vegas, NV</a>
+  <span class="util-sep">|</span>
+  <a href="#">Sign In</a>
+  <span class="util-sep">|</span>
+  <a href="/news/">Vegas Dispatch</a>
+  <span class="util-sep">|</span>
+  <a href="/search/">Search Shows</a>
+</div>
+
+<!-- ─── MAIN NAV ─── -->
+<nav class="main-nav" role="navigation" aria-label="Main navigation">
+  <div class="main-nav-inner">
+    <!-- Logo -->
+    <a href="/" class="nav-logo" aria-label="Vegas Sidekick Home">
+      <img src="/images/logo-pill.png" alt="Vegas Sidekick" />
+    </a>
+
+    <!-- Search bar -->
+    <div class="nav-search" role="search">
+      <select class="nav-search-cat" aria-label="Search category">
+        <option>All Shows</option>
+        <option>Comedy</option>
+        <option>Magic</option>
+        <option>Cirque</option>
+        <option>Music</option>
+        <option>Family</option>
+        <option>Spectaculars</option>
+      </select>
+      <input type="text" placeholder="Search Las Vegas shows, performers, venues..." aria-label="Search shows" />
+      <button class="nav-search-btn" aria-label="Search">
+        <svg viewBox="0 0 24 24"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+      </button>
+    </div>
+
+    <!-- Right nav -->
+    <div class="nav-right">
+      <a href="#" class="nav-action">
+        <span>Hello, Vegas Visitor</span>
+        <strong>Sign In ▾</strong>
+      </a>
+      <a href="/news/" class="nav-action">
+        <span>Vegas</span>
+        <strong>Dispatch</strong>
+      </a>
+      <a href="/shows/" class="nav-cart" aria-label="Browse all shows">
+        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="4" rx="1"/><path d="M4 7l2 14h12l2-14"/><path d="M9 12h6M9 16h4"/></svg>
+        SHOWS
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ─── CATEGORY PILLS ─── -->
+<div class="cat-nav" role="navigation" aria-label="Category navigation">
+  <div class="cat-nav-inner">
+    <a href="/shows/" class="cat-nav-link active">All Shows</a>
+    <a href="/shows/comedy/" class="cat-nav-link">😂 Comedy</a>
+    <a href="/shows/magic/" class="cat-nav-link">🪄 Magic</a>
+    <a href="/shows/cirque/" class="cat-nav-link">🎪 Cirque &amp; Acrobatics</a>
+    <a href="/shows/music/" class="cat-nav-link">🎵 Music</a>
+    <a href="/shows/spectaculars/" class="cat-nav-link">⭐ Spectaculars</a>
+    <a href="/shows/family/" class="cat-nav-link">👨‍👩‍👧 Family</a>
+    <a href="/shows/adult/" class="cat-nav-link">🔞 Adult</a>
+    <a href="/news/" class="cat-nav-link">📰 Vegas Dispatch</a>
+  </div>
+</div>
+
+<!-- ─── PAGE BODY ─── -->
+<div class="page-body">
+
+  <!-- ════════════════════════════
+       HERO CAROUSEL
+  ════════════════════════════ -->
+  <div class="hero-carousel" aria-label="Featured shows carousel">
+    <div class="hero-slides" id="heroSlides">
+
+      <!-- Slide 1: Brand Hero -->
+      <div class="hero-slide hero-slide-1">
+        <div class="hero-slide-content">
+          <div class="hero-text fade-up visible">
+            <span class="hero-eyebrow">🎰 YOUR VEGAS INSIDER</span>
+            <h1 class="hero-h1">
+              <span class="accent-blue">BIGGEST SHOWS.</span><br>
+              <span class="accent-orange">REAL DISCOUNTS.</span><br>
+              <span>NO BS.</span>
+            </h1>
+            <p class="hero-sub">Handpicked Las Vegas show tickets at legit discounts. No membership, no hidden fees, no markup games. Your Vegas insider — guaranteed.</p>
+            <div class="hero-trust">
+              <div class="hero-trust-item"><span class="check">✓</span> No Hidden Fees</div>
+              <div class="hero-trust-item"><span class="check">✓</span> No Membership</div>
+              <div class="hero-trust-item"><span class="check">✓</span> Legit Discounts</div>
+            </div>
+            <div class="hero-btns">
+              <a href="/shows/" class="btn-hero-primary">BROWSE ALL SHOWS →</a>
+              <a href="/search/" class="btn-hero-secondary">SEARCH SHOWS</a>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <img src="/images/spike-hero.png" alt="Spike the Vegas Sidekick mascot" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 2: Deal Spotlight — Wizard of Oz -->
+      <div class="hero-slide hero-slide-2">
+        <div class="hero-slide-content">
+          <div class="hero-text fade-up visible">
+            <span class="hero-eyebrow">⭐ SIDEKICK PICK OF THE WEEK</span>
+            <h1 class="hero-h1">
+              <span class="accent-gold">WIZARD OF OZ</span><br>
+              <span>AT THE SPHERE</span>
+            </h1>
+            <p class="hero-sub">The 1939 classic reborn on 160,000 sq ft of 16K wraparound screen. The most immersive experience on the planet — and tickets are still available.</p>
+            <div class="hero-price-badge">
+              <span class="from">TICKETS FROM</span>
+              <span class="price">$123</span>
+              <span class="was">Limited availability — book now</span>
+            </div>
+            <div class="hero-btns">
+              <a href="/shows/spectaculars/wizard-of-oz/" class="btn-hero-primary">GET TICKETS →</a>
+              <a href="/shows/spectaculars/" class="btn-hero-secondary">MORE SPECTACULARS</a>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <img src="/images/spike-chill.png" alt="Spike the Vegas Sidekick" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 3: Comedy Spotlight -->
+      <div class="hero-slide hero-slide-3">
+        <div class="hero-slide-content">
+          <div class="hero-text fade-up visible">
+            <span class="hero-eyebrow">😂 HOT IN COMEDY RIGHT NOW</span>
+            <h1 class="hero-h1">
+              <span class="accent-blue">LAUGH UNTIL</span><br>
+              <span class="accent-orange">SOMETHING HURTS.</span>
+            </h1>
+            <p class="hero-sub">Vegas has the world's best comedy lineup. From Carrot Top's absurdist prop circus to Tape Face's silent genius — Spike's got your seats covered.</p>
+            <div class="hero-trust">
+              <div class="hero-trust-item"><span class="check">✓</span> Shows From $35</div>
+              <div class="hero-trust-item"><span class="check">✓</span> Instant Delivery</div>
+              <div class="hero-trust-item"><span class="check">✓</span> No Booking Fees</div>
+            </div>
+            <div class="hero-btns">
+              <a href="/shows/comedy/" class="btn-hero-primary">SEE COMEDY SHOWS →</a>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <img src="/images/spike-hero.png" alt="Spike" />
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /hero-slides -->
+
+    <!-- Arrows -->
+    <button class="carousel-arrow prev" id="heroPrev" aria-label="Previous slide">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="carousel-arrow next" id="heroNext" aria-label="Next slide">
+      <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+    </button>
+
+    <!-- Dots -->
+    <div class="carousel-dots" id="heroDots" role="tablist">
+      <button class="carousel-dot active" data-idx="0" aria-label="Slide 1"></button>
+      <button class="carousel-dot" data-idx="1" aria-label="Slide 2"></button>
+      <button class="carousel-dot" data-idx="2" aria-label="Slide 3"></button>
+    </div>
+  </div><!-- /hero-carousel -->
+
+  <!-- ════════════════════════════
+       TODAY'S BEST DEALS STRIP
+  ════════════════════════════ -->
+  <div class="deal-strip">
+    <div class="deal-strip-inner">
+      <div class="deal-strip-label">
+        <div class="fire">🔥</div>
+        TODAY'S<br>BEST DEALS
+      </div>
+
+      <div class="deal-item">
+        <img src="/images/carrot-top-hero.jpg" alt="Carrot Top" class="deal-item-img" />
+        <div class="deal-item-info">
+          <div class="deal-item-name">CARROT TOP</div>
+          <div class="deal-item-price">FROM $47 <span class="deal-item-was">$65</span></div>
+          <div class="deal-item-pct">28% OFF</div>
+        </div>
+      </div>
+
+      <div class="deal-item">
+        <img src="/images/mac-king-hero.jpg" alt="Mac King" class="deal-item-img" />
+        <div class="deal-item-info">
+          <div class="deal-item-name">MAC KING</div>
+          <div class="deal-item-price">FROM $45 <span class="deal-item-was">$60</span></div>
+          <div class="deal-item-pct">25% OFF</div>
+        </div>
+      </div>
+
+      <div class="deal-item">
+        <img src="/images/tape-face-hero.jpg" alt="Tape Face" class="deal-item-img" />
+        <div class="deal-item-info">
+          <div class="deal-item-name">TAPE FACE</div>
+          <div class="deal-item-price">FROM $57 <span class="deal-item-was">$75</span></div>
+          <div class="deal-item-pct">24% OFF</div>
+        </div>
+      </div>
+
+      <div class="deal-item">
+        <img src="/images/criss-angel-hero.jpg" alt="Criss Angel" class="deal-item-img" />
+        <div class="deal-item-info">
+          <div class="deal-item-name">CRISS ANGEL</div>
+          <div class="deal-item-price">FROM $65 <span class="deal-item-was">$85</span></div>
+          <div class="deal-item-pct">24% OFF</div>
+        </div>
+      </div>
+
+      <div class="deal-item">
+        <img src="/images/mad-apple-hero.jpg" alt="Mad Apple" class="deal-item-img" />
+        <div class="deal-item-info">
+          <div class="deal-item-name">MAD APPLE</div>
+          <div class="deal-item-price">FROM $59 <span class="deal-item-was">$79</span></div>
+          <div class="deal-item-pct">25% OFF</div>
+        </div>
+      </div>
+
+      <div class="deal-item">
+        <img src="/images/ka-hero.jpg" alt="KÀ" class="deal-item-img" />
+        <div class="deal-item-info">
+          <div class="deal-item-name">KÀ — CIRQUE</div>
+          <div class="deal-item-price">FROM $89 <span class="deal-item-was">$120</span></div>
+          <div class="deal-item-pct">26% OFF</div>
+        </div>
+      </div>
+
+      <div class="deal-item">
+        <img src="/images/penn-and-teller-hero.jpg" alt="Penn & Teller" class="deal-item-img" />
+        <div class="deal-item-info">
+          <div class="deal-item-name">PENN &amp; TELLER</div>
+          <div class="deal-item-price">FROM $62 <span class="deal-item-was">$80</span></div>
+          <div class="deal-item-pct">23% OFF</div>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /deal-strip -->
+
+  <!-- ════════════════════════════
+       CATEGORY TILES
+  ════════════════════════════ -->
+  <section class="section-block fade-up" aria-labelledby="cat-head">
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow">SHOP BY CATEGORY</div>
+        <h2 class="section-title" id="cat-head">WHAT KIND OF NIGHT IS IT?</h2>
+      </div>
+      <a href="/shows/" class="see-all">View All Shows →</a>
+    </div>
+    <div class="cat-tiles">
+      <a href="/shows/comedy/" class="cat-tile">
+        <div class="cat-tile-icon">😂</div>
+        <div class="cat-tile-name">COMEDY</div>
+        <div class="cat-tile-count">8 Shows</div>
+      </a>
+      <a href="/shows/magic/" class="cat-tile">
+        <div class="cat-tile-icon">🪄</div>
+        <div class="cat-tile-name">MAGIC</div>
+        <div class="cat-tile-count">6 Shows</div>
+      </a>
+      <a href="/shows/cirque/" class="cat-tile">
+        <div class="cat-tile-icon">🎪</div>
+        <div class="cat-tile-name">CIRQUE</div>
+        <div class="cat-tile-count">5 Shows</div>
+      </a>
+      <a href="/shows/music/" class="cat-tile">
+        <div class="cat-tile-icon">🎵</div>
+        <div class="cat-tile-name">MUSIC</div>
+        <div class="cat-tile-count">4 Shows</div>
+      </a>
+      <a href="/shows/spectaculars/" class="cat-tile">
+        <div class="cat-tile-icon">⭐</div>
+        <div class="cat-tile-name">SPECTACULARS</div>
+        <div class="cat-tile-count">2 Shows</div>
+      </a>
+      <a href="/shows/family/" class="cat-tile">
+        <div class="cat-tile-icon">👨‍👩‍👧</div>
+        <div class="cat-tile-name">FAMILY</div>
+        <div class="cat-tile-count">3 Shows</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════
+       SIDEKICK'S PICKS (This Week)
+  ════════════════════════════ -->
+  <section class="section-block fade-up" aria-labelledby="picks-head">
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow">HAND-PICKED BY SPIKE</div>
+        <h2 class="section-title" id="picks-head">THIS WEEK'S PICKS</h2>
+      </div>
+      <a href="/shows/" class="see-all">See All Picks →</a>
+    </div>
+    <div class="shows-carousel-wrap">
+      <div class="shows-carousel" id="picksRow">
+
+        <article class="show-card">
+          <a href="/shows/spectaculars/wizard-of-oz/">
+            <div class="card-img-wrap">
+              <img src="/images/wizard-of-oz-hero.webp" alt="Wizard of Oz at Sphere" loading="lazy" />
+              <span class="card-badge">⭐ SPIKE'S #1 PICK</span>
+            </div>
+            <div class="card-body">
+              <div class="card-venue">MSG Sphere Las Vegas</div>
+              <div class="card-name">THE WIZARD OF OZ</div>
+              <div class="card-stars">
+                <span class="stars">★★★★★</span>
+                <span class="star-count">(4.9)</span>
+              </div>
+              <div class="card-sidekick-badge"><span class="dot"></span>Sidekick Verified</div>
+              <div class="card-price-row">
+                <span class="card-price">FROM $123</span>
+              </div>
+              <span class="card-cta">GET TICKETS →</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="show-card">
+          <a href="/shows/cirque/mad-apple/">
+            <div class="card-img-wrap">
+              <img src="/images/mad-apple-hero.jpg" alt="Mad Apple" loading="lazy" />
+              <span class="card-badge">🔥 HOT RIGHT NOW</span>
+            </div>
+            <div class="card-body">
+              <div class="card-venue">New York-New York</div>
+              <div class="card-name">MAD APPLE</div>
+              <div class="card-stars">
+                <span class="stars">★★★★★</span>
+                <span class="star-count">(4.8)</span>
+              </div>
+              <div class="card-price-row">
+                <span class="card-price">FROM $59</span>
+                <span class="card-was">$79</span>
+                <span class="card-save">Save $20</span>
+              </div>
+              <span class="card-cta">GET TICKETS →</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="show-card">
+          <a href="/shows/cirque/ka/">
+            <div class="card-img-wrap">
+              <img src="/images/ka-hero.jpg" alt="KÀ" loading="lazy" />
+            </div>
+            <div class="card-body">
+              <div class="card-venue">MGM Grand</div>
+              <div class="card-name">KÀ BY CIRQUE</div>
+              <div class="card-stars">
+                <span class="stars">★★★★★</span>
+                <span class="star-count">(4.9)</span>
+              </div>
+              <div class="card-price-row">
+                <span class="card-price">FROM $89</span>
+                <span class="card-was">$120</span>
+              </div>
+              <span class="card-cta">GET TICKETS →</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="show-card">
+          <a href="/shows/comedy/carrot-top/">
+            <div class="card-img-wrap">
+              <img src="/images/carrot-top-hero.jpg" alt="Carrot Top" loading="lazy" />
+              <span class="card-badge badge-deal">DEAL</span>
+            </div>
+            <div class="card-body">
+              <div class="card-venue">Luxor Hotel &amp; Casino</div>
+              <div class="card-name">CARROT TOP</div>
+              <div class="card-stars">
+                <span class="stars">★★★★☆</span>
+                <span class="star-count">(4.6)</span>
+              </div>
+              <div class="card-price-row">
+                <span class="card-price">FROM $47</span>
+                <span class="card-was">$65</span>
+                <span class="card-save">Save 28%</span>
+              </div>
+              <span class="card-cta">GET TICKETS →</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="show-card">
+          <a href="/shows/magic/shin-lim-limitless/">
+            <div class="card-img-wrap">
+              <img src="/images/shin-lim-limitless-hero.jpg" alt="Shin Lim" loading="lazy" />
+            </div>
+            <div class="card-body">
+              <div class="card-venue">Mirage Hotel</div>
+              <div class="card-name">SHIN LIM</div>
+              <div class="card-stars">
+                <span class="stars">★★★★★</span>
+                <span class="star-count">(4.8)</span>
+              </div>
+              <div class="card-price-row">
+                <span class="card-price">FROM $72</span>
+              </div>
+              <span class="card-cta">GET TICKETS →</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="show-card">
+          <a href="/shows/spectaculars/awakening/">
+            <div class="card-img-wrap">
+              <img src="/images/awakening-hero.webp" alt="Awakening" loading="lazy" />
+              <span class="card-badge">NEW</span>
+            </div>
+            <div class="card-body">
+              <div class="card-venue">Wynn Las Vegas</div>
+              <div class="card-name">AWAKENING</div>
+              <div class="card-stars">
+                <span class="stars">★★★★★</span>
+                <span class="star-count">(4.7)</span>
+              </div>
+              <div class="card-price-row">
+                <span class="card-price">FROM $70</span>
+              </div>
+              <span class="card-cta">GET TICKETS →</span>
+            </div>
+          </a>
+        </article>
+
+      </div>
+      <button class="scroll-btn left" data-target="picksRow" aria-label="Scroll left">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="scroll-btn right" data-target="picksRow" aria-label="Scroll right">
+        <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════
+       FEATURED SPOTLIGHT 2-UP
+  ════════════════════════════ -->
+  <section class="section-block fade-up" aria-labelledby="featured-head">
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow">SPOTLIGHT</div>
+        <h2 class="section-title" id="featured-head">TONIGHT'S BEST BETS</h2>
+      </div>
+    </div>
+    <div class="featured-grid">
+
+      <a href="/shows/cirque/michael-jackson-one/" class="featured-card">
+        <img src="/images/mj-one-hero.jpg" alt="Michael Jackson ONE" class="featured-card-bg" />
+        <div class="featured-card-overlay"></div>
+        <div class="featured-card-body">
+          <div class="featured-eyebrow">⭐ CIRQUE SPECTACULAR</div>
+          <div class="featured-title">MICHAEL JACKSON ONE</div>
+          <div class="featured-venue">Mandalay Bay Resort &amp; Casino</div>
+          <div class="featured-price-row">
+            <span class="featured-price">FROM $85</span>
+            <span class="featured-was">Was $110</span>
+          </div>
+          <span class="featured-btn">GET TICKETS →</span>
+        </div>
+      </a>
+
+      <a href="/shows/magic/david-copperfield/" class="featured-card">
+        <img src="/images/david-copperfield-hero.jpg" alt="David Copperfield" class="featured-card-bg" />
+        <div class="featured-card-overlay"></div>
+        <div class="featured-card-body">
+          <div class="featured-eyebrow">🪄 MAGIC LEGEND</div>
+          <div class="featured-title">DAVID COPPERFIELD</div>
+          <div class="featured-venue">MGM Grand Hotel &amp; Casino</div>
+          <div class="featured-price-row">
+            <span class="featured-price">FROM $74</span>
+            <span class="featured-was">Was $95</span>
+          </div>
+          <span class="featured-btn">GET TICKETS →</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ════════════════════════════
+       COMEDY SHOWS ROW
+  ════════════════════════════ -->
+  <section class="section-block fade-up" aria-labelledby="comedy-head">
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow">😂 CATEGORY</div>
+        <h2 class="section-title" id="comedy-head">COMEDY SHOWS</h2>
+      </div>
+      <a href="/shows/comedy/" class="see-all">View All Comedy →</a>
+    </div>
+    <div class="shows-carousel-wrap">
+      <div class="shows-carousel" id="comedyRow">
+
+        <article class="show-card">
+          <a href="/shows/comedy/carrot-top/">
+            <div class="card-img-wrap">
+              <img src="/images/carrot-top-hero.jpg" alt="Carrot Top" loading="lazy" />
+              <span class="card-badge badge-deal">DEAL</span>
+            </div>
+            <div class="card-body">
+              <div class="card-venue">Luxor Hotel &amp; Casino</div>
+              <div class="card-name">CARROT TOP</div>
+              <div class="card-stars"><span class="stars">★★★★☆</span><span class="star-count">(4.6)</span></div>
+              <div class="card-price-row">
+                <span class="card-price">FROM $47</span>
+                <span class="card-was">$65</span>
+              </div>
+              <span class="card-cta">GET TICKETS →</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="show-card">
+          <a href="/shows/comedy/tape-face/">
+            <div class="card-img-wrap">
+              <img src="/images/tape-face-hero.jpg" alt="Tape Face" loading="lazy" />
+            </div>
+            <div class="card-body">
+              <div class="card-venue">Harrah's Las Vegas</div>
+              <div class="card-name">TAPE FACE</div>
+              <div class="card-stars"><span class="stars">★★★★★</span><span class="star-count">(4.7)</span></div>
+              <div class="card-price-row">
+                <span class="card-price">FROM $57</span>
+                <span class="card-was">$75</span>
+              </div>
+              <span class="card-cta">GET TICKETS →</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="show-card">
+          <a href="/shows/comedy/marc-savard-comedy-hypnosis/">
+            <div class="card-img-wrap">
+              <img src="/images/marc-savard-comedy-hypnosis-hero.jpg" alt="Marc Savard" loading="lazy" />
+            </div>
+            <div class="card-body">
+              <div class="card-venue">V Theater</div>
+              <div class="card-name">MARC SAVARD HYPNOSIS</div>
+              <div class="card-stars"><span class="stars">★★★★☆</span><span class="star-count">(4.5)</span></div>
+              <div class="card-price-row">
+                <span class="card-price">FROM $39</span>
+              </div>
+              <span class="card-cta">GET TICKETS →</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="show-card">
+          <a href="/shows/comedy/marriage-can-be-murder/">
+            <div class="card-img-wrap">
+              <img src="/images/marriage-can-be-murder-hero.jpg" alt="Marriage Can Be Murder" loading="lazy" />
+            </div>
+            <div class="card-body">
+              <div class="card-venue">D Las Vegas</div>
+              <div class="card-name">MARRIAGE CAN BE MURDER</div>
+              <div class="card-stars"><span class="stars">★★★★☆</span><span class="star-count">(4.4)</span></div>
+              <div class="card-price-row">
+                <span class="card-price">FROM $49</span>
+              </div>
+              <span class="card-cta">GET TICKETS →</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="show-card">
+          <a href="/shows/comedy/brad-garretts-comedy-club/">
+            <div class="card-img-wrap">
+              <img src="/images/brad-garretts-comedy-club-hero.jpg" alt="Brad Garrett Comedy Club" loading="lazy" />
+            </div>
+            <div class="card-body">
+              <div class="card-venue">MGM Grand</div>
+              <div class="card-name">BRAD GARRETT'S COMEDY CLUB</div>
+              <div class="card-stars"><span class="stars">★★★★☆</span><span class="star-count">(4.5)</span></div>
+              <div class="card-price-row">
+                <span class="card-price">FROM $35</span>
+              </div>
+              <span class="card-cta">GET TICKETS →</span>
+            </div>
+          </a>
+        </article>
+
+      </div>
+      <button class="scroll-btn left" data-target="comedyRow" aria-label="Scroll left">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="scroll-btn right" data-target="comedyRow" aria-label="Scroll right">
+        <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════
+       TWIN PROMOS
+  ════════════════════════════ -->
+  <div class="twin-promos">
+
+    <div class="promo-block">
+      <div class="promo-tag">🎰 FREE WEEKLY INTEL</div>
+      <div class="promo-block-title">SPIKE'S WEEKLY PICKS</div>
+      <div class="promo-block-sub">Every Monday, Spike drops his top Vegas picks direct to your inbox. Discounts, new shows, insider tips. Free. No spam. No BS.</div>
+      <a href="#email-signup" class="btn-promo btn-promo-orange">GET SPIKE'S PICKS →</a>
+      <img src="/images/spike-icon.png" alt="" class="promo-spike" aria-hidden="true" />
+    </div>
+
+    <div class="promo-block" style="background: linear-gradient(135deg, #1a0a28 0%, #280d38 100%);">
+      <div class="promo-tag">🪄 CATEGORY SPOTLIGHT</div>
+      <div class="promo-block-title">MAGIC IN VEGAS IS NEXT LEVEL</div>
+      <div class="promo-block-sub">From Shin Lim's sleight-of-hand to Criss Angel's death-defying spectacles — Vegas magic will leave you questioning reality.</div>
+      <a href="/shows/magic/" class="btn-promo">EXPLORE MAGIC SHOWS →</a>
+    </div>
+
+  </div>
+
+  <!-- ════════════════════════════
+       MAGIC SHOWS ROW
+  ════════════════════════════ -->
+  <section class="section-block fade-up" aria-labelledby="magic-head">
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow">🪄 CATEGORY</div>
+        <h2 class="section-title" id="magic-head">MAGIC SHOWS</h2>
+      </div>
+      <a href="/shows/magic/" class="see-all">View All Magic →</a>
+    </div>
+    <div class="shows-carousel-wrap">
+      <div class="shows-carousel" id="magicRow">
+
+        <article class="show-card">
+          <a href="/shows/magic/criss-angel/">
+            <div class="card-img-wrap">
+              <img src="/images/criss-angel-hero.jpg" alt="Criss Angel" loading="lazy" />
+              <span class="card-badge">⭐ TOP RATED</span>
+            </div>
+            <div class="card-body">
+              <div class="card-venue">Wonderlands Theater</div>
+              <div class="card-name">CRISS ANGEL</div>
+              <div class="card-stars"><span class="stars">★★★★★</span><span class="star-count">(4.8)</span></div>
+              <div class="card-price-row">
+                <span class="card-price">FROM $65</span>
+                <span class="card-was">$85</span>
+              </div>
+              <span class="card-cta">GET TICKETS →</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="show-card">
+          <a href="/shows/magic/shin-lim-limitless/">
+            <div class="card-img-wrap">
+              <img src="/images/shin-lim-limitless-hero.jpg" alt="Shin Lim" loading="lazy" />
+            </div>
+            <div class="card-body">
+              <div class="card-venue">Mirage Hotel</div>
+              <div class="card-name">SHIN LIM</div>
+              <div class="card-stars"><span class="stars">★★★★★</span><span class="star-count">(4.9)</span></div>
+              <div class="card-price-row">
+                <span class="card-price">FROM $72</span>
+              </div>
+              <span class="card-cta">GET TICKETS →</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="show-card">
+          <a href="/shows/magic/penn-and-teller/">
+            <div class="card-img-wrap">
+              <img src="/images/penn-and-teller-hero.jpg" alt="Penn & Teller" loading="lazy" />
+            </div>
+            <div class="card-body">
+              <div class="card-venue">Rio Hotel &amp; Casino</div>
+              <div class="card-name">PENN &amp; TELLER</div>
+              <div class="card-stars"><span class="stars">★★★★★</span><span class="star-count">(4.8)</span></div>
+              <div class="card-price-row">
+                <span class="card-price">FROM $62</span>
+                <span class="card-was">$80</span>
+              </div>
+              <span class="card-cta">GET TICKETS →</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="show-card">
+          <a href="/shows/magic/david-copperfield/">
+            <div class="card-img-wrap">
+              <img src="/images/david-copperfield-hero.jpg" alt="David Copperfield" loading="lazy" />
+            </div>
+            <div class="card-body">
+              <div class="card-venue">MGM Grand</div>
+              <div class="card-name">DAVID COPPERFIELD</div>
+              <div class="card-stars"><span class="stars">★★★★★</span><span class="star-count">(4.9)</span></div>
+              <div class="card-price-row">
+                <span class="card-price">FROM $74</span>
+                <span class="card-was">$95</span>
+              </div>
+              <span class="card-cta">GET TICKETS →</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="show-card">
+          <a href="/shows/magic/mac-king/">
+            <div class="card-img-wrap">
+              <img src="/images/mac-king-hero.jpg" alt="Mac King" loading="lazy" />
+              <span class="card-badge badge-deal">DEAL</span>
+            </div>
+            <div class="card-body">
+              <div class="card-venue">Excalibur Hotel</div>
+              <div class="card-name">MAC KING</div>
+              <div class="card-stars"><span class="stars">★★★★☆</span><span class="star-count">(4.6)</span></div>
+              <div class="card-price-row">
+                <span class="card-price">FROM $45</span>
+                <span class="card-was">$60</span>
+              </div>
+              <span class="card-cta">GET TICKETS →</span>
+            </div>
+          </a>
+        </article>
+
+      </div>
+      <button class="scroll-btn left" data-target="magicRow" aria-label="Scroll left">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="scroll-btn right" data-target="magicRow" aria-label="Scroll right">
+        <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════
+       VIBE QUIZ STRIP
+  ════════════════════════════ -->
+  <div class="vibe-strip fade-up">
+    <div class="vibe-strip-text">
+      <div class="vibe-strip-label">🎰 FIND YOUR SHOW IN 20 SECONDS</div>
+      <div class="vibe-strip-heading">WHAT'S YOUR VEGAS VIBE?</div>
+      <div class="vibe-strip-sub">Spike will match you to the perfect show. No BS, no spam — just picks.</div>
+    </div>
+    <div class="vibe-quiz-answers">
+      <button class="vibe-answer-btn" onclick="window.location='/shows/comedy/'">I need to laugh until it hurts 😂</button>
+      <button class="vibe-answer-btn" onclick="window.location='/shows/cirque/'">Jaw-dropping spectacle 🎪</button>
+      <button class="vibe-answer-btn" onclick="window.location='/shows/magic/'">Blow my mind with magic 🪄</button>
+      <button class="vibe-answer-btn" onclick="window.location='/shows/'">Honestly? Just give me a seat 🍹</button>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════
+       CIRQUE ROW
+  ════════════════════════════ -->
+  <section class="section-block fade-up" aria-labelledby="cirque-head">
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow">🎪 CATEGORY</div>
+        <h2 class="section-title" id="cirque-head">CIRQUE &amp; ACROBATICS</h2>
+      </div>
+      <a href="/shows/cirque/" class="see-all">View All Cirque →</a>
+    </div>
+    <div class="shows-carousel-wrap">
+      <div class="shows-carousel" id="cirqueRow">
+
+        <article class="show-card">
+          <a href="/shows/cirque/ka/">
+            <div class="card-img-wrap">
+              <img src="/images/ka-hero.jpg" alt="KÀ" loading="lazy" />
+              <span class="card-badge">⭐ SPIKE'S PICK</span>
+            </div>
+            <div class="card-body">
+              <div class="card-venue">MGM Grand</div>
+              <div class="card-name">KÀ BY CIRQUE DU SOLEIL</div>
+              <div class="card-stars"><span class="stars">★★★★★</span><span class="star-count">(4.9)</span></div>
+              <div class="card-price-row">
+                <span class="card-price">FROM $89</span>
+                <span class="card-was">$120</span>
+              </div>
+              <span class="card-cta">GET TICKETS →</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="show-card">
+          <a href="/shows/cirque/mad-apple/">
+            <div class="card-img-wrap">
+              <img src="/images/mad-apple-hero.jpg" alt="Mad Apple" loading="lazy" />
+            </div>
+            <div class="card-body">
+              <div class="card-venue">New York-New York</div>
+              <div class="card-name">MAD APPLE</div>
+              <div class="card-stars"><span class="stars">★★★★★</span><span class="star-count">(4.8)</span></div>
+              <div class="card-price-row">
+                <span class="card-price">FROM $59</span>
+                <span class="card-was">$79</span>
+              </div>
+              <span class="card-cta">GET TICKETS →</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="show-card">
+          <a href="/shows/cirque/mystere/">
+            <div class="card-img-wrap">
+              <img src="/images/mystere-hero.jpg" alt="Mystère" loading="lazy" />
+            </div>
+            <div class="card-body">
+              <div class="card-venue">Treasure Island</div>
+              <div class="card-name">MYSTÈRE</div>
+              <div class="card-stars"><span class="stars">★★★★★</span><span class="star-count">(4.8)</span></div>
+              <div class="card-price-row">
+                <span class="card-price">FROM $79</span>
+              </div>
+              <span class="card-cta">GET TICKETS →</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="show-card">
+          <a href="/shows/cirque/michael-jackson-one/">
+            <div class="card-img-wrap">
+              <img src="/images/mj-one-hero.jpg" alt="Michael Jackson ONE" loading="lazy" />
+            </div>
+            <div class="card-body">
+              <div class="card-venue">Mandalay Bay</div>
+              <div class="card-name">MICHAEL JACKSON ONE</div>
+              <div class="card-stars"><span class="stars">★★★★★</span><span class="star-count">(4.9)</span></div>
+              <div class="card-price-row">
+                <span class="card-price">FROM $85</span>
+                <span class="card-was">$110</span>
+              </div>
+              <span class="card-cta">GET TICKETS →</span>
+            </div>
+          </a>
+        </article>
+
+      </div>
+      <button class="scroll-btn left" data-target="cirqueRow" aria-label="Scroll left">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="scroll-btn right" data-target="cirqueRow" aria-label="Scroll right">
+        <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════
+       MUSIC SHOWS ROW
+  ════════════════════════════ -->
+  <section class="section-block fade-up" aria-labelledby="music-head">
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow">🎵 CATEGORY</div>
+        <h2 class="section-title" id="music-head">MUSIC SHOWS</h2>
+      </div>
+      <a href="/shows/music/" class="see-all">View All Music →</a>
+    </div>
+    <div class="shows-carousel-wrap">
+      <div class="shows-carousel" id="musicRow">
+
+        <article class="show-card">
+          <a href="/shows/music/vegas-the-show/">
+            <div class="card-img-wrap">
+              <img src="/images/vegas-the-show-hero.webp" alt="VEGAS! The Show" loading="lazy" />
+            </div>
+            <div class="card-body">
+              <div class="card-venue">Planet Hollywood</div>
+              <div class="card-name">VEGAS! THE SHOW</div>
+              <div class="card-stars"><span class="stars">★★★★★</span><span class="star-count">(4.7)</span></div>
+              <div class="card-price-row"><span class="card-price">FROM $55</span></div>
+              <span class="card-cta">GET TICKETS →</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="show-card">
+          <a href="/shows/music/blue-man-group/">
+            <div class="card-img-wrap">
+              <img src="/images/blue-man-group-hero.webp" alt="Blue Man Group" loading="lazy" />
+            </div>
+            <div class="card-body">
+              <div class="card-venue">Luxor Hotel &amp; Casino</div>
+              <div class="card-name">BLUE MAN GROUP</div>
+              <div class="card-stars"><span class="stars">★★★★★</span><span class="star-count">(4.8)</span></div>
+              <div class="card-price-row"><span class="card-price">FROM $65</span></div>
+              <span class="card-cta">GET TICKETS →</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="show-card">
+          <a href="/shows/music/rupauls-drag-race-live/">
+            <div class="card-img-wrap">
+              <img src="/images/rupauls-drag-race-live-hero.webp" alt="RuPaul's Drag Race LIVE!" loading="lazy" />
+            </div>
+            <div class="card-body">
+              <div class="card-venue">Flamingo Las Vegas</div>
+              <div class="card-name">RUPAUL'S DRAG RACE LIVE!</div>
+              <div class="card-stars"><span class="stars">★★★★★</span><span class="star-count">(4.7)</span></div>
+              <div class="card-price-row"><span class="card-price">FROM $91</span></div>
+              <span class="card-cta">GET TICKETS →</span>
+            </div>
+          </a>
+        </article>
+
+      </div>
+      <button class="scroll-btn left" data-target="musicRow" aria-label="Scroll left">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="scroll-btn right" data-target="musicRow" aria-label="Scroll right">
+        <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════
+       EMAIL SIGNUP
+  ════════════════════════════ -->
+  <div class="email-block fade-up" id="email-signup">
+    <div class="email-block-icon">🎰</div>
+    <div class="email-block-text">
+      <div class="email-block-label">FREE WEEKLY INTEL FROM SPIKE</div>
+      <div class="email-block-title">SPIKE'S PICKS</div>
+      <div class="email-block-sub">Your Vegas insider delivers the week's best shows, real discounts, and insider tips — every Monday.</div>
+      <div class="email-block-perks">
+        <span class="email-perk"><span class="perk-dot"></span>Weekly show deals</span>
+        <span class="email-perk"><span class="perk-dot"></span>New show alerts</span>
+        <span class="email-perk"><span class="perk-dot"></span>Insider tips</span>
+        <span class="email-perk"><span class="perk-dot"></span>No spam, ever</span>
+      </div>
+    </div>
+    <div class="email-form-area">
+      <form class="email-form" id="previewEmailForm" novalidate>
+        <input type="email" placeholder="your@email.com" autocomplete="email" aria-label="Email address" />
+        <button type="submit">I'M IN →</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════
+       VEGAS DISPATCH
+  ════════════════════════════ -->
+  <section class="section-block bg-dark fade-up" aria-labelledby="dispatch-head">
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow" style="color: var(--orange);">FROM THE FIELD</div>
+        <h2 class="section-title light" id="dispatch-head">VEGAS DISPATCH</h2>
+      </div>
+      <a href="/news/" class="see-all light">All Articles →</a>
+    </div>
+    <div class="dispatch-grid">
+
+      <a href="/news/lewis-black-live-venetian-october-30/" class="dispatch-card">
+        <div class="dispatch-card-img">
+          <img src="https://res.cloudinary.com/vegassidekick/image/upload/v1779222032/nu3pckoyiziksem4pfhz.jpg" alt="Lewis Black Live" loading="lazy" style="width:100%;height:100%;object-fit:cover;" />
+        </div>
+        <div class="dispatch-card-body">
+          <div class="dispatch-date">May 19, 2026</div>
+          <div class="dispatch-title">Lewis Black Live — The Palazzo Theatre, Oct. 30</div>
+          <p class="dispatch-desc">Two-time GRAMMY winner returns to The Venetian for Halloween weekend. Tickets from $39.</p>
+          <span class="dispatch-read">Read Article →</span>
+        </div>
+      </a>
+
+      <a href="/news/new-shows-announced-may-19-2026/" class="dispatch-card">
+        <div class="dispatch-card-img">
+          <img src="https://res.cloudinary.com/vegassidekick/image/upload/v1779152147/jnac3wlupyinitqusnm1.jpg" alt="Five New Vegas Shows" loading="lazy" style="width:100%;height:100%;object-fit:cover;" />
+        </div>
+        <div class="dispatch-card-body">
+          <div class="dispatch-date">May 19, 2026</div>
+          <div class="dispatch-title">Five New Shows Just Announced for Las Vegas</div>
+          <p class="dispatch-desc">El Buki, Smashing Pumpkins, Tumua, for KING + COUNTRY, and Clay Walker all dropped Vegas dates today.</p>
+          <span class="dispatch-read">Read Article →</span>
+        </div>
+      </a>
+
+      <a href="/news/marco-antonio-solis-tour-gratitud-dolby-live-september-11/" class="dispatch-card">
+        <div class="dispatch-card-img" style="background: linear-gradient(135deg, #1a0028 0%, #2a1040 100%); display:flex; align-items:center; justify-content:center; aspect-ratio:16/9;">
+          <span style="font-size:3rem;">🎵</span>
+        </div>
+        <div class="dispatch-card-body">
+          <div class="dispatch-date">May 19, 2026</div>
+          <div class="dispatch-title">Marco Antonio Solís — Tour Gratitud 2026</div>
+          <p class="dispatch-desc">El Buki brings two nights to Dolby Live at Park MGM on Mexican Independence Day Weekend.</p>
+          <span class="dispatch-read">Read Article →</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+</div><!-- /page-body -->
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img src="/images/logo-pill.png" alt="Vegas Sidekick" />
+      <p class="footer-brand-text">Your Vegas insider for the biggest shows at real discounts. No membership, no hidden fees, no markup games. Spike's got your back.</p>
+      <div class="footer-socials">
+        <span class="footer-social-btn" title="Instagram">📸</span>
+        <span class="footer-social-btn" title="TikTok">🎵</span>
+        <span class="footer-social-btn" title="X / Twitter">𝕏</span>
+        <span class="footer-social-btn" title="Facebook">f</span>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>SHOWS</h4>
+      <ul>
+        <li><a href="/shows/comedy/">Comedy</a></li>
+        <li><a href="/shows/magic/">Magic</a></li>
+        <li><a href="/shows/cirque/">Cirque &amp; Acrobatics</a></li>
+        <li><a href="/shows/music/">Music</a></li>
+        <li><a href="/shows/spectaculars/">Spectaculars</a></li>
+        <li><a href="/shows/family/">Family</a></li>
+        <li><a href="/shows/adult/">Adult Shows</a></li>
+        <li><a href="/shows/">All Shows</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>DISCOVER</h4>
+      <ul>
+        <li><a href="/news/">Vegas Dispatch</a></li>
+        <li><a href="/search/">Search Shows</a></li>
+        <li><a href="/shows/?sort=picks">Spike's Picks</a></li>
+        <li><a href="/shows/?sort=deals">Best Deals</a></li>
+        <li><a href="/shows/?filter=tonight">Tonight's Shows</a></li>
+        <li><a href="/shows/?filter=family">Family Friendly</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>ABOUT</h4>
+      <ul>
+        <li><a href="/about/">About Vegas Sidekick</a></li>
+        <li><a href="/about/spike/">Meet Spike</a></li>
+        <li><a href="/contact/">Contact Us</a></li>
+        <li><a href="/privacy/">Privacy Policy</a></li>
+        <li><a href="/terms/">Terms of Service</a></li>
+        <li><a href="/affiliate/">Affiliate Disclosure</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>TRUST</h4>
+      <ul>
+        <li><a href="#">✓ No Hidden Fees</a></li>
+        <li><a href="#">✓ Instant Delivery</a></li>
+        <li><a href="#">✓ Legit Discounts</a></li>
+        <li><a href="#">✓ No Membership</a></li>
+        <li><a href="#">✓ Secure Booking</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2026 Vegas Sidekick. All rights reserved. Tickets fulfilled by Spotlight.vegas.</span>
+    <span>
+      <a href="/privacy/">Privacy</a> &nbsp;·&nbsp;
+      <a href="/terms/">Terms</a> &nbsp;·&nbsp;
+      <a href="/affiliate/">Affiliate Disclosure</a>
+    </span>
+  </div>
+</footer>
+
+<!-- ─── MOBILE STICKY CTA ─── -->
+<div class="mobile-sticky">
+  <a href="/shows/">🎰 BROWSE ALL SHOWS →</a>
+</div>
+
+<!-- ─── JAVASCRIPT ─── -->
+<script>
+  // ── HERO CAROUSEL ──
+  (function () {
+    var slides = document.getElementById('heroSlides');
+    var dots   = document.querySelectorAll('.carousel-dot');
+    var total  = 3;
+    var current = 0;
+    var timer;
+
+    function goTo(idx) {
+      current = (idx + total) % total;
+      slides.style.transform = 'translateX(-' + (current * 100) + '%)';
+      dots.forEach(function (d, i) { d.classList.toggle('active', i === current); });
+    }
+
+    function next() { goTo(current + 1); }
+    function prev() { goTo(current - 1); }
+
+    function startAuto() { timer = setInterval(next, 5000); }
+    function stopAuto()  { clearInterval(timer); }
+
+    document.getElementById('heroNext').addEventListener('click', function () { stopAuto(); next(); startAuto(); });
+    document.getElementById('heroPrev').addEventListener('click', function () { stopAuto(); prev(); startAuto(); });
+
+    dots.forEach(function (d) {
+      d.addEventListener('click', function () {
+        stopAuto();
+        goTo(parseInt(this.dataset.idx));
+        startAuto();
+      });
+    });
+
+    startAuto();
+  }());
+
+  // ── ROW SCROLL BUTTONS ──
+  document.querySelectorAll('.scroll-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var row = document.getElementById(this.dataset.target);
+      var dist = 640;
+      if (this.classList.contains('left'))  row.scrollBy({ left: -dist, behavior: 'smooth' });
+      else                                   row.scrollBy({ left:  dist, behavior: 'smooth' });
+    });
+  });
+
+  // ── FADE-UP OBSERVER ──
+  (function () {
+    if (!('IntersectionObserver' in window)) {
+      document.querySelectorAll('.fade-up').forEach(function (el) { el.classList.add('visible'); });
+      return;
+    }
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.fade-up:not(.visible)').forEach(function (el) { obs.observe(el); });
+  }());
+
+  // ── EMAIL FORM (preview mode — just show confirmation) ──
+  document.getElementById('previewEmailForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    this.innerHTML = '<span style="color:#fff;font-weight:700;font-size:.95rem;">🎰 You\'re in — Spike will be in touch!</span>';
+  });
+</script>
+</body>
+</html>
