@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blue Man Group — Show Page Redesign Preview | Vegas Sidekick</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" href="/favicon.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:    #0A1628;
+      --navy2:   #0d1e38;
+      --blue:    #1A6BFF;
+      --bmblue:  #0057D9;   /* Blue Man blue */
+      --orange:  #FF6B00;
+      --gold:    #F0A500;
+      --green:   #1a8c1a;
+      --white:   #FFFFFF;
+      --offwhite:#F7F9FC;
+      --tint:    #F0F5FF;
+      --gray:    #8896A8;
+      --gray-dk: #4A5568;
+      --border:  #D8E2F0;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--offwhite); color: var(--navy); font-family: 'Barlow', sans-serif; font-size: 15px; line-height: 1.5; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; font-family: inherit; }
+
+    /* ─── PASSWORD GATE ─── */
+    #gate {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--navy);
+      display: flex; align-items: center; justify-content: center; padding: 20px;
+    }
+    #gate::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 8% 15%, rgba(255,255,255,.45) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 22% 55%, rgba(255,255,255,.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 42% 10%, rgba(255,255,255,.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 72% 70%, rgba(255,255,255,.3) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 88% 25%, rgba(255,255,255,.45) 0%, transparent 100%);
+      pointer-events: none;
+    }
+    .gate-box { position: relative; z-index: 1; background: rgba(255,255,255,.04); border: 1.5px solid rgba(26,107,255,.3); border-radius: 16px; padding: 48px 40px; max-width: 440px; width: 100%; text-align: center; backdrop-filter: blur(10px); }
+    .gate-logo { height: 44px; margin-bottom: 24px; }
+    .gate-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--white); line-height: 1; margin-bottom: 6px; }
+    .gate-sub { font-size: .85rem; color: rgba(255,255,255,.55); margin-bottom: 28px; }
+    .gate-label { display: block; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: .7rem; text-transform: uppercase; letter-spacing: .2em; color: var(--orange); margin-bottom: 10px; text-align: left; }
+    .gate-input-row { display: flex; gap: 10px; margin-bottom: 14px; }
+    .gate-input { flex: 1; height: 48px; background: rgba(255,255,255,.08); border: 1.5px solid rgba(255,255,255,.18); border-radius: 8px; padding: 0 16px; font-family: 'Barlow', sans-serif; font-size: .95rem; color: var(--white); outline: none; transition: border-color .2s; }
+    .gate-input::placeholder { color: rgba(255,255,255,.35); }
+    .gate-input:focus { border-color: var(--blue); }
+    .gate-input.shake { animation: shake .35s ease; }
+    @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+    .gate-btn { height: 48px; background: var(--orange); color: var(--white); font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: .06em; padding: 0 22px; border: none; border-radius: 8px; transition: background .15s; }
+    .gate-btn:hover { background: #e05e00; }
+    .gate-error { font-size: .82rem; color: #ff7070; min-height: 20px; }
+    .gate-hint { font-size: .75rem; color: rgba(255,255,255,.3); margin-top: 20px; }
+
+    /* ─── MAIN CONTENT ─── */
+    #page { display: none; }
+
+    /* ─── PREVIEW NOTICE ─── */
+    .preview-notice { background: #0d2040; border-bottom: 2px solid var(--orange); padding: 9px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .preview-notice-text { font-size: .78rem; color: rgba(255,255,255,.7); }
+    .preview-notice-text strong { color: var(--orange); }
+    .pn-btn { background: rgba(26,107,255,.2); border: 1px solid rgba(26,107,255,.4); color: #6aaeff; font-size: .75rem; font-weight: 600; padding: 5px 12px; border-radius: 100px; transition: background .15s; }
+    .pn-btn:hover { background: rgba(26,107,255,.35); }
+    .pn-lock { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.15); color: rgba(255,255,255,.5); font-size: .75rem; padding: 5px 12px; border-radius: 100px; transition: background .15s; }
+    .pn-lock:hover { background: rgba(255,255,255,.12); }
+    .pn-actions { display: flex; gap: 8px; align-items: center; }
+
+    /* ─── TOP NAV ─── */
+    .main-nav { background: var(--navy2); border-bottom: 3px solid var(--orange); position: sticky; top: 0; z-index: 900; }
+    .nav-inner { max-width: 1440px; margin: 0 auto; padding: 10px 20px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 16px; }
+    .nav-logo img { height: 40px; display: block; }
+    .nav-search { display: flex; height: 40px; border-radius: 6px; overflow: hidden; border: 2px solid var(--orange); }
+    .nav-search select { background: rgba(255,255,255,.1); color: white; border: none; padding: 0 10px; font-size: .8rem; min-width: 90px; }
+    .nav-search input { flex: 1; background: white; border: none; padding: 0 14px; font-size: .9rem; color: var(--navy); outline: none; }
+    .nav-search-btn { background: var(--orange); border: none; padding: 0 16px; display: flex; align-items: center; justify-content: center; transition: background .15s; }
+    .nav-search-btn:hover { background: #e05e00; }
+    .nav-search-btn svg { width: 18px; height: 18px; fill: none; stroke: white; stroke-width: 2; stroke-linecap: round; }
+    .nav-right { display: flex; align-items: center; gap: 18px; }
+    .nav-action { color: white; display: flex; flex-direction: column; font-size: .72rem; line-height: 1.2; transition: color .15s; }
+    .nav-action:hover { color: var(--orange); }
+    .nav-action strong { font-size: .85rem; font-weight: 700; }
+
+    /* ─── CATEGORY PILLS ─── */
+    .cat-nav { background: #112240; border-bottom: 1px solid rgba(26,107,255,.2); overflow-x: auto; scrollbar-width: none; }
+    .cat-nav::-webkit-scrollbar { display: none; }
+    .cat-nav-inner { max-width: 1440px; margin: 0 auto; padding: 0 20px; display: flex; white-space: nowrap; }
+    .cat-nav-link { display: inline-block; padding: 8px 14px; font-weight: 600; font-size: .8rem; color: rgba(255,255,255,.75); border-bottom: 3px solid transparent; transition: color .15s, border-color .15s; }
+    .cat-nav-link:hover, .cat-nav-link.active { color: white; border-color: var(--orange); }
+
+    /* ─── PAGE WRAPPER ─── */
+    .page-max { max-width: 1440px; margin: 0 auto; padding: 0 20px; }
+
+    /* ─── BREADCRUMB ─── */
+    .breadcrumb { padding: 12px 0; font-size: .78rem; color: var(--gray); }
+    .breadcrumb a { color: var(--blue); transition: color .15s; }
+    .breadcrumb a:hover { color: var(--orange); text-decoration: underline; }
+    .breadcrumb span { margin: 0 5px; }
+
+    /* ═══════════════════════════════════════
+       PRODUCT LAYOUT  (Amazon 2-col style)
+    ═══════════════════════════════════════ */
+    .product-grid {
+      display: grid;
+      grid-template-columns: 380px 1fr 340px;
+      gap: 28px;
+      align-items: start;
+      margin-bottom: 32px;
+    }
+
+    /* ── LEFT: IMAGE GALLERY ── */
+    .gallery-col {}
+
+    .gallery-thumbs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .gallery-thumb {
+      width: 62px;
+      height: 62px;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 2px solid var(--border);
+      cursor: pointer;
+      transition: border-color .15s;
+      flex-shrink: 0;
+    }
+    .gallery-thumb.active { border-color: var(--bmblue); }
+    .gallery-thumb:hover { border-color: var(--orange); }
+    .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .gallery-main {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--tint);
+      position: relative;
+    }
+    .gallery-main img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+      transition: opacity .3s;
+    }
+
+    .gallery-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--orange);
+      color: white;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      padding: 4px 12px;
+      border-radius: 3px;
+    }
+
+    /* ── MIDDLE: TITLE + DETAILS ── */
+    .title-col {}
+
+    .product-category {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      color: var(--blue);
+      margin-bottom: 8px;
+    }
+
+    .product-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+      color: var(--navy);
+      line-height: .97;
+      margin-bottom: 10px;
+      letter-spacing: .01em;
+    }
+
+    .product-subtitle {
+      font-size: 1rem;
+      color: var(--gray-dk);
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+
+    /* Star rating row */
+    .rating-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .stars-lg { color: var(--gold); font-size: 1.1rem; letter-spacing: -.5px; }
+    .rating-num { font-weight: 700; font-size: .9rem; color: var(--blue); }
+    .rating-count { font-size: .82rem; color: var(--gray); }
+    .rating-sep { color: var(--border); }
+    .rating-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #e8f4e8;
+      color: var(--green);
+      font-size: .72rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 3px;
+      border: 1px solid #c8e8c8;
+    }
+
+    .product-divider { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+
+    /* "About this show" bullets — Amazon style */
+    .about-bullets {
+      margin-bottom: 20px;
+    }
+    .about-bullets h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      color: var(--navy);
+      margin-bottom: 12px;
+      letter-spacing: .04em;
+    }
+    .about-bullets ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .about-bullets li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: .88rem;
+      color: var(--gray-dk);
+      line-height: 1.5;
+    }
+    .bullet-icon {
+      flex-shrink: 0;
+      margin-top: 1px;
+      font-size: .9rem;
+    }
+
+    /* Pill tags */
+    .pill-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 12px;
+      border-radius: 100px;
+      font-size: .75rem;
+      font-weight: 700;
+      border: 1.5px solid var(--border);
+      color: var(--gray-dk);
+    }
+    .pill-blue { border-color: rgba(26,107,255,.3); background: rgba(26,107,255,.07); color: var(--blue); }
+    .pill-orange { border-color: rgba(255,107,0,.3); background: rgba(255,107,0,.07); color: var(--orange); }
+    .pill-green { border-color: rgba(26,140,26,.3); background: rgba(26,140,26,.07); color: var(--green); }
+
+    /* Spike's Take callout */
+    .spike-take {
+      background: linear-gradient(135deg, #0A1628 0%, #0d1e38 100%);
+      border-left: 4px solid var(--gold);
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px;
+      margin: 20px 0;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .spike-avatar { font-size: 1.8rem; flex-shrink: 0; line-height: 1; }
+    .spike-take-body {}
+    .spike-take-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: .68rem; text-transform: uppercase; letter-spacing: .2em; color: var(--gold); margin-bottom: 4px; }
+    .spike-take-text { font-size: .85rem; color: rgba(255,255,255,.8); line-height: 1.6; }
+
+    /* ── RIGHT: BUY BOX ── */
+    .buy-col {}
+
+    .buy-box {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px;
+      position: sticky;
+      top: 72px;
+    }
+
+    .buy-box-avail {
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .avail-dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; flex-shrink: 0; }
+
+    .buy-price-block { margin-bottom: 14px; }
+
+    .buy-deal-badge {
+      display: inline-block;
+      background: #c7230a;
+      color: white;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      padding: 3px 9px;
+      border-radius: 3px;
+      margin-bottom: 8px;
+    }
+
+    .buy-price-row { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+    .buy-price { font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; color: var(--orange); line-height: 1; }
+    .buy-was { font-size: .85rem; color: var(--gray); }
+    .buy-was s { text-decoration: line-through; }
+    .buy-save { font-size: .8rem; font-weight: 700; color: var(--green); }
+
+    .buy-sidekick-line {
+      font-size: .78rem;
+      color: var(--gray);
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .buy-sidekick-line a { color: var(--blue); text-decoration: underline; }
+
+    /* Date/Time selector */
+    .buy-select-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .15em;
+      color: var(--gray-dk);
+      margin-bottom: 6px;
+    }
+
+    .buy-select {
+      width: 100%;
+      height: 40px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      padding: 0 12px;
+      font-family: 'Barlow', sans-serif;
+      font-size: .88rem;
+      color: var(--navy);
+      background: white;
+      margin-bottom: 12px;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .buy-select:focus { border-color: var(--blue); }
+
+    /* Section badges row */
+    .seat-pills { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+    .seat-pill {
+      padding: 5px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      font-size: .75rem;
+      font-weight: 600;
+      color: var(--gray-dk);
+      cursor: pointer;
+      transition: border-color .15s, background .15s;
+    }
+    .seat-pill:hover { border-color: var(--blue); background: var(--tint); }
+    .seat-pill.selected { border-color: var(--bmblue); background: rgba(0,87,217,.08); color: var(--bmblue); }
+
+    /* CTA buttons */
+    .btn-get-tickets {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background: var(--orange);
+      color: white;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: .08em;
+      text-align: center;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 10px;
+      transition: background .15s, transform .15s, box-shadow .15s;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-get-tickets::after { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,.15), transparent); animation: shimmer 2.4s infinite; }
+    @keyframes shimmer { 0% { left: -100%; } 100% { left: 100%; } }
+    .btn-get-tickets:hover { background: #e05e00; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(255,107,0,.3); }
+
+    .btn-choose-seats {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: transparent;
+      color: var(--navy);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.05rem;
+      letter-spacing: .06em;
+      text-align: center;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      margin-bottom: 16px;
+      transition: border-color .15s, background .15s;
+    }
+    .btn-choose-seats:hover { border-color: var(--navy); background: var(--tint); }
+
+    /* Trust icons in buy box */
+    .buy-trust { display: flex; flex-direction: column; gap: 7px; padding-top: 14px; border-top: 1px solid var(--border); }
+    .buy-trust-item { display: flex; align-items: center; gap: 8px; font-size: .78rem; color: var(--gray-dk); }
+    .buy-trust-item .ti { font-size: 1rem; }
+
+    /* Sold by */
+    .buy-sold-by { font-size: .75rem; color: var(--gray); margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); }
+    .buy-sold-by a { color: var(--blue); text-decoration: underline; }
+
+    /* ═══════════════════════════════════════
+       BELOW-FOLD SECTIONS
+    ═══════════════════════════════════════ */
+
+    .below-fold { display: grid; grid-template-columns: 1fr 340px; gap: 28px; }
+
+    /* ── PRODUCT TABS ── */
+    .tabs-section {}
+
+    .tab-bar {
+      display: flex;
+      gap: 0;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 24px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tab-bar::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      padding: 11px 20px;
+      font-family: 'Barlow', sans-serif;
+      font-weight: 700;
+      font-size: .85rem;
+      color: var(--gray);
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      white-space: nowrap;
+      transition: color .15s, border-color .15s;
+    }
+    .tab-btn:hover { color: var(--navy); }
+    .tab-btn.active { color: var(--navy); border-color: var(--orange); }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* About tab */
+    .about-body {
+      font-size: .9rem;
+      color: var(--gray-dk);
+      line-height: 1.7;
+    }
+    .about-body p { margin-bottom: 14px; }
+    .about-body h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--navy); margin-bottom: 8px; letter-spacing: .02em; }
+
+    /* Details tab — grid cards */
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .detail-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px;
+    }
+    .detail-icon { font-size: 1.4rem; margin-bottom: 8px; }
+    .detail-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: .68rem; text-transform: uppercase; letter-spacing: .15em; color: var(--gray); margin-bottom: 4px; }
+    .detail-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: var(--navy); margin-bottom: 4px; letter-spacing: .02em; }
+    .detail-sub { font-size: .78rem; color: var(--gray); line-height: 1.5; }
+
+    /* Reviews tab */
+    .reviews-header { display: flex; align-items: center; gap: 32px; margin-bottom: 24px; flex-wrap: wrap; }
+    .big-rating { text-align: center; }
+    .big-rating-num { font-family: 'Bebas Neue', sans-serif; font-size: 4rem; color: var(--navy); line-height: 1; }
+    .big-rating-stars { color: var(--gold); font-size: 1.3rem; letter-spacing: -.5px; margin-bottom: 4px; }
+    .big-rating-sub { font-size: .75rem; color: var(--gray); }
+
+    .rating-bars { flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 5px; }
+    .rating-bar-row { display: flex; align-items: center; gap: 8px; font-size: .78rem; }
+    .rbl { width: 40px; text-align: right; color: var(--blue); font-weight: 600; white-space: nowrap; }
+    .rb-track { flex: 1; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+    .rb-fill { height: 100%; background: var(--gold); border-radius: 4px; }
+    .rb-count { width: 28px; color: var(--gray); font-size: .72rem; }
+
+    .reviews-grid { display: flex; flex-direction: column; gap: 16px; margin-top: 4px; }
+    .review-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px 20px;
+    }
+    .review-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
+    .review-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--navy); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 1rem; color: white; flex-shrink: 0; }
+    .review-meta { flex: 1; }
+    .review-name { font-weight: 700; font-size: .85rem; color: var(--navy); }
+    .review-date { font-size: .72rem; color: var(--gray); }
+    .review-stars { color: var(--gold); font-size: .9rem; }
+    .review-title { font-weight: 700; font-size: .9rem; color: var(--navy); margin-bottom: 6px; }
+    .review-body { font-size: .84rem; color: var(--gray-dk); line-height: 1.6; }
+    .review-helpful { font-size: .75rem; color: var(--gray); margin-top: 10px; }
+    .review-helpful button { background: none; border: 1px solid var(--border); padding: 3px 10px; border-radius: 4px; font-size: .72rem; color: var(--gray-dk); transition: border-color .15s; }
+    .review-helpful button:hover { border-color: var(--navy); }
+
+    .review-tag {
+      display: inline-block;
+      background: var(--tint);
+      border: 1px solid rgba(26,107,255,.2);
+      color: var(--blue);
+      font-size: .68rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 3px;
+      margin-right: 5px;
+      margin-bottom: 8px;
+    }
+
+    /* FAQ tab */
+    .faq-list { display: flex; flex-direction: column; gap: 8px; }
+    .faq-item { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .faq-q {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 18px; background: white; border: none; width: 100%; text-align: left;
+      font-family: 'Barlow', sans-serif; font-weight: 700; font-size: .88rem; color: var(--navy);
+      transition: background .15s;
+    }
+    .faq-q:hover { background: var(--tint); }
+    .faq-chevron { transition: transform .25s; font-size: 1rem; color: var(--gray); flex-shrink: 0; margin-left: 10px; }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+    .faq-item.open .faq-a { max-height: 400px; }
+    .faq-a-inner { padding: 12px 18px; background: var(--offwhite); border-top: 1px solid var(--border); font-size: .84rem; color: var(--gray-dk); line-height: 1.65; }
+
+    /* ── RIGHT SIDEBAR (below fold) ── */
+    .side-col {}
+
+    /* "Frequently bought together" */
+    .fbt-box {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .fbt-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: var(--navy); letter-spacing: .04em; margin-bottom: 14px; }
+    .fbt-items { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+    .fbt-item-img { width: 70px; height: 70px; border-radius: 6px; object-fit: cover; border: 1px solid var(--border); flex-shrink: 0; }
+    .fbt-plus { color: var(--gray); font-size: 1.2rem; flex-shrink: 0; }
+    .fbt-details { font-size: .75rem; color: var(--gray-dk); margin-bottom: 4px; }
+    .fbt-details strong { display: block; font-size: .82rem; color: var(--navy); font-weight: 700; }
+    .fbt-total { font-size: .82rem; font-weight: 700; color: var(--navy); margin-bottom: 12px; }
+    .fbt-total span { color: var(--orange); font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1rem; }
+    .btn-fbt { display: block; width: 100%; padding: 11px; background: var(--orange); color: white; font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: .06em; text-align: center; border-radius: 7px; border: none; transition: background .15s; }
+    .btn-fbt:hover { background: #e05e00; }
+
+    /* Seating chart card */
+    .seating-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .seating-card-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: var(--navy); letter-spacing: .04em; margin-bottom: 12px; }
+    .seat-svg-mini { width: 100%; margin-bottom: 12px; }
+    .seat-legend-mini { display: flex; flex-direction: column; gap: 6px; }
+    .sleg { display: flex; align-items: center; gap: 8px; font-size: .75rem; color: var(--gray-dk); }
+    .sleg-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+    /* "Customers also viewed" */
+    .also-viewed {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .also-viewed-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: var(--navy); letter-spacing: .04em; margin-bottom: 14px; }
+    .also-card {
+      display: flex;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .also-card:last-child { border-bottom: none; padding-bottom: 0; }
+    .also-card:first-child { padding-top: 0; }
+    .also-card:hover { opacity: .85; }
+    .also-img { width: 58px; height: 58px; border-radius: 6px; object-fit: cover; flex-shrink: 0; }
+    .also-info { flex: 1; }
+    .also-name { font-family: 'Bebas Neue', sans-serif; font-size: .95rem; color: var(--navy); line-height: 1.1; margin-bottom: 3px; }
+    .also-venue { font-size: .7rem; color: var(--gray); margin-bottom: 3px; }
+    .also-stars { color: var(--gold); font-size: .7rem; }
+    .also-price { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: .95rem; color: var(--orange); }
+
+    /* ── FINAL CTA ── */
+    .final-cta {
+      background: linear-gradient(135deg, #0057D9 0%, #001440 60%, var(--navy) 100%);
+      border-radius: 12px;
+      padding: 56px 40px;
+      text-align: center;
+      margin: 0 0 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .final-cta::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, rgba(255,255,255,.3), rgba(255,107,0,.7)); }
+    .final-cta-eye { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: .68rem; text-transform: uppercase; letter-spacing: .2em; color: rgba(255,255,255,.5); margin-bottom: 8px; }
+    .final-cta-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 3.2rem); color: white; line-height: 1; margin-bottom: 8px; }
+    .final-cta-sub { font-size: .88rem; color: rgba(255,255,255,.55); margin-bottom: 20px; }
+    .final-cta-price { font-family: 'Bebas Neue', sans-serif; font-size: 4rem; color: white; line-height: 1; margin-bottom: 22px; }
+    .final-cta-price span { font-size: 1.8rem; color: rgba(255,255,255,.55); text-decoration: line-through; margin-left: 12px; }
+    .btn-final { display: inline-flex; align-items: center; gap: 10px; padding: 16px 44px; background: var(--orange); color: white; font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: .08em; border-radius: 8px; border: none; transition: background .15s, transform .15s, box-shadow .15s; }
+    .btn-final:hover { background: #e05e00; transform: translateY(-2px); box-shadow: 0 10px 28px rgba(255,107,0,.35); }
+    .final-note { font-size: .72rem; color: rgba(255,255,255,.28); margin-top: 14px; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--navy); border-top: 3px solid var(--orange); margin-top: 32px; }
+    .footer-inner { max-width: 1440px; margin: 0 auto; padding: 32px 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .footer-logo img { height: 32px; }
+    .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .footer-links a { font-size: .78rem; color: rgba(255,255,255,.5); transition: color .15s; }
+    .footer-links a:hover { color: var(--orange); }
+    .footer-copy { font-size: .72rem; color: rgba(255,255,255,.3); }
+
+    /* ── MOBILE STICKY BAR ── */
+    .mob-buy {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 800;
+      background: var(--navy);
+      border-top: 1px solid rgba(26,107,255,.2);
+      padding: 10px 16px 14px;
+    }
+    @media (max-width: 900px) { .mob-buy { display: block; } }
+    .mob-buy-inner { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+    .mob-price-lbl { font-size: .6rem; color: rgba(255,255,255,.4); text-transform: uppercase; letter-spacing: .06em; }
+    .mob-price { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; color: var(--orange); line-height: 1; }
+    .mob-save-txt { font-size: .65rem; color: var(--green); font-weight: 600; }
+    .mob-cta { flex: 1; max-width: 220px; padding: 13px; background: var(--orange); color: white; font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: .06em; text-align: center; border-radius: 7px; border: none; position: relative; overflow: hidden; transition: background .15s; }
+    .mob-cta::after { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,.15), transparent); animation: shimmer 2s infinite; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1100px) {
+      .product-grid { grid-template-columns: 320px 1fr 300px; gap: 20px; }
+      .below-fold { grid-template-columns: 1fr 300px; }
+    }
+    @media (max-width: 900px) {
+      .product-grid { grid-template-columns: 1fr; }
+      .buy-col { display: none; }
+      .below-fold { grid-template-columns: 1fr; }
+      .side-col { display: none; }
+      .details-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav-right { display: none; }
+    }
+    @media (max-width: 600px) {
+      .details-grid { grid-template-columns: 1fr; }
+      .final-cta { padding: 36px 20px; }
+    }
+
+    /* Fade up */
+    .fade-up { opacity: 0; transform: translateY(16px); transition: opacity .5s ease, transform .5s ease; }
+    .fade-up.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+<!-- ══ GATE ══ -->
+<div id="gate">
+  <div class="gate-box">
+    <img src="/images/logo-pill.png" alt="Vegas Sidekick" class="gate-logo" onerror="this.style.display='none'" />
+    <div class="gate-title">DESIGN PREVIEW</div>
+    <p class="gate-sub">Show page redesign concept. Enter password to view.</p>
+    <label class="gate-label" for="gpw">Preview Password</label>
+    <div class="gate-input-row">
+      <input type="password" id="gpw" class="gate-input" placeholder="Password" autocomplete="off" />
+      <button class="gate-btn" id="ggo">ENTER →</button>
+    </div>
+    <div class="gate-error" id="gerr"></div>
+    <div class="gate-hint">Hint: kris + year</div>
+  </div>
+</div>
+
+<!-- ══ PAGE ══ -->
+<div id="page">
+
+  <!-- Preview toolbar -->
+  <div class="preview-notice">
+    <div class="preview-notice-text"><strong>SHOW PAGE PREVIEW</strong> — Amazon-inspired product page concept using Blue Man Group. Not live.</div>
+    <div class="pn-actions">
+      <a href="/preview/" class="pn-btn">← Homepage Preview</a>
+      <a href="/" class="pn-btn" style="color:#6aaeff;">Live Site</a>
+      <button class="pn-lock" onclick="lock()">🔒 Lock</button>
+    </div>
+  </div>
+
+  <!-- Top Nav -->
+  <nav class="main-nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="/images/logo-pill.png" alt="Vegas Sidekick" onerror="this.outerHTML='<span style=\'font-family:Bebas Neue,sans-serif;font-size:1.4rem;color:white;letter-spacing:.05em;\'>VEGAS SIDEKICK</span>'" />
+      </a>
+      <div class="nav-search">
+        <select><option>All Shows</option><option>Comedy</option><option>Magic</option><option>Music</option></select>
+        <input type="text" placeholder="Search Las Vegas shows…" />
+        <button class="nav-search-btn"><svg viewBox="0 0 24 24"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button>
+      </div>
+      <div class="nav-right">
+        <a href="#" class="nav-action"><span>Hello, Vegas Visitor</span><strong>Sign In ▾</strong></a>
+        <a href="/shows/" class="nav-action"><span>All</span><strong>Shows</strong></a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="cat-nav">
+    <div class="cat-nav-inner">
+      <a href="/shows/" class="cat-nav-link">All Shows</a>
+      <a href="/shows/comedy/" class="cat-nav-link">😂 Comedy</a>
+      <a href="/shows/magic/" class="cat-nav-link">🪄 Magic</a>
+      <a href="/shows/cirque/" class="cat-nav-link">🎪 Cirque</a>
+      <a href="/shows/music/" class="cat-nav-link active">🎵 Music</a>
+      <a href="/shows/spectaculars/" class="cat-nav-link">⭐ Spectaculars</a>
+      <a href="/shows/family/" class="cat-nav-link">👨‍👩‍👧 Family</a>
+    </div>
+  </div>
+
+  <div class="page-max">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+      <a href="/">Home</a><span>›</span>
+      <a href="/shows/">Shows</a><span>›</span>
+      <a href="/shows/music/">Music &amp; Variety</a><span>›</span>
+      <strong>Blue Man Group</strong>
+    </nav>
+
+    <!-- ══ PRODUCT GRID ══ -->
+    <div class="product-grid">
+
+      <!-- LEFT: Gallery -->
+      <div class="gallery-col">
+        <div class="gallery-thumbs">
+          <div class="gallery-thumb active" onclick="setImg(0, this)">
+            <img src="/images/blue-man-group-hero.webp" alt="Blue Man Group main" />
+          </div>
+          <div class="gallery-thumb" onclick="setImg(1, this)">
+            <img src="/images/blue-man-group-2.webp" alt="Blue Man Group drums" />
+          </div>
+          <div class="gallery-thumb" onclick="setImg(2, this)">
+            <img src="/images/blue-man-group-3.webp" alt="Blue Man Group pipes" />
+          </div>
+        </div>
+        <div class="gallery-main">
+          <img id="mainImg" src="/images/blue-man-group-hero.webp" alt="Blue Man Group at Luxor Hotel Las Vegas" />
+          <div class="gallery-badge">🎵 Music &amp; Comedy</div>
+        </div>
+      </div>
+
+      <!-- MIDDLE: Title + details -->
+      <div class="title-col">
+        <div class="product-category">MUSIC &amp; VARIETY · LUXOR HOTEL &amp; CASINO</div>
+        <h1 class="product-title">Blue Man<br>Group</h1>
+        <div class="product-subtitle">Percussion. Comedy. Pure Sensory Overload.</div>
+
+        <div class="rating-row">
+          <span class="stars-lg">★★★★★</span>
+          <span class="rating-num">4.8</span>
+          <span class="rating-count">(2,847 reviews)</span>
+          <span class="rating-sep">|</span>
+          <span class="rating-badge">✓ Sidekick Verified</span>
+        </div>
+
+        <hr class="product-divider" />
+
+        <div class="pill-row">
+          <span class="pill pill-orange">⏱ 90 Minutes</span>
+          <span class="pill pill-green">👨‍👩‍👧 All Ages</span>
+          <span class="pill pill-blue">🎵 No Dialogue</span>
+          <span class="pill">📍 Luxor Hotel</span>
+          <span class="pill">Thu – Mon</span>
+        </div>
+
+        <div class="about-bullets">
+          <h3>ABOUT THIS SHOW</h3>
+          <ul>
+            <li><span class="bullet-icon">🥁</span><span><strong>Live percussion spectacle</strong> — purpose-built instruments, industrial beats, and sound that you feel physically</span></li>
+            <li><span class="bullet-icon">😂</span><span><strong>Wordless comedy</strong> — no dialogue, no language barrier. Plays equally for kids and adults</span></li>
+            <li><span class="bullet-icon">🎯</span><span><strong>Audience participation</strong> throughout — volunteers get pulled in, nothing forced or embarrassing</span></li>
+            <li><span class="bullet-icon">💥</span><span><strong>Paint, light, projection, and controlled chaos</strong> — front rows get ponchos (seriously)</span></li>
+            <li><span class="bullet-icon">🏟️</span><span><strong>Purpose-built theater</strong> — no seat more than 70 ft from stage, designed for this show</span></li>
+            <li><span class="bullet-icon">⏰</span><span><strong>90 minutes, no intermission</strong> — done by 9:30 PM, whole night ahead of you</span></li>
+            <li><span class="bullet-icon">🌵</span><span><strong>Spike's seat tip:</strong> 200 level — see the full width of the stage as intended</span></li>
+          </ul>
+        </div>
+
+        <div class="spike-take">
+          <div class="spike-avatar">🌵</div>
+          <div class="spike-take-body">
+            <div class="spike-take-label">Spike's Take</div>
+            <div class="spike-take-text">Get the 200 level. The stage is designed to use its full horizontal width — things happen left to right that only read properly from above. The 100s are immersive, but the 200s show you the whole picture. This is a show worth seeing completely, not just feeling up close.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Buy Box -->
+      <div class="buy-col">
+        <div class="buy-box">
+          <div class="buy-box-avail"><span class="avail-dot"></span> Tickets Available — Book Now</div>
+
+          <div class="buy-price-block">
+            <div class="buy-deal-badge">LIMITED TIME DEAL</div>
+            <div class="buy-price-row">
+              <span class="buy-price">$65</span>
+              <div>
+                <div class="buy-was"><s>$82</s> regular</div>
+                <div class="buy-save">You save $17 (21% off)</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="buy-sidekick-line">
+            Price &amp; tickets fulfilled by <a href="#">Spotlight.vegas</a> · No hidden fees, no account required
+          </div>
+
+          <div class="buy-select-label">Choose Show Time</div>
+          <select class="buy-select">
+            <option>Select a date…</option>
+            <option>Thursday, Jun 5 — 5:00 PM</option>
+            <option>Thursday, Jun 5 — 8:00 PM</option>
+            <option>Friday, Jun 6 — 5:00 PM</option>
+            <option>Friday, Jun 6 — 8:00 PM</option>
+            <option>Saturday, Jun 7 — 5:00 PM</option>
+            <option>Saturday, Jun 7 — 8:00 PM</option>
+            <option>Sunday, Jun 8 — 8:00 PM</option>
+            <option>Monday, Jun 9 — 8:00 PM</option>
+          </select>
+
+          <div class="buy-select-label">Choose Section</div>
+          <div class="seat-pills">
+            <span class="seat-pill" onclick="selectSeat(this)">102 — Lower</span>
+            <span class="seat-pill" onclick="selectSeat(this)">103 — Lower</span>
+            <span class="seat-pill selected" onclick="selectSeat(this)">201–204 — Mezz 🌵</span>
+          </div>
+
+          <a href="https://spotlight.vegas/shows/production/blue-man-group/ref/vegassidekick" class="btn-get-tickets" target="_blank" rel="noopener">
+            GET TICKETS — $65 →
+          </a>
+          <a href="https://spotlight.vegas/shows/production/blue-man-group/ref/vegassidekick" class="btn-choose-seats" target="_blank" rel="noopener">
+            CHOOSE MY SEATS
+          </a>
+
+          <div class="buy-trust">
+            <div class="buy-trust-item"><span class="ti">🔒</span> Secure, encrypted checkout</div>
+            <div class="buy-trust-item"><span class="ti">⚡</span> Tickets delivered instantly by email</div>
+            <div class="buy-trust-item"><span class="ti">✅</span> No hidden fees — price shown is price paid</div>
+            <div class="buy-trust-item"><span class="ti">🎫</span> No account required to purchase</div>
+          </div>
+
+          <div class="buy-sold-by">
+            Sold by <a href="#">Vegas Sidekick</a> via <a href="#">Spotlight.vegas</a> · Prices may increase closer to show date
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /product-grid -->
+
+    <!-- ══ BELOW FOLD ══ -->
+    <div class="below-fold">
+
+      <!-- LEFT: Tabs -->
+      <div class="tabs-section">
+        <div class="tab-bar">
+          <button class="tab-btn active" data-tab="about">About</button>
+          <button class="tab-btn" data-tab="details">Show Details</button>
+          <button class="tab-btn" data-tab="reviews">Reviews (2,847)</button>
+          <button class="tab-btn" data-tab="faq">FAQ</button>
+        </div>
+
+        <!-- About Tab -->
+        <div class="tab-panel active fade-up" id="tab-about">
+          <div class="about-body">
+            <p>Blue Man Group has been performing at Luxor Las Vegas for over two decades, and it has not gotten stale. Three bald, blue-painted performers walk audiences through a show that combines live percussion, wordless physical comedy, audience participation, and technology-driven spectacle into something that defies easy categorization. It's genuinely original in a city full of production shows that follow familiar formulas.</p>
+            <p>The Blue Man Theater at Luxor was purpose-built for this production. Every seat has good sightlines, no seat is more than 70 feet from the stage, and the theater's design ensures the sound hits the way it's supposed to — and it hits hard. The percussion is physically loud. The comedy is entirely wordless and visual. Front rows in sections 102 and 103 get ponchos — the show has a few genuinely splatter-worthy moments.</p>
+            <p>The show has continued to evolve since it opened. The technology elements have grown more sophisticated over the years, and the production values are high. At $65 through Vegas Sidekick, it's one of the better-value production shows on the Strip — particularly for groups with mixed ages or international travelers for whom language isn't a barrier.</p>
+          </div>
+        </div>
+
+        <!-- Details Tab -->
+        <div class="tab-panel fade-up" id="tab-details">
+          <div class="details-grid">
+            <div class="detail-card"><div class="detail-icon">📍</div><div class="detail-label">Venue</div><div class="detail-val">Blue Man Theater</div><div class="detail-sub">Luxor Hotel &amp; Casino · 3900 S Las Vegas Blvd. Mezzanine level inside Luxor — follow signs from the main entrance.</div></div>
+            <div class="detail-card"><div class="detail-icon">🕐</div><div class="detail-label">Show Schedule</div><div class="detail-val">Thu – Mon</div><div class="detail-sub">5:00 PM and 8:00 PM shows nightly. Select dates add a 2:00 PM matinee. Dark Tuesday &amp; Wednesday.</div></div>
+            <div class="detail-card"><div class="detail-icon">⏱️</div><div class="detail-label">Duration</div><div class="detail-val">90 Minutes</div><div class="detail-sub">No intermission. Fast-paced from start to finish. Evening show wraps by 9:30 PM — the night is still young.</div></div>
+            <div class="detail-card"><div class="detail-icon">👨‍👩‍👧</div><div class="detail-label">Age Policy</div><div class="detail-val">All Ages</div><div class="detail-sub">Children under 4 free on a lap. Recommended ages 3+. Percussion is loud — worth knowing for young kids sensitive to volume.</div></div>
+            <div class="detail-card"><div class="detail-icon">🦺</div><div class="detail-label">Front Row Warning</div><div class="detail-val">Ponchos Provided</div><div class="detail-sub">Sections 102 &amp; 103 front rows get ponchos. The splatter is real. Sit in the 200s to watch from safety.</div></div>
+            <div class="detail-card"><div class="detail-icon">🎭</div><div class="detail-label">Show Type</div><div class="detail-val">Music &amp; Comedy</div><div class="detail-sub">Live percussion + wordless physical comedy + audience interaction. No dialogue, no narrative — just 90 minutes of sensory overload.</div></div>
+          </div>
+        </div>
+
+        <!-- Reviews Tab -->
+        <div class="tab-panel fade-up" id="tab-reviews">
+          <div class="reviews-header">
+            <div class="big-rating">
+              <div class="big-rating-num">4.8</div>
+              <div class="big-rating-stars">★★★★★</div>
+              <div class="big-rating-sub">2,847 reviews</div>
+            </div>
+            <div class="rating-bars">
+              <div class="rating-bar-row"><span class="rbl">5 ★</span><div class="rb-track"><div class="rb-fill" style="width:72%"></div></div><span class="rb-count">2,050</span></div>
+              <div class="rating-bar-row"><span class="rbl">4 ★</span><div class="rb-track"><div class="rb-fill" style="width:18%"></div></div><span class="rb-count">512</span></div>
+              <div class="rating-bar-row"><span class="rbl">3 ★</span><div class="rb-track"><div class="rb-fill" style="width:6%"></div></div><span class="rb-count">171</span></div>
+              <div class="rating-bar-row"><span class="rbl">2 ★</span><div class="rb-track"><div class="rb-fill" style="width:2%"></div></div><span class="rb-count">57</span></div>
+              <div class="rating-bar-row"><span class="rbl">1 ★</span><div class="rb-track"><div class="rb-fill" style="width:2%"></div></div><span class="rb-count">57</span></div>
+            </div>
+          </div>
+
+          <div class="reviews-grid">
+
+            <div class="review-card">
+              <div class="review-header">
+                <div class="review-avatar">JT</div>
+                <div class="review-meta">
+                  <div class="review-name">Jessica T. — Chicago, IL</div>
+                  <div class="review-date">May 2026 · Section 203</div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+              </div>
+              <div class="review-tag">Family</div><div class="review-tag">First Time</div>
+              <div class="review-title">Absolutely nothing like anything else in Vegas</div>
+              <div class="review-body">Brought my 9-year-old and my parents (both 60s). Everyone loved it for completely different reasons. My kid was losing his mind at the drums, my dad was laughing at the comedy bits, and I was just marveling at how weird and good it was. The 200 level tip from Vegas Sidekick was spot on — you see everything from up there. Book this. Don't overthink it.</div>
+              <div class="review-helpful">Helpful? <button>Yes (47)</button> <button>No (2)</button></div>
+            </div>
+
+            <div class="review-card">
+              <div class="review-header">
+                <div class="review-avatar">MR</div>
+                <div class="review-meta">
+                  <div class="review-name">Marcus R. — New York, NY</div>
+                  <div class="review-date">April 2026 · Section 102 (Front Row)</div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+              </div>
+              <div class="review-tag">Couple</div><div class="review-tag">Returning Visitor</div>
+              <div class="review-title">The poncho is 100% necessary — wear it</div>
+              <div class="review-body">Second time seeing the show, first time in the front row. The poncho isn't a gimmick — it's a legitimate precaution and you will be grateful for it. The front row experience is completely different from the mezzanine. You feel completely surrounded by the show. I'd do the 200s first time, front row second. Both are worth it.</div>
+              <div class="review-helpful">Helpful? <button>Yes (38)</button> <button>No (1)</button></div>
+            </div>
+
+            <div class="review-card">
+              <div class="review-header">
+                <div class="review-avatar">AK</div>
+                <div class="review-meta">
+                  <div class="review-name">Anika K. — London, UK</div>
+                  <div class="review-date">March 2026 · Section 201</div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+              </div>
+              <div class="review-tag">International Visitor</div><div class="review-tag">Solo</div>
+              <div class="review-title">Perfect show for non-English speakers</div>
+              <div class="review-body">As someone visiting from the UK who wanted to avoid anything too heavy on American cultural references, Blue Man Group was exactly right. Zero dialogue. Zero language barrier. Zero moments where I felt like I was missing a joke. The physical comedy translates universally and the music is extraordinary. Would see it again on my next trip.</div>
+              <div class="review-helpful">Helpful? <button>Yes (29)</button> <button>No (0)</button></div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- FAQ Tab -->
+        <div class="tab-panel fade-up" id="tab-faq">
+          <div class="faq-list">
+            <div class="faq-item">
+              <button class="faq-q" onclick="toggleFaq(this)"><span>Is Blue Man Group good for kids?</span><span class="faq-chevron">▼</span></button>
+              <div class="faq-a"><div class="faq-a-inner">Yes. Blue Man Group is genuinely all-ages — no dialogue means no language barrier or adult content. Children under 4 are admitted free on a lap. The show is recommended for ages 3+ because the percussion is physically loud. Kids sensitive to loud sound may find it overwhelming — the 200 level is slightly farther from the speakers than the front of the lower sections if that's a concern.</div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" onclick="toggleFaq(this)"><span>Will I get wet or covered in paint?</span><span class="faq-chevron">▼</span></button>
+              <div class="faq-a"><div class="faq-a-inner">The front rows of sections 102 and 103 receive ponchos before the show. There are moments where material is projected toward the audience and the front rows are genuinely in range. If you prefer to watch the splatter from a distance, the 200-level mezzanine is outside the splash zone. If you want to be in it, sit lower front — the ponchos cover you well.</div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" onclick="toggleFaq(this)"><span>What's the best section to sit in?</span><span class="faq-chevron">▼</span></button>
+              <div class="faq-a"><div class="faq-a-inner">Spike recommends the 200 level — specifically section 203 for center-stage perspective. Blue Man Group is a wide show and the production is designed to use the full horizontal stage. From the mezzanine you see everything happening left to right. The 100 sections are more immersive and up-close, but you lose the full scope. If it's your first time, sit in the 200s.</div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" onclick="toggleFaq(this)"><span>How far in advance should I book?</span><span class="faq-chevron">▼</span></button>
+              <div class="faq-a"><div class="faq-a-inner">Weekend shows (Friday–Saturday) can sell out, especially the 8 PM performances. Booking 2–3 days ahead is usually sufficient for weeknight shows. For weekend performances during busy periods (holidays, conventions), book earlier. The $65 Vegas Sidekick price is also subject to availability — prices may increase closer to the show date.</div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" onclick="toggleFaq(this)"><span>Is there an intermission?</span><span class="faq-chevron">▼</span></button>
+              <div class="faq-a"><div class="faq-a-inner">No. Blue Man Group runs 90 minutes straight through with no intermission. Plan accordingly — use the restroom before the show. The 90 minutes moves quickly and there are no natural stopping points where leaving and returning makes sense.</div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" onclick="toggleFaq(this)"><span>Can I use my phone during the show?</span><span class="faq-chevron">▼</span></button>
+              <div class="faq-a"><div class="faq-a-inner">Phones and cameras are not permitted during the performance. This is actually part of the show's design — Blue Man Group deliberately plays with audience attention and technology in ways that require you to be present. The no-phone policy is enforced and worth respecting. The show is better for it.</div></div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /tabs-section -->
+
+      <!-- RIGHT SIDEBAR (below fold) -->
+      <div class="side-col">
+
+        <!-- Frequently Bought Together -->
+        <div class="fbt-box fade-up">
+          <div class="fbt-title">FREQUENTLY BOUGHT TOGETHER</div>
+          <div class="fbt-items">
+            <img src="/images/blue-man-group-hero.webp" alt="Blue Man Group" class="fbt-item-img" />
+            <div class="fbt-plus">+</div>
+            <img src="/images/mad-apple-hero.jpg" alt="Mad Apple" class="fbt-item-img" />
+            <div>
+              <div class="fbt-details"><strong>MAD APPLE</strong>Cirque du Soleil · NY-NY</div>
+              <div class="fbt-details"><strong style="color:var(--orange)">FROM $59</strong></div>
+            </div>
+          </div>
+          <div class="fbt-total">Bundle total: <span>$124</span></div>
+          <a href="/shows/" class="btn-fbt">GET BOTH SHOWS →</a>
+        </div>
+
+        <!-- Seating Chart Mini -->
+        <div class="seating-card fade-up">
+          <div class="seating-card-title">SEATING CHART</div>
+          <svg class="seat-svg-mini" viewBox="0 0 360 280" xmlns="http://www.w3.org/2000/svg">
+            <!-- Stage -->
+            <rect x="130" y="228" width="100" height="28" rx="10" fill="#1A1A1A"/>
+            <text x="180" y="247" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="10" fill="white" letter-spacing="2">STAGE</text>
+
+            <!-- Lower 102 -->
+            <path d="M 88,205 A 97,97 0 0,1 180,138 L 180,176 A 58,58 0 0,0 124,216 Z" fill="#B5534A" opacity="0.85"/>
+            <text x="134" y="173" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="12" fill="white">102</text>
+
+            <!-- Lower 103 -->
+            <path d="M 180,138 A 97,97 0 0,1 272,205 L 236,216 A 58,58 0 0,0 180,176 Z" fill="#B5534A" opacity="0.85"/>
+            <text x="226" y="173" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="12" fill="white">103</text>
+
+            <!-- Upper 204 -->
+            <path d="M 46,187 A 140,140 0 0,1 108,113 L 132,152 A 97,97 0 0,0 88,205 Z" fill="#C97830" opacity="0.85"/>
+            <text x="79" y="155" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="10" fill="white">204</text>
+
+            <!-- Upper 203 -->
+            <path d="M 108,113 A 140,140 0 0,1 252,113 L 228,152 A 97,97 0 0,0 132,152 Z" fill="#C97830" opacity="0.85"/>
+            <text x="180" y="124" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="12" fill="white">203 🌵</text>
+
+            <!-- Upper 202 -->
+            <path d="M 252,113 A 140,140 0 0,1 314,187 L 272,205 A 97,97 0 0,0 228,152 Z" fill="#C97830" opacity="0.85"/>
+            <text x="281" y="155" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="10" fill="white">202</text>
+          </svg>
+          <div class="seat-legend-mini">
+            <div class="sleg"><div class="sleg-dot" style="background:#B5534A"></div>102 &amp; 103 — Lower Level (Ponchos!)</div>
+            <div class="sleg"><div class="sleg-dot" style="background:#C97830"></div>201–204 — Mezzanine · 🌵 Spike Recommends 203</div>
+          </div>
+        </div>
+
+        <!-- Customers Also Viewed -->
+        <div class="also-viewed fade-up">
+          <div class="also-viewed-title">CUSTOMERS ALSO VIEWED</div>
+
+          <a href="/shows/cirque/mad-apple/" class="also-card">
+            <img src="/images/mad-apple-hero.jpg" alt="Mad Apple" class="also-img" />
+            <div class="also-info">
+              <div class="also-name">MAD APPLE</div>
+              <div class="also-venue">New York-New York · Cirque</div>
+              <div class="also-stars">★★★★★</div>
+              <div class="also-price">FROM $59</div>
+            </div>
+          </a>
+
+          <a href="/shows/music/vegas-the-show/" class="also-card">
+            <img src="/images/vegas-the-show-hero.webp" alt="VEGAS! The Show" class="also-img" />
+            <div class="also-info">
+              <div class="also-name">VEGAS! THE SHOW</div>
+              <div class="also-venue">Planet Hollywood · Music</div>
+              <div class="also-stars">★★★★★</div>
+              <div class="also-price">FROM $55</div>
+            </div>
+          </a>
+
+          <a href="/shows/cirque/ka/" class="also-card">
+            <img src="/images/ka-hero.jpg" alt="KÀ" class="also-img" />
+            <div class="also-info">
+              <div class="also-name">KÀ BY CIRQUE DU SOLEIL</div>
+              <div class="also-venue">MGM Grand · Cirque</div>
+              <div class="also-stars">★★★★★</div>
+              <div class="also-price">FROM $89</div>
+            </div>
+          </a>
+
+          <a href="/shows/family/tournament-of-kings/" class="also-card">
+            <img src="/images/tournament-of-kings-hero.webp" alt="Tournament of Kings" class="also-img" />
+            <div class="also-info">
+              <div class="also-name">TOURNAMENT OF KINGS</div>
+              <div class="also-venue">Excalibur · Family</div>
+              <div class="also-stars">★★★★☆</div>
+              <div class="also-price">FROM $74</div>
+            </div>
+          </a>
+
+        </div>
+
+      </div><!-- /side-col -->
+
+    </div><!-- /below-fold -->
+
+    <!-- Final CTA -->
+    <div class="final-cta fade-up">
+      <div class="final-cta-eye">READY TO BOOK?</div>
+      <div class="final-cta-title">BLUE MAN GROUP<br>AT LUXOR LAS VEGAS</div>
+      <div class="final-cta-sub">90 minutes. All ages. No dialogue. No excuses.</div>
+      <div class="final-cta-price">$65 <span>$82</span></div>
+      <a href="https://spotlight.vegas/shows/production/blue-man-group/ref/vegassidekick" class="btn-final" target="_blank" rel="noopener">
+        GET TICKETS NOW →
+      </a>
+      <div class="final-note">Tickets fulfilled by Spotlight.vegas · No hidden fees · Instant email delivery</div>
+    </div>
+
+  </div><!-- /page-max -->
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="/images/logo-pill.png" alt="Vegas Sidekick" onerror="this.style.display='none'" />
+      </div>
+      <div class="footer-links">
+        <a href="/shows/">All Shows</a>
+        <a href="/news/">Vegas Dispatch</a>
+        <a href="/search/">Search</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/affiliate/">Affiliate Disclosure</a>
+      </div>
+      <div class="footer-copy">© 2026 Vegas Sidekick</div>
+    </div>
+  </footer>
+
+  <!-- Mobile sticky -->
+  <div class="mob-buy">
+    <div class="mob-buy-inner">
+      <div>
+        <div class="mob-price-lbl">Vegas Sidekick Price</div>
+        <div class="mob-price">$65</div>
+        <div class="mob-save-txt">Save $17 — 21% Off</div>
+      </div>
+      <a href="https://spotlight.vegas/shows/production/blue-man-group/ref/vegassidekick" class="mob-cta" target="_blank" rel="noopener">
+        GET TICKETS →
+      </a>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+  var PW = 'kris2026', SK = 'vs_preview_unlocked';
+
+  function unlock() {
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('page').style.display = 'block';
+    initPage();
+  }
+
+  function lock() { sessionStorage.removeItem(SK); location.reload(); }
+
+  if (sessionStorage.getItem(SK) === '1') { unlock(); }
+
+  document.getElementById('ggo').addEventListener('click', function () {
+    var v = document.getElementById('gpw').value.trim();
+    if (v === PW) { sessionStorage.setItem(SK, '1'); unlock(); }
+    else {
+      var i = document.getElementById('gpw');
+      i.classList.add('shake');
+      document.getElementById('gerr').textContent = 'Wrong password.';
+      setTimeout(function () { i.classList.remove('shake'); }, 400);
+    }
+  });
+  document.getElementById('gpw').addEventListener('keydown', function (e) { if (e.key === 'Enter') document.getElementById('ggo').click(); });
+
+  function initPage() {
+    // Gallery thumbnails
+    window.setImg = function (idx, el) {
+      var imgs = ['/images/blue-man-group-hero.webp', '/images/blue-man-group-2.webp', '/images/blue-man-group-3.webp'];
+      document.getElementById('mainImg').src = imgs[idx];
+      document.querySelectorAll('.gallery-thumb').forEach(function (t) { t.classList.remove('active'); });
+      el.classList.add('active');
+    };
+
+    // Seat pill selector
+    window.selectSeat = function (el) {
+      document.querySelectorAll('.seat-pill').forEach(function (p) { p.classList.remove('selected'); });
+      el.classList.add('selected');
+    };
+
+    // Tabs
+    document.querySelectorAll('.tab-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('active'); });
+        document.querySelectorAll('.tab-panel').forEach(function (p) { p.classList.remove('active'); });
+        btn.classList.add('active');
+        var panel = document.getElementById('tab-' + btn.dataset.tab);
+        panel.classList.add('active');
+        panel.classList.add('visible');
+      });
+    });
+
+    // FAQ accordion
+    window.toggleFaq = function (btn) {
+      var item = btn.closest('.faq-item');
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function (i) { i.classList.remove('open'); });
+      if (!wasOpen) item.classList.add('open');
+    };
+
+    // Fade-up observer
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+        });
+      }, { threshold: 0.07 });
+      document.querySelectorAll('.fade-up').forEach(function (el) { obs.observe(el); });
+    } else {
+      document.querySelectorAll('.fade-up').forEach(function (el) { el.classList.add('visible'); });
+    }
+  }
+</script>
+</body>
+</html>
