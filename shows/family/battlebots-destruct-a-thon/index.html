@@ -235,7 +235,7 @@
     .stat-lbl { font-family: var(--font-mono); font-size: 0.58rem; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.07em; margin-top: 4px; }
 
     /* ── LAYOUT ── */
-    .page-layout { display: grid; grid-template-columns: 1fr var(--sidebar); gap: 40px; max-width: 1160px; margin: 0 auto; padding: 40px 24px 60px; }
+    .page-layout { display: grid; grid-template-columns: 1fr var(--sidebar); gap: 40px; max-width: 1160px; margin: 0 auto; padding: 40px 24px 60px; align-items: start; }
     @media (max-width: 940px) { .page-layout { grid-template-columns: 1fr; gap: 0; padding: 24px 16px 100px; } }
 
     .section { margin-bottom: 48px; }
@@ -352,7 +352,8 @@
     .also-cat { font-family: var(--font-mono); font-size: 0.57rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
     .also-title { font-family: var(--font-price); font-size: 1rem; font-weight: 800; color: var(--text); margin-bottom: 2px; }
     .also-venue { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px; }
-    .also-cta { font-family: var(--font-price); font-size: 0.82rem; font-weight: 700; color: var(--electric); }
+    .also-cta { display: block; width: 100%; padding: 9px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.82rem; font-weight: 800; text-align: center; border-radius: var(--radius-sm); text-transform: uppercase; letter-spacing: 0.05em; transition: background 0.2s; }
+    .also-cta:hover { background: var(--orange-lt); }
 
     /* ── FINAL CTA ── */
     .final-cta { position: relative; overflow: hidden; background: linear-gradient(135deg, var(--navy) 0%, #1a2d50 100%); padding: 64px 24px; text-align: center; border-top: 1px solid rgba(0,85,204,0.15); margin-top: 40px; }
@@ -842,7 +843,7 @@
     <h2 id="also-heading" class="section-title">You Might <span>Also Like</span></h2>
     <div class="also-grid">
       <a href="/shows/family/tournament-of-kings/" class="also-card">
-        <img class="also-img" src="/images/tournament-of-kings-hero.jpg" alt="Tournament of Kings medieval jousting dinner show at Excalibur Las Vegas" loading="lazy" />
+        <img class="also-img" src="/images/tournament-of-kings-hero.webp" alt="Tournament of Kings medieval jousting dinner show at Excalibur Las Vegas" loading="lazy" />
         <div class="also-body">
           <div class="also-cat">Family</div>
           <div class="also-title">Tournament of Kings</div>
