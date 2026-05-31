@@ -28,108 +28,110 @@ https://spotlight.vegas/shows/{category-slug}/{show-slug}/ref/vegassidekick
 
 ## Canonical Show Page Template
 
-**Primary reference:** `shows/spectaculars/awakening/index.html`
-**Secondary reference:** `shows/adult/absinthe/index.html`
-**Comedy reference:** `shows/comedy/laugh-factory/index.html`
+**Canonical reference:** `shows/family/v-the-ultimate-variety-show/index.html`
 
-Every show page follows this exact structure:
+This is the **"Sidekick Build"** — the current standard for all new show pages. Copy it, do not use older pages. Key features:
 
-```
+- Dual scroll progress bars (top fixed bar + sidebar progress indicator)
+- Hero section: breadcrumb + **Ken Burns image slider** (3 images, 16:9 `aspect-ratio`, max-height 560px, auto-advance every 5s, 6-dot dot-nav) + venue/title block + price strip
+- **Scrolling ticker strip** (show-color background) below hero with repeating show facts
+- Two-column layout: `main.main-content` (left) + `aside.sidebar` (right, sticky, navy bg)
+- **Stats strip** with count-up animation (IntersectionObserver + requestAnimationFrame) — typically: duration (min), nights/week, years running, price
+- **FadeUp IntersectionObserver** on every major section (`.fade-up` class)
+- Mobile sticky buy bar fixed to bottom (hidden on desktop)
+- **Shimmer animation** on `.hero-cta` and `.sb-cta` buttons
+- `@media (prefers-reduced-motion: reduce)` disables Ken Burns and ticker animations
+- **Ambient orbs** in `.final-cta` (CSS radial gradients, show-color tinted)
+
+Main content sections order (inside `<main>`):
+1. `.seen-widget` — "Have you seen this show?" yes/no engagement widget
+2. `.trust-grid` — 4 trust cards (secure booking, instant delivery, no fees, no account)
+3. About section with `.spike-callout` (show-color left-border callout)
+4. `.email-signup` — accent bar, inline email form wired to Brevo Worker
+5. `.details-grid` — 3-col icon cards for venue/schedule/duration/age/etc.
+6. `.expect-grid` — 2-col "What to Expect" cards
+7. `.seating-section` — interactive SVG seating chart + `.zone-popup` + `.seat-accord`
+8. `.faq-list` — accordion FAQ (+ icon)
+9. `.also-grid` — 3 "You Might Also Like" show cards
+10. `.final-cta` — dark gradient card CTA inside `<main>` (with ambient orbs), NOT full-width
+
+---
+
+## Building the Page (Technical Notes)
+
+Pages are 200–350 KB of HTML. **Do not use the Edit tool for initial page creation** — build the entire file in Python and write it with `open(..., 'w').write(html)`.
+
+When building HTML inside a Python f-string, all `{` and `}` in CSS/JS must be escaped as `{{` and `}}`.
+
+```python
+html = f"""<!DOCTYPE html>
+<html>
 <head>
-  - charset, favicon, viewport, title, meta description, canonical
-  - Open Graph tags (og:title, og:description, og:image, og:url, og:type, og:site_name)
-  - Twitter card tags
-  - application/ld+json schema (EventSeries type)
-  - Google Fonts preconnect + link
-  - <style> block (all CSS inline — no shared stylesheet)
+  <style>
+    :root {{
+      --show: #B91C1C;
+      --show-lt: #DC2626;
+    }}
+    .sidebar {{ position: sticky; top: 24px; }}
+  </style>
+</head>
+</html>"""
 
-<body>
-  <div id="vs-header"></div>          ← TOP of body, required
-
-  <div id="progress-bar"></div>       ← scroll progress bar
-
-  <section class="hero">
-    1. Breadcrumb nav (.breadcrumbs)
-    2. Full-width image slider (.hero-slider, 3 images, 16:9 aspect ratio, max-height 560px)
-    3. Hero text block (.hero-content):
-       - .venue-label (IBM Plex Mono, show accent color)
-       - h1.hero-title (Bebas Neue, huge)
-       - p.hero-subtitle (tagline, show accent color)
-       - .info-pills row (category, duration, Spike's Pick, venue, age)
-       - .urgency-pills row (schedule times with animated orange dots)
-    4. .price-strip (price, strikethrough, save badge, CTA button, urgency text)
-  </section>
-
-  <div class="page-layout">           ← two-column grid
-    <main class="main-content">
-      1. .seen-widget
-      2. .trust-grid (4 cards)
-      3. About section with .spike-callout
-      4. .email-signup (Brevo worker)
-      5. .details-grid (3-col icon cards)
-      6. .expect-grid (2-col "What to Expect")
-      7. Seating chart (.seating-section, SVG, .zone-popup, .seat-accord)
-      8. .faq-list (accordion, 6–8 Q&A)
-      9. .also-grid (3 "You Might Also Like" cards)
-    </main>
-    <aside class="sidebar">           ← sticky, navy bg
-      - Price + CTA
-      - Trust checklist (.t-check items)
-      - Show info snippet
-    </aside>
-  </div>
-
-  <div class="final-cta">             ← full-width bottom CTA block
-  <div class="mobile-sticky">        ← fixed bottom bar, hidden on desktop
-
-  <div id="vs-footer"></div>         ← BOTTOM, before scripts
-  <script src="/components/header.js"></script>
-  <script src="/components/footer.js"></script>
-</body>
+with open('shows/family/show-name/index.html', 'w') as f:
+    f.write(html)
 ```
 
 ---
 
-## Design System
+## Color System
 
-### Colors (CSS custom properties)
+### Base palette (CSS custom properties — same on every page)
 ```css
 --navy:      #0A1628   /* primary background */
 --navy-mid:  #0f1e38   /* slightly lighter bg for cards */
 --orange:    #FF6B00   /* ALL CTA buttons — never deviate */
 --orange-lt: #FF8C2A   /* hover/accent */
---gold:      #C9A84C   /* Spike's Pick accent */
---gold-lt:   #E0C06A
 ```
 
-### Show-specific accent colors (add per show in :root)
-| Category | CSS Variables |
-|---|---|
-| Comedy | `--show-blue: #1A5FAA; --show-blue-lt: #4A90D4` |
-| Magic | `--show-purple: #5B2D8E; --show-purple-lt: #9B6FD4` |
-| Cirque | `--show-teal: #0E7C7B; --show-teal-lt: #2EC0BF` (or purple) |
-| Spectacular | `--show-blue: #1A42A8; --show-blue-lt: #5B8EE8` |
-| Family/Dinner | `--show-red: #8B1A1A; --show-red-lt: #D45050; --show-gold: #C9A84C; --show-gold-lt: #E8C87A` |
-| Adult | `--show-red: #8B0000; --show-red-lt: #CC2222` |
-| Music | `--show-gold: #C9A84C; --show-gold-lt: #E8C87A` |
+### Show accent color (`--show` and `--show-lt`)
+Every show page defines exactly two show-specific color vars:
+```css
+--show:    #XXXXXX   /* dark/saturated accent */
+--show-lt: #YYYYYY   /* lighter tint for hover/glow */
+```
 
-The show accent color is used on:
-- progress bar gradient end
-- `.venue-label`
-- `.hero-subtitle`
+The show accent is used on:
+- progress bar gradient endpoint
+- `.venue-label` text color
+- `.hero-subtitle` text color
+- ticker strip background
 - category `.pill` background
-- `.seen-tag` (if not orange)
-- `.email-signup` bar/button
 - `.spike-callout` left border
-- `.details-grid .detail-card-lbl`
+- `.details-grid .detail-card-lbl` text color
 - `.expect-grid .expect-card` top border
-- `.also-grid .also-venue`
+- `.also-venue` text color
 - `.t-check` icons in sidebar
+- email signup bar background
 
-**Orange is always used for all CTA buttons** (`.hero-cta`, `.sb-cta`, `.mob-cta`, `.final-cta-btn`, `.zone-popup-cta`).
+**Orange is always used for ALL CTA buttons** (`.hero-cta`, `.sb-cta`, `.mob-cta`, `.final-cta-btn`, `.zone-popup-cta`). Never put the show color on a buy button.
 
-### Fonts
-- `Bebas Neue` — headlines, show titles, section titles, CTA buttons
+### Ticker text color
+- If `--show` is light/bright (yellow, cyan, light gold): use `color: var(--navy)` on ticker text
+- If `--show` is dark/saturated (crimson, purple, deep blue): use `color: #fff` on ticker text
+
+### Example show colors
+| Show | `--show` | `--show-lt` | Ticker text |
+|---|---|---|---|
+| V – Ultimate Variety | `#B91C1C` (crimson) | `#DC2626` | white |
+| WOW – Vegas Spectacular | `#0891B2` (cyan) | `#22D3EE` | navy |
+| Jabbawockeez | `#B8860B` (gold) | `#D4AC0D` | navy |
+| BattleBots | `#DC2626` (red) | `#EF4444` | white |
+
+---
+
+## Fonts
+
+- `Bebas Neue` — headlines, show titles, section titles, CTA button text
 - `Barlow Condensed` — prices, labels, badges, pills
 - `Barlow` — body text
 - `IBM Plex Mono` — venue labels, monospace meta tags
@@ -139,23 +141,209 @@ Google Fonts link (include on every page):
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 ```
 
-### Progress bar
-```css
-#progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--show-color), var(--orange)); z-index: 300; transition: width 0.1s; }
+---
+
+## Scrolling Ticker Strip
+
+Placed immediately after the `</section>` hero close, before `.page-layout`.
+
+```html
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span>⭐ Fact One</span>
+    <span class="ticker-sep">◆</span>
+    <span>⭐ Fact Two</span>
+    <span class="ticker-sep">◆</span>
+    <span>⭐ Fact Three</span>
+    <span class="ticker-sep">◆</span>
+    <!-- duplicate all spans for seamless loop -->
+    <span>⭐ Fact One</span>
+    <span class="ticker-sep">◆</span>
+    ...
+  </div>
+</div>
 ```
-JS: `window.addEventListener('scroll', () => { const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100; document.getElementById('progress-bar').style.width = pct + '%'; });`
+
+```css
+.ticker-wrap { background: var(--show); overflow: hidden; padding: 10px 0; }
+.ticker-track { display: flex; gap: 32px; white-space: nowrap; animation: ticker 28s linear infinite; color: #fff; /* or var(--navy) for light shows */ font-family: var(--font-condensed); font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .ticker-track { animation: none; } }
+```
 
 ---
 
-## Hero Slider
+## Stats Strip (Count-Up Animation)
 
-3 images, 16:9 ratio, slide every 5 seconds. Always referenced as root-relative paths (`/images/{slug}-hero.webp`).
+Placed after the ticker, or early in `<main>` before `.seen-widget`. Typically 4 stats.
+
+```html
+<div class="stats-strip">
+  <div class="stat-item">
+    <div class="stat-num" data-target="90" data-suffix=" min">0</div>
+    <div class="stat-lbl">Show Duration</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num" data-target="7" data-suffix=" nights">0</div>
+    <div class="stat-lbl">Per Week</div>
+  </div>
+  <!-- etc. -->
+</div>
+```
+
+JS count-up:
+```javascript
+const counters = document.querySelectorAll('.stat-num');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+    const target = +el.dataset.target;
+    const suffix = el.dataset.suffix || '';
+    const prefix = el.dataset.prefix || '';
+    const dur = 1400;
+    const start = performance.now();
+    const tick = now => {
+      const p = Math.min((now - start) / dur, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = prefix + Math.round(ease * target) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+    observer.unobserve(el);
+  });
+}, { threshold: 0.4 });
+counters.forEach(c => observer.observe(c));
+```
+
+---
+
+## Badge System — Critical Rules
+
+There are two distinct recommendation labels. **They are not interchangeable. Never confuse them.**
+
+### 🪑 Sweet Spot — Seating Advice (every page)
+Identifies the single best seating category for value, sightlines, or experience. This is **practical seating advice**, not an endorsement of the show itself.
+
+- **Every show page gets exactly one Sweet Spot callout** — no exceptions
+- Appears in the seat accordion as a highlighted row with a "🪑 Sweet Spot" badge
+- Appears in the zone popup when that zone is selected (`pick: true` in `ZONES`)
+- Can be mentioned in the seating section prose ("For most visitors, [Zone] is the sweet spot")
+- This badge is about where to sit — it says nothing about whether the show is worth seeing
+
+### ⭐ Sidekick Pick — Show Endorsement (explicit only)
+A selective, show-level endorsement. Means Vegas Sidekick actively recommends this show above others in its category.
+
+- **Only add when explicitly instructed** — never add by default
+- Never infer it from show quality, ratings, or descriptions
+- Never suggest adding it unless asked
+- If uncertain whether a show qualifies, **ask — do not assume**
+
+When instructed to add Sidekick Pick:
+- Add `⭐ Sidekick Pick` pill to `.info-pills` in the hero
+- Add `<div class="card-best-badge">⭐ Sidekick Pick</div>` to the show card in `shows/index.html`
+- Include `.spike-callout` in the About section with `<strong>⭐ Sidekick Pick</strong>` label
+
+**Summary table:**
+
+| Badge | Every page? | What it means | When to add |
+|---|---|---|---|
+| 🪑 Sweet Spot | Yes — always | Best zone to sit | Every page, seating section |
+| ⭐ Sidekick Pick | No — selective | We recommend this show | Only when explicitly told to |
+
+---
+
+## Seating Charts (SVG)
+
+### Traditional proscenium rows (e.g., V – Ultimate Variety Show)
+
+Rectangular stage at top. Rows as rectangles in named zones. Label each zone.
+
+### Horseshoe arc (e.g., WOW – The Vegas Spectacular)
+
+Use Python math to generate SVG arc paths. Center point below SVG bottom so arcs curve upward:
+
+```python
+import math
+
+cx, cy = 340, 490  # center below SVG bottom (SVG height 480)
+A_S, A_E = 205, 335  # fan angle span (degrees)
+
+def arc(r_in, r_out, a_start, a_end):
+    s = math.radians(a_start); e = math.radians(a_end)
+    ox1=cx+r_out*math.cos(s); oy1=cy+r_out*math.sin(s)
+    ox2=cx+r_out*math.cos(e); oy2=cy+r_out*math.sin(e)
+    ix1=cx+r_in*math.cos(s);  iy1=cy+r_in*math.sin(s)
+    ix2=cx+r_in*math.cos(e);  iy2=cy+r_in*math.sin(e)
+    span = a_end - a_start; large = 1 if span > 180 else 0
+    return (f"M {ox1:.1f} {oy1:.1f} A {r_out} {r_out} 0 {large} 1 {ox2:.1f} {oy2:.1f} "
+            f"L {ix2:.1f} {iy2:.1f} A {r_in} {r_in} 0 {large} 0 {ix1:.1f} {iy1:.1f} Z")
+
+def mid_xy(r_in, r_out, deg=270):
+    r = (r_in + r_out) / 2; a = math.radians(deg)
+    return cx + r * math.cos(a), cy + r * math.sin(a)
+
+vip_path       = arc(88,  148, A_S, A_E)   # innermost — magenta #D946EF
+premium_path   = arc(148, 213, A_S, A_E)   # gold #D4AC0D
+preferred_path = arc(213, 275, A_S, A_E)   # green #22C55E — Sweet Spot
+reserved_path  = arc(275, 328, A_S, A_E)   # blue #3A74B5 — outermost
+
+# Use mid_xy(r_in, r_out, deg=270) to position zone labels at top of each arc
+```
+
+### Zone popup (identical on every page)
+
+```html
+<div class="zone-popup" id="zonePopup">
+  <div class="zone-popup-hdr">
+    <div class="zone-popup-name" id="zoneName">—</div>
+    <div class="zone-popup-pick" id="zonePick" style="display:none">🪑 Sweet Spot</div>
+  </div>
+  <div class="zone-popup-desc" id="zoneDesc"></div>
+  <a href="[AFFILIATE_LINK]" class="zone-popup-cta" target="_blank" rel="noopener">Get Tickets in This Zone →</a>
+</div>
+```
+
+JS:
+```javascript
+const ZONES = {
+  vip:       { name: 'VIP', pick: false, desc: '...' },
+  preferred: { name: 'Preferred', pick: true,  desc: '...' },  // pick:true = Sweet Spot
+};
+function selectZone(id) {
+  const z = ZONES[id];
+  document.getElementById('zoneName').textContent = z.name;
+  document.getElementById('zoneDesc').textContent = z.desc;
+  document.getElementById('zonePick').style.display = z.pick ? 'inline-block' : 'none';
+  const popup = document.getElementById('zonePopup');
+  popup.classList.add('visible');
+  popup.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+```
+
+### Seat accordion
+
+```html
+<div class="seat-accord">
+  <div class="seat-accord-row" onclick="selectZone('preferred')">
+    <div class="seat-accord-dot" style="background:#22C55E"></div>
+    <div class="seat-accord-name">Preferred <span class="seat-accord-badge">🪑 Sweet Spot</span></div>
+    <div class="seat-accord-price">From $XX</div>
+  </div>
+</div>
+```
+
+---
+
+## Hero Slider (Ken Burns)
+
+3 images, 16:9 aspect ratio, Ken Burns zoom animation, auto-advance every 5s, 6-dot nav.
 
 ```html
 <div class="hero-slider">
-  <div class="slide active" style="background-image:url('/images/{slug}-hero.webp')"></div>
-  <div class="slide" style="background-image:url('/images/{slug}-2.webp')"></div>
-  <div class="slide" style="background-image:url('/images/{slug}-3.webp')"></div>
+  <div class="slide active" style="background-image:url('/images/{slug}-hero.jpg')"></div>
+  <div class="slide" style="background-image:url('/images/{slug}-2.jpg')"></div>
+  <div class="slide" style="background-image:url('/images/{slug}-3.jpg')"></div>
   <div class="slide-dots">
     <span class="dot active" onclick="goSlide(0)"></span>
     <span class="dot" onclick="goSlide(1)"></span>
@@ -164,7 +352,14 @@ JS: `window.addEventListener('scroll', () => { const pct = window.scrollY / (doc
 </div>
 ```
 
-JS auto-advance:
+```css
+.slide { position:absolute; inset:0; background-size:cover; background-position:center; opacity:0; transition:opacity 0.8s; }
+.slide.active { opacity:1; animation: kenBurns 10s ease-in-out infinite alternate; }
+@keyframes kenBurns { from{transform:scale(1)} to{transform:scale(1.06)} }
+@media (prefers-reduced-motion: reduce) { .slide.active { animation: none; } }
+```
+
+JS:
 ```javascript
 let slideIdx = 0;
 const slides = document.querySelectorAll('.slide');
@@ -185,21 +380,15 @@ setInterval(() => goSlide((slideIdx + 1) % slides.length), 5000);
 
 ```html
 <div class="info-pills">
-  <span class="pill pill-blue">✨ Comedy</span>
+  <span class="pill pill-show">✨ Comedy</span>
   <span class="pill">⏱ 75 Min</span>
-  <span class="pill pill-pick">🌵 Spike's Pick</span>   <!-- only if recommended -->
+  <span class="pill pill-pick">⭐ Sidekick Pick</span>   <!-- ONLY if explicitly instructed -->
   <span class="pill">📍 Venue Name</span>
   <span class="pill">🔞 18+</span>
 </div>
 ```
 
-Pill CSS:
-```css
-.pill { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: 100px; font-family: var(--font-mono); font-size: 0.67rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.74); border: 1px solid rgba(255,255,255,0.11); }
-.pill-pick { background: rgba(201,168,76,0.15); color: var(--gold-lt); border-color: rgba(201,168,76,0.35); }
-/* Color variant example (change RGB to match show color): */
-.pill-blue { background: rgba(26,95,170,0.25); color: var(--show-blue-lt); border-color: rgba(74,144,212,0.4); }
-```
+---
 
 ## Urgency Pills (animated dots)
 
@@ -210,8 +399,8 @@ Pill CSS:
 ```
 
 ```css
-.upill { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 6px; font-family: var(--font-mono); font-size: 0.63rem; background: rgba(255,107,0,0.09); color: var(--orange-lt); border: 1px solid rgba(255,107,0,0.2); }
-.udot { width: 5px; height: 5px; border-radius: 50%; background: var(--orange); animation: blink 1.6s infinite; }
+.upill { display:inline-flex; align-items:center; gap:5px; padding:4px 10px; border-radius:6px; font-family:var(--font-mono); font-size:0.63rem; background:rgba(255,107,0,0.09); color:var(--orange-lt); border:1px solid rgba(255,107,0,0.2); }
+.udot { width:5px; height:5px; border-radius:50%; background:var(--orange); animation:blink 1.6s infinite; }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.36} }
 ```
 
@@ -263,19 +452,6 @@ Copy these exactly — wording is locked. Never name the ticketing partner anywh
 
 ---
 
-## Spike's Pick / Sidekick Recommend
-
-Only add if the user explicitly says "this is a Sidekick recommend show":
-- Add `🌵 Spike's Pick` pill to `.info-pills`
-- Add `<div class="card-best-badge">🌵 Spike's Pick</div>` to the show card in `shows/index.html`
-- Include `.spike-callout` in the About section with `<strong>🌵 Spike's Pick — Vegas Sidekick Recommends</strong>` label
-
-For **seat-level picks** (e.g., "Sidekick Pick seats are Ruby & Sapphire"):
-- Add `<span class="seat-accord-badge">🌵 Spike's Pick</span>` to that zone's accordion row
-- Set `pick: true` in that zone's `zoneData` object so the badge shows in the popup
-
----
-
 ## Email Signup (inline in main content)
 
 ```html
@@ -313,67 +489,6 @@ async function submitEmail() {
 
 ---
 
-## Seating Charts (SVG)
-
-### Theater-in-the-round (e.g., Awakening)
-- 5 concentric filled circles, largest first (inner circles sit on top for click priority)
-- Dark aisle lines radiating from center
-- Section labels in outermost ring
-- Each circle: `onclick="selectZone('zone-id')"`
-
-### Arena/horseshoe (e.g., Tournament of Kings)
-- Central stage rectangle
-- Colored section blocks arranged above, below, and sides
-- Named sections with 3 category tiers (A=gold, B=magenta, C=purple)
-
-### Comedy clubs (e.g., Laugh Factory)
-- Simple rectangle stage at top or bottom
-- VIP front rows (orange/gold), general floor sections, bar area
-- Often 3–4 zones only (no balcony)
-
-### Zone popup pattern (same on every page):
-```html
-<div class="zone-popup" id="zonePopup">
-  <div class="zone-popup-hdr">
-    <div class="zone-popup-name" id="zoneName">—</div>
-    <div class="zone-popup-pick" id="zonePick" style="display:none">🌵 Spike's Pick</div>
-  </div>
-  <div class="zone-popup-desc" id="zoneDesc"></div>
-  <a href="[AFFILIATE_LINK]" class="zone-popup-cta" target="_blank" rel="noopener">Get Tickets in This Zone →</a>
-</div>
-```
-
-JS:
-```javascript
-const zoneData = {
-  'zone-id': { name: 'Zone Name', pick: false, desc: 'Short description.' },
-};
-function selectZone(id) {
-  const z = zoneData[id];
-  document.getElementById('zoneName').textContent = z.name;
-  document.getElementById('zoneDesc').textContent = z.desc;
-  document.getElementById('zonePick').style.display = z.pick ? 'inline-block' : 'none';
-  const popup = document.getElementById('zonePopup');
-  popup.classList.add('visible');
-  popup.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-}
-```
-
-### Seat accordion (.seat-accord)
-Below the SVG and zone popup, a list of all zones with prices and brief notes:
-```html
-<div class="seat-accord">
-  <div class="seat-accord-row" onclick="selectZone('vip')">
-    <div class="seat-accord-dot" style="background:#FFD700"></div>
-    <div class="seat-accord-name">VIP Front Row <span class="seat-accord-badge">🌵 Spike's Pick</span></div>
-    <div class="seat-accord-price">From $XX</div>
-  </div>
-  <!-- repeat for each zone -->
-</div>
-```
-
----
-
 ## FAQ Accordion
 
 ```html
@@ -404,12 +519,12 @@ Standard FAQ questions for every show (adapt answers per show):
 
 ## "You Might Also Like" Cards (.also-grid)
 
-3 cards linking to other existing show pages. Use shows from the same or adjacent category. Structure:
+3 cards linking to other existing show pages. Use shows from the same or adjacent category.
 
 ```html
 <div class="also-grid">
   <a href="/shows/{category}/{slug}/" class="also-card" target="_blank">
-    <div class="also-img" style="background-image:url('/images/{slug}-hero.webp')"></div>
+    <div class="also-img" style="background-image:url('/images/{slug}-hero.jpg')"></div>
     <div class="also-body">
       <div class="also-venue">Venue Name</div>
       <div class="also-name">Show Name</div>
@@ -421,95 +536,76 @@ Standard FAQ questions for every show (adapt answers per show):
 
 ---
 
+## Image Handling
+
+Images live in `/images/` and are referenced with root-relative paths.
+
+**`cwebp` is NOT available in this environment.** Use PIL instead:
+
+```python
+from PIL import Image
+
+# Crop to 16:9 and resize for hero/listing card
+src = "uploaded-photo.jpg"
+img = Image.open(src).convert("RGB")
+w, h = img.size
+target_h = int(w * 9 / 16)
+img = img.crop((0, (h - target_h) // 2, w, (h - target_h) // 2 + target_h))
+img = img.resize((1200, 675), Image.LANCZOS)
+img.save("images/show-name-hero.jpg", format="JPEG", quality=82, optimize=True)
+```
+
+For slider images embedded as data URLs (when MCP push is needed):
+```python
+import base64, io
+img.save(buf := io.BytesIO(), "webp", quality=65)
+data_url = "data:image/webp;base64," + base64.b64encode(buf.getvalue()).decode()
+# Use as background-image: url('data:image/webp;base64,...') in HTML
+```
+
+**Size targets:**
+- Listing card JPEG: aim for <200KB
+- Slider data URL WebP: aim for <80KB binary (~107KB data URL) each
+- Total HTML file: keep under 500KB
+
+**OG/social preview images** require a real hosted URL (crawlers can't use data URLs). Upload via GitHub web UI or git push.
+
+---
+
 ## Files to Create / Update for Every New Show
 
 ### Always CREATE:
 - `shows/{category}/{show-slug}/index.html`
 
-### Create IF new category:
-- `shows/{category}/index.html` — category landing page (copy spectaculars or comedy pattern)
-- Update `components/header.js` — add nav link
-- Update `components/footer.js` — add footer column link
-
 ### Always UPDATE:
 | File | What to change |
 |---|---|
-| `shows/index.html` | Add schema item (increment `numberOfItems`), add show card HTML, add show name to `defaultOrder` array |
-| `sitemap.xml` | Add `<url>` entry with `<lastmod>` (today's date) — and category entry if new |
+| `shows/index.html` | Add entry to JS data array (increment `order`, add all data attributes), add to `defaultOrder` array |
+| `shows/{category}/index.html` | Add entry to category page data array |
+| `sitemap.xml` | Add `<url>` entry with `<lastmod>` (today's date) |
 
 ### Update if show should appear on homepage:
 - `index.html` — add card to the relevant section (**always check `git log index.html` before touching this file**)
 
----
-
-## Show Card HTML (for shows/index.html)
-
-```html
-<!-- SHOW NAME -->
-<a href="/shows/{category}/{slug}/"
-   class="show-grid-card"
-   data-name="Show Name"
-   data-price="74"
-   data-occasions="comedy"
-   data-duration="75 min"
-   data-age="18+"
-   data-schedule="Mon–Sun · 8:30 PM"
-   data-venue="Venue Name"
-   data-bestfor="Best Stand-Up">
-  <div class="card-img-wrap">
-    <img src="/images/{slug}-hero.webp" alt="[descriptive alt]" loading="lazy" />
-    <div class="card-best-badge">🌵 Spike's Pick</div>   <!-- remove if not recommended -->
-    <div class="card-cat-pill">Comedy</div>
-  </div>
-  <div class="card-body">
-    <div class="card-venue">Venue · Hotel</div>
-    <div class="card-name">Show Name</div>
-    <div class="card-tags">
-      <span class="card-tag">🔞 18+</span>
-      <span class="card-tag">🗓️ 7 Nights/Week</span>
-      <span class="card-tag">75 min</span>
-    </div>
-    <button class="card-compare-inline" onclick="toggleCompare(event,this,this.closest('.show-grid-card').dataset.name)">+ Add to Compare</button>
-    <div class="card-footer">
-      <div class="card-price"><div class="card-price-our">$32</div><div class="card-price-was">$49</div></div>
-      <span class="card-cta">Get Tickets →</span>
-    </div>
-  </div>
-</a>
-```
-
-`data-occasions` values (use all that apply, space-separated):
-`comedy` `magic` `cirque` `adult` `music` `spectacular` `family` `date` `dinner` `budget`
+### Create IF new category:
+- `shows/{category}/index.html` — category landing page
+- Update `components/header.js` — add nav link
+- Update `components/footer.js` — add footer column link
 
 ---
 
-## Image Handling
+## Show Card Data (for shows/index.html)
 
-Images live in `/images/` and are referenced with root-relative paths.
-
-**3 images per show:**
-1. `{slug}-hero.webp` — main promo/action shot (16:9 preferred)
-2. `{slug}-2.webp` — second angle or scene
-3. `{slug}-3.webp` — third angle or scene
-
-**Processing with Python (if working locally):**
-```python
-from PIL import Image
-import io
-
-img = Image.open("input.jpg").convert("RGB")
-img.thumbnail((1400, 900), Image.LANCZOS)
-buf = io.BytesIO()
-img.save(buf, "webp", quality=72)
-with open("images/show-hero.webp", "wb") as f:
-    f.write(buf.getvalue())
+Data object pattern:
+```javascript
+{ order:39, slug:'show-name', cat:'comedy', name:'Show Name', subtitle:'', venue:'Venue · Hotel',
+  price:41, pd:'$41', sp:false,  // sp:true = Sidekick Pick badge — explicit only
+  pills:['Award 2024','Tag Two'],
+  img:'/images/show-name-hero.jpg',
+  duration:'90 min', age:'All ages', schedule:'Tue–Sun · 7:30 PM' }
 ```
 
-Target sizes: hero ~80KB, slider images ~50KB each.
-
-**Note:** Binary images cannot be pushed via MCP tools (they corrupt as base64 ASCII). Images must be pushed via `git push` or uploaded via the GitHub web interface (`github.com/VegasSidekick/vegas-sidekick/upload/main/images`).
-
-**OG/social preview images** require a real hosted URL (crawlers can't use data URLs). Upload manually via GitHub web UI.
+`cat` values: `comedy` `magic` `cirque` `adult` `music` `spectacular` `family`
 
 ---
 
@@ -562,12 +658,14 @@ Schema (EventSeries type):
 2. **No "choose your seats"** — Don't use this as a CTA phrase.
 3. **No upsell language** — Don't write "upgrade to VIP" or push spending more.
 4. **No intermission** — Most shows have none; confirm before writing "no intermission."
-5. **Spike's Pick** — Only add if user explicitly says "this is a Sidekick recommend."
-6. **Refund FAQ** — Always use the exact generic language in the FAQ section above.
-7. **Age policy** — Copy exactly from user's brief; it varies significantly per show.
-8. **Prices** — "Our price" is the affiliate price; "box office price" is the strikethrough comparison price.
-9. **Photography default** — Unless the brief specifies otherwise, use: *"Still photos are generally welcome — check with your usher before shooting. No flash photography and no video recording. Ushers may ask you to stop at any time."*
-10. **Urgency copy** — Only ever write "Prices **may** increase closer to show date." Never drop "may." Never add countdown timers, fake scarcity, or fabricated social proof.
+5. **Sidekick Pick** — Only add if user explicitly says "add Sidekick Pick." See badge system rules above.
+6. **Sweet Spot** — Every page gets exactly one. Goes in seating section. About seating advice, not show endorsement.
+7. **Refund FAQ** — Always use the exact generic language in the FAQ section above.
+8. **Age policy** — Copy exactly from user's brief; it varies significantly per show.
+9. **Prices** — "Our price" is the affiliate price; "box office price" is the strikethrough comparison price.
+10. **Photography default** — Unless the brief specifies otherwise, use: *"Still photos are generally welcome — check with your usher before shooting. No flash photography and no video recording. Ushers may ask you to stop at any time."*
+11. **Urgency copy** — Only ever write "Prices **may** increase closer to show date." Never drop "may." Never add countdown timers, fake scarcity, or fabricated social proof.
+12. **Affiliate URL must be provided exactly** — Do not guess the category slug. It does not always match the site category (e.g., WOW uses `production/wow-the-vegas-spectacular`, not `spectaculars/wow-the-vegas-spectacular`).
 
 ---
 
@@ -610,11 +708,11 @@ Our price (affiliate): $
 Box office / comparison price: $
 Save amount: $
 
-Sidekick recommend show: yes / no
-Sidekick Pick seats: (zone names, "all seats great", or none)
+Sidekick Pick show: yes / no  ← show-level endorsement
+Sweet Spot seats: (zone name — the one best zone for most visitors)
 
 Seating zones: (name, color, seat count/description for each)
-Seating layout: (comedy-club / theater-in-the-round / arena-horseshoe / traditional-rows / other)
+Seating layout: (comedy-club / theater-proscenium / theater-in-the-round / arena-horseshoe / other)
 
 About / description: (2–3 paragraphs of show content)
 "What to Expect" highlights: (3–6 key bullet points)
@@ -624,28 +722,26 @@ FAQ specifics: (anything show-unique beyond standard questions)
 Images: 3 attached — hero + 2 more
 ```
 
-**The affiliate URL must be provided exactly.** Do not guess the category slug — it does not always match the site category name (e.g., Tournament of Kings uses `production/tournament-of-kings`, not `family/tournament-of-kings`).
-
 ---
 
 ## Git Workflow
 
 ```bash
 # Stage specific files — never use git add -A
-git add shows/comedy/show-name/index.html images/show-name-hero.webp
+git add shows/family/show-name/index.html images/show-name-hero.jpg
 
 # Commit
 git commit -m "Add Show Name show page"
 
-# Push
-git push -u origin main
+# Push to feature branch
+git push -u origin claude/feature-name-<id>
 ```
 
-After pushing, Netlify deploys automatically. No other steps needed.
+After pushing to `main`, Netlify deploys automatically. No other steps needed.
 
 ---
 
-## Current Show Pages (as of 2026-05-17)
+## Current Show Pages (as of 2026-05-31)
 
 ### Comedy (`/shows/comedy/`)
 | Show | URL | Our Price |
@@ -687,52 +783,63 @@ After pushing, Netlify deploys automatically. No other steps needed.
 | Show | URL | Our Price |
 |---|---|---|
 | Awakening | /shows/spectaculars/awakening/ | $70 |
+| WOW – The Vegas Spectacular | /shows/spectaculars/wow-the-vegas-spectacular/ | $41 |
 
 ### Family (`/shows/family/`)
 | Show | URL | Our Price |
 |---|---|---|
 | Tournament of Kings | /shows/family/tournament-of-kings/ | $74 |
+| BattleBots: Destruct-A-Thon | /shows/family/battlebots-destruct-a-thon/ | — |
+| V – The Ultimate Variety Show | /shows/family/v-the-ultimate-variety-show/ | $39 |
+| WOW – The Vegas Spectacular | /shows/family/wow-the-vegas-spectacular/ → redirects to spectaculars | $41 |
 
 ### Adult (`/shows/adult/`)
 | Show | URL | Our Price |
 |---|---|---|
 | Absinthe | /shows/adult/absinthe/ | $122 |
 | Rouge | /shows/adult/rouge/ | $119 |
+| Magic Mike Live | /shows/adult/magic-mike-live/ | — |
+| Thunder from Down Under | /shows/adult/thunder-from-down-under/ | — |
 
 ### Music & Variety (`/shows/music/`)
 | Show | URL | Our Price |
 |---|---|---|
 | VEGAS! The Show | /shows/music/vegas-the-show/ | $55 |
 | Blue Man Group | /shows/music/blue-man-group/ | $65 |
+| Jabbawockeez | /shows/music/jabbawockeez/ | — |
 
 ---
 
 ## Category Landing Pages (all exist)
 
-| Category | URL | Status |
-|---|---|---|
-| Comedy | /shows/comedy/ | Full — Spike's Picks, occasion filters, 2-col grid, compare tool |
-| Magic | /shows/magic/ | Full |
-| Cirque & Acrobatic | /shows/cirque/ | Exists (status: stub or partial) |
-| Music & Variety | /shows/music/ | Full |
-| Spectaculars | /shows/spectaculars/ | Full — Best For sidebar |
-| Family | /shows/family/ | Full |
-| Adult | /shows/adult/ | Full |
-| All Shows | /shows/ | Full — unified grid with filters, sort, compare |
+| Category | URL |
+|---|---|
+| Comedy | /shows/comedy/ |
+| Magic | /shows/magic/ |
+| Cirque & Acrobatic | /shows/cirque/ |
+| Music & Variety | /shows/music/ |
+| Spectaculars | /shows/spectaculars/ |
+| Family | /shows/family/ |
+| Adult | /shows/adult/ |
+| All Shows | /shows/ |
 
 ---
 
-## What "Consistent" Means
+## What a Correct Page Looks Like
 
 A correctly built show page:
-- Matches the Awakening/Absinthe page structure (hero → page-layout → final-cta → mobile-sticky)
-- Uses the show's accent color for: progress bar, venue-label, hero-subtitle, category pill, spike-callout border, detail-card-lbl, expect-card top border, also-venue, t-check icons
-- Uses orange for ALL CTAs — never use the show color on a buy button
-- Has a working interactive seating chart with zone popup and seat accordion
+- Uses `shows/family/v-the-ultimate-variety-show/index.html` as its structural template (Sidekick Build)
+- Has dual scroll progress bars, Ken Burns hero slider, scrolling ticker, stats count-up
+- Uses `--show` and `--show-lt` CSS vars for the show accent color throughout
+- Uses orange (`--orange`) for ALL CTA buttons — never the show color on a buy button
+- Has a working interactive seating SVG with zone popup and seat accordion
+- Has exactly one 🪑 Sweet Spot callout in the seating section
+- Has ⭐ Sidekick Pick badge only if explicitly instructed
 - Contains no mentions of any ticket partner name in visible text
 - Has 6–8 FAQ items including the standard refund language
 - Has exactly 3 "You Might Also Like" cards linking to real existing pages
+- Has `@media (prefers-reduced-motion: reduce)` disabling Ken Burns and ticker animations
 
 ---
 
-*Last updated: 2026-05-17*
+*Last updated: 2026-05-31*
