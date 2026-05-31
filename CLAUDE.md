@@ -91,27 +91,32 @@ All CSS embedded in `<style>` tags. All JS inline at bottom. Components loaded v
 
 ### Show Detail Pages (`shows/{category}/{show-slug}/index.html`)
 
-**Canonical template: `shows/music/vegas-the-show/index.html`**
+**Canonical template: `shows/music/jabbawockeez/index.html`**
 
-This is the standard template for all new show pages. Copy it when building a new show — do not use older pages (e.g., carrot-top) as a starting point. Key features of the template:
+This is the standard template for all new show pages. Copy it when building a new show — do not use older pages as a starting point. Key features of the Sidekick Build template:
 
-- Fixed scroll progress bar (`#progress-bar`, gold→orange gradient)
-- Hero section: breadcrumb + image slider (`aspect-ratio: 16/9`) + venue/title block + price strip
+- Dual scroll progress bars (top + sidebar)
+- Hero section: breadcrumb + Ken Burns image slider (`aspect-ratio: 16/9`) + venue/title block + price strip
+- Scrolling ticker strip (show-color background) below hero
+- Stats strip with count-up animation (`IntersectionObserver` + `requestAnimationFrame`)
 - Two-column layout: `main.main-content` (left) + `aside.sidebar` (right, sticky, navy bg)
 - Mobile sticky buy bar fixed to bottom (hidden on desktop)
 - Main content sections in order:
   1. `.seen-widget` — "Have you seen this show?" yes/no engagement widget
   2. `.trust-grid` — 4 trust cards (secure booking, instant delivery, no fees, no account)
-  3. About section with `.spike-callout` (gold left-border callout)
-  4. `.email-signup` — gold accent bar, inline email form wired to Brevo Worker
+  3. About section with `.spike-callout` (show-color left-border callout)
+  4. `.email-signup` — accent bar, inline email form wired to Brevo Worker
   5. `.details-grid` — 3-col icon cards for venue/schedule/duration/age/etc.
   6. `.expect-grid` — 2-col "What to Expect" cards
   7. `.seating-section` — interactive SVG seating chart + `.zone-popup` + `.seat-accord`
-  8. `.faq-list` — accordion FAQ
+  8. `.faq-list` — accordion FAQ (+ icon)
   9. `.also-grid` — 3 "You Might Also Like" show cards
-  10. `.final-cta` — full-width bottom CTA block
+  10. `.final-cta` — dark gradient card CTA inside `<main>` (with ambient orbs), NOT full-width
 - Fonts: Bebas Neue (display), Barlow Condensed (price/labels), Barlow (body), IBM Plex Mono (meta/mono)
-- Color accents vary by category (gold/orange for Music, blue/magenta for Magic, red for Adult, etc.)
+- `--show` / `--show-lt` CSS vars drive the show's accent color (e.g. gold for Jabba, crimson for V)
+- Ticker: show-color background; text color white (dark shows) or navy (light shows like gold)
+- `@media (prefers-reduced-motion: reduce)` disables Ken Burns + ticker animations
+- Shimmer animation on `.hero-cta` and `.sb-cta` buttons
 
 The seating chart is an interactive SVG — clickable zones call `selectZone('id')`, which populates a `.zone-popup` panel below with zone name, description, and optional Sidekick Pick badge.
 
