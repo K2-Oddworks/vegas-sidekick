@@ -91,7 +91,7 @@ All CSS embedded in `<style>` tags. All JS inline at bottom. Components loaded v
 
 ### Show Detail Pages (`shows/{category}/{show-slug}/index.html`)
 
-**Canonical template: `shows/music/jabbawockeez/index.html`**
+**Canonical template: `shows/family/v-the-ultimate-variety-show/index.html`**
 
 This is the standard template for all new show pages. Copy it when building a new show — do not use older pages as a starting point. Key features of the Sidekick Build template:
 
