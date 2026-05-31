@@ -313,7 +313,7 @@
     .tier-card.rip .tier-header { background: #dc2626; }
     .tier-card.vip .tier-header { background: #4B5563; }
     .tier-card.regular .tier-header { background: var(--navy); position: relative; }
-    .tier-card.regular .tier-header::after { content: '⭐ SIDEKICK PICK'; display: block; font-family: var(--font-mono); font-size: 0.6rem; font-weight: 600; color: #ffb380; letter-spacing: 0.04em; margin-top: 4px; }
+    .tier-card.regular .tier-header::after { content: '🪑 SWEET SPOT'; display: block; font-family: var(--font-mono); font-size: 0.6rem; font-weight: 600; color: #ffb380; letter-spacing: 0.04em; margin-top: 4px; }
     .tier-name { font-family: var(--font-display); font-size: 1.3rem; color: white; letter-spacing: 0.05em; line-height: 1; }
     .tier-sub { font-family: var(--font-mono); font-size: 0.62rem; color: rgba(255,255,255,0.65); letter-spacing: 0.04em; margin-top: 3px; }
     .tier-body { background: var(--off-white); padding: 16px; }
@@ -830,7 +830,7 @@
           </g>
 
           <!-- REGULAR — blue-gray, main floor, Sidekick Pick -->
-          <g class="seat-zone" onclick="selectZone('regular')" tabindex="0" role="button" aria-label="Regular Seating — Sidekick Pick — click for details">
+          <g class="seat-zone" onclick="selectZone('regular')" tabindex="0" role="button" aria-label="Regular Seating — Sweet Spot — click for details">
             <circle cx="60"  cy="160" r="8" fill="#6b8fba"/><circle cx="80"  cy="160" r="8" fill="#6b8fba"/>
             <circle cx="60"  cy="188" r="8" fill="#6b8fba"/><circle cx="80"  cy="188" r="8" fill="#6b8fba"/>
             <circle cx="60"  cy="216" r="8" fill="#6b8fba"/><circle cx="80"  cy="216" r="8" fill="#6b8fba"/>
@@ -847,7 +847,7 @@
             <circle cx="330" cy="280" r="8" fill="#6b8fba"/><circle cx="350" cy="280" r="8" fill="#6b8fba"/>
             <circle cx="330" cy="308" r="8" fill="#6b8fba"/><circle cx="350" cy="308" r="8" fill="#6b8fba"/>
             <rect x="170" y="326" width="160" height="20" rx="4" fill="rgba(255,107,0,0.22)" stroke="rgba(255,107,0,0.48)" stroke-width="1"/>
-            <text x="250" y="339" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" font-weight="600" fill="#ffb380" letter-spacing="0.3">⭐ SIDEKICK PICK</text>
+            <text x="250" y="339" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" font-weight="600" fill="#ffb380" letter-spacing="0.3">🪑 SWEET SPOT</text>
           </g>
 
           <text x="260" y="405" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" fill="rgba(255,255,255,0.2)" letter-spacing="1">← ENTRANCE</text>
@@ -857,7 +857,7 @@
       <div class="zone-popup" id="zone-popup">
         <div class="zone-popup-hdr">
           <div class="zone-popup-name" id="zone-name"></div>
-          <div class="zone-pick-badge" id="zone-badge">⭐ Sidekick Pick</div>
+          <div class="zone-pick-badge" id="zone-badge">🪑 Sweet Spot</div>
         </div>
         <div class="zone-popup-desc" id="zone-desc"></div>
       </div>
@@ -910,7 +910,7 @@
           <div class="sa-left">
             <div class="sa-dot" style="background:#6b8fba;"></div>
             <span class="sa-name">Regular Seating</span>
-            <span class="sa-badge">⭐ Sidekick Pick</span>
+            <span class="sa-badge">🪑 Sweet Spot</span>
           </div>
           <span class="sa-chev">▾</span>
         </button>
