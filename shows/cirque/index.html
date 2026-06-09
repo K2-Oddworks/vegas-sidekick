@@ -83,6 +83,8 @@
     @media (max-width: 520px) { .show-grid { grid-template-columns: 1fr; gap: 14px; } }
     .show-card { background: var(--white); border-radius: var(--radius); border: 1.5px solid var(--border); overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
     .show-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.09); }
+    .show-card.sp-pick { background-color: #FFF3EE; background-image: radial-gradient(2px 2px at 82% 18%, rgba(26,107,255,0.18) 0%, transparent 100%), radial-gradient(1.5px 1.5px at 62% 78%, rgba(26,107,255,0.13) 0%, transparent 100%), radial-gradient(1px 1px at 22% 65%, rgba(26,107,255,0.11) 0%, transparent 100%), radial-gradient(1.5px 1.5px at 91% 48%, rgba(26,107,255,0.15) 0%, transparent 100%); border-color: rgba(255,107,43,0.35); box-shadow: 0 4px 18px rgba(255,107,43,0.12); }
+    .show-card.sp-pick:hover { box-shadow: 0 10px 28px rgba(255,107,43,0.22); border-color: rgba(255,107,43,0.55); }
     .show-card.selected { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(26,107,221,0.10), 0 4px 16px rgba(0,0,0,0.07); }
     .show-card.compare-disabled { opacity: 0.45; }
     .show-card.compare-disabled .card-cta { pointer-events: none; }
@@ -297,7 +299,7 @@ function renderGrid() {
   document.getElementById('show-grid').innerHTML = shows.map(s => {
     const on = sel.has(s.slug);
     const dis = !on && sel.size >= 3;
-    return `<div class="show-card${on?' selected':''}${dis?' compare-disabled':''}" id="c-${s.slug}">
+    return `<div class="show-card${on?' selected':''}${dis?' compare-disabled':''}${s.sp?' sp-pick':''}" id="c-${s.slug}">
   <div class="card-img-wrap">
     <a href="/shows/cirque/${s.slug}/" class="card-img-link"><img src="${s.img}" alt="${s.name} Las Vegas" loading="lazy" /></a>
     ${s.sp ? '<div class="card-sp-badge">🌵 Sidekick Pick</div>' : ''}
