@@ -242,4 +242,10 @@
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/music/all-shook-up/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-06-09</lastmod>
+  </url>
 </urlset>
