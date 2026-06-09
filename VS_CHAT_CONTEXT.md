@@ -9,7 +9,7 @@
 
 Vegas Sidekick (`vegassidekick.com`) is a static affiliate site for Las Vegas show ticket discovery. Revenue model: affiliate commissions via Spotlight.Vegas ticket links. No e-commerce, no user accounts, no backend. The founder is **Kris Kidd**, who lives in Las Vegas.
 
-**Tagline:** "Biggest Shows. Real Discounts. No BS."  
+**Taglines:** "Biggest Shows. Real Discounts. No BS." (primary) · "Vegas Without The Trauma." (alternate)  
 **Mascot:** Spike (a character with multiple image assets: spike-wink.png, spike-point.png, etc.)  
 **Trust brand:** "Sidekick Standards" — no fake timers, no fake reviews, no hidden fees, no email walls.  
 **Email list brand:** "Spike's Insider List" (Brevo, List ID: 2, ~4,200 subscribers per copy)
@@ -20,13 +20,13 @@ Vegas Sidekick (`vegassidekick.com`) is a static affiliate site for Las Vegas sh
 
 | Layer | What's Used |
 |---|---|
-| Hosting | Netlify (static), auto-deploys on push to `main` |
+| Hosting | Cloudflare Pages (static), auto-deploys on push to `main` |
 | Serverless | Cloudflare Workers (`functions/api/auth.js`) |
 | CMS | Decap CMS v3 at `/admin/` (GitHub-backed) |
 | Search | Algolia InstantSearch v4, index `vegas_shows` |
 | Email | Brevo via Cloudflare Worker endpoint |
 | Auth | GitHub OAuth (CMS admin only) |
-| Analytics | Google Analytics 4 (`G-BM6QGF7B4Y`) |
+| Analytics | GA4 (`G-BM6QGF7B4Y`) — behavioral; Cloudflare Pages — raw traffic (dashboard, no code) |
 | Affiliate | Spotlight.Vegas (`ref/vegassidekick`) |
 | Image CDN | Cloudinary (`dvhunpinz`) — OG/social images only |
 | Fonts | Google Fonts: Bebas Neue, Barlow, Barlow Condensed, IBM Plex Mono |
@@ -37,7 +37,7 @@ Vegas Sidekick (`vegassidekick.com`) is a static affiliate site for Las Vegas sh
 
 ## Deploy & Push Workflow
 
-- **Deploy:** Push to `main` → Netlify auto-deploys. No build commands.
+- **Deploy:** Push to `main` → Cloudflare Pages auto-deploys. No build commands.
 - **Git push is blocked** in the remote Claude Code environment (proxy returns 403). File pushes go through the GitHub MCP API instead — see CLAUDE.md for the Python snippet.
 - After every MCP push, sync local: `git fetch origin main && git reset --hard origin/main`
 - Cloudflare Worker deploys separately via Cloudflare dashboard (not Netlify).
@@ -89,7 +89,7 @@ vegas-sidekick/
 ├── index.html                  # Homepage
 ├── 404.html
 ├── sitemap.xml
-├── _redirects                  # Netlify routing (5 rules)
+├── _redirects                  # Cloudflare Pages routing (5 rules)
 ├── CLAUDE.md                   # Full developer guide (read this first)
 └── SHOW-BUILDER-PROMPT.md      # Show page creation guide + canonical template reference
 ```
@@ -322,7 +322,8 @@ Every show page built on the canonical template includes these sections in order
 | Brevo | API Key in `footer.js` | List ID `2`, restricted scope |
 | Brevo Worker | `https://brevo-subscribe.vegassidekickcom.workers.dev` | Used for all email signups |
 | GitHub OAuth | Client ID: `Ov23lit31UqvtSuPp7tJ` | Client secret in Cloudflare env var only |
-| GA4 | `G-BM6QGF7B4Y` | Injected via header.js |
+| GA4 | `G-BM6QGF7B4Y` | Injected via header.js — behavioral analytics |
+| Cloudflare Analytics | (dashboard) | Built into Cloudflare Pages — raw traffic, no code required |
 | Cloudinary | Cloud: `dvhunpinz`, API Key: `966995363786296` | Secret in `.cloudinary` (gitignored) |
 | Spotlight.Vegas | Ref code: `vegassidekick` | Affiliate ticket partner |
 
