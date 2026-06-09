@@ -65,7 +65,7 @@
     .hero { position: relative; background: var(--navy); }
     .hero-slider { position: relative; width: 100%; aspect-ratio: 16/9; max-height: 560px; overflow: hidden; background: #040c1c; }
     .slide { position: absolute; inset: 0; background-size: cover; background-position: center top; opacity: 0; transition: opacity 0.9s ease; }
-    .slide.active { opacity: 1; animation: kenBurns 12s ease-in-out infinite alternate; }
+    .slide.active { opacity: 1; animation: kenBurns 7s ease-out forwards; }
     @keyframes kenBurns { from { transform: scale(1); } to { transform: scale(1.06); } }
     @media (prefers-reduced-motion: reduce) { .slide.active { animation: none; } .ticker-track { animation: none !important; } }
     .slide-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(10,22,40,0.1) 0%, rgba(10,22,40,0.6) 100%); pointer-events: none; }
@@ -101,7 +101,7 @@
     .stat-num { font-family: var(--font-display); font-size: 2rem; color: var(--show-lt); line-height: 1; }
     .stat-lbl { font-family: var(--font-mono); font-size: 0.62rem; color: rgba(255,255,255,0.45); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 3px; }
     .page-layout { display: grid; grid-template-columns: 1fr 320px; gap: 32px; max-width: 1140px; margin: 0 auto; padding: 32px 24px 60px; align-items: start; }
-    @media (max-width: 940px) { .page-layout { grid-template-columns: 1fr; padding: 24px 16px 48px; } .sidebar { display: block; position: static; margin: 32px 0 0; } }
+    @media (max-width: 940px) { .page-layout { grid-template-columns: 1fr; padding: 24px 16px 100px; } .sidebar { display: none; } }
     .sidebar { position: sticky; top: 24px; background: var(--navy-mid); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 22px; }
     .sb-progress { height: 2px; background: rgba(255,255,255,0.08); border-radius: 2px; margin-bottom: 18px; }
     .sb-progress-bar { height: 2px; width: 0%; background: linear-gradient(90deg, var(--show), var(--orange)); border-radius: 2px; transition: width 0.15s; }
@@ -216,8 +216,16 @@
     .final-cta-sub { font-size: 0.95rem; color: rgba(255,255,255,0.6); margin-bottom: 22px; position: relative; z-index: 1; }
     .final-cta-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: #fff; font-family: var(--font-display); font-size: 1.2rem; letter-spacing: 0.07em; padding: 13px 32px; border-radius: 8px; text-decoration: none; position: relative; z-index: 1; transition: background 0.2s; }
     .final-cta-btn:hover { background: var(--orange-lt); }
-    .mobile-sticky { display: none; }
-    @media (max-width: 940px) { .mobile-sticky { display: none; } }
+    .mobile-sticky { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--navy); z-index: 1000; padding: 10px 16px 14px; box-shadow: 0 -4px 22px rgba(0,0,0,0.32); border-top: 1px solid rgba(184,113,10,0.3); }
+    .mob-progress { position: absolute; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--show), var(--orange)); transition: width 0.1s linear; }
+    .mob-inner { display: flex; align-items: center; justify-content: space-between; gap: 13px; }
+    .mob-price-lbl { font-family: var(--font-mono); font-size: 0.55rem; color: rgba(255,255,255,0.28); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 1px; }
+    .mob-price { font-family: var(--font-display); font-size: 2.4rem; color: var(--orange); line-height: 1; }
+    .mob-save { font-family: var(--font-mono); font-size: 0.57rem; color: #4ade80; }
+    .mob-cta { flex: 1; max-width: 230px; padding: 13px; background: var(--orange); color: white; font-family: var(--font-display); font-size: 1rem; letter-spacing: 0.06em; text-align: center; border-radius: 7px; text-decoration: none; position: relative; overflow: hidden; transition: background 0.2s; }
+    .mob-cta::after { content:""; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.17), transparent); animation: shimmer 2s infinite; }
+    .mob-cta:hover { background: var(--orange-lt); }
+    @media (max-width: 940px) { .mobile-sticky { display: block; } }
   </style>
 </head>
 <body>
@@ -433,17 +441,17 @@
       <div class="seat-accord-row" onclick="selectZone('gold')">
         <div class="seat-accord-dot" style="background:#D4A012"></div>
         <div class="seat-accord-name">Gold Theatre Seats <span class="seat-accord-badge">&#x1FA91; Sweet Spot</span></div>
-        <div class="seat-accord-price">From $50</div>
+        
       </div>
       <div class="seat-accord-row" onclick="selectZone('cocktail')">
         <div class="seat-accord-dot" style="background:#D4186A"></div>
         <div class="seat-accord-name">Cocktail Lounge &amp; Side Booths</div>
-        <div class="seat-accord-price">From $50</div>
+        
       </div>
       <div class="seat-accord-row" onclick="selectZone('ga')">
         <div class="seat-accord-dot" style="background:#4A6ABF"></div>
         <div class="seat-accord-name">General Admission</div>
-        <div class="seat-accord-price">From $50</div>
+        
       </div>
     </div>
   </div>
@@ -533,6 +541,18 @@
   <div class="sb-disclosure">Vegas Sidekick earns a commission when you purchase through our links.</div>
 </aside>
 
+</div>
+
+<div class="mobile-sticky" aria-label="Mobile ticket bar">
+  <div class="mob-progress" id="mobProgress"></div>
+  <div class="mob-inner">
+    <div>
+      <div class="mob-price-lbl">From</div>
+      <div class="mob-price">$50</div>
+      <div class="mob-save">Save $37 &mdash; 43% off</div>
+    </div>
+    <a href="https://spotlight.vegas/shows/tribute/all-shook-up/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="mob-cta">Get Tickets &rarr;</a>
+  </div>
 </div>
 
 <div id="vs-footer"></div>
