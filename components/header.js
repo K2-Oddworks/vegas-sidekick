@@ -9,8 +9,14 @@
     <li><a href="/shows/magic/">Magic</a></li>
     <li><a href="/shows/cirque/">Cirque</a></li>
     <li><a href="/shows/music/">Music</a></li>
-    <li><a href="/shows/spectaculars/">Spectaculars</a></li>
     <li><a href="/shows/family/">Family</a></li>
+    <li class="nav-more">
+      <button class="nav-more-btn" aria-haspopup="true">MORE &#9660;</button>
+      <div class="nav-more-menu">
+        <a href="/shows/spectaculars/">Spectaculars</a>
+        <a href="/shows/adult/">Adult Shows</a>
+      </div>
+    </li>
     <li><a href="/news/">Dispatch</a></li>
     <li><a href="/shows/" class="nav-cta">All Shows →</a></li>
   </ul>
@@ -65,6 +71,14 @@
 #vs-memorial-banner .vsm-enjoy { font-size: 1rem; letter-spacing: 1.5px; }
 @media (max-width: 900px) { #vs-memorial-banner { top: 60px; font-size: 0.75rem; padding: 6px 10px; letter-spacing: 0.8px; white-space: normal; text-align: center; line-height: 1.4; } }
 @media (max-width: 480px) { #vs-memorial-banner { font-size: 0.7rem; padding: 5px 8px; } #vs-memorial-banner .vsm-stars { margin: 0 3px; } }
+.nav-more { position: relative; }
+.nav-more-btn { background: none; border: none; color: #D4DCE8; font-weight: 600; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; font-family: 'Barlow', sans-serif; padding: 0; transition: color 0.2s; line-height: inherit; }
+.nav-more:hover .nav-more-btn { color: #FF6B2B; }
+.nav-more-menu { visibility: hidden; opacity: 0; position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: #0D1F3C; border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.45); min-width: 172px; z-index: 300; transition: opacity 0.15s, visibility 0.15s; }
+.nav-more:hover .nav-more-menu { visibility: visible; opacity: 1; }
+.nav-more-menu a { display: block; padding: 11px 18px; color: #D4DCE8; text-decoration: none; font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 0.82rem; letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s, background 0.2s; border-bottom: 1px solid rgba(255,255,255,0.07); }
+.nav-more-menu a:last-child { border-bottom: none; }
+.nav-more-menu a:hover { color: #FF6B2B; background: rgba(255,107,43,0.07); }
 </style>`;
 
   const target = document.getElementById('vs-header');
