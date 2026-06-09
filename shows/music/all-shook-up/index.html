@@ -57,7 +57,9 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body { background: var(--navy); color: #e8e8e8; font-family: var(--font-body); line-height: 1.6; overflow-x: hidden; }
-    #progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--show), var(--orange)); z-index: 300; transition: width 0.1s; }
+    #progress-bar { overflow: hidden; position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--show), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; box-shadow: 0 0 10px var(--show), 0 0 20px rgba(184,113,10,0.4); }
+    #progress-bar::after { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%); animation: pb-shimmer 2.2s linear infinite; }
+    @keyframes pb-shimmer { from { transform: translateX(-100%); } to { transform: translateX(300%); } }
     .breadcrumbs { padding: 12px 24px; font-family: var(--font-mono); font-size: 0.7rem; color: rgba(255,255,255,0.4); }
     .breadcrumbs a { color: rgba(255,255,255,0.45); text-decoration: none; }
     .breadcrumbs a:hover { color: var(--show-lt); }
@@ -564,6 +566,8 @@ window.addEventListener('scroll', () => {
   document.getElementById('progress-bar').style.width = pct + '%';
   const sb = document.getElementById('sbBar');
   if (sb) sb.style.width = pct + '%';
+  const mp = document.getElementById('mobProgress');
+  if (mp) mp.style.width = pct + '%';
 });
 let slideIdx = 0;
 const slides = document.querySelectorAll('.slide');
