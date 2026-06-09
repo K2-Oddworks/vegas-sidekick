@@ -49,7 +49,7 @@
       --bg-dark:   #EEECEA;
       --navy:      #0A1628;
       --blue:      #1A6BFF;
-      --orange:    #FF6B00;
+      --orange:    #FF6B2B;
       --text:      #1A1A2A;
       --text-mid:  #4A4A5A;
       --text-light:#7A7A8A;
@@ -73,7 +73,7 @@
       top: 0; left: 0;
       width: 0%;
       height: 3px;
-      background: linear-gradient(90deg, #FF6B00, #1A6BFF);
+      background: linear-gradient(90deg, #FF6B2B, #1A6BFF);
       z-index: 999;
       transition: width 0.1s linear;
     }
@@ -595,7 +595,7 @@
     var email = document.getElementById('signup-email').value.trim();
     var msg = document.getElementById('signup-msg');
     if (!email || !email.includes('@')) {
-      msg.style.color = '#FF6B00';
+      msg.style.color = '#FF6B2B';
       msg.textContent = 'Please enter a valid email address.';
       return;
     }
@@ -605,8 +605,8 @@
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({email: email})
     })
-    .then(r => r.ok ? (msg.style.color='#FF6B00', msg.textContent="You're in — we'll keep you posted.", document.getElementById('signup-email').value='') : (msg.style.color='#FF6B00', msg.textContent='Something went wrong. Try again?'))
-    .catch(() => { msg.style.color='#FF6B00'; msg.textContent='Connection error. Try again?'; });
+    .then(r => r.ok ? (msg.style.color='#FF6B2B', msg.textContent="You're in — we'll keep you posted.", document.getElementById('signup-email').value='') : (msg.style.color='#FF6B2B', msg.textContent='Something went wrong. Try again?'))
+    .catch(() => { msg.style.color='#FF6B2B'; msg.textContent='Connection error. Try again?'; });
   }
 </script>
 

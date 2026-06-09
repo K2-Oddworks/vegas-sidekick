@@ -127,9 +127,9 @@
 
 /* EMAIL BAR */
 @keyframes vsEmailPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(255,107,0,0.5); } 50% { box-shadow: 0 0 0 10px rgba(255,107,0,0); } }
-.vs-email-bar { background: linear-gradient(135deg, #FF6B00 0%, #D94F00 40%, #B83E00 100%); padding: 52px 40px; position: relative; overflow: hidden; }
+.vs-email-bar { background: linear-gradient(135deg, #FF6B2B 0%, #D94F00 40%, #B83E00 100%); padding: 52px 40px; position: relative; overflow: hidden; }
 .vs-email-bar::before { content:''; position:absolute; top:0; left:0; right:0; bottom:0; background: radial-gradient(ellipse at 80% 50%, rgba(255,200,80,0.18) 0%, transparent 60%), radial-gradient(ellipse at 20% 50%, rgba(0,0,0,0.2) 0%, transparent 60%); pointer-events:none; }
-.vs-email-bar::after { content:''; position:absolute; bottom:-2px; left:0; right:0; height:4px; background: linear-gradient(90deg, #FFB347, #FF6B00, #FF4500, #FF6B00, #FFB347); background-size: 300% 100%; animation: vsEmailPulse 2.5s ease infinite; pointer-events:none; }
+.vs-email-bar::after { content:''; position:absolute; bottom:-2px; left:0; right:0; height:4px; background: linear-gradient(90deg, #FFB347, #FF6B2B, #FF4500, #FF6B2B, #FFB347); background-size: 300% 100%; animation: vsEmailPulse 2.5s ease infinite; pointer-events:none; }
 .vs-email-bar-inner { max-width: 680px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center; position: relative; z-index: 1; }
 .vs-email-bar-badge { display: inline-block; background: rgba(0,0,0,0.25); color: #FFE0B0; font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; padding: 5px 14px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.2); }
 .vs-email-bar-headline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.2rem,5vw,3.4rem); letter-spacing: 2px; color: #FFFFFF; line-height: 1; text-shadow: 0 2px 12px rgba(0,0,0,0.3); }
@@ -155,7 +155,7 @@
 .vs-footer-tagline-sub { font-size: 0.82rem; color: #A8B4C4; line-height: 1.5; max-width: 260px; }
 .vs-footer-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
 .vs-footer-col { display: flex; flex-direction: column; gap: 10px; }
-.vs-footer-col-title { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #FF6B00; margin-bottom: 4px; }
+.vs-footer-col-title { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #FF6B2B; margin-bottom: 4px; }
 .vs-footer-col a { color: #A8B4C4; text-decoration: none; font-size: 0.85rem; font-family: 'Barlow', sans-serif; transition: color 0.2s; }
 .vs-footer-col a:hover { color: #1A6BFF; }
 .vs-footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); }
@@ -208,7 +208,7 @@
 #vs-deal-overlay { position: fixed; inset: 0; z-index: 9000; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.28s ease; }
 #vs-deal-overlay.visible { opacity: 1; pointer-events: auto; }
 .vs-deal-backdrop { position: absolute; inset: 0; background: rgba(6,14,26,0.88); backdrop-filter: blur(5px); cursor: pointer; }
-.vs-deal-card { position: relative; z-index: 1; background: #0A1628; border: 1px solid rgba(255,107,0,0.22); border-top: 3px solid #FF6B00; border-radius: 16px; padding: 36px 32px 28px; max-width: 400px; width: 100%; box-shadow: 0 24px 60px rgba(0,0,0,0.55); transform: translateY(12px); transition: transform 0.28s ease; }
+.vs-deal-card { position: relative; z-index: 1; background: #0A1628; border: 1px solid rgba(255,107,0,0.22); border-top: 3px solid #FF6B2B; border-radius: 16px; padding: 36px 32px 28px; max-width: 400px; width: 100%; box-shadow: 0 24px 60px rgba(0,0,0,0.55); transform: translateY(12px); transition: transform 0.28s ease; }
 #vs-deal-overlay.visible .vs-deal-card { transform: translateY(0); }
 .vs-deal-close { position: absolute; top: 14px; right: 16px; background: none; border: none; color: rgba(255,255,255,0.3); font-size: 1rem; cursor: pointer; padding: 4px 6px; line-height: 1; transition: color 0.2s; }
 .vs-deal-close:hover { color: rgba(255,255,255,0.7); }
@@ -218,7 +218,7 @@
 .vs-deal-input { padding: 12px 14px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; color: #fff; font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; outline: none; transition: border-color 0.2s; }
 .vs-deal-input:focus { border-color: rgba(255,107,0,0.5); }
 .vs-deal-input::placeholder { color: rgba(255,255,255,0.25); }
-.vs-deal-btn { padding: 13px; background: #FF6B00; color: #fff; font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border: none; border-radius: 8px; cursor: pointer; transition: background 0.2s; }
+.vs-deal-btn { padding: 13px; background: #FF6B2B; color: #fff; font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border: none; border-radius: 8px; cursor: pointer; transition: background 0.2s; }
 .vs-deal-btn:hover { background: #ff8c33; }
 .vs-deal-success { display: none; font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; color: #4ade80; margin-bottom: 14px; }
 .vs-deal-success.visible { display: block; }

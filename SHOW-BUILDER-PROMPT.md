@@ -89,7 +89,7 @@ with open('shows/family/show-name/index.html', 'w') as f:
 ```css
 --navy:      #0A1628   /* primary background */
 --navy-mid:  #0f1e38   /* slightly lighter bg for cards */
---orange:    #FF6B00   /* ALL CTA buttons — never deviate */
+--orange:    #FF6B2B   /* ALL CTA buttons — never deviate */
 --orange-lt: #FF8C2A   /* hover/accent */
 ```
 

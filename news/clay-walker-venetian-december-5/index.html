@@ -48,7 +48,7 @@
     :root {
       --navy:    #0A1628;
       --blue:    #1A6BFF;
-      --orange:  #FF6B00;
+      --orange:  #FF6B2B;
       --gold:    #C9922A;
       --white:   #FFFFFF;
       --gray:    #A8B4C4;
@@ -73,7 +73,7 @@
       left: 0;
       width: 0%;
       height: 3px;
-      background: linear-gradient(90deg, #C9922A, #FF6B00);
+      background: linear-gradient(90deg, #C9922A, #FF6B2B);
       z-index: 999;
       transition: width 0.1s linear;
     }
@@ -602,7 +602,7 @@
     var email = document.getElementById('signup-email').value.trim();
     var msg = document.getElementById('signup-msg');
     if (!email || !email.includes('@')) {
-      msg.style.color = '#FF6B00';
+      msg.style.color = '#FF6B2B';
       msg.textContent = 'Please enter a valid email address.';
       return;
     }
@@ -619,12 +619,12 @@
         msg.textContent = "You're in — we'll keep you posted.";
         document.getElementById('signup-email').value = '';
       } else {
-        msg.style.color = '#FF6B00';
+        msg.style.color = '#FF6B2B';
         msg.textContent = 'Something went wrong. Try again?';
       }
     })
     .catch(function() {
-      msg.style.color = '#FF6B00';
+      msg.style.color = '#FF6B2B';
       msg.textContent = 'Connection error. Try again?';
     });
   }

@@ -44,14 +44,14 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --bg: #FAFAF8; --bg-card: #F2F0EC; --border: #E0DDD8;
-      --navy: #0A1628; --orange: #FF6B00; --blue: #1A6BFF;
+      --navy: #0A1628; --orange: #FF6B2B; --blue: #1A6BFF;
       --text: #1A1A2A; --text-mid: #4A4A5A; --text-light: #7A7A8A;
       --white: #FFFFFF;
     }
     html { scroll-behavior: smooth; }
     body { background: var(--bg); color: var(--text); font-family: 'Barlow', sans-serif; overflow-x: hidden; min-height: 100vh; }
 
-    #vs-progress { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, #FF6B00, #1A6BFF); z-index: 999; transition: width 0.1s linear; }
+    #vs-progress { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, #FF6B2B, #1A6BFF); z-index: 999; transition: width 0.1s linear; }
 
     .breadcrumbs { max-width: 800px; margin: 0 auto; padding: 96px 24px 16px; font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-light); }
     .breadcrumbs a { color: var(--text-light); text-decoration: none; transition: color 0.2s; }
@@ -297,14 +297,14 @@
   function masSignup() {
     var email = document.getElementById('signup-email').value.trim();
     var msg = document.getElementById('signup-msg');
-    if (!email || !email.includes('@')) { msg.style.color='#FF6B00'; msg.textContent='Please enter a valid email address.'; return; }
+    if (!email || !email.includes('@')) { msg.style.color='#FF6B2B'; msg.textContent='Please enter a valid email address.'; return; }
     msg.textContent = 'Signing you up...';
     fetch('https://brevo-subscribe.vegassidekickcom.workers.dev', {
       method: 'POST', headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({email: email})
     })
-    .then(r => r.ok ? (msg.style.color='#FF6B00', msg.textContent="You're in — we'll keep you posted.", document.getElementById('signup-email').value='') : (msg.style.color='#FF6B00', msg.textContent='Something went wrong. Try again?'))
-    .catch(() => { msg.style.color='#FF6B00'; msg.textContent='Connection error. Try again?'; });
+    .then(r => r.ok ? (msg.style.color='#FF6B2B', msg.textContent="You're in — we'll keep you posted.", document.getElementById('signup-email').value='') : (msg.style.color='#FF6B2B', msg.textContent='Something went wrong. Try again?'))
+    .catch(() => { msg.style.color='#FF6B2B'; msg.textContent='Connection error. Try again?'; });
   }
 </script>
 </body>

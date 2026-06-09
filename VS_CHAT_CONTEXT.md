@@ -102,7 +102,7 @@ vegas-sidekick/
 ```css
 --navy:   #0A1628   /* Primary background */
 --blue:   #1A6BFF   /* Secondary accent, links */
---orange: #FF6B00   /* Primary CTA buttons */
+--orange: #FF6B2B   /* Primary CTA buttons */
 --white:  #FFFFFF
 ```
 Each show page also defines `--show` and `--show-lt` for per-show accent colors (e.g., crimson for V, gold for Jabbawockeez).
