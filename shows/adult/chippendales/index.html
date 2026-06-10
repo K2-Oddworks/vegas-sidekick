@@ -725,13 +725,13 @@ const SHOW_SCHEDULE = {
         card.classList.add("sk-day--today");
         inner += '<span class="sk-day-badge">TODAY</span>';
         if (times.length && !lastShowPassed(times, now)) {
-          inner += ‘<a class="sk-day-link" rel="sponsored" href="’ + SHOW_SCHEDULE.affiliateUrl + ‘">Tonight’s tickets →</a>’;
+          inner += '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">Tonight’s tickets →</a>';
         }
       } else if (d === tomorrowIdx) {
         card.classList.add("sk-day--tomorrow");
-        inner += ‘<span class="sk-day-badge">TOMORROW</span>’;
+        inner += '<span class="sk-day-badge">TOMORROW</span>';
         if (times.length) {
-          inner += ‘<a class="sk-day-link" rel="sponsored" href="’ + SHOW_SCHEDULE.affiliateUrl + ‘">See seats →</a>’;
+          inner += '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">See seats →</a>';
         }
       }
       card.innerHTML = inner;
