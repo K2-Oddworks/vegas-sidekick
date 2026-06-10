@@ -1237,9 +1237,10 @@
       frag.appendChild(ctaCard);
       grid.appendChild(frag);
       var todayCard = grid.querySelector(".sk-day--today");
-      if (todayCard) setTimeout(function() {
-        todayCard.scrollIntoView({behavior:"smooth",block:"nearest",inline:"center"});
-      }, 150);
+      if (todayCard) {
+        var offset = todayCard.offsetLeft - (grid.clientWidth - todayCard.offsetWidth) / 2;
+        grid.scrollLeft = Math.max(0, offset);
+      }
     }
     document.readyState === "loading"
       ? document.addEventListener("DOMContentLoaded", build)

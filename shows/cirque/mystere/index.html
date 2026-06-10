@@ -513,7 +513,7 @@
   .sk-schedule--slider .sk-day-time{font-size:18px;line-height:1.2;}
   .sk-sched-slider-wrap{position:relative;}
   .sk-sched-slider-wrap::after{content:"";position:absolute;top:0;right:0;width:52px;height:calc(100% - 14px);background:linear-gradient(to right,transparent,#fff 85%);pointer-events:none;}
-  .sk-swipe-hint{font-size:12px;color:#B7BECF;text-align:center;margin-top:6px;letter-spacing:0.2px;}
+  .sk-swipe-hint{font-size:14px;color:#6B7280;text-align:center;margin-top:8px;letter-spacing:0.2px;font-weight:500;}
   @media (max-width:640px){.sk-schedule--slider .sk-day{flex:0 0 108px;}}
   </style>
 </head>
@@ -1227,9 +1227,10 @@ function toggleFaq(btn) {
       frag.appendChild(ctaCard);
       grid.appendChild(frag);
       var todayCard = grid.querySelector(".sk-day--today");
-      if (todayCard) setTimeout(function() {
-        todayCard.scrollIntoView({behavior:"smooth",block:"nearest",inline:"center"});
-      }, 150);
+      if (todayCard) {
+        var offset = todayCard.offsetLeft - (grid.clientWidth - todayCard.offsetWidth) / 2;
+        grid.scrollLeft = Math.max(0, offset);
+      }
     }
     document.readyState === "loading"
       ? document.addEventListener("DOMContentLoaded", build)
