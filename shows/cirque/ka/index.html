@@ -450,6 +450,31 @@
     }
 
     @media (prefers-reduced-motion: reduce) { *, *::after { animation: none !important; transition-duration: 0.01ms !important; } }
+  .sk-schedule{margin-bottom:50px;}
+  .sk-eyebrow{font-family:var(--font-mono);font-size:0.68rem;font-weight:600;color:#FF6B2B;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px;}
+  .sk-sched-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);color:var(--navy);line-height:1;margin-bottom:10px;}
+  .sk-sched-intro{font-size:0.95rem;color:var(--text-muted,#4B5563);line-height:1.6;margin-bottom:20px;}
+  .sk-sched-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .sk-day{background:#EEF3FE;border:1px solid #DFE8FB;border-radius:12px;padding:20px 12px 22px;text-align:center;min-height:118px;display:flex;flex-direction:column;justify-content:center;gap:6px;}
+  .sk-day-name{font-weight:700;font-size:15px;letter-spacing:1.5px;color:#0A0F2C;}
+  .sk-day-time{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:24px;color:#1A6BFF;line-height:1.15;}
+  .sk-day-dark-label{font-size:17px;color:#B7BECF;font-weight:500;}
+  .sk-day--dark{background:#F2F4F8;border-color:#E7EAF1;}
+  .sk-day--today{background:#0A0F2C;border-color:#0A0F2C;box-shadow:0 10px 24px rgba(10,15,44,.28);transform:translateY(-2px);}
+  .sk-day--today .sk-day-name{color:#FF6B2B;}
+  .sk-day--today .sk-day-time{color:#fff;}
+  .sk-day--tomorrow{border:2px solid #FF6B2B;background:#FFF8F4;}
+  .sk-day-badge{font-size:11px;font-weight:700;letter-spacing:2.5px;color:#FF6B2B;}
+  .sk-day-link{display:inline-block;margin-top:4px;font-size:13px;font-weight:700;text-decoration:none;letter-spacing:.3px;color:#1A6BFF;}
+  .sk-day--today .sk-day-link{color:#FF6B2B;}
+  .sk-day-link:hover{text-decoration:underline;}
+  .sk-sched-disclaimer{margin-top:22px;font-size:14px;color:#8A93A8;line-height:1.5;}
+  .sk-day--cta{background:linear-gradient(145deg,#1A6BFF 0%,#0e55d4 100%);border-color:#1459d6;}
+  .sk-day--cta .sk-day-name{color:rgba(255,255,255,0.7);}
+  .sk-day--cta .sk-day-cta-body{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:20px;color:#fff;line-height:1.2;}
+  .sk-day--cta .sk-day-link{color:#fff;font-size:14px;}
+  .sk-day--cta .sk-day-link:hover{color:#fff;}
+  @media (max-width:640px){.sk-sched-grid{grid-template-columns:repeat(2,1fr);}}
   </style>
 </head>
 <body>
@@ -672,6 +697,15 @@
       </div>
       <a href="https://spotlight.vegas/shows/cirque-du-soleil/ka/ref/vegassidekick" class="btn-o" target="_blank" rel="noopener">Get Tickets →</a>
     </div>
+
+  <!-- ===== SHOW DAYS & TIMES — Variant B ===== -->
+  <section class="sk-schedule fade-up" id="sk-schedule">
+    <div class="sk-eyebrow">Plan Your Night</div>
+    <h2 class="sk-sched-title">Show Days &amp; Times</h2>
+    <p class="sk-sched-intro">Five nights a week across two different time slots &mdash; evenings Monday through Wednesday, afternoons and evenings Saturday and Sunday. Dark Thursday and Friday.</p>
+    <div class="sk-sched-grid" id="sk-sched-grid"><!-- cards injected by JS --></div>
+    <p class="sk-sched-disclaimer">Schedules shift and dark nights happen. Always confirm the date at checkout.</p>
+  </section>
 
     <!-- SHOW DETAILS -->
     <div class="section fu" id="sec-details">
@@ -963,6 +997,93 @@
   }
 
   // EMAIL
+  // Show Days & Times — Variant B
+  const SHOW_SCHEDULE = {
+    affiliateUrl: "https://spotlight.vegas/shows/cirque/ka/ref/vegassidekick",
+    days: {
+      0: ["16:30", "19:00"],  // Sun
+      1: ["18:00", "20:30"],  // Mon
+      2: ["18:00", "20:30"],  // Tue
+      3: ["18:00", "20:30"],  // Wed
+      4: [],  // dark  // Thu
+      5: [],  // dark  // Fri
+      6: ["16:30", "19:00"],  // Sat
+    }
+  };
+  (function () {
+    "use strict";
+    const DAY_LABELS = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+    function vegasNow() {
+      const parts = new Intl.DateTimeFormat("en-US", {
+        timeZone: "America/Los_Angeles",
+        weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false
+      }).formatToParts(new Date());
+      const get = (t) => parts.find((p) => p.type === t)?.value;
+      const dayIdx = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].indexOf(get("weekday"));
+      return { dayIdx, hour: parseInt(get("hour"), 10) % 24, minute: parseInt(get("minute"), 10) };
+    }
+    function formatTime(t24) {
+      const [h, m] = t24.split(":").map(Number);
+      const ampm = h >= 12 ? "pm" : "am";
+      const h12 = h % 12 === 0 ? 12 : h % 12;
+      return h12 + ":" + String(m).padStart(2, "0") + ampm;
+    }
+    function lastShowPassed(times, now) {
+      if (!times.length) return true;
+      const [h, m] = times[times.length - 1].split(":").map(Number);
+      return now.hour > h || (now.hour === h && now.minute >= m);
+    }
+    function build() {
+      const grid = document.getElementById("sk-sched-grid");
+      if (!grid || typeof SHOW_SCHEDULE === "undefined") return;
+      const now = vegasNow();
+      const todayIdx = now.dayIdx;
+      const tomorrowIdx = (todayIdx + 1) % 7;
+      const order = [1, 2, 3, 4, 5, 6, 0];
+      const frag = document.createDocumentFragment();
+      order.forEach(function (d) {
+        const times = SHOW_SCHEDULE.days[d] || [];
+        const card = document.createElement("div");
+        card.className = "sk-day";
+        let inner = '<span class="sk-day-name">' + DAY_LABELS[d] + "</span>";
+        if (!times.length) {
+          card.classList.add("sk-day--dark");
+          inner += '<span class="sk-day-dark-label">Dark</span>';
+        } else {
+          inner += '<span class="sk-day-time">' + times.map(formatTime).join("<br>") + "</span>";
+        }
+        if (d === todayIdx) {
+          card.classList.remove("sk-day--dark");
+          card.classList.add("sk-day--today");
+          inner += '<span class="sk-day-badge">TODAY</span>';
+          if (times.length && !lastShowPassed(times, now)) {
+            inner += '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">Tonight\u2019s tickets \u2192</a>';
+          }
+        } else if (d === tomorrowIdx) {
+          card.classList.add("sk-day--tomorrow");
+          inner += '<span class="sk-day-badge">TOMORROW</span>';
+          if (times.length) {
+            inner += '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">See seats \u2192</a>';
+          }
+        } else if (times.length) {
+          inner += '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">Get tickets \u2192</a>';
+        }
+        card.innerHTML = inner;
+        frag.appendChild(card);
+      });
+      const ctaCard = document.createElement("div");
+      ctaCard.className = "sk-day sk-day--cta";
+      ctaCard.innerHTML = '<span class="sk-day-name">ALL DATES</span>' +
+        '<span class="sk-day-cta-body">All available<br>dates & times</span>' +
+        '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">Check availability \u2192</a>';
+      frag.appendChild(ctaCard);
+      grid.appendChild(frag);
+    }
+    document.readyState === "loading"
+      ? document.addEventListener("DOMContentLoaded", build)
+      : build();
+  })();
+
   async function submitEmail() {
     const email = document.getElementById('emailInp').value.trim();
     if (!email || !email.includes('@')) { document.getElementById('emailInp').style.borderColor = '#FCA5A5'; return; }
