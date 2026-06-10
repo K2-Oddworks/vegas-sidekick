@@ -712,8 +712,11 @@
   <section class="sk-schedule sk-schedule--slider fade-up" id="sk-schedule">
     <div class="sk-eyebrow">Plan Your Night</div>
     <h2 class="sk-sched-title">Show Days &amp; Times</h2>
-    <p class="sk-sched-intro">Six nights a week, with late shows on Friday and Saturday. The 10:00&nbsp;pm weekend shows skew rowdier &mdash; that&rsquo;s not a warning, that&rsquo;s a menu.</p>
-    <div class="sk-sched-grid" id="sk-sched-grid"><!-- cards injected by JS --></div>
+    <p class="sk-sched-intro">Six nights a week, Monday through Saturday at 8:00&nbsp;pm. Dark on Sunday.</p>
+    <div class="sk-sched-slider-wrap">
+      <div class="sk-sched-grid" id="sk-sched-grid"><!-- cards injected by JS --></div>
+    </div>
+    <p class="sk-swipe-hint">Swipe to see all days →</p>
     <p class="sk-sched-disclaimer">Schedules shift and dark nights happen. Always confirm the date at checkout.</p>
   </section>
 
@@ -1155,13 +1158,13 @@
   const SHOW_SCHEDULE = {
     affiliateUrl: "https://spotlight.vegas/shows/comedy/carrot-top/ref/vegassidekick",
     days: {
-      0: ["20:00"],           // Sun
-      1: [],                   // Mon — dark
+      0: [],                   // Sun — dark
+      1: ["20:00"],           // Mon
       2: ["20:00"],           // Tue
       3: ["20:00"],           // Wed
       4: ["20:00"],           // Thu
-      5: ["20:00", "22:00"],  // Fri
-      6: ["20:00", "22:00"]   // Sat
+      5: ["20:00"],           // Fri
+      6: ["20:00"]            // Sat
     }
   };
   (function () {
