@@ -1199,7 +1199,7 @@
         let inner = '<span class="sk-day-name">' + DAY_LABELS[d] + "</span>";
         if (!times.length) {
           card.classList.add("sk-day--dark");
-          inner += '<span class="sk-day-dark-label">Dark</span>';
+          inner += '<span class="sk-day-dark-label">No Show</span>';
         } else {
           inner += '<span class="sk-day-time">' + times.map(formatTime).join("<br>") + "</span>";
         }

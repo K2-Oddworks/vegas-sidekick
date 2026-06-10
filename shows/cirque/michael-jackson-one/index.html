@@ -1011,7 +1011,7 @@
   // EMAIL
   // Show Days & Times — Variant B
   const SHOW_SCHEDULE = {
-    affiliateUrl: "https://spotlight.vegas/shows/cirque/michael-jackson-one/ref/vegassidekick",
+    affiliateUrl: "https://spotlight.vegas/shows/cirque-du-soleil/michael-jackson-one/ref/vegassidekick",
     days: {
       0: ["19:00", "21:30"],  // Sun
       1: ["19:00", "21:30"],  // Mon
@@ -1060,7 +1060,7 @@
         let inner = '<span class="sk-day-name">' + DAY_LABELS[d] + "</span>";
         if (!times.length) {
           card.classList.add("sk-day--dark");
-          inner += '<span class="sk-day-dark-label">Dark</span>';
+          inner += '<span class="sk-day-dark-label">No Show</span>';
         } else {
           inner += '<span class="sk-day-time">' + times.map(formatTime).join("<br>") + "</span>";
         }
