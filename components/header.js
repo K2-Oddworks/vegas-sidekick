@@ -20,7 +20,10 @@
     <li><a href="/news/">Dispatch</a></li>
     <li><a href="/shows/" class="nav-cta">All Shows →</a></li>
   </ul>
-  <button class="nav-mobile-menu" onclick="vsToggleMenu()" aria-label="Menu">☰</button>
+  <div class="nav-mobile-right">
+    <a class="nav-mobile-tickets" href="/shows/">🎟 All Shows</a>
+    <button class="nav-mobile-menu" onclick="vsToggleMenu()" aria-label="Menu">☰</button>
+  </div>
 </nav>
 <div class="nav-mobile-drawer" id="vsMobileDrawer">
   <a href="/shows/comedy/">Comedy</a>
@@ -45,6 +48,9 @@
 .nav-links a { color: #D4DCE8; text-decoration: none; font-weight: 600; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; font-family: 'Barlow', sans-serif; }
 .nav-links a:hover { color: #FF6B2B; }
 .nav-cta { background: #FF6B2B !important; color: #0A1628 !important; padding: 8px 20px; border-radius: 4px; }
+.nav-mobile-right { display: none; align-items: center; gap: 8px; }
+.nav-mobile-tickets { display: inline-block; background: #FF6B2B; color: #0A1628 !important; font-family: 'Barlow Condensed', 'Barlow', sans-serif; font-weight: 800; font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; padding: 6px 12px; border-radius: 4px; white-space: nowrap; transition: background 0.2s; }
+.nav-mobile-tickets:hover { background: #e85e22; }
 .nav-mobile-menu { display: none; background: none; border: none; color: #D4DCE8; font-size: 1.6rem; cursor: pointer; padding: 4px 8px; }
 .nav-mobile-drawer { display: none; position: fixed; top: 0; right: -280px; width: 280px; height: 100vh; background: #0D1F3C; z-index: 300; flex-direction: column; padding: 80px 32px 32px; gap: 8px; transition: right 0.3s ease; border-left: 1px solid rgba(26,127,232,0.2); overflow-y: auto; }
 .nav-mobile-drawer.open { right: 0; }
@@ -59,6 +65,7 @@
   #vs-nav { padding: 8px 20px; }
   .nav-logo img { height: 44px !important; }
   .nav-links { display: none; }
+  .nav-mobile-right { display: flex; }
   .nav-mobile-menu { display: block; }
   .nav-mobile-drawer { display: flex; }
 }
