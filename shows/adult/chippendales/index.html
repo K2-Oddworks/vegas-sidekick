@@ -738,6 +738,8 @@ const SHOW_SCHEDULE = {
         if (times.length) {
           inner += '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">See seats →</a>';
         }
+      } else if (times.length) {
+        inner += '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">Get tickets →</a>';
       }
       card.innerHTML = inner;
       frag.appendChild(card);
