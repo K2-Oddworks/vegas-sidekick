@@ -499,6 +499,14 @@
   .sk-day--cta .sk-day-link{color:#fff;font-size:14px;}
   .sk-day--cta .sk-day-link:hover{color:#fff;}
   @media (max-width:640px){.sk-sched-grid{grid-template-columns:repeat(2,1fr);}}
+  .sk-schedule--slider .sk-sched-grid{display:flex!important;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;scrollbar-width:none;gap:12px;padding:6px 2px 14px;grid-template-columns:unset!important;}
+  .sk-schedule--slider .sk-sched-grid::-webkit-scrollbar{display:none;}
+  .sk-schedule--slider .sk-day{flex:0 0 118px;scroll-snap-align:start;}
+  .sk-schedule--slider .sk-day-time{font-size:18px;line-height:1.2;}
+  .sk-sched-slider-wrap{position:relative;}
+  .sk-sched-slider-wrap::after{content:"";position:absolute;top:0;right:0;width:52px;height:calc(100% - 14px);background:linear-gradient(to right,transparent,#fff 85%);pointer-events:none;}
+  .sk-swipe-hint{font-size:12px;color:#B7BECF;text-align:center;margin-top:6px;letter-spacing:0.2px;}
+  @media (max-width:640px){.sk-schedule--slider .sk-day{flex:0 0 108px;}}
   </style>
 </head>
 <body>
@@ -722,11 +730,14 @@
     </div>
 
   <!-- ===== SHOW DAYS & TIMES — Variant B ===== -->
-  <section class="sk-schedule fade-up" id="sk-schedule">
+  <section class="sk-schedule sk-schedule--slider fade-up" id="sk-schedule">
     <div class="sk-eyebrow">Plan Your Night</div>
     <h2 class="sk-sched-title">Show Days &amp; Times</h2>
     <p class="sk-sched-intro">Five nights a week, Wednesday through Sunday, with two shows nightly at the Bellagio. Dark Monday and Tuesday.</p>
-    <div class="sk-sched-grid" id="sk-sched-grid"><!-- cards injected by JS --></div>
+    <div class="sk-sched-slider-wrap">
+      <div class="sk-sched-grid" id="sk-sched-grid"><!-- cards injected by JS --></div>
+    </div>
+    <p class="sk-swipe-hint">Swipe to see all days →</p>
     <p class="sk-sched-disclaimer">Schedules shift and dark nights happen. Always confirm the date at checkout.</p>
   </section>
 
@@ -1105,6 +1116,10 @@
         '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">Check availability \u2192</a>';
       frag.appendChild(ctaCard);
       grid.appendChild(frag);
+      var todayCard = grid.querySelector(".sk-day--today");
+      if (todayCard) setTimeout(function() {
+        todayCard.scrollIntoView({behavior:"smooth",block:"nearest",inline:"center"});
+      }, 150);
     }
     document.readyState === "loading"
       ? document.addEventListener("DOMContentLoaded", build)
