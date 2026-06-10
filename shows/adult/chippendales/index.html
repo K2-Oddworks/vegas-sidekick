@@ -206,6 +206,11 @@
   .sk-day--today .sk-day-link{color:#FF6B2B;}
   .sk-day-link:hover{text-decoration:underline;}
   .sk-sched-disclaimer{margin-top:22px;font-size:14px;color:#8A93A8;line-height:1.5;}
+  .sk-day--cta{background:linear-gradient(145deg,#1A6BFF 0%,#0e55d4 100%);border-color:#1459d6;}
+  .sk-day--cta .sk-day-name{color:rgba(255,255,255,0.7);}
+  .sk-day--cta .sk-day-cta-body{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:20px;color:#fff;line-height:1.2;}
+  .sk-day--cta .sk-day-link{color:#fff;font-size:14px;}
+  .sk-day--cta .sk-day-link:hover{color:#fff;}
   @media (max-width:640px){.sk-sched-grid{grid-template-columns:repeat(2,1fr);}}
 </style>
 </head>
@@ -737,6 +742,13 @@ const SHOW_SCHEDULE = {
       card.innerHTML = inner;
       frag.appendChild(card);
     });
+    // 8th card — full calendar CTA
+    const ctaCard = document.createElement("div");
+    ctaCard.className = "sk-day sk-day--cta";
+    ctaCard.innerHTML = '<span class="sk-day-name">ALL DATES</span>' +
+      '<span class="sk-day-cta-body">All available<br>dates & times</span>' +
+      '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">Check availability →</a>';
+    frag.appendChild(ctaCard);
     grid.appendChild(frag);
   }
   document.readyState === "loading"
