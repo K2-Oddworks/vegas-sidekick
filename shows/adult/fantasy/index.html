@@ -36,7 +36,7 @@
   .breadcrumbs span { margin: 0 6px; opacity: 0.45; }
   .hero { position: relative; background: var(--navy); }
   .hero-slider { position: relative; width: 100%; aspect-ratio: 16/9; max-height: 560px; overflow: hidden; background: #1a1400; }
-  .slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transition: opacity 0.9s ease; }
+  .slide { position: absolute; inset: 0; background-size: cover; background-position: top center; opacity: 0; transition: opacity 0.9s ease; }
   .slide.active { opacity: 1; animation: kenBurns 7s ease-out forwards; }
   @keyframes kenBurns { from { transform: scale(1); } to { transform: scale(1.06); } }
   @media (prefers-reduced-motion: reduce) { .slide.active { animation: none; } .ticker-track { animation: none !important; } }
@@ -124,7 +124,7 @@
   .about-body { font-size: 0.95rem; color: #374151; line-height: 1.7; margin-bottom: 14px; }
   .spike-callout { border-left: 3px solid var(--show); padding: 14px 18px; background: rgba(201,150,12,0.07); border-radius: 0 8px 8px 0; margin: 20px 0; font-size: 0.9rem; color: #374151; line-height: 1.65; }
   .spike-callout strong { color: #8A6C00; }
-  .email-signup { background: linear-gradient(135deg, rgba(201,150,12,0.12) 0%, rgba(10,22,40,0) 100%); border: 1px solid rgba(201,150,12,0.2); border-radius: 10px; padding: 22px; margin-bottom: 32px; }
+  .email-signup { background: var(--navy); border: 1px solid rgba(201,150,12,0.25); border-radius: 10px; padding: 22px; margin-bottom: 32px; }
   .email-tag { font-family: var(--font-mono); font-size: 0.65rem; color: var(--show-lt); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
   .email-headline { font-family: var(--font-condensed); font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 14px; letter-spacing: 0.03em; }
   .email-row { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -150,6 +150,10 @@
   .sk-sched-title { font-family: var(--font-display); font-size: 1.7rem; color: var(--navy); margin-bottom: 10px; letter-spacing: 0.04em; }
   .sk-sched-intro { font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 18px; }
   .sk-sched-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-bottom: 16px; }
+  .sk-schedule--slider .sk-sched-grid { display: flex !important; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; scrollbar-width: none; gap: 12px; padding: 6px 2px 14px; grid-template-columns: unset !important; }
+  .sk-schedule--slider .sk-sched-grid::-webkit-scrollbar { display: none; }
+  .sk-schedule--slider .sk-day { flex: 0 0 118px; scroll-snap-align: start; }
+  @media (max-width: 640px) { .sk-schedule--slider .sk-day { flex: 0 0 108px; } }
   .sk-day { background: #EEF3FE; border: 1px solid #DFE8FB; border-radius: 12px; padding: 20px 12px 22px; text-align: center; min-height: 118px; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
   .sk-day-name { font-weight: 700; font-size: 15px; letter-spacing: 1.5px; color: #0A0F2C; }
   .sk-day-time { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 20px; color: #1A6BFF; line-height: 1.15; }
@@ -163,8 +167,11 @@
   .sk-day-link { display: inline-block; margin-top: 4px; font-size: 13px; font-weight: 700; text-decoration: none; letter-spacing: .3px; color: #1A6BFF; }
   .sk-day--today .sk-day-link { color: #FF6B2B; }
   .sk-day-link:hover { text-decoration: underline; }
+  .sk-day--cta { background: var(--navy); border-color: rgba(201,150,12,0.3); }
+  .sk-day--cta .sk-day-name { color: var(--show-lt); }
+  .sk-day--cta .sk-day-cta-body { font-family: var(--font-condensed); font-size: 16px; font-weight: 700; color: rgba(255,255,255,0.8); line-height: 1.3; }
+  .sk-day--cta .sk-day-link { color: var(--show-lt); }
   .sk-sched-disclaimer { margin-top: 22px; font-size: 14px; color: #8A93A8; line-height: 1.5; }
-  @media (max-width: 640px) { .sk-sched-grid { grid-template-columns: repeat(2, 1fr); } }
   .seating-section { margin-bottom: 32px; }
   .seating-chart-wrap { background: #0A1628; border-radius: 10px; padding: 20px; margin-bottom: 16px; overflow: hidden; }
   .seating-key { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 14px; }
@@ -256,7 +263,7 @@
         </div>
       </div>
       <a href="https://spotlight.vegas/shows/adult/fantasy/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="hero-cta">Get Tickets &rarr;</a>
-      <div class="price-urgency">Best available price &bull; Secure booking via Spotlight.vegas</div>
+      <div class="price-urgency">Best available price &bull; Secure, instant delivery</div>
     </div>
   </div>
 </article>
@@ -418,7 +425,7 @@
     <div class="email-success" id="emailSuccess">&#x2713; You&rsquo;re in! Watch for exclusive Vegas deals.</div>
   </div>
 
-  <section class="sk-schedule fade-up" id="sk-schedule">
+  <section class="sk-schedule sk-schedule--slider fade-up" id="sk-schedule">
     <div class="sk-eyebrow">Plan Your Night</div>
     <h2 class="sk-sched-title">Show Days &amp; Times</h2>
     <p class="sk-sched-intro">Fantasy runs nightly &mdash; Monday through Saturday at 10:30&nbsp;pm, and Sundays with two shows at 7:00&nbsp;pm and 9:30&nbsp;pm. Whether you&rsquo;re starting the night or capping it off, Fantasy fits the schedule.</p>
@@ -610,7 +617,7 @@
   <div class="sb-meta"><span class="sb-meta-icon">&#x1F4C5;</span> Mon&ndash;Sat 10:30 PM &middot; Sun 7 &amp; 9:30 PM</div>
   <div class="sb-meta"><span class="sb-meta-icon">&#x23F1;</span> 75 minutes &middot; 18+ only</div>
   <div class="sb-urgency">&#x26A0; Weekend shows sell out &mdash; book ahead</div>
-  <div class="sb-disclosure">You&rsquo;ll be redirected to our partner Spotlight.vegas to complete your booking. Vegas Sidekick earns a referral commission at no added cost to you.</div>
+  <div class="sb-disclosure">Vegas Sidekick earns a referral fee on ticket sales. Your price is unaffected.</div>
 </aside>
 </div>
 
@@ -769,7 +776,19 @@ const SHOW_SCHEDULE = {
       card.innerHTML = inner;
       frag.appendChild(card);
     });
+    // CTA card
+    var ctaCard = document.createElement("div");
+    ctaCard.className = "sk-day sk-day--cta";
+    ctaCard.innerHTML = '<span class="sk-day-name">ALL DATES</span>' +
+      '<span class="sk-day-cta-body">All available<br>dates & times</span>' +
+      '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">Check availability →</a>';
+    frag.appendChild(ctaCard);
     grid.appendChild(frag);
+    var todayCard = grid.querySelector(".sk-day--today");
+    if (todayCard) {
+      var offset = todayCard.offsetLeft - (grid.clientWidth - todayCard.offsetWidth) / 2;
+      grid.scrollLeft = Math.max(0, offset);
+    }
   }
   document.readyState === "loading"
     ? document.addEventListener("DOMContentLoaded", build)
