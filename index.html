@@ -389,71 +389,34 @@
 
     /* ── CATEGORY GRID ── */
     .cat-section { background: var(--white); }
-
-    .cat-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
+    .cat-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 14px; }
+    .cat-card { position: relative; display: block; text-decoration: none; border-radius: 12px; overflow: hidden; background-size: cover; background-position: center; min-height: 180px; transition: transform 0.25s ease, box-shadow 0.25s ease; box-shadow: 0 2px 14px rgba(10,15,44,0.10); }
+    .cat-card:hover { transform: scale(1.03); box-shadow: 0 10px 32px rgba(10,15,44,0.22); }
+    .cat-card-feature { grid-row: span 2; min-height: 374px; }
+    .cat-overlay { position: absolute; inset: 0; z-index: 0; }
+    .cat-tint-cirque .cat-overlay    { background: linear-gradient(160deg, rgba(30,58,138,0.52) 0%, rgba(10,22,40,0.90) 100%); }
+    .cat-tint-comedy .cat-overlay    { background: linear-gradient(160deg, rgba(185,28,28,0.52) 0%, rgba(10,22,40,0.90) 100%); }
+    .cat-tint-magic .cat-overlay     { background: linear-gradient(160deg, rgba(88,28,135,0.52) 0%, rgba(10,22,40,0.90) 100%); }
+    .cat-tint-music .cat-overlay     { background: linear-gradient(160deg, rgba(15,118,110,0.52) 0%, rgba(10,22,40,0.90) 100%); }
+    .cat-tint-spectaculars .cat-overlay { background: linear-gradient(160deg, rgba(21,128,61,0.52) 0%, rgba(10,22,40,0.90) 100%); }
+    .cat-tint-family .cat-overlay    { background: linear-gradient(160deg, rgba(180,83,9,0.52) 0%, rgba(10,22,40,0.90) 100%); }
+    .cat-tint-adult .cat-overlay     { background: linear-gradient(160deg, rgba(157,23,77,0.52) 0%, rgba(10,22,40,0.90) 100%); }
+    .cat-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 16px 18px; z-index: 1; }
+    .cat-sub { display: block; font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 800; color: rgba(255,255,255,0.72); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+    .cat-name { display: block; font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: #fff; letter-spacing: 0.04em; line-height: 1; }
+    .cat-card-feature .cat-name { font-size: 2.4rem; }
+    .cat-card-feature .cat-label { padding: 22px 24px; }
+    .cat-card-all { background: linear-gradient(135deg, #FF6B2B 0%, #D94E0F 100%); }
+    .cat-card-all:hover { box-shadow: 0 8px 28px rgba(255,107,43,0.45) !important; }
+    .cat-card-all .cat-sub { color: rgba(255,255,255,0.85); }
+    @media (max-width: 640px) {
+      .cat-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .cat-card-feature { grid-column: span 2; min-height: 200px; }
+      .cat-card-all { grid-column: span 2; }
+      .cat-card { min-height: 140px; }
+      .cat-card-feature .cat-name { font-size: 1.9rem; }
+      .cat-card-feature .cat-label { padding: 16px; }
     }
-
-    @media (min-width: 768px) {
-      .cat-grid { grid-template-columns: repeat(4, 1fr); }
-    }
-
-    .cat-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 160px;
-      padding: 32px 20px;
-      text-align: center;
-      background: var(--tint);
-      border: 2px solid var(--blue);
-      border-radius: 8px;
-      text-decoration: none;
-      color: var(--navy);
-      cursor: pointer;
-      box-shadow: 0 2px 12px rgba(10,15,44,0.07);
-      transition: border-color 0.22s, transform 0.22s, box-shadow 0.22s;
-    }
-
-    .cat-card:hover {
-      border-color: var(--orange);
-      transform: scale(1.03);
-      box-shadow: 0 8px 28px rgba(255,107,43,0.18);
-    }
-
-    .cat-card.cat-cta {
-      background: var(--orange);
-      border-color: var(--white);
-      color: var(--white);
-    }
-
-    .cat-card.cat-cta:hover {
-      border-color: var(--white);
-      box-shadow: 0 8px 28px rgba(255,107,43,0.4);
-    }
-
-    .cat-icon {
-      width: 52px;
-      height: 52px;
-      margin-bottom: 14px;
-      color: var(--blue);
-      flex-shrink: 0;
-    }
-
-    .cat-cta .cat-icon {
-      color: var(--white);
-    }
-
-    .cat-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.3rem;
-      letter-spacing: 0.04em;
-    }
-
-    .cat-card.cat-cta .cat-name { color: var(--white); }
 
     /* ── SHOW HORIZONTAL ROW ── */
     .shows-row-section { overflow: hidden; }
@@ -1060,6 +1023,188 @@
       }
     }
 
+    /* ── SIDEKICK PICK OF THE MONTH ── */
+    .pick-section {
+      background-color: #FFF3EE;
+      background-image:
+        radial-gradient(2px 2px at 12% 20%, rgba(26,107,255,0.18) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 78% 14%, rgba(26,107,255,0.14) 0%, transparent 100%),
+        radial-gradient(2px 2px at 55% 78%, rgba(26,107,255,0.12) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 91% 62%, rgba(26,107,255,0.16) 0%, transparent 100%),
+        radial-gradient(1px 1px at 33% 50%, rgba(26,107,255,0.10) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 8% 85%, rgba(26,107,255,0.12) 0%, transparent 100%);
+      border-top: 1px solid rgba(255,107,43,0.15);
+    }
+    .pick-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 60px 40px;
+    }
+    .pick-eyebrow {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 600;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--orange);
+      margin-bottom: 4px;
+    }
+    .pick-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .pick-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      color: var(--navy);
+      line-height: 1.1;
+    }
+    .pick-month {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 600;
+      font-size: 0.78rem;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .pick-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 2px solid var(--card-border);
+      box-shadow: 0 4px 24px rgba(10,15,44,0.08);
+    }
+    .pick-img {
+      position: relative;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      background: #0D1228;
+    }
+    .pick-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .pick-card:hover .pick-img img { transform: scale(1.04); }
+    .pick-badge {
+      position: absolute;
+      top: 14px; left: 14px;
+      background: var(--orange);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 600;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 100px;
+    }
+    .pick-body {
+      background: var(--navy);
+      padding: 36px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0;
+    }
+    .pick-show-label {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 600;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--orange);
+      margin-bottom: 8px;
+    }
+    .pick-show-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.4rem, 4vw, 3.4rem);
+      color: var(--white);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      margin-bottom: 6px;
+    }
+    .pick-hook {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--orange);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .pick-desc {
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.65;
+      margin-bottom: 24px;
+    }
+    .pick-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+    .pick-from {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+    .pick-price {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 3rem;
+      color: var(--orange);
+      line-height: 1;
+    }
+    .pick-price-note {
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.35);
+    }
+    .pick-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--orange);
+      color: var(--white);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.06em;
+      padding: 14px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: 2px solid var(--orange);
+      transition: background 0.2s, transform 0.15s;
+      align-self: flex-start;
+    }
+    .pick-cta:hover {
+      background: #e55a1e;
+      border-color: #e55a1e;
+      transform: translateY(-2px);
+    }
+    @media (max-width: 900px) {
+      .pick-inner { padding: 48px 20px; }
+      .pick-card { grid-template-columns: 1fr; }
+      .pick-img { aspect-ratio: 16/9; }
+      .pick-body { padding: 28px 24px; }
+    }
+    @media (max-width: 480px) {
+      .pick-body { padding: 24px 20px; }
+      .pick-show-name { font-size: 2.2rem; }
+    }
+
   </style>
 </head>
 <body>
@@ -1178,48 +1323,68 @@
         <h2 class="section-label" id="cat-heading">BROWSE BY CATEGORY</h2>
       </div>
       <div class="cat-grid">
-        <a href="/shows/comedy/" class="cat-card fade-up">
-          <!-- Microphone -->
-          <svg class="cat-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <rect x="17" y="4" width="14" height="22" rx="7" stroke="currentColor" stroke-width="2.5"/>
-            <path d="M10 24c0 7.73 6.27 14 14 14s14-6.27 14-14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-            <line x1="24" y1="38" x2="24" y2="44" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-            <line x1="16" y1="44" x2="32" y2="44" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-          </svg>
-          <span class="cat-name">COMEDY</span>
+        <!-- Feature: Cirque -->
+        <a href="/shows/cirque/" class="cat-card cat-card-feature cat-tint-cirque fade-up" style="background-image:url('/images/ka-hero.jpg')">
+          <div class="cat-overlay"></div>
+          <div class="cat-label">
+            <span class="cat-sub">Acrobatics &amp; Spectacle</span>
+            <span class="cat-name">CIRQUE</span>
+          </div>
         </a>
-        <a href="/shows/magic/" class="cat-card fade-up">
-          <!-- Magic wand with star -->
-          <svg class="cat-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <line x1="8" y1="40" x2="30" y2="18" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/>
-            <path d="M30 10l1.6 4.8 4.8 1.6-4.8 1.6-1.6 4.8-1.6-4.8-4.8-1.6 4.8-1.6z" fill="currentColor"/>
-            <circle cx="40" cy="10" r="2" fill="currentColor" opacity="0.65"/>
-            <circle cx="14" cy="14" r="1.5" fill="currentColor" opacity="0.5"/>
-            <circle cx="40" cy="26" r="1.5" fill="currentColor" opacity="0.5"/>
-          </svg>
-          <span class="cat-name">MAGIC</span>
+        <!-- Comedy -->
+        <a href="/shows/comedy/" class="cat-card cat-tint-comedy fade-up" style="background-image:url('/images/carrot-top-hero.jpg')">
+          <div class="cat-overlay"></div>
+          <div class="cat-label">
+            <span class="cat-sub">Stand-Up &amp; More</span>
+            <span class="cat-name">COMEDY</span>
+          </div>
         </a>
-        <a href="/shows/cirque/" class="cat-card fade-up">
-          <!-- Acrobat figure -->
-          <svg class="cat-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <circle cx="24" cy="7" r="4.5" stroke="currentColor" stroke-width="2.5"/>
-            <line x1="24" y1="12" x2="24" y2="22" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-            <line x1="24" y1="17" x2="8" y2="26" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-            <line x1="24" y1="17" x2="40" y2="26" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-            <line x1="24" y1="22" x2="15" y2="38" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-            <line x1="24" y1="22" x2="33" y2="38" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-          </svg>
-          <span class="cat-name">CIRQUE / ACROBATICS</span>
+        <!-- Magic -->
+        <a href="/shows/magic/" class="cat-card cat-tint-magic fade-up" style="background-image:url('/images/criss-angel-hero.jpg')">
+          <div class="cat-overlay"></div>
+          <div class="cat-label">
+            <span class="cat-sub">Illusion &amp; Wonder</span>
+            <span class="cat-name">MAGIC</span>
+          </div>
         </a>
-        <a href="/shows/" class="cat-card cat-cta fade-up">
-          <!-- 4-grid / all shows -->
-          <svg class="cat-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <rect x="5" y="5" width="17" height="17" rx="3" stroke="currentColor" stroke-width="2.5"/>
-            <rect x="26" y="5" width="17" height="17" rx="3" stroke="currentColor" stroke-width="2.5"/>
-            <rect x="5" y="26" width="17" height="17" rx="3" stroke="currentColor" stroke-width="2.5"/>
-            <rect x="26" y="26" width="17" height="17" rx="3" fill="currentColor" opacity="0.35" stroke="currentColor" stroke-width="2.5"/>
-          </svg>
-          <span class="cat-name">ALL SHOWS</span>
+        <!-- Music -->
+        <a href="/shows/music/" class="cat-card cat-tint-music fade-up" style="background-image:url('/images/vegas-the-show-hero.webp')">
+          <div class="cat-overlay"></div>
+          <div class="cat-label">
+            <span class="cat-sub">Live Performances</span>
+            <span class="cat-name">MUSIC</span>
+          </div>
+        </a>
+        <!-- Spectaculars -->
+        <a href="/shows/spectaculars/" class="cat-card cat-tint-spectaculars fade-up" style="background-image:url('/images/wow-the-vegas-spectacular-hero.jpg')">
+          <div class="cat-overlay"></div>
+          <div class="cat-label">
+            <span class="cat-sub">Grand Productions</span>
+            <span class="cat-name">SPECTACULARS</span>
+          </div>
+        </a>
+        <!-- Family -->
+        <a href="/shows/family/" class="cat-card cat-tint-family fade-up" style="background-image:url('/images/v-the-ultimate-variety-show-hero.jpg')">
+          <div class="cat-overlay"></div>
+          <div class="cat-label">
+            <span class="cat-sub">All Ages Welcome</span>
+            <span class="cat-name">FAMILY</span>
+          </div>
+        </a>
+        <!-- Adult -->
+        <a href="/shows/adult/" class="cat-card cat-tint-adult fade-up" style="background-image:url('/images/rouge-hero.webp')">
+          <div class="cat-overlay"></div>
+          <div class="cat-label">
+            <span class="cat-sub">18+ Entertainment</span>
+            <span class="cat-name">ADULT</span>
+          </div>
+        </a>
+        <!-- All Shows CTA -->
+        <a href="/shows/" class="cat-card cat-card-all fade-up">
+          <div class="cat-label">
+            <span class="cat-sub">40+ Vegas Shows</span>
+            <span class="cat-name">ALL SHOWS &rarr;</span>
+          </div>
         </a>
       </div>
     </div>
@@ -1637,6 +1802,23 @@
           </a>
         </article>
 
+        <!-- V - The Ultimate Variety Show -->
+        <article class="show-card" role="listitem">
+          <a href="/shows/family/v-the-ultimate-variety-show/">
+            <div class="show-card-img-wrap">
+              <img src="/images/v-the-ultimate-variety-show-hero.jpg" alt="V - The Ultimate Variety Show at Planet Hollywood" loading="lazy" />
+              <span class="show-badge">&#11088; SIDEKICK PICK</span>
+            </div>
+            <div class="show-card-body">
+              <div class="show-venue">V Theater &middot; Planet Hollywood</div>
+              <div class="show-name">V &mdash; THE ULTIMATE VARIETY SHOW</div>
+              <p class="show-desc">Acrobats, magic, juggling &amp; stunts. 7 nights a week.</p>
+              <div class="show-price">FROM $39</div>
+              <span class="show-cta">SEE DETAILS &rarr;</span>
+            </div>
+          </a>
+        </article>
+
       </div>
     </div>
   </section>
@@ -1727,6 +1909,37 @@
       </div>
     </div>
   </div>
+
+  <!-- SIDEKICK PICK OF THE MONTH -->
+  <section class="pick-section" aria-labelledby="pick-heading">
+    <div class="pick-inner">
+      <div class="pick-header fade-up">
+        <div>
+          <div class="pick-eyebrow">🌵 Sidekick Pick of the Month</div>
+          <h2 class="pick-title" id="pick-heading">June's Pick</h2>
+        </div>
+        <span class="pick-month">Updated monthly</span>
+      </div>
+      <a href="/shows/cirque/mystere/" class="pick-card fade-up" style="text-decoration:none;display:grid;">
+        <div class="pick-img">
+          <img src="/images/mystere-hero.jpg" alt="Mystère by Cirque du Soleil at TI Hotel Las Vegas" />
+          <span class="pick-badge">🌵 Sidekick Pick — June 2026</span>
+        </div>
+        <div class="pick-body">
+          <div class="pick-show-label">Cirque du Soleil · TI Hotel</div>
+          <div class="pick-show-name">MYSTÈRE</div>
+          <div class="pick-hook">Start here for Cirque!</div>
+          <p class="pick-desc">The original Las Vegas Cirque show — running since 1993 and still the best place to start. Pure acrobatics, aerial performance, no gimmicks. Intimate theatre, all ages, and now at the lowest entry price on the Strip. If you've never seen a Cirque show, this is the one.</p>
+          <div class="pick-price-row">
+            <span class="pick-from">From</span>
+            <span class="pick-price">$44</span>
+            <span class="pick-price-note">on most dates · regular $93</span>
+          </div>
+          <span class="pick-cta">See Show &amp; Get Tickets &rarr;</span>
+        </div>
+      </a>
+    </div>
+  </section>
 
   <!-- VEGAS DISPATCH — LATEST ARTICLES -->
   <section class="dispatch-section" aria-labelledby="dispatch-heading">
