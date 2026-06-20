@@ -866,7 +866,7 @@
             </div>
             <div class="sa-item">
               <button class="sa-hdr" onclick="toggleSA(this)">
-                <div class="sa-left"><div class="sa-dot" style="background:#c9a84c;"></div><span class="sa-name">VIP — Sidekick Pick</span></div>
+                <div class="sa-left"><div class="sa-dot" style="background:#c9a84c;"></div><span class="sa-name">VIP — Sweet Spot</span></div>
                 <span class="sa-chev">▾</span>
               </button>
               <div class="sa-body"><div class="sa-inner">The angled front table banks on both sides of the stage plus the center rows closest to the performance area. As close to Mac King as the Thunderland Theater gets. His close-up magic is most likely to involve you directly from VIP. The most immersive option in the room for a show that puts the magic in the audience's hands.</div></div>
@@ -1090,7 +1090,7 @@ function selectZone(id) {
   const z = zones[id];
   document.getElementById('zpName').textContent = z.name;
   document.getElementById('zpDesc').textContent = z.desc;
-  document.getElementById('zpBadge').innerHTML = z.pick ? '<span class="zp-badge">Sidekick Pick</span>' : '';
+  document.getElementById('zpBadge').innerHTML = z.pick ? '<span class="zp-badge">Sweet Spot</span>' : '';
   document.getElementById('zonePopup').classList.add('on');
 }
 document.querySelectorAll('.seat-zone').forEach(z => {

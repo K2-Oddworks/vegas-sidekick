@@ -1122,7 +1122,7 @@ function selectZone(id) {
   document.getElementById('zpEyebrow').textContent = z.eyebrow;
   document.getElementById('zpTitle').textContent = z.title;
   document.getElementById('zpDesc').textContent = z.desc;
-  document.getElementById('zpBadge').innerHTML = z.pick ? '<span class="zp-badge">Sidekick Pick</span>' : '';
+  document.getElementById('zpBadge').innerHTML = z.pick ? '<span class="zp-badge">Sweet Spot</span>' : '';
   document.getElementById('zonePopup').classList.add('on');
   document.querySelectorAll('.c-sec').forEach(el => el.classList.remove('active'));
   document.querySelector('[onclick="selectZone(\'' + id + '\')"]').classList.add('active');

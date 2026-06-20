@@ -348,7 +348,7 @@
     <p class="about-body">Fantasy has ruled the Atrium Theater at Luxor for over 25 years &mdash; and it&rsquo;s earned every one of them. Named &ldquo;Best Adult Revue of All Time,&rdquo; this topless revue brings 15 electrifying acts to the stage set to today&rsquo;s hottest music, featuring a cast of stunningly talented dancers and a powerhouse live vocalist who ties it all together.</p>
     <p class="about-body">This isn&rsquo;t just an adult show &mdash; it&rsquo;s a full production. Sultry choreography, spectacular costumes, and seamless comedy keep the energy high between acts. Whether you&rsquo;re on a couples&rsquo; date night, celebrating with a group, or flying solo looking for a great Vegas night out, Fantasy consistently delivers from the first act to the last bow.</p>
     <div class="spike-callout">
-      <strong>&#x1F4A1; Sidekick Pick:</strong> Reserve Section 2 &mdash; it&rsquo;s the sweet spot in this intimate theater. Close enough to feel every moment, with perfect center sightlines across the full stage. All seats are good in the Atrium Theater, but Section 2 puts you exactly where the magic happens.
+      <strong>&#x1F4A1; Sweet Spot:</strong> Reserve Section 2 &mdash; it&rsquo;s the sweet spot in this intimate theater. Close enough to feel every moment, with perfect center sightlines across the full stage. All seats are good in the Atrium Theater, but Section 2 puts you exactly where the magic happens.
     </div>
   </section>
 
@@ -450,10 +450,10 @@
           fill="#8A6E2F" opacity="0.82" stroke="rgba(0,0,0,0.3)" stroke-width="1.5"
           onclick="selectZone('r3')" style="cursor:pointer" role="button" aria-label="Reserved 3"/>
 
-        <!-- Reserved 2 — rows D-J (SIDEKICK PICK) -->
+        <!-- Reserved 2 — rows D-J (SWEET SPOT) -->
         <path id="zone-r2" d="M 92,152 L 428,152 L 395,268 L 125,268 Z"
           fill="#C9960C" opacity="0.88" stroke="rgba(0,0,0,0.3)" stroke-width="1.5"
-          onclick="selectZone('r2')" style="cursor:pointer" role="button" aria-label="Reserved 2, Sidekick Pick"/>
+          onclick="selectZone('r2')" style="cursor:pointer" role="button" aria-label="Reserved 2, Sweet Spot"/>
 
         <!-- Reserved 1 — rows A-C (front) -->
         <path id="zone-r1" d="M 125,272 L 395,272 L 374,340 L 146,340 Z"
@@ -469,9 +469,9 @@
         <text x="260" y="120" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="11" font-weight="700" font-family="'Barlow Condensed',sans-serif" letter-spacing="1">RESERVED 3</text>
         <text x="260" y="198" text-anchor="middle" fill="rgba(255,255,255,0.92)" font-size="12" font-weight="700" font-family="'Barlow Condensed',sans-serif" letter-spacing="1">RESERVED 2</text>
 
-        <!-- Sidekick Pick badge -->
+        <!-- Sweet Spot badge -->
         <rect x="190" y="212" width="140" height="20" rx="4" fill="rgba(255,107,43,0.9)"/>
-        <text x="260" y="226" text-anchor="middle" fill="white" font-size="8.5" font-weight="600" font-family="'IBM Plex Mono',monospace" letter-spacing="0.5">&#x1FA91; SIDEKICK PICK</text>
+        <text x="260" y="226" text-anchor="middle" fill="white" font-size="8.5" font-weight="600" font-family="'IBM Plex Mono',monospace" letter-spacing="0.5">&#x1FA91; SWEET SPOT</text>
 
         <text x="260" y="308" text-anchor="middle" fill="rgba(10,22,40,0.85)" font-size="12" font-weight="700" font-family="'Barlow Condensed',sans-serif" letter-spacing="1">RESERVED 1</text>
 
@@ -485,14 +485,14 @@
 
     <div class="seating-key">
       <div class="key-item"><div class="key-dot" style="background:#E8B94F"></div> Reserved 1 &mdash; Rows A–C (Front)</div>
-      <div class="key-item"><div class="key-dot" style="background:#C9960C"></div> Reserved 2 &mdash; Rows D–J &#x1FA91; Sidekick Pick</div>
+      <div class="key-item"><div class="key-dot" style="background:#C9960C"></div> Reserved 2 &mdash; Rows D–J &#x1FA91; Sweet Spot</div>
       <div class="key-item"><div class="key-dot" style="background:#8A6E2F"></div> Reserved 3 &mdash; Rows K–L</div>
       <div class="key-item"><div class="key-dot" style="background:#5C4A20"></div> Reserved 4 &mdash; Row M</div>
     </div>
 
     <div class="zone-popup" id="zonePopup">
       <div class="zone-popup-name" id="zoneName"></div>
-      <div class="zone-popup-pick" id="zonePick" style="display:none">&#x1FA91; Sidekick Pick</div>
+      <div class="zone-popup-pick" id="zonePick" style="display:none">&#x1FA91; Sweet Spot</div>
       <div class="zone-popup-desc" id="zoneDesc"></div>
       <a href="https://spotlight.vegas/shows/adult/fantasy/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="zone-popup-cta">Get Tickets in This Zone &rarr;</a>
     </div>
@@ -504,7 +504,7 @@
       </div>
       <div class="seat-accord-row" onclick="selectZone('r2')">
         <div class="seat-accord-dot" style="background:#C9960C"></div>
-        <div class="seat-accord-name">Reserved 2 &mdash; Rows D&ndash;J <span class="seat-accord-badge">&#x1FA91; Sidekick Pick</span></div>
+        <div class="seat-accord-name">Reserved 2 &mdash; Rows D&ndash;J <span class="seat-accord-badge">&#x1FA91; Sweet Spot</span></div>
       </div>
       <div class="seat-accord-row" onclick="selectZone('r3')">
         <div class="seat-accord-dot" style="background:#8A6E2F"></div>
@@ -666,7 +666,7 @@ function toggleFaq(btn) {
 }
 const ZONES = {
   r1: { name: 'Reserved 1 — Rows A–C (Front)', pick: false, desc: 'The front-most rows at the Atrium Theater put you right at stage level. Up-close sightlines and maximum presence for every act. If you want to feel the energy at its most immediate, Reserved 1 delivers.' },
-  r2: { name: 'Reserved 2 — Rows D–J', pick: true, desc: 'Our Sidekick Pick. The sweet spot in this intimate theater — close enough to see every expression, far enough to take in the full stage. Center sightlines cover all 15 acts beautifully. The best all-around experience in the Atrium Theater.' },
+  r2: { name: 'Reserved 2 — Rows D–J', pick: true, desc: 'Our Sweet Spot. The sweet spot in this intimate theater — close enough to see every expression, far enough to take in the full stage. Center sightlines cover all 15 acts beautifully. The best all-around experience in the Atrium Theater.' },
   r3: { name: 'Reserved 3 — Rows K–L', pick: false, desc: 'Mid-to-upper section with good elevation and solid sightlines to the stage. Still very close in this cozy theater. A solid choice that puts you above the action with a clear view of the full stage width.' },
   r4: { name: 'Reserved 4 — Row M', pick: false, desc: 'The back row of the Atrium Theater. Furthest from the stage but still intimate by Vegas standards — this is not a large venue. Row M gives you a complete, elevated view of every act from start to finish.' }
 };
