@@ -465,7 +465,7 @@ function buildSched(){
   });
   html+=`<a href="https://spotlight.vegas/shows/adult/atomic-saloon/ref/vegassidekick" class="sk-sched-cta" rel="noopener sponsored" target="_blank"><div class="sk-sched-cta-label">All Dates</div><div class="sk-sched-cta-arrow">→</div></a>`;
   g.innerHTML=html;
-  setTimeout(()=>{const el=g.querySelector('.sk-day.today');if(el)el.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});},100);
+  setTimeout(()=>{const el=g.querySelector('.sk-day.today');if(el)g.scrollLeft=el.offsetLeft-(g.clientWidth-el.clientWidth)/2;},100);
 }
 buildSched();
 const statEls=document.querySelectorAll('[data-count]');
