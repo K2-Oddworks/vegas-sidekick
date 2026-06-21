@@ -89,6 +89,8 @@ const CARROT_IMG  = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkG
 
 // ─── Config ───────────────────────────────────────────────────────────────────
 const IS_MOBILE = window.innerWidth < 768;
+// Scene layout constants — positions relative to strip road
+const HR_X = -5, HR_Z = -42;    // High Roller center (behind road)
 
 // ─── Renderer ─────────────────────────────────────────────────────────────────
 const canvas = document.getElementById('canvas');
@@ -111,9 +113,9 @@ camera.position.copy(CAM_DEFAULT);
 
 // ─── OrbitControls ────────────────────────────────────────────────────────────
 const controls = new THREE.OrbitControls(camera, canvas);
-controls.target.set(0, 2, 0);
+controls.target.set(-12, 2, -15);
 controls.minDistance = 8;
-controls.maxDistance = 90;
+controls.maxDistance = 120;
 controls.maxPolarAngle = Math.PI * 0.49;
 controls.enableDamping = true;
 controls.dampingFactor = 0.06;
@@ -182,7 +184,7 @@ moonLight.position.set(-40, 60, -30);
 scene.add(moonLight);
 
 const hubGlow = new THREE.PointLight(0xfff5cc, 2.5, 22);
-hubGlow.position.set(0, 0, 1.5);
+hubGlow.position.set(HR_X, 0, HR_Z + 1.5);
 scene.add(hubGlow);
 
 // ─── Sky sphere ───────────────────────────────────────────────────────────────
@@ -215,6 +217,7 @@ scene.add(ground);
 
 // ─── Wheel assembly ───────────────────────────────────────────────────────────
 const wheelGroup = new THREE.Group();
+wheelGroup.position.set(HR_X, 0, HR_Z);
 scene.add(wheelGroup);
 
 // Rim
@@ -248,8 +251,8 @@ for (let i = 0; i < 28; i++) {
 // Tripod (static — added to scene, not wheelGroup)
 const supportMat = toon(0x334455);
 [0, (2*Math.PI/3), (4*Math.PI/3)].forEach(a => {
-  const top = new THREE.Vector3(0, 0, 0);
-  const bot = new THREE.Vector3(Math.cos(a) * 7, -13, Math.sin(a) * 7);
+  const top = new THREE.Vector3(HR_X, 0, HR_Z);
+  const bot = new THREE.Vector3(HR_X + Math.cos(a) * 7, -13, HR_Z + Math.sin(a) * 7);
   const dir = new THREE.Vector3().subVectors(top, bot).normalize();
   const len = top.distanceTo(bot);
   const mid = new THREE.Vector3().lerpVectors(top, bot, 0.5);
@@ -280,7 +283,7 @@ for (let i = 0; i < POD_N; i++) {
     emissive: POD_COLORS[0].clone(), emissiveIntensity: 1.2
   });
   const mesh = new THREE.Mesh(new THREE.SphereGeometry(0.45, 12, 8), mat);
-  mesh.position.set(Math.cos(baseAngle) * 12, Math.sin(baseAngle) * 12, 0);
+  mesh.position.set(HR_X + Math.cos(baseAngle) * 12, Math.sin(baseAngle) * 12, HR_Z);
   scene.add(mesh);
   let light = null;
   if (i % podLightEvery === 0) {
@@ -291,58 +294,8 @@ for (let i = 0; i < POD_N; i++) {
   pods.push({ mesh, light, baseAngle, phase: i / POD_N });
 }
 
-// ─── Palm trees ───────────────────────────────────────────────────────────────
-function makePalm(x, z, hScale) {
-  const g = new THREE.Group();
-  g.position.set(x, -13, z);
-  const h = (8 + Math.random() * 4) * hScale;
-  const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.10, 0.22, h, 7), toon(0x6b4423));
-  trunk.position.y = h / 2;
-  if (!IS_MOBILE) trunk.castShadow = true;
-  g.add(trunk);
-  return g;
-}
-[[-18,-8,0.95],[18,-12,1.0],[-15,11,0.9],[20,9,1.05],[-22,3,0.85],[15,-20,1.1],[-10,19,0.92],[24,1,1.0]]
-.forEach(([x,z,h]) => scene.add(makePalm(x, z, h)));
-
-// ─── Buildings with outlines + warm interior lights ───────────────────────────
+// ─── Streetlight intensity pool (used by Strip road + Luxor lights) ───────────
 const buildingLights = [];
-
-function makeBuilding(x, z, w, d, bh, col) {
-  const grp = new THREE.Group();
-  const bMesh = new THREE.Mesh(new THREE.BoxGeometry(w, bh, d), toon(col));
-  bMesh.position.set(x, -13 + bh / 2, z);
-  if (!IS_MOBILE) { bMesh.castShadow = true; bMesh.receiveShadow = true; }
-  addEdges(bMesh, 0x3366ff, 10);
-  grp.add(bMesh);
-
-  // Emissive window grid
-  const winMat = new THREE.MeshToonMaterial({ color: 0xffffcc, gradientMap: toonGrad, emissive: new THREE.Color(0xffcc88), emissiveIntensity: 1.8 });
-  const rows = 4 + Math.floor(Math.random() * 5);
-  const cols = 3 + Math.floor(Math.random() * 4);
-  for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
-      if (Math.random() < 0.65) {
-        const wm = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.7, 0.15), winMat);
-        wm.position.set(x + (c / (cols-1) - 0.5) * w * 0.72, -13 + bh*0.1 + (r/(rows-1))*bh*0.8, z - d/2 - 0.08);
-        grp.add(wm);
-      }
-    }
-  }
-
-  // Warm interior point light
-  const bLight = new THREE.PointLight(0xff9944, 1.2, bh * 1.8 + 10);
-  bLight.position.set(x, -13 + bh * 0.65, z - d * 0.4);
-  buildingLights.push(bLight);
-  scene.add(bLight);
-
-  scene.add(grp);
-}
-
-[[-60,-80,20,15,42,0x1a2a3e],[-32,-90,28,18,58,0x1e2e44],[6,-95,20,14,36,0x162434],
- [38,-85,24,16,50,0x1c2a3c],[65,-75,30,20,40,0x182638],[-85,-68,16,12,30,0x14202e],
- [85,-62,18,13,34,0x1a2840]]
-.forEach(a => makeBuilding(...a));
 
 // ─── Billboards ───────────────────────────────────────────────────────────────
 const texLoader = new THREE.TextureLoader();
@@ -386,9 +339,10 @@ function makeBillboard(dataUrl, x, y, z, w, h, name, venue, url) {
   return grp;
 }
 
-makeBillboard(MARC_IMG,    -24,-10,-20,10,6,   'Marc Savard Comedy Hypnosis', 'V Theater, Planet Hollywood', 'https://vegassidekick.com/shows/comedy/marc-savard-comedy-hypnosis/');
-makeBillboard(MYSTERE_IMG,   1,-10,-36,11,6.2, 'Cirque du Soleil: Mystère',   'Treasure Island Las Vegas',   'https://vegassidekick.com/shows/cirque/mystere/');
-makeBillboard(CARROT_IMG,   24,-10,-20, 9,6,   'Carrot Top',                  'Luxor Hotel & Casino',        'https://vegassidekick.com/shows/comedy/carrot-top/');
+// Billboards lined up along the road edge beside the Luxor complex, facing the Strip
+makeBillboard(MARC_IMG,    -46,-10,-42,10,6,   'Marc Savard Comedy Hypnosis', 'V Theater, Planet Hollywood', 'https://vegassidekick.com/shows/comedy/marc-savard-comedy-hypnosis/');
+makeBillboard(MYSTERE_IMG, -57,-10,-50,11,6.2, 'Cirque du Soleil: Mystère',   'Treasure Island Las Vegas',   'https://vegassidekick.com/shows/cirque/mystere/');
+makeBillboard(CARROT_IMG,  -68,-10,-58, 9,6,   'Carrot Top',                  'Luxor Hotel & Casino',        'https://vegassidekick.com/shows/comedy/carrot-top/');
 
 // ─── Raycaster & billboard interaction ───────────────────────────────────────
 const raycaster = new THREE.Raycaster();
@@ -435,7 +389,7 @@ function closePopup() {
 
 // ─── Luxor Hotel & Casino ────────────────────────────────────────────────────
 // Positioned south of High Roller along the Strip axis (world x=-55, z=-50)
-const LUXOR_X = -55, LUXOR_Z = -50;
+const LUXOR_X = -65, LUXOR_Z = -78;
 const PYRAMID_H = 35;
 
 // Square pyramid — ConeGeometry with 4 radial segments
@@ -476,20 +430,21 @@ const apexBloom = new THREE.PointLight(0xffffff, 7, 18);
 apexBloom.position.set(LUXOR_X, APEX_WY + 12, LUXOR_Z);
 scene.add(apexBloom);
 
-// Sphinx — simplified silhouette, face in local -Z so lookAt(camera) points face toward viewer
+// Sphinx — simplified silhouette, face in local +Z.
+// Three.js Object3D.lookAt() aims +Z at target, so the face (in +Z) looks toward camera/Strip.
 (function () {
   const grp = new THREE.Group();
   const gold     = toon(0xc8a84b);
   const darkGold = toon(0x9a7828);
 
-  // Body — lion lying down, long axis along X, face in -Z direction
+  // Body — lion lying down, face extends in +Z direction
   const body = new THREE.Mesh(new THREE.BoxGeometry(11, 5, 14), gold);
   body.position.set(0, 2.5, 0);
   addEdges(body, 0x7a5810, 10);
   grp.add(body);
 
-  // Front paws extending forward (local -Z = toward camera after lookAt)
-  [[-3, 0.9, -9], [3, 0.9, -9]].forEach(([x, y, z]) => {
+  // Front paws extending forward (+Z = toward camera after lookAt)
+  [[-3, 0.9, 9], [3, 0.9, 9]].forEach(([x, y, z]) => {
     const paw = new THREE.Mesh(new THREE.BoxGeometry(3, 1.8, 5), gold);
     paw.position.set(x, y, z);
     grp.add(paw);
@@ -497,38 +452,37 @@ scene.add(apexBloom);
 
   // Neck rising from front of body
   const neck = new THREE.Mesh(new THREE.BoxGeometry(5, 5, 4), gold);
-  neck.position.set(0, 6.5, -5.5);
+  neck.position.set(0, 6.5, 5.5);
   grp.add(neck);
 
   // Head
   const head = new THREE.Mesh(new THREE.BoxGeometry(7, 7, 5.5), gold);
-  head.position.set(0, 10, -7);
+  head.position.set(0, 10, 7);
   addEdges(head, 0x7a5810, 10);
   grp.add(head);
 
   // Nemes headdress — flat top block
   const nemes = new THREE.Mesh(new THREE.BoxGeometry(9, 2.5, 6), darkGold);
-  nemes.position.set(0, 15, -7);
+  nemes.position.set(0, 15, 7);
   grp.add(nemes);
   // Side panels hanging down
-  [[-5, 10.5, -6.5], [5, 10.5, -6.5]].forEach(([x, y, z]) => {
+  [[-5, 10.5, 6.5], [5, 10.5, 6.5]].forEach(([x, y, z]) => {
     const panel = new THREE.Mesh(new THREE.BoxGeometry(2, 9, 4.5), darkGold);
     panel.position.set(x, y, z);
     grp.add(panel);
   });
 
-  // Eye stripe (dark kohl line — on face front face in -Z)
+  // Eye stripe (kohl line on the face, front of head)
   const eyes = new THREE.Mesh(new THREE.BoxGeometry(7, 0.8, 0.2), toon(0x1a1a36));
-  eyes.position.set(0, 10.2, -9.9);
+  eyes.position.set(0, 10.2, 9.9);
   grp.add(eyes);
 
   // Ceremonial beard hanging from chin
   const beard = new THREE.Mesh(new THREE.BoxGeometry(2.5, 5, 2), darkGold);
-  beard.position.set(0, 5.5, -9.5);
+  beard.position.set(0, 5.5, 9.5);
   grp.add(beard);
 
-  // Place sphinx in front of pyramid
-  // lookAt makes -Z face the target → face geometry (in -Z) points toward camera/Strip
+  // Place sphinx in front of pyramid; lookAt aims +Z toward camera so face looks at the Strip
   grp.position.set(LUXOR_X, -13, LUXOR_Z + 23);
   grp.lookAt(28, grp.position.y + 3, 28);
   scene.add(grp);
@@ -679,7 +633,7 @@ function resetCamera() {
   autoTourOn = cinematicOn = false;
   controls.enabled = true;
   camera.position.copy(CAM_DEFAULT);
-  controls.target.set(0, 2, 0);
+  controls.target.set(-12, 2, -15);
   controls.update();
   document.getElementById('btn-tour').classList.remove('active');
   document.getElementById('btn-cin').classList.remove('active');
@@ -703,7 +657,7 @@ function animate() {
   wheelGroup.rotation.z = wheelAngle;
   pods.forEach(pod => {
     const wa = pod.baseAngle + wheelAngle;
-    pod.mesh.position.set(Math.cos(wa) * 12, Math.sin(wa) * 12, 0);
+    pod.mesh.position.set(HR_X + Math.cos(wa) * 12, Math.sin(wa) * 12, HR_Z);
     if (pod.light) pod.light.position.copy(pod.mesh.position);
     const t = ((time * 0.2) + pod.phase) % 1.0;
     const ci = Math.floor(t * 4) % 4, cf = (t * 4) % 1.0;
@@ -717,13 +671,13 @@ function animate() {
   beamMat.opacity = todState.beamOpacity * (0.82 + 0.28 * Math.sin(time * 2.9));
   if (autoTourOn) {
     tourT += dt;
-    camera.position.set(Math.cos(tourT*0.22)*(30+Math.sin(tourT*0.18)*12), 5+Math.sin(tourT*0.14)*10, Math.sin(tourT*0.22)*(30+Math.sin(tourT*0.18)*12));
-    camera.lookAt(0, 4, 0);
+    camera.position.set(Math.cos(tourT*0.22)*(32+Math.sin(tourT*0.18)*12) - 10, 6+Math.sin(tourT*0.14)*10, Math.sin(tourT*0.22)*(32+Math.sin(tourT*0.18)*12) - 18);
+    camera.lookAt(-10, 4, -18);
   }
   if (cinematicOn) {
     cinT += dt;
-    camera.position.set(Math.cos(cinT*0.09)*22, -10, Math.sin(cinT*0.09)*22);
-    camera.lookAt(0, 12, 0);
+    camera.position.set(Math.cos(cinT*0.09)*22 + HR_X, -8, Math.sin(cinT*0.09)*22 + HR_Z);
+    camera.lookAt(HR_X, 12, HR_Z);
   }
   if (!autoTourOn && !cinematicOn) controls.update();
   composer.render();
