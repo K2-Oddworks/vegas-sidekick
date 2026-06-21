@@ -444,8 +444,96 @@ function closePopup() {
   document.getElementById('bb-popup').classList.remove('visible');
 }
 
-// ─── Time-of-day ─────────────────────────────────────────────────────────────
-const todState = { rimBase: 0.35, podGlow: 0.08 };
+// ─── Luxor Hotel & Casino ────────────────────────────────────────────────────
+// Positioned south of High Roller along the Strip axis (world x=-55, z=-50)
+const LUXOR_X = -55, LUXOR_Z = -50;
+const PYRAMID_H = 35;
+
+// Square pyramid — ConeGeometry with 4 radial segments
+const pyramidMat = new THREE.MeshToonMaterial({
+  color: 0x0b0b18, gradientMap: toonGrad,
+  emissive: new THREE.Color(0x0d0d28), emissiveIntensity: 0.18
+});
+const pyramidMesh = new THREE.Mesh(new THREE.ConeGeometry(20, PYRAMID_H, 4), pyramidMat);
+pyramidMesh.position.set(LUXOR_X, -13 + PYRAMID_H / 2, LUXOR_Z);
+pyramidMesh.rotation.y = Math.PI / 4; // align flat faces outward
+addEdges(pyramidMesh, 0x2244bb, 20);
+if (!IS_MOBILE) pyramidMesh.castShadow = true;
+scene.add(pyramidMesh);
+
+// Luxor pyramid is clickable (links to Carrot Top at Luxor)
+clickables.push({
+  mesh: pyramidMesh,
+  name: 'Luxor Hotel & Casino',
+  venue: 'Las Vegas Blvd South · Home of Carrot Top',
+  url: 'https://vegassidekick.com/shows/comedy/carrot-top/'
+});
+
+// Signature sky beam from apex
+const APEX_WY = -13 + PYRAMID_H;
+const beamMat = new THREE.MeshBasicMaterial({
+  color: 0xddeeff, transparent: true, opacity: 0.22,
+  side: THREE.DoubleSide, depthWrite: false
+});
+const beamMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.9, 450, 8, 1, true), beamMat);
+beamMesh.position.set(LUXOR_X, APEX_WY + 225, LUXOR_Z);
+scene.add(beamMesh);
+
+// Apex glow lights (bloom source)
+const apexGlow = new THREE.PointLight(0xaaccff, 4.5, 55);
+apexGlow.position.set(LUXOR_X, APEX_WY, LUXOR_Z);
+scene.add(apexGlow);
+const apexBloom = new THREE.PointLight(0xffffff, 7, 18);
+apexBloom.position.set(LUXOR_X, APEX_WY + 12, LUXOR_Z);
+scene.add(apexBloom);
+
+// Sphinx — geometric toon sculpture facing toward the Strip (camera direction)
+(function () {
+  const grp = new THREE.Group();
+  const gold  = toon(0xc8a45a);
+  const richGold = toon(0xd4a820);
+
+  // Body (lion, lying down — long axis = local +Z = front)
+  const body = new THREE.Mesh(new THREE.BoxGeometry(10, 5, 18), gold);
+  body.position.y = 2.5; addEdges(body, 0x7a5810, 10); grp.add(body);
+
+  // Front paws stretched forward
+  [[-3.2, 0.8, 10], [3.2, 0.8, 10]].forEach(([x, y, z]) => {
+    const paw = new THREE.Mesh(new THREE.BoxGeometry(3, 1.8, 5), gold);
+    paw.position.set(x, y, z); grp.add(paw);
+  });
+
+  // Neck
+  const neck = new THREE.Mesh(new THREE.BoxGeometry(5, 4.5, 4), gold);
+  neck.position.set(0, 5.5, 6.5); grp.add(neck);
+
+  // Head
+  const head = new THREE.Mesh(new THREE.BoxGeometry(6.5, 6.5, 5), gold);
+  head.position.set(0, 9, 8); addEdges(head, 0x7a5810, 10); grp.add(head);
+
+  // Nemes headdress — top crown
+  const crown = new THREE.Mesh(new THREE.BoxGeometry(7.5, 2, 5.5), richGold);
+  crown.position.set(0, 13.2, 8); grp.add(crown);
+  // Side panels hanging down
+  [[-4.2, 10, 7.5], [4.2, 10, 7.5]].forEach(([x, y, z]) => {
+    const panel = new THREE.Mesh(new THREE.BoxGeometry(1.8, 7.5, 4), richGold);
+    panel.position.set(x, y, z); grp.add(panel);
+  });
+
+  // Eye stripe (dark kohl line)
+  const eyes = new THREE.Mesh(new THREE.BoxGeometry(6.5, 0.9, 0.25), toon(0x1a1a36));
+  eyes.position.set(0, 9.2, 10.6); grp.add(eyes);
+
+  // Ceremonial beard
+  const beard = new THREE.Mesh(new THREE.BoxGeometry(2, 4.5, 1.8), richGold);
+  beard.position.set(0, 5.5, 10.5); grp.add(beard);
+
+  // Place sphinx in front of pyramid, face toward default camera
+  grp.position.set(LUXOR_X, -13, LUXOR_Z + 23);
+  grp.lookAt(28, grp.position.y + 5, 28);
+  scene.add(grp);
+})();
+const todState = { rimBase: 0.35, podGlow: 0.08, beamOpacity: 0.22, apexIntensity: 4.5 };
 let lightOverride = null;
 
 function applyTOD(phase) {
@@ -479,6 +567,12 @@ function applyTOD(phase) {
   rimMat.emissiveIntensity = todState.rimBase;
   rimMat.emissive.setHex(n ? 0x2244ff : 0x1122aa);
   scene.fog.color.setHex(n ? 0x0d0d28 : dy ? 0xaaddff : 0x1a1a4e);
+  // Luxor beam — full blaze at night, barely visible by day
+  todState.beamOpacity   = n ? 0.22 : (d||g) ? 0.13 : 0.03;
+  todState.apexIntensity = n ? 5.5  : (d||g) ? 2.5  : 0.4;
+  beamMat.opacity   = todState.beamOpacity;
+  apexGlow.intensity = todState.apexIntensity;
+  apexBloom.intensity = n ? 8 : (d||g) ? 4 : 0.5;
 }
 
 // ─── Camera modes ────────────────────────────────────────────────────────────
@@ -537,6 +631,8 @@ function animate() {
   });
   rimMat.emissiveIntensity = todState.rimBase * (0.75 + 0.5 * Math.sin(time * 1.7));
   hubGlow.intensity = 2.0 + Math.sin(time * 2.3) * 0.6;
+  // Luxor beam subtle atmospheric shimmer
+  beamMat.opacity = todState.beamOpacity * (0.82 + 0.28 * Math.sin(time * 2.9));
   if (autoTourOn) {
     tourT += dt;
     camera.position.set(Math.cos(tourT*0.22)*(30+Math.sin(tourT*0.18)*12), 5+Math.sin(tourT*0.14)*10, Math.sin(tourT*0.22)*(30+Math.sin(tourT*0.18)*12));
