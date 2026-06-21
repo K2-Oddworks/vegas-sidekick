@@ -189,6 +189,11 @@ const hubGlow = new THREE.PointLight(0xfff5cc, 2.5, 22);
 hubGlow.position.set(0, 0, 1.5);
 scene.add(hubGlow);
 
+// Dim moon-like fill light, active at night
+const moonLight = new THREE.DirectionalLight(0x8899cc, 0.0);
+moonLight.position.set(-40, 60, -30);
+scene.add(moonLight);
+
 // ─── Sky sphere (inverted, gradient shader) ───────────────────────────────────
 const skyMat = new THREE.ShaderMaterial({
   side: THREE.BackSide,
@@ -432,15 +437,17 @@ function applyTOD(phase) {
     skyMat.uniforms.uTop.value.set(0x0d0d66);
     skyMat.uniforms.uHori.value.set(0x2233aa);
   } else {
-    skyMat.uniforms.uTop.value.set(0x020208);
-    skyMat.uniforms.uHori.value.set(0x080820);
+    skyMat.uniforms.uTop.value.set(0x050514);
+    skyMat.uniforms.uHori.value.set(0x121230);
   }
 
   // Sun & ambient
   sunLight.intensity = dy ? 2.2 : s ? 0.9 : g ? 1.3 : d ? 0.4 : 0.0;
   sunLight.color.setHex(dy ? 0xffffff : s ? 0xff8844 : g ? 0xffbb44 : d ? 0x6688cc : 0x111122);
-  ambientLight.intensity = dy ? 0.55 : s ? 0.3 : g ? 0.35 : d ? 0.2 : 0.15;
-  ambientLight.color.setHex(dy ? 0x8899cc : s ? 0xdd8866 : g ? 0xcc9944 : d ? 0x445577 : 0x222244);
+  ambientLight.intensity = dy ? 0.55 : s ? 0.3 : g ? 0.35 : d ? 0.25 : 0.5;
+  ambientLight.color.setHex(dy ? 0x8899cc : s ? 0xdd8866 : g ? 0xcc9944 : d ? 0x445577 : 0x5566aa);
+  // Moon fill at night
+  moonLight.intensity = n ? 0.35 : d ? 0.1 : 0.0;
 
   // Stars
   starMat.opacity = n ? 1.0 : d ? 0.35 : 0.0;
@@ -461,7 +468,7 @@ function applyTOD(phase) {
   rimMat.emissive.setHex(n ? 0x2244ff : 0x1122aa);
 
   // Fog
-  scene.fog.color.setHex(n ? 0x050510 : dy ? 0xaaddff : 0x1a1a4e);
+  scene.fog.color.setHex(n ? 0x0d0d28 : dy ? 0xaaddff : 0x1a1a4e);
 }
 
 // ─── Camera modes ─────────────────────────────────────────────────────────────
