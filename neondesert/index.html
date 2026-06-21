@@ -533,6 +533,88 @@ scene.add(apexBloom);
   grp.lookAt(28, grp.position.y + 5, 28);
   scene.add(grp);
 })();
+
+// ─── Las Vegas Strip road ─────────────────────────────────────────────────────
+(function makeLVStrip() {
+  // Road runs from south of Luxor through the High Roller area
+  // Angle aligns with Luxor-sphinx → High-Roller direction: dx=55, dz=32
+  const ANGLE   = Math.atan2(55, 32);
+  const cos_a   = Math.cos(ANGLE), sin_a = Math.sin(ANGLE);
+  // Center point: midway between Luxor front and High Roller, offset toward camera
+  const CX = -20, CZ = -10;
+  const GROUND  = -12.85;  // road surface sits just above ground plane (-13)
+  const ROAD_LEN = 280, ROAD_W = 11, SIDE_W = 4;
+
+  // Convert road-local (lx along width-axis, lz along length-axis) to world XZ
+  function toWorld(lx, lz) {
+    return [CX + lx * cos_a + lz * sin_a,
+            CZ - lx * sin_a + lz * cos_a];
+  }
+  function roadBox(w, h, d, lx, wy, lz, mat) {
+    const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
+    const [wx, wz] = toWorld(lx, lz);
+    m.position.set(wx, wy, wz);
+    m.rotation.y = ANGLE;
+    scene.add(m);
+    return m;
+  }
+
+  // Asphalt surface
+  const asphaltMat = toon(0x1c1c26);
+  roadBox(ROAD_W, 0.28, ROAD_LEN, 0, GROUND, 0, asphaltMat);
+
+  // Sidewalks (slightly higher than road)
+  const sidewalkMat = toon(0x2e2e40);
+  roadBox(SIDE_W, 0.32, ROAD_LEN, -(ROAD_W / 2 + SIDE_W / 2), GROUND + 0.02, 0, sidewalkMat);
+  roadBox(SIDE_W, 0.32, ROAD_LEN,  (ROAD_W / 2 + SIDE_W / 2), GROUND + 0.02, 0, sidewalkMat);
+
+  // Yellow center divider (emissive glow)
+  const centerMat = new THREE.MeshToonMaterial({
+    color: 0xffcc00, emissive: 0xffcc00, emissiveIntensity: 0.5, gradientMap: toonGrad
+  });
+  roadBox(0.22, 0.3, ROAD_LEN, 0, GROUND + 0.02, 0, centerMat);
+
+  // White lane dashes (2 lanes each side of center)
+  if (!IS_MOBILE) {
+    const dashMat = new THREE.MeshToonMaterial({
+      color: 0xffffff, emissive: 0xffffff, emissiveIntensity: 0.35, gradientMap: toonGrad
+    });
+    const DASH = 3.5, GAP = 7, LANE_X = 2.9;
+    for (let z = -(ROAD_LEN / 2 - 5); z < ROAD_LEN / 2 - 5; z += DASH + GAP) {
+      roadBox(0.14, 0.3, DASH, -LANE_X, GROUND + 0.02, z, dashMat);
+      roadBox(0.14, 0.3, DASH,  LANE_X, GROUND + 0.02, z, dashMat);
+    }
+  }
+
+  // Streetlights every 35 units, both sides
+  const poleMat = toon(0x445566);
+  const lampMat = new THREE.MeshToonMaterial({
+    color: 0xff9933, emissive: 0xff8800, emissiveIntensity: 1.4, gradientMap: toonGrad
+  });
+  const POLE_H = 7, LIGHT_OFF = ROAD_W / 2 + SIDE_W + 0.8;
+  for (let z = -(ROAD_LEN / 2 - 18); z < ROAD_LEN / 2 - 10; z += 35) {
+    [-1, 1].forEach(side => {
+      const lx = side * LIGHT_OFF;
+      const [wx, wz] = toWorld(lx, z);
+      const py = GROUND + POLE_H / 2 + 0.14;
+      const ly = GROUND + POLE_H + 0.5;
+
+      const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.18, POLE_H, 6), poleMat);
+      pole.position.set(wx, py, wz);
+      scene.add(pole);
+
+      const lamp = new THREE.Mesh(new THREE.SphereGeometry(0.45, 6, 4), lampMat);
+      lamp.position.set(wx, ly, wz);
+      scene.add(lamp);
+
+      const pl = new THREE.PointLight(0xff9944, 0.8, 20);
+      pl.position.set(wx, ly, wz);
+      scene.add(pl);
+      buildingLights.push(pl);  // managed by applyTOD
+    });
+  }
+})();
+
 const todState = { rimBase: 0.35, podGlow: 0.08, beamOpacity: 0.22, apexIntensity: 4.5 };
 let lightOverride = null;
 
