@@ -23,6 +23,21 @@ html,body{width:100%;height:100%;overflow:hidden;background:#050510;font-family:
 .ld-title{color:#FF6B2B;font-size:28px;letter-spacing:8px;font-weight:300;text-transform:uppercase;text-shadow:0 0 40px rgba(255,107,43,0.5)}
 .ld-sub{color:rgba(255,255,255,0.28);font-size:10px;letter-spacing:4px;text-transform:uppercase}
 @media(max-width:768px){#controls{top:auto;bottom:52px;right:12px;flex-direction:row;flex-wrap:wrap;justify-content:flex-end;max-width:calc(100vw - 24px)}.btn{padding:7px 10px;font-size:11px}#time-display{top:12px;left:12px}#footer{font-size:11px;bottom:8px}}
+
+/* ── Billboard popup ── */
+#bb-popup{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:300;pointer-events:none;opacity:0;transition:opacity 0.3s ease}
+#bb-popup.visible{opacity:1;pointer-events:all}
+#bb-popup .backdrop{position:absolute;inset:0;background:rgba(0,0,10,0.45);backdrop-filter:blur(3px)}
+#bb-popup .card{position:relative;background:rgba(5,5,22,0.96);border:1px solid rgba(68,136,255,0.55);border-radius:14px;padding:32px 36px 28px;text-align:center;box-shadow:0 0 0 1px rgba(68,136,255,0.12),0 0 40px rgba(51,102,255,0.25),0 0 90px rgba(51,102,255,0.08);max-width:340px;width:90vw;transform:translateY(18px) scale(0.97);transition:transform 0.3s cubic-bezier(.22,.68,0,1.2)}
+#bb-popup.visible .card{transform:translateY(0) scale(1)}
+.bb-close{position:absolute;top:12px;right:16px;background:none;border:none;color:rgba(255,255,255,0.38);font-size:22px;cursor:pointer;line-height:1;transition:color 0.15s}
+.bb-close:hover{color:#fff}
+.bb-eyebrow{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:rgba(68,136,255,0.8);margin-bottom:10px}
+.bb-name{color:#fff;font-size:22px;font-weight:700;letter-spacing:0.5px;line-height:1.2;margin-bottom:6px}
+.bb-sub{color:rgba(255,255,255,0.38);font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:24px}
+.bb-cta{display:inline-block;background:#FF6B2B;color:#fff;text-decoration:none;padding:13px 32px;border-radius:7px;font-size:14px;font-weight:700;letter-spacing:0.6px;box-shadow:0 0 24px rgba(255,107,43,0.45);transition:background 0.18s,box-shadow 0.18s,transform 0.12s}
+.bb-cta:hover{background:#ff7d40;box-shadow:0 0 40px rgba(255,107,43,0.65);transform:translateY(-1px)}
+.bb-cta:active{transform:translateY(0)}
 </style>
 </head>
 <body>
@@ -43,6 +58,17 @@ html,body{width:100%;height:100%;overflow:hidden;background:#050510;font-family:
   <button class="btn" id="btn-reset"  onclick="resetCamera()">&#8635; Reset</button>
 </div>
 <div id="footer">&#127797; VegasSidekick.com/NeonDesert</div>
+
+<div id="bb-popup">
+  <div class="backdrop" onclick="closePopup()"></div>
+  <div class="card">
+    <button class="bb-close" onclick="closePopup()">&#215;</button>
+    <div class="bb-eyebrow">Now Playing in Las Vegas</div>
+    <div class="bb-name" id="bb-name">Show Name</div>
+    <div class="bb-sub" id="bb-sub">Las Vegas, NV</div>
+    <a class="bb-cta" id="bb-link" href="#" target="_blank" rel="noopener">Get Tickets &amp; Info &#8594;</a>
+  </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
@@ -331,17 +357,18 @@ function makeBuilding(x, z, w, d, bh, col) {
 
 // ─── Billboards ───────────────────────────────────────────────────────────────
 const texLoader = new THREE.TextureLoader();
+const clickables = []; // { mesh, name, venue, url }
 
-function makeBillboard(dataUrl, x, y, z, w, h) {
+function makeBillboard(dataUrl, x, y, z, w, h, name, venue, url) {
   const grp = new THREE.Group();
 
-  // Backing frame (dark box with blue edge)
+  // Backing frame
   const frame = new THREE.Mesh(new THREE.BoxGeometry(w + 0.6, h + 0.6, 0.3), toon(0x0a0a1e));
   addEdges(frame, 0x4488ff, 5);
   frame.position.y = h / 2;
   grp.add(frame);
 
-  // Poster plane on front of frame
+  // Poster plane — registered as clickable
   const tex = texLoader.load(dataUrl);
   tex.encoding = THREE.sRGBEncoding;
   const poster = new THREE.Mesh(
@@ -350,6 +377,7 @@ function makeBillboard(dataUrl, x, y, z, w, h) {
   );
   poster.position.set(0, h / 2, 0.2);
   grp.add(poster);
+  clickables.push({ mesh: poster, name, venue, url });
 
   // Support pole
   const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.14, h + 6, 8), toon(0x223344));
@@ -364,15 +392,57 @@ function makeBillboard(dataUrl, x, y, z, w, h) {
   grp.add(strip);
 
   grp.position.set(x, y, z);
-  grp.lookAt(28, y + h / 2, 28); // face toward default camera
+  grp.lookAt(28, y + h / 2, 28);
   scene.add(grp);
   return grp;
 }
 
-// Three show billboards spread around the scene
-makeBillboard(MARC_IMG,    -24, -10, -20, 10, 6);
-makeBillboard(MYSTERE_IMG,   1, -10, -36, 11, 6.2);
-makeBillboard(CARROT_IMG,   24, -10, -20,  9, 6);
+makeBillboard(MARC_IMG,    -24,-10,-20,10,6,   'Marc Savard Comedy Hypnosis', 'V Theater, Planet Hollywood', 'https://vegassidekick.com/shows/comedy/marc-savard-comedy-hypnosis/');
+makeBillboard(MYSTERE_IMG,   1,-10,-36,11,6.2, 'Cirque du Soleil: Mystère',   'Treasure Island Las Vegas',   'https://vegassidekick.com/shows/cirque/mystere/');
+makeBillboard(CARROT_IMG,   24,-10,-20, 9,6,   'Carrot Top',                  'Luxor Hotel & Casino',        'https://vegassidekick.com/shows/comedy/carrot-top/');
+
+// ─── Raycaster & billboard interaction ───────────────────────────────────────
+const raycaster = new THREE.Raycaster();
+const _mouse = new THREE.Vector2();
+
+function getPointerNDC(clientX, clientY) {
+  const r = canvas.getBoundingClientRect();
+  _mouse.x =  ((clientX - r.left) / r.width)  * 2 - 1;
+  _mouse.y = -((clientY - r.top)  / r.height) * 2 + 1;
+}
+
+function hitTest() {
+  raycaster.setFromCamera(_mouse, camera);
+  const hits = raycaster.intersectObjects(clickables.map(c => c.mesh));
+  return hits.length ? clickables.find(c => c.mesh === hits[0].object) : null;
+}
+
+canvas.addEventListener('click', e => {
+  getPointerNDC(e.clientX, e.clientY);
+  const hit = hitTest();
+  if (hit) showPopup(hit);
+});
+canvas.addEventListener('touchend', e => {
+  if (e.changedTouches.length) {
+    getPointerNDC(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+    const hit = hitTest();
+    if (hit) { e.preventDefault(); showPopup(hit); }
+  }
+}, { passive: false });
+canvas.addEventListener('mousemove', e => {
+  getPointerNDC(e.clientX, e.clientY);
+  canvas.style.cursor = hitTest() ? 'pointer' : 'default';
+});
+
+function showPopup(hit) {
+  document.getElementById('bb-name').textContent = hit.name;
+  document.getElementById('bb-sub').textContent  = hit.venue;
+  document.getElementById('bb-link').href        = hit.url;
+  document.getElementById('bb-popup').classList.add('visible');
+}
+function closePopup() {
+  document.getElementById('bb-popup').classList.remove('visible');
+}
 
 // ─── Time-of-day ─────────────────────────────────────────────────────────────
 const todState = { rimBase: 0.35, podGlow: 0.08 };
