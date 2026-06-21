@@ -339,8 +339,11 @@ function makeBillboard(dataUrl, x, y, z, w, h, name, venue, url) {
   return grp;
 }
 
-// Billboards lined up along the road edge beside the Luxor complex, facing the Strip
-makeBillboard(MARC_IMG,    -46,-10,-42,10,6,   'Marc Savard Comedy Hypnosis', 'V Theater, Planet Hollywood', 'https://vegassidekick.com/shows/comedy/marc-savard-comedy-hypnosis/');
+// Marc Savard — west (camera) side of Strip, facing north toward the High Roller
+const _marcGrp = makeBillboard(MARC_IMG, -48,-10,-11,10,6, 'Marc Savard Comedy Hypnosis', 'Nathan Burton Theater', 'https://vegassidekick.com/shows/comedy/marc-savard-comedy-hypnosis/');
+_marcGrp.rotation.y = Math.atan2(55, 32); // face north (Luxor→HR direction)
+
+// Mystère + Carrot Top — east (Luxor) side of Strip, facing the road
 makeBillboard(MYSTERE_IMG, -57,-10,-50,11,6.2, 'Cirque du Soleil: Mystère',   'Treasure Island Las Vegas',   'https://vegassidekick.com/shows/cirque/mystere/');
 makeBillboard(CARROT_IMG,  -68,-10,-58, 9,6,   'Carrot Top',                  'Luxor Hotel & Casino',        'https://vegassidekick.com/shows/comedy/carrot-top/');
 
