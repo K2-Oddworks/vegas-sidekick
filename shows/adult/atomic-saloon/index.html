@@ -61,7 +61,7 @@
     .ticker-item{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-condensed);font-size:.85rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;padding:0 28px}
     .ticker-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.5)}
     .page-body{max-width:1100px;margin:0 auto;padding:32px 16px;display:grid;grid-template-columns:1fr 320px;gap:32px}
-    @media(max-width:900px){.page-body{grid-template-columns:1fr}}
+    @media(max-width:900px){.page-body{grid-template-columns:1fr}aside.sidebar{display:none}}
     main.main-content{min-width:0}
     aside.sidebar{position:sticky;top:16px;height:fit-content;background:var(--navy);border-radius:var(--radius);overflow:hidden}
     .sb-body{padding:20px}
@@ -84,7 +84,7 @@
     .seen-btns{display:flex;gap:10px;justify-content:center}
     .seen-btn{padding:9px 22px;border-radius:var(--radius-sm);border:1.5px solid #E2E8F2;font-family:var(--font-condensed);font-size:.88rem;font-weight:700;cursor:pointer;transition:all .18s;background:#fff;color:var(--navy)}
     .seen-btn:hover{border-color:var(--show);color:var(--show)}
-    .seen-thanks{display:none;font-size:.9rem;color:var(--show);font-weight:600}
+    .seen-thanks{display:none;font-size:.9rem;color:#334155;font-weight:400;text-align:left;line-height:1.6}
     .trust-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:28px}
     .trust-card{background:#fff;border:1px solid #E2E8F2;border-radius:var(--radius);padding:14px;display:flex;gap:10px;align-items:flex-start}
     .trust-icon{font-size:1.3rem;flex-shrink:0}
@@ -264,7 +264,6 @@
         </div>
         <div class="spike-callout">
           "A Vegas show that feels like nothing else on the Strip — part saloon, part circus ring, all mayhem. The crowd becomes part of the act from the moment the doors open."
-          <cite>— Vegas Sidekick Review</cite>
         </div>
       </section>
 
@@ -492,7 +491,7 @@ function selectZone(id){
 function toggleSa(btn){const a=btn.nextElementSibling;const o=a.classList.contains('open');document.querySelectorAll('.sa-a').forEach(x=>x.classList.remove('open'));document.querySelectorAll('.sa-q').forEach(x=>x.classList.remove('open'));if(!o){a.classList.add('open');btn.classList.add('open');}}
 function toggleFaq(btn){const a=btn.nextElementSibling;const o=a.classList.contains('open');document.querySelectorAll('.faq-a').forEach(x=>x.classList.remove('open'));document.querySelectorAll('.faq-q').forEach(x=>x.classList.remove('open'));if(!o){a.classList.add('open');btn.classList.add('open');}}
 function seenYes(){document.querySelector('.seen-btns').style.display='none';const t=document.getElementById('seenThanks');t.style.display='block';t.textContent='🤠 Yeehaw! Thanks for sharing.';}
-function seenNo(){document.querySelector('.seen-btns').style.display='none';const t=document.getElementById('seenThanks');t.style.display='block';t.textContent="🎟️ You're in for a treat — Atomic Saloon is one of a kind.";}
+function seenNo(){document.querySelector('.seen-btns').style.display='none';const t=document.getElementById('seenThanks');t.style.display='block';t.innerHTML='<span style="display:block;margin-bottom:8px;">You\'re in for something genuinely wild. Part saloon, part circus ring — drop-dead-sexy acrobatics, outrageous comedy, and a crowd that becomes part of the act. There\'s nothing else like it on the Strip.</span><a href="https://spotlight.vegas/shows/adult/atomic-saloon/ref/vegassidekick" target="_blank" rel="noopener sponsored" style="display:inline-block;background:var(--show);color:#fff;font-family:var(--font-condensed);font-weight:800;font-size:.9rem;letter-spacing:.06em;padding:9px 20px;border-radius:6px;text-decoration:none;text-transform:uppercase;">Get Tickets — From $100 →</a>';}
 async function submitEmail(){
   const email=document.getElementById('emailIn').value.trim();
   const msg=document.getElementById('emailMsg');
