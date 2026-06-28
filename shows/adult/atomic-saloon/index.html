@@ -48,6 +48,12 @@
     .hero-subtitle{font-family:var(--font-condensed);font-size:1rem;font-weight:700;color:var(--show-lt);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
     .hero-venue{font-family:var(--font-body);font-size:.85rem;color:rgba(255,255,255,.7);margin-bottom:16px}
     .hero-venue strong{color:#fff}
+    .info-pills{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
+    .pill{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:100px;font-family:var(--font-condensed);font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:rgba(255,255,255,.07);color:rgba(255,255,255,.74);border:1px solid rgba(255,255,255,.11)}
+    .pill-show{background:rgba(139,21,87,.22);color:var(--show-lt);border-color:rgba(139,21,87,.4)}
+    .pill-orange{background:rgba(255,107,43,.13);color:var(--orange);border-color:rgba(255,107,43,.26)}
+    .urgency-pills{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px}
+    .upill{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:6px;font-family:var(--font-condensed);font-size:.68rem;font-weight:700;letter-spacing:.04em;background:rgba(255,107,43,.09);color:var(--orange);border:1px solid rgba(255,107,43,.2)}
     .price-strip{background:var(--navy);border-top:1px solid rgba(255,255,255,.08);padding:14px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
     .price-from{font-family:var(--font-mono);font-size:.7rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.08em}
     .price-num{font-family:var(--font-price);font-size:2rem;font-weight:800;color:var(--orange);line-height:1}
@@ -210,6 +216,17 @@
       <h1 class="hero-title">Atomic Saloon Show</h1>
       <div class="hero-subtitle">Wild West Circus &amp; Comedy Mayhem</div>
       <div class="hero-venue"><strong>Waterfall Atrium, Level 2M</strong> · The Venetian Las Vegas</div>
+      <div class="info-pills">
+        <span class="pill pill-show">🤠 Wild West Variety</span>
+        <span class="pill">⏱ 75 Min</span>
+        <span class="pill pill-orange">🔞 Adults 18+</span>
+        <span class="pill">📍 The Venetian</span>
+      </div>
+      <div class="urgency-pills">
+        <div class="upill">● Tue–Sat · 7:30 PM &amp; 9:30 PM</div>
+        <div class="upill">● Two Shows Nightly</div>
+        <div class="upill">● 18+ Strictly Enforced</div>
+      </div>
     </div>
     <div class="price-strip">
       <div><div class="price-from">From</div><div class="price-num">$100</div></div>
