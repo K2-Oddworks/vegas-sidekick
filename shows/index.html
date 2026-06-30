@@ -74,11 +74,20 @@
     .filter-bar-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 8px; }
     .filter-row { display: flex; align-items: center; gap: 10px; }
     .filter-label { font-family: var(--font-mono); font-size: 0.6rem; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; min-width: 44px; }
-    .filter-btns { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; flex: 1; }
+    .filter-btns { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; flex: 1; padding-bottom: 2px; }
     .filter-btns::-webkit-scrollbar { display: none; }
-    .filter-btn { padding: 6px 13px; border-radius: 100px; font-family: var(--font-price); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.04em; border: 1.5px solid var(--border); background: var(--white); color: var(--muted); transition: all 0.18s; white-space: nowrap; }
-    .filter-btn:hover { border-color: var(--orange); color: var(--orange); }
-    .filter-btn.active { background: var(--navy); color: var(--white); border-color: var(--navy); }
+    .filter-btn { padding: 10px 18px; border-radius: 100px; font-family: var(--font-price); font-size: 0.88rem; font-weight: 800; letter-spacing: 0.02em; border: none; transition: background 0.18s, color 0.18s; white-space: nowrap; cursor: pointer; }
+    .sort-btn { background: #F1F5F9; color: #64748B; }
+    .sort-btn:hover { background: #E2E8F0; color: #334155; }
+    .sort-btn.active { background: #FF6B2B; color: #fff; }
+    .fb-all  { background: rgba(10,22,40,.08); color: #0A1628; } .fb-all.active, .fb-all:hover  { background: #0A1628; color: #fff; }
+    .fb-comedy { background: rgba(232,82,26,.10); color: #C44A0E; } .fb-comedy.active, .fb-comedy:hover { background: #E8521A; color: #fff; }
+    .fb-magic  { background: rgba(124,58,237,.10); color: #6D28D9; } .fb-magic.active,  .fb-magic:hover  { background: #7C3AED; color: #fff; }
+    .fb-cirque { background: rgba(26,107,255,.10); color: #1A55CC; } .fb-cirque.active, .fb-cirque:hover { background: #1A6BFF; color: #fff; }
+    .fb-music  { background: rgba(5,150,105,.10);  color: #047857; } .fb-music.active,  .fb-music:hover  { background: #059669; color: #fff; }
+    .fb-specs  { background: rgba(217,119,6,.10);  color: #B45309; } .fb-specs.active,  .fb-specs:hover  { background: #D97706; color: #fff; }
+    .fb-family { background: rgba(8,145,178,.10);  color: #0E7490; } .fb-family.active, .fb-family:hover { background: #0891B2; color: #fff; }
+    .fb-adult  { background: rgba(220,38,38,.10);  color: #B91C1C; } .fb-adult.active,  .fb-adult:hover  { background: #DC2626; color: #fff; }
     .show-count-wrap { margin-left: auto; font-family: var(--font-mono); font-size: 0.6rem; color: var(--muted); white-space: nowrap; flex-shrink: 0; }
     @media (max-width: 940px) { .filter-bar { top: 60px; } }
     @media (max-width: 600px) { .filter-bar { padding: 8px 14px; } .show-count-wrap { display: none; } .filter-label { display: none; } }
@@ -118,9 +127,9 @@
     .card-subtitle { font-family: var(--font-display); font-size: 0.95rem; color: rgba(10,22,40,0.45); letter-spacing: 0.04em; }
     .card-venue { font-family: var(--font-mono); font-size: 0.59rem; color: var(--muted); letter-spacing: 0.03em; margin-bottom: 10px; margin-top: 2px; }
     .card-pills { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 13px; }
-    .card-pill { padding: 3px 9px; border-radius: 100px; font-family: var(--font-price); font-size: 0.67rem; font-weight: 700; letter-spacing: 0.03em; }
-    .cp1 { background: rgba(26,107,221,0.07); color: #1A5FCC; border: 1px solid rgba(26,107,221,0.16); }
-    .cp2 { background: rgba(15,23,42,0.05); color: #475569; border: 1px solid rgba(15,23,42,0.09); }
+    .card-pill { padding: 4px 11px; border-radius: 100px; font-family: var(--font-price); font-size: 0.67rem; font-weight: 800; letter-spacing: 0.03em; border: none; color: #fff; }
+    .cp1 { background: #1A6BFF; }
+    .cp2 { background: #475569; }
     .card-price-row { display: flex; align-items: baseline; gap: 5px; margin-top: auto; margin-bottom: 12px; }
     .card-from { font-family: var(--font-mono); font-size: 0.57rem; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; }
     .card-price { font-family: var(--font-price); font-size: 2rem; font-weight: 800; color: var(--orange); line-height: 1; }
@@ -240,23 +249,23 @@
     <div class="filter-row">
       <span class="filter-label">Sort</span>
       <div class="filter-btns">
-        <button class="filter-btn active" onclick="setSort('order',this)">🌵 Sidekick Order</button>
-        <button class="filter-btn" onclick="setSort('name',this)">A – Z</button>
-        <button class="filter-btn" onclick="setSort('price',this)">Price: Low → High</button>
+        <button class="filter-btn sort-btn active" onclick="setSort('order',this)">🌵 Sidekick Order</button>
+        <button class="filter-btn sort-btn" onclick="setSort('name',this)">A – Z</button>
+        <button class="filter-btn sort-btn" onclick="setSort('price',this)">Price: Low → High</button>
       </div>
       <div class="show-count-wrap">Showing <strong id="show-count">32</strong> shows</div>
     </div>
     <div class="filter-row">
       <span class="filter-label">Filter</span>
       <div class="filter-btns" id="cat-filter-btns">
-        <button class="filter-btn active" onclick="setCat('all',this)">All</button>
-        <button class="filter-btn" onclick="setCat('comedy',this)">Comedy</button>
-        <button class="filter-btn" onclick="setCat('magic',this)">Magic</button>
-        <button class="filter-btn" onclick="setCat('cirque',this)">Cirque</button>
-        <button class="filter-btn" onclick="setCat('music',this)">Music</button>
-        <button class="filter-btn" onclick="setCat('spectaculars',this)">Spectaculars</button>
-        <button class="filter-btn" onclick="setCat('family',this)">Family</button>
-        <button class="filter-btn" onclick="setCat('adult',this)">Adult</button>
+        <button class="filter-btn fb-all active" onclick="setCat('all',this)">All</button>
+        <button class="filter-btn fb-comedy" onclick="setCat('comedy',this)">Comedy</button>
+        <button class="filter-btn fb-magic" onclick="setCat('magic',this)">Magic</button>
+        <button class="filter-btn fb-cirque" onclick="setCat('cirque',this)">Cirque</button>
+        <button class="filter-btn fb-music" onclick="setCat('music',this)">Music</button>
+        <button class="filter-btn fb-specs" onclick="setCat('spectaculars',this)">Spectaculars</button>
+        <button class="filter-btn fb-family" onclick="setCat('family',this)">Family</button>
+        <button class="filter-btn fb-adult" onclick="setCat('adult',this)">Adult</button>
       </div>
     </div>
   </div>
