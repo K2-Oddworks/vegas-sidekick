@@ -113,7 +113,7 @@
         color: cols[i % cols.length],
         vx: (Math.random() - 0.5) * 0.21,
         vy: -0.15 - Math.random() * 0.21,
-        op: 0.06 + Math.random() * 0.07,
+        op: 0.13 + Math.random() * 0.12,
         xMax: xMax
       });
     }
