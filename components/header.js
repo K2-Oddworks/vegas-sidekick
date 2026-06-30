@@ -93,7 +93,7 @@
   if (target) {
     target.innerHTML = styles + html;
   }
-  // Orb particles — large slow-drifting orbs behind logo (speed 0.3 = 40% slower than sample)
+  // Orb particles — bright intro on first session visit, fades to subtle on subsequent pages
   (function() {
     var canvas = document.getElementById('vs-logo-orbs');
     if (!canvas) return;
@@ -103,22 +103,42 @@
       canvas.height = nav.offsetHeight || 84;
     }
     resize();
+    // sessionStorage: first visit this session gets bright intro, all other pages skip it
+    var firstVisit = !sessionStorage.getItem('vsOrbs');
+    sessionStorage.setItem('vsOrbs', '1');
+    var introStart = firstVisit ? Date.now() : null;
+    var HOLD = 1500;  // ms to hold bright before fading
+    var FADE = 2000;  // ms to fade down to soft
     var cols = ['#1A6BFF','#FF6B2B','#3B7FFF','#FF8040'];
     var orbs = [];
     for (var i = 0; i < 4; i++) {
       var xMax = (canvas.width || 1200) * 0.34;
+      var softOp = 0.13 + Math.random() * 0.12;
       orbs.push({
         x: Math.random() * xMax, y: Math.random() * canvas.height,
         r: 18 + Math.random() * 10,
         color: cols[i % cols.length],
         vx: (Math.random() - 0.5) * 0.21,
         vy: -0.15 - Math.random() * 0.21,
-        op: 0.13 + Math.random() * 0.12,
+        op: firstVisit ? 0.55 : softOp,
+        softOp: softOp,
         xMax: xMax
       });
     }
     var ctx = canvas.getContext('2d');
     function frame() {
+      if (introStart) {
+        var el = Date.now() - introStart;
+        if (el >= HOLD + FADE) {
+          for (var j = 0; j < orbs.length; j++) orbs[j].op = orbs[j].softOp;
+          introStart = null;
+        } else if (el >= HOLD) {
+          var t = (el - HOLD) / FADE;
+          t = t * t * (3 - 2 * t); // smooth-step easing
+          for (var j = 0; j < orbs.length; j++)
+            orbs[j].op = 0.55 + (orbs[j].softOp - 0.55) * t;
+        }
+      }
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       for (var i = 0; i < orbs.length; i++) {
         var o = orbs[i];
