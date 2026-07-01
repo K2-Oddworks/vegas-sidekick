@@ -90,6 +90,16 @@ h1 {
   50%      { transform: translateX(5px); }
 }
 
+/* COMBO: 3 (navy text) + 4 (pulsing ring) + 5 (bigger) + bobbing ticket */
+.cta-combo-wrap { position: relative; }
+.cta-combo { background: var(--orange); color: var(--navy); padding: 19px; font-size: 1.2rem; position: relative; z-index: 2; }
+.pulse-ring-combo { position: absolute; inset: 0; border-radius: var(--radius-sm); background: var(--orange); z-index: 1; animation: pulseRing 2.4s ease-out infinite; }
+.ticket-emoji { display: inline-block; animation: bobTicket 1.8s ease-in-out infinite; }
+@keyframes bobTicket {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-4px) rotate(-6deg); }
+}
+
 @media (max-width: 480px) {
   .price { font-size: 2.3rem; }
 }
@@ -100,6 +110,23 @@ h1 {
 <h1>Vegas Sidekick &middot; CTA Button Samples</h1>
 
 <div class="samples">
+
+  <!-- COMBO -->
+  <div class="sample">
+    <div class="sample-label"><span>COMBO</span>03 + 04 + 05 &mdash; navy text, pulsing ring, bigger, bobbing ticket</div>
+    <div class="card">
+      <div class="lbl">Vegas Sidekick Price</div>
+      <div class="price">$55</div>
+      <div class="reg">$90 regular</div>
+      <div class="save">Save $35 &mdash; 39% Off</div>
+      <div class="cta-combo-wrap">
+        <div class="pulse-ring-combo"></div>
+        <a href="#" class="cta cta-combo shimmer-sweep">Get Tickets <span class="ticket-emoji">&#127915;&#65039;</span></a>
+      </div>
+      <div class="urgency">&#9200; Prices may increase closer to show date</div>
+    </div>
+    <p class="note">Navy text on orange for max contrast, a soft pulsing ring behind the button, ~15% bigger size, and the ticket emoji gently bobs up and down with a slight tilt instead of an arrow.</p>
+  </div>
 
   <!-- 1 -->
   <div class="sample">
