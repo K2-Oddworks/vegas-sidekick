@@ -325,13 +325,126 @@ function makeBox(name, side, x, z, w, d, h, opts = {}) {
   return box;
 }
 
+// site X for a property given its side of the street + setback + footprint
+function siteX(side, w, setback) { return side * (ROAD_HALF + CURB_GAP + (setback || 0) + w / 2); }
+
 // grey-box placeholder positioned from its side + setback
 function makePlaceholder(name, side, z, w, d, h, setback) {
-  const x = side * (ROAD_HALF + CURB_GAP + (setback || 0) + w / 2);
-  return makeBox(name, side, x, z, w, d, h);
+  return makeBox(name, side, siteX(side, w, setback), z, w, d, h);
 }
 
-STRIP.forEach(([name, side, z, w, d, h, setback]) => makePlaceholder(name, side, z, w, d, h, setback));
+// ── Named landmark builders replace the grey box for finished properties ──
+const LANDMARKS = {};
+
+// Gold-glass facade textures: diffuse (day) + emissive lit-window map (night glow)
+function goldGlass(cols, rows) {
+  const cw = 512, ch = Math.round(512 * rows / cols);
+  const dc = document.createElement('canvas'); dc.width = cw; dc.height = ch;
+  const dg = dc.getContext('2d');
+  const grad = dg.createLinearGradient(0, 0, 0, ch);
+  grad.addColorStop(0, '#e0bb62'); grad.addColorStop(0.5, '#bd923f'); grad.addColorStop(1, '#8c6626');
+  dg.fillStyle = grad; dg.fillRect(0, 0, cw, ch);
+  const ec = document.createElement('canvas'); ec.width = cw; ec.height = ch;
+  const eg = ec.getContext('2d'); eg.fillStyle = '#000'; eg.fillRect(0, 0, cw, ch);
+  const mx = cw / cols, my = ch / rows, pad = mx * 0.16;
+  for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+    const x = c * mx + pad, y = r * my + pad, ww = mx - 2 * pad, hh = my - 2 * pad;
+    dg.fillStyle = 'rgba(35,26,8,0.30)'; dg.fillRect(x, y, ww, hh);
+    dg.fillStyle = 'rgba(255,242,205,0.14)'; dg.fillRect(x, y, ww, hh * 0.42);
+    if (Math.random() < 0.5) { eg.fillStyle = 'rgb(255,' + (205 + (Math.random() * 35 | 0)) + ',' + (130 + (Math.random() * 60 | 0)) + ')'; eg.fillRect(x, y, ww, hh); }
+  }
+  return { diffuse: new THREE.CanvasTexture(dc), emissive: new THREE.CanvasTexture(ec) };
+}
+
+// glowing property name plate that faces the Strip
+function makeMarquee(text, width, color) {
+  const cw = 1024, ch = Math.round(1024 * 0.2);
+  const c = document.createElement('canvas'); c.width = cw; c.height = ch;
+  const g = c.getContext('2d');
+  g.fillStyle = 'rgba(8,6,14,0.0)'; g.fillRect(0, 0, cw, ch);
+  g.textAlign = 'center'; g.textBaseline = 'middle';
+  g.font = '800 118px "Arial Narrow", Arial, sans-serif';
+  g.shadowColor = color; g.shadowBlur = 34;
+  g.fillStyle = color; g.fillText(text, cw / 2, ch / 2 + 4);
+  g.fillStyle = '#fff8e6'; g.shadowBlur = 12; g.fillText(text, cw / 2, ch / 2 + 4);
+  const tex = new THREE.CanvasTexture(c); tex.anisotropy = IS_MOBILE ? 2 : 8;
+  const h = width * ch / cw;
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(width, h),
+    new THREE.MeshBasicMaterial({ map: tex, transparent: true, toneMapped: false, depthWrite: false }));
+  return m;
+}
+
+// ── Mandalay Bay: golden glass tower + slim Delano + glowing sign ──
+LANDMARKS['Mandalay Bay'] = function (name, side, z, w, d, h, setback) {
+  const x = siteX(side, w, setback);
+  const toRoad = -side;                      // west building → facade faces +X (toward the road)
+  const grp = new THREE.Group();
+  grp.position.set(x, GROUND_Y, z);
+
+  const gg = goldGlass(11, 15);
+  const glassMat = new THREE.MeshToonMaterial({
+    map: gg.diffuse, emissiveMap: gg.emissive, emissive: new THREE.Color(0xffe6a6),
+    emissiveIntensity: 0, gradientMap: toonGrad
+  });
+  emissiveMeshes.push(glassMat);
+
+  // main tower + a set-back upper tier (stepped gold profile)
+  const baseH = h * 0.68, topH = h * 0.4;
+  const base = new THREE.Mesh(new THREE.BoxGeometry(w, baseH, d), glassMat);
+  base.position.set(0, baseH / 2, 0);
+  if (!IS_MOBILE) { base.castShadow = true; base.receiveShadow = true; }
+  grp.add(base);
+  const upper = new THREE.Mesh(new THREE.BoxGeometry(w * 0.8, topH, d * 0.82), glassMat);
+  upper.position.set(toRoad * -w * 0.06, baseH + topH / 2 - 1, 0);
+  if (!IS_MOBILE) upper.castShadow = true;
+  grp.add(upper);
+
+  // glowing gold crown band at the very top
+  const crownMat = new THREE.MeshBasicMaterial({ color: 0xffd27a, toneMapped: false });
+  const crown = new THREE.Mesh(new THREE.BoxGeometry(w * 0.82, 1.4, d * 0.84), crownMat);
+  crown.position.set(toRoad * -w * 0.06, baseH + topH - 0.4, 0);
+  grp.add(crown);
+  const crownGlow = new THREE.PointLight(0xffbf66, 0.0, 60);
+  crownGlow.position.set(0, baseH + topH, 0);
+  grp.add(crownGlow); streetLights.push(crownGlow);
+
+  // slim dark Delano tower to the south (toward the Welcome sign)
+  const delGlass = goldGlass(6, 20);
+  const delMat = new THREE.MeshToonMaterial({
+    color: 0x2c2822, map: delGlass.diffuse, emissiveMap: delGlass.emissive,
+    emissive: new THREE.Color(0xffcf8a), emissiveIntensity: 0, gradientMap: toonGrad
+  });
+  // dim the diffuse so it reads as darker bronze glass
+  delMat.color.setHex(0x3a3326);
+  emissiveMeshes.push(delMat);
+  const delano = new THREE.Mesh(new THREE.BoxGeometry(w * 0.34, h * 1.18, d * 0.42), delMat);
+  delano.position.set(toRoad * w * 0.12, h * 1.18 / 2, d * 0.62);
+  if (!IS_MOBILE) delano.castShadow = true;
+  grp.add(delano);
+
+  // glowing "MANDALAY BAY" sign high on the Strip-facing facade
+  const sign = makeMarquee('MANDALAY BAY', d * 0.82, '#ffcf5a');
+  sign.position.set(toRoad * (w / 2 + 0.2), baseH * 0.82, 0);
+  sign.rotation.y = toRoad > 0 ? Math.PI / 2 : -Math.PI / 2;
+  grp.add(sign);
+
+  // warm wash light on the facade
+  const wash = new THREE.PointLight(0xffdca0, 0.0, 70);
+  wash.position.set(toRoad * (w / 2 + 8), baseH * 0.6, 0);
+  grp.add(wash); streetLights.push(wash);
+
+  scene.add(grp);
+  clickables.push({ mesh: base, name, side });
+  const label = makeLabel(name);
+  label.position.set(x, GROUND_Y + h * 1.18 + 7, z + d * 0.3);
+  scene.add(label);
+};
+
+STRIP.forEach(row => {
+  const name = row[0];
+  if (LANDMARKS[name]) LANDMARKS[name](...row);
+  else makePlaceholder(...row);
+});
 
 // ─── Wynn & Encore — two bronze towers side by side (east side) ─────────────────
 (function makeWynnEncore() {
