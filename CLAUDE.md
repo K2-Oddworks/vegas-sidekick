@@ -95,9 +95,9 @@ All CSS embedded in `<style>` tags. All JS inline at bottom. Components loaded v
 
 Absinthe is the design and feature standard for all show pages. When building or updating any show page, consult Absinthe first — every page should be inspired by and consistent with it. Features like info pills (`.info-pills`, `.pill`, `.pill-green`, `.pill-orange`, `.urgency-pills`, `.upill`), the seen-widget behavior, sidebar layout, and mobile-buy-bar are all benchmarked against Absinthe.
 
-**Canonical template: `shows/family/v-the-ultimate-variety-show/index.html`**
+**Canonical template: `shows/music/vegas-the-show/index.html`**
 
-This is the standard template for all new show pages. Copy it when building a new show — do not use older pages as a starting point. Key features of the Sidekick Build template:
+This is the standard template for all new show pages — locked in as the reference build. Copy it when building a new show — do not use older pages (including `v-the-ultimate-variety-show`) as a starting point. Key features of the Sidekick Build template:
 
 - Dual scroll progress bars (top + sidebar)
 - Hero section: breadcrumb + Ken Burns image slider (`aspect-ratio: 16/9`) + venue/title block + price strip
@@ -116,11 +116,13 @@ This is the standard template for all new show pages. Copy it when building a ne
   8. `.faq-list` — accordion FAQ (+ icon)
   9. `.also-grid` — 3 "You Might Also Like" show cards
   10. `.final-cta` — dark gradient card CTA inside `<main>` (with ambient orbs), NOT full-width
-- Fonts: Bebas Neue (display), Barlow Condensed (price/labels), Barlow (body), IBM Plex Mono (meta/mono)
+- Photo gallery section (`.gallery-section` / `.gallery-grid`) placed right after the About section — asymmetric masonry layout (one large image + smaller stacked images), hover zoom, click-to-enlarge
+- Serif editorial accent: hero tagline and the About section's opening "lede" paragraph render in italic Cormorant Garamond (`.lede` class) against the site's usual Bebas Neue/Barlow system — import `Cormorant+Garamond:ital,wght@1,500;1,600` alongside the standard fonts
+- Fonts: Bebas Neue (display), Barlow Condensed (price/labels), Barlow (body), IBM Plex Mono (meta/mono), Cormorant Garamond italic (editorial accent only — tagline + lede)
 - `--show` / `--show-lt` CSS vars drive the show's accent color (e.g. gold for Jabba, crimson for V)
 - Ticker: show-color background; text color white (dark shows) or navy (light shows like gold)
 - `@media (prefers-reduced-motion: reduce)` disables Ken Burns + ticker animations
-- Shimmer animation on `.hero-cta` and `.sb-cta` buttons
+- All primary "Get Tickets" CTA buttons (`.hero-cta`, `.sb-cta`, `.mob-cta`, `.final-cta-btn`) share one locked-in treatment: navy text on orange fill, soft light-blue neon border + matching glow (`rgba(96,165,250,...)`), pulsing glow-ring animation (`pulseGlowCta` — animated `box-shadow`, no extra wrapper markup needed), the existing shimmer sweep, and a light-blue bobbing 🎟️ ticket emoji (`.cta-ticket`, hue-rotated + drop-shadow glow, `bobTicket` animation) in place of the plain arrow
 
 The seating chart is an interactive SVG — clickable zones call `selectZone('id')`, which populates a `.zone-popup` panel below with zone name, description, and optional Sidekick Pick badge.
 
