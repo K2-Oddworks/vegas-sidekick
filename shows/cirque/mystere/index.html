@@ -8,6 +8,17 @@
   <title>Mystère by Cirque du Soleil Las Vegas | TI Hotel Tickets 2026 | Vegas Sidekick</title>
   <meta name="description" content="See Mystère by Cirque du Soleil at TI Hotel Las Vegas — the original Cirque show, running since 1993. All ages. From $44 on most dates. Mon, Tue, Fri–Sun 6PM & 8:30PM. No hidden fees." />
   <link rel="canonical" href="https://vegassidekick.com/shows/cirque/mystere/" />
+  <meta property="og:title" content="Mystère by Cirque du Soleil Tickets | TI Hotel Las Vegas | Vegas Sidekick" />
+  <meta property="og:description" content="The original Las Vegas Cirque show — running since 1993. Acrobatics, aerial acts, classic Cirque storytelling at TI Hotel. From $44." />
+  <meta property="og:image" content="https://vegassidekick.com/images/mystere-hero.jpg" />
+  <meta property="og:url" content="https://vegassidekick.com/shows/cirque/mystere/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Vegas Sidekick" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Mystère by Cirque du Soleil Tickets | Vegas Sidekick" />
+  <meta name="twitter:description" content="The original Las Vegas Cirque show — running since 1993 at TI Hotel. From $44 on most dates." />
+  <meta name="twitter:image" content="https://vegassidekick.com/images/mystere-hero.jpg" />
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -141,351 +152,341 @@
   ]
 }
   </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,600;0,700;1,400&family=Barlow+Condensed:wght@700;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&family=Cormorant+Garamond:ital,wght@1,500;1,600&display=swap" rel="stylesheet" />
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --navy: #0A1628;
-      --show-color: #4B1FA8;
-      --show-color-lt: #7B5FE8;
-      --orange: #FF6B2B;
-      --orange-lt: #FF8C2A;
-      --white: #FFFFFF;
-      --gray: #6B7A90;
-      --text: #1A2236;
-      --subtext: #4A5568;
-      --card-bg: #EEF4FF;
-      --card-border: #C3D9F8;
-      --sidebar-w: 320px;
+      --navy:       #0A1628;
+      --navy-mid:   #0f1e38;
+      --show:       #4B1FA8;
+      --show-lt:    #7B5FE8;
+      --orange:     #FF6B2B;
+      --orange-lt:  #ff8c33;
+      --white:      #FFFFFF;
+      --off-white:  #F7F9FC;
+      --gray-100:   #F1F4F9;
+      --gray-200:   #E2E8F2;
+      --gray-400:   #94A3B8;
+      --text:       #0F172A;
+      --text-muted: #64748B;
+      --green:      #4ade80;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-price:   'Barlow Condensed', sans-serif;
+      --font-body:    'Barlow', sans-serif;
+      --font-mono:    'IBM Plex Mono', monospace;
+      --radius:    12px;
+      --radius-sm: 8px;
+      --radius-lg: 20px;
+      --shadow:    0 4px 20px rgba(0,0,0,0.09);
+      --sidebar:   308px;
     }
     html { scroll-behavior: smooth; }
-    body { margin: 0; padding: 0; background: var(--navy); color: var(--text); font-family: 'Barlow', sans-serif; font-size: 16px; line-height: 1.6; }
-    @media (prefers-reduced-motion: reduce) { *, *::after { animation: none !important; transition-duration: 0.01ms !important; } }
+    body { font-family: var(--font-body); color: var(--text); background: var(--white); line-height: 1.6; overflow-x: hidden; }
+    img  { max-width: 100%; display: block; }
+    a    { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; }
 
-    /* ── PROGRESS BARS ── */
-    #progress-bar {
-      position: fixed; top: 0; left: 0; right: 0; height: 3px;
-      width: 0%; background: linear-gradient(90deg, var(--show-color), var(--show-color-lt));
-      z-index: 9999; pointer-events: none; transition: width 0.1s linear;
-      overflow: hidden; animation: pb-glow 2s ease-in-out infinite;
-    }
-    #progress-bar-bottom {
-      position: fixed; bottom: 0; left: 0; right: 0; height: 3px;
-      width: 0%; background: linear-gradient(270deg, var(--show-color), var(--show-color-lt));
-      z-index: 9999; pointer-events: none; transition: width 0.1s linear;
-      overflow: hidden; animation: pb-glow 2s ease-in-out infinite;
-    }
-    #progress-bar::after, #progress-bar-bottom::after {
-      content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%;
-      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%);
-      animation: pb-shimmer 2.2s linear infinite;
-    }
+    #progress-bar { overflow: hidden; position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--show), var(--show-lt)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; box-shadow: 0 0 10px var(--show-lt), 0 0 20px rgba(123,95,232,0.35); }
+    #progress-bar-bottom { position: fixed; bottom: 0; left: 0; right: 0; height: 3px; width: 0%; animation: pb-glow 2s ease-in-out infinite; background: linear-gradient(270deg, var(--show), var(--show-lt)); box-shadow: 0 0 10px var(--show-lt), 0 0 20px rgba(123,95,232,0.35); z-index: 9999; pointer-events: none; transition: width 0.1s linear; overflow: hidden; }
+    #progress-bar::after, #progress-bar-bottom::after { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%); animation: pb-shimmer 2.2s linear infinite; }
     @keyframes pb-shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
-    @keyframes pb-glow {
-      0%, 100% { box-shadow: 0 0 3px rgba(75,31,168,0.3); }
-      50% { box-shadow: 0 0 12px rgba(123,95,232,0.8), 0 0 4px rgba(75,31,168,0.5); }
-    }
+    @keyframes pb-glow { 0%, 100% { box-shadow: 0 0 3px rgba(255,255,255,0.15); } 50% { box-shadow: 0 0 10px rgba(255,255,255,0.5), 0 0 3px rgba(255,255,255,0.2); } }
     @media (max-width: 940px) { #progress-bar-bottom { bottom: 72px; } }
 
-    /* ── DOT NAV ── */
-    #dot-nav { position: fixed; right: 18px; top: 50%; transform: translateY(-50%); z-index: 800; display: flex; flex-direction: column; gap: 10px; }
-    .dn-dot { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,.22); border: none; cursor: pointer; padding: 0; transition: background .2s, transform .2s; }
-    .dn-dot.active { background: var(--show-color-lt); transform: scale(1.4); }
-    @media (max-width: 960px) { #dot-nav { display: none; } }
+    /* STICKY SAVE PILL */
+    .save-pill { position: fixed; top: 70px; right: 20px; z-index: 800; display: flex; align-items: center; gap: 10px; padding: 8px 14px 8px 16px; background: var(--navy); border: 1px solid rgba(123,95,232,0.3); border-radius: 100px; box-shadow: 0 4px 20px rgba(0,0,0,0.38); opacity: 0; transform: translateY(-8px) scale(0.96); transition: opacity 0.35s cubic-bezier(0.16,1,0.3,1), transform 0.35s cubic-bezier(0.16,1,0.3,1); pointer-events: none; }
+    .save-pill.visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+    .save-pill-price { font-family: var(--font-price); font-size: 1.05rem; font-weight: 800; color: var(--orange); }
+    .save-pill-cta { padding: 6px 14px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.82rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; border-radius: 100px; white-space: nowrap; transition: background 0.2s; }
+    .save-pill-cta:hover { background: var(--orange-lt); }
+    @media (max-width: 940px) { .save-pill { display: none; } }
 
-    /* ── SAVE PILL ── */
-    #save-pill { position: fixed; top: 80px; right: 18px; z-index: 790; background: var(--show-color); color: #fff; font-family: 'Barlow Condensed', sans-serif; font-size: .78rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 7px 14px; border-radius: 100px; text-decoration: none; opacity: 0; transition: opacity .4s; pointer-events: none; white-space: nowrap; box-shadow: 0 4px 16px rgba(75,31,168,.5); }
-    #save-pill.show { opacity: 1; pointer-events: auto; }
-    @media (max-width: 960px) { #save-pill { display: none; } }
+    /* DOT NAV */
+    .dot-nav { position: fixed; right: 16px; top: 50%; transform: translateY(-50%); z-index: 700; display: flex; flex-direction: column; gap: 10px; }
+    .dnav-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.22); border: 1px solid rgba(255,255,255,0.18); transition: all 0.28s; display: block; position: relative; }
+    .dnav-dot::after { content: attr(data-label); position: absolute; right: 18px; top: 50%; transform: translateY(-50%); background: var(--navy); color: rgba(255,255,255,0.82); font-family: var(--font-mono); font-size: 0.62rem; white-space: nowrap; padding: 3px 8px; border-radius: 4px; opacity: 0; pointer-events: none; transition: opacity 0.18s; }
+    .dnav-dot:hover::after, .dnav-dot:focus::after { opacity: 1; }
+    .dnav-dot.active { background: var(--show-lt); border-color: var(--show-lt); box-shadow: 0 0 8px rgba(123,95,232,0.6); transform: scale(1.35); }
+    @media (max-width: 940px) { .dot-nav { display: none; } }
 
-    /* ── SCROLL FADE ── */
-    .fu { opacity: 0; transform: translateY(22px); transition: opacity .55s ease, transform .55s ease; }
-    .fu.on { opacity: 1; transform: none; }
+    /* HERO */
+    .hero { background: var(--navy); padding-top: 84px; }
+    .breadcrumb { padding: 12px 24px; background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.05); font-family: var(--font-mono); font-size: 0.67rem; color: rgba(255,255,255,0.36); letter-spacing: 0.04em; }
+    .breadcrumb a { color: rgba(255,255,255,0.36); transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--orange); }
+    .breadcrumb span { color: rgba(255,255,255,0.7); }
 
-    /* ── BREADCRUMB ── */
-    .bc { background: var(--navy); padding: 90px 40px 0; }
-    .bc-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; gap: 8px; font-size: .78rem; color: rgba(255,255,255,.4); padding-top: 20px; }
-    .bc-inner a { color: rgba(255,255,255,.4); text-decoration: none; }
-    .bc-inner a:hover { color: var(--show-color-lt); }
-    .bc-sep { color: rgba(255,255,255,.2); }
-    .bc-cur { color: rgba(255,255,255,.75); }
-
-    /* ── HERO ── */
-    .hero { background: var(--navy); padding: 24px 40px 40px; }
-    .hero-wrap { max-width: 1280px; margin: 0 auto; }
-
-    /* slider */
-    .slider { width: 100%; border-radius: 14px; overflow: hidden; position: relative; aspect-ratio: 16/9; background: #0D1F3C; border: 2px solid rgba(255,255,255,.12); }
-    .s-track { display: flex; height: 100%; transition: transform .6s cubic-bezier(.4,0,.2,1); }
-    .slide { flex: 0 0 100%; height: 100%; position: relative; overflow: hidden; }
-    .slide img { width: 100%; height: 100%; object-fit: cover; display: block; transform-origin: center; }
-    .slide.active img { animation: kb-pan 9s ease-in-out forwards; }
-    @keyframes kb-pan { from { transform: scale(1.0) translate(0, 0); } to { transform: scale(1.08) translate(0.5%, 0.3%); } }
-    .slide-ph { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: linear-gradient(135deg,#1a0a3a,#0D1228); }
-    .slide-ph .em { font-size: 4rem; opacity: .35; }
-    .slide-ph .pt { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 3px; color: rgba(255,255,255,.18); }
-    .slide-vid { width: 100%; height: 100%; position: relative; background: #000; }
+    .slider { position: relative; width: 100%; aspect-ratio: 16/9; max-height: 560px; overflow: hidden; background: var(--navy-mid); }
+    .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.65s ease; }
+    .slide.active { opacity: 1; }
+    .slide img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.65s ease; }
+    .slide.active img { animation: kenBurns 7s ease-out forwards; }
+    @keyframes kenBurns { from { transform: scale(1) translate(0,0); } to { transform: scale(1.08) translate(0.4%,0.4%); } }
+    .slide-vid { background: #000; }
     .slide-vid iframe { width: 100%; height: 100%; border: none; display: block; }
-    .vid-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: linear-gradient(135deg,rgba(10,22,40,.85),rgba(10,22,40,.7)); cursor: pointer; transition: opacity .3s; }
+    .vid-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: linear-gradient(135deg,rgba(10,22,40,.82),rgba(10,22,40,.68)); cursor: pointer; transition: opacity .3s; z-index: 2; }
     .vid-overlay.off { opacity: 0; pointer-events: none; }
-    .play { width: 72px; height: 72px; border-radius: 50%; background: var(--show-color); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; box-shadow: 0 4px 24px rgba(75,31,168,.5); transition: transform .2s; }
-    .play:hover { transform: scale(1.1); }
-    .play-lbl { font-family: 'Barlow Condensed', sans-serif; font-size: .85rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.7); }
-    .s-prev, .s-next { position: absolute; top: 50%; transform: translateY(-50%); z-index: 10; background: rgba(10,22,40,.7); border: 1px solid rgba(255,255,255,.12); color: #fff; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; backdrop-filter: blur(8px); transition: background .2s; }
-    .s-prev { left: 12px; }
-    .s-next { right: 12px; }
-    .s-prev:hover, .s-next:hover { background: rgba(75,31,168,.5); }
-    .s-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 10; }
-    .dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.3); border: none; cursor: pointer; padding: 0; transition: background .2s, transform .2s; }
-    .dot.on { background: var(--show-color-lt); transform: scale(1.3); }
-    .s-cat { position: absolute; top: 16px; left: 16px; z-index: 5; background: var(--show-color); color: #fff; font-family: 'Barlow Condensed', sans-serif; font-size: .7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 12px; border-radius: 4px; }
-    .s-badge { position: absolute; top: 16px; right: 16px; z-index: 5; background: rgba(10,22,40,.85); border: 1px solid var(--show-color-lt); color: var(--show-color-lt); font-family: 'Barlow Condensed', sans-serif; font-size: .7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 12px; border-radius: 4px; backdrop-filter: blur(8px); }
+    .play-btn { width: 72px; height: 72px; border-radius: 50%; background: var(--show); border: 2px solid rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; font-size: 1.7rem; color: #fff; box-shadow: 0 4px 24px rgba(75,31,168,.55); transition: transform .2s; }
+    .play-btn:hover { transform: scale(1.1); }
+    .play-lbl { font-family: var(--font-price); font-size: 0.85rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.82); }
+    .slider-dots { position: absolute; bottom: 13px; left: 50%; transform: translateX(-50%); display: flex; gap: 7px; z-index: 3; }
+    .dot-btn { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.28); border: none; padding: 0; transition: background 0.2s, transform 0.2s; }
+    .dot-btn.active { background: var(--orange); transform: scale(1.4); }
+    .s-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; background: rgba(0,0,0,0.44); border: none; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; z-index: 3; transition: background 0.2s; }
+    .s-arrow:hover { background: rgba(75,31,168,0.75); }
+    .s-arrow.prev { left: 13px; }
+    .s-arrow.next { right: 13px; }
 
-    /* title block */
-    .title-block { padding: 24px 0 0; }
-    .venue-lbl { font-size: .8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--show-color-lt); margin-bottom: 8px; }
-    .show-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.8rem,5vw,4.5rem); letter-spacing: 2px; line-height: .95; color: #fff; margin-bottom: 6px; }
-    .show-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; color: var(--show-color-lt); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 18px; }
-    .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
-    .pill { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14); border-radius: 100px; padding: 6px 14px; font-size: .78rem; color: rgba(255,255,255,.8); font-weight: 600; }
-    .urgency { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
-    .u-pill { display: flex; align-items: center; gap: 6px; border-radius: 100px; padding: 5px 12px; font-size: .72rem; font-weight: 700; }
-    .u-fire { background: rgba(239,68,68,.1); border: 1px solid rgba(239,68,68,.25); color: #FCA5A5; }
-    .u-clock { background: rgba(245,158,11,.1); border: 1px solid rgba(245,158,11,.25); color: #FCD34D; }
-    .u-seat { background: rgba(75,31,168,.15); border: 1px solid rgba(123,95,232,.3); color: var(--show-color-lt); }
-    .price-strip { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding: 18px 0 6px; border-top: 1px solid rgba(255,255,255,.1); }
-    .p-block { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-    .p-our { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 3.2rem; color: var(--orange); line-height: 1; }
-    .p-was { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.8rem; color: rgba(255,255,255,.32); text-decoration: line-through; }
-    .p-save { background: rgba(75,31,168,.25); border: 1px solid rgba(123,95,232,.4); color: var(--show-color-lt); font-size: .72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; }
-    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: #fff; font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 15px 30px; border-radius: 6px; text-decoration: none; border: 2px solid var(--orange); transition: background .2s, transform .15s, box-shadow .2s; white-space: nowrap; animation: ctaPulse 2.8s ease-in-out infinite; }
-    .btn-primary:hover { background: var(--orange-lt); border-color: var(--orange-lt); box-shadow: 0 6px 20px rgba(255,107,0,.35); transform: translateY(-2px); animation: none; }
-    @keyframes ctaPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(255,107,0,0); } 50% { box-shadow: 0 0 0 6px rgba(255,107,0,0.18); } }
-    .btn-full { display: flex; align-items: center; justify-content: center; gap: 8px; background: var(--orange); color: #fff; font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 18px 24px; border-radius: 8px; text-decoration: none; border: 2px solid var(--orange); transition: background .2s, transform .15s; width: 100%; }
-    .btn-full:hover { background: var(--orange-lt); border-color: var(--orange-lt); transform: translateY(-2px); }
-    .cta-note { font-size: .75rem; color: rgba(255,255,255,.4); }
+    .hero-content-wrap { max-width: 1200px; margin: 0 auto; }
+    .hero-content { padding: 28px 24px 32px; }
+    .venue-label { font-family: var(--font-mono); font-size: 0.69rem; color: var(--show-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 9px; }
+    .hero-title { font-family: var(--font-display); font-size: clamp(2.8rem, 5.5vw, 5rem); color: white; line-height: 0.94; letter-spacing: 0.02em; margin-bottom: 9px; }
+    .hero-subtitle { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500; font-size: clamp(1.15rem, 2.2vw, 1.55rem); color: var(--show-lt); letter-spacing: 0.01em; margin-bottom: 20px; }
+    .info-pills { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 15px; }
+    .pill { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: 100px; font-family: var(--font-mono); font-size: 0.67rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.74); border: 1px solid rgba(255,255,255,0.11); }
+    .pill-gold { background: rgba(123,95,232,0.15); color: var(--show-lt); border-color: rgba(123,95,232,0.3); }
+    .pill-orange { background: rgba(255,107,0,0.13); color: var(--orange-lt); border-color: rgba(255,107,0,0.26); }
+    .urgency-pills { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 20px; }
+    .upill { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 6px; font-family: var(--font-mono); font-size: 0.63rem; font-weight: 600; letter-spacing: 0.04em; background: rgba(255,107,0,0.09); color: var(--orange-lt); border: 1px solid rgba(255,107,0,0.2); }
+    .udot { width: 5px; height: 5px; border-radius: 50%; background: var(--orange); flex-shrink: 0; animation: blink 1.6s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.36} }
 
-    /* ── STATS STRIP ── */
-    .stats-strip { background: linear-gradient(135deg, var(--show-color) 0%, #1a0a38 100%); padding: 32px 40px; }
-    .stats-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); gap: 0; }
-    .stat-item { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 0 20px; border-right: 1px solid rgba(255,255,255,.12); }
+    .price-strip { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 22px; padding: 17px 24px; background: rgba(255,255,255,0.03); border-top: 1px solid rgba(255,255,255,0.06); flex-wrap: wrap; }
+    .price-block { display: flex; flex-direction: column; gap: 1px; }
+    .price-lbl { font-family: var(--font-mono); font-size: 0.59rem; color: rgba(255,255,255,0.33); letter-spacing: 0.06em; text-transform: uppercase; }
+    .price-cur { font-family: var(--font-price); font-size: 2.9rem; font-weight: 800; color: var(--orange); line-height: 1; }
+    .price-reg { font-family: var(--font-price); font-size: 0.92rem; font-weight: 600; color: rgba(255,255,255,0.26); text-decoration: line-through; }
+    .price-save { display: inline-block; margin-top: 3px; font-family: var(--font-mono); font-size: 0.63rem; font-weight: 600; color: var(--green); background: rgba(74,222,128,0.09); padding: 2px 7px; border-radius: 4px; border: 1px solid rgba(74,222,128,0.2); }
+    .hero-cta { display: inline-flex; align-items: center; gap: 9px; padding: 18px 37px; background: var(--orange); color: var(--navy); font-family: var(--font-price); font-size: 1.48rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); border: 2px solid rgba(96,165,250,0.65); transition: background 0.2s, transform 0.2s; white-space: nowrap; position: relative; overflow: hidden; animation: pulseGlowCta 2.4s ease-out infinite; }
+    .hero-cta::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.13), transparent); animation: shimmer 2.6s infinite; }
+    @keyframes shimmer { 100%{ left:100%; } }
+    @keyframes pulseGlowCta { 0% { box-shadow: 0 0 10px rgba(96,165,250,0.55), 0 0 22px rgba(96,165,250,0.28), 0 0 0 0 rgba(96,165,250,0.45); } 70% { box-shadow: 0 0 10px rgba(96,165,250,0.55), 0 0 22px rgba(96,165,250,0.28), 0 0 0 14px rgba(96,165,250,0); } 100% { box-shadow: 0 0 10px rgba(96,165,250,0.55), 0 0 22px rgba(96,165,250,0.28), 0 0 0 0 rgba(96,165,250,0); } }
+    @keyframes bobTicket { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-4px) rotate(-6deg); } }
+    .cta-ticket { display: inline-block; filter: hue-rotate(190deg) saturate(1.6) drop-shadow(0 0 5px rgba(96,165,250,0.85)); animation: bobTicket 1.8s ease-in-out infinite; }
+    .hero-cta:hover { background: var(--orange-lt); transform: translateY(-2px); }
+    .urgency-txt { font-family: var(--font-mono); font-size: 0.62rem; color: rgba(255,255,255,0.32); }
+
+    /* TICKER */
+    .ticker-wrap { overflow: hidden; background: var(--show); padding: 9px 0; border-top: 1px solid rgba(255,255,255,0.12); border-bottom: 1px solid rgba(255,255,255,0.12); }
+    .ticker-track { display: flex; width: max-content; animation: tickerScroll 36s linear infinite; }
+    @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .ticker-item { white-space: nowrap; padding: 0 28px; font-family: var(--font-mono); font-size: 0.67rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #fff; }
+    .ticker-sep { color: rgba(255,255,255,0.45); padding: 0 4px; }
+
+    /* STATS STRIP */
+    .stats-strip { background: var(--navy); border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .stats-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); padding: 0 24px; }
+    .stat-item { padding: 22px 12px; text-align: center; border-right: 1px solid rgba(255,255,255,0.06); }
     .stat-item:last-child { border-right: none; }
-    .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: #fff; line-height: 1; letter-spacing: 1px; }
-    .stat-lbl { font-family: 'IBM Plex Mono', monospace; font-size: .65rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.55); text-align: center; }
-    @media (max-width: 640px) { .stats-strip { padding: 24px 20px; } .stats-inner { grid-template-columns: repeat(2,1fr); gap: 16px; } .stat-item { border-right: none; padding: 0; } }
+    .stat-num { font-family: var(--font-display); font-size: clamp(2.1rem, 3.5vw, 3.1rem); color: var(--show-lt); line-height: 1; letter-spacing: 0.02em; }
+    .stat-suffix { font-family: var(--font-price); font-size: 1.1rem; font-weight: 700; color: var(--show-lt); }
+    .stat-lbl { font-family: var(--font-mono); font-size: 0.6rem; color: rgba(255,255,255,0.38); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 3px; }
 
-    /* ── TICKER ── */
-    .ticker-wrap { background: var(--show-color); overflow: hidden; padding: 10px 0; border-top: 1px solid rgba(255,255,255,.1); border-bottom: 1px solid rgba(255,255,255,.1); }
-    .ticker-track { display: flex; gap: 0; width: max-content; animation: ticker-scroll 38s linear infinite; }
-    .ticker-track:hover { animation-play-state: paused; }
-    .ticker-item { font-family: 'IBM Plex Mono', monospace; font-size: .72rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,.9); white-space: nowrap; padding: 0 28px; }
-    .ticker-sep { color: rgba(255,255,255,.35); padding: 0 4px; }
-    @keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    /* LAYOUT */
+    .page-layout { display: grid; grid-template-columns: 1fr var(--sidebar); max-width: 1200px; margin: 0 auto; align-items: start; }
+    .main-content { padding: 46px 36px 60px 22px; min-width: 0; }
 
-    /* ── PAGE LAYOUT ── */
-    .page-wrap { background: #fff; }
-    .page { max-width: 1280px; margin: 0 auto; padding: 40px 40px 60px; display: grid; grid-template-columns: 1fr var(--sidebar-w); gap: 48px; align-items: start; }
-    .main-content { display: flex; flex-direction: column; gap: 48px; min-width: 0; }
+    .sidebar { position: sticky; top: 0; background: var(--navy); min-height: 100vh; padding: 24px 20px 22px; display: flex; flex-direction: column; gap: 15px; }
+    .sb-price-lbl { font-family: var(--font-mono); font-size: 0.59rem; color: rgba(255,255,255,0.33); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px; }
+    .sb-price { font-family: var(--font-price); font-size: 2.9rem; font-weight: 800; color: var(--orange); line-height: 1; }
+    .sb-reg { font-family: var(--font-price); font-size: 0.88rem; color: rgba(255,255,255,0.24); text-decoration: line-through; margin-bottom: 4px; }
+    .sb-save { display: inline-block; font-family: var(--font-mono); font-size: 0.6rem; font-weight: 600; color: var(--green); background: rgba(74,222,128,0.09); padding: 2px 7px; border-radius: 4px; border: 1px solid rgba(74,222,128,0.18); }
+    .sb-cta { display: block; width: 100%; padding: 18px; background: var(--orange); color: var(--navy); font-family: var(--font-price); font-size: 1.35rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; text-align: center; border-radius: var(--radius-sm); border: 2px solid rgba(96,165,250,0.65); transition: background 0.2s; position: relative; overflow: hidden; animation: pulseGlowCta 2.4s ease-out infinite; }
+    .sb-cta::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.13), transparent); animation: shimmer 2.6s infinite; }
+    .sb-cta:hover { background: var(--orange-lt); }
+    .sb-urgency { font-family: var(--font-mono); font-size: 0.59rem; color: rgba(255,255,255,0.27); text-align: center; }
+    .sb-div { height: 1px; background: rgba(255,255,255,0.07); }
+    .trust-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .trust-list li { display: flex; align-items: center; gap: 9px; font-family: var(--font-mono); font-size: 0.67rem; color: rgba(255,255,255,0.58); }
+    .t-check { width: 16px; height: 16px; border-radius: 50%; background: rgba(123,95,232,0.15); border: 1px solid rgba(123,95,232,0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--show-lt); font-size: 0.54rem; }
+    .sb-info-item { display: flex; align-items: flex-start; gap: 8px; }
+    .sb-info-icon { font-size: 0.88rem; margin-top: 1px; flex-shrink: 0; }
+    .sb-info-lbl { font-family: var(--font-mono); font-size: 0.57rem; color: rgba(255,255,255,0.32); text-transform: uppercase; letter-spacing: 0.04em; display: block; margin-bottom: 1px; }
+    .sb-info-val { font-family: var(--font-body); font-size: 0.77rem; color: rgba(255,255,255,0.7); }
+    .sb-disclosure { font-family: var(--font-mono); font-size: 0.57rem; color: rgba(255,255,255,0.25); line-height: 1.55; margin-top: auto; }
+    .sb-disclosure a { color: rgba(255,255,255,0.4); text-decoration: underline; }
 
-    /* ── SIDEBAR ── */
-    .sidebar { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 0; }
-    .sb-card { background: var(--navy); border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 16px; }
-    .sb-ttl { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 2px; color: #fff; }
-    .sb-ttl span { color: var(--orange); }
-    .sb-alert { background: rgba(239,68,68,.1); border: 1px solid rgba(239,68,68,.25); border-radius: 8px; padding: 10px 14px; font-size: .78rem; color: #FCA5A5; font-weight: 600; }
-    .sb-price-block { background: rgba(255,107,0,.08); border: 1px solid rgba(255,107,0,.2); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
-    .sb-price-lbl { font-size: .7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.45); }
-    .sb-price-row { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-    .sb-p-our { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 3.8rem; color: var(--orange); line-height: 1; }
-    .sb-p-was { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 2rem; color: rgba(255,255,255,.28); text-decoration: line-through; }
-    .sb-p-save { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); color: #fff; font-size: .7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 8px; border-radius: 100px; align-self: center; }
-    .sb-p-sub { font-size: .78rem; color: rgba(255,255,255,.45); }
-    .sb-p-warn { font-size: .72rem; color: #FCD34D; }
-    .sb-trust { display: flex; flex-direction: column; gap: 10px; }
-    .sb-trust-item { display: flex; align-items: center; gap: 10px; font-size: .82rem; color: rgba(255,255,255,.72); }
-    .sb-chk { width: 20px; height: 20px; background: rgba(75,31,168,.2); border: 1px solid rgba(123,95,232,.35); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .6rem; color: var(--show-color-lt); flex-shrink: 0; }
-    .sb-div { height: 1px; background: rgba(255,255,255,.07); }
-    .sb-info { display: flex; flex-direction: column; gap: 12px; }
-    .sb-info-row { display: flex; align-items: flex-start; gap: 10px; font-size: .82rem; }
-    .sb-info-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
-    .sb-info-lbl { color: rgba(255,255,255,.4); font-size: .7rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
-    .sb-info-val { color: #fff; font-weight: 600; }
-    .sb-note { background: rgba(75,31,168,.15); border: 1px solid rgba(123,95,232,.25); border-radius: 8px; padding: 10px 14px; font-size: .75rem; color: var(--show-color-lt); }
-    .sb-disc { font-size: .68rem; color: rgba(255,255,255,.28); line-height: 1.5; text-align: center; }
-    .sb-disc a { color: rgba(255,255,255,.4); }
+    /* CONTENT SECTIONS */
+    .section { margin-bottom: 50px; }
+    .section-title { font-family: var(--font-display); font-size: clamp(1.85rem, 2.8vw, 2.55rem); color: var(--navy); line-height: 1; letter-spacing: 0.02em; margin-bottom: 20px; }
+    .section-title span { color: var(--orange); }
+    .fade-up { opacity: 0; transform: translateY(22px); transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1); }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-    /* ── SECTION LABELS ── */
-    .sec-label { font-family: 'IBM Plex Mono', monospace; font-size: .65rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--show-color); }
-    .sec-title { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 2px; line-height: 1; color: var(--text); }
-    .sec-title span { color: var(--show-color); }
-    .body-text { font-size: 1rem; color: var(--subtext); line-height: 1.75; }
-    .body-text p + p { margin-top: 14px; }
-    .body-text strong { color: var(--text); }
+    /* SEEN WIDGET */
+    .seen-widget { background: linear-gradient(135deg, var(--navy) 0%, #1a0a38 100%); border-radius: var(--radius-lg); padding: 28px; color: white; margin-bottom: 50px; }
+    .seen-tag { font-family: var(--font-mono); font-size: 0.65rem; color: var(--show-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
+    .seen-q { font-family: var(--font-display); font-size: clamp(1.45rem, 2.6vw, 1.95rem); color: white; margin-bottom: 16px; line-height: 1.1; }
+    .seen-btns { display: flex; gap: 10px; }
+    .seen-btn { padding: 10px 22px; border-radius: var(--radius-sm); font-family: var(--font-price); font-size: 0.9rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; transition: all 0.2s; border: none; }
+    .seen-yes { background: var(--orange); color: white; }
+    .seen-no  { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.15); }
+    .seen-btn:hover { transform: translateY(-2px); opacity: 0.88; }
+    .seen-resp { display: none; margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.08); }
+    .seen-resp.visible { display: block; }
+    .seen-resp p { font-size: 0.89rem; color: rgba(255,255,255,0.73); line-height: 1.72; margin-bottom: 12px; }
+    .seen-resp a { color: var(--orange); font-weight: 600; }
 
-    /* ── SEEN WIDGET ── */
-    .seen-widget { background: var(--card-bg); border: 2px solid var(--navy); border-radius: 14px; padding: 28px 30px; display: flex; flex-direction: column; gap: 14px; overflow: hidden; }
-    .seen-q { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 2px; color: var(--text); line-height: 1.1; }
-    .seen-q span { color: var(--show-color); }
-    .seen-btns { display: flex; gap: 12px; }
-    .seen-btn { flex: 1; padding: 15px; border-radius: 8px; border: 2px solid var(--navy); background: #fff; color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 1.05rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: all .2s; }
-    .seen-btn:hover { background: var(--navy); color: #fff; }
-    .seen-resp { display: none; flex-direction: column; gap: 12px; width: 100%; }
-    .seen-resp.on { display: flex; }
-    .seen-resp-text { font-size: 1rem; color: var(--subtext); line-height: 1.6; }
-    .seen-resp-text strong { color: var(--text); }
-    .seen-resp .btn-primary { white-space: normal; width: 100%; justify-content: center; }
+    /* TRUST GRID */
+    .trust-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; margin-bottom: 50px; }
+    .trust-card { background: var(--gray-100); border-radius: var(--radius); padding: 17px; display: flex; gap: 12px; align-items: flex-start; }
+    .trust-icon { font-size: 1.55rem; flex-shrink: 0; }
+    .trust-card-title { font-family: var(--font-price); font-size: 0.86rem; font-weight: 800; color: var(--navy); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 3px; }
+    .trust-card-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.52; }
 
-    /* ── TRUST GRID ── */
-    .trust-grid { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 20px 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 16px; }
-    .trust-item { display: flex; align-items: flex-start; gap: 10px; }
-    .trust-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
-    .trust-text strong { display: block; font-size: .85rem; color: var(--text); }
-    .trust-text span { font-size: .75rem; color: var(--gray); }
+    /* ABOUT */
+    .about-body p { font-size: 0.98rem; color: var(--text); line-height: 1.78; margin-bottom: 16px; }
+    .about-body p:last-child { margin-bottom: 0; }
+    .about-body .lede { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500; font-size: 1.4rem; color: var(--navy); line-height: 1.55; }
+    .spike-callout { display: flex; gap: 13px; align-items: flex-start; background: linear-gradient(135deg, rgba(123,95,232,0.06), rgba(255,107,0,0.03)); border: 1px solid rgba(123,95,232,0.18); border-left: 4px solid var(--show); border-radius: var(--radius); padding: 16px 20px; margin: 20px 0; }
+    .spike-emoji { font-size: 1.85rem; flex-shrink: 0; margin-top: 2px; }
+    .spike-text { font-family: var(--font-mono); font-size: 0.81rem; color: var(--navy); line-height: 1.62; }
+    .spike-text strong { color: var(--show); display: block; margin-bottom: 4px; font-size: 0.63rem; letter-spacing: 0.06em; text-transform: uppercase; }
 
-    /* ── SPIKE CALLOUT ── */
-    .spike-callout { background: linear-gradient(135deg,#FFF7ED,#FFF0DE); border: 1px solid rgba(255,107,0,.2); border-left: 4px solid var(--orange); border-radius: 0 10px 10px 0; padding: 18px 22px; display: flex; gap: 14px; }
-    .spike-icon { font-size: 1.6rem; flex-shrink: 0; }
-    .spike-lbl { font-family: 'IBM Plex Mono', monospace; font-size: .65rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--orange); margin-bottom: 3px; }
-    .spike-text { font-size: .88rem; color: #5A4A3A; line-height: 1.6; }
-    .spike-text strong { color: var(--navy); }
+    /* GALLERY */
+    .gallery-section { margin-bottom: 50px; }
+    .gallery-grid { display: grid; grid-template-columns: 1.4fr 1fr; grid-template-rows: 1fr 1fr; gap: 10px; height: 380px; }
+    .gallery-grid a { position: relative; overflow: hidden; border-radius: var(--radius); display: block; background: var(--gray-200); }
+    .gallery-grid a:first-child { grid-row: 1 / span 2; }
+    .gallery-grid img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .gallery-grid a:hover img { transform: scale(1.05); }
+    @media (max-width: 700px) { .gallery-grid { grid-template-columns: 1fr; grid-template-rows: none; height: auto; gap: 8px; } .gallery-grid a { aspect-ratio: 4/3; } .gallery-grid a:first-child { grid-row: auto; } }
 
-    /* ── EMAIL SIGNUP ── */
-    .email-signup { background: linear-gradient(135deg, var(--show-color) 0%, #2a1060 100%); border-radius: 12px; padding: 24px 28px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
-    .email-left { flex: 1; min-width: 160px; }
-    .email-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: .65rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.6); margin-bottom: 4px; }
-    .email-headline { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.1rem; color: #fff; }
-    .email-form { display: flex; gap: 8px; flex-wrap: wrap; }
-    .email-input { padding: 11px 16px; border-radius: 7px; border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.1); color: #fff; font-family: 'Barlow', sans-serif; font-size: .9rem; outline: none; min-width: 190px; transition: border-color .2s; }
-    .email-input::placeholder { color: rgba(255,255,255,.4); }
-    .email-input:focus { border-color: rgba(255,255,255,.5); }
-    .email-submit { padding: 11px 20px; border-radius: 7px; background: #fff; color: var(--show-color); font-family: 'Barlow Condensed', sans-serif; font-size: .88rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; border: 2px solid #fff; cursor: pointer; transition: all .2s; white-space: nowrap; }
-    .email-submit:hover { background: rgba(255,255,255,.85); }
-    .email-ok { display: none; align-items: center; gap: 8px; font-size: .88rem; color: #fff; font-weight: 600; }
-    .email-ok.on { display: flex; }
+    /* EMAIL SIGNUP */
+    .email-signup { background: var(--navy); border-radius: var(--radius-lg); padding: 32px 28px; margin-bottom: 50px; position: relative; overflow: hidden; display: flex; align-items: center; gap: 24px; }
+    .email-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: linear-gradient(180deg, var(--show-lt), var(--orange)); }
+    .email-heading { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); color: var(--show-lt); letter-spacing: 0.08em; flex-shrink: 0; line-height: 1; }
+    .email-body { flex: 1; }
+    .email-body h3 { font-family: var(--font-price); font-size: 1rem; font-weight: 800; color: white; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
+    .email-body p { font-size: 0.79rem; color: rgba(255,255,255,0.42); line-height: 1.5; margin-bottom: 12px; }
+    .email-form { display: flex; gap: 8px; }
+    .email-input { flex: 1; padding: 10px 13px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.11); border-radius: var(--radius-sm); color: white; font-family: var(--font-mono); font-size: 0.77rem; outline: none; }
+    .email-input::placeholder { color: rgba(255,255,255,0.24); }
+    .email-input:focus { border-color: rgba(123,95,232,0.44); }
+    .email-submit { padding: 10px 15px; background: var(--show-lt); color: var(--navy); font-family: var(--font-price); font-size: 0.84rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; border: none; border-radius: var(--radius-sm); transition: background 0.2s; white-space: nowrap; }
+    .email-submit:hover { background: #9a85f0; }
 
-    /* ── DETAILS GRID ── */
-    .details-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px,1fr)); gap: 14px; }
-    .detail-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 6px; }
-    .dc-icon { font-size: 1.3rem; }
-    .dc-label { font-size: .68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gray); }
-    .dc-value { font-family: 'Barlow Condensed', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--text); }
-    .dc-sub { font-size: .78rem; color: var(--gray); line-height: 1.45; }
+    /* DETAILS GRID */
+    .details-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 50px; }
+    .detail-card { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 17px; transition: box-shadow 0.2s, transform 0.2s; }
+    .detail-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+    .detail-card-icon { font-size: 1.55rem; margin-bottom: 8px; }
+    .detail-card-lbl { font-family: var(--font-price); font-size: 0.68rem; font-weight: 800; color: var(--show); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
+    .detail-card-val { font-family: var(--font-body); font-size: 0.87rem; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
+    .detail-card-sub { font-size: 0.76rem; color: var(--text-muted); line-height: 1.52; }
 
-    /* ── EXPECT GRID ── */
-    .expect-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 14px; }
-    .expect-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 22px; display: flex; flex-direction: column; gap: 8px; }
-    .expect-icon { font-size: 1.6rem; }
-    .expect-title { font-family: 'Barlow Condensed', sans-serif; font-size: .95rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--text); }
-    .expect-desc { font-size: .85rem; color: var(--gray); line-height: 1.55; }
+    /* WHAT TO EXPECT */
+    .expect-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; margin-bottom: 50px; }
+    .expect-card { background: var(--off-white); border-radius: var(--radius); padding: 20px; border-left: 3px solid var(--show); }
+    .expect-title { font-family: var(--font-price); font-size: 0.88rem; font-weight: 800; color: var(--navy); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 7px; display: flex; align-items: center; gap: 6px; }
+    .expect-desc { font-size: 0.81rem; color: var(--text-muted); line-height: 1.62; }
 
-    /* ── BLUEPRINT ── */
-    .blueprint { position: relative; padding-left: 28px; display: flex; flex-direction: column; gap: 0; }
-    .blueprint::before { content: ''; position: absolute; left: 5px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(to bottom, var(--show-color), var(--show-color-lt)); border-radius: 2px; }
-    .bp-item { position: relative; padding: 0 0 28px 20px; }
-    .bp-item:last-child { padding-bottom: 0; }
-    .bp-dot { position: absolute; left: -24px; top: 4px; width: 13px; height: 13px; border-radius: 50%; background: var(--show-color); border: 2px solid #fff; box-shadow: 0 0 0 2px var(--show-color); }
-    .bp-dot.end { background: var(--show-color-lt); box-shadow: 0 0 0 2px var(--show-color-lt); }
-    .bp-time { font-family: 'IBM Plex Mono', monospace; font-size: .72rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--show-color); margin-bottom: 3px; }
-    .bp-event { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 800; color: var(--text); margin-bottom: 5px; }
-    .bp-desc { font-size: .87rem; color: var(--subtext); line-height: 1.55; }
+    /* SEATING */
+    .seating-section { margin-bottom: 50px; }
+    .seating-diagram-wrap { background: var(--navy); border-radius: var(--radius-lg); padding: 26px 20px 30px; margin-bottom: 20px; position: relative; overflow: hidden; }
+    .seating-diagram-wrap::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--show-lt), var(--orange)); }
+    .seating-lbl { font-family: var(--font-price); font-size: 0.78rem; font-weight: 700; color: var(--show-lt); text-align: center; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px; }
+    .seat-svg-wrap { max-width: 480px; margin: 0 auto; }
+    .seat-svg-wrap svg { width: 100%; height: auto; display: block; }
+    .seat-zone { cursor: pointer; transition: opacity 0.18s; }
+    .seat-zone:hover { opacity: 0.82; }
 
-    /* ── SEATING CHART ── */
-    .seating-section { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 24px; }
-    .seat-sub { font-size: .85rem; color: var(--gray); margin-bottom: 20px; }
-    .chart-stage { background: #1A2236; border-radius: 6px 6px 0 0; padding: 9px; text-align: center; font-family: 'IBM Plex Mono', monospace; font-size: .75rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,.6); margin-bottom: 6px; }
-    .chart-svg { width: 100%; cursor: pointer; }
-    .c-sec { cursor: pointer; transition: opacity .2s; }
-    .c-sec:hover, .c-sec.active { opacity: .78; }
-    .seat-legend { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
-    .leg-item { display: flex; align-items: center; gap: 6px; font-size: .78rem; color: var(--gray); }
-    .leg-dot { width: 11px; height: 11px; border-radius: 3px; flex-shrink: 0; }
-    .zone-popup { display: none; background: var(--navy); border: 1px solid var(--show-color-lt); border-radius: 12px; padding: 18px 20px; margin-top: 16px; }
-    .zone-popup.on { display: block; }
-    .zp-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: .65rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--show-color-lt); margin-bottom: 3px; }
-    .zp-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.35rem; letter-spacing: 2px; color: #fff; margin-bottom: 7px; }
-    .zp-desc { font-size: .87rem; color: rgba(255,255,255,.7); line-height: 1.6; }
-    .zp-badge { display: inline-block; background: var(--show-color); color: #fff; font-family: 'Barlow Condensed', sans-serif; font-size: .7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; margin-top: 10px; }
+    .zone-popup { overflow: hidden; max-height: 0; transition: max-height 0.42s cubic-bezier(0.16,1,0.3,1); margin-top: 18px; }
+    .zone-popup.visible { max-height: 300px; }
+    .zone-popup-inner { background: rgba(255,255,255,0.055); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 16px; color: white; }
+    .zone-popup-hdr { display: flex; align-items: center; gap: 9px; margin-bottom: 8px; }
+    .zone-popup-name { font-family: var(--font-display); font-size: 1.22rem; color: white; }
+    .zone-pick-badge { display: none; font-family: var(--font-mono); font-size: 0.59rem; font-weight: 600; padding: 2px 7px; border-radius: 4px; background: rgba(255,107,0,0.15); color: #ffaa66; border: 1px solid rgba(255,107,0,0.28); }
+    .zone-popup-desc { font-size: 0.82rem; color: rgba(255,255,255,0.64); line-height: 1.64; }
+    .seat-legend { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 20px; }
+    .legend-item { display: flex; align-items: center; gap: 7px; font-family: var(--font-mono); font-size: 0.65rem; color: rgba(255,255,255,0.6); }
+    .legend-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
 
-    /* accordion (seat-accord) */
-    .seat-accord { margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
-    .sa-item { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 8px; overflow: hidden; }
-    .sa-q { width: 100%; background: none; border: none; color: #fff; font-family: 'Barlow', sans-serif; font-size: .88rem; font-weight: 700; text-align: left; padding: 14px 18px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 14px; }
-    .sa-q:hover { color: var(--show-color-lt); }
-    .sa-ch { font-size: .7rem; color: var(--show-color-lt); transition: transform .3s; flex-shrink: 0; }
-    .sa-item.open .sa-ch { transform: rotate(180deg); }
-    .sa-body { max-height: 0; overflow: hidden; transition: max-height .35s ease, padding .35s ease; padding: 0 18px; }
-    .sa-inner { font-size: .85rem; color: rgba(255,255,255,.65); line-height: 1.65; padding-bottom: 14px; }
-    .sa-item.open .sa-body { max-height: 200px; }
+    .seat-accord { display: flex; flex-direction: column; gap: 8px; }
+    .sa-item { border: 1px solid var(--gray-200); border-radius: var(--radius-sm); overflow: hidden; }
+    .sa-hdr { display: flex; align-items: center; justify-content: space-between; padding: 13px 16px; background: white; border: none; width: 100%; text-align: left; transition: background 0.2s; }
+    .sa-hdr:hover { background: var(--off-white); }
+    .sa-left { display: flex; align-items: center; gap: 10px; }
+    .sa-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+    .sa-name { font-family: var(--font-price); font-size: 0.88rem; font-weight: 800; color: var(--navy); text-transform: uppercase; letter-spacing: 0.04em; }
+    .sa-badge { font-family: var(--font-mono); font-size: 0.57rem; font-weight: 600; padding: 2px 6px; border-radius: 4px; background: rgba(255,107,0,0.09); color: var(--orange); border: 1px solid rgba(255,107,0,0.19); }
+    .sa-chev { color: var(--gray-400); transition: transform 0.28s cubic-bezier(0.16,1,0.3,1); font-size: 0.84rem; }
+    .sa-item.open .sa-chev { transform: rotate(180deg); }
+    .sa-body { overflow: hidden; max-height: 0; transition: max-height 0.42s cubic-bezier(0.16,1,0.3,1); }
+    .sa-item.open .sa-body { max-height: 300px; }
+    .sa-body-inner { padding: 12px 16px; background: var(--off-white); border-top: 1px solid var(--gray-200); font-size: 0.82rem; color: var(--text-muted); line-height: 1.64; }
 
-    /* ── FAQ ── */
-    .faq-list { display: flex; flex-direction: column; gap: 10px; }
-    .faq-item { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; overflow: hidden; }
-    .faq-q { width: 100%; background: none; border: none; color: var(--text); font-family: 'Barlow', sans-serif; font-size: .95rem; font-weight: 700; text-align: left; padding: 18px 22px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 14px; transition: color .2s; }
-    .faq-q:hover { color: var(--show-color); }
-    .faq-ch { font-size: .7rem; color: var(--show-color); transition: transform .3s; flex-shrink: 0; }
-    .faq-item.open .faq-ch { transform: rotate(180deg); }
-    .faq-a { max-height: 0; overflow: hidden; transition: max-height .35s ease, padding .35s ease; padding: 0 22px; }
-    .faq-inner { font-size: .9rem; color: var(--subtext); line-height: 1.7; padding-bottom: 18px; }
+    /* FAQ */
+    .faq-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 50px; }
+    .faq-item { border: 1px solid var(--gray-200); border-radius: var(--radius-sm); overflow: hidden; }
+    .faq-q { display: flex; align-items: center; justify-content: space-between; padding: 15px 17px; background: white; border: none; width: 100%; text-align: left; transition: background 0.2s; }
+    .faq-q:hover { background: var(--off-white); }
+    .faq-q-text { font-family: var(--font-price); font-size: 0.92rem; font-weight: 700; color: var(--navy); letter-spacing: 0.02em; }
+    .faq-icon { color: var(--show); font-size: 1.22rem; transition: transform 0.28s cubic-bezier(0.16,1,0.3,1); flex-shrink: 0; margin-left: 10px; font-weight: 300; line-height: 1; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-a { overflow: hidden; max-height: 0; transition: max-height 0.42s cubic-bezier(0.16,1,0.3,1); }
     .faq-item.open .faq-a { max-height: 400px; }
+    .faq-a-inner { padding: 12px 17px; background: var(--off-white); border-top: 1px solid var(--gray-200); font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; }
 
-    /* ── ALSO LIKE ── */
-    .also-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
-    .also-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; overflow: hidden; text-decoration: none; color: var(--text); transition: transform .2s, border-color .2s; display: flex; flex-direction: column; }
-    .also-card:hover { transform: translateY(-3px); border-color: rgba(75,31,168,.3); }
-    .also-img { height: 90px; background: linear-gradient(135deg,#D9E8FF,#EEF4FF); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; }
-    .also-body { padding: 10px 12px; flex: 1; }
-    .also-venue { font-size: .66rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--show-color); margin-bottom: 2px; }
-    .also-name { font-family: 'Barlow Condensed', sans-serif; font-size: .95rem; font-weight: 800; line-height: 1.2; color: var(--text); }
-    .also-foot { display: flex; align-items: center; justify-content: space-between; padding: 7px 12px; border-top: 1px solid var(--card-border); }
-    .also-price { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.05rem; color: var(--orange); }
-    .also-cta { font-size: .66rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--show-color); }
+    /* ALSO LIKE */
+    .also-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 50px; }
+    .also-card { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; transition: box-shadow 0.2s, transform 0.2s; }
+    .also-card:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
+    .also-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; background: var(--gray-200); }
+    .also-body { padding: 13px; }
+    .also-cat { font-family: var(--font-mono); font-size: 0.59rem; color: var(--show); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
+    .also-title { font-family: var(--font-display); font-size: 1.12rem; color: var(--navy); margin-bottom: 2px; line-height: 1.1; }
+    .also-venue { font-size: 0.73rem; color: var(--text-muted); margin-bottom: 10px; }
+    .also-cta { display: block; width: 100%; padding: 9px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.82rem; font-weight: 800; text-align: center; border-radius: var(--radius-sm); text-transform: uppercase; letter-spacing: 0.05em; transition: background 0.2s; border: none; }
+    .also-cta:hover { background: var(--orange-lt); }
 
-    /* ── FINAL CTA ── */
-    .final-cta { position: relative; background: linear-gradient(135deg, var(--show-color) 0%, #1a0a38 60%, var(--navy) 100%); border-radius: 16px; padding: 52px 48px; text-align: center; overflow: hidden; }
+    /* FINAL CTA */
+    .final-cta { background: linear-gradient(135deg, var(--show) 0%, #1a0a38 60%, var(--navy) 100%); padding: 60px 32px; border-radius: var(--radius-lg); text-align: center; margin-bottom: 50px; position: relative; overflow: hidden; }
+    .final-cta::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, rgba(255,255,255,0.5), rgba(255,107,0,0.8)); }
     .orb { position: absolute; border-radius: 50%; pointer-events: none; }
-    .orb-1 { width: 300px; height: 300px; top: -100px; left: -80px; background: radial-gradient(circle, rgba(123,95,232,.25) 0%, transparent 70%); animation: float 7s ease-in-out infinite; }
-    .orb-2 { width: 200px; height: 200px; bottom: -60px; right: -50px; background: radial-gradient(circle, rgba(255,107,0,.15) 0%, transparent 70%); animation: float 9s ease-in-out infinite reverse; }
-    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-18px); } }
-    .final-eyebrow { position: relative; font-family: 'IBM Plex Mono', monospace; font-size: .7rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,.55); margin-bottom: 12px; }
-    .final-title { position: relative; font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem,4vw,3.6rem); letter-spacing: 3px; color: #fff; line-height: 1; margin-bottom: 10px; }
-    .final-sub { position: relative; font-size: .95rem; color: rgba(255,255,255,.6); margin-bottom: 28px; }
-    .final-cta .btn-primary { position: relative; font-size: 1.1rem; padding: 18px 36px; }
+    .orb-1 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(123,95,232,0.25) 0%, transparent 70%); top: -80px; left: -60px; animation: orbDrift 9s ease-in-out infinite; }
+    .orb-2 { width: 220px; height: 220px; background: radial-gradient(circle, rgba(255,107,0,0.14) 0%, transparent 70%); bottom: -60px; right: -40px; animation: orbDrift 11s ease-in-out infinite reverse; }
+    @keyframes orbDrift { 0%,100%{transform:translate(0,0)} 33%{transform:translate(18px,-12px)} 66%{transform:translate(-10px,16px)} }
+    .final-cta-tag { font-family: var(--font-mono); font-size: 0.64rem; color: rgba(255,255,255,0.55); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; position: relative; }
+    .final-cta-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.1rem); color: white; line-height: 1; margin-bottom: 9px; position: relative; }
+    .final-cta-sub { font-size: 0.88rem; color: rgba(255,255,255,0.55); margin-bottom: 22px; position: relative; }
+    .final-cta-amount { font-family: var(--font-price); font-size: 3.3rem; font-weight: 800; color: white; line-height: 1; margin-bottom: 20px; position: relative; }
+    .final-cta-btn { display: inline-flex; align-items: center; gap: 9px; padding: 20px 55px; background: var(--orange); color: var(--navy); font-family: var(--font-price); font-size: 1.56rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); transition: all 0.2s; border: 2px solid rgba(96,165,250,0.65); position: relative; overflow: hidden; animation: pulseGlowCta 2.4s ease-out infinite; }
+    .final-cta-btn::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.13), transparent); animation: shimmer 2.6s infinite; }
+    .final-cta-btn:hover { background: var(--orange-lt); transform: translateY(-2px); }
+    .final-cta-note { font-family: var(--font-mono); font-size: 0.61rem; color: rgba(255,255,255,0.28); margin-top: 13px; position: relative; }
+    .final-cta-note a { color: rgba(255,255,255,0.45); text-decoration: underline; }
 
-    /* ── MOBILE STICKY ── */
-    .mobile-sticky { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 200; background: var(--navy); border-top: 1px solid rgba(255,255,255,.1); padding: 12px 16px; align-items: center; justify-content: space-between; gap: 12px; }
-    .mob-progress { position: absolute; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--show-color), var(--show-color-lt)); transition: width 0.1s linear; overflow: hidden; }
-    .mob-progress::after { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.5) 50%, transparent 100%); animation: pb-shimmer 2.2s linear infinite; }
-    .mob-prices { display: flex; flex-direction: column; gap: 1px; }
-    .mob-row { display: flex; align-items: baseline; gap: 8px; }
-    .mob-our { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 2.4rem; color: var(--orange); line-height: 1; }
-    .mob-was { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.2rem; color: rgba(255,255,255,.38); text-decoration: line-through; }
-    .mob-save { font-size: .7rem; color: rgba(255,255,255,.55); font-weight: 600; }
-    .mob-btn { background: var(--orange); color: #fff; font-family: 'Barlow Condensed', sans-serif; font-size: .95rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 13px 22px; border-radius: 7px; text-decoration: none; border: 2px solid var(--orange); white-space: nowrap; flex-shrink: 0; transition: background .2s; }
-    .mob-btn:hover { background: var(--orange-lt); }
+    /* MOBILE STICKY */
+    .mobile-sticky { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--navy); z-index: 1000; padding: 10px 16px 14px; box-shadow: 0 -4px 22px rgba(0,0,0,0.28); border-top: 1px solid rgba(123,95,232,0.2); }
+    .mob-progress { position: absolute; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--show), var(--show-lt)); transition: width 0.1s linear; }
+    .mob-inner { display: flex; align-items: center; justify-content: space-between; gap: 13px; }
+    .mob-price-lbl { font-family: var(--font-mono); font-size: 0.55rem; color: rgba(255,255,255,0.28); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 1px; }
+    .mob-price { font-family: var(--font-price); font-size: 2.4rem; font-weight: 800; color: var(--orange); line-height: 1; }
+    .mob-save { font-family: var(--font-mono); font-size: 0.57rem; color: var(--green); }
+    .mob-cta { flex: 1; max-width: 230px; padding: 17px; background: var(--orange); color: var(--navy); font-family: var(--font-price); font-size: 1.35rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; text-align: center; border-radius: var(--radius-sm); border: 2px solid rgba(96,165,250,0.65); position: relative; overflow: hidden; transition: background 0.2s; animation: pulseGlowCta 2.4s ease-out infinite; }
+    .mob-cta::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.17), transparent); animation: shimmer 2s infinite; }
+    .mob-cta:hover { background: var(--orange-lt); }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 960px) {
-      .bc { padding: 80px 20px 0; }
-      .hero { padding: 16px 20px 32px; }
-      .page { grid-template-columns: 1fr; padding: 28px 20px 100px; }
-      .sidebar { display: none; }
-      .mobile-sticky { display: flex; }
-      .also-grid { grid-template-columns: repeat(3,1fr); }
-      .final-cta { padding: 36px 24px; }
+    /* RESPONSIVE */
+    @media (max-width: 940px) { .page-layout { grid-template-columns: 1fr; } .sidebar { display: none; } .mobile-sticky { display: block; } .details-grid { grid-template-columns: repeat(2,1fr); } .also-grid { grid-template-columns: repeat(2,1fr); } .stats-inner { grid-template-columns: repeat(2,1fr); } .stat-item:nth-child(2) { border-right: none; } }
+    @media (max-width: 600px) { .hero-content { padding: 22px 16px 26px; } .main-content { padding: 26px 16px 120px; } .trust-grid { grid-template-columns: 1fr; } .details-grid { grid-template-columns: 1fr; } .expect-grid { grid-template-columns: 1fr; } .also-grid { grid-template-columns: 1fr; } .email-signup { flex-direction: column; gap: 12px; } .email-form { flex-direction: column; } .price-strip { flex-direction: column; align-items: flex-start; gap: 13px; } .stats-inner { grid-template-columns: repeat(2,1fr); } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fade-up { transition: none; }
+      .slide.active img { animation: none; }
+      .ticker-track { animation: none; }
+      @keyframes shimmer { 100%{ left:100%; } }
+      .orb { animation: none; }
     }
-    @media (max-width: 600px) {
-      .seen-btns { flex-direction: column; }
-      .also-grid { grid-template-columns: 1fr 1fr; }
-      .stats-inner { grid-template-columns: repeat(2,1fr); }
-      .details-grid { grid-template-columns: 1fr 1fr; }
-    }
-
-  .sk-schedule{margin-bottom:50px;min-width:0;}
+  .sk-schedule{margin-bottom:32px;min-width:0;}
   .sk-eyebrow{font-family:var(--font-mono);font-size:0.68rem;font-weight:600;color:#FF6B2B;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px;}
-  .sk-sched-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);color:var(--navy);line-height:1;margin-bottom:10px;}
-  .sk-sched-intro{font-size:0.95rem;color:var(--text-muted,#4B5563);line-height:1.6;margin-bottom:20px;}
+  .sk-sched-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);color:#0A0F2C;line-height:1;margin-bottom:10px;}
+  .sk-sched-intro{font-size:0.95rem;color:#374151;line-height:1.6;margin-bottom:20px;}
   .sk-sched-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
   .sk-day{background:#EEF3FE;border:1px solid #DFE8FB;border-radius:12px;padding:20px 12px 22px;text-align:center;min-height:118px;display:flex;flex-direction:column;justify-content:center;gap:6px;}
   .sk-day-name{font-weight:700;font-size:15px;letter-spacing:1.5px;color:#0A0F2C;}
@@ -506,7 +507,8 @@
   .sk-day--cta .sk-day-cta-body{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:20px;color:#fff;line-height:1.2;}
   .sk-day--cta .sk-day-link{color:#fff;font-size:14px;}
   .sk-day--cta .sk-day-link:hover{color:#fff;}
-  @media (max-width:640px){.sk-sched-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:640px){.sk-sched-grid{grid-template-columns:repeat(3,1fr);gap:10px;}.sk-day{padding:14px 8px 16px;min-height:100px;}.sk-day-time{font-size:19px;}.sk-day-name{font-size:13px;}.sk-day--cta .sk-day-cta-body{font-size:16px;}}
+  @media (max-width:640px){.sk-schedule--slider .sk-day{flex:0 0 108px;}}
   .sk-schedule--slider .sk-sched-grid{display:flex!important;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;scrollbar-width:none;gap:12px;padding:6px 2px 14px;grid-template-columns:unset!important;}
   .sk-schedule--slider .sk-sched-grid::-webkit-scrollbar{display:none;}
   .sk-schedule--slider .sk-day{flex:0 0 118px;scroll-snap-align:start;}
@@ -514,120 +516,97 @@
   .sk-sched-slider-wrap{position:relative;}
   .sk-sched-slider-wrap::after{content:"";position:absolute;top:0;right:0;width:52px;height:calc(100% - 14px);background:linear-gradient(to right,transparent,#fff 85%);pointer-events:none;}
   .sk-swipe-hint{font-size:14px;color:#6B7280;text-align:center;margin-top:8px;letter-spacing:0.2px;font-weight:500;}
-  @media (max-width:640px){.sk-schedule--slider .sk-day{flex:0 0 108px;}}
   </style>
 </head>
 <body>
-
 <div id="progress-bar" aria-hidden="true"></div>
 <div id="progress-bar-bottom" aria-hidden="true"></div>
 <div id="vs-header"></div>
 
+<!-- STICKY SAVE PILL -->
+<div class="save-pill" id="savePill" aria-label="Quick ticket purchase">
+  <span class="save-pill-price">$44 · Save $49</span>
+  <a href="https://spotlight.vegas/shows/cirque-du-soleil/mystere/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="save-pill-cta">Get Tickets →</a>
+</div>
+
 <!-- DOT NAV -->
-<nav id="dot-nav" aria-label="Page sections">
-  <button class="dn-dot active" data-sec="section-seen" aria-label="Have you seen it?"></button>
-  <button class="dn-dot" data-sec="section-about" aria-label="About"></button>
-  <button class="dn-dot" data-sec="section-details" aria-label="Details"></button>
-  <button class="dn-dot" data-sec="section-expect" aria-label="What to expect"></button>
-  <button class="dn-dot" data-sec="section-seating" aria-label="Seating"></button>
-  <button class="dn-dot" data-sec="section-faq" aria-label="FAQ"></button>
+<nav class="dot-nav" aria-label="Page sections">
+  <a href="#section-seen"    class="dnav-dot active" data-label="Seen It?"></a>
+  <a href="#section-about"   class="dnav-dot"        data-label="About"></a>
+  <a href="#section-gallery" class="dnav-dot"        data-label="Gallery"></a>
+  <a href="#section-details" class="dnav-dot"        data-label="Details"></a>
+  <a href="#section-expect"  class="dnav-dot"        data-label="Expect"></a>
+  <a href="#section-seating" class="dnav-dot"        data-label="Seating"></a>
+  <a href="#section-faq"     class="dnav-dot"        data-label="FAQ"></a>
 </nav>
 
-<!-- SAVE PILL -->
-<a id="save-pill" href="https://spotlight.vegas/shows/cirque-du-soleil/mystere/ref/vegassidekick" target="_blank" rel="noopener">Save $49 — Get Tickets</a>
+<section class="hero" aria-label="Show hero">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a> › <a href="/shows/cirque/">Cirque du Soleil</a> › <span>Mystère</span>
+  </nav>
 
-<!-- BREADCRUMB -->
-<div class="bc">
-  <div class="bc-inner">
-    <a href="/">Home</a><span class="bc-sep">›</span>
-    <a href="/shows/cirque/">Cirque du Soleil</a><span class="bc-sep">›</span>
-    <span class="bc-cur">Mystère</span>
-  </div>
-</div>
-
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-wrap">
-    <div class="slider" id="slider">
-      <span class="s-cat">Cirque du Soleil</span>
-      <span class="s-badge">The Original</span>
-      <div class="s-track" id="sTrack">
-        <div class="slide">
-          <img src="/images/mystere-hero.jpg" alt="Mystère by Cirque du Soleil at TI Hotel Las Vegas" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
-          <div class="slide-ph" style="display:none"><div class="em">🎪</div><div class="pt">Mystère</div></div>
-        </div>
-        <div class="slide">
-          <img src="/images/mystere-show-2.jpg" alt="Mystère performers at TI Hotel Las Vegas" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
-          <div class="slide-ph" style="display:none"><div class="em">🎭</div><div class="pt">The Performers</div></div>
-        </div>
-        <div class="slide">
-          <img src="/images/mystere-show-3.jpg" alt="Mystère stage at TI Hotel Las Vegas" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
-          <div class="slide-ph" style="display:none"><div class="em">✨</div><div class="pt">The Stage</div></div>
-        </div>
-        <div class="slide slide-vid" id="vidSlide">
-          <iframe id="ytFrame" src="about:blank" data-src="https://www.youtube.com/embed/BaY8kjdUlco?enablejsapi=1&rel=0" title="Mystère by Cirque du Soleil Las Vegas preview" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          <div class="vid-overlay" id="vidOverlay">
-            <div class="play">▶</div>
-            <div class="play-lbl">Watch Preview</div>
-          </div>
-        </div>
-      </div>
-      <button class="s-prev" onclick="sMove(-1)" aria-label="Previous">&#8592;</button>
-      <button class="s-next" onclick="sMove(1)" aria-label="Next">&#8594;</button>
-      <div class="s-dots" id="sDots"></div>
+  <div class="slider" id="heroSlider" role="region" aria-label="Show photos">
+    <div class="slide active">
+      <img src="/images/mystere-hero.jpg" alt="Mystère by Cirque du Soleil at TI Hotel Las Vegas" loading="eager" />
     </div>
+    <div class="slide">
+      <img src="/images/mystere-show-2.jpg" alt="Mystère performers at TI Hotel Las Vegas" loading="lazy" />
+    </div>
+    <div class="slide">
+      <img src="/images/mystere-show-3.jpg" alt="Mystère stage at TI Hotel Las Vegas" loading="lazy" />
+    </div>
+    <div class="slide slide-vid" id="vidSlide">
+      <iframe id="ytFrame" src="about:blank" data-src="https://www.youtube.com/embed/BaY8kjdUlco?enablejsapi=1&rel=0" title="Mystère by Cirque du Soleil Las Vegas preview" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <div class="vid-overlay" id="vidOverlay">
+        <div class="play-btn">▶</div>
+        <div class="play-lbl">Watch Preview</div>
+      </div>
+    </div>
+    <button class="s-arrow prev" onclick="sliderMove(-1)" aria-label="Previous slide">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="s-arrow next" onclick="sliderMove(1)" aria-label="Next slide">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <div class="slider-dots" role="tablist">
+      <button class="dot-btn active" onclick="goToSlide(0)" role="tab" aria-label="Photo 1" aria-selected="true"></button>
+      <button class="dot-btn" onclick="goToSlide(1)" role="tab" aria-label="Photo 2" aria-selected="false"></button>
+      <button class="dot-btn" onclick="goToSlide(2)" role="tab" aria-label="Photo 3" aria-selected="false"></button>
+      <button class="dot-btn" onclick="goToSlide(3)" role="tab" aria-label="Video preview" aria-selected="false"></button>
+    </div>
+  </div>
 
-    <div class="title-block">
-      <div class="venue-lbl">Las Vegas · Mystère Theatre at TI Hotel</div>
-      <h1 class="show-title">Mystère</h1>
-      <div class="show-sub">by Cirque du Soleil — The Original</div>
-      <div class="pills">
-        <span class="pill">📍 TI Hotel · Mid-Strip</span>
-        <span class="pill">⏱️ 90 min · No intermission</span>
-        <span class="pill">🗓️ Mon, Tue, Fri–Sun</span>
-        <span class="pill">👨‍👩‍👧 All Ages Welcome</span>
+  <div class="hero-content-wrap">
+    <div class="hero-content">
+      <div class="venue-label">Las Vegas · Mystère Theatre at TI Hotel</div>
+      <h1 class="hero-title">Mystère</h1>
+      <p class="hero-subtitle">By Cirque du Soleil — The Original Las Vegas Cirque Show</p>
+      <div class="info-pills">
+        <span class="pill pill-gold">🎪 Cirque du Soleil</span>
+        <span class="pill">⏱ 90 Min</span>
+        <span class="pill pill-orange">👨‍👩‍👧 All Ages</span>
+        <span class="pill">📍 TI Hotel</span>
       </div>
-      <div class="urgency">
-        <span class="u-pill u-fire">🔥 Most nights sell out</span>
-        <span class="u-pill u-clock">⏰ Prices may increase closer to show date</span>
-        <span class="u-pill u-seat">🪑 Better seats fill first</span>
-      </div>
-      <div class="price-strip">
-        <div class="p-block">
-          <div class="p-our">$44</div>
-          <div class="p-was">$93</div>
-          <div class="p-save">Save $49</div>
-        </div>
-        <a href="https://spotlight.vegas/shows/cirque-du-soleil/mystere/ref/vegassidekick" class="btn-primary" target="_blank" rel="noopener">Get Tickets →</a>
-        <span class="cta-note">No hidden fees. No surprises — ever.</span>
+      <div class="urgency-pills">
+        <div class="upill"><span class="udot"></span>Mon, Tue, Fri–Sun · 6PM &amp; 8:30PM</div>
+        <div class="upill"><span class="udot"></span>Running Since 1993 — The Original</div>
+        <div class="upill"><span class="udot"></span>Most Nights Sell Out</div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- STATS STRIP -->
-<div class="stats-strip">
-  <div class="stats-inner">
-    <div class="stat-item">
-      <div class="stat-num" data-target="90">0</div>
-      <div class="stat-lbl">Minutes</div>
+  <div class="price-strip" id="priceStrip">
+    <div class="price-block">
+      <div class="price-lbl">Vegas Sidekick Price</div>
+      <div class="price-cur">$44</div>
+      <div class="price-reg">$93 regular</div>
+      <span class="price-save">Save $49 — on most dates</span>
     </div>
-    <div class="stat-item">
-      <div class="stat-num" data-target="33">0</div>
-      <div class="stat-lbl">Years Running</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num" data-target="2">0</div>
-      <div class="stat-lbl">Shows Nightly</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">All Ages</div>
-      <div class="stat-lbl">Age Requirement</div>
-    </div>
+    <a href="https://spotlight.vegas/shows/cirque-du-soleil/mystere/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="hero-cta">Get Tickets <span class="cta-ticket">🎟️</span></a>
+    <span class="urgency-txt">⏰ Prices may increase closer to show date</span>
   </div>
-</div>
+</section>
 
-<!-- TICKER -->
 <div class="ticker-wrap" aria-hidden="true">
   <div class="ticker-track">
     <span class="ticker-item">🎪 Mystère by Cirque du Soleil</span><span class="ticker-item ticker-sep">·</span>
@@ -639,7 +618,6 @@
     <span class="ticker-item">🌙 Two Shows Nightly</span><span class="ticker-item ticker-sep">·</span>
     <span class="ticker-item">🗓️ Mon, Tue, Fri–Sun</span><span class="ticker-item ticker-sep">·</span>
     <span class="ticker-item">✨ Est. 1993 · Running 30+ Years</span><span class="ticker-item ticker-sep">·</span>
-    <span class="ticker-item">🤸 World-Class Acrobatics</span><span class="ticker-item ticker-sep">·</span>
     <span class="ticker-item">🎪 Mystère by Cirque du Soleil</span><span class="ticker-item ticker-sep">·</span>
     <span class="ticker-item">🏆 The Original Las Vegas Cirque</span><span class="ticker-item ticker-sep">·</span>
     <span class="ticker-item">🎭 90 Minutes · No Intermission</span><span class="ticker-item ticker-sep">·</span>
@@ -649,77 +627,115 @@
     <span class="ticker-item">🌙 Two Shows Nightly</span><span class="ticker-item ticker-sep">·</span>
     <span class="ticker-item">🗓️ Mon, Tue, Fri–Sun</span><span class="ticker-item ticker-sep">·</span>
     <span class="ticker-item">✨ Est. 1993 · Running 30+ Years</span><span class="ticker-item ticker-sep">·</span>
-    <span class="ticker-item">🤸 World-Class Acrobatics</span><span class="ticker-item ticker-sep">·</span>
   </div>
 </div>
 
-<!-- PAGE BODY -->
-<div class="page-wrap">
-  <div class="page">
+<!-- COUNT-UP STATS -->
+<div class="stats-strip" aria-hidden="true">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-num" id="stat-0" data-target="90">0</div>
+      <div class="stat-lbl">Minutes</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" id="stat-1" data-target="33">0</div>
+      <div class="stat-lbl">Years Running</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" id="stat-2" data-target="2">0</div>
+      <div class="stat-lbl">Shows Nightly</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" id="stat-3" data-target="4">0</div>
+      <div class="stat-lbl">Seating Zones</div>
+    </div>
+  </div>
+</div>
 
-    <!-- MAIN CONTENT -->
-    <main class="main-content">
+<div class="page-layout">
+<main class="main-content" role="main">
 
-      <!-- SEEN WIDGET -->
-      <section id="section-seen" class="seen-widget fu">
-        <div class="seen-q">Have You Seen <span>Mystère</span> Before?</div>
-        <div class="seen-btns" id="seenBtns">
-          <button class="seen-btn" onclick="seenResp('yes')">👍 Yes, I Have</button>
-          <button class="seen-btn" onclick="seenResp('no')">👀 Not Yet</button>
-        </div>
-        <div class="seen-resp" id="seen-yes">
-          <div class="seen-resp-text"><strong>Then you know what 30 years of refinement looks like.</strong> Mystère has had three decades to get every act exactly right — and it shows. From $44 on most dates — grab your seats before the weekend shows fill.</div>
-          <a href="https://spotlight.vegas/shows/cirque-du-soleil/mystere/ref/vegassidekick" class="btn-primary" target="_blank" rel="noopener">Check Prices & Get Tickets →</a>
-        </div>
-        <div class="seen-resp" id="seen-no">
-          <div class="seen-resp-text"><strong>You're about to see where it all started.</strong> Mystère opened at TI Hotel in 1993 — the first permanent Cirque du Soleil show ever built in Las Vegas. Everything that came after it owes something to this production. Still running. Still delivering. Keep reading and we'll have your tickets ready when you are.</div>
-        </div>
-      </section>
+  <!-- HAVE YOU SEEN -->
+  <div class="seen-widget fade-up" id="section-seen">
+    <div class="seen-tag">🌵 Spike Wants to Know</div>
+    <div class="seen-q">Have you seen Mystère before?</div>
+    <div class="seen-btns">
+      <button class="seen-btn seen-yes" onclick="showSeen('yes')">Yeah, I've been</button>
+      <button class="seen-btn seen-no" onclick="showSeen('no')">First time</button>
+    </div>
+    <div class="seen-resp" id="seen-yes">
+      <p>Then you know what 30 years of refinement looks like. Mystère has had three decades to get every act exactly right — and it shows. From $44 on most dates — grab your seats before the weekend shows fill.</p>
+      <p><a href="https://spotlight.vegas/shows/cirque-du-soleil/mystere/ref/vegassidekick" target="_blank" rel="noopener sponsored">Check prices &amp; get tickets →</a></p>
+    </div>
+    <div class="seen-resp" id="seen-no">
+      <p>You're about to see where it all started. Mystère opened at TI Hotel in 1993 — the first permanent Cirque du Soleil show ever built in Las Vegas. Everything that came after it owes something to this production. Still running. Still delivering. Keep reading and we'll have your tickets ready when you are.</p>
+      <p><a href="https://spotlight.vegas/shows/cirque-du-soleil/mystere/ref/vegassidekick" target="_blank" rel="noopener sponsored">Get tickets →</a></p>
+    </div>
+  </div>
 
-      <!-- TRUST GRID -->
-      <div class="trust-grid fu">
-        <div class="trust-item"><div class="trust-icon">🔒</div><div class="trust-text"><strong>Secure Booking</strong><span>Encrypted checkout. Your info is safe.</span></div></div>
-        <div class="trust-item"><div class="trust-icon">⚡</div><div class="trust-text"><strong>Instant Delivery</strong><span>Tickets emailed right after purchase.</span></div></div>
-        <div class="trust-item"><div class="trust-icon">🚫</div><div class="trust-text"><strong>No Hidden Fees</strong><span>The price you see is the price you pay.</span></div></div>
-        <div class="trust-item"><div class="trust-icon">🎟️</div><div class="trust-text"><strong>No Account Required</strong><span>Book in minutes. No sign-up needed.</span></div></div>
+  <!-- TRUST GRID -->
+  <div class="trust-grid fade-up">
+    <div class="trust-card"><div class="trust-icon">🔒</div><div><div class="trust-card-title">Secure Booking</div><div class="trust-card-desc">Every transaction uses secure, encrypted checkout. Your payment information is always protected.</div></div></div>
+    <div class="trust-card"><div class="trust-icon">⚡</div><div><div class="trust-card-title">Instant Delivery</div><div class="trust-card-desc">Tickets arrive by email immediately after purchase. No will-call, no waiting.</div></div></div>
+    <div class="trust-card"><div class="trust-icon">✅</div><div><div class="trust-card-title">No Hidden Fees</div><div class="trust-card-desc">The price you see is the price you pay. Nothing added at checkout.</div></div></div>
+    <div class="trust-card"><div class="trust-icon">🎫</div><div><div class="trust-card-title">No Account Required</div><div class="trust-card-desc">Buy without creating an account. Fast, clean, tickets straight to your inbox.</div></div></div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="section fade-up" id="section-about" aria-labelledby="about-heading">
+    <h2 id="about-heading" class="section-title">The Show That <span>Started It All</span></h2>
+    <div class="about-body">
+      <p class="lede">Mystère opened at TI Hotel in 1993 — the first permanent Cirque du Soleil production ever built in Las Vegas.</p>
+      <p>It predates "O," KÀ, and every other Cirque show on the Strip. That matters because Mystère is the one that proved the concept: that Las Vegas audiences would show up night after night for something genuinely theatrical, not just flashy. More than 30 years later it is still running, and it still earns its place.</p>
+      <p>The show is pure Cirque — no gimmicks, no celebrity tie-ins, no comedy subplot. Acrobatics, aerial acts, contortion, and stunning physical performance built around an abstract story of life, creation, and the mysteries of existence. The staging is intimate compared to KÀ or "O," which means every seat feels close and the performances feel personal rather than monumental.</p>
+
+      <div class="spike-callout">
+        <div class="spike-emoji">🌵</div>
+        <div class="spike-text">
+          <strong>Spike's Insider Tip</strong>
+          Start here for Cirque — and I mean that literally. Mystère is the original Vegas Cirque show and still the best entry point. From $44 on most dates, you get the real thing: 30+ years of refinement, a purpose-built theatre, world-class acrobatics, and no gimmicks. If someone asks where to start with Cirque, this is the answer — every time. Arrive 45 minutes early, find the Mystère Theatre inside TI Hotel, and let it surprise you.
+        </div>
       </div>
 
-      <!-- ABOUT -->
-      <section id="section-about" class="fu">
-        <div class="sec-label">About the Show</div>
-        <h2 class="sec-title">The Show That <span>Started It All</span></h2>
-        <div class="body-text">
-          <p>Mystère opened at TI Hotel in 1993 — the first permanent Cirque du Soleil production ever built in Las Vegas. It predates "O," KÀ, and every other Cirque show on the Strip. That matters because Mystère is the one that proved the concept: that Las Vegas audiences would show up night after night for something genuinely theatrical, not just flashy. More than 30 years later it is still running, and it still earns its place.</p>
-          <p>The show is pure Cirque — no gimmicks, no celebrity tie-ins, no comedy subplot. Acrobatics, aerial acts, contortion, and stunning physical performance built around an abstract story of life, creation, and the mysteries of existence. The staging is intimate compared to KÀ or "O," which means every seat feels close and the performances feel personal rather than monumental.</p>
-          <p><strong>Start here for Cirque.</strong> If you've never seen a Cirque du Soleil show, Mystère is exactly where to begin. It is the purest version of what Cirque actually is — before the aquatic stage of "O," before the massive battle platform of KÀ, before any of the theme concepts. From $44 on most dates. No age restrictions, no adult content, no prerequisites. Just the original, still running, still delivering.</p>
-        </div>
-        <div class="spike-callout">
-          <div class="spike-icon">🌵</div>
-          <div>
-            <div class="spike-lbl">Spike's Insider Tip</div>
-            <div class="spike-text"><strong>Start here for Cirque — and I mean that literally.</strong> Mystère is the original Vegas Cirque show and still the best entry point. From $44 on most dates, you get the real thing: 30+ years of refinement, a purpose-built theatre, world-class acrobatics, and no gimmicks. If someone asks where to start with Cirque, this is the answer — every time. Arrive 45 minutes early, find the Mystère Theatre inside TI Hotel, and let it surprise you.</div>
-          </div>
-        </div>
-      </section>
+      <p>If you've never seen a Cirque du Soleil show, Mystère is exactly where to begin. It is the purest version of what Cirque actually is — before the aquatic stage of "O," before the massive battle platform of KÀ, before any of the theme concepts. From $44 on most dates. No age restrictions, no adult content, no prerequisites. Just the original, still running, still delivering.</p>
+    </div>
+  </section>
 
-      <!-- EMAIL SIGNUP -->
-      <div class="email-signup fu">
-        <div class="email-left">
-          <div class="email-eyebrow">Vegas Sidekick Insiders</div>
-          <div class="email-headline">Get show deals & Vegas alerts in your inbox</div>
-        </div>
-        <div class="email-form" id="emailForm">
-          <input type="email" class="email-input" id="emailInput" placeholder="your@email.com" />
-          <button class="email-submit" onclick="submitEmail()">Notify Me</button>
-        </div>
-        <div class="email-ok" id="emailOk">✅ You're in — we'll send you the good stuff.</div>
+  <!-- GALLERY -->
+  <section class="section gallery-section fade-up" id="section-gallery" aria-labelledby="gallery-heading">
+    <h2 id="gallery-heading" class="section-title">Inside the <span>Show</span></h2>
+    <div class="gallery-grid">
+      <a href="/images/mystere-hero.jpg" target="_blank" rel="noopener" aria-label="View full-size photo 1">
+        <img src="/images/mystere-hero.jpg" alt="Mystère by Cirque du Soleil at TI Hotel Las Vegas" loading="lazy" />
+      </a>
+      <a href="/images/mystere-show-2.jpg" target="_blank" rel="noopener" aria-label="View full-size photo 2">
+        <img src="/images/mystere-show-2.jpg" alt="Mystère performers at TI Hotel Las Vegas" loading="lazy" />
+      </a>
+      <a href="/images/mystere-show-3.jpg" target="_blank" rel="noopener" aria-label="View full-size photo 3">
+        <img src="/images/mystere-show-3.jpg" alt="Mystère stage at TI Hotel Las Vegas" loading="lazy" />
+      </a>
+    </div>
+  </section>
+
+  <!-- EMAIL SIGNUP -->
+  <div class="email-signup fade-up">
+    <div class="email-bar"></div>
+    <div class="email-heading">DEALS</div>
+    <div class="email-body">
+      <h3>Vegas show deals straight to your inbox</h3>
+      <p>Last-minute discounts, show updates, and the occasional tip from Spike. No spam. Unsubscribe whenever.</p>
+      <div class="email-form">
+        <input type="email" class="email-input" placeholder="your@email.com" aria-label="Email address" id="emailInp" />
+        <button class="email-submit" type="button" id="emailBtn">Subscribe</button>
       </div>
+    </div>
+  </div>
 
   <!-- ===== SHOW DAYS & TIMES — Variant B ===== -->
   <section class="sk-schedule sk-schedule--slider fade-up" id="sk-schedule">
     <div class="sk-eyebrow">Plan Your Night</div>
     <h2 class="sk-sched-title">Show Days &amp; Times</h2>
-    <p class="sk-sched-intro">Five nights a week with two shows nightly &mdash; Monday, Tuesday, Friday, Saturday, and Sunday. Dark Wednesday and Thursday.</p>
+    <p class="sk-sched-intro">Five nights a week with two shows nightly — Monday, Tuesday, Friday, Saturday, and Sunday. Dark Wednesday and Thursday.</p>
     <div class="sk-sched-slider-wrap">
       <div class="sk-sched-grid" id="sk-sched-grid"><!-- cards injected by JS --></div>
     </div>
@@ -727,547 +743,638 @@
     <p class="sk-sched-disclaimer">Schedules shift and dark nights happen. Always confirm the date at checkout.</p>
   </section>
 
-      <!-- SHOW DETAILS -->
-      <section id="section-details" class="fu">
-        <div class="sec-label">Logistics</div>
-        <h2 class="sec-title">Show <span>Details</span></h2>
-        <div class="details-grid">
-          <div class="detail-card"><div class="dc-icon">📍</div><div class="dc-label">Venue</div><div class="dc-value">Mystère Theatre</div><div class="dc-sub">TI Hotel, 3300 S Las Vegas Blvd</div></div>
-          <div class="detail-card"><div class="dc-icon">🕗</div><div class="dc-label">Schedule</div><div class="dc-value">Mon, Tue, Fri–Sun</div><div class="dc-sub">6PM & 8:30PM · Dark Wed & Thu</div></div>
-          <div class="detail-card"><div class="dc-icon">⏱️</div><div class="dc-label">Duration</div><div class="dc-value">90 Minutes</div><div class="dc-sub">No intermission</div></div>
-          <div class="detail-card"><div class="dc-icon">👨‍👩‍👧</div><div class="dc-label">Age</div><div class="dc-value">All Ages Welcome</div><div class="dc-sub">Guests under 18 must be accompanied by a legal adult.</div></div>
-          <div class="detail-card"><div class="dc-icon">👗</div><div class="dc-label">Dress Code</div><div class="dc-value">Casual</div><div class="dc-sub">Come as you are. T-shirts and shorts are completely fine.</div></div>
-          <div class="detail-card"><div class="dc-icon">📸</div><div class="dc-label">Photography</div><div class="dc-value">No Recording</div><div class="dc-sub">Cameras and audio/video devices prohibited during the show.</div></div>
-        </div>
-      </section>
+  <!-- SHOW DETAILS -->
+  <section class="section fade-up" id="section-details" aria-labelledby="details-heading">
+    <h2 id="details-heading" class="section-title">Show <span>Details</span></h2>
+    <div class="details-grid">
+      <div class="detail-card">
+        <div class="detail-card-icon">📍</div>
+        <div class="detail-card-lbl">Venue</div>
+        <div class="detail-card-val">Mystère Theatre</div>
+        <div class="detail-card-sub">TI Hotel, 3300 S Las Vegas Blvd, Las Vegas, NV 89109</div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-icon">🕗</div>
+        <div class="detail-card-lbl">Schedule</div>
+        <div class="detail-card-val">Mon, Tue, Fri–Sun</div>
+        <div class="detail-card-sub">6PM &amp; 8:30PM · Dark Wednesday and Thursday. Always verify your date and time at checkout.</div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-icon">⏱️</div>
+        <div class="detail-card-lbl">Duration</div>
+        <div class="detail-card-val">90 Minutes</div>
+        <div class="detail-card-sub">No intermission. Plan accordingly before curtain.</div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-icon">👨‍👩‍👧</div>
+        <div class="detail-card-lbl">Age Restriction</div>
+        <div class="detail-card-val">All Ages Welcome</div>
+        <div class="detail-card-sub">No age restrictions. Guests under 18 must be accompanied by a legal adult.</div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-icon">👗</div>
+        <div class="detail-card-lbl">Dress Code</div>
+        <div class="detail-card-val">Casual</div>
+        <div class="detail-card-sub">Come as you are. T-shirts and shorts are completely fine.</div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-icon">📸</div>
+        <div class="detail-card-lbl">Photography</div>
+        <div class="detail-card-val">No Recording</div>
+        <div class="detail-card-sub">Cameras and audio/video devices prohibited during the show.</div>
+      </div>
+    </div>
+  </section>
 
-      <!-- WHAT TO EXPECT -->
-      <section id="section-expect" class="fu">
-        <div class="sec-label">What You'll Experience</div>
-        <h2 class="sec-title">What to <span>Expect</span></h2>
-        <div class="expect-grid">
-          <div class="expect-card">
-            <div class="expect-icon">🤸</div>
-            <div class="expect-title">World-Class Acrobatics</div>
-            <div class="expect-desc">Mystère is the purest form of Cirque — elite athletes performing at the absolute limit of human capability. No dilution, no celebrity hook. Just the real thing.</div>
-          </div>
-          <div class="expect-card">
-            <div class="expect-icon">🏛️</div>
-            <div class="expect-title">Intimate Theatre</div>
-            <div class="expect-desc">The Mystère Theatre was purpose-built for this show in 1993. It is smaller than KÀ or "O" — every seat feels close to the action. The performances feel personal, not monumental.</div>
-          </div>
-          <div class="expect-card">
-            <div class="expect-icon">🌌</div>
-            <div class="expect-title">Abstract Storytelling</div>
-            <div class="expect-desc">Mystère doesn't follow a linear plot. It builds a world — creation, mystery, human possibility — through movement, light, and sound. Let it wash over you.</div>
-          </div>
-          <div class="expect-card">
-            <div class="expect-icon">👨‍👩‍👧</div>
-            <div class="expect-title">Truly for All Ages</div>
-            <div class="expect-desc">No adult content, no age restrictions. A five-year-old and a Cirque veteran can both be in the same row and both come away amazed. Rare for Las Vegas.</div>
-          </div>
-          <div class="expect-card">
-            <div class="expect-icon">💰</div>
-            <div class="expect-title">Best Value on the Strip</div>
-            <div class="expect-desc">From $44 on most dates. The same caliber of Cirque production as KÀ ($86+) or "O" ($119+) at the best price point. Mystère has never cheapened itself — it just costs less.</div>
-          </div>
-          <div class="expect-card">
-            <div class="expect-icon">🎭</div>
-            <div class="expect-title">Pure Cirque — No Gimmicks</div>
-            <div class="expect-desc">No celebrity tie-ins, no comedy subplot, no theme park extras. This is the show that defined what Cirque du Soleil means. Everything else is derivative.</div>
-          </div>
-        </div>
+  <!-- WHAT TO EXPECT -->
+  <section class="section fade-up" id="section-expect" aria-labelledby="expect-heading">
+    <h2 id="expect-heading" class="section-title">What to <span>Expect</span></h2>
+    <div class="expect-grid">
+      <div class="expect-card">
+        <div class="expect-title"><span>🤸</span> World-Class Acrobatics</div>
+        <div class="expect-desc">Mystère is the purest form of Cirque — elite athletes performing at the absolute limit of human capability. No dilution, no celebrity hook. Just the real thing.</div>
+      </div>
+      <div class="expect-card">
+        <div class="expect-title"><span>🏛️</span> Intimate Theatre</div>
+        <div class="expect-desc">The Mystère Theatre was purpose-built for this show in 1993. It is smaller than KÀ or "O" — every seat feels close to the action. The performances feel personal, not monumental.</div>
+      </div>
+      <div class="expect-card">
+        <div class="expect-title"><span>🌌</span> Abstract Storytelling</div>
+        <div class="expect-desc">Mystère doesn't follow a linear plot. It builds a world — creation, mystery, human possibility — through movement, light, and sound. Let it wash over you.</div>
+      </div>
+      <div class="expect-card">
+        <div class="expect-title"><span>👨‍👩‍👧</span> Truly for All Ages</div>
+        <div class="expect-desc">No adult content, no age restrictions. A five-year-old and a Cirque veteran can both be in the same row and both come away amazed. Rare for Las Vegas.</div>
+      </div>
+      <div class="expect-card">
+        <div class="expect-title"><span>💰</span> Best Value on the Strip</div>
+        <div class="expect-desc">From $44 on most dates. The same caliber of Cirque production as KÀ ($86+) or "O" ($119+) at the best price point. Mystère has never cheapened itself — it just costs less.</div>
+      </div>
+      <div class="expect-card">
+        <div class="expect-title"><span>🎭</span> Pure Cirque — No Gimmicks</div>
+        <div class="expect-desc">No celebrity tie-ins, no comedy subplot, no theme park extras. This is the show that defined what Cirque du Soleil means. Everything else is derivative.</div>
+      </div>
+    </div>
+  </section>
 
-        <!-- BLUEPRINT -->
-        <div style="margin-top:32px;">
-          <div class="sec-label" style="margin-bottom:8px;">Plan Your Night</div>
-          <h3 class="sec-title" style="margin-bottom:20px;">Evening <span>Blueprint</span></h3>
-          <div class="blueprint">
-            <div class="bp-item">
-              <div class="bp-dot"></div>
-              <div class="bp-time">5:15 PM</div>
-              <div class="bp-event">Arrive at TI Hotel</div>
-              <div class="bp-desc">TI Hotel is on the north end of mid-Strip, easy to reach. Self-parking is available on property. Rideshare drops at the main entrance. Give yourself 45 minutes to park and find the Mystère Theatre inside the hotel.</div>
-            </div>
-            <div class="bp-item">
-              <div class="bp-dot"></div>
-              <div class="bp-time">5:45 PM</div>
-              <div class="bp-event">Find Your Seat</div>
-              <div class="bp-desc">Use the restroom before you sit — 90 minutes, no intermission. The Mystère Theatre is intimate and purpose-built. Being seated early gives you time to take in the stage design before the lights drop.</div>
-            </div>
-            <div class="bp-item">
-              <div class="bp-dot"></div>
-              <div class="bp-time">6:00 PM</div>
-              <div class="bp-event">Curtain Up</div>
-              <div class="bp-desc">Show starts on time. Mon, Tue, Fri–Sun at 6PM and 8:30PM — verify your specific date and time at checkout.</div>
-            </div>
-            <div class="bp-item">
-              <div class="bp-dot end"></div>
-              <div class="bp-time">~7:30 PM</div>
-              <div class="bp-event">Back in the Wild</div>
-              <div class="bp-desc">90 minutes, clean exit. The Strip is right outside TI. If you caught the early show, the night is just starting. The late crowd is heading to the 8:30PM — you've already been and done.</div>
-            </div>
-          </div>
-        </div>
-      </section>
+  <!-- SEATING CHART -->
+  <section class="seating-section fade-up" id="section-seating" aria-labelledby="seating-heading">
+    <h2 id="seating-heading" class="section-title">Mystère Theatre <span>Seating Chart</span></h2>
 
-      <!-- SEATING CHART -->
-      <section id="section-seating" class="fu">
-        <div class="sec-label">Mystère Seating Chart</div>
-        <h2 class="sec-title">Mystère Theatre <span>Seating</span></h2>
-        <div class="seating-section">
-          <p class="seat-sub">Click any section to see what the experience is like. The Mystère Theatre was custom-built for this show — intimate and purpose-designed with no bad angles.</p>
-          <div class="chart-stage">— Stage —</div>
-          <svg class="chart-svg" viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="gFront" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#E8B84B"/><stop offset="100%" style="stop-color:#C9922A"/></linearGradient>
-              <linearGradient id="gCenter" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#5B2D9E"/><stop offset="100%" style="stop-color:#3A1A70"/></linearGradient>
-              <linearGradient id="gBack" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#1A9E8A"/><stop offset="100%" style="stop-color:#0A7060"/></linearGradient>
-              <linearGradient id="gRear" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#4A5A70"/><stop offset="100%" style="stop-color:#2A3A50"/></linearGradient>
-              <filter id="shad"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="rgba(0,0,0,0.2)"/></filter>
-            </defs>
-            <path d="M 70 8 L 330 8 L 355 70 L 45 70 Z" fill="url(#gFront)" stroke="rgba(255,255,255,0.25)" stroke-width="1" class="c-sec" onclick="selectZone('front')" filter="url(#shad)"/>
-            <text x="200" y="46" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-weight="800" font-size="14" fill="white" letter-spacing="2" pointer-events="none">FRONT</text>
-            <path d="M 45 75 L 355 75 L 378 150 L 22 150 Z" fill="url(#gCenter)" stroke="rgba(255,255,255,0.25)" stroke-width="1" class="c-sec" onclick="selectZone('center')" filter="url(#shad)"/>
-            <text x="200" y="105" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-weight="800" font-size="12" fill="white" letter-spacing="2" pointer-events="none">LOWER ORCH. CENTER</text>
-            <text x="200" y="122" text-anchor="middle" font-family="'Barlow Condensed',sans-serif" font-weight="700" font-size="9" fill="rgba(255,215,100,0.9)" letter-spacing="1.5" pointer-events="none">🪑 SWEET SPOT</text>
-            <path d="M 22 155 L 378 155 L 393 218 L 7 218 Z" fill="url(#gBack)" stroke="rgba(255,255,255,0.25)" stroke-width="1" class="c-sec" onclick="selectZone('back')" filter="url(#shad)"/>
-            <text x="200" y="193" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-weight="800" font-size="14" fill="white" letter-spacing="2" pointer-events="none">BACK</text>
-            <path d="M 7 223 L 393 223 L 393 272 L 7 272 Z" fill="url(#gRear)" stroke="rgba(255,255,255,0.25)" stroke-width="1" class="c-sec" onclick="selectZone('rear')" filter="url(#shad)"/>
-            <text x="200" y="253" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-weight="800" font-size="13" fill="white" letter-spacing="2" pointer-events="none">REAR</text>
-          </svg>
-          <div class="seat-legend">
-            <div class="leg-item"><div class="leg-dot" style="background:#E8B84B"></div>Front</div>
-            <div class="leg-item"><div class="leg-dot" style="background:#5B2D9E"></div>Center · Pick</div>
-            <div class="leg-item"><div class="leg-dot" style="background:#1A9E8A"></div>Back</div>
-            <div class="leg-item"><div class="leg-dot" style="background:#4A5A70"></div>Rear</div>
-          </div>
-          <div class="zone-popup" id="zonePopup">
-            <div class="zp-eyebrow" id="zpEyebrow"></div>
-            <div class="zp-title" id="zpTitle"></div>
-            <div class="zp-desc" id="zpDesc"></div>
-            <div id="zpBadge"></div>
-          </div>
-          <div class="seat-accord" id="seatAccord">
-            <div class="sa-item">
-              <button class="sa-q" onclick="saToggle(this)">Is there a truly bad seat in Mystère Theatre?<span class="sa-ch">▼</span></button>
-              <div class="sa-body"><div class="sa-inner">No. The Mystère Theatre was designed specifically for this show — intimacy was engineered in. Even the rear section feels connected to the performance. The main difference is proximity, not quality of view.</div></div>
-            </div>
-            <div class="sa-item">
-              <button class="sa-q" onclick="saToggle(this)">Where does Spike sit?<span class="sa-ch">▼</span></button>
-              <div class="sa-body"><div class="sa-inner">Lower Orchestra Center. Close enough to see every expression, far enough to take in the full aerial picture. The sweet spot for this theatre.</div></div>
-            </div>
-          </div>
-        </div>
-      </section>
+    <div class="seating-diagram-wrap">
+      <div class="seating-lbl">Mystère Theatre · TI Hotel — Click a section for details</div>
 
-      <!-- FAQ -->
-      <section id="section-faq" class="fu">
-        <div class="sec-label">Questions</div>
-        <h2 class="sec-title">Frequently <span>Asked</span></h2>
-        <div class="faq-list">
-          <div class="faq-item fu">
-            <button class="faq-q" onclick="toggleFaq(this)">Is Mystère good for kids?<span class="faq-ch">▼</span></button>
-            <div class="faq-a"><div class="faq-inner">Yes — there are no age restrictions and no adult content. Mystère is one of the best family-friendly Cirque options on the Strip. Children are genuinely amazed by the acrobatics. Guests under 18 must be accompanied by a legal adult.</div></div>
-          </div>
-          <div class="faq-item fu">
-            <button class="faq-q" onclick="toggleFaq(this)">What nights does Mystère run?<span class="faq-ch">▼</span></button>
-            <div class="faq-a"><div class="faq-inner">Mystère runs Monday, Tuesday, Friday, Saturday, and Sunday with two shows nightly at 6:00 PM and 8:30 PM. The show is dark Wednesday and Thursday. Always verify your specific date and time at checkout.</div></div>
-          </div>
-          <div class="faq-item fu">
-            <button class="faq-q" onclick="toggleFaq(this)">6PM or 8:30PM — which show is better?<span class="faq-ch">▼</span></button>
-            <div class="faq-a"><div class="faq-inner">Both are the same show. The 6PM works well for families, early dinners, or if you want the rest of the night free. The 8:30PM draws a slightly more evening-out crowd. Pick what fits your schedule.</div></div>
-          </div>
-          <div class="faq-item fu">
-            <button class="faq-q" onclick="toggleFaq(this)">How does Mystère compare to KÀ or "O"?<span class="faq-ch">▼</span></button>
-            <div class="faq-a"><div class="faq-inner">Mystère is the original — it opened in 1993, before any other permanent Cirque show in Las Vegas. It is more intimate and classical than KÀ (battle epic, massive stage) or "O" (aquatic theater). Mystère is pure Cirque: acrobatics and aerial acts with no theme gimmick. It is also the most affordable of the three at $44 on most dates versus $86+ for KÀ or $119+ for "O."</div></div>
-          </div>
-          <div class="faq-item fu">
-            <button class="faq-q" onclick="toggleFaq(this)">Are there good and bad seats?<span class="faq-ch">▼</span></button>
-            <div class="faq-a"><div class="faq-inner">The Mystère Theatre is intimate and purpose-built — there are no genuinely bad seats. Center section gives you the ideal full-stage view and is where we'd sit. Front rows put you closest to the aerial acts. Back and rear sections still feel connected. The difference between sections is proximity, not experience quality.</div></div>
-          </div>
-          <div class="faq-item fu">
-            <button class="faq-q" onclick="toggleFaq(this)">How long is the show?<span class="faq-ch">▼</span></button>
-            <div class="faq-a"><div class="faq-inner">90 minutes with no intermission. Plan to arrive at TI Hotel at least 45 minutes before showtime to park, find the theatre, and settle in before curtain.</div></div>
-          </div>
-          <div class="faq-item fu">
-            <button class="faq-q" onclick="toggleFaq(this)">Will there be surprise fees at checkout?<span class="faq-ch">▼</span></button>
-            <div class="faq-a"><div class="faq-inner">No. The price shown is the price you pay. No booking fees, no service charges, no surprises — ever. That is always true when you book through Vegas Sidekick.</div></div>
-          </div>
-          <div class="faq-item fu">
-            <button class="faq-q" onclick="toggleFaq(this)">Where should I park at TI Hotel?<span class="faq-ch">▼</span></button>
-            <div class="faq-a"><div class="faq-inner">TI Hotel has self-parking available on property. Rideshare is the easiest option — drops right at the main entrance. Give yourself 45 minutes before showtime to walk in and find the Mystère Theatre inside the property.</div></div>
-          </div>
-        </div>
-      </section>
+      <div class="seat-svg-wrap">
+        <svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" aria-label="Mystère Theatre seating chart — TI Hotel Las Vegas" role="img">
+          <defs>
+            <linearGradient id="gFront" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#8B6FE0"/><stop offset="100%" style="stop-color:#6B4BC0"/></linearGradient>
+            <linearGradient id="gCenter" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#5B2D9E"/><stop offset="100%" style="stop-color:#3A1A70"/></linearGradient>
+            <linearGradient id="gBack" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#1A9E8A"/><stop offset="100%" style="stop-color:#0A7060"/></linearGradient>
+            <linearGradient id="gRear" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#4A5A70"/><stop offset="100%" style="stop-color:#2A3A50"/></linearGradient>
+          </defs>
+          <path d="M 20 8 L 380 8 L 380 60 L 20 60 Z" fill="#1A1A1A"/>
+          <text x="200" y="39" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="17" fill="white" letter-spacing="3">STAGE</text>
 
-      <!-- ALSO LIKE -->
-      <section class="fu">
-        <div class="sec-label">More Cirque & Las Vegas Shows</div>
-        <h2 class="sec-title">You Might <span>Also Like</span></h2>
-        <div class="also-grid">
-          <a href="/shows/cirque/ka/" class="also-card">
-            <div class="also-img">⚔️</div>
-            <div class="also-body"><div class="also-venue">MGM Grand</div><div class="also-name">KÀ by Cirque du Soleil</div></div>
-            <div class="also-foot"><div class="also-price">From $86</div><div class="also-cta">View →</div></div>
-          </a>
-          <a href="/shows/cirque/o/" class="also-card">
-            <div class="also-img">💧</div>
-            <div class="also-body"><div class="also-venue">Bellagio</div><div class="also-name">"O" by Cirque du Soleil</div></div>
-            <div class="also-foot"><div class="also-price">From $119</div><div class="also-cta">View →</div></div>
-          </a>
-          <a href="/shows/cirque/mad-apple/" class="also-card">
-            <div class="also-img">🍎</div>
-            <div class="also-body"><div class="also-venue">New York-New York</div><div class="also-name">Mad Apple</div></div>
-            <div class="also-foot"><div class="also-price">From $55</div><div class="also-cta">View →</div></div>
-          </a>
-        </div>
-      </section>
+          <g class="seat-zone" onclick="selectZone('front')" tabindex="0" role="button" aria-label="Front Section — click for details">
+            <path d="M 70 68 L 330 68 L 355 118 L 45 118 Z" fill="url(#gFront)" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+            <text x="200" y="98" text-anchor="middle" font-family="'Barlow Condensed',sans-serif" font-weight="800" font-size="14" fill="white" letter-spacing="2" pointer-events="none">FRONT</text>
+          </g>
 
-      <!-- FINAL CTA -->
-      <div class="final-cta fu">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="final-eyebrow">The Original Las Vegas Cirque Show</div>
-        <div class="final-title">Don't Wait — Book Tonight</div>
-        <div class="final-sub">From $44 on most dates. Save up to $49. Most nights sell out — prices may increase closer to show date.</div>
-        <a href="https://spotlight.vegas/shows/cirque-du-soleil/mystere/ref/vegassidekick" class="btn-primary" target="_blank" rel="noopener">Get Tickets →</a>
+          <g class="seat-zone" onclick="selectZone('center')" tabindex="0" role="button" aria-label="Lower Orchestra Center — Sweet Spot — click for details">
+            <path d="M 45 123 L 355 123 L 378 188 L 22 188 Z" fill="url(#gCenter)" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+            <text x="200" y="150" text-anchor="middle" font-family="'Barlow Condensed',sans-serif" font-weight="800" font-size="12" fill="white" letter-spacing="2" pointer-events="none">LOWER ORCH. CENTER</text>
+            <rect x="145" y="160" width="110" height="18" rx="4" fill="rgba(255,107,0,0.28)" stroke="rgba(255,107,0,0.55)" stroke-width="1"/>
+            <text x="200" y="173" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-weight="600" font-size="8.5" fill="#ffb380" letter-spacing="0.5" pointer-events="none">🪑 SWEET SPOT</text>
+          </g>
+
+          <g class="seat-zone" onclick="selectZone('back')" tabindex="0" role="button" aria-label="Back Section — click for details">
+            <path d="M 22 193 L 378 193 L 393 232 L 7 232 Z" fill="url(#gBack)" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+            <text x="200" y="217" text-anchor="middle" font-family="'Barlow Condensed',sans-serif" font-weight="800" font-size="13" fill="white" letter-spacing="2" pointer-events="none">BACK</text>
+          </g>
+
+          <g class="seat-zone" onclick="selectZone('rear')" tabindex="0" role="button" aria-label="Rear Section — click for details">
+            <path d="M 7 237 L 393 237 L 393 272 L 7 272 Z" fill="url(#gRear)" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+            <text x="200" y="259" text-anchor="middle" font-family="'Barlow Condensed',sans-serif" font-weight="800" font-size="12" fill="white" letter-spacing="2" pointer-events="none">REAR</text>
+          </g>
+        </svg>
       </div>
 
-    </main><!-- end .main-content -->
-
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-      <div class="sb-card">
-        <div class="sb-ttl">Get Your <span>Tickets</span></div>
-        <div class="sb-alert">🔥 Most nights sell out — book early for best seats</div>
-        <div class="sb-price-block">
-          <div class="sb-price-lbl">Your Price</div>
-          <div class="sb-price-row">
-            <div class="sb-p-our">$44</div>
-            <div class="sb-p-was">$93</div>
-            <div class="sb-p-save">Save $49</div>
-          </div>
-          <div class="sb-p-sub">From $44 on most dates. Price varies — check at checkout.</div>
-          <div class="sb-p-warn">⏰ Prices may increase closer to show date</div>
-        </div>
-        <a href="https://spotlight.vegas/shows/cirque-du-soleil/mystere/ref/vegassidekick" class="btn-full" target="_blank" rel="noopener">Get Tickets →</a>
-        <div class="sb-trust">
-          <div class="sb-trust-item"><div class="sb-chk">✓</div> Price shown is the price you pay</div>
-          <div class="sb-trust-item"><div class="sb-chk">✓</div> No membership or account required</div>
-          <div class="sb-trust-item"><div class="sb-chk">✓</div> Instant ticket delivery</div>
-        </div>
-        <div class="sb-div"></div>
-        <div class="sb-info">
-          <div class="sb-info-row"><div class="sb-info-icon">📍</div><div><div class="sb-info-lbl">Venue</div><div class="sb-info-val">Mystère Theatre, TI Hotel</div></div></div>
-          <div class="sb-info-row"><div class="sb-info-icon">🕗</div><div><div class="sb-info-lbl">Schedule</div><div class="sb-info-val">Mon, Tue, Fri–Sun · 6PM & 8:30PM</div></div></div>
-          <div class="sb-info-row"><div class="sb-info-icon">⏱️</div><div><div class="sb-info-lbl">Duration</div><div class="sb-info-val">90 minutes, no intermission</div></div></div>
-          <div class="sb-info-row"><div class="sb-info-icon">👨‍👩‍👧</div><div><div class="sb-info-lbl">Age</div><div class="sb-info-val">All ages welcome</div></div></div>
-        </div>
-        <div class="sb-note">🪑 Book early — better seats fill first</div>
-        <div class="sb-disc">Affiliate disclosure: Vegas Sidekick earns a commission when you purchase through our links. <a href="/affiliate-disclosure/">Learn more.</a></div>
+      <!-- Legend -->
+      <div class="seat-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#8B6FE0;"></div>Front</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#5B2D9E;"></div>Center · Sweet Spot ⭐</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#1A9E8A;"></div>Back</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#4A5A70;"></div>Rear</div>
       </div>
-    </aside>
 
+      <!-- Zone popup -->
+      <div class="zone-popup" id="zone-popup">
+        <div class="zone-popup-inner">
+          <div class="zone-popup-hdr">
+            <div class="zone-popup-name" id="zone-name"></div>
+            <div class="zone-pick-badge" id="zone-badge">🪑 Sweet Spot</div>
+          </div>
+          <div class="zone-popup-desc" id="zone-desc"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Accordion -->
+    <div class="seat-accord">
+      <div class="sa-item">
+        <button class="sa-hdr" onclick="toggleSA(this)" aria-expanded="false">
+          <div class="sa-left">
+            <div class="sa-dot" style="background:#8B6FE0;"></div>
+            <span class="sa-name">Front Section</span>
+          </div>
+          <span class="sa-chev">▾</span>
+        </button>
+        <div class="sa-body"><div class="sa-body-inner">The most immersive seats in the house. The Mystère Theatre is intimate enough that the front rows feel genuinely close to the performers — aerial acts happen directly above you and acrobatics play out at eye level.</div></div>
+      </div>
+
+      <div class="sa-item">
+        <button class="sa-hdr" onclick="toggleSA(this)" aria-expanded="false">
+          <div class="sa-left">
+            <div class="sa-dot" style="background:#5B2D9E;"></div>
+            <span class="sa-name">Lower Orchestra Center</span>
+            <span class="sa-badge">🪑 Sweet Spot</span>
+          </div>
+          <span class="sa-chev">▾</span>
+        </button>
+        <div class="sa-body"><div class="sa-body-inner">The sweet spot of the Mystère Theatre. Close enough to see every performer in detail, far enough to take in the full stage picture. The aerial sequences look perfect from here. The ideal balance of proximity and perspective. This is where Spike sits.</div></div>
+      </div>
+
+      <div class="sa-item">
+        <button class="sa-hdr" onclick="toggleSA(this)" aria-expanded="false">
+          <div class="sa-left">
+            <div class="sa-dot" style="background:#1A9E8A;"></div>
+            <span class="sa-name">Back Section</span>
+          </div>
+          <span class="sa-chev">▾</span>
+        </button>
+        <div class="sa-body"><div class="sa-body-inner">A slightly elevated perspective that gives you the complete picture of the stage. Because the Mystère Theatre is intimate, the back rows still feel connected to the performance. Great if you want everything laid out in front of you.</div></div>
+      </div>
+
+      <div class="sa-item">
+        <button class="sa-hdr" onclick="toggleSA(this)" aria-expanded="false">
+          <div class="sa-left">
+            <div class="sa-dot" style="background:#4A5A70;"></div>
+            <span class="sa-name">Rear Section</span>
+          </div>
+          <span class="sa-chev">▾</span>
+        </button>
+        <div class="sa-body"><div class="sa-body-inner">The full stage from the furthest vantage point. The Mystère Theatre is purpose-built and not massive — even the rear section feels connected to the show. Solid value tickets with clear sightlines.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section fade-up" id="section-faq" aria-labelledby="faq-heading">
+    <h2 id="faq-heading" class="section-title">Frequently <span>Asked</span></h2>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          <span class="faq-q-text">Is Mystère good for kids?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Yes — there are no age restrictions and no adult content. Mystère is one of the best family-friendly Cirque options on the Strip. Children are genuinely amazed by the acrobatics. Guests under 18 must be accompanied by a legal adult.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          <span class="faq-q-text">What nights does Mystère run?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Mystère runs Monday, Tuesday, Friday, Saturday, and Sunday with two shows nightly at 6:00 PM and 8:30 PM. The show is dark Wednesday and Thursday. Always verify your specific date and time at checkout.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          <span class="faq-q-text">6PM or 8:30PM — which show is better?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Both are the same show. The 6PM works well for families, early dinners, or if you want the rest of the night free. The 8:30PM draws a slightly more evening-out crowd. Pick what fits your schedule.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          <span class="faq-q-text">How does Mystère compare to KÀ or "O"?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Mystère is the original — it opened in 1993, before any other permanent Cirque show in Las Vegas. It is more intimate and classical than KÀ (battle epic, massive stage) or "O" (aquatic theater). Mystère is pure Cirque: acrobatics and aerial acts with no theme gimmick. It is also the most affordable of the three at $44 on most dates versus $86+ for KÀ or $119+ for "O."</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          <span class="faq-q-text">Are there good and bad seats?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">The Mystère Theatre is intimate and purpose-built — there are no genuinely bad seats. Center section gives you the ideal full-stage view and is where we'd sit. Front rows put you closest to the aerial acts. Back and rear sections still feel connected. The difference between sections is proximity, not experience quality.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          <span class="faq-q-text">How long is the show?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">90 minutes with no intermission. Plan to arrive at TI Hotel at least 45 minutes before showtime to park, find the theatre, and settle in before curtain.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          <span class="faq-q-text">Will there be surprise fees at checkout?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">No. The price shown is the price you pay. No booking fees, no service charges, no surprises — ever. That is always true when you book through Vegas Sidekick.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          <span class="faq-q-text">Where should I park at TI Hotel?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">TI Hotel has self-parking available on property. Rideshare is the easiest option — drops right at the main entrance. Give yourself 45 minutes before showtime to walk in and find the Mystère Theatre inside the property.</div></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- YOU MIGHT ALSO LIKE -->
+  <section class="section fade-up" aria-labelledby="also-heading">
+    <h2 id="also-heading" class="section-title">You Might <span>Also Like</span></h2>
+    <div class="also-grid">
+      <a href="/shows/cirque/ka/" class="also-card">
+        <img class="also-img" src="/images/ka-hero.jpg" alt="KÀ by Cirque du Soleil at MGM Grand Las Vegas" loading="lazy" />
+        <div class="also-body">
+          <div class="also-cat">Cirque du Soleil</div>
+          <div class="also-title">KÀ</div>
+          <div class="also-venue">MGM Grand · From $86</div>
+          <span class="also-cta">See Show →</span>
+        </div>
+      </a>
+      <a href="/shows/cirque/o/" class="also-card">
+        <img class="also-img" src="/images/o-hero.jpg" alt="&quot;O&quot; by Cirque du Soleil at Bellagio Las Vegas" loading="lazy" />
+        <div class="also-body">
+          <div class="also-cat">Cirque du Soleil</div>
+          <div class="also-title">"O"</div>
+          <div class="also-venue">Bellagio · From $119</div>
+          <span class="also-cta">See Show →</span>
+        </div>
+      </a>
+      <a href="/shows/cirque/mad-apple/" class="also-card">
+        <img class="also-img" src="/images/mad-apple-hero.jpg" alt="Mad Apple by Cirque du Soleil at New York-New York Las Vegas" loading="lazy" />
+        <div class="also-body">
+          <div class="also-cat">Cirque · Adult Night Out</div>
+          <div class="also-title">Mad Apple</div>
+          <div class="also-venue">New York-New York · From $55</div>
+          <span class="also-cta">See Show →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <div class="final-cta fade-up">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="final-cta-tag">The Original Las Vegas Cirque Show</div>
+    <div class="final-cta-title">Don't Wait — Book Tonight</div>
+    <div class="final-cta-sub">Mystère by Cirque du Soleil · Mystère Theatre · TI Hotel</div>
+    <div class="final-cta-amount">$44</div>
+    <a href="https://spotlight.vegas/shows/cirque-du-soleil/mystere/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="final-cta-btn">Get Tickets <span class="cta-ticket">🎟️</span></a>
+    <div class="final-cta-note">Save up to $49 · Most nights sell out · Prices may increase closer to show date &nbsp;·&nbsp; <a href="/affiliate-disclosure/">Affiliate disclosure</a></div>
   </div>
-</div><!-- end .page-wrap -->
+
+</main>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" aria-label="Ticket sidebar">
+  <div>
+    <div class="sb-price-lbl">Vegas Sidekick Price</div>
+    <div class="sb-price">$44</div>
+    <div class="sb-reg">$93 regular</div>
+    <span class="sb-save">Save $49 — on most dates</span>
+  </div>
+  <a href="https://spotlight.vegas/shows/cirque-du-soleil/mystere/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="sb-cta">Get Tickets <span class="cta-ticket">🎟️</span></a>
+  <div class="sb-urgency">🔥 Most nights sell out — book early for best seats</div>
+  <div class="sb-div"></div>
+  <ul class="trust-list">
+    <li><span class="t-check">✓</span> Secure Booking</li>
+    <li><span class="t-check">✓</span> Instant Ticket Delivery</li>
+    <li><span class="t-check">✓</span> No Hidden Fees</li>
+    <li><span class="t-check">✓</span> No Account Required</li>
+  </ul>
+  <div class="sb-div"></div>
+  <div style="display:flex;flex-direction:column;gap:12px;">
+    <div class="sb-info-item">
+      <span class="sb-info-icon">📍</span>
+      <div><span class="sb-info-lbl">Venue</span><span class="sb-info-val">Mystère Theatre, TI Hotel</span></div>
+    </div>
+    <div class="sb-info-item">
+      <span class="sb-info-icon">🕗</span>
+      <div><span class="sb-info-lbl">Schedule</span><span class="sb-info-val">Mon, Tue, Fri–Sun · 6PM &amp; 8:30PM</span></div>
+    </div>
+    <div class="sb-info-item">
+      <span class="sb-info-icon">⏱</span>
+      <div><span class="sb-info-lbl">Duration</span><span class="sb-info-val">90 minutes · No intermission</span></div>
+    </div>
+    <div class="sb-info-item">
+      <span class="sb-info-icon">👨‍👩‍👧</span>
+      <div><span class="sb-info-lbl">Age</span><span class="sb-info-val">All Ages Welcome</span></div>
+    </div>
+  </div>
+  <div class="sb-div"></div>
+  <div class="sb-disclosure">Affiliate disclosure: Vegas Sidekick earns a commission when you purchase through our links. <a href="/affiliate-disclosure/">Learn more</a></div>
+</aside>
+</div>
 
 <!-- MOBILE STICKY -->
-<div class="mobile-sticky">
-  <div class="mob-progress" id="mobProgress"></div>
-  <div class="mob-prices">
-    <div class="mob-row"><span class="mob-our">$44</span><span class="mob-was">$93</span></div>
-    <div class="mob-save">Save $49 on most dates · Price varies by date</div>
+<div class="mobile-sticky" aria-label="Mobile purchase bar">
+  <div class="mob-progress" id="mob-progress"></div>
+  <div class="mob-inner">
+    <div>
+      <div class="mob-price-lbl">VS Price</div>
+      <div class="mob-price">$44</div>
+      <div class="mob-save">Save $49</div>
+    </div>
+    <a href="https://spotlight.vegas/shows/cirque-du-soleil/mystere/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="mob-cta">Get Tickets <span class="cta-ticket">🎟️</span></a>
   </div>
-  <a href="https://spotlight.vegas/shows/cirque-du-soleil/mystere/ref/vegassidekick" class="mob-btn" target="_blank" rel="noopener">Get Tickets →</a>
 </div>
 
 <div id="vs-footer"></div>
+<script src="/components/header.js"></script>
 <script src="/components/footer.js"></script>
 
 <script>
-// ── SLIDER (Ken Burns) ────────────────────────────────────────────────────────
-const N = 4, track = document.getElementById('sTrack'), dotsEl = document.getElementById('sDots');
-let cur = 0, timer;
-for (let i = 0; i < N; i++) {
-  const b = document.createElement('button');
-  b.className = 'dot' + (i === 0 ? ' on' : '');
-  b.setAttribute('aria-label', 'Slide ' + (i+1));
-  b.onclick = () => go(i);
-  dotsEl.appendChild(b);
-}
-const slides = track.querySelectorAll('.slide');
-slides[0].classList.add('active');
+  // PROGRESS BAR + SAVE PILL + DOT NAV
+  const sections = ['section-seen','section-about','section-gallery','section-details','section-expect','section-seating','section-faq'];
+  const dots = document.querySelectorAll('.dnav-dot');
+  const priceStrip = document.getElementById('priceStrip');
+  const savePill = document.getElementById('savePill');
 
-function go(i) {
-  slides[cur].classList.remove('active');
-  cur = (i + N) % N;
-  track.style.transform = 'translateX(-' + (cur * 100) + '%)';
-  document.querySelectorAll('.dot').forEach((d,j) => d.classList.toggle('on', j === cur));
-  if (cur !== 3) {
-    document.getElementById('ytFrame').src = 'about:blank';
-    document.getElementById('vidOverlay').classList.remove('off');
-    // Force animation restart by removing/re-adding active class
-    slides[cur].classList.remove('active');
-    requestAnimationFrame(() => slides[cur].classList.add('active'));
-  }
-  reset();
-}
-function sMove(d) { go(cur + d); }
-function reset() { clearInterval(timer); timer = setInterval(() => { if (cur !== 3) go(cur + 1); }, 5500); }
-document.getElementById('slider').addEventListener('mouseenter', () => clearInterval(timer));
-document.getElementById('slider').addEventListener('mouseleave', reset);
-let tx = 0;
-track.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
-track.addEventListener('touchend', e => { const d = tx - e.changedTouches[0].clientX; if (Math.abs(d) > 40) sMove(d > 0 ? 1 : -1); });
-document.getElementById('vidOverlay').addEventListener('click', function() {
-  document.getElementById('ytFrame').src = document.getElementById('ytFrame').dataset.src;
-  this.classList.add('off');
-  clearInterval(timer);
-});
-reset();
+  function updateProgress() {
+    const pct = (window.scrollY / Math.max(1, document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    const v = Math.min(pct, 100);
+    document.getElementById('progress-bar').style.width = v + '%';
+    document.getElementById('progress-bar-bottom').style.width = v + '%';
+    const mob = document.getElementById('mob-progress');
+    if (mob) mob.style.width = v + '%';
 
-// ── DOT NAV ──────────────────────────────────────────────────────────────────
-const dnDots = document.querySelectorAll('.dn-dot');
-dnDots.forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.getElementById(btn.dataset.sec)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-});
-const secs = ['section-seen','section-about','section-details','section-expect','section-seating','section-faq'];
-const secEls = secs.map(id => document.getElementById(id));
-function updateDotNav() {
-  const mid = window.innerHeight / 2;
-  let active = 0;
-  secEls.forEach((el, i) => {
-    if (el) {
-      const rect = el.getBoundingClientRect();
-      if (rect.top <= mid) active = i;
+    // Save pill
+    if (priceStrip && savePill) {
+      savePill.classList.toggle('visible', priceStrip.getBoundingClientRect().bottom < 0);
     }
-  });
-  dnDots.forEach((d, i) => d.classList.toggle('active', i === active));
-}
 
-// ── SAVE PILL ────────────────────────────────────────────────────────────────
-const pill = document.getElementById('save-pill');
-function updatePill() {
-  const heroBottom = document.querySelector('.hero').getBoundingClientRect().bottom;
-  pill.classList.toggle('show', heroBottom < 0);
-}
-
-// ── STATS COUNT-UP ───────────────────────────────────────────────────────────
-function countUp(el, target) {
-  const duration = 1400;
-  const prefix = el.dataset.prefix || '';
-  const suffix = el.dataset.suffix || '';
-  const start = performance.now();
-  function tick(now) {
-    const p = Math.min((now - start) / duration, 1);
-    const eased = 1 - Math.pow(1 - p, 3);
-    el.textContent = prefix + Math.round(eased * target) + suffix;
-    if (p < 1) requestAnimationFrame(tick);
-    else el.textContent = prefix + target + suffix;
+    // Dot nav active state
+    let active = 0;
+    sections.forEach((id, i) => {
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top <= 140) active = i;
+    });
+    dots.forEach((d, i) => d.classList.toggle('active', i === active));
   }
-  requestAnimationFrame(tick);
-}
-const statsObserver = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.querySelectorAll('.stat-num[data-target]').forEach(el => {
-        countUp(el, parseInt(el.dataset.target));
-      });
-      statsObserver.unobserve(e.target);
+  window.addEventListener('scroll', updateProgress, { passive: true });
+
+  // HERO PARALLAX
+  const heroSlider = document.getElementById('heroSlider');
+  window.addEventListener('scroll', () => {
+    if (heroSlider) heroSlider.style.transform = 'translateY(' + (window.scrollY * 0.28) + 'px)';
+  }, { passive: true });
+
+  // SLIDER WITH KEN BURNS (slide index 3 is the video slide — no autoplay pan, pauses rotation)
+  let cur = 0;
+  const slides = document.querySelectorAll('.slide');
+  const dotBtns = document.querySelectorAll('.dot-btn');
+  function goToSlide(n) {
+    slides[cur].classList.remove('active'); dotBtns[cur].classList.remove('active'); dotBtns[cur].setAttribute('aria-selected','false');
+    cur = (n + slides.length) % slides.length;
+    slides[cur].classList.add('active'); dotBtns[cur].classList.add('active'); dotBtns[cur].setAttribute('aria-selected','true');
+    if (cur === 3) {
+      // entering video slide: stop auto-rotate, reset player to poster state
+      clearInterval(si);
+      document.getElementById('ytFrame').src = 'about:blank';
+      document.getElementById('vidOverlay').classList.remove('off');
+    } else {
+      // restart Ken Burns on image slides
+      const img = slides[cur].querySelector('img');
+      if (img) { img.style.animation = 'none'; img.offsetHeight; img.style.animation = ''; }
+      resetAutoplay();
     }
-  });
-}, { threshold: 0.5 });
-statsObserver.observe(document.querySelector('.stats-strip'));
-
-// ── SEEN WIDGET ──────────────────────────────────────────────────────────────
-function seenResp(a) {
-  document.getElementById('seenBtns').style.display = 'none';
-  document.getElementById('seen-yes').classList.remove('on');
-  document.getElementById('seen-no').classList.remove('on');
-  document.getElementById('seen-' + a).classList.add('on');
-}
-
-// ── SEATING CHART ────────────────────────────────────────────────────────────
-const zones = {
-  front: {
-    eyebrow: 'Front Section',
-    title: 'Closest to the Stage',
-    desc: 'The most immersive seats in the house. The Mystère Theatre is intimate enough that the front rows feel genuinely close to the performers — aerial acts happen directly above you and acrobatics play out at eye level.',
-    pick: false
-  },
-  center: {
-    eyebrow: 'Lower Orchestra Center',
-    title: 'Best Seat in the House',
-    desc: 'The sweet spot of the Mystère Theatre. Close enough to see every performer in detail, far enough to take in the full stage picture. The aerial sequences look perfect from here. The ideal balance of proximity and perspective.',
-    pick: true
-  },
-  back: {
-    eyebrow: 'Back Section',
-    title: 'Full Stage View',
-    desc: 'A slightly elevated perspective that gives you the complete picture of the stage. Because the Mystère Theatre is intimate, the back rows still feel connected to the performance. Great if you want everything laid out in front of you.',
-    pick: false
-  },
-  rear: {
-    eyebrow: 'Rear Section',
-    title: 'Wide Open View',
-    desc: 'The full stage from the furthest vantage point. The Mystère Theatre is purpose-built and not massive — even the rear section feels connected to the show. Solid value tickets with clear sightlines.',
-    pick: false
   }
-};
-function selectZone(id) {
-  const z = zones[id];
-  document.getElementById('zpEyebrow').textContent = z.eyebrow;
-  document.getElementById('zpTitle').textContent = z.title;
-  document.getElementById('zpDesc').textContent = z.desc;
-  document.getElementById('zpBadge').innerHTML = z.pick ? '<span class="zp-badge">Sweet Spot</span>' : '';
-  document.getElementById('zonePopup').classList.add('on');
-  document.querySelectorAll('.c-sec').forEach(el => el.classList.remove('active'));
-  document.querySelector('[onclick="selectZone(\'' + id + '\')"]').classList.add('active');
-}
+  function sliderMove(d) { goToSlide(cur + d); }
+  function resetAutoplay() { clearInterval(si); si = setInterval(() => { if (cur !== 3) sliderMove(1); }, 5000); }
+  let si = setInterval(() => { if (cur !== 3) sliderMove(1); }, 5000);
+  document.querySelector('.slider').addEventListener('mouseenter', () => clearInterval(si));
+  document.querySelector('.slider').addEventListener('mouseleave', resetAutoplay);
+  document.getElementById('vidOverlay').addEventListener('click', function() {
+    document.getElementById('ytFrame').src = document.getElementById('ytFrame').dataset.src;
+    this.classList.add('off');
+    clearInterval(si);
+  });
 
-// ── SEATING ACCORDION ────────────────────────────────────────────────────────
-function saToggle(btn) {
-  const item = btn.closest('.sa-item');
-  const wasOpen = item.classList.contains('open');
-  document.querySelectorAll('.sa-item.open').forEach(el => el.classList.remove('open'));
-  if (!wasOpen) item.classList.add('open');
-}
+  // SEEN WIDGET
+  function showSeen(t) {
+    document.querySelectorAll('.seen-resp').forEach(r => r.classList.remove('visible'));
+    document.getElementById('seen-' + t).classList.add('visible');
+  }
 
-// ── FAQ ──────────────────────────────────────────────────────────────────────
-function toggleFaq(btn) {
-  const item = btn.closest('.faq-item');
-  const wasOpen = item.classList.contains('open');
-  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
-  if (!wasOpen) item.classList.add('open');
-}
+  // COUNT-UP STATS
+  function countUp(el, target, suffix) {
+    const duration = 1400;
+    const start = performance.now();
+    function tick(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(eased * target);
+      if (p < 1) requestAnimationFrame(tick);
+      else el.textContent = target;
+    }
+    requestAnimationFrame(tick);
+  }
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        document.querySelectorAll('.stat-num').forEach((el, i) => {
+          const target = parseInt(el.dataset.target);
+          countUp(el, target);
+        });
+        statsObserver.disconnect();
+      }
+    });
+  }, { threshold: 0.4 });
+  const statsEl = document.querySelector('.stats-strip');
+  if (statsEl) statsObserver.observe(statsEl);
 
-// ── EMAIL ────────────────────────────────────────────────────────────────────
-  // Show Days & Times — Variant B
-  const SHOW_SCHEDULE = {
-    affiliateUrl: "https://spotlight.vegas/shows/cirque-du-soleil/mystere/ref/vegassidekick",
-    days: {
-      0: ["18:00", "20:30"],  // Sun
-      1: ["18:00", "20:30"],  // Mon
-      2: ["18:00", "20:30"],  // Tue
-      3: [],  // dark  // Wed
-      4: [],  // dark  // Thu
-      5: ["18:00", "20:30"],  // Fri
-      6: ["18:00", "20:30"],  // Sat
+  // SEATING ZONES
+  const zones = {
+    front: {
+      name: 'Front Section',
+      pick: false,
+      desc: 'The most immersive seats in the house. The Mystère Theatre is intimate enough that the front rows feel genuinely close to the performers — aerial acts happen directly above you and acrobatics play out at eye level.'
+    },
+    center: {
+      name: 'Lower Orchestra Center',
+      pick: true,
+      desc: 'The sweet spot of the Mystère Theatre. Close enough to see every performer in detail, far enough to take in the full stage picture. The aerial sequences look perfect from here. The ideal balance of proximity and perspective.'
+    },
+    back: {
+      name: 'Back Section',
+      pick: false,
+      desc: 'A slightly elevated perspective that gives you the complete picture of the stage. Because the Mystère Theatre is intimate, the back rows still feel connected to the performance. Great if you want everything laid out in front of you.'
+    },
+    rear: {
+      name: 'Rear Section',
+      pick: false,
+      desc: 'The full stage from the furthest vantage point. The Mystère Theatre is purpose-built and not massive — even the rear section feels connected to the show. Solid value tickets with clear sightlines.'
     }
   };
-  (function () {
-    "use strict";
-    const DAY_LABELS = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
-    function vegasNow() {
-      const parts = new Intl.DateTimeFormat("en-US", {
-        timeZone: "America/Los_Angeles",
-        weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false
-      }).formatToParts(new Date());
-      const get = (t) => parts.find((p) => p.type === t)?.value;
-      const dayIdx = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].indexOf(get("weekday"));
-      return { dayIdx, hour: parseInt(get("hour"), 10) % 24, minute: parseInt(get("minute"), 10) };
-    }
-    function formatTime(t24) {
-      const [h, m] = t24.split(":").map(Number);
-      const ampm = h >= 12 ? "pm" : "am";
-      const h12 = h % 12 === 0 ? 12 : h % 12;
-      return h12 + ":" + String(m).padStart(2, "0") + ampm;
-    }
-    function lastShowPassed(times, now) {
-      if (!times.length) return true;
-      const [h, m] = times[times.length - 1].split(":").map(Number);
-      return now.hour > h || (now.hour === h && now.minute >= m);
-    }
-    function build() {
-      const grid = document.getElementById("sk-sched-grid");
-      if (!grid || typeof SHOW_SCHEDULE === "undefined") return;
-      const now = vegasNow();
-      const todayIdx = now.dayIdx;
-      const tomorrowIdx = (todayIdx + 1) % 7;
-      const order = [1, 2, 3, 4, 5, 6, 0];
-      const frag = document.createDocumentFragment();
-      order.forEach(function (d) {
-        const times = SHOW_SCHEDULE.days[d] || [];
-        const card = document.createElement("div");
-        card.className = "sk-day";
-        let inner = '<span class="sk-day-name">' + DAY_LABELS[d] + "</span>";
-        if (!times.length) {
-          card.classList.add("sk-day--dark");
-          inner += '<span class="sk-day-dark-label">No Show</span>';
-        } else {
-          inner += '<span class="sk-day-time">' + times.map(formatTime).join("<br>") + "</span>";
-        }
-        if (d === todayIdx) {
-          card.classList.remove("sk-day--dark");
-          card.classList.add("sk-day--today");
-          inner += '<span class="sk-day-badge">TODAY</span>';
-          if (times.length && !lastShowPassed(times, now)) {
-            inner += '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">Tonight\u2019s tickets \u2192</a>';
-          }
-        } else if (d === tomorrowIdx) {
-          card.classList.add("sk-day--tomorrow");
-          inner += '<span class="sk-day-badge">TOMORROW</span>';
-          if (times.length) {
-            inner += '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">See seats \u2192</a>';
-          }
-        } else if (times.length) {
-          inner += '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">Get tickets \u2192</a>';
-        }
-        card.innerHTML = inner;
-        frag.appendChild(card);
-      });
-      const ctaCard = document.createElement("div");
-      ctaCard.className = "sk-day sk-day--cta";
-      ctaCard.innerHTML = '<span class="sk-day-name">ALL DATES</span>' +
-        '<span class="sk-day-cta-body">All available<br>dates & times</span>' +
-        '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">Check availability \u2192</a>';
-      frag.appendChild(ctaCard);
-      grid.appendChild(frag);
-      var todayCard = grid.querySelector(".sk-day--today");
-      if (todayCard) {
-        var offset = todayCard.offsetLeft - (grid.clientWidth - todayCard.offsetWidth) / 2;
-        grid.scrollLeft = Math.max(0, offset);
-      }
-    }
-    document.readyState === "loading"
-      ? document.addEventListener("DOMContentLoaded", build)
-      : build();
-  })();
 
-async function submitEmail() {
-  const email = document.getElementById('emailInput').value.trim();
-  if (!email || !email.includes('@')) { document.getElementById('emailInput').style.borderColor = 'rgba(239,68,68,.6)'; return; }
-  try {
-    await fetch('https://brevo-subscribe.vegassidekickcom.workers.dev', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email })
+  function selectZone(id) {
+    const z = zones[id];
+    document.getElementById('zone-name').textContent = z.name;
+    document.getElementById('zone-desc').textContent = z.desc;
+    document.getElementById('zone-badge').style.display = z.pick ? 'inline-flex' : 'none';
+    const popup = document.getElementById('zone-popup');
+    popup.classList.add('visible');
+    setTimeout(() => popup.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+  }
+
+  // SEATING ACCORDION
+  function toggleSA(btn) {
+    const item = btn.closest('.sa-item'), was = item.classList.contains('open');
+    document.querySelectorAll('.sa-item').forEach(i => i.classList.remove('open'));
+    document.querySelectorAll('.sa-hdr').forEach(b => b.setAttribute('aria-expanded','false'));
+    if (!was) { item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
+  }
+
+  // FAQ
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item'), was = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    document.querySelectorAll('.faq-q').forEach(b => b.setAttribute('aria-expanded','false'));
+    if (!was) { item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
+  }
+
+  // FADE IN ON SCROLL
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 60); observer.unobserve(e.target); }
     });
-  } catch(e) { /* silent fail */ }
-  document.getElementById('emailForm').style.display = 'none';
-  document.getElementById('emailOk').classList.add('on');
-}
-document.getElementById('emailInput').addEventListener('keydown', e => { if (e.key === 'Enter') submitEmail(); });
+  }, { threshold: 0.06 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-// ── SCROLL ───────────────────────────────────────────────────────────────────
-window.addEventListener('scroll', () => {
-  const v = Math.min((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100, 100);
-  document.getElementById('progress-bar').style.width = v + '%';
-  document.getElementById('progress-bar-bottom').style.width = v + '%';
-  document.getElementById('mobProgress').style.width = v + '%';
-  updateDotNav();
-  updatePill();
-}, { passive: true });
+  // EMAIL
+  document.getElementById('emailBtn').addEventListener('click', function() {
+    const inp = document.getElementById('emailInp'), val = inp.value.trim();
+    if (val && val.includes('@') && val.includes('.')) {
+      fetch('https://brevo-subscribe.vegassidekickcom.workers.dev', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: val })
+      }).catch(() => {});
+      inp.value = ''; inp.placeholder = 'You\'re in. Spike will be in touch.';
+      this.textContent = 'Done ✓'; this.style.background = '#16a34a'; this.style.color = '#fff';
+    } else {
+      inp.style.borderColor = 'rgba(255,107,0,0.5)'; inp.placeholder = 'Enter a valid email';
+      setTimeout(() => { inp.style.borderColor = ''; inp.placeholder = 'your@email.com'; }, 2500);
+    }
+  });
 
-// ── INTERSECTION OBSERVER (fade-up) ──────────────────────────────────────────
-const io = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
-}, { threshold: 0.08 });
-document.querySelectorAll('.fu').forEach(el => io.observe(el));
+  // KEYBOARD SUPPORT FOR SEATING ZONES
+  document.querySelectorAll('.seat-zone').forEach(z => {
+    z.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); z.click(); } });
+  });
+
+const SHOW_SCHEDULE = {
+  affiliateUrl: "https://spotlight.vegas/shows/cirque-du-soleil/mystere/ref/vegassidekick",
+  days: {
+    0: ["18:00", "20:30"],
+    1: ["18:00", "20:30"],
+    2: ["18:00", "20:30"],
+    3: [],
+    4: [],
+    5: ["18:00", "20:30"],
+    6: ["18:00", "20:30"]
+  }
+};
+(function () {
+  "use strict";
+  const DAY_LABELS = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+  function vegasNow() {
+    const parts = new Intl.DateTimeFormat("en-US", {
+      timeZone: "America/Los_Angeles",
+      weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false
+    }).formatToParts(new Date());
+    const get = (t) => parts.find((p) => p.type === t)?.value;
+    const dayIdx = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].indexOf(get("weekday"));
+    return { dayIdx, hour: parseInt(get("hour"), 10) % 24, minute: parseInt(get("minute"), 10) };
+  }
+  function formatTime(t24) {
+    const [h, m] = t24.split(":").map(Number);
+    const ampm = h >= 12 ? "pm" : "am";
+    const h12 = h % 12 === 0 ? 12 : h % 12;
+    return h12 + ":" + String(m).padStart(2, "0") + ampm;
+  }
+  function lastShowPassed(times, now) {
+    if (!times.length) return true;
+    const [h, m] = times[times.length - 1].split(":").map(Number);
+    return now.hour > h || (now.hour === h && now.minute >= m);
+  }
+  function build() {
+    const grid = document.getElementById("sk-sched-grid");
+    if (!grid || typeof SHOW_SCHEDULE === "undefined") return;
+    const now = vegasNow();
+    const todayIdx = now.dayIdx;
+    const tomorrowIdx = (todayIdx + 1) % 7;
+    const order = [1, 2, 3, 4, 5, 6, 0];
+    const frag = document.createDocumentFragment();
+    order.forEach(function (d) {
+      const times = SHOW_SCHEDULE.days[d] || [];
+      const card = document.createElement("div");
+      card.className = "sk-day";
+      let inner = '<span class="sk-day-name">' + DAY_LABELS[d] + "</span>";
+      if (!times.length) {
+        card.classList.add("sk-day--dark");
+        inner += '<span class="sk-day-dark-label">No Show</span>';
+      } else {
+        inner += '<span class="sk-day-time">' + times.map(formatTime).join("<br>") + "</span>";
+      }
+      if (d === todayIdx) {
+        card.classList.remove("sk-day--dark");
+        card.classList.add("sk-day--today");
+        inner += '<span class="sk-day-badge">TODAY</span>';
+        if (times.length && !lastShowPassed(times, now)) {
+          inner += '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">Tonight\'s tickets →</a>';
+        }
+      } else if (d === tomorrowIdx) {
+        card.classList.add("sk-day--tomorrow");
+        inner += '<span class="sk-day-badge">TOMORROW</span>';
+        if (times.length) {
+          inner += '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">See seats →</a>';
+        }
+      } else if (times.length) {
+        inner += '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">Get tickets →</a>';
+      }
+      card.innerHTML = inner;
+      frag.appendChild(card);
+    });
+    const ctaCard = document.createElement("div");
+    ctaCard.className = "sk-day sk-day--cta";
+    ctaCard.innerHTML = '<span class="sk-day-name">ALL DATES</span>' +
+      '<span class="sk-day-cta-body">All available<br>dates & times</span>' +
+      '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">Check availability →</a>';
+    frag.appendChild(ctaCard);
+    grid.appendChild(frag);
+    var todayCard = grid.querySelector(".sk-day--today");
+    if (todayCard) {
+      var offset = todayCard.offsetLeft - (grid.clientWidth - todayCard.offsetWidth) / 2;
+      grid.scrollLeft = Math.max(0, offset);
+    }
+  }
+  document.readyState === "loading"
+    ? document.addEventListener("DOMContentLoaded", build)
+    : build();
+})();
 </script>
-<script src="/components/header.js"></script>
 </body>
 </html>
