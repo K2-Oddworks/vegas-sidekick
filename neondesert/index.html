@@ -406,9 +406,24 @@ const sphereMat = new THREE.MeshToonMaterial({
 // ═══════════════════════════════════════════════════════════════════════════════
 //  WELCOME TO FABULOUS LAS VEGAS — south anchor (real build)
 // ═══════════════════════════════════════════════════════════════════════════════
-const signBulbMat = new THREE.MeshToonMaterial({
-  color: 0xfff6d0, gradientMap: toonGrad, emissive: new THREE.Color(0xffd23b), emissiveIntensity: 1.0
-});
+// Marquee bulbs get individual materials so a light-wave can chase around the border
+const signBulbs = [];
+const BULB_HOT = new THREE.Color(0xfff2b8), BULB_DIM = new THREE.Color(0x6b5017);
+let signHalo = null;
+// soft additive glow sprite — gives the sign a real neon aura independent of bloom
+function makeGlowSprite() {
+  const cv = document.createElement('canvas'); cv.width = cv.height = 256;
+  const gg = cv.getContext('2d');
+  const grad = gg.createRadialGradient(128, 128, 8, 128, 128, 128);
+  grad.addColorStop(0.0, 'rgba(255,228,150,0.60)');
+  grad.addColorStop(0.35, 'rgba(255,190,90,0.26)');
+  grad.addColorStop(1.0, 'rgba(255,170,70,0.0)');
+  gg.fillStyle = grad; gg.fillRect(0, 0, 256, 256);
+  const s = new THREE.Sprite(new THREE.SpriteMaterial({
+    map: new THREE.CanvasTexture(cv), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false
+  }));
+  return s;
+}
 (function makeWelcomeSign() {
   const CW = 820, CH = 1040;
   // white diamond field polygon (canvas space): flat-ish top, side points, bottom point
@@ -472,14 +487,14 @@ const signBulbMat = new THREE.MeshToonMaterial({
     const g = c.getContext('2d'); g.clearRect(0, 0, CW, CH);
     // star support struts
     g.strokeStyle = '#9aa3ad'; g.lineWidth = 8;
-    g.beginPath(); g.moveTo(345, 300); g.lineTo(365, 220); g.moveTo(475, 300); g.lineTo(455, 220); g.stroke();
-    // starburst
-    starTips = starburst(g, 410, 168, 128);
+    g.beginPath(); g.moveTo(350, 298); g.lineTo(368, 232); g.moveTo(470, 298); g.lineTo(452, 232); g.stroke();
+    // starburst (lifted clear of the WELCOME circles)
+    starTips = starburst(g, 410, 148, 116);
     // white diamond field + gold marquee border
     g.lineJoin = 'round';
     g.beginPath(); P.forEach((p, i) => i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1])); g.closePath();
-    g.fillStyle = '#f4ecd6'; g.fill();
-    g.lineWidth = 26; g.strokeStyle = '#e6b23c'; g.stroke();
+    g.fillStyle = '#fffdf6'; g.fill();
+    g.lineWidth = 27; g.strokeStyle = '#f2bd3e'; g.stroke();
     g.lineWidth = 4;  g.strokeStyle = '#b6862a'; g.stroke();
     // painted glowing bulbs on the border
     bulbPts.forEach(([x, y]) => {
@@ -495,13 +510,13 @@ const signBulbMat = new THREE.MeshToonMaterial({
         g.beginPath(); g.arc(cx, cy, rad, 0, Math.PI * 2); g.fillStyle = '#dadadf'; g.fill();
         g.lineWidth = 5; g.strokeStyle = '#b03038'; g.stroke();
         g.lineWidth = 2; g.strokeStyle = '#7d1f26'; g.beginPath(); g.arc(cx, cy, rad - 7, 0, Math.PI * 2); g.stroke();
-        g.fillStyle = '#c02030'; g.font = '700 46px Georgia, "Times New Roman", serif'; g.fillText(letters[i], cx, cy + 2);
+        g.fillStyle = '#ee1522'; g.font = '800 46px Georgia, "Times New Roman", serif'; g.fillText(letters[i], cx, cy + 2);
       }
-      g.fillStyle = '#16357e';
-      g.font = 'italic 34px Georgia, serif'; g.fillText('to', 250, 424);
-      g.font = 'italic 700 80px "Brush Script MT","Segoe Script","Snell Roundhand",cursive'; g.fillText('Fabulous', 472, 418);
-      g.fillStyle = '#d21f2b'; fitText(g, 'LAS VEGAS', 410, 612, 600, '900 138px "Arial Black", Arial, sans-serif');
-      g.fillStyle = '#16357e'; spacedText(g, 'NEVADA', 410, 748, '700 54px Arial, sans-serif', 14);
+      g.fillStyle = '#0e39a6';
+      g.font = 'italic 36px Georgia, serif'; g.fillText('to', 250, 424);
+      g.font = 'italic 700 82px "Brush Script MT","Segoe Script","Snell Roundhand",cursive'; g.fillText('Fabulous', 474, 418);
+      g.fillStyle = '#f01320'; fitText(g, 'LAS VEGAS', 410, 614, 630, '900 148px "Arial Black", Arial, sans-serif');
+      g.fillStyle = '#0e39a6'; spacedText(g, 'NEVADA', 410, 750, '800 56px Arial, sans-serif', 15);
       g.fillStyle = '#b0242c'; g.font = '700 16px Arial'; g.fillText('YESCO', 410, 874);
     } else {
       g.fillStyle = '#d21f2b';
@@ -538,16 +553,25 @@ const signBulbMat = new THREE.MeshToonMaterial({
     new THREE.MeshBasicMaterial({ map: backTex, transparent: true }));
   backPanel.position.set(0, PANEL_Y, -0.35); backPanel.rotation.y = Math.PI; grp.add(backPanel);
 
-  // 3D glow bulbs (bloom) at the painted border + star tips
-  const bulbGeo = new THREE.SphereGeometry(0.17, 8, 6);
+  // soft neon aura behind the whole sign (glows on every device, no bloom needed)
+  signHalo = makeGlowSprite();
+  signHalo.scale.set(SIGN_W * 2.0, SIGN_H * 1.7, 1);
+  signHalo.position.set(0, PANEL_Y, -0.7);
+  grp.add(signHalo);
+
+  // individually-lit border bulbs (ordered around the perimeter so a wave can chase)
+  const bulbGeo = new THREE.SphereGeometry(0.2, 10, 8);
   bulbPts.forEach(([cx, cy]) => {
     const [lx, ly] = toLocal(cx, cy);
-    const b = new THREE.Mesh(bulbGeo, signBulbMat); b.position.set(lx, ly, 0.42); grp.add(b);
+    const b = new THREE.Mesh(bulbGeo, new THREE.MeshBasicMaterial({ color: BULB_HOT.clone(), toneMapped: false }));
+    b.position.set(lx, ly, 0.44); grp.add(b); signBulbs.push(b);
   });
-  const tipGeo = new THREE.SphereGeometry(0.22, 8, 6);
+  // star-tip bulbs (added after the border so the chase finishes on the star)
+  const tipGeo = new THREE.SphereGeometry(0.26, 10, 8);
   starTips.forEach(([cx, cy]) => {
     const [lx, ly] = toLocal(cx, cy);
-    const b = new THREE.Mesh(tipGeo, signBulbMat); b.position.set(lx, ly, 0.42); grp.add(b);
+    const b = new THREE.Mesh(tipGeo, new THREE.MeshBasicMaterial({ color: BULB_HOT.clone(), toneMapped: false }));
+    b.position.set(lx, ly, 0.44); grp.add(b); signBulbs.push(b);
   });
 
   // two light-blue support poles up to the diamond's bottom point
@@ -684,7 +708,7 @@ function applyTOD(phase) {
   moonLight.intensity = n ? 0.4 : d ? 0.12 : 0.0;
 
   starMat.opacity = n ? 1.0 : d ? 0.4 : 0.0;
-  bloomPass.strength = n ? (IS_MOBILE?1.0:2.0) : (d||g) ? (IS_MOBILE?0.5:1.0) : (IS_MOBILE?0.15:0.4);
+  bloomPass.strength = n ? (IS_MOBILE?1.15:1.7) : (d||g) ? (IS_MOBILE?0.7:1.0) : (IS_MOBILE?0.3:0.5);
   scene.fog.color.setHex(n ? 0x0a0a24 : dy ? 0xbfe0ff : (d||g) ? 0x2a2050 : 0x1a1a4e);
 
   const litI = n ? 1.6 : (d||g) ? 1.0 : 0.0;
@@ -799,8 +823,20 @@ function animate() {
   const dt = clock.getDelta(), time = clock.getElapsedTime();
   if (lightOverride === null && time - lastTODCheck > 60) { lastTODCheck = time; applyTOD(getTODPhase(getLVHour())); }
 
-  // welcome-sign neon shimmer
-  signBulbMat.emissiveIntensity = signGlow * (0.6 + 0.4 * Math.sin(time * 4));
+  // welcome-sign marquee: a bright wave chases around the border, then the star tips
+  const nb = signBulbs.length;
+  if (nb) {
+    const headBorder = (time * 9) % 46;                 // racing highlight around 46 border bulbs
+    for (let i = 0; i < nb; i++) {
+      let d;
+      if (i < 46) { d = Math.abs(i - headBorder); d = Math.min(d, 46 - d); }
+      else        { d = Math.abs((i - 46) - ((time * 6) % 8)); } // star tips twinkle
+      const wave = Math.max(0, 1 - d / 3.2);             // sharp moving peak
+      const lvl = 0.28 + 0.72 * wave;                    // dim baseline → hot peak
+      signBulbs[i].material.color.copy(BULB_DIM).lerp(BULB_HOT, lvl);
+    }
+  }
+  if (signHalo) signHalo.material.opacity = 0.75 + 0.25 * Math.sin(time * 2.2);
   // Sphere slow LED colour drift (always lit)
   sphereMat.emissive.setHSL((time * 0.045) % 1, 0.7, 0.5);
 
