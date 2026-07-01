@@ -51,7 +51,12 @@
       "url": "https://spotlight.vegas/shows/cirque-du-soleil/mad-apple/ref/vegassidekick",
       "validFrom": "2026-01-01"
     },
-    "performer": { "@type": "PerformingGroup", "name": "Cirque du Soleil" }
+    "performer": { "@type": "PerformingGroup", "name": "Cirque du Soleil" },
+    "eventSchedule": {
+      "@type": "Schedule",
+      "byDay": ["Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      "startTime": "19:00"
+    }
   }
   </script>
   <script type="application/ld+json">
@@ -72,7 +77,7 @@
       "name": "What is the pre-show and should I arrive early for it?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes — arrive early. The pre-show starts 30 minutes before curtain. The bar rises from the stage, performers come out into the audience, and the energy builds before the show even officially begins. Arriving right at show time means you miss this entirely. Get there at 6:30 PM for the 7PM show, get a drink, and let the night start properly."
+        "text": "Yes — arrive early. The pre-show starts 30 minutes before curtain, when the bar rises from the stage and performers come out into the audience. Seating opens around that same 30-minute mark, but plan to arrive at New York-New York 45 minutes before showtime — that gives you time to find the theater, hit the restroom, and grab a drink before the pre-show even starts. Arriving right at showtime means missing the best part of the night."
       }
     },
     {
@@ -104,7 +109,7 @@
       "name": "How long is the show?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "90 minutes with no intermission, plus the 30-minute pre-show if you arrive when you should. Plan to arrive at New York-New York 45 minutes before showtime so you can navigate the casino floor, find the theater, use the restroom, and get a drink before the pre-show starts."
+        "text": "90 minutes with no intermission, plus a 30-minute pre-show if you arrive when you should. Plan to arrive at New York-New York 45 minutes before showtime — that's enough time to navigate the casino floor, find the theater, hit the restroom, and grab a drink before the pre-show bar rises from the stage."
       }
     },
     {
@@ -120,7 +125,7 @@
       "name": "Where should I park at New York-New York?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "New York-New York has self-parking in the attached garage on the east side of the property. Rideshare is the smoothest option for Strip visits — drop-off is right at the main entrance. Either way, give yourself 45 minutes before the show to navigate to the theater inside the property."
+        "text": "New York-New York has self-parking in the attached garage on the east side of the property. Rideshare is the smoothest option for Strip visits — drop-off is right at the main entrance. Either way, plan to arrive 45 minutes before showtime so you have time to navigate to the theater inside the property, hit the restroom, and grab a drink before the pre-show starts."
       }
     }
   ]
@@ -161,7 +166,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&family=Cormorant+Garamond:ital,wght@1,500;1,600&display=swap" rel="stylesheet" />
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -180,8 +185,8 @@
       --text:       #0F172A;
       --text-muted: #64748B;
       --green:      #4ade80;
-      --show-red:   #B5102A;
-      --show-red-lt: #E83348;
+      --show:       #B5102A;
+      --show-lt:    #E83348;
       --font-display: 'Bebas Neue', sans-serif;
       --font-price:   'Barlow Condensed', sans-serif;
       --font-body:    'Barlow', sans-serif;
@@ -198,8 +203,8 @@
     a    { text-decoration: none; color: inherit; }
     button { font-family: inherit; cursor: pointer; }
 
-    #progress-bar { overflow: hidden; position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--show-red), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; box-shadow: 0 0 10px var(--show-red), 0 0 20px rgba(181,16,42,0.35); }
-    #progress-bar-bottom { position: fixed; bottom: 0; left: 0; right: 0; height: 3px; width: 0%; animation: pb-glow 2s ease-in-out infinite; background: linear-gradient(270deg, var(--show-red), var(--orange)); box-shadow: 0 0 10px var(--show-red), 0 0 20px rgba(181,16,42,0.35); z-index: 9999; pointer-events: none; transition: width 0.1s linear; overflow: hidden; }
+    #progress-bar { overflow: hidden; position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--show), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; box-shadow: 0 0 10px var(--show), 0 0 20px rgba(181,16,42,0.35); }
+    #progress-bar-bottom { position: fixed; bottom: 0; left: 0; right: 0; height: 3px; width: 0%; animation: pb-glow 2s ease-in-out infinite; background: linear-gradient(270deg, var(--show), var(--orange)); box-shadow: 0 0 10px var(--show), 0 0 20px rgba(181,16,42,0.35); z-index: 9999; pointer-events: none; transition: width 0.1s linear; overflow: hidden; }
     #progress-bar::after, #progress-bar-bottom::after { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%); animation: pb-shimmer 2.2s linear infinite; }
     @keyframes pb-shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
     @keyframes pb-glow { 0%, 100% { box-shadow: 0 0 3px rgba(255,255,255,0.15); } 50% { box-shadow: 0 0 10px rgba(255,255,255,0.5), 0 0 3px rgba(255,255,255,0.2); } }
@@ -218,7 +223,7 @@
     .dnav-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.22); border: 1px solid rgba(255,255,255,0.18); transition: all 0.28s; display: block; position: relative; }
     .dnav-dot::after { content: attr(data-label); position: absolute; right: 18px; top: 50%; transform: translateY(-50%); background: var(--navy); color: rgba(255,255,255,0.82); font-family: var(--font-mono); font-size: 0.62rem; white-space: nowrap; padding: 3px 8px; border-radius: 4px; opacity: 0; pointer-events: none; transition: opacity 0.18s; }
     .dnav-dot:hover::after, .dnav-dot:focus::after { opacity: 1; }
-    .dnav-dot.active { background: var(--show-red); border-color: var(--show-red); box-shadow: 0 0 8px rgba(181,16,42,0.6); transform: scale(1.35); }
+    .dnav-dot.active { background: var(--show); border-color: var(--show); box-shadow: 0 0 8px rgba(181,16,42,0.6); transform: scale(1.35); }
     @media (max-width: 940px) { .dot-nav { display: none; } }
 
     /* HERO */
@@ -244,12 +249,12 @@
 
     .hero-content-wrap { max-width: 1200px; margin: 0 auto; }
     .hero-content { padding: 28px 24px 32px; }
-    .venue-label { font-family: var(--font-mono); font-size: 0.69rem; color: var(--show-red-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 9px; }
+    .venue-label { font-family: var(--font-mono); font-size: 0.69rem; color: var(--show-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 9px; }
     .hero-title { font-family: var(--font-display); font-size: clamp(2.8rem, 5.5vw, 5rem); color: white; line-height: 0.94; letter-spacing: 0.02em; margin-bottom: 9px; }
-    .hero-subtitle { font-family: var(--font-price); font-size: 1rem; font-weight: 700; color: var(--show-red-lt); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 20px; }
+    .hero-subtitle { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500; font-size: clamp(1.15rem, 2.2vw, 1.55rem); color: var(--show-lt); letter-spacing: 0.01em; margin-bottom: 20px; }
     .info-pills { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 15px; }
     .pill { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: 100px; font-family: var(--font-mono); font-size: 0.67rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.74); border: 1px solid rgba(255,255,255,0.11); }
-    .pill-red { background: rgba(181,16,42,0.18); color: var(--show-red-lt); border-color: rgba(181,16,42,0.35); }
+    .pill-red { background: rgba(181,16,42,0.18); color: var(--show-lt); border-color: rgba(181,16,42,0.35); }
     .pill-orange { background: rgba(255,107,0,0.13); color: var(--orange-lt); border-color: rgba(255,107,0,0.26); }
     .urgency-pills { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 20px; }
     .upill { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 6px; font-family: var(--font-mono); font-size: 0.63rem; font-weight: 600; letter-spacing: 0.04em; background: rgba(255,107,0,0.09); color: var(--orange-lt); border: 1px solid rgba(255,107,0,0.2); }
@@ -262,14 +267,17 @@
     .price-cur { font-family: var(--font-price); font-size: 2.9rem; font-weight: 800; color: var(--orange); line-height: 1; }
     .price-reg { font-family: var(--font-price); font-size: 0.92rem; font-weight: 600; color: rgba(255,255,255,0.26); text-decoration: line-through; }
     .price-save { display: inline-block; margin-top: 3px; font-family: var(--font-mono); font-size: 0.63rem; font-weight: 600; color: var(--green); background: rgba(74,222,128,0.09); padding: 2px 7px; border-radius: 4px; border: 1px solid rgba(74,222,128,0.2); }
-    .hero-cta { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.12rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); border: none; transition: background 0.2s, transform 0.2s; white-space: nowrap; position: relative; overflow: hidden; }
+    .hero-cta { display: inline-flex; align-items: center; gap: 8px; padding: 16px 32px; background: var(--orange); color: var(--navy); font-family: var(--font-price); font-size: 1.29rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); border: 2px solid rgba(96,165,250,0.65); transition: background 0.2s, transform 0.2s; white-space: nowrap; position: relative; overflow: hidden; animation: pulseGlowCta 2.4s ease-out infinite; }
     .hero-cta::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.13), transparent); animation: shimmer 2.6s infinite; }
     @keyframes shimmer { 100%{ left:100%; } }
+    @keyframes pulseGlowCta { 0% { box-shadow: 0 0 10px rgba(96,165,250,0.55), 0 0 22px rgba(96,165,250,0.28), 0 0 0 0 rgba(96,165,250,0.45); } 70% { box-shadow: 0 0 10px rgba(96,165,250,0.55), 0 0 22px rgba(96,165,250,0.28), 0 0 0 14px rgba(96,165,250,0); } 100% { box-shadow: 0 0 10px rgba(96,165,250,0.55), 0 0 22px rgba(96,165,250,0.28), 0 0 0 0 rgba(96,165,250,0); } }
+    @keyframes bobTicket { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-4px) rotate(-6deg); } }
+    .cta-ticket { display: inline-block; filter: hue-rotate(190deg) saturate(1.6) drop-shadow(0 0 5px rgba(96,165,250,0.85)); animation: bobTicket 1.8s ease-in-out infinite; }
     .hero-cta:hover { background: var(--orange-lt); transform: translateY(-2px); }
     .urgency-txt { font-family: var(--font-mono); font-size: 0.62rem; color: rgba(255,255,255,0.32); }
 
     /* TICKER */
-    .ticker-wrap { overflow: hidden; background: var(--show-red); padding: 9px 0; border-top: 1px solid rgba(255,255,255,0.12); border-bottom: 1px solid rgba(255,255,255,0.12); }
+    .ticker-wrap { overflow: hidden; background: var(--show); padding: 9px 0; border-top: 1px solid rgba(255,255,255,0.12); border-bottom: 1px solid rgba(255,255,255,0.12); }
     .ticker-track { display: flex; width: max-content; animation: tickerScroll 38s linear infinite; }
     @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
     .ticker-item { white-space: nowrap; padding: 0 28px; font-family: var(--font-mono); font-size: 0.67rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.92); }
@@ -280,8 +288,8 @@
     .stats-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); padding: 0 24px; }
     .stat-item { padding: 22px 12px; text-align: center; border-right: 1px solid rgba(255,255,255,0.06); }
     .stat-item:last-child { border-right: none; }
-    .stat-num { font-family: var(--font-display); font-size: clamp(2.1rem, 3.5vw, 3.1rem); color: var(--show-red-lt); line-height: 1; letter-spacing: 0.02em; }
-    .stat-suffix { font-family: var(--font-price); font-size: 1.1rem; font-weight: 700; color: var(--show-red-lt); }
+    .stat-num { font-family: var(--font-display); font-size: clamp(2.1rem, 3.5vw, 3.1rem); color: var(--show-lt); line-height: 1; letter-spacing: 0.02em; }
+    .stat-suffix { font-family: var(--font-price); font-size: 1.1rem; font-weight: 700; color: var(--show-lt); }
     .stat-lbl { font-family: var(--font-mono); font-size: 0.6rem; color: rgba(255,255,255,0.38); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 3px; }
 
     /* LAYOUT */
@@ -293,14 +301,14 @@
     .sb-price { font-family: var(--font-price); font-size: 2.9rem; font-weight: 800; color: var(--orange); line-height: 1; }
     .sb-reg { font-family: var(--font-price); font-size: 0.88rem; color: rgba(255,255,255,0.24); text-decoration: line-through; margin-bottom: 4px; }
     .sb-save { display: inline-block; font-family: var(--font-mono); font-size: 0.6rem; font-weight: 600; color: var(--green); background: rgba(74,222,128,0.09); padding: 2px 7px; border-radius: 4px; border: 1px solid rgba(74,222,128,0.18); }
-    .sb-cta { display: block; width: 100%; padding: 14px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.02rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; text-align: center; border-radius: var(--radius-sm); border: none; transition: background 0.2s; position: relative; overflow: hidden; }
+    .sb-cta { display: block; width: 100%; padding: 16px; background: var(--orange); color: var(--navy); font-family: var(--font-price); font-size: 1.17rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; text-align: center; border-radius: var(--radius-sm); border: 2px solid rgba(96,165,250,0.65); transition: background 0.2s; position: relative; overflow: hidden; animation: pulseGlowCta 2.4s ease-out infinite; }
     .sb-cta::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.13), transparent); animation: shimmer 2.6s infinite; }
     .sb-cta:hover { background: var(--orange-lt); }
     .sb-urgency { font-family: var(--font-mono); font-size: 0.59rem; color: rgba(255,255,255,0.27); text-align: center; }
     .sb-div { height: 1px; background: rgba(255,255,255,0.07); }
     .trust-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
     .trust-list li { display: flex; align-items: center; gap: 9px; font-family: var(--font-mono); font-size: 0.67rem; color: rgba(255,255,255,0.58); }
-    .t-check { width: 16px; height: 16px; border-radius: 50%; background: rgba(181,16,42,0.15); border: 1px solid rgba(181,16,42,0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--show-red-lt); font-size: 0.54rem; }
+    .t-check { width: 16px; height: 16px; border-radius: 50%; background: rgba(181,16,42,0.15); border: 1px solid rgba(181,16,42,0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--show-lt); font-size: 0.54rem; }
     .sb-info-item { display: flex; align-items: flex-start; gap: 8px; }
     .sb-info-icon { font-size: 0.88rem; margin-top: 1px; flex-shrink: 0; }
     .sb-info-lbl { font-family: var(--font-mono); font-size: 0.57rem; color: rgba(255,255,255,0.32); text-transform: uppercase; letter-spacing: 0.04em; display: block; margin-bottom: 1px; }
@@ -311,13 +319,13 @@
     /* CONTENT SECTIONS */
     .section { margin-bottom: 50px; }
     .section-title { font-family: var(--font-display); font-size: clamp(1.85rem, 2.8vw, 2.55rem); color: var(--navy); line-height: 1; letter-spacing: 0.02em; margin-bottom: 20px; }
-    .section-title span { color: var(--show-red); }
+    .section-title span { color: var(--show); }
     .fade-up { opacity: 0; transform: translateY(22px); transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1); }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
     /* SEEN WIDGET */
     .seen-widget { background: linear-gradient(135deg, var(--navy) 0%, #1a0208 100%); border-radius: var(--radius-lg); padding: 28px; color: white; margin-bottom: 50px; }
-    .seen-tag { font-family: var(--font-mono); font-size: 0.65rem; color: var(--show-red-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
+    .seen-tag { font-family: var(--font-mono); font-size: 0.65rem; color: var(--show-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
     .seen-q { font-family: var(--font-display); font-size: clamp(1.45rem, 2.6vw, 1.95rem); color: white; margin-bottom: 16px; line-height: 1.1; }
     .seen-btns { display: flex; gap: 10px; }
     .seen-btn { padding: 10px 22px; border-radius: var(--radius-sm); font-family: var(--font-price); font-size: 0.9rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; transition: all 0.2s; border: none; }
@@ -339,15 +347,25 @@
     /* ABOUT */
     .about-body p { font-size: 0.98rem; color: var(--text); line-height: 1.78; margin-bottom: 16px; }
     .about-body p:last-child { margin-bottom: 0; }
-    .spike-callout { display: flex; gap: 13px; align-items: flex-start; background: linear-gradient(135deg, rgba(181,16,42,0.07), rgba(255,107,0,0.03)); border: 1px solid rgba(181,16,42,0.2); border-left: 4px solid var(--show-red); border-radius: var(--radius); padding: 16px 20px; margin: 20px 0; }
+    .about-body .lede { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500; font-size: 1.4rem; color: var(--navy); line-height: 1.55; }
+    .spike-callout { display: flex; gap: 13px; align-items: flex-start; background: linear-gradient(135deg, rgba(181,16,42,0.07), rgba(255,107,0,0.03)); border: 1px solid rgba(181,16,42,0.2); border-left: 4px solid var(--show); border-radius: var(--radius); padding: 16px 20px; margin: 20px 0; }
     .spike-emoji { font-size: 1.85rem; flex-shrink: 0; margin-top: 2px; }
     .spike-text { font-family: var(--font-mono); font-size: 0.81rem; color: var(--navy); line-height: 1.62; }
-    .spike-text strong { color: var(--show-red); display: block; margin-bottom: 4px; font-size: 0.63rem; letter-spacing: 0.06em; text-transform: uppercase; }
+    .spike-text strong { color: var(--show); display: block; margin-bottom: 4px; font-size: 0.63rem; letter-spacing: 0.06em; text-transform: uppercase; }
+
+    /* GALLERY */
+    .gallery-section { margin-bottom: 50px; }
+    .gallery-grid { display: grid; grid-template-columns: 1.4fr 1fr; grid-template-rows: 1fr 1fr; gap: 10px; height: 380px; }
+    .gallery-grid a { position: relative; overflow: hidden; border-radius: var(--radius); display: block; background: var(--gray-200); }
+    .gallery-grid a:first-child { grid-row: 1 / span 2; }
+    .gallery-grid img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .gallery-grid a:hover img { transform: scale(1.05); }
+    @media (max-width: 700px) { .gallery-grid { grid-template-columns: 1fr; grid-template-rows: none; height: auto; gap: 8px; } .gallery-grid a { aspect-ratio: 4/3; } .gallery-grid a:first-child { grid-row: auto; } }
 
     /* EMAIL SIGNUP */
     .email-signup { background: var(--navy); border-radius: var(--radius-lg); padding: 32px 28px; margin-bottom: 50px; position: relative; overflow: hidden; display: flex; align-items: center; gap: 24px; }
-    .email-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: linear-gradient(180deg, var(--show-red), var(--orange)); }
-    .email-heading { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); color: var(--show-red-lt); letter-spacing: 0.08em; flex-shrink: 0; line-height: 1; }
+    .email-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: linear-gradient(180deg, var(--show), var(--orange)); }
+    .email-heading { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); color: var(--show-lt); letter-spacing: 0.08em; flex-shrink: 0; line-height: 1; }
     .email-body { flex: 1; }
     .email-body h3 { font-family: var(--font-price); font-size: 1rem; font-weight: 800; color: white; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
     .email-body p { font-size: 0.79rem; color: rgba(255,255,255,0.42); line-height: 1.5; margin-bottom: 12px; }
@@ -355,40 +373,40 @@
     .email-input { flex: 1; padding: 10px 13px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.11); border-radius: var(--radius-sm); color: white; font-family: var(--font-mono); font-size: 0.77rem; outline: none; }
     .email-input::placeholder { color: rgba(255,255,255,0.24); }
     .email-input:focus { border-color: rgba(181,16,42,0.5); }
-    .email-submit { padding: 10px 15px; background: var(--show-red); color: white; font-family: var(--font-price); font-size: 0.84rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; border: none; border-radius: var(--radius-sm); transition: background 0.2s; white-space: nowrap; }
-    .email-submit:hover { background: var(--show-red-lt); }
+    .email-submit { padding: 10px 15px; background: var(--show); color: white; font-family: var(--font-price); font-size: 0.84rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; border: none; border-radius: var(--radius-sm); transition: background 0.2s; white-space: nowrap; }
+    .email-submit:hover { background: var(--show-lt); }
 
     /* DETAILS GRID */
     .details-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 50px; }
     .detail-card { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 17px; transition: box-shadow 0.2s, transform 0.2s; }
     .detail-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
     .detail-card-icon { font-size: 1.55rem; margin-bottom: 8px; }
-    .detail-card-lbl { font-family: var(--font-price); font-size: 0.68rem; font-weight: 800; color: var(--show-red); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
+    .detail-card-lbl { font-family: var(--font-price); font-size: 0.68rem; font-weight: 800; color: var(--show); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
     .detail-card-val { font-family: var(--font-body); font-size: 0.87rem; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
     .detail-card-sub { font-size: 0.76rem; color: var(--text-muted); line-height: 1.52; }
 
     /* WHAT TO EXPECT */
     .expect-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; margin-bottom: 50px; }
-    .expect-card { background: var(--off-white); border-radius: var(--radius); padding: 20px; border-left: 3px solid var(--show-red); }
+    .expect-card { background: var(--off-white); border-radius: var(--radius); padding: 20px; border-left: 3px solid var(--show); }
     .expect-title { font-family: var(--font-price); font-size: 0.88rem; font-weight: 800; color: var(--navy); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 7px; display: flex; align-items: center; gap: 6px; }
     .expect-desc { font-size: 0.81rem; color: var(--text-muted); line-height: 1.62; }
 
     /* BLUEPRINT */
     .blueprint { position: relative; padding-left: 28px; display: flex; flex-direction: column; }
-    .blueprint::before { content: ''; position: absolute; left: 5px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(to bottom, var(--show-red), var(--orange)); border-radius: 2px; }
+    .blueprint::before { content: ''; position: absolute; left: 5px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(to bottom, var(--show), var(--orange)); border-radius: 2px; }
     .bp-item { position: relative; padding: 0 0 28px 20px; }
     .bp-item:last-child { padding-bottom: 0; }
-    .bp-dot { position: absolute; left: -24px; top: 4px; width: 13px; height: 13px; border-radius: 50%; background: var(--show-red); border: 2px solid white; box-shadow: 0 0 0 2px var(--show-red); }
+    .bp-dot { position: absolute; left: -24px; top: 4px; width: 13px; height: 13px; border-radius: 50%; background: var(--show); border: 2px solid white; box-shadow: 0 0 0 2px var(--show); }
     .bp-dot.alt { background: var(--orange); box-shadow: 0 0 0 2px var(--orange); }
-    .bp-time { font-family: var(--font-price); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--show-red); margin-bottom: 3px; }
+    .bp-time { font-family: var(--font-price); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--show); margin-bottom: 3px; }
     .bp-event { font-family: var(--font-price); font-size: 1.05rem; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
     .bp-desc { font-size: 0.83rem; color: var(--text-muted); line-height: 1.58; }
 
     /* SEATING */
     .seating-section { margin-bottom: 50px; }
     .seating-diagram-wrap { background: var(--navy); border-radius: var(--radius-lg); padding: 26px 20px 30px; margin-bottom: 20px; position: relative; overflow: hidden; }
-    .seating-diagram-wrap::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--show-red), var(--orange)); }
-    .seating-lbl { font-family: var(--font-price); font-size: 0.78rem; font-weight: 700; color: var(--show-red-lt); text-align: center; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px; }
+    .seating-diagram-wrap::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--show), var(--orange)); }
+    .seating-lbl { font-family: var(--font-price); font-size: 0.78rem; font-weight: 700; color: var(--show-lt); text-align: center; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px; }
     .seat-svg-wrap { max-width: 520px; margin: 0 auto; }
     .seat-svg-wrap svg { width: 100%; height: auto; display: block; }
     .seat-zone { cursor: pointer; transition: opacity 0.18s; }
@@ -425,7 +443,7 @@
     .faq-q { display: flex; align-items: center; justify-content: space-between; padding: 15px 17px; background: white; border: none; width: 100%; text-align: left; transition: background 0.2s; }
     .faq-q:hover { background: var(--off-white); }
     .faq-q-text { font-family: var(--font-price); font-size: 0.92rem; font-weight: 700; color: var(--navy); letter-spacing: 0.02em; }
-    .faq-icon { color: var(--show-red); font-size: 1.22rem; transition: transform 0.28s cubic-bezier(0.16,1,0.3,1); flex-shrink: 0; margin-left: 10px; font-weight: 300; line-height: 1; }
+    .faq-icon { color: var(--show); font-size: 1.22rem; transition: transform 0.28s cubic-bezier(0.16,1,0.3,1); flex-shrink: 0; margin-left: 10px; font-weight: 300; line-height: 1; }
     .faq-item.open .faq-icon { transform: rotate(45deg); }
     .faq-a { overflow: hidden; max-height: 0; transition: max-height 0.42s cubic-bezier(0.16,1,0.3,1); }
     .faq-item.open .faq-a { max-height: 400px; }
@@ -437,14 +455,14 @@
     .also-card:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
     .also-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; background: var(--gray-200); }
     .also-body { padding: 13px; }
-    .also-cat { font-family: var(--font-mono); font-size: 0.59rem; color: var(--show-red); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
+    .also-cat { font-family: var(--font-mono); font-size: 0.59rem; color: var(--show); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
     .also-title { font-family: var(--font-display); font-size: 1.12rem; color: var(--navy); margin-bottom: 2px; line-height: 1.1; }
     .also-venue { font-size: 0.73rem; color: var(--text-muted); margin-bottom: 10px; }
     .also-cta { display: block; width: 100%; padding: 9px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.82rem; font-weight: 800; text-align: center; border-radius: var(--radius-sm); text-transform: uppercase; letter-spacing: 0.05em; transition: background 0.2s; border: none; }
     .also-cta:hover { background: var(--orange-lt); }
 
     /* FINAL CTA */
-    .final-cta { background: linear-gradient(135deg, var(--show-red) 0%, #2a0008 60%, var(--navy) 100%); padding: 60px 32px; border-radius: var(--radius-lg); text-align: center; margin-bottom: 50px; position: relative; overflow: hidden; }
+    .final-cta { background: linear-gradient(135deg, var(--show) 0%, #2a0008 60%, var(--navy) 100%); padding: 60px 32px; border-radius: var(--radius-lg); text-align: center; margin-bottom: 50px; position: relative; overflow: hidden; }
     .final-cta::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, rgba(255,255,255,0.4), rgba(255,107,0,0.8)); }
     .orb { position: absolute; border-radius: 50%; pointer-events: none; }
     .orb-1 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(181,16,42,0.22) 0%, transparent 70%); top: -80px; left: -60px; animation: orbDrift 9s ease-in-out infinite; }
@@ -454,7 +472,7 @@
     .final-cta-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.1rem); color: white; line-height: 1; margin-bottom: 9px; position: relative; }
     .final-cta-sub { font-size: 0.88rem; color: rgba(255,255,255,0.55); margin-bottom: 22px; position: relative; }
     .final-cta-amount { font-family: var(--font-price); font-size: 3.3rem; font-weight: 800; color: white; line-height: 1; margin-bottom: 20px; position: relative; }
-    .final-cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 15px 42px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.18rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); transition: all 0.2s; border: none; position: relative; overflow: hidden; }
+    .final-cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 17px 48px; background: var(--orange); color: var(--navy); font-family: var(--font-price); font-size: 1.36rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); transition: all 0.2s; border: 2px solid rgba(96,165,250,0.65); position: relative; overflow: hidden; animation: pulseGlowCta 2.4s ease-out infinite; }
     .final-cta-btn::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.13), transparent); animation: shimmer 2.6s infinite; }
     .final-cta-btn:hover { background: var(--orange-lt); transform: translateY(-2px); }
     .final-cta-note { font-family: var(--font-mono); font-size: 0.61rem; color: rgba(255,255,255,0.28); margin-top: 13px; position: relative; }
@@ -462,12 +480,12 @@
 
     /* MOBILE STICKY */
     .mobile-sticky { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--navy); z-index: 1000; padding: 10px 16px 14px; box-shadow: 0 -4px 22px rgba(0,0,0,0.28); border-top: 1px solid rgba(181,16,42,0.2); }
-    .mob-progress { position: absolute; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--show-red), var(--orange)); transition: width 0.1s linear; }
+    .mob-progress { position: absolute; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--show), var(--orange)); transition: width 0.1s linear; }
     .mob-inner { display: flex; align-items: center; justify-content: space-between; gap: 13px; }
     .mob-price-lbl { font-family: var(--font-mono); font-size: 0.55rem; color: rgba(255,255,255,0.28); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 1px; }
     .mob-price { font-family: var(--font-price); font-size: 2.4rem; font-weight: 800; color: var(--orange); line-height: 1; }
     .mob-save { font-family: var(--font-mono); font-size: 0.57rem; color: var(--green); }
-    .mob-cta { flex: 1; max-width: 230px; padding: 13px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.02rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; text-align: center; border-radius: var(--radius-sm); border: none; position: relative; overflow: hidden; transition: background 0.2s; }
+    .mob-cta { flex: 1; max-width: 230px; padding: 15px; background: var(--orange); color: var(--navy); font-family: var(--font-price); font-size: 1.17rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; text-align: center; border-radius: var(--radius-sm); border: 2px solid rgba(96,165,250,0.65); position: relative; overflow: hidden; transition: background 0.2s; animation: pulseGlowCta 2.4s ease-out infinite; }
     .mob-cta::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.17), transparent); animation: shimmer 2s infinite; }
     .mob-cta:hover { background: var(--orange-lt); }
 
@@ -532,6 +550,7 @@
 <nav class="dot-nav" aria-label="Page sections">
   <a href="#section-seen"    class="dnav-dot active" data-label="Seen It?"></a>
   <a href="#section-about"   class="dnav-dot"        data-label="About"></a>
+  <a href="#section-gallery" class="dnav-dot"        data-label="Gallery"></a>
   <a href="#section-details" class="dnav-dot"        data-label="Details"></a>
   <a href="#section-expect"  class="dnav-dot"        data-label="Expect"></a>
   <a href="#section-seating" class="dnav-dot"        data-label="Seating"></a>
@@ -592,7 +611,7 @@
       <div class="price-reg">$100 regular</div>
       <span class="price-save">Save $47 — 47% Off</span>
     </div>
-    <a href="https://spotlight.vegas/shows/cirque-du-soleil/mad-apple/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="hero-cta">Get Tickets →</a>
+    <a href="https://spotlight.vegas/shows/cirque-du-soleil/mad-apple/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="hero-cta">Get Tickets <span class="cta-ticket">🎟️</span></a>
     <span class="urgency-txt">⏰ Prices may increase closer to show date</span>
   </div>
 </section>
@@ -656,7 +675,7 @@
       <button class="seen-btn seen-no" onclick="showSeen('no')">First time</button>
     </div>
     <div class="seen-resp" id="seen-yes">
-      <p>Then you know that the pre-show is the secret move. If you showed up right at 7PM last time, you missed the bar rising from the stage and the performers working the crowd. Go back and catch it properly — arrive at 6:30, get a drink, and let the energy build before the curtain even goes up. It's a different show when you're in it from the start. From $53.</p>
+      <p>Then you know that the pre-show is the secret move. If you showed up right at 7PM last time, you missed the bar rising from the stage and the performers working the crowd. Go back and catch it properly — arrive 45 minutes before curtain, get a drink, and let the energy build before the show even officially begins. It's a different night when you're in it from the start. From $53.</p>
       <p><a href="https://spotlight.vegas/shows/cirque-du-soleil/mad-apple/ref/vegassidekick" target="_blank" rel="noopener sponsored">Get tickets →</a></p>
     </div>
     <div class="seen-resp" id="seen-no">
@@ -676,18 +695,35 @@
   <section class="section fade-up" id="section-about" aria-labelledby="about-heading">
     <h2 id="about-heading" class="section-title">About <span>Mad Apple</span></h2>
     <div class="about-body">
-      <p>Mad Apple is what happens when Cirque du Soleil stops trying to be elegant and decides to throw a party instead. The show is set in the energy of New York City — loud, spontaneous, irreverent — and it plays out at New York-New York Hotel, which is either very on-brand or very funny depending on how you look at it. The pre-show starts 30 minutes before curtain, when the bar literally rises from the stage and performers mingle with the audience. That sets the tone for everything that follows.</p>
+      <p class="lede">Mad Apple is what happens when Cirque du Soleil stops trying to be elegant and decides to throw a party instead.</p>
+      <p>The show is set in the energy of New York City — loud, spontaneous, irreverent — and it plays out at New York-New York Hotel, which is either very on-brand or very funny depending on how you look at it. The pre-show starts 30 minutes before curtain, when the bar literally rises from the stage and performers mingle with the audience. That sets the tone for everything that follows.</p>
 
       <div class="spike-callout">
         <div class="spike-emoji">🌵</div>
         <div class="spike-text">
           <strong>Spike's Take</strong>
-          Show up at 6:30 PM — not 7:00 PM. The bar rises from the stage 30 minutes before curtain and performers are out in the crowd working the room. Most people miss this because they arrive right at showtime. Don't be most people. Get there early, get a drink, and let the energy build before the curtain even goes up. It's a different show when you're in it from the start.
+          Show up 45 minutes before curtain — not right at showtime. The bar rises from the stage 30 minutes before curtain and performers are out in the crowd working the room, so build in the extra 15 minutes to find the theater, hit the restroom, and grab that drink first. Most people miss this because they arrive right at showtime. Don't be most people. Get there early and let the energy build before the curtain even goes up. It's a different show when you're in it from the start.
         </div>
       </div>
 
       <p>The 90-minute show blends acrobatics with stand-up comedy, live music, and street-style performance art in ways no other Cirque show attempts. There's no sweeping narrative about mythological forces or elemental themes. It's more like a greatest hits of human spectacle filtered through a New York City lens — juggling, aerial acts, comedy bits, and musical numbers crashing into each other at full speed. The comedians and the acrobats share equal billing, which is unusual for Cirque and deliberately so.</p>
       <p><strong>Know before you go:</strong> This is strictly 18+ — no exceptions, no matter how mature your guest seems. The humor skews adult and the bar is central to the experience. If you want contemplative and cinematic, see KÀ or "O." If you want to laugh, drink, and watch someone do something physically impossible while a comedian makes fun of them, Mad Apple is your show.</p>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="section gallery-section fade-up" id="section-gallery" aria-labelledby="gallery-heading">
+    <h2 id="gallery-heading" class="section-title">Inside the <span>Show</span></h2>
+    <div class="gallery-grid">
+      <a href="/images/mad-apple-hero.jpg" target="_blank" rel="noopener" aria-label="View full-size photo 1">
+        <img src="/images/mad-apple-hero.jpg" alt="Mad Apple by Cirque du Soleil at New York-New York Las Vegas — performers mid-act under dramatic stage lighting" loading="lazy" />
+      </a>
+      <a href="/images/mad-apple-show-2.jpg" target="_blank" rel="noopener" aria-label="View full-size photo 2">
+        <img src="/images/mad-apple-show-2.jpg" alt="Mad Apple Cirque du Soleil aerial acrobatics at New York-New York Hotel Las Vegas" loading="lazy" />
+      </a>
+      <a href="/images/mad-apple-show-3.jpg" target="_blank" rel="noopener" aria-label="View full-size photo 3">
+        <img src="/images/mad-apple-show-3.jpg" alt="Mad Apple by Cirque du Soleil full stage at New York-New York Las Vegas" loading="lazy" />
+      </a>
     </div>
   </section>
 
@@ -731,7 +767,7 @@
         <div class="detail-card-icon">🕗</div>
         <div class="detail-card-lbl">Show Days &amp; Times</div>
         <div class="detail-card-val">Tuesday – Sunday</div>
-        <div class="detail-card-sub">7:00 PM and 9:30 PM shows nightly. Dark Monday only. Pre-show starts 30 minutes before curtain. Always verify your date at checkout.</div>
+        <div class="detail-card-sub">7:00 PM and 9:30 PM shows nightly. Dark Monday only. Seating and the pre-show bar begin about 30 minutes before curtain — plan to arrive at the property 45 minutes early. Always verify your date at checkout.</div>
       </div>
       <div class="detail-card">
         <div class="detail-card-icon">⏱️</div>
@@ -749,7 +785,7 @@
         <div class="detail-card-icon">🍹</div>
         <div class="detail-card-lbl">Pre-Show</div>
         <div class="detail-card-val">Bar Rises from the Stage</div>
-        <div class="detail-card-sub">30 minutes before curtain, the bar literally rises from the stage and performers come out to mingle with the audience. Arrive early — this is part of the show, not a warm-up act.</div>
+        <div class="detail-card-sub">Seating opens and the bar rises from the stage about 30 minutes before curtain, with performers coming out to mingle with the audience. Arrive at the property 45 minutes before showtime so you have time to find the theater, use the restroom, and grab that drink before the pre-show starts.</div>
       </div>
       <div class="detail-card">
         <div class="detail-card-icon">📸</div>
@@ -766,7 +802,7 @@
     <div class="expect-grid">
       <div class="expect-card">
         <div class="expect-title"><span>🍹</span> The Pre-Show Bar</div>
-        <div class="expect-desc">The bar rises from the stage 30 minutes before curtain and performers come out to meet the audience. It's not a warm-up act — it's part of the show. Get there at 6:30 PM, get a drink, talk to the performers. This is what separates the people who had a good time from the people who had an unforgettable one.</div>
+        <div class="expect-desc">The bar rises from the stage 30 minutes before curtain and performers come out to meet the audience. It's not a warm-up act — it's part of the show. Arrive 45 minutes before showtime, get a drink, talk to the performers. This is what separates the people who had a good time from the people who had an unforgettable one.</div>
       </div>
       <div class="expect-card">
         <div class="expect-title"><span>🤸</span> World-Class Acrobatics</div>
@@ -790,13 +826,13 @@
           <div class="bp-dot"></div>
           <div class="bp-time">6:15 PM</div>
           <div class="bp-event">Arrive at New York-New York</div>
-          <div class="bp-desc">New York-New York is mid-Strip on the east side. Self-parking is in the attached garage. Rideshare drops right at the casino entrance. Give yourself 45 minutes before the show — the casino floor is large and the theater requires some navigation on your first visit.</div>
+          <div class="bp-desc">New York-New York is mid-Strip on the east side. Self-parking is in the attached garage. Rideshare drops right at the casino entrance. Give yourself 45 minutes before the show — enough time to navigate the casino floor, find the theater, hit the restroom, and grab a drink before you sit down.</div>
         </div>
         <div class="bp-item">
           <div class="bp-dot"></div>
           <div class="bp-time">6:30 PM</div>
           <div class="bp-event">Pre-Show Starts — Don't Miss This</div>
-          <div class="bp-desc">The bar rises from the stage and performers come out into the audience to mingle. Get a drink. This is not optional — it's the moment that shifts the night from "seeing a show" to being part of one. Most people who show up right at 7PM wish they'd arrived earlier.</div>
+          <div class="bp-desc">Seating opens and the bar rises from the stage about 30 minutes before curtain, with performers coming out into the audience to mingle. This is not optional — it's the moment that shifts the night from "seeing a show" to being part of one. Most people who show up right at 7PM wish they'd arrived earlier.</div>
         </div>
         <div class="bp-item">
           <div class="bp-dot"></div>
@@ -937,7 +973,7 @@
           <span class="faq-q-text">What is the pre-show and should I arrive early for it?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a"><div class="faq-a-inner">Yes — arrive early. The pre-show starts 30 minutes before curtain. The bar rises from the stage, performers come out into the audience, and the energy builds before the show even officially begins. Arriving right at show time means you miss this entirely. Get there at 6:30 PM for the 7PM show, get a drink, and let the night start properly.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Yes — arrive early. The pre-show starts 30 minutes before curtain, when the bar rises from the stage and performers come out into the audience. Seating opens around that same 30-minute mark, but plan to arrive at New York-New York 45 minutes before showtime — that gives you time to find the theater, hit the restroom, and grab a drink before the pre-show even starts. Arriving right at showtime means missing the best part of the night.</div></div>
       </div>
 
       <div class="faq-item">
@@ -969,7 +1005,7 @@
           <span class="faq-q-text">How long is the show?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a"><div class="faq-a-inner">90 minutes with no intermission, plus the 30-minute pre-show if you arrive when you should. Plan to arrive at New York-New York 45 minutes before showtime so you can navigate the casino floor, find the theater, use the restroom, and get a drink before the pre-show starts.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">90 minutes with no intermission, plus a 30-minute pre-show if you arrive when you should. Plan to arrive at New York-New York 45 minutes before showtime — that's enough time to navigate the casino floor, find the theater, hit the restroom, and grab a drink before the pre-show bar rises from the stage.</div></div>
       </div>
 
       <div class="faq-item">
@@ -985,7 +1021,7 @@
           <span class="faq-q-text">Where should I park at New York-New York?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a"><div class="faq-a-inner">New York-New York has self-parking in the attached garage on the east side of the property. Rideshare is the smoothest option for Strip visits — drop-off is right at the main entrance. Either way, give yourself 45 minutes before the show to navigate to the theater inside the property.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">New York-New York has self-parking in the attached garage on the east side of the property. Rideshare is the smoothest option for Strip visits — drop-off is right at the main entrance. Either way, plan to arrive 45 minutes before showtime so you have time to navigate to the theater inside the property, hit the restroom, and grab a drink before the pre-show starts.</div></div>
       </div>
 
     </div>
@@ -1033,7 +1069,7 @@
     <div class="final-cta-title">Ready to See the Show?</div>
     <div class="final-cta-sub">Mad Apple by Cirque du Soleil · New York-New York · Tue–Sun at 7PM &amp; 9:30PM · Ages 18+</div>
     <div class="final-cta-amount">From $53</div>
-    <a href="https://spotlight.vegas/shows/cirque-du-soleil/mad-apple/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="final-cta-btn">Get Tickets →</a>
+    <a href="https://spotlight.vegas/shows/cirque-du-soleil/mad-apple/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="final-cta-btn">Get Tickets <span class="cta-ticket">🎟️</span></a>
     <div class="final-cta-note">Prices may increase closer to show date &nbsp;·&nbsp; <a href="/affiliate-disclosure/">Affiliate disclosure</a></div>
   </div>
 
@@ -1047,7 +1083,7 @@
     <div class="sb-reg">$100 regular</div>
     <span class="sb-save">Save $47 — 47% Off</span>
   </div>
-  <a href="https://spotlight.vegas/shows/cirque-du-soleil/mad-apple/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="sb-cta">Get Tickets →</a>
+  <a href="https://spotlight.vegas/shows/cirque-du-soleil/mad-apple/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="sb-cta">Get Tickets <span class="cta-ticket">🎟️</span></a>
   <div class="sb-urgency">Prices may increase closer to show date</div>
   <div class="sb-div"></div>
   <ul class="trust-list">
@@ -1089,7 +1125,7 @@
       <div class="mob-price">$53</div>
       <div class="mob-save">Save $47</div>
     </div>
-    <a href="https://spotlight.vegas/shows/cirque-du-soleil/mad-apple/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="mob-cta">Get Tickets →</a>
+    <a href="https://spotlight.vegas/shows/cirque-du-soleil/mad-apple/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="mob-cta">Get Tickets <span class="cta-ticket">🎟️</span></a>
   </div>
 </div>
 
@@ -1099,7 +1135,7 @@
 
 <script>
   // PROGRESS BAR + SAVE PILL + DOT NAV
-  const sections = ['section-seen','section-about','section-details','section-expect','section-seating','section-faq'];
+  const sections = ['section-seen','section-about','section-gallery','section-details','section-expect','section-seating','section-faq'];
   const navDots = document.querySelectorAll('.dnav-dot');
   const priceStrip = document.getElementById('priceStrip');
   const savePill = document.getElementById('savePill');
@@ -1313,16 +1349,16 @@
           card.classList.add("sk-day--today");
           inner += '<span class="sk-day-badge">TODAY</span>';
           if (times.length && !lastShowPassed(times, now)) {
-            inner += '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">Tonight\u2019s tickets \u2192</a>';
+            inner += '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">Tonight’s tickets →</a>';
           }
         } else if (d === tomorrowIdx) {
           card.classList.add("sk-day--tomorrow");
           inner += '<span class="sk-day-badge">TOMORROW</span>';
           if (times.length) {
-            inner += '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">See seats \u2192</a>';
+            inner += '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">See seats →</a>';
           }
         } else if (times.length) {
-          inner += '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">Get tickets \u2192</a>';
+          inner += '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">Get tickets →</a>';
         }
         card.innerHTML = inner;
         frag.appendChild(card);
@@ -1331,7 +1367,7 @@
       ctaCard.className = "sk-day sk-day--cta";
       ctaCard.innerHTML = '<span class="sk-day-name">ALL DATES</span>' +
         '<span class="sk-day-cta-body">All available<br>dates & times</span>' +
-        '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">Check availability \u2192</a>';
+        '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">Check availability →</a>';
       frag.appendChild(ctaCard);
       grid.appendChild(frag);
       var todayCard = grid.querySelector(".sk-day--today");

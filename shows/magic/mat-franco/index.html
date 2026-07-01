@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <link rel="icon" href="/favicon.png" type="image/png" />
+  <link rel="shortcut icon" href="/favicon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mat Franco Las Vegas Tickets 2026 | The LINQ Hotel | Vegas Sidekick</title>
   <meta name="description" content="Mat Franco: Magic Reinvented Nightly tickets from $57. 90 minutes of interactive magic at the Mat Franco Theater inside The LINQ Hotel. AGT Season 9 winner. Ages 5+." />
@@ -102,7 +104,15 @@
       "name": "Where is The LINQ Hotel on the Strip?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The LINQ Hotel & Experience is located at 3535 S Las Vegas Blvd, in the center of the Strip between the Flamingo and the High Roller observation wheel. It's directly adjacent to The LINQ Promenade outdoor shopping and dining district. One of the most central Strip locations — easy rideshare drop-off and walkable from several neighboring hotels. The Mat Franco Theater is inside the hotel; follow signage from the main entrance."
+        "text": "The LINQ Hotel & Experience is located at 3535 S Las Vegas Blvd, in the center of the Strip between the Flamingo and the High Roller observation wheel. It's directly adjacent to The LINQ Promenade outdoor shopping and dining district. One of the most central Strip locations — easy rideshare drop-off and walkable from several neighboring hotels. The Mat Franco Theater is inside the hotel; follow signage from the main entrance. Plan to arrive at The LINQ about 45 minutes before showtime — seating itself opens roughly 30 minutes early, but the extra cushion gives you time to find the theater, hit the restroom, and grab a drink before you sit down."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When should I arrive?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Seating begins about 30 minutes before showtime, but plan to arrive at The LINQ Hotel 45 minutes early — that's enough time to find the Mat Franco Theater, hit the restroom, grab a drink, and get comfortably seated before the show starts. Showtime is 7:00 PM. Because the format is interactive from the opening minutes, arriving late means missing the moments where the crowd first gets pulled in."
       }
     },
     {
@@ -130,12 +140,18 @@
     {
       "@type": "ListItem",
       "position": 2,
+      "name": "Shows",
+      "item": "https://vegassidekick.com/shows/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
       "name": "Magic",
       "item": "https://vegassidekick.com/shows/magic/"
     },
     {
       "@type": "ListItem",
-      "position": 3,
+      "position": 4,
       "name": "Mat Franco",
       "item": "https://vegassidekick.com/shows/magic/mat-franco/"
     }
@@ -145,7 +161,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&family=Cormorant+Garamond:ital,wght@1,500;1,600&display=swap" rel="stylesheet" />
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -156,6 +172,8 @@
       --blue-lt:    #4d90f0;
       --orange:     #FF6B2B;
       --orange-lt:  #ff8c33;
+      --show:       #1A6BDD;
+      --show-lt:    #4d90f0;
       --white:      #FFFFFF;
       --off-white:  #F7F9FC;
       --gray-100:   #F1F4F9;
@@ -163,7 +181,6 @@
       --gray-400:   #94A3B8;
       --text:       #0F172A;
       --text-muted: #64748B;
-      --magenta:    #d946ef;
       --green:      #4ade80;
       --font-display: 'Bebas Neue', sans-serif;
       --font-price:   'Barlow Condensed', sans-serif;
@@ -180,54 +197,43 @@
     img  { max-width: 100%; display: block; }
     a    { text-decoration: none; color: inherit; }
     button { font-family: inherit; cursor: pointer; }
-    #progress-bar { overflow: hidden; position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--blue), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; }
-    #progress-bar::after { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%); animation: pb-shimmer 2.2s linear infinite; }
+
+    #progress-bar { overflow: hidden; position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--show), var(--orange)); z-index: 9999; pointer-events: none; transition: width 0.1s linear; box-shadow: 0 0 10px var(--show), 0 0 20px rgba(26,107,221,0.35); }
+    #progress-bar-bottom { position: fixed; bottom: 0; left: 0; right: 0; height: 3px; width: 0%; animation: pb-glow 2s ease-in-out infinite; background: linear-gradient(270deg, var(--show), var(--orange)); box-shadow: 0 0 10px var(--show), 0 0 20px rgba(26,107,221,0.35); z-index: 9999; pointer-events: none; transition: width 0.1s linear; overflow: hidden; }
+    #progress-bar::after, #progress-bar-bottom::after { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%); animation: pb-shimmer 2.2s linear infinite; }
     @keyframes pb-shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
+    @keyframes pb-glow { 0%, 100% { box-shadow: 0 0 3px rgba(255,255,255,0.15); } 50% { box-shadow: 0 0 10px rgba(255,255,255,0.5), 0 0 3px rgba(255,255,255,0.2); } }
+    @media (max-width: 940px) { #progress-bar-bottom { bottom: 72px; } }
 
-    /* STATS STRIP */
-    .stats-strip { background: var(--navy); border-bottom: 1px solid rgba(255,255,255,0.06); }
-    .stats-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); }
-    .stat-item { padding: 18px 20px; text-align: center; border-right: 1px solid rgba(255,255,255,0.06); }
-    .stat-item:last-child { border-right: none; }
-    .stat-num { font-family: var(--font-price); font-size: 2.2rem; font-weight: 800; color: var(--orange); line-height: 1; margin-bottom: 3px; }
-    .stat-lbl { font-family: var(--font-mono); font-size: 0.6rem; color: rgba(255,255,255,0.38); text-transform: uppercase; letter-spacing: 0.07em; }
-
-    /* TICKER */
-    .ticker-wrap { background: var(--blue); overflow: hidden; padding: 9px 0; cursor: default; user-select: none; }
-    .ticker-track { display: flex; width: max-content; animation: ticker-scroll 38s linear infinite; }
-    .ticker-track:hover { animation-play-state: paused; }
-    .ticker-item { white-space: nowrap; padding: 0 28px; font-family: var(--font-price); font-size: 0.88rem; font-weight: 700; color: white; letter-spacing: 0.05em; text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
-    .ticker-item::after { content: '·'; margin-left: 28px; opacity: 0.5; }
-    @keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-    /* DOT NAV */
-    .dot-nav { position: fixed; right: 18px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 800; }
-    .dn-dot { width: 9px; height: 9px; border-radius: 50%; background: transparent; border: 2px solid rgba(255,255,255,0.35); transition: all 0.25s; cursor: pointer; position: relative; }
-    .dn-dot:hover { border-color: rgba(255,255,255,0.7); }
-    .dn-dot.active { background: var(--orange); border-color: var(--orange); transform: scale(1.35); }
-    .dn-dot[data-tip]::after { content: attr(data-tip); position: absolute; right: calc(100% + 10px); top: 50%; transform: translateY(-50%); background: rgba(10,22,40,0.92); color: white; font-family: var(--font-mono); font-size: 0.6rem; white-space: nowrap; padding: 4px 8px; border-radius: 4px; opacity: 0; pointer-events: none; transition: opacity 0.2s; letter-spacing: 0.04em; }
-    .dn-dot:hover::after { opacity: 1; }
-    @media (max-width: 940px) { .dot-nav { display: none; } }
-
-    /* SAVE PILL */
-    .save-pill { position: fixed; top: 72px; right: 18px; z-index: 810; opacity: 0; transform: translateY(-8px); transition: opacity 0.35s, transform 0.35s; pointer-events: none; }
-    .save-pill.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
-    .save-pill a { display: flex; align-items: center; gap: 7px; padding: 9px 16px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.88rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; border-radius: 100px; box-shadow: 0 4px 16px rgba(255,107,0,0.38); white-space: nowrap; transition: background 0.2s; }
-    .save-pill a:hover { background: var(--orange-lt); }
+    /* STICKY SAVE PILL */
+    .save-pill { position: fixed; top: 70px; right: 20px; z-index: 800; display: flex; align-items: center; gap: 10px; padding: 8px 14px 8px 16px; background: var(--navy); border: 1px solid rgba(26,107,221,0.3); border-radius: 100px; box-shadow: 0 4px 20px rgba(0,0,0,0.38); opacity: 0; transform: translateY(-8px) scale(0.96); transition: opacity 0.35s cubic-bezier(0.16,1,0.3,1), transform 0.35s cubic-bezier(0.16,1,0.3,1); pointer-events: none; }
+    .save-pill.visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+    .save-pill-price { font-family: var(--font-price); font-size: 1.05rem; font-weight: 800; color: var(--orange); }
+    .save-pill-cta { padding: 6px 14px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.82rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; border-radius: 100px; white-space: nowrap; transition: background 0.2s; }
+    .save-pill-cta:hover { background: var(--orange-lt); }
     @media (max-width: 940px) { .save-pill { display: none; } }
 
+    /* DOT NAV */
+    .dot-nav { position: fixed; right: 16px; top: 50%; transform: translateY(-50%); z-index: 700; display: flex; flex-direction: column; gap: 10px; }
+    .dnav-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.22); border: 1px solid rgba(255,255,255,0.18); transition: all 0.28s; display: block; position: relative; }
+    .dnav-dot::after { content: attr(data-label); position: absolute; right: 18px; top: 50%; transform: translateY(-50%); background: var(--navy); color: rgba(255,255,255,0.82); font-family: var(--font-mono); font-size: 0.62rem; white-space: nowrap; padding: 3px 8px; border-radius: 4px; opacity: 0; pointer-events: none; transition: opacity 0.18s; }
+    .dnav-dot:hover::after, .dnav-dot:focus::after { opacity: 1; }
+    .dnav-dot.active { background: var(--show); border-color: var(--show); box-shadow: 0 0 8px rgba(26,107,221,0.6); transform: scale(1.35); }
+    @media (max-width: 940px) { .dot-nav { display: none; } }
+
+    /* HERO */
     .hero { background: var(--navy); padding-top: 84px; }
     .breadcrumb { padding: 12px 24px; background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.05); font-family: var(--font-mono); font-size: 0.67rem; color: rgba(255,255,255,0.36); letter-spacing: 0.04em; }
     .breadcrumb a { color: rgba(255,255,255,0.36); transition: color 0.2s; }
     .breadcrumb a:hover { color: var(--orange); }
     .breadcrumb span { color: rgba(255,255,255,0.7); }
 
-    .slider { position: relative; width: 100%; aspect-ratio: 16/7; max-height: 480px; overflow: hidden; background: var(--navy-mid); }
+    .slider { position: relative; width: 100%; aspect-ratio: 16/9; max-height: 560px; overflow: hidden; background: var(--navy-mid); }
     .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.65s ease; }
     .slide.active { opacity: 1; }
-    .slide img { width: 100%; height: 100%; object-fit: cover; transform-origin: center center; }
-    @keyframes kenBurns { 0% { transform: scale(1) translate(0,0); } 100% { transform: scale(1.07) translate(-1%,-.5%); } }
-    .slide.active img { animation: kenBurns 9s ease-in-out forwards; }
+    .slide img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.65s ease; }
+    .slide.active img { animation: kenBurns 7s ease-out forwards; }
+    @keyframes kenBurns { from { transform: scale(1) translate(0,0); } to { transform: scale(1.08) translate(0.4%,0.4%); } }
     .slider-dots { position: absolute; bottom: 13px; left: 50%; transform: translateX(-50%); display: flex; gap: 7px; z-index: 3; }
     .dot-btn { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.28); border: none; padding: 0; transition: background 0.2s, transform 0.2s; }
     .dot-btn.active { background: var(--orange); transform: scale(1.4); }
@@ -238,12 +244,12 @@
 
     .hero-content-wrap { max-width: 1200px; margin: 0 auto; }
     .hero-content { padding: 28px 24px 32px; }
-    .venue-label { font-family: var(--font-mono); font-size: 0.69rem; color: var(--blue-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 9px; }
+    .venue-label { font-family: var(--font-mono); font-size: 0.69rem; color: var(--show-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 9px; }
     .hero-title { font-family: var(--font-display); font-size: clamp(2.8rem, 5.5vw, 5rem); color: white; line-height: 0.94; letter-spacing: 0.02em; margin-bottom: 9px; }
-    .hero-subtitle { font-family: var(--font-price); font-size: 1rem; font-weight: 700; color: var(--orange); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 20px; }
+    .hero-subtitle { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500; font-size: clamp(1.15rem, 2.2vw, 1.55rem); color: var(--show-lt); letter-spacing: 0.01em; margin-bottom: 20px; }
     .info-pills { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 15px; }
     .pill { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: 100px; font-family: var(--font-mono); font-size: 0.67rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.74); border: 1px solid rgba(255,255,255,0.11); }
-    .pill-blue { background: rgba(26,107,221,0.14); color: #7ab4ff; border-color: rgba(26,107,221,0.28); }
+    .pill-blue { background: rgba(26,107,221,0.15); color: var(--show-lt); border-color: rgba(26,107,221,0.3); }
     .pill-orange { background: rgba(255,107,0,0.13); color: var(--orange-lt); border-color: rgba(255,107,0,0.26); }
     .urgency-pills { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 20px; }
     .upill { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 6px; font-family: var(--font-mono); font-size: 0.63rem; font-weight: 600; letter-spacing: 0.04em; background: rgba(255,107,0,0.09); color: var(--orange-lt); border: 1px solid rgba(255,107,0,0.2); }
@@ -254,25 +260,50 @@
     .price-block { display: flex; flex-direction: column; gap: 1px; }
     .price-lbl { font-family: var(--font-mono); font-size: 0.59rem; color: rgba(255,255,255,0.33); letter-spacing: 0.06em; text-transform: uppercase; }
     .price-cur { font-family: var(--font-price); font-size: 2.9rem; font-weight: 800; color: var(--orange); line-height: 1; }
-    .hero-cta { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.12rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); border: none; transition: background 0.2s, transform 0.2s; white-space: nowrap; }
+    .price-reg { font-family: var(--font-price); font-size: 0.92rem; font-weight: 600; color: rgba(255,255,255,0.26); text-decoration: line-through; }
+    .price-save { display: inline-block; margin-top: 3px; font-family: var(--font-mono); font-size: 0.63rem; font-weight: 600; color: var(--green); background: rgba(74,222,128,0.09); padding: 2px 7px; border-radius: 4px; border: 1px solid rgba(74,222,128,0.2); }
+    .hero-cta { display: inline-flex; align-items: center; gap: 8px; padding: 18px 37px; background: var(--orange); color: var(--navy); font-family: var(--font-price); font-size: 1.48rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); border: 2px solid rgba(96,165,250,0.65); transition: background 0.2s, transform 0.2s; white-space: nowrap; position: relative; overflow: hidden; animation: pulseGlowCta 2.4s ease-out infinite; }
+    .hero-cta::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.13), transparent); animation: shimmer 2.6s infinite; }
+    @keyframes shimmer { 100%{ left:100%; } }
+    @keyframes pulseGlowCta { 0% { box-shadow: 0 0 10px rgba(96,165,250,0.55), 0 0 22px rgba(96,165,250,0.28), 0 0 0 0 rgba(96,165,250,0.45); } 70% { box-shadow: 0 0 10px rgba(96,165,250,0.55), 0 0 22px rgba(96,165,250,0.28), 0 0 0 14px rgba(96,165,250,0); } 100% { box-shadow: 0 0 10px rgba(96,165,250,0.55), 0 0 22px rgba(96,165,250,0.28), 0 0 0 0 rgba(96,165,250,0); } }
+    @keyframes bobTicket { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-4px) rotate(-6deg); } }
+    .cta-ticket { display: inline-block; filter: hue-rotate(190deg) saturate(1.6) drop-shadow(0 0 5px rgba(96,165,250,0.85)); animation: bobTicket 1.8s ease-in-out infinite; }
     .hero-cta:hover { background: var(--orange-lt); transform: translateY(-2px); }
     .urgency-txt { font-family: var(--font-mono); font-size: 0.62rem; color: rgba(255,255,255,0.32); }
 
+    /* TICKER */
+    .ticker-wrap { overflow: hidden; background: var(--show); padding: 9px 0; border-top: 1px solid rgba(255,255,255,0.12); border-bottom: 1px solid rgba(255,255,255,0.12); }
+    .ticker-track { display: flex; width: max-content; animation: tickerScroll 36s linear infinite; }
+    @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .ticker-item { white-space: nowrap; padding: 0 28px; font-family: var(--font-mono); font-size: 0.67rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: white; }
+    .ticker-sep { color: rgba(255,255,255,0.45); padding: 0 4px; }
+
+    /* STATS STRIP */
+    .stats-strip { background: var(--navy); border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .stats-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); padding: 0 24px; }
+    .stat-item { padding: 22px 12px; text-align: center; border-right: 1px solid rgba(255,255,255,0.06); }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-family: var(--font-display); font-size: clamp(2.1rem, 3.5vw, 3.1rem); color: var(--show-lt); line-height: 1; letter-spacing: 0.02em; }
+    .stat-suffix { font-family: var(--font-price); font-size: 1.1rem; font-weight: 700; color: var(--show-lt); }
+    .stat-lbl { font-family: var(--font-mono); font-size: 0.6rem; color: rgba(255,255,255,0.38); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 3px; }
+
+    /* LAYOUT */
     .page-layout { display: grid; grid-template-columns: 1fr var(--sidebar); max-width: 1200px; margin: 0 auto; align-items: start; }
     .main-content { padding: 46px 36px 60px 22px; min-width: 0; }
 
     .sidebar { position: sticky; top: 0; background: var(--navy); min-height: 100vh; padding: 24px 20px 22px; display: flex; flex-direction: column; gap: 15px; }
     .sb-price-lbl { font-family: var(--font-mono); font-size: 0.59rem; color: rgba(255,255,255,0.33); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px; }
     .sb-price { font-family: var(--font-price); font-size: 2.9rem; font-weight: 800; color: var(--orange); line-height: 1; }
-    .sb-cta { display: block; width: 100%; padding: 14px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.02rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; text-align: center; border-radius: var(--radius-sm); border: none; transition: background 0.2s; position: relative; overflow: hidden; }
+    .sb-reg { font-family: var(--font-price); font-size: 0.88rem; color: rgba(255,255,255,0.24); text-decoration: line-through; margin-bottom: 4px; }
+    .sb-save { display: inline-block; font-family: var(--font-mono); font-size: 0.6rem; font-weight: 600; color: var(--green); background: rgba(74,222,128,0.09); padding: 2px 7px; border-radius: 4px; border: 1px solid rgba(74,222,128,0.18); }
+    .sb-cta { display: block; width: 100%; padding: 18px; background: var(--orange); color: var(--navy); font-family: var(--font-price); font-size: 1.35rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; text-align: center; border-radius: var(--radius-sm); border: 2px solid rgba(96,165,250,0.65); transition: background 0.2s; position: relative; overflow: hidden; animation: pulseGlowCta 2.4s ease-out infinite; }
     .sb-cta::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.13), transparent); animation: shimmer 2.6s infinite; }
-    @keyframes shimmer { 100%{ left:100%; } }
     .sb-cta:hover { background: var(--orange-lt); }
     .sb-urgency { font-family: var(--font-mono); font-size: 0.59rem; color: rgba(255,255,255,0.27); text-align: center; }
     .sb-div { height: 1px; background: rgba(255,255,255,0.07); }
     .trust-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
     .trust-list li { display: flex; align-items: center; gap: 9px; font-family: var(--font-mono); font-size: 0.67rem; color: rgba(255,255,255,0.58); }
-    .t-check { width: 16px; height: 16px; border-radius: 50%; background: rgba(26,107,221,0.15); border: 1px solid rgba(26,107,221,0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--blue-lt); font-size: 0.54rem; }
+    .t-check { width: 16px; height: 16px; border-radius: 50%; background: rgba(26,107,221,0.15); border: 1px solid rgba(26,107,221,0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--show-lt); font-size: 0.54rem; }
     .sb-info-item { display: flex; align-items: flex-start; gap: 8px; }
     .sb-info-icon { font-size: 0.88rem; margin-top: 1px; flex-shrink: 0; }
     .sb-info-lbl { font-family: var(--font-mono); font-size: 0.57rem; color: rgba(255,255,255,0.32); text-transform: uppercase; letter-spacing: 0.04em; display: block; margin-bottom: 1px; }
@@ -280,51 +311,67 @@
     .sb-disclosure { font-family: var(--font-mono); font-size: 0.57rem; color: rgba(255,255,255,0.25); line-height: 1.55; margin-top: auto; }
     .sb-disclosure a { color: rgba(255,255,255,0.4); text-decoration: underline; }
 
+    /* CONTENT SECTIONS */
     .section { margin-bottom: 50px; }
     .section-title { font-family: var(--font-display); font-size: clamp(1.85rem, 2.8vw, 2.55rem); color: var(--navy); line-height: 1; letter-spacing: 0.02em; margin-bottom: 20px; }
     .section-title span { color: var(--orange); }
-    .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .fade-up { opacity: 0; transform: translateY(22px); transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1); }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
+    /* SEEN WIDGET */
     .seen-widget { background: linear-gradient(135deg, var(--navy) 0%, #0d2040 100%); border-radius: var(--radius-lg); padding: 28px; color: white; margin-bottom: 50px; }
-    .seen-tag { font-family: var(--font-mono); font-size: 0.65rem; color: var(--blue-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
+    .seen-tag { font-family: var(--font-mono); font-size: 0.65rem; color: var(--show-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
     .seen-q { font-family: var(--font-display); font-size: clamp(1.45rem, 2.6vw, 1.95rem); color: white; margin-bottom: 16px; line-height: 1.1; }
     .seen-btns { display: flex; gap: 10px; }
     .seen-btn { padding: 10px 22px; border-radius: var(--radius-sm); font-family: var(--font-price); font-size: 0.9rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; transition: all 0.2s; border: none; }
     .seen-yes { background: var(--orange); color: white; }
-    .seen-no { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.15); }
+    .seen-no  { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.15); }
     .seen-btn:hover { transform: translateY(-2px); opacity: 0.88; }
     .seen-resp { display: none; margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.08); }
     .seen-resp.visible { display: block; }
     .seen-resp p { font-size: 0.89rem; color: rgba(255,255,255,0.73); line-height: 1.72; margin-bottom: 12px; }
     .seen-resp a { color: var(--orange); font-weight: 600; }
 
+    /* TRUST GRID */
     .trust-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; margin-bottom: 50px; }
     .trust-card { background: var(--gray-100); border-radius: var(--radius); padding: 17px; display: flex; gap: 12px; align-items: flex-start; }
     .trust-icon { font-size: 1.55rem; flex-shrink: 0; }
     .trust-card-title { font-family: var(--font-price); font-size: 0.86rem; font-weight: 800; color: var(--navy); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 3px; }
     .trust-card-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.52; }
 
+    /* ABOUT */
     .about-body p { font-size: 0.98rem; color: var(--text); line-height: 1.78; margin-bottom: 16px; }
     .about-body p:last-child { margin-bottom: 0; }
-    .spike-callout { display: flex; gap: 13px; align-items: flex-start; background: linear-gradient(135deg, rgba(26,107,221,0.05), rgba(255,107,0,0.03)); border: 1px solid rgba(26,107,221,0.12); border-left: 4px solid var(--blue); border-radius: var(--radius); padding: 16px 20px; margin: 20px 0; }
+    .about-body .lede { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500; font-size: 1.4rem; color: var(--navy); line-height: 1.55; }
+    .spike-callout { display: flex; gap: 13px; align-items: flex-start; background: linear-gradient(135deg, rgba(26,107,221,0.06), rgba(255,107,0,0.03)); border: 1px solid rgba(26,107,221,0.18); border-left: 4px solid var(--show); border-radius: var(--radius); padding: 16px 20px; margin: 20px 0; }
     .spike-emoji { font-size: 1.85rem; flex-shrink: 0; margin-top: 2px; }
     .spike-text { font-family: var(--font-mono); font-size: 0.81rem; color: var(--navy); line-height: 1.62; }
-    .spike-text strong { color: var(--blue); display: block; margin-bottom: 4px; font-size: 0.63rem; letter-spacing: 0.06em; text-transform: uppercase; }
+    .spike-text strong { color: var(--show); display: block; margin-bottom: 4px; font-size: 0.63rem; letter-spacing: 0.06em; text-transform: uppercase; }
 
+    /* GALLERY */
+    .gallery-section { margin-bottom: 50px; }
+    .gallery-grid { display: grid; grid-template-columns: 1.4fr 1fr; grid-template-rows: 1fr 1fr; gap: 10px; height: 380px; }
+    .gallery-grid a { position: relative; overflow: hidden; border-radius: var(--radius); display: block; background: var(--gray-200); }
+    .gallery-grid a:first-child { grid-row: 1 / span 2; }
+    .gallery-grid img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .gallery-grid a:hover img { transform: scale(1.05); }
+    @media (max-width: 700px) { .gallery-grid { grid-template-columns: 1fr; grid-template-rows: none; height: auto; gap: 8px; } .gallery-grid a { aspect-ratio: 4/3; } .gallery-grid a:first-child { grid-row: auto; } }
+
+    /* EMAIL SIGNUP */
     .email-signup { background: var(--navy); border-radius: var(--radius-lg); padding: 32px 28px; margin-bottom: 50px; position: relative; overflow: hidden; display: flex; align-items: center; gap: 24px; }
-    .email-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: linear-gradient(180deg, var(--magenta), #9c27b0); }
-    .email-heading { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); color: var(--magenta); letter-spacing: 0.08em; flex-shrink: 0; line-height: 1; }
+    .email-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: linear-gradient(180deg, var(--show), var(--orange)); }
+    .email-heading { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); color: var(--show-lt); letter-spacing: 0.08em; flex-shrink: 0; line-height: 1; }
     .email-body { flex: 1; }
     .email-body h3 { font-family: var(--font-price); font-size: 1rem; font-weight: 800; color: white; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
     .email-body p { font-size: 0.79rem; color: rgba(255,255,255,0.42); line-height: 1.5; margin-bottom: 12px; }
     .email-form { display: flex; gap: 8px; }
     .email-input { flex: 1; padding: 10px 13px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.11); border-radius: var(--radius-sm); color: white; font-family: var(--font-mono); font-size: 0.77rem; outline: none; }
     .email-input::placeholder { color: rgba(255,255,255,0.24); }
-    .email-input:focus { border-color: rgba(217,70,239,0.44); }
-    .email-submit { padding: 10px 15px; background: var(--magenta); color: white; font-family: var(--font-price); font-size: 0.84rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; border: none; border-radius: var(--radius-sm); transition: background 0.2s; white-space: nowrap; }
-    .email-submit:hover { background: #c026d3; }
+    .email-input:focus { border-color: rgba(26,107,221,0.44); }
+    .email-submit { padding: 10px 15px; background: var(--show); color: white; font-family: var(--font-price); font-size: 0.84rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; border: none; border-radius: var(--radius-sm); transition: background 0.2s; white-space: nowrap; }
+    .email-submit:hover { background: var(--show-lt); }
 
+    /* DETAILS GRID */
     .details-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 50px; }
     .detail-card { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 17px; transition: box-shadow 0.2s, transform 0.2s; }
     .detail-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
@@ -333,22 +380,25 @@
     .detail-card-val { font-family: var(--font-body); font-size: 0.87rem; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
     .detail-card-sub { font-size: 0.76rem; color: var(--text-muted); line-height: 1.52; }
 
+    /* WHAT TO EXPECT */
     .expect-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; margin-bottom: 50px; }
-    .expect-card { background: var(--off-white); border-radius: var(--radius); padding: 20px; border-left: 3px solid var(--blue); }
+    .expect-card { background: var(--off-white); border-radius: var(--radius); padding: 20px; border-left: 3px solid var(--show); }
     .expect-title { font-family: var(--font-price); font-size: 0.88rem; font-weight: 800; color: var(--navy); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 7px; display: flex; align-items: center; gap: 6px; }
     .expect-desc { font-size: 0.81rem; color: var(--text-muted); line-height: 1.62; }
 
     /* SEATING */
     .seating-section { margin-bottom: 50px; }
     .seating-diagram-wrap { background: var(--navy); border-radius: var(--radius-lg); padding: 26px 20px 30px; margin-bottom: 20px; position: relative; overflow: hidden; }
-    .seating-diagram-wrap::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--blue), var(--orange)); }
-    .seating-lbl { font-family: var(--font-mono); font-size: 0.64rem; color: rgba(255,255,255,0.32); text-align: center; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 20px; }
-    .seat-svg-wrap { max-width: 560px; margin: 0 auto; }
+    .seating-diagram-wrap::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--show), var(--orange)); }
+    .seating-lbl { font-family: var(--font-price); font-size: 0.78rem; font-weight: 700; color: var(--show-lt); text-align: center; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px; }
+    .seat-svg-wrap { max-width: 580px; margin: 0 auto; }
     .seat-svg-wrap svg { width: 100%; height: auto; display: block; }
     .seat-zone { cursor: pointer; transition: opacity 0.18s; }
     .seat-zone:hover { opacity: 0.82; }
-    .zone-popup { display: none; background: rgba(255,255,255,0.055); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 16px; margin-top: 18px; color: white; }
-    .zone-popup.visible { display: block; }
+
+    .zone-popup { overflow: hidden; max-height: 0; transition: max-height 0.42s cubic-bezier(0.16,1,0.3,1); margin-top: 18px; }
+    .zone-popup.visible { max-height: 300px; }
+    .zone-popup-inner { background: rgba(255,255,255,0.055); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 16px; color: white; }
     .zone-popup-hdr { display: flex; align-items: center; gap: 9px; margin-bottom: 8px; }
     .zone-popup-name { font-family: var(--font-display); font-size: 1.22rem; color: white; }
     .zone-pick-badge { display: none; font-family: var(--font-mono); font-size: 0.59rem; font-weight: 600; padding: 2px 7px; border-radius: 4px; background: rgba(255,107,0,0.15); color: #ffaa66; border: 1px solid rgba(255,107,0,0.28); }
@@ -365,23 +415,25 @@
     .sa-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
     .sa-name { font-family: var(--font-price); font-size: 0.88rem; font-weight: 800; color: var(--navy); text-transform: uppercase; letter-spacing: 0.04em; }
     .sa-badge { font-family: var(--font-mono); font-size: 0.57rem; font-weight: 600; padding: 2px 6px; border-radius: 4px; background: rgba(255,107,0,0.09); color: var(--orange); border: 1px solid rgba(255,107,0,0.19); }
-    .sa-chev { color: var(--gray-400); transition: transform 0.28s; font-size: 0.84rem; }
+    .sa-chev { color: var(--gray-400); transition: transform 0.28s cubic-bezier(0.16,1,0.3,1); font-size: 0.84rem; }
     .sa-item.open .sa-chev { transform: rotate(180deg); }
-    .sa-body { display: none; padding: 12px 16px; background: var(--off-white); border-top: 1px solid var(--gray-200); font-size: 0.82rem; color: var(--text-muted); line-height: 1.64; }
-    .sa-item.open .sa-body { display: block; }
+    .sa-body { overflow: hidden; max-height: 0; transition: max-height 0.42s cubic-bezier(0.16,1,0.3,1); }
+    .sa-item.open .sa-body { max-height: 300px; }
+    .sa-body-inner { padding: 12px 16px; background: var(--off-white); border-top: 1px solid var(--gray-200); font-size: 0.82rem; color: var(--text-muted); line-height: 1.64; }
 
-    /* SMOOTH FAQ */
+    /* FAQ */
     .faq-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 50px; }
     .faq-item { border: 1px solid var(--gray-200); border-radius: var(--radius-sm); overflow: hidden; }
     .faq-q { display: flex; align-items: center; justify-content: space-between; padding: 15px 17px; background: white; border: none; width: 100%; text-align: left; transition: background 0.2s; }
     .faq-q:hover { background: var(--off-white); }
     .faq-q-text { font-family: var(--font-price); font-size: 0.92rem; font-weight: 700; color: var(--navy); letter-spacing: 0.02em; }
-    .faq-icon { color: var(--blue); font-size: 1.22rem; transition: transform 0.28s; flex-shrink: 0; margin-left: 10px; font-weight: 300; line-height: 1; }
+    .faq-icon { color: var(--show); font-size: 1.22rem; transition: transform 0.28s cubic-bezier(0.16,1,0.3,1); flex-shrink: 0; margin-left: 10px; font-weight: 300; line-height: 1; }
     .faq-item.open .faq-icon { transform: rotate(45deg); }
-    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; background: var(--off-white); border-top: 0px solid var(--gray-200); }
-    .faq-item.open .faq-a { max-height: 320px; border-top-width: 1px; }
-    .faq-a-inner { padding: 12px 17px; font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; }
+    .faq-a { overflow: hidden; max-height: 0; transition: max-height 0.42s cubic-bezier(0.16,1,0.3,1); }
+    .faq-item.open .faq-a { max-height: 400px; }
+    .faq-a-inner { padding: 12px 17px; background: var(--off-white); border-top: 1px solid var(--gray-200); font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; }
 
+    /* ALSO LIKE */
     .also-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 50px; }
     .also-card { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; transition: box-shadow 0.2s, transform 0.2s; }
     .also-card:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
@@ -393,33 +445,45 @@
     .also-cta { display: block; width: 100%; padding: 9px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 0.82rem; font-weight: 800; text-align: center; border-radius: var(--radius-sm); text-transform: uppercase; letter-spacing: 0.05em; transition: background 0.2s; border: none; }
     .also-cta:hover { background: var(--orange-lt); }
 
-    /* FINAL CTA + AMBIENT ORBS */
-    .final-cta { background: var(--navy); padding: 50px 32px; border-radius: var(--radius-lg); text-align: center; margin-bottom: 50px; position: relative; overflow: hidden; }
-    .final-cta::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--blue), var(--orange)); }
-    .cta-orb { position: absolute; border-radius: 50%; filter: blur(52px); pointer-events: none; }
-    .cta-orb-1 { width: 280px; height: 280px; background: rgba(255,107,0,0.10); top: -60px; right: -60px; }
-    .cta-orb-2 { width: 220px; height: 220px; background: rgba(26,107,221,0.10); bottom: -50px; left: -50px; }
-    .final-cta-tag { font-family: var(--font-mono); font-size: 0.64rem; color: var(--blue-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; position: relative; }
+    /* FINAL CTA */
+    .final-cta { background: linear-gradient(135deg, var(--show) 0%, #0d2b57 60%, var(--navy) 100%); padding: 60px 32px; border-radius: var(--radius-lg); text-align: center; margin-bottom: 50px; position: relative; overflow: hidden; }
+    .final-cta::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, rgba(255,255,255,0.5), rgba(255,107,0,0.8)); }
+    .orb { position: absolute; border-radius: 50%; pointer-events: none; }
+    .orb-1 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(26,107,221,0.18) 0%, transparent 70%); top: -80px; left: -60px; animation: orbDrift 9s ease-in-out infinite; }
+    .orb-2 { width: 220px; height: 220px; background: radial-gradient(circle, rgba(255,107,0,0.14) 0%, transparent 70%); bottom: -60px; right: -40px; animation: orbDrift 11s ease-in-out infinite reverse; }
+    @keyframes orbDrift { 0%,100%{transform:translate(0,0)} 33%{transform:translate(18px,-12px)} 66%{transform:translate(-10px,16px)} }
+    .final-cta-tag { font-family: var(--font-mono); font-size: 0.64rem; color: rgba(255,255,255,0.55); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; position: relative; }
     .final-cta-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.1rem); color: white; line-height: 1; margin-bottom: 9px; position: relative; }
-    .final-cta-sub { font-size: 0.88rem; color: rgba(255,255,255,0.42); margin-bottom: 22px; position: relative; }
-    .final-cta-amount { font-family: var(--font-price); font-size: 3.3rem; font-weight: 800; color: var(--orange); line-height: 1; margin-bottom: 20px; position: relative; }
-    .final-cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 15px 42px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.18rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); transition: all 0.2s; border: none; position: relative; }
+    .final-cta-sub { font-size: 0.88rem; color: rgba(255,255,255,0.55); margin-bottom: 22px; position: relative; }
+    .final-cta-amount { font-family: var(--font-price); font-size: 3.3rem; font-weight: 800; color: white; line-height: 1; margin-bottom: 20px; position: relative; }
+    .final-cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 20px 55px; background: var(--orange); color: var(--navy); font-family: var(--font-price); font-size: 1.56rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: var(--radius-sm); transition: all 0.2s; border: 2px solid rgba(96,165,250,0.65); position: relative; overflow: hidden; animation: pulseGlowCta 2.4s ease-out infinite; }
+    .final-cta-btn::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.13), transparent); animation: shimmer 2.6s infinite; }
     .final-cta-btn:hover { background: var(--orange-lt); transform: translateY(-2px); }
-    .final-cta-note { font-family: var(--font-mono); font-size: 0.61rem; color: rgba(255,255,255,0.25); margin-top: 13px; position: relative; }
-    .final-cta-note a { color: rgba(255,255,255,0.4); text-decoration: underline; }
+    .final-cta-note { font-family: var(--font-mono); font-size: 0.61rem; color: rgba(255,255,255,0.28); margin-top: 13px; position: relative; }
+    .final-cta-note a { color: rgba(255,255,255,0.45); text-decoration: underline; }
 
-    .mobile-sticky { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--navy); z-index: 1000; padding: 10px 16px 14px; box-shadow: 0 -4px 22px rgba(0,0,0,0.28); }
-    .mob-progress { position: absolute; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--blue), var(--orange)); transition: width 0.1s linear; }
+    /* MOBILE STICKY */
+    .mobile-sticky { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--navy); z-index: 1000; padding: 10px 16px 14px; box-shadow: 0 -4px 22px rgba(0,0,0,0.28); border-top: 1px solid rgba(26,107,221,0.2); }
+    .mob-progress { position: absolute; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--show), var(--orange)); transition: width 0.1s linear; }
     .mob-inner { display: flex; align-items: center; justify-content: space-between; gap: 13px; }
     .mob-price-lbl { font-family: var(--font-mono); font-size: 0.55rem; color: rgba(255,255,255,0.28); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 1px; }
     .mob-price { font-family: var(--font-price); font-size: 2.4rem; font-weight: 800; color: var(--orange); line-height: 1; }
-    .mob-cta { flex: 1; max-width: 230px; padding: 13px; background: var(--orange); color: white; font-family: var(--font-price); font-size: 1.02rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; text-align: center; border-radius: var(--radius-sm); border: none; position: relative; overflow: hidden; transition: background 0.2s; }
+    .mob-save { font-family: var(--font-mono); font-size: 0.57rem; color: var(--green); }
+    .mob-cta { flex: 1; max-width: 230px; padding: 17px; background: var(--orange); color: var(--navy); font-family: var(--font-price); font-size: 1.35rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; text-align: center; border-radius: var(--radius-sm); border: 2px solid rgba(96,165,250,0.65); position: relative; overflow: hidden; transition: background 0.2s; animation: pulseGlowCta 2.4s ease-out infinite; }
     .mob-cta::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.17), transparent); animation: shimmer 2s infinite; }
     .mob-cta:hover { background: var(--orange-lt); }
 
-    @media (max-width: 940px) { .page-layout { grid-template-columns: 1fr; } .sidebar { display: none; } .mobile-sticky { display: block; } .details-grid { grid-template-columns: repeat(2,1fr); } .also-grid { grid-template-columns: repeat(2,1fr); } }
-    @media (max-width: 600px) { .hero-content { padding: 22px 16px 26px; } .main-content { padding: 26px 16px 120px; } .trust-grid { grid-template-columns: 1fr; } .details-grid { grid-template-columns: 1fr; } .expect-grid { grid-template-columns: 1fr; } .also-grid { grid-template-columns: 1fr; } .email-signup { flex-direction: column; gap: 12px; } .email-form { flex-direction: column; } .price-strip { flex-direction: column; align-items: flex-start; gap: 13px; } }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; } }
+    /* RESPONSIVE */
+    @media (max-width: 940px) { .page-layout { grid-template-columns: 1fr; } .sidebar { display: none; } .mobile-sticky { display: block; } .details-grid { grid-template-columns: repeat(2,1fr); } .also-grid { grid-template-columns: repeat(2,1fr); } .stats-inner { grid-template-columns: repeat(2,1fr); } .stat-item:nth-child(2) { border-right: none; } }
+    @media (max-width: 600px) { .hero-content { padding: 22px 16px 26px; } .main-content { padding: 26px 16px 120px; } .trust-grid { grid-template-columns: 1fr; } .details-grid { grid-template-columns: 1fr; } .expect-grid { grid-template-columns: 1fr; } .also-grid { grid-template-columns: 1fr; } .email-signup { flex-direction: column; gap: 12px; } .email-form { flex-direction: column; } .price-strip { flex-direction: column; align-items: flex-start; gap: 13px; } .stats-inner { grid-template-columns: repeat(2,1fr); } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fade-up { transition: none; }
+      .slide.active img { animation: none; }
+      .ticker-track { animation: none; }
+      @keyframes shimmer { 100%{ left:100%; } }
+      .orb { animation: none; }
+    }
   .sk-schedule{margin-bottom:32px;min-width:0;}
   .sk-eyebrow{font-family:var(--font-mono);font-size:0.68rem;font-weight:600;color:#FF6B2B;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px;}
   .sk-sched-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);color:#0A0F2C;line-height:1;margin-bottom:10px;}
@@ -457,14 +521,32 @@
 </head>
 <body>
 <div id="progress-bar" aria-hidden="true"></div>
+<div id="progress-bar-bottom" aria-hidden="true"></div>
 <div id="vs-header"></div>
+
+<!-- STICKY SAVE PILL -->
+<div class="save-pill" id="savePill" aria-label="Quick ticket purchase">
+  <span class="save-pill-price">From $57</span>
+  <a href="https://spotlight.vegas/shows/magic/mat-franco/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="save-pill-cta">Get Tickets →</a>
+</div>
+
+<!-- DOT NAV -->
+<nav class="dot-nav" aria-label="Page sections">
+  <a href="#section-seen"    class="dnav-dot active" data-label="Seen It?"></a>
+  <a href="#section-about"   class="dnav-dot"        data-label="About"></a>
+  <a href="#section-gallery" class="dnav-dot"        data-label="Gallery"></a>
+  <a href="#section-details" class="dnav-dot"        data-label="Details"></a>
+  <a href="#section-expect"  class="dnav-dot"        data-label="Expect"></a>
+  <a href="#section-seating" class="dnav-dot"        data-label="Seating"></a>
+  <a href="#section-faq"     class="dnav-dot"        data-label="FAQ"></a>
+</nav>
 
 <section class="hero" aria-label="Show hero">
   <nav class="breadcrumb" aria-label="Breadcrumb">
-    <a href="/">Home</a> › <a href="/shows/magic/">Magic</a> › <span>Mat Franco</span>
+    <a href="/">Home</a> › <a href="/shows/">Shows</a> › <a href="/shows/magic/">Magic</a> › <span>Mat Franco</span>
   </nav>
 
-  <div class="slider" role="region" aria-label="Show photos">
+  <div class="slider" id="heroSlider" role="region" aria-label="Show photos">
     <div class="slide active">
       <img src="/images/mat-franco-hero.jpg" alt="Mat Franco seated on an ornate golden throne in a purple suit with playing cards swirling through the air around him — promotional image for Magic Reinvented Nightly at The LINQ Hotel Las Vegas" loading="eager" />
     </div>
@@ -506,84 +588,68 @@
     </div>
   </div>
 
-  <div class="price-strip">
+  <div class="price-strip" id="priceStrip">
     <div class="price-block">
       <div class="price-lbl">Vegas Sidekick Price</div>
       <div class="price-cur">$57</div>
     </div>
-    <a href="https://spotlight.vegas/shows/magic/mat-franco/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="hero-cta">Get Tickets →</a>
+    <a href="https://spotlight.vegas/shows/magic/mat-franco/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="hero-cta">Get Tickets <span class="cta-ticket">🎟️</span></a>
     <span class="urgency-txt">⏰ Prices may increase closer to show date</span>
   </div>
 </section>
 
-<!-- STATS STRIP -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item">America's Got Talent Season 9 Winner</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">Mat Franco Theater · The LINQ Hotel</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">From $57 · No Hidden Fees</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">First Magician to Win AGT</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">His Own Theater on the Strip</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">Ages 5+ · Family Friendly</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">Center Strip · Next to High Roller</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">Truly Interactive Every Night</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">Magic Reinvented Nightly</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">90 Minutes · No Intermission</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">America's Got Talent Season 9 Winner</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">Mat Franco Theater · The LINQ Hotel</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">From $57 · No Hidden Fees</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">First Magician to Win AGT</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">His Own Theater on the Strip</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">Ages 5+ · Family Friendly</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">Center Strip · Next to High Roller</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">Truly Interactive Every Night</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">Magic Reinvented Nightly</span><span class="ticker-item ticker-sep">·</span>
+    <span class="ticker-item">90 Minutes · No Intermission</span><span class="ticker-item ticker-sep">·</span>
+  </div>
+</div>
+
+<!-- COUNT-UP STATS -->
 <div class="stats-strip" aria-hidden="true">
   <div class="stats-inner">
     <div class="stat-item">
-      <div class="stat-num" data-target="90" data-suffix=" Min">90 Min</div>
-      <div class="stat-lbl">Show Duration</div>
+      <div class="stat-num" id="stat-0" data-target="90">0</div>
+      <div class="stat-lbl">Minutes</div>
     </div>
     <div class="stat-item">
-      <div class="stat-num" data-target="57" data-prefix="$">$57</div>
+      <div><span class="stat-num" id="stat-1" data-target="57" data-prefix="$">0</span></div>
       <div class="stat-lbl">From</div>
     </div>
     <div class="stat-item">
-      <div class="stat-num" data-target="6" data-suffix=" Nights">6 Nights</div>
-      <div class="stat-lbl">Per Week</div>
+      <div class="stat-num" id="stat-2" data-target="6">0</div>
+      <div class="stat-lbl">Nights a Week</div>
     </div>
     <div class="stat-item">
-      <div class="stat-num" data-target="5" data-suffix="+ Age">5+ Age</div>
-      <div class="stat-lbl">Family Friendly</div>
+      <div><span class="stat-num" id="stat-3" data-target="5">0</span><span class="stat-suffix">+</span></div>
+      <div class="stat-lbl">Age Friendly</div>
     </div>
   </div>
-</div>
-
-<!-- TICKER -->
-<div class="ticker-wrap" aria-hidden="true">
-  <div class="ticker-track">
-    <div class="ticker-item">🎩 America's Got Talent Season 9 Winner</div>
-    <div class="ticker-item">🏨 Mat Franco Theater · The LINQ Hotel</div>
-    <div class="ticker-item">💰 From $57 · No Hidden Fees</div>
-    <div class="ticker-item">⭐ First Magician to Win AGT</div>
-    <div class="ticker-item">🌵 His Own Theater on the Strip</div>
-    <div class="ticker-item">🎟️ Ages 5+ · Family Friendly</div>
-    <div class="ticker-item">📍 Center Strip · Next to High Roller</div>
-    <div class="ticker-item">🤝 Truly Interactive Every Night</div>
-    <div class="ticker-item">✨ Magic Reinvented Nightly</div>
-    <div class="ticker-item">🎭 90 Minutes · No Intermission</div>
-    <div class="ticker-item">🎩 America's Got Talent Season 9 Winner</div>
-    <div class="ticker-item">🏨 Mat Franco Theater · The LINQ Hotel</div>
-    <div class="ticker-item">💰 From $57 · No Hidden Fees</div>
-    <div class="ticker-item">⭐ First Magician to Win AGT</div>
-    <div class="ticker-item">🌵 His Own Theater on the Strip</div>
-    <div class="ticker-item">🎟️ Ages 5+ · Family Friendly</div>
-    <div class="ticker-item">📍 Center Strip · Next to High Roller</div>
-    <div class="ticker-item">🤝 Truly Interactive Every Night</div>
-    <div class="ticker-item">✨ Magic Reinvented Nightly</div>
-    <div class="ticker-item">🎭 90 Minutes · No Intermission</div>
-  </div>
-</div>
-
-<!-- DOT NAV -->
-<nav class="dot-nav" aria-label="Page sections">
-  <button class="dn-dot" data-tip="Have You Seen" onclick="document.getElementById('sec-seen').scrollIntoView({behavior:'smooth'})" aria-label="Have You Seen section"></button>
-  <button class="dn-dot" data-tip="About" onclick="document.getElementById('sec-about').scrollIntoView({behavior:'smooth'})" aria-label="About section"></button>
-  <button class="dn-dot" data-tip="Show Details" onclick="document.getElementById('sec-details').scrollIntoView({behavior:'smooth'})" aria-label="Show Details section"></button>
-  <button class="dn-dot" data-tip="What to Expect" onclick="document.getElementById('sec-blueprint').scrollIntoView({behavior:'smooth'})" aria-label="What to Expect section"></button>
-  <button class="dn-dot" data-tip="Seating Chart" onclick="document.getElementById('sec-seating').scrollIntoView({behavior:'smooth'})" aria-label="Seating Chart section"></button>
-  <button class="dn-dot" data-tip="FAQ" onclick="document.getElementById('sec-faq').scrollIntoView({behavior:'smooth'})" aria-label="FAQ section"></button>
-</nav>
-
-<!-- SAVE PILL -->
-<div class="save-pill" id="save-pill" aria-hidden="true">
-  <a href="https://spotlight.vegas/shows/magic/mat-franco/ref/vegassidekick" target="_blank" rel="noopener sponsored">From $57 → Get Tickets</a>
 </div>
 
 <div class="page-layout">
 <main class="main-content" role="main">
 
   <!-- HAVE YOU SEEN -->
-  <div class="seen-widget fade-up" id="sec-seen">
+  <div class="seen-widget fade-up" id="section-seen">
     <div class="seen-tag">🌵 Spike Wants to Know</div>
     <div class="seen-q">Have you seen Mat Franco before?</div>
     <div class="seen-btns">
@@ -609,9 +675,10 @@
   </div>
 
   <!-- ABOUT -->
-  <section class="section fade-up" id="sec-about" aria-labelledby="about-heading">
+  <section class="section fade-up" id="section-about" aria-labelledby="about-heading">
     <h2 id="about-heading" class="section-title">About <span>Mat Franco</span></h2>
     <div class="about-body">
+      <p class="lede">Mat Franco is the only magician to ever win America's Got Talent — and Las Vegas gave him a theater with his name on the marquee.</p>
       <p>Mat Franco is from North Providence, Rhode Island, and has been performing magic since he was a kid. In 2014 he won Season 9 of America's Got Talent — the first magician ever to win the competition in nine seasons of the show. The performance that won it was a close-up card routine done in front of a panel that had seen thousands of acts. It still landed. That's the version of the show you're walking into in Las Vegas, scaled up for a dedicated theater that was built for him at The LINQ Hotel right in the center of the Strip.</p>
 
       <div class="spike-callout">
@@ -623,6 +690,22 @@
       </div>
 
       <p>The show is called Magic Reinvented Nightly because the audience interaction makes it literally true — who ends up in the bits, what they say, how they react shapes the performance differently each time. Mat's style is casual and warm compared to some of the other magic shows on the Strip. It plays big for families and date nights alike. He's been headlining at The LINQ since 2015, which in Las Vegas terms makes this a proven institution. The theater's layout runs from Premium at the front through two bands of Preferred and on back to Reserved and Table sections — the room has good sight lines throughout.</p>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="section gallery-section fade-up" id="section-gallery" aria-labelledby="gallery-heading">
+    <h2 id="gallery-heading" class="section-title">Inside the <span>Show</span></h2>
+    <div class="gallery-grid">
+      <a href="/images/mat-franco-hero.jpg" target="_blank" rel="noopener" aria-label="View full-size photo 1">
+        <img src="/images/mat-franco-hero.jpg" alt="Mat Franco seated on an ornate golden throne in a purple suit with playing cards swirling through the air around him — promotional image for Magic Reinvented Nightly at The LINQ Hotel Las Vegas" loading="lazy" />
+      </a>
+      <a href="/images/mat-franco-2.jpg" target="_blank" rel="noopener" aria-label="View full-size photo 2">
+        <img src="/images/mat-franco-2.jpg" alt="Mat Franco on stage at the Mat Franco Theater with arms outstretched, bathed in blue and purple stage lighting against a geometric LED backdrop at The LINQ Hotel Las Vegas" loading="lazy" />
+      </a>
+      <a href="/images/mat-franco-3.jpg" target="_blank" rel="noopener" aria-label="View full-size photo 3">
+        <img src="/images/mat-franco-3.jpg" alt="Mat Franco performing at the Mat Franco Theater with dramatic blue electric light and fiber optic effects exploding from his hands against a dark stage at The LINQ Hotel Las Vegas" loading="lazy" />
+      </a>
     </div>
   </section>
 
@@ -654,7 +737,7 @@
   </section>
 
   <!-- SHOW DETAILS -->
-  <section class="section fade-up" id="sec-details" aria-labelledby="details-heading">
+  <section class="section fade-up" id="section-details" aria-labelledby="details-heading">
     <h2 id="details-heading" class="section-title">Show <span>Details</span></h2>
     <div class="details-grid">
       <div class="detail-card">
@@ -667,13 +750,13 @@
         <div class="detail-card-icon">🕐</div>
         <div class="detail-card-lbl">Show Days &amp; Time</div>
         <div class="detail-card-val">Mon · Tue · Wed · Fri · Sat · Sun</div>
-        <div class="detail-card-sub">7:00 PM. Dark on Thursdays. Verify current schedule before purchasing.</div>
+        <div class="detail-card-sub">7:00 PM. Dark on Thursdays. Seating begins about 30 minutes before showtime — plan to arrive at The LINQ Hotel 45 minutes early so you have time to find the theater, hit the restroom, and grab a drink before you sit down. Verify current schedule before purchasing.</div>
       </div>
       <div class="detail-card">
         <div class="detail-card-icon">⏱️</div>
         <div class="detail-card-lbl">Duration</div>
         <div class="detail-card-val">90 Minutes</div>
-        <div class="detail-card-sub">No intermission. Arrive before showtime — the theater layout is tiered and getting to your section takes a moment.</div>
+        <div class="detail-card-sub">No intermission. The theater layout is tiered, so build in that 45-minute arrival cushion — getting to your section takes a moment once you're inside.</div>
       </div>
       <div class="detail-card">
         <div class="detail-card-icon">🎟️</div>
@@ -697,7 +780,7 @@
   </section>
 
   <!-- WHAT TO EXPECT -->
-  <section class="section fade-up" id="sec-blueprint" aria-labelledby="expect-heading">
+  <section class="section fade-up" id="section-expect" aria-labelledby="expect-heading">
     <h2 id="expect-heading" class="section-title">What to <span>Expect</span></h2>
     <div class="expect-grid">
       <div class="expect-card">
@@ -720,11 +803,11 @@
   </section>
 
   <!-- SEATING CHART -->
-  <section class="seating-section fade-up" id="sec-seating" aria-labelledby="seating-heading">
+  <section class="seating-section fade-up" id="section-seating" aria-labelledby="seating-heading">
     <h2 id="seating-heading" class="section-title">Mat Franco Theater <span>Seating Chart</span></h2>
 
     <div class="seating-diagram-wrap">
-      <div class="seating-lbl">The LINQ Hotel · Las Vegas — Select a section to learn more</div>
+      <div class="seating-lbl">Mat Franco Theater · The LINQ Hotel — Click a section for details</div>
 
       <div class="seat-svg-wrap">
         <svg viewBox="0 0 560 480" xmlns="http://www.w3.org/2000/svg" aria-label="Mat Franco Theater seating chart — The LINQ Hotel, Las Vegas" role="img">
@@ -797,11 +880,13 @@
 
       <!-- Zone popup -->
       <div class="zone-popup" id="zone-popup">
-        <div class="zone-popup-hdr">
-          <div class="zone-popup-name" id="zone-name"></div>
-          <div class="zone-pick-badge" id="zone-badge">🪑 Sweet Spot</div>
+        <div class="zone-popup-inner">
+          <div class="zone-popup-hdr">
+            <div class="zone-popup-name" id="zone-name"></div>
+            <div class="zone-pick-badge" id="zone-badge">🪑 Sweet Spot</div>
+          </div>
+          <div class="zone-popup-desc" id="zone-desc"></div>
         </div>
-        <div class="zone-popup-desc" id="zone-desc"></div>
       </div>
     </div>
 
@@ -815,7 +900,7 @@
           </div>
           <span class="sa-chev">▾</span>
         </button>
-        <div class="sa-body">The front arc closest to the stage — the most immersive seating in the Mat Franco Theater. Premium includes the Boothes section at the inner edge of this zone. At this proximity you're very likely to be directly involved in the show's interactive elements. Mat Franco performs facing the audience, and Premium guests have the highest chance of being pulled into a routine. If audience participation is what you're after, this is where to sit.</div>
+        <div class="sa-body"><div class="sa-body-inner">The front arc closest to the stage — the most immersive seating in the Mat Franco Theater. Premium includes the Boothes section at the inner edge of this zone. At this proximity you're very likely to be directly involved in the show's interactive elements. Mat Franco performs facing the audience, and Premium guests have the highest chance of being pulled into a routine. If audience participation is what you're after, this is where to sit.</div></div>
       </div>
 
       <div class="sa-item">
@@ -827,7 +912,7 @@
           </div>
           <span class="sa-chev">▾</span>
         </button>
-        <div class="sa-body">The first band of Preferred seating behind Premium — rows GG through JJ across the main floor arc. The Sweet Spot. Close enough to the stage to watch the close-up magic clearly and stay fully inside the show's interactive energy, without the full premium price. The sight lines are excellent from this section, and Mat Franco regularly reaches into both Preferred bands during the performance. This is where Spike sits.</div>
+        <div class="sa-body"><div class="sa-body-inner">The first band of Preferred seating behind Premium — rows GG through JJ across the main floor arc. The Sweet Spot. Close enough to the stage to watch the close-up magic clearly and stay fully inside the show's interactive energy, without the full premium price. The sight lines are excellent from this section, and Mat Franco regularly reaches into both Preferred bands during the performance. This is where Spike sits.</div></div>
       </div>
 
       <div class="sa-item">
@@ -839,7 +924,7 @@
           </div>
           <span class="sa-chev">▾</span>
         </button>
-        <div class="sa-body">The second band of Preferred seating, rows LL through NN — slightly further from the stage than Preferred Front but still solidly inside the main floor arc. Also a Sweet Spot. The show reaches this section regularly. Good sight lines throughout, and a useful option if front Preferred seats aren't available at your preferred price. Spike recommends both Preferred bands equally — pick whichever is available.</div>
+        <div class="sa-body"><div class="sa-body-inner">The second band of Preferred seating, rows LL through NN — slightly further from the stage than Preferred Front but still solidly inside the main floor arc. Also a Sweet Spot. The show reaches this section regularly. Good sight lines throughout, and a useful option if front Preferred seats aren't available at your preferred price. Spike recommends both Preferred bands equally — pick whichever is available.</div></div>
       </div>
 
       <div class="sa-item">
@@ -850,7 +935,7 @@
           </div>
           <span class="sa-chev">▾</span>
         </button>
-        <div class="sa-body">The outer rear arc — the furthest main-floor seats from the stage. The theater's fan-shaped design keeps Reserved connected to the performance, but the distance from Mat Franco's close-up work is more noticeable here than in the Preferred sections. A legitimate seat for the show; moving closer toward Preferred is worthwhile if available.</div>
+        <div class="sa-body"><div class="sa-body-inner">The outer rear arc — the furthest main-floor seats from the stage. The theater's fan-shaped design keeps Reserved connected to the performance, but the distance from Mat Franco's close-up work is more noticeable here than in the Preferred sections. A legitimate seat for the show; moving closer toward Preferred is worthwhile if available.</div></div>
       </div>
 
       <div class="sa-item">
@@ -861,13 +946,13 @@
           </div>
           <span class="sa-chev">▾</span>
         </button>
-        <div class="sa-body">Table seating sections running along the left and right sides of the theater at various depths. A different experience from the main floor arc — you're seated at a table rather than in theater chairs, which can be more comfortable for groups. The angled sight lines from the sides differ from the center sections. Table seating works well for groups who want a more lounge-style experience.</div>
+        <div class="sa-body"><div class="sa-body-inner">Table seating sections running along the left and right sides of the theater at various depths. A different experience from the main floor arc — you're seated at a table rather than in theater chairs, which can be more comfortable for groups. The angled sight lines from the sides differ from the center sections. Table seating works well for groups who want a more lounge-style experience.</div></div>
       </div>
     </div>
   </section>
 
   <!-- FAQ -->
-  <section class="section fade-up" id="sec-faq" aria-labelledby="faq-heading">
+  <section class="section fade-up" id="section-faq" aria-labelledby="faq-heading">
     <h2 id="faq-heading" class="section-title">Frequently <span>Asked</span></h2>
     <div class="faq-list">
 
@@ -908,7 +993,15 @@
           <span class="faq-q-text">Where is The LINQ Hotel on the Strip?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a"><div class="faq-a-inner">The LINQ Hotel &amp; Experience is located at 3535 S Las Vegas Blvd, in the center of the Strip between the Flamingo and the High Roller observation wheel. It's directly adjacent to The LINQ Promenade outdoor shopping and dining district. One of the most central Strip locations — easy rideshare drop-off and walkable from several neighboring hotels. The Mat Franco Theater is inside the hotel; follow signage from the main entrance.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">The LINQ Hotel &amp; Experience is located at 3535 S Las Vegas Blvd, in the center of the Strip between the Flamingo and the High Roller observation wheel. It's directly adjacent to The LINQ Promenade outdoor shopping and dining district. One of the most central Strip locations — easy rideshare drop-off and walkable from several neighboring hotels. The Mat Franco Theater is inside the hotel; follow signage from the main entrance. Plan to arrive at The LINQ about 45 minutes before showtime — seating itself opens roughly 30 minutes early, but the extra cushion gives you time to find the theater, hit the restroom, and grab a drink before you sit down.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          <span class="faq-q-text">When should I arrive?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Seating begins about 30 minutes before showtime, but plan to arrive at The LINQ Hotel 45 minutes early — that's enough time to find the Mat Franco Theater, hit the restroom, grab a drink, and get comfortably seated before the show starts. Showtime is 7:00 PM. Because the format is interactive from the opening minutes, arriving late means missing the moments where the crowd first gets pulled in.</div></div>
       </div>
 
       <div class="faq-item">
@@ -958,13 +1051,13 @@
 
   <!-- FINAL CTA -->
   <div class="final-cta fade-up">
-    <div class="cta-orb cta-orb-1"></div>
-    <div class="cta-orb cta-orb-2"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
     <div class="final-cta-tag">🌵 Vegas Sidekick — Vegas Without the Trauma</div>
     <div class="final-cta-title">Ready to See the Show?</div>
     <div class="final-cta-sub">Mat Franco: Magic Reinvented Nightly · The LINQ Hotel · Mon · Tue · Wed · Fri · Sat · Sun at 7 PM</div>
     <div class="final-cta-amount">$57</div>
-    <a href="https://spotlight.vegas/shows/magic/mat-franco/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="final-cta-btn">Get Tickets →</a>
+    <a href="https://spotlight.vegas/shows/magic/mat-franco/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="final-cta-btn">Get Tickets <span class="cta-ticket">🎟️</span></a>
     <div class="final-cta-note">Prices may increase closer to show date &nbsp;·&nbsp; <a href="/affiliate-disclosure/">Affiliate disclosure</a></div>
   </div>
 
@@ -976,7 +1069,7 @@
     <div class="sb-price-lbl">Vegas Sidekick Price</div>
     <div class="sb-price">$57</div>
   </div>
-  <a href="https://spotlight.vegas/shows/magic/mat-franco/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="sb-cta">Get Tickets →</a>
+  <a href="https://spotlight.vegas/shows/magic/mat-franco/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="sb-cta">Get Tickets <span class="cta-ticket">🎟️</span></a>
   <div class="sb-urgency">Prices may increase closer to show date</div>
   <div class="sb-div"></div>
   <ul class="trust-list">
@@ -1017,47 +1110,104 @@
       <div class="mob-price-lbl">VS Price</div>
       <div class="mob-price">$57</div>
     </div>
-    <a href="https://spotlight.vegas/shows/magic/mat-franco/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="mob-cta">Get Tickets →</a>
+    <a href="https://spotlight.vegas/shows/magic/mat-franco/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="mob-cta">Get Tickets <span class="cta-ticket">🎟️</span></a>
   </div>
 </div>
 
 <div id="vs-footer"></div>
+<script src="/components/header.js"></script>
+<script src="/components/footer.js"></script>
 
 <script>
-  /* Progress bar */
+  // PROGRESS BAR + SAVE PILL + DOT NAV
+  const sections = ['section-seen','section-about','section-gallery','section-details','section-expect','section-seating','section-faq'];
+  const dots = document.querySelectorAll('.dnav-dot');
+  const priceStrip = document.getElementById('priceStrip');
+  const savePill = document.getElementById('savePill');
+
   function updateProgress() {
     const pct = (window.scrollY / Math.max(1, document.documentElement.scrollHeight - window.innerHeight)) * 100;
     const v = Math.min(pct, 100);
     document.getElementById('progress-bar').style.width = v + '%';
+    document.getElementById('progress-bar-bottom').style.width = v + '%';
     const mob = document.getElementById('mob-progress');
     if (mob) mob.style.width = v + '%';
+
+    // Save pill
+    if (priceStrip && savePill) {
+      savePill.classList.toggle('visible', priceStrip.getBoundingClientRect().bottom < 0);
+    }
+
+    // Dot nav active state
+    let active = 0;
+    sections.forEach((id, i) => {
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top <= 140) active = i;
+    });
+    dots.forEach((d, i) => d.classList.toggle('active', i === active));
   }
   window.addEventListener('scroll', updateProgress, { passive: true });
 
-  /* Slider with Ken Burns rAF restart */
+  // HERO PARALLAX
+  const heroSlider = document.getElementById('heroSlider');
+  window.addEventListener('scroll', () => {
+    if (heroSlider) heroSlider.style.transform = 'translateY(' + (window.scrollY * 0.28) + 'px)';
+  }, { passive: true });
+
+  // SLIDER WITH KEN BURNS
   let cur = 0;
   const slides = document.querySelectorAll('.slide');
-  const dots   = document.querySelectorAll('.dot-btn');
+  const dotBtns = document.querySelectorAll('.dot-btn');
   function goToSlide(n) {
-    slides[cur].classList.remove('active'); dots[cur].classList.remove('active'); dots[cur].setAttribute('aria-selected','false');
+    slides[cur].classList.remove('active'); dotBtns[cur].classList.remove('active'); dotBtns[cur].setAttribute('aria-selected','false');
     cur = (n + slides.length) % slides.length;
-    requestAnimationFrame(() => {
-      slides[cur].classList.remove('active');
-      requestAnimationFrame(() => { slides[cur].classList.add('active'); dots[cur].classList.add('active'); dots[cur].setAttribute('aria-selected','true'); });
-    });
+    slides[cur].classList.add('active'); dotBtns[cur].classList.add('active'); dotBtns[cur].setAttribute('aria-selected','true');
+    // restart Ken Burns
+    const img = slides[cur].querySelector('img');
+    img.style.animation = 'none';
+    img.offsetHeight;
+    img.style.animation = '';
   }
   function sliderMove(d) { goToSlide(cur + d); }
   let si = setInterval(() => sliderMove(1), 5000);
   document.querySelector('.slider').addEventListener('mouseenter', () => clearInterval(si));
   document.querySelector('.slider').addEventListener('mouseleave', () => { si = setInterval(() => sliderMove(1), 5000); });
 
-  /* Seen widget */
+  // SEEN WIDGET
   function showSeen(t) {
     document.querySelectorAll('.seen-resp').forEach(r => r.classList.remove('visible'));
     document.getElementById('seen-' + t).classList.add('visible');
   }
 
-  /* Seating zones */
+  // COUNT-UP STATS
+  function countUp(el, target) {
+    const prefix = el.dataset.prefix || '';
+    const duration = 1400;
+    const start = performance.now();
+    function tick(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = prefix + Math.round(eased * target);
+      if (p < 1) requestAnimationFrame(tick);
+      else el.textContent = prefix + target;
+    }
+    requestAnimationFrame(tick);
+  }
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        document.querySelectorAll('.stat-num').forEach((el, i) => {
+          const target = parseInt(el.dataset.target);
+          countUp(el, target);
+        });
+        statsObserver.disconnect();
+      }
+    });
+  }, { threshold: 0.4 });
+  const statsEl = document.querySelector('.stats-strip');
+  if (statsEl) statsObserver.observe(statsEl);
+
+  // SEATING ZONES
   const zones = {
     premium: {
       name: 'Premium · Front Arc',
@@ -1085,6 +1235,7 @@
       desc: 'Table seating along the left and right sides of the theater at various depths — sections T21 through T38. Seated at a table rather than theater chairs. Works well for groups wanting a more lounge-style setup. Angled sight lines from the sides differ from the main arc sections.'
     }
   };
+
   function selectZone(id) {
     const z = zones[id];
     document.getElementById('zone-name').textContent = z.name;
@@ -1092,13 +1243,10 @@
     document.getElementById('zone-badge').style.display = z.pick ? 'inline-flex' : 'none';
     const popup = document.getElementById('zone-popup');
     popup.classList.add('visible');
-    popup.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    setTimeout(() => popup.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
   }
-  document.querySelectorAll('.seat-zone').forEach(z => {
-    z.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); z.click(); } });
-  });
 
-  /* Seat accordion */
+  // SEATING ACCORDION
   function toggleSA(btn) {
     const item = btn.closest('.sa-item'), was = item.classList.contains('open');
     document.querySelectorAll('.sa-item').forEach(i => i.classList.remove('open'));
@@ -1106,7 +1254,7 @@
     if (!was) { item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
   }
 
-  /* Smooth FAQ */
+  // FAQ
   function toggleFaq(btn) {
     const item = btn.closest('.faq-item'), was = item.classList.contains('open');
     document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
@@ -1114,67 +1262,33 @@
     if (!was) { item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
   }
 
-  /* Fade-up observer */
-  const fadeObs = new IntersectionObserver((entries) => {
+  // FADE IN ON SCROLL
+  const observer = new IntersectionObserver((entries) => {
     entries.forEach((e, i) => {
-      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 50); fadeObs.unobserve(e.target); }
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 60); observer.unobserve(e.target); }
     });
   }, { threshold: 0.06 });
-  document.querySelectorAll('.fade-up').forEach(el => fadeObs.observe(el));
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-  /* Stats count-up */
-  function animateStat(el) {
-    const target = +el.dataset.target, prefix = el.dataset.prefix || '', suffix = el.dataset.suffix || '';
-    const duration = 1400, start = performance.now();
-    function step(now) {
-      const p = Math.min((now - start) / duration, 1);
-      const ease = 1 - Math.pow(1 - p, 3);
-      el.textContent = prefix + Math.round(ease * target) + suffix;
-      if (p < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
-  const statObs = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { animateStat(e.target); statObs.unobserve(e.target); } });
-  }, { threshold: 0.5 });
-  document.querySelectorAll('.stat-num[data-target]').forEach(el => statObs.observe(el));
-
-  /* Dot nav section tracking */
-  const secIds = ['sec-seen','sec-about','sec-details','sec-blueprint','sec-seating','sec-faq'];
-  const dnDots = document.querySelectorAll('.dn-dot');
-  const secObs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        const idx = secIds.indexOf(e.target.id);
-        if (idx !== -1) { dnDots.forEach(d => d.classList.remove('active')); dnDots[idx].classList.add('active'); }
-      }
-    });
-  }, { threshold: 0.3 });
-  secIds.forEach(id => { const el = document.getElementById(id); if (el) secObs.observe(el); });
-
-  /* Save pill visibility */
-  const pillObs = new IntersectionObserver((entries) => {
-    document.getElementById('save-pill').classList.toggle('visible', !entries[0].isIntersecting);
-  }, { threshold: 0 });
-  pillObs.observe(document.querySelector('.hero'));
-
-  /* Email signup */
+  // EMAIL
   document.getElementById('emailSubmit').addEventListener('click', function() {
-    const inp = document.getElementById('emailInput');
-    const val = inp.value.trim();
-    if (!val || !val.includes('@') || !val.includes('.')) {
-      inp.style.borderColor = 'rgba(255,107,0,0.5)';
-      inp.placeholder = 'Enter a valid email';
+    const inp = document.getElementById('emailInput'), val = inp.value.trim();
+    if (val && val.includes('@') && val.includes('.')) {
+      fetch('https://brevo-subscribe.vegassidekickcom.workers.dev', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: val })
+      }).catch(() => {});
+      inp.value = ''; inp.placeholder = 'You\'re in. Spike will be in touch.';
+      this.textContent = 'Done ✓'; this.style.background = '#16a34a'; this.style.color = '#fff';
+    } else {
+      inp.style.borderColor = 'rgba(255,107,0,0.5)'; inp.placeholder = 'Enter a valid email';
       setTimeout(() => { inp.style.borderColor = ''; inp.placeholder = 'your@email.com'; }, 2500);
-      return;
     }
-    fetch('https://brevo-subscribe.vegassidekickcom.workers.dev', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: val })
-    }).catch(() => {});
-    inp.value = '';
-    inp.placeholder = "You're in. Spike will be in touch.";
-    this.textContent = 'Done ✓';
-    this.style.background = '#16a34a';
+  });
+
+  // KEYBOARD SUPPORT FOR SEATING ZONES
+  document.querySelectorAll('.seat-zone').forEach(z => {
+    z.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); z.click(); } });
   });
 
 const SHOW_SCHEDULE = {
@@ -1236,16 +1350,16 @@ const SHOW_SCHEDULE = {
         card.classList.add("sk-day--today");
         inner += '<span class="sk-day-badge">TODAY</span>';
         if (times.length && !lastShowPassed(times, now)) {
-          inner += '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">Tonight\'s tickets \u2192</a>';
+          inner += '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">Tonight\'s tickets →</a>';
         }
       } else if (d === tomorrowIdx) {
         card.classList.add("sk-day--tomorrow");
         inner += '<span class="sk-day-badge">TOMORROW</span>';
         if (times.length) {
-          inner += '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">See seats \u2192</a>';
+          inner += '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">See seats →</a>';
         }
       } else if (times.length) {
-        inner += '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">Get tickets \u2192</a>';
+        inner += '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">Get tickets →</a>';
       }
       card.innerHTML = inner;
       frag.appendChild(card);
@@ -1254,7 +1368,7 @@ const SHOW_SCHEDULE = {
     ctaCard.className = "sk-day sk-day--cta";
     ctaCard.innerHTML = '<span class="sk-day-name">ALL DATES</span>' +
       '<span class="sk-day-cta-body">All available<br>dates & times</span>' +
-      '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">Check availability \u2192</a>';
+      '<a class="sk-day-link" rel="sponsored" href="' + SHOW_SCHEDULE.affiliateUrl + '">Check availability →</a>';
     frag.appendChild(ctaCard);
     grid.appendChild(frag);
     var todayCard = grid.querySelector(".sk-day--today");
@@ -1268,7 +1382,5 @@ const SHOW_SCHEDULE = {
     : build();
 })();
 </script>
-<script src="/components/footer.js"></script>
-<script src="/components/header.js"></script>
 </body>
 </html>
