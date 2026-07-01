@@ -130,10 +130,20 @@ const controls = new THREE.OrbitControls(camera, canvas);
 controls.target.copy(TARGET_DEFAULT);
 controls.minDistance = 12;
 controls.maxDistance = 620;
-controls.maxPolarAngle = Math.PI * 0.49;
+controls.minPolarAngle = Math.PI * 0.06;   // don't flip to a straight-down top view
+controls.maxPolarAngle = Math.PI * 0.47;   // stay above the horizon — never look up under the map
+controls.screenSpacePanning = false;       // panning glides along the ground, not up into the sky
 controls.enableDamping = true;
 controls.dampingFactor = 0.06;
 controls.update();
+
+// keep the orbit target from drifting below ground or off into the void
+function clampTarget() {
+  const t = controls.target;
+  t.y = Math.max(1.5, Math.min(28, t.y));
+  t.x = Math.max(-110, Math.min(110, t.x));
+  t.z = Math.max(-700, Math.min(70, t.z));
+}
 
 // ─── Post-processing ──────────────────────────────────────────────────────────
 const composer = new THREE.EffectComposer(renderer);
@@ -272,34 +282,38 @@ const STRIP = [
   ['The Cosmopolitan',    W, -242, 22, 20, 48, 0],
   ['Bellagio',            W, -280, 34, 26, 42, 6],
   ['Caesars Palace',      W, -322, 32, 28, 40, 10],
-  ['The Mirage',          W, -364, 30, 24, 38, 0],
+  ['Hard Rock',           W, -364, 30, 24, 38, 0],
   ['Treasure Island',     W, -404, 26, 22, 40, 0],
-  ['Wynn / Encore',       W, -448, 32, 28, 50, 4],
+  ['Fashion Show Mall',   W, -448, 30, 26, 24, 0],
   ['Resorts World',       W, -494, 32, 28, 56, 0],
   ['Circus Circus',       W, -548, 34, 26, 28, 0],
   // ── East side ──
   ['MGM Grand',           E, -132, 36, 32, 42, 0],
+  ['Showcase Mall',       E, -162, 20, 18, 22, 0],
   ['Planet Hollywood',    E, -196, 26, 22, 40, 0],
   ['Paris Las Vegas',     E, -226, 26, 24, 36, 0],
   ['Horseshoe',           E, -258, 28, 24, 38, 0],
   ['Flamingo',            E, -300, 30, 24, 34, 0],
   ['The LINQ',            E, -332, 22, 20, 26, 12],
+  ['High Roller',         E, -334, 18, 18, 28, 34],
   ["Harrah's",            E, -358, 26, 22, 36, 0],
   ['The Venetian',        E, -398, 34, 30, 44, 0],
   ['The Palazzo',         E, -428, 28, 26, 48, 0],
-  ['Fashion Show Mall',   E, -476, 30, 26, 24, 0],
+  ['Sahara',              E, -560, 28, 24, 34, 0],
 ];
 
 const clickables = [];  // { mesh, name, side }
 
-// ─── Placeholder grey-box builder ──────────────────────────────────────────────
-function makePlaceholder(name, side, z, w, d, h, setback) {
-  const x = side * (ROAD_HALF + CURB_GAP + (setback || 0) + w / 2);
-  const mat = toon(0x2b3352, { emissive: new THREE.Color(0xffcc88), emissiveIntensity: 0 });
+// ─── Core box builder (labeled + clickable) ────────────────────────────────────
+function makeBox(name, side, x, z, w, d, h, opts = {}) {
+  const color   = opts.color   != null ? opts.color   : 0x2b3352;
+  const edge    = opts.edge    != null ? opts.edge    : 0x4488ff;
+  const emissive = opts.emissive != null ? opts.emissive : 0xffcc88;
+  const mat = toon(color, { emissive: new THREE.Color(emissive), emissiveIntensity: 0 });
   const box = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
   box.position.set(x, GROUND_Y + h / 2, z);
   if (!IS_MOBILE) { box.castShadow = true; box.receiveShadow = true; }
-  addEdges(box, 0x4488ff, 12);
+  addEdges(box, edge, 12);
   scene.add(box);
   emissiveMeshes.push(mat);
   clickables.push({ mesh: box, name, side });
@@ -307,15 +321,53 @@ function makePlaceholder(name, side, z, w, d, h, setback) {
   const label = makeLabel(name);
   label.position.set(x, GROUND_Y + h + 6, z);
   scene.add(label);
+  return box;
+}
+
+// grey-box placeholder positioned from its side + setback
+function makePlaceholder(name, side, z, w, d, h, setback) {
+  const x = side * (ROAD_HALF + CURB_GAP + (setback || 0) + w / 2);
+  return makeBox(name, side, x, z, w, d, h);
 }
 
 STRIP.forEach(([name, side, z, w, d, h, setback]) => makePlaceholder(name, side, z, w, d, h, setback));
+
+// ─── Wynn & Encore — two bronze towers side by side (east side) ─────────────────
+(function makeWynnEncore() {
+  const baseX = E * (ROAD_HALF + CURB_GAP + 6 + 13);
+  const opts = { color: 0x6e5626, edge: 0xd8a53a, emissive: 0xffcf7a };
+  makeBox('Wynn',   E, baseX,     -470, 26, 24, 50, opts);
+  makeBox('Encore', E, baseX + 7, -494, 24, 22, 48, opts);
+})();
+
+// ─── Sphere (MSG Sphere) — glowing LED orb set back behind the Palazzo ──────────
+const sphereMat = new THREE.MeshToonMaterial({
+  color: 0x0c0c14, gradientMap: toonGrad, emissive: new THREE.Color(0x4488ff), emissiveIntensity: 0.7
+});
+(function makeSphere() {
+  const R = 22;
+  const x = E * (ROAD_HALF + CURB_GAP + 30 + R);
+  const z = -440;
+  const sph = new THREE.Mesh(new THREE.SphereGeometry(R, 48, 32), sphereMat);
+  sph.position.set(x, GROUND_Y + R, z);
+  if (!IS_MOBILE) sph.castShadow = true;
+  scene.add(sph);
+  clickables.push({ mesh: sph, name: 'Sphere', side: E });
+
+  const label = makeLabel('Sphere');
+  label.position.set(x, GROUND_Y + R * 2 + 7, z);
+  scene.add(label);
+
+  const glow = new THREE.PointLight(0x66aaff, 0.9, 110);
+  glow.position.set(x, GROUND_Y + R, z);
+  scene.add(glow); // always lit (LED sphere) — not gated by TOD
+})();
 
 // ═══════════════════════════════════════════════════════════════════════════════
 //  STRAT — north terminus (placeholder base + tall tower, so the north end reads)
 // ═══════════════════════════════════════════════════════════════════════════════
 (function makeStrat() {
-  const z = -640, x = 0;
+  const z = -650, x = 38; // off the boulevard, east side at the north end
   const baseMat = toon(0x2b3352, { emissive: new THREE.Color(0xffcc88), emissiveIntensity: 0 });
   const base = new THREE.Mesh(new THREE.BoxGeometry(30, 26, 30), baseMat);
   base.position.set(x, GROUND_Y + 13, z);
@@ -641,6 +693,8 @@ function animate() {
 
   // welcome-sign neon shimmer
   signBulbMat.emissiveIntensity = signGlow * (0.6 + 0.4 * Math.sin(time * 4));
+  // Sphere slow LED colour drift (always lit)
+  sphereMat.emissive.setHSL((time * 0.045) % 1, 0.7, 0.5);
 
   if (autoTourOn) {
     // cruise north up the boulevard, then loop back to the south end
@@ -654,6 +708,7 @@ function animate() {
     camera.position.set(Math.cos(cinT * 0.07) * 150, 80, -320 + Math.sin(cinT * 0.07) * 150);
     camera.lookAt(0, 4, -320);
   } else {
+    clampTarget();
     controls.update();
   }
   composer.render();
