@@ -407,110 +407,167 @@ const sphereMat = new THREE.MeshToonMaterial({
 //  WELCOME TO FABULOUS LAS VEGAS — south anchor (real build)
 // ═══════════════════════════════════════════════════════════════════════════════
 const signBulbMat = new THREE.MeshToonMaterial({
-  color: 0xfff3c0, gradientMap: toonGrad, emissive: new THREE.Color(0xffd23b), emissiveIntensity: 0.8
+  color: 0xfff6d0, gradientMap: toonGrad, emissive: new THREE.Color(0xffd23b), emissiveIntensity: 1.0
 });
 (function makeWelcomeSign() {
+  const CW = 820, CH = 1040;
+  // white diamond field polygon (canvas space): flat-ish top, side points, bottom point
+  const P = [[235, 300], [585, 300], [752, 548], [410, 958], [68, 548]];
+
+  // evenly spaced points around the polygon perimeter (for marquee bulbs)
+  function perimeterPts(poly, count) {
+    const segs = []; let total = 0;
+    for (let i = 0; i < poly.length; i++) {
+      const a = poly[i], b = poly[(i + 1) % poly.length];
+      const L = Math.hypot(b[0] - a[0], b[1] - a[1]); segs.push({ a, b, L }); total += L;
+    }
+    const step = total / count, out = []; let si = 0, sofar = 0;
+    for (let k = 0; k < count; k++) {
+      const target = k * step;
+      while (si < segs.length - 1 && sofar + segs[si].L < target) { sofar += segs[si].L; si++; }
+      const t = (target - sofar) / segs[si].L, { a, b } = segs[si];
+      out.push([a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]);
+    }
+    return out;
+  }
+  const bulbPts = perimeterPts(P, 46);
+
+  // 8-point starburst; returns the tip coordinates for glow bulbs
+  let starTips = [];
+  function starburst(g, cx, cy, R) {
+    const tips = [];
+    g.beginPath();
+    for (let i = 0; i < 16; i++) {
+      const ang = -Math.PI / 2 + i * Math.PI / 8, r = (i % 2 === 0) ? R : R * 0.4;
+      const x = cx + Math.cos(ang) * r, y = cy + Math.sin(ang) * r;
+      i ? g.lineTo(x, y) : g.moveTo(x, y);
+      if (i % 2 === 0) tips.push([x, y]);
+    }
+    g.closePath(); g.fillStyle = '#e8601c'; g.fill();
+    g.beginPath();
+    for (let i = 0; i < 16; i++) {
+      const ang = -Math.PI / 2 + i * Math.PI / 8, r = (i % 2 === 0) ? R * 0.62 : R * 0.24;
+      const x = cx + Math.cos(ang) * r, y = cy + Math.sin(ang) * r;
+      i ? g.lineTo(x, y) : g.moveTo(x, y);
+    }
+    g.closePath(); g.fillStyle = '#f4b31e'; g.fill();
+    g.beginPath(); g.arc(cx, cy, R * 0.12, 0, Math.PI * 2); g.fillStyle = '#7a2d10'; g.fill();
+    return tips;
+  }
+  function fitText(g, txt, cx, cy, maxW, font) {
+    g.font = font; const w = g.measureText(txt).width, s = Math.min(1, maxW / w);
+    g.save(); g.translate(cx, cy); g.scale(s, s); g.fillText(txt, 0, 0); g.restore();
+  }
+  function spacedText(g, txt, cx, cy, font, sp) {
+    g.font = font; const chars = txt.split('');
+    const widths = chars.map(c => g.measureText(c).width);
+    const total = widths.reduce((a, b) => a + b, 0) + sp * (chars.length - 1);
+    let x = cx - total / 2; g.textAlign = 'left';
+    chars.forEach((ch, i) => { g.fillText(ch, x + widths[i] / 2, cy); x += widths[i] + sp; });
+    g.textAlign = 'center';
+  }
+
+  function drawFace(front) {
+    const c = document.createElement('canvas'); c.width = CW; c.height = CH;
+    const g = c.getContext('2d'); g.clearRect(0, 0, CW, CH);
+    // star support struts
+    g.strokeStyle = '#9aa3ad'; g.lineWidth = 8;
+    g.beginPath(); g.moveTo(345, 300); g.lineTo(365, 220); g.moveTo(475, 300); g.lineTo(455, 220); g.stroke();
+    // starburst
+    starTips = starburst(g, 410, 168, 128);
+    // white diamond field + gold marquee border
+    g.lineJoin = 'round';
+    g.beginPath(); P.forEach((p, i) => i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1])); g.closePath();
+    g.fillStyle = '#f4ecd6'; g.fill();
+    g.lineWidth = 26; g.strokeStyle = '#e6b23c'; g.stroke();
+    g.lineWidth = 4;  g.strokeStyle = '#b6862a'; g.stroke();
+    // painted glowing bulbs on the border
+    bulbPts.forEach(([x, y]) => {
+      g.save(); g.shadowColor = '#ffe27a'; g.shadowBlur = 14;
+      g.beginPath(); g.arc(x, y, 7.5, 0, Math.PI * 2); g.fillStyle = '#fff4c2'; g.fill(); g.restore();
+    });
+    g.textAlign = 'center'; g.textBaseline = 'middle';
+    if (front) {
+      // WELCOME — seven silver-dollar circles, each with a red letter
+      const letters = 'WELCOME'.split(''), n = letters.length, x0 = 120, x1 = 700, cy = 286, rad = 47;
+      for (let i = 0; i < n; i++) {
+        const cx = x0 + (x1 - x0) * i / (n - 1);
+        g.beginPath(); g.arc(cx, cy, rad, 0, Math.PI * 2); g.fillStyle = '#dadadf'; g.fill();
+        g.lineWidth = 5; g.strokeStyle = '#b03038'; g.stroke();
+        g.lineWidth = 2; g.strokeStyle = '#7d1f26'; g.beginPath(); g.arc(cx, cy, rad - 7, 0, Math.PI * 2); g.stroke();
+        g.fillStyle = '#c02030'; g.font = '700 46px Georgia, "Times New Roman", serif'; g.fillText(letters[i], cx, cy + 2);
+      }
+      g.fillStyle = '#16357e';
+      g.font = 'italic 34px Georgia, serif'; g.fillText('to', 250, 424);
+      g.font = 'italic 700 80px "Brush Script MT","Segoe Script","Snell Roundhand",cursive'; g.fillText('Fabulous', 472, 418);
+      g.fillStyle = '#d21f2b'; fitText(g, 'LAS VEGAS', 410, 612, 600, '900 138px "Arial Black", Arial, sans-serif');
+      g.fillStyle = '#16357e'; spacedText(g, 'NEVADA', 410, 748, '700 54px Arial, sans-serif', 14);
+      g.fillStyle = '#b0242c'; g.font = '700 16px Arial'; g.fillText('YESCO', 410, 874);
+    } else {
+      g.fillStyle = '#d21f2b';
+      fitText(g, 'DRIVE',     410, 384, 340, '900 86px "Arial Black", Arial, sans-serif');
+      fitText(g, 'CAREFULLY', 410, 470, 560, '900 88px "Arial Black", Arial, sans-serif');
+      g.fillStyle = '#16357e';
+      g.font = 'italic 700 74px "Brush Script MT","Segoe Script",cursive'; g.fillText('Come Back', 410, 576);
+      spacedText(g, 'SOON', 410, 664, '700 50px Arial, sans-serif', 13);
+    }
+    const tex = new THREE.CanvasTexture(c); tex.anisotropy = IS_MOBILE ? 2 : 8;
+    return tex;
+  }
+
+  const frontTex = drawFace(true), backTex = drawFace(false);
+
+  const SIGN_W = 15.5, SIGN_H = SIGN_W * CH / CW, PANEL_Y = 14;
+  const toLocal = (cx, cy) => [(cx / CW - 0.5) * SIGN_W, (0.5 - cy / CH) * SIGN_H + PANEL_Y];
   const grp = new THREE.Group();
 
-  // — sign face drawn on canvas —
-  const c = document.createElement('canvas');
-  c.width = 460; c.height = 560;
-  const g = c.getContext('2d');
+  // dark backing shaped to the diamond (so it isn't see-through, no rectangle edges)
+  const bc = document.createElement('canvas'); bc.width = CW; bc.height = CH;
+  const bg = bc.getContext('2d');
+  bg.beginPath(); P.forEach((p, i) => i ? bg.lineTo(p[0], p[1]) : bg.moveTo(p[0], p[1])); bg.closePath();
+  bg.fillStyle = '#14121c'; bg.fill();
+  const backing = new THREE.Mesh(new THREE.PlaneGeometry(SIGN_W + 0.2, SIGN_H + 0.2),
+    new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(bc), transparent: true }));
+  backing.position.set(0, PANEL_Y, 0); grp.add(backing);
 
-  // shield / diamond outline (pointed top, flat bottom)
-  g.fillStyle = '#f3e2b8';
-  g.beginPath();
-  g.moveTo(230, 12);
-  g.lineTo(436, 168);
-  g.lineTo(436, 544);
-  g.lineTo(24, 544);
-  g.lineTo(24, 168);
-  g.closePath();
-  g.fill();
-  g.lineWidth = 8; g.strokeStyle = '#c59a3e'; g.stroke();
+  // front + back faces
+  const frontPanel = new THREE.Mesh(new THREE.PlaneGeometry(SIGN_W, SIGN_H),
+    new THREE.MeshBasicMaterial({ map: frontTex, transparent: true }));
+  frontPanel.position.set(0, PANEL_Y, 0.35); grp.add(frontPanel);
+  const backPanel = new THREE.Mesh(new THREE.PlaneGeometry(SIGN_W, SIGN_H),
+    new THREE.MeshBasicMaterial({ map: backTex, transparent: true }));
+  backPanel.position.set(0, PANEL_Y, -0.35); backPanel.rotation.y = Math.PI; grp.add(backPanel);
 
-  // yellow star at apex
-  (function star(cx, cy, spikes, outer, inner) {
-    let rot = -Math.PI / 2; const step = Math.PI / spikes;
-    g.beginPath(); g.moveTo(cx, cy - outer);
-    for (let i = 0; i < spikes; i++) {
-      let x = cx + Math.cos(rot) * outer, y = cy + Math.sin(rot) * outer; g.lineTo(x, y); rot += step;
-      x = cx + Math.cos(rot) * inner; y = cy + Math.sin(rot) * inner; g.lineTo(x, y); rot += step;
-    }
-    g.closePath();
-  })(230, 96, 5, 46, 20);
-  g.fillStyle = '#f5cf34'; g.fill();
-  g.lineWidth = 3; g.strokeStyle = '#b98f18'; g.stroke();
-
-  g.textAlign = 'center';
-  g.fillStyle = '#1a2a55';
-  g.font = 'bold 34px "Helvetica Neue", Arial';
-  g.fillText('WELCOME', 230, 210);
-  g.font = 'bold 26px "Helvetica Neue", Arial';
-  g.fillText('TO FABULOUS', 230, 250);
-
-  // big red LAS VEGAS
-  g.fillStyle = '#c81f2b';
-  g.font = 'bold 78px "Helvetica Neue", Arial';
-  g.fillText('LAS', 230, 350);
-  g.fillText('VEGAS', 230, 428);
-
-  g.fillStyle = '#1a2a55';
-  g.font = 'bold 40px "Helvetica Neue", Arial';
-  g.fillText('NEVADA', 230, 500);
-
-  const tex = new THREE.CanvasTexture(c);
-  tex.anisotropy = IS_MOBILE ? 2 : 8;
-  const SIGN_W = 13, SIGN_H = 15.8;
-  const panel = new THREE.Mesh(
-    new THREE.PlaneGeometry(SIGN_W, SIGN_H),
-    new THREE.MeshBasicMaterial({ map: tex, transparent: true, side: THREE.DoubleSide })
-  );
-  const panelY = 12;
-  panel.position.set(0, panelY, 0);
-  grp.add(panel);
-
-  // backing board (so it's not paper-thin from the side)
-  const back = new THREE.Mesh(new THREE.BoxGeometry(SIGN_W + 0.8, SIGN_H + 0.8, 0.5), toon(0x1a1526));
-  back.position.set(0, panelY, -0.35);
-  grp.add(back);
-
-  // neon border bulbs around the shield perimeter
-  const pts = [];
-  const topY = panelY + SIGN_H / 2, botY = panelY - SIGN_H / 2;
-  const halfW = SIGN_W / 2;
-  for (let i = 0; i <= 6; i++) { const t = i / 6; pts.push([THREE.MathUtils.lerp(-halfW, 0, t), THREE.MathUtils.lerp(topY - 4, topY, t)]); }
-  for (let i = 1; i <= 6; i++) { const t = i / 6; pts.push([THREE.MathUtils.lerp(0, halfW, t), THREE.MathUtils.lerp(topY, topY - 4, t)]); }
-  for (let i = 1; i <= 6; i++) { const t = i / 6; pts.push([halfW, THREE.MathUtils.lerp(topY - 4, botY, t)]); }
-  for (let i = 1; i <= 8; i++) { const t = i / 8; pts.push([THREE.MathUtils.lerp(halfW, -halfW, t), botY]); }
-  for (let i = 1; i < 6; i++) { const t = i / 6; pts.push([-halfW, THREE.MathUtils.lerp(botY, topY - 4, t)]); }
-  const bulbGeo = new THREE.SphereGeometry(0.28, 8, 6);
-  pts.forEach(([px, py]) => {
-    const b = new THREE.Mesh(bulbGeo, signBulbMat);
-    b.position.set(px, py, 0.4);
-    grp.add(b);
+  // 3D glow bulbs (bloom) at the painted border + star tips
+  const bulbGeo = new THREE.SphereGeometry(0.17, 8, 6);
+  bulbPts.forEach(([cx, cy]) => {
+    const [lx, ly] = toLocal(cx, cy);
+    const b = new THREE.Mesh(bulbGeo, signBulbMat); b.position.set(lx, ly, 0.42); grp.add(b);
+  });
+  const tipGeo = new THREE.SphereGeometry(0.22, 8, 6);
+  starTips.forEach(([cx, cy]) => {
+    const [lx, ly] = toLocal(cx, cy);
+    const b = new THREE.Mesh(tipGeo, signBulbMat); b.position.set(lx, ly, 0.42); grp.add(b);
   });
 
-  // two support poles
-  const poleMat = toon(0x5a6272);
-  [-3.6, 3.6].forEach(px => {
-    const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.28, panelY - SIGN_H / 2 + 0.5, 8), poleMat);
-    pole.position.set(px, (panelY - SIGN_H / 2) / 2, -0.35);
+  // two light-blue support poles up to the diamond's bottom point
+  const poleMat = toon(0x3aa0d8);
+  const bottomY = toLocal(410, 958)[1];
+  [-3.2, 3.2].forEach(px => {
+    const h = bottomY - GROUND_Y + 0.6;
+    const pole = new THREE.Mesh(new THREE.BoxGeometry(1.1, h, 1.1), poleMat);
+    pole.position.set(px, GROUND_Y + h / 2, -0.35);
     if (!IS_MOBILE) pole.castShadow = true;
     grp.add(pole);
   });
 
-  // uplight so the sign glows day and night
-  const up = new THREE.PointLight(0xfff0c0, 0.6, 40);
-  up.position.set(0, 3, 6);
+  // warm uplights so the sign glows from below (brighten at dusk/night via streetLights)
+  const up = new THREE.PointLight(0xffe6a8, 0.7, 48); up.position.set(0, 4, 8);
   grp.add(up); streetLights.push(up);
 
-  // face the sign south toward incoming traffic / default camera
-  grp.position.set(0, GROUND_Y, 30);
-  grp.rotation.y = 0; // panel +Z faces south (+Z) toward camera
+  grp.position.set(0, GROUND_Y, 34);
   scene.add(grp);
-
-  clickables.push({ mesh: panel, name: 'Welcome to Fabulous Las Vegas', side: 0 });
+  clickables.push({ mesh: frontPanel, name: 'Welcome to Fabulous Las Vegas', side: 0 });
 })();
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -655,9 +712,23 @@ function toggleCinematic() {
   document.getElementById('btn-cin').classList.toggle('active', cinematicOn);
   document.getElementById('btn-tour').classList.remove('active');
 }
+// Mood: golden hour by default → live (real Vegas time) → night → back to golden
+let moodMode = 'golden';
+function updateMoodBtn() {
+  const b = document.getElementById('btn-lights');
+  if (!b) return;
+  b.textContent = moodMode === 'golden' ? '☀️ Golden Hour'
+                : moodMode === 'live'   ? '🕒 Live: ' + getLVTimeStr()
+                :                         '🌙 Night';
+}
+function applyMood() {
+  if (moodMode === 'live') { lightOverride = null; applyTOD(getTODPhase(getLVHour())); }
+  else { lightOverride = moodMode; applyTOD(moodMode); }
+  updateMoodBtn();
+}
 function toggleLights() {
-  lightOverride = lightOverride===null ? 'night' : lightOverride==='night' ? 'day' : null;
-  applyTOD(lightOverride !== null ? lightOverride : getTODPhase(getLVHour()));
+  moodMode = moodMode === 'golden' ? 'live' : moodMode === 'live' ? 'night' : 'golden';
+  applyMood();
 }
 function resetCamera() {
   autoTourOn = cinematicOn = false;
@@ -715,9 +786,12 @@ canvas.addEventListener('mousemove', e => {
 //  ANIMATION LOOP
 // ═══════════════════════════════════════════════════════════════════════════════
 const clock = new THREE.Clock();
-applyTOD(getTODPhase(getLVHour()));
+applyMood(); // default to golden hour
 document.getElementById('clock-text').textContent = getLVTimeStr();
-setInterval(() => { document.getElementById('clock-text').textContent = getLVTimeStr(); }, 15000);
+setInterval(() => {
+  document.getElementById('clock-text').textContent = getLVTimeStr();
+  if (moodMode === 'live') updateMoodBtn();
+}, 15000);
 let lastTODCheck = 0;
 
 function animate() {
