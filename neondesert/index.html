@@ -102,7 +102,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:#050510;font-family:
 // ─── Config ───────────────────────────────────────────────────────────────────
 const IS_MOBILE = window.innerWidth < 768;
 const GROUND_Y  = 0;
-const ROAD_HALF = 8;     // half-width of asphalt
+const ROAD_HALF = 13;    // half-width of asphalt (6 lanes total: 3 per side)
+const MEDIAN_HALF = 1.6; // half-width of the raised centre divider
 const CURB_GAP  = 6;     // sidewalk gap between road edge and building face
 
 // ─── Renderer ─────────────────────────────────────────────────────────────────
@@ -117,7 +118,7 @@ renderer.toneMappingExposure = 1.2;
 
 // ─── Scene ────────────────────────────────────────────────────────────────────
 const scene = new THREE.Scene();
-scene.fog = new THREE.Fog(0x1a1a4e, 140, 1150);
+scene.fog = new THREE.Fog(0x1a1a4e, 160, 1350);
 
 // ─── Camera ───────────────────────────────────────────────────────────────────
 const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 3000);
@@ -141,8 +142,8 @@ controls.update();
 function clampTarget() {
   const t = controls.target;
   t.y = Math.max(1.5, Math.min(28, t.y));
-  t.x = Math.max(-110, Math.min(110, t.x));
-  t.z = Math.max(-700, Math.min(70, t.z));
+  t.x = Math.max(-120, Math.min(120, t.x));
+  t.z = Math.max(-780, Math.min(70, t.z));
 }
 
 // ─── Post-processing ──────────────────────────────────────────────────────────
@@ -272,34 +273,34 @@ function makeLabel(text) {
 // ═══════════════════════════════════════════════════════════════════════════════
 const W = -1, E = +1;
 const STRIP = [
-  // ── West side ──
-  ['Mandalay Bay',        W,  -25, 34, 30, 46, 0],
-  ['Luxor',               W,  -72, 30, 30, 34, 0],
-  ['Excalibur',           W, -112, 30, 26, 30, 0],
-  ['New York-New York',   W, -152, 28, 24, 40, 0],
-  ['Park MGM',            W, -188, 24, 22, 36, 0],
-  ['Aria',                W, -218, 26, 22, 50, 8],
-  ['The Cosmopolitan',    W, -242, 22, 20, 48, 0],
-  ['Bellagio',            W, -280, 34, 26, 42, 6],
-  ['Caesars Palace',      W, -322, 32, 28, 40, 10],
-  ['Hard Rock',           W, -364, 30, 24, 38, 0],
-  ['Treasure Island',     W, -404, 26, 22, 40, 0],
-  ['Fashion Show Mall',   W, -448, 30, 26, 24, 0],
-  ['Resorts World',       W, -494, 32, 28, 56, 0],
-  ['Circus Circus',       W, -548, 34, 26, 28, 0],
+  // ── West side ──  (spread out for elbow room, ~22u gaps between building faces)
+  ['Mandalay Bay',        W,  -35, 34, 30, 46, 0],
+  ['Luxor',               W,  -87, 30, 30, 34, 0],
+  ['Excalibur',           W, -137, 30, 26, 30, 0],
+  ['New York-New York',   W, -184, 28, 24, 40, 0],
+  ['Park MGM',            W, -229, 24, 22, 36, 0],
+  ['Aria',                W, -273, 26, 22, 50, 8],
+  ['The Cosmopolitan',    W, -316, 22, 20, 48, 0],
+  ['Bellagio',            W, -361, 34, 26, 42, 6],
+  ['Caesars Palace',      W, -410, 32, 28, 40, 10],
+  ['Hard Rock',           W, -458, 30, 24, 38, 0],
+  ['Treasure Island',     W, -503, 26, 22, 40, 0],
+  ['Fashion Show Mall',   W, -549, 30, 26, 24, 0],
+  ['Resorts World',       W, -598, 32, 28, 56, 0],
+  ['Circus Circus',       W, -647, 34, 26, 28, 0],
   // ── East side ──
-  ['MGM Grand',           E, -132, 36, 32, 42, 0],
-  ['Showcase Mall',       E, -162, 20, 18, 22, 0],
-  ['Planet Hollywood',    E, -196, 26, 22, 40, 0],
-  ['Paris Las Vegas',     E, -226, 26, 24, 36, 0],
-  ['Horseshoe',           E, -258, 28, 24, 38, 0],
-  ['Flamingo',            E, -300, 30, 24, 34, 0],
-  ['The LINQ',            E, -332, 22, 20, 26, 12],
-  ['High Roller',         E, -334, 18, 18, 28, 34],
-  ["Harrah's",            E, -358, 26, 22, 36, 0],
-  ['The Venetian',        E, -398, 34, 30, 44, 0],
-  ['The Palazzo',         E, -428, 28, 26, 48, 0],
-  ['Sahara',              E, -560, 28, 24, 34, 0],
+  ['MGM Grand',           E,  -50, 36, 32, 42, 0],
+  ['Showcase Mall',       E,  -97, 20, 18, 22, 0],
+  ['Planet Hollywood',    E, -139, 26, 22, 40, 0],
+  ['Paris Las Vegas',     E, -184, 26, 24, 36, 0],
+  ['Horseshoe',           E, -230, 28, 24, 38, 0],
+  ['Flamingo',            E, -276, 30, 24, 34, 0],
+  ['The LINQ',            E, -320, 22, 20, 26, 12],
+  ['High Roller',         E, -322, 18, 18, 28, 34],
+  ["Harrah's",            E, -363, 26, 22, 36, 0],
+  ['The Venetian',        E, -411, 34, 30, 44, 0],
+  ['The Palazzo',         E, -461, 28, 26, 48, 0],
+  ['Sahara',              E, -615, 28, 24, 34, 0],
 ];
 
 const clickables = [];  // { mesh, name, side }
@@ -336,8 +337,8 @@ STRIP.forEach(([name, side, z, w, d, h, setback]) => makePlaceholder(name, side,
 (function makeWynnEncore() {
   const baseX = E * (ROAD_HALF + CURB_GAP + 6 + 13);
   const opts = { color: 0x6e5626, edge: 0xd8a53a, emissive: 0xffcf7a };
-  makeBox('Wynn',   E, baseX,     -470, 26, 24, 50, opts);
-  makeBox('Encore', E, baseX + 7, -494, 24, 22, 48, opts);
+  makeBox('Wynn',   E, baseX,     -512, 26, 24, 50, opts);
+  makeBox('Encore', E, baseX + 7, -558, 24, 22, 48, opts);
 })();
 
 // ─── Sphere (MSG Sphere) — glowing LED orb set back behind the Palazzo ──────────
@@ -347,7 +348,7 @@ const sphereMat = new THREE.MeshToonMaterial({
 (function makeSphere() {
   const R = 22;
   const x = E * (ROAD_HALF + CURB_GAP + 30 + R);
-  const z = -440;
+  const z = -455;
   const sph = new THREE.Mesh(new THREE.SphereGeometry(R, 48, 32), sphereMat);
   sph.position.set(x, GROUND_Y + R, z);
   if (!IS_MOBILE) sph.castShadow = true;
@@ -367,7 +368,7 @@ const sphereMat = new THREE.MeshToonMaterial({
 //  STRAT — north terminus (placeholder base + tall tower, so the north end reads)
 // ═══════════════════════════════════════════════════════════════════════════════
 (function makeStrat() {
-  const z = -650, x = 38; // off the boulevard, east side at the north end
+  const z = -720, x = 40; // off the boulevard, east side at the north end
   const baseMat = toon(0x2b3352, { emissive: new THREE.Color(0xffcc88), emissiveIntensity: 0 });
   const base = new THREE.Mesh(new THREE.BoxGeometry(30, 26, 30), baseMat);
   base.position.set(x, GROUND_Y + 13, z);
@@ -516,11 +517,11 @@ const signBulbMat = new THREE.MeshToonMaterial({
 //  LAS VEGAS BOULEVARD — the Strip road (runs along Z)
 // ═══════════════════════════════════════════════════════════════════════════════
 (function makeBoulevard() {
-  const Z_SOUTH = 60, Z_NORTH = -700;
+  const Z_SOUTH = 60, Z_NORTH = -780;
   const LEN = Z_SOUTH - Z_NORTH;
   const MID = (Z_SOUTH + Z_NORTH) / 2;
 
-  // asphalt
+  // asphalt — full 6-lane slab
   const road = new THREE.Mesh(new THREE.BoxGeometry(ROAD_HALF * 2, 0.3, LEN), toon(0x1c1c26));
   road.position.set(0, GROUND_Y + 0.15, MID);
   road.receiveShadow = !IS_MOBILE;
@@ -534,31 +535,47 @@ const signBulbMat = new THREE.MeshToonMaterial({
     scene.add(sw);
   });
 
-  // yellow center double line
-  const lineMat = new THREE.MeshToonMaterial({ color: 0xffcc00, emissive: 0xffcc00, emissiveIntensity: 0.5, gradientMap: toonGrad });
-  [-0.5, 0.5].forEach(off => {
-    const ln = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.32, LEN), lineMat);
-    ln.position.set(off, GROUND_Y + 0.17, MID);
-    scene.add(ln);
-  });
+  // raised centre median divider
+  const medMat = toon(0x33333f);
+  const median = new THREE.Mesh(new THREE.BoxGeometry(MEDIAN_HALF * 2, 1.0, LEN), medMat);
+  median.position.set(0, GROUND_Y + 0.5, MID);
+  if (!IS_MOBILE) median.receiveShadow = true;
+  scene.add(median);
+  // warm glowing cap so the divider reads at night
+  const capMat = new THREE.MeshToonMaterial({ color: 0xffcc88, emissive: 0xffaa55, emissiveIntensity: 0.35, gradientMap: toonGrad });
+  const cap = new THREE.Mesh(new THREE.BoxGeometry(MEDIAN_HALF * 2 + 0.1, 0.14, LEN), capMat);
+  cap.position.set(0, GROUND_Y + 1.05, MID);
+  scene.add(cap); emissiveMeshes.push(capMat);
 
-  // white lane dashes (desktop only)
+  // white lane dashes — two interior lines per side split each half into 3 lanes
   if (!IS_MOBILE) {
     const dashMat = new THREE.MeshToonMaterial({ color: 0xffffff, emissive: 0xffffff, emissiveIntensity: 0.3, gradientMap: toonGrad });
+    const laneW = (ROAD_HALF - MEDIAN_HALF) / 3;
+    const laneXs = [MEDIAN_HALF + laneW, MEDIAN_HALF + laneW * 2];   // interior boundaries
     for (let z = Z_NORTH + 6; z < Z_SOUTH - 6; z += 11) {
-      [-4, 4].forEach(lx => {
-        const d = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.32, 4), dashMat);
-        d.position.set(lx, GROUND_Y + 0.17, z);
-        scene.add(d);
+      laneXs.forEach(bx => {
+        [-1, 1].forEach(s => {
+          const d = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.32, 4), dashMat);
+          d.position.set(s * bx, GROUND_Y + 0.17, z);
+          scene.add(d);
+        });
       });
     }
   }
 
-  // streetlights every ~44 units, both sides
+  // edge-line kerbs (solid white outer lane lines)
+  const edgeMat = new THREE.MeshToonMaterial({ color: 0xdddddd, emissive: 0xffffff, emissiveIntensity: 0.15, gradientMap: toonGrad });
+  [-1, 1].forEach(s => {
+    const el = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.32, LEN), edgeMat);
+    el.position.set(s * (ROAD_HALF - 0.4), GROUND_Y + 0.17, MID);
+    scene.add(el);
+  });
+
+  // roadside streetlights every ~48 units, both sides
   const poleMat = toon(0x445566);
   const lampMat = new THREE.MeshToonMaterial({ color: 0xff9933, emissive: 0xff8800, emissiveIntensity: 1.2, gradientMap: toonGrad });
   const POLE_H = 8, OFF = ROAD_HALF + CURB_GAP - 1;
-  for (let z = Z_NORTH + 30; z < Z_SOUTH - 20; z += 44) {
+  for (let z = Z_NORTH + 30; z < Z_SOUTH - 20; z += 48) {
     [-1, 1].forEach(s => {
       const x = s * OFF;
       const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.18, POLE_H, 6), poleMat);
@@ -568,6 +585,23 @@ const signBulbMat = new THREE.MeshToonMaterial({
       lamp.position.set(x, GROUND_Y + POLE_H + 0.4, z);
       scene.add(lamp);
       const pl = new THREE.PointLight(0xff9944, 0.0, 22);
+      pl.position.copy(lamp.position);
+      scene.add(pl); streetLights.push(pl);
+    });
+  }
+
+  // taller twin-head lamp posts down the median every ~64 units
+  const medPoleH = 10;
+  for (let z = Z_NORTH + 40; z < Z_SOUTH - 30; z += 64) {
+    const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.22, medPoleH, 8), poleMat);
+    pole.position.set(0, GROUND_Y + 1.0 + medPoleH / 2, z);
+    if (!IS_MOBILE) pole.castShadow = true;
+    scene.add(pole);
+    [-1, 1].forEach(s => {
+      const lamp = new THREE.Mesh(new THREE.SphereGeometry(0.55, 6, 5), lampMat);
+      lamp.position.set(s * 1.4, GROUND_Y + 1.0 + medPoleH + 0.3, z);
+      scene.add(lamp);
+      const pl = new THREE.PointLight(0xffbb66, 0.0, 26);
       pl.position.copy(lamp.position);
       scene.add(pl); streetLights.push(pl);
     });
@@ -699,14 +733,14 @@ function animate() {
   if (autoTourOn) {
     // cruise north up the boulevard, then loop back to the south end
     tourT += dt;
-    const z = 50 - ((tourT * 26) % 760);
-    camera.position.set(Math.sin(tourT * 0.25) * 9, 7.5, z);
-    camera.lookAt(Math.sin(tourT * 0.25 + 0.6) * 6, 6, z - 45);
+    const z = 50 - ((tourT * 28) % 900);
+    camera.position.set(Math.sin(tourT * 0.22) * 10, 7.5, z);
+    camera.lookAt(Math.sin(tourT * 0.22 + 0.6) * 7, 6, z - 50);
   } else if (cinematicOn) {
     // slow high crane orbit over mid-strip
     cinT += dt;
-    camera.position.set(Math.cos(cinT * 0.07) * 150, 80, -320 + Math.sin(cinT * 0.07) * 150);
-    camera.lookAt(0, 4, -320);
+    camera.position.set(Math.cos(cinT * 0.07) * 185, 95, -360 + Math.sin(cinT * 0.07) * 185);
+    camera.lookAt(0, 4, -360);
   } else {
     clampTarget();
     controls.update();
