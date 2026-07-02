@@ -5,18 +5,19 @@ import * as THREE from 'three';
 // can keep serving them against the new index.html and silently break (HUD
 // elements the stale script expects no longer exist). Bump PHASE when any
 // of these files changes again.
-import { createWelcomeSign } from './sign.js?v=5';
-import { createBloomPipeline } from './bloom.js?v=5';
-import { loadSpineData, buildSpine } from './spine.js?v=5';
-import { buildRoad } from './road.js?v=5';
-import { buildZones } from './zones.js?v=5';
-import { buildConstructionSites } from './construction.js?v=5';
-import { buildAdAnchors } from './adAnchors.js?v=5';
-import { buildSkyline } from './skyline.js?v=5';
-import { createCameraRig, createDriveController, wireDriveInput } from './cameraRig.js?v=5';
-import { createDebugHud } from './debug.js?v=5';
-import { buildSky } from './sky.js?v=5';
-import { createInteractablesRegistry, createInteractableMenu } from './interactables.js?v=5';
+import { createWelcomeSign } from './sign.js?v=6';
+import { createBloomPipeline } from './bloom.js?v=6';
+import { loadSpineData, buildSpine } from './spine.js?v=6';
+import { buildRoad } from './road.js?v=6';
+import { buildZones } from './zones.js?v=6';
+import { buildConstructionSites } from './construction.js?v=6';
+import { buildAdAnchors } from './adAnchors.js?v=6';
+import { buildSkyline } from './skyline.js?v=6';
+import { createCameraRig, createDriveController, wireDriveInput } from './cameraRig.js?v=6';
+import { createDebugHud } from './debug.js?v=6';
+import { buildSky } from './sky.js?v=6';
+import { createInteractablesRegistry, createInteractableMenu } from './interactables.js?v=6';
+import { buildLuxor } from './landmarks/luxor.js?v=6';
 
 /* ============================================================
    NEON DESERT · MAIN                                       🌵
@@ -71,7 +72,7 @@ async function boot(){
 }
 
 async function bootScene(){
-  const data = await loadSpineData(new URL('../data/strip-spine.json?v=5', import.meta.url));
+  const data = await loadSpineData(new URL('../data/strip-spine.json?v=6', import.meta.url));
   const spine = buildSpine(data);
 
   const sky = buildSky({ scene });
@@ -88,12 +89,19 @@ async function bootScene(){
 
   const sign = createWelcomeSign({ scene, renderer });
   const road = buildRoad({ scene, spine, data });
+
+  // Interactables registry is built before any landmark so landmarks can
+  // register into it as they're constructed (see luxor.js).
+  const interactables = createInteractablesRegistry({ scene });
+  const interactableMenu = createInteractableMenu();
+
   const zones = await buildZones({ scene, spine, data });
   const construction = buildConstructionSites({ scene, spine, data });
   const adAnchors = buildAdAnchors({ scene, spine, data });
   const skyline = buildSkyline({ scene, spine, data });
+  const luxor = buildLuxor({ scene, spine, data, interactables });
 
-  const alwaysGlow = [sign.bulbs, sign.starGroup.userData.bulbs, road.bulbs, road.reflectors];
+  const alwaysGlow = [sign.bulbs, sign.starGroup.userData.bulbs, road.bulbs, road.reflectors, ...(luxor.alwaysGlow || [])];
   if (construction.beacons) alwaysGlow.push(construction.beacons);
   if (zones.glowBandMesh) alwaysGlow.push(zones.glowBandMesh);
   const bloom = createBloomPipeline({
@@ -103,7 +111,7 @@ async function bootScene(){
   // Massing windows and ad-anchor screens feed the bloom pass through a
   // dim glow-only material variant rather than their full-brightness base
   // material, so distant towers get a soft halo instead of blowing out.
-  [...(zones.glowPairs || []), ...(adAnchors.glowPairs || [])]
+  [...(zones.glowPairs || []), ...(adAnchors.glowPairs || []), ...(luxor.glowPairs || [])]
     .forEach(({ mesh, material }) => bloom.glowSwap.set(mesh, material));
   if (skyline.sphereMesh){
     bloom.glowSwap.set(skyline.sphereMesh, new THREE.MeshBasicMaterial({ map: skyline.sphereMesh.material.map, color: 0x4a6a99 }));
@@ -122,15 +130,12 @@ async function bootScene(){
   document.getElementById('btnUturn').addEventListener('click', () => drive.uTurn());
   const throttleFill = document.getElementById('throttleFill');
 
-  /* ---------- interactables registry ---------- */
-  // Any customizable object in the world registers here as
+  /* ---------- sign bulb interactable ---------- */
+  // Any customizable object in the world registers into `interactables` as
   // { id, worldPosition, label, options[] } and renders as a small pulsing
   // orange diamond; tapping it opens a minimal pill menu of its options.
-  // The sign's bulb-chase control (formerly the bottom BULBS button) is the
-  // first entry.
-  const interactables = createInteractablesRegistry({ scene });
-  const interactableMenu = createInteractableMenu();
-
+  // The sign's bulb-chase control (formerly the bottom BULBS button) was
+  // the first entry — Luxor's beam control (built above) is the second.
   const chaseModes = ['Classic chase','Sparkle','Steady'];
   let chaseMode = reduceMotion ? 2 : 0;
   // Anchored beside the sign's own panel (SIGN.w=3.85, bulge=0.26, cy=5.65
@@ -156,7 +161,7 @@ async function bootScene(){
 
   const debugHud = createDebugHud({ renderer });
   if (new URLSearchParams(location.search).get('debug') === '1'){
-    window.__NEON_DEBUG = { scene, camera, spine, data, drive, zones, road, adAnchors, construction, skyline, rig, interactables };
+    window.__NEON_DEBUG = { scene, camera, spine, data, drive, zones, road, adAnchors, construction, skyline, luxor, rig, interactables };
   }
   // The bloom pipeline calls renderer.render() several times per frame and
   // WebGLRenderer auto-resets `info` on every one of those calls — reset it
@@ -185,6 +190,7 @@ async function bootScene(){
     sign.updateBulbs(t, chaseMode, reduceMotion);
     construction.updateBeacons?.(t);
     adAnchors.updateDigitalBillboards?.(t);
+    luxor.update?.(t, dt);
     interactables.update(t, camera);
     throttleFill.style.width = (drive.state.speed / drive.MAX_SPEED * 100) + '%';
 

@@ -136,6 +136,7 @@ export async function buildZones({ scene, spine, data }){
     }
 
     if (z.constructionSite) return; // construction.js builds these
+    if (z.id === 'luxor') return;   // landmarks/luxor.js builds this hero landmark instead
 
     const frame = spine.frameAt(center);
     const bucket = buckets[i % buckets.length];
