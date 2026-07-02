@@ -32,13 +32,21 @@ function panelGeometry(w, h, legH){
   return mergeGeometries(parts);
 }
 
-function screenTexture(cyan){
-  const c = document.createElement('canvas'); c.width = 64; c.height = 32;
+// Every ad-inventory fixture must render intentionally, never untextured —
+// a plain dark placeholder body with a thin frame, so unbuilt/unsold
+// inventory reads as "off" signage rather than a stray gradient swatch.
+function placeholderTexture({ frame, glow = false }){
+  const c = document.createElement('canvas'); c.width = 128; c.height = 64;
   const ctx = c.getContext('2d');
-  const g = ctx.createLinearGradient(0,0,64,0);
-  if (cyan){ g.addColorStop(0,'#0aa'); g.addColorStop(0.5,'#08f'); g.addColorStop(1,'#a0f'); }
-  else { g.addColorStop(0,'#456'); g.addColorStop(1,'#234'); }
-  ctx.fillStyle = g; ctx.fillRect(0,0,64,32);
+  ctx.fillStyle = glow ? '#000000' : '#0d0f14';
+  ctx.fillRect(0, 0, 128, 64);
+  ctx.strokeStyle = frame;
+  ctx.lineWidth = 5;
+  ctx.strokeRect(5, 5, 118, 54);
+  ctx.globalAlpha = 0.35;
+  ctx.lineWidth = 1;
+  ctx.strokeRect(11, 11, 106, 42);
+  ctx.globalAlpha = 1;
   return new THREE.CanvasTexture(c);
 }
 
@@ -77,19 +85,26 @@ export function buildAdAnchors({ scene, spine, data }){
   if (byTier['static-billboard'].length){
     const geo = panelGeometry(6.5, 3.2, 4.5);
     const mat = new THREE.MeshStandardMaterial({
-      color: 0xffffff, map: screenTexture(false), roughness: 0.7, metalness: 0.1
+      color: 0xffffff, map: placeholderTexture({ frame: '#454b54' }),
+      roughness: 0.8, metalness: 0.08
     });
     meshes.staticBillboards = buildInstanced(geo, mat, byTier['static-billboard']);
   }
 
+  let digitalGlow = null;
   if (byTier['digital-billboard'].length){
     const geo = panelGeometry(5.5, 3.0, 5.5);
-    const tex = screenTexture(true);
+    const bodyTex = placeholderTexture({ frame: '#333941' });
+    const glowTex = placeholderTexture({ frame: '#8fd8ff', glow: true });
     const mat = new THREE.MeshStandardMaterial({
-      color: 0xffffff, emissiveMap: tex, emissive: 0xffffff, emissiveIntensity: 0.9,
-      map: tex, roughness: 0.4
+      color: 0xffffff, map: bodyTex,
+      emissiveMap: glowTex, emissive: 0xffffff, emissiveIntensity: 0.4,
+      roughness: 0.55, metalness: 0.15
     });
     meshes.digitalBillboards = buildInstanced(geo, mat, byTier['digital-billboard']);
+    // dim frame-only glow feeds the bloom pass so the "off" screens still
+    // read as lit signage fixtures, not black holes, at night
+    digitalGlow = { mesh: meshes.digitalBillboards, material: new THREE.MeshBasicMaterial({ map: glowTex, color: 0x35506a }) };
   }
 
   if (byTier['premium-marker'].length){
@@ -118,5 +133,5 @@ export function buildAdAnchors({ scene, spine, data }){
     meshes.digitalBillboards.instanceMatrix.needsUpdate = true;
   }
 
-  return { meshes, updateDigitalBillboards };
+  return { meshes, updateDigitalBillboards, glowPairs: digitalGlow ? [digitalGlow] : [] };
 }

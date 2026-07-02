@@ -23,20 +23,6 @@
   }
 
   .hud{position:fixed;z-index:10;color:#E8ECFF;user-select:none}
-  #brand{top:22px;left:24px}
-  #brand .eyebrow{
-    font:500 10px/1 "IBM Plex Mono",ui-monospace,monospace;
-    letter-spacing:.32em;color:var(--orange);text-transform:uppercase;
-  }
-  #brand h1{
-    font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;
-    font-size:clamp(24px,3.6vw,36px);letter-spacing:.06em;line-height:1;
-    margin-top:8px;color:#F4F6FF;
-  }
-  #brand .sub{
-    font:400 10px/1.5 "IBM Plex Mono",ui-monospace,monospace;
-    letter-spacing:.18em;color:rgba(180,195,255,.55);margin-top:6px;
-  }
 
   #drivebar{
     bottom:22px;left:50%;transform:translateX(-50%);
@@ -77,19 +63,10 @@
     bottom:20px;right:22px;font-size:16px;opacity:.45;
     filter:saturate(.8);pointer-events:none;
   }
-  #hint{
-    top:22px;right:24px;text-align:right;
-    font:400 10px/1.6 "IBM Plex Mono",ui-monospace,monospace;
-    letter-spacing:.14em;color:rgba(150,168,235,.45);
-  }
-  @media (max-width:640px){ #hint{display:none} }
 
   #loader{
-    position:fixed;inset:0;z-index:50;background:var(--ink);
-    display:flex;align-items:center;justify-content:center;
-    transition:opacity .6s ease;
-    font:500 11px/1 "IBM Plex Mono",ui-monospace,monospace;
-    letter-spacing:.3em;color:var(--orange);text-transform:uppercase;
+    position:fixed;inset:0;z-index:50;background:#000;
+    transition:opacity .3s ease;
   }
   #loader.done{opacity:0;pointer-events:none}
 </style>
@@ -98,27 +75,18 @@
 <canvas id="stage"></canvas>
 <div id="vignette"></div>
 
-<div class="hud" id="brand">
-  <div class="eyebrow">Neon Desert · Vegas Sidekick</div>
-  <h1>The Spine</h1>
-  <div class="sub">LAS VEGAS BLVD · SIGN → THE STRAT</div>
-</div>
-
-<div class="hud" id="hint">DRAG TO LOOK AROUND · SCRUB THROTTLE TO CRUISE<br>ARROWS/WASD + SPACE + U ON DESKTOP</div>
-
 <div class="hud" id="drivebar">
   <button class="btn" id="btnStop">Full stop</button>
   <div id="throttle"><div id="throttleFill"></div><div id="throttleLabel">Throttle</div></div>
   <button class="btn" id="btnUturn">U-turn</button>
-  <button class="btn" id="btnChase">Bulbs: <span class="val">Classic chase</span></button>
 </div>
 
 <div class="hud" id="sig">🌵</div>
-<div id="loader">Paving the Strip…</div>
+<div id="loader"></div>
 
 <script type="importmap">
 { "imports": { "three": "https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.module.min.js" } }
 </script>
-<script type="module" src="./js/main.js?v=3"></script>
+<script type="module" src="./js/main.js?v=4"></script>
 </body>
 </html>

@@ -89,7 +89,10 @@ export function createDriveController({ spine, initialSpineDistance = 0, laneOff
         state.dir *= -1;
         state.targetYawOffset = 0; state.yawOffset = 0;
         state.uTurning = false; state.uTurnT = 0;
-        state.targetSpeed = Math.max(state.targetSpeed, MAX_SPEED*0.3);
+        // Always end a U-turn stopped dead — the driver presses throttle to
+        // move again. Never auto-accelerate out of the turn.
+        state.targetSpeed = 0;
+        state.speed = 0;
       }
     }
 

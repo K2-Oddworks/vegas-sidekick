@@ -50,7 +50,7 @@
     "stratTerminus": {
       "spinePosition": 3655,
       "side": "east",
-      "note": "North terminus — tower closes the view"
+      "note": "North terminus \u2014 tower closes the view"
     }
   },
   "zones": [
@@ -67,7 +67,8 @@
         "depth": 90,
         "height": 151
       },
-      "label": "MANDALAY BAY"
+      "label": "MANDALAY BAY",
+      "era": "present"
     },
     {
       "id": "luxor",
@@ -82,7 +83,8 @@
         "depth": 90,
         "height": 113
       },
-      "label": "LUXOR"
+      "label": "LUXOR",
+      "era": "present"
     },
     {
       "id": "excalibur",
@@ -97,7 +99,8 @@
         "depth": 90,
         "height": 109
       },
-      "label": "EXCALIBUR"
+      "label": "EXCALIBUR",
+      "era": "present"
     },
     {
       "id": "new-york-new-york",
@@ -112,7 +115,8 @@
         "depth": 90,
         "height": 106
       },
-      "label": "NEW YORK-NEW YORK"
+      "label": "NEW YORK-NEW YORK",
+      "era": "present"
     },
     {
       "id": "park-mgm",
@@ -129,7 +133,8 @@
       },
       "label": "PARK MGM",
       "reserve": "arena-behind",
-      "reserveNote": "T-Mobile Arena set behind property"
+      "reserveNote": "T-Mobile Arena set behind property",
+      "era": "present"
     },
     {
       "id": "aria",
@@ -145,7 +150,8 @@
         "height": 130
       },
       "label": "ARIA",
-      "reserveNote": "CityCenter cluster"
+      "reserveNote": "CityCenter cluster",
+      "era": "present"
     },
     {
       "id": "cosmopolitan",
@@ -160,7 +166,8 @@
         "depth": 90,
         "height": 113
       },
-      "label": "COSMOPOLITAN"
+      "label": "COSMOPOLITAN",
+      "era": "present"
     },
     {
       "id": "bellagio",
@@ -177,7 +184,8 @@
       },
       "label": "BELLAGIO",
       "reserve": "fountain-lake",
-      "reserveNote": "fountain lake frontage reserved for future phase"
+      "reserveNote": "fountain lake frontage reserved for future phase",
+      "era": "present"
     },
     {
       "id": "caesars-palace",
@@ -192,7 +200,8 @@
         "depth": 90,
         "height": 137
       },
-      "label": "CAESARS PALACE"
+      "label": "CAESARS PALACE",
+      "era": "present"
     },
     {
       "id": "hard-rock",
@@ -212,7 +221,8 @@
         "type": "guitar-skeleton",
         "stories": 42,
         "cranes": 2
-      }
+      },
+      "era": "present"
     },
     {
       "id": "treasure-island",
@@ -227,7 +237,8 @@
         "depth": 90,
         "height": 109
       },
-      "label": "TREASURE ISLAND"
+      "label": "TREASURE ISLAND",
+      "era": "present"
     },
     {
       "id": "fashion-show-mall",
@@ -242,7 +253,8 @@
         "depth": 90,
         "height": 123
       },
-      "label": "FASHION SHOW MALL"
+      "label": "FASHION SHOW MALL",
+      "era": "present"
     },
     {
       "id": "resorts-world",
@@ -257,7 +269,8 @@
         "depth": 90,
         "height": 130
       },
-      "label": "RESORTS WORLD"
+      "label": "RESORTS WORLD",
+      "era": "present"
     },
     {
       "id": "circus-circus",
@@ -272,7 +285,8 @@
         "depth": 90,
         "height": 119
       },
-      "label": "CIRCUS CIRCUS"
+      "label": "CIRCUS CIRCUS",
+      "era": "present"
     },
     {
       "id": "athletics-ballpark",
@@ -292,7 +306,8 @@
         "type": "ballpark-bowl",
         "cranes": 2
       },
-      "reserveNote": "former Tropicana site"
+      "reserveNote": "former Tropicana site",
+      "era": "present"
     },
     {
       "id": "mgm-grand",
@@ -307,7 +322,8 @@
         "depth": 90,
         "height": 137
       },
-      "label": "MGM GRAND"
+      "label": "MGM GRAND",
+      "era": "present"
     },
     {
       "id": "showcase-mall",
@@ -322,7 +338,8 @@
         "depth": 90,
         "height": 99
       },
-      "label": "SHOWCASE MALL"
+      "label": "SHOWCASE MALL",
+      "era": "present"
     },
     {
       "id": "planet-hollywood",
@@ -337,7 +354,8 @@
         "depth": 90,
         "height": 116
       },
-      "label": "PLANET HOLLYWOOD"
+      "label": "PLANET HOLLYWOOD",
+      "era": "present"
     },
     {
       "id": "paris",
@@ -354,7 +372,8 @@
       },
       "label": "PARIS",
       "reserve": "eiffel-tower",
-      "reserveNote": "Eiffel Tower plot reserved for future phase"
+      "reserveNote": "Eiffel Tower plot reserved for future phase",
+      "era": "present"
     },
     {
       "id": "horseshoe",
@@ -369,7 +388,8 @@
         "depth": 90,
         "height": 109
       },
-      "label": "HORSESHOE"
+      "label": "HORSESHOE",
+      "era": "present"
     },
     {
       "id": "the-cromwell",
@@ -384,7 +404,8 @@
         "depth": 90,
         "height": 91
       },
-      "label": "THE CROMWELL"
+      "label": "THE CROMWELL",
+      "era": "present"
     },
     {
       "id": "flamingo",
@@ -399,7 +420,8 @@
         "depth": 90,
         "height": 123
       },
-      "label": "FLAMINGO"
+      "label": "FLAMINGO",
+      "era": "present"
     },
     {
       "id": "the-linq",
@@ -416,7 +438,8 @@
       },
       "label": "THE LINQ",
       "reserve": "high-roller-wheel",
-      "reserveNote": "High Roller wheel set behind — placeholder ring for now"
+      "reserveNote": "High Roller wheel set behind \u2014 placeholder ring for now",
+      "era": "present"
     },
     {
       "id": "harrahs",
@@ -431,7 +454,8 @@
         "depth": 90,
         "height": 109
       },
-      "label": "HARRAH'S"
+      "label": "HARRAH'S",
+      "era": "present"
     },
     {
       "id": "venetian",
@@ -446,7 +470,8 @@
         "depth": 90,
         "height": 123
       },
-      "label": "VENETIAN"
+      "label": "VENETIAN",
+      "era": "present"
     },
     {
       "id": "palazzo",
@@ -462,7 +487,8 @@
         "height": 116
       },
       "label": "PALAZZO",
-      "separateFrom": "venetian"
+      "separateFrom": "venetian",
+      "era": "present"
     },
     {
       "id": "wynn",
@@ -477,7 +503,8 @@
         "depth": 90,
         "height": 113
       },
-      "label": "WYNN"
+      "label": "WYNN",
+      "era": "present"
     },
     {
       "id": "encore",
@@ -493,7 +520,8 @@
         "height": 109
       },
       "label": "ENCORE",
-      "separateFrom": "wynn"
+      "separateFrom": "wynn",
+      "era": "present"
     },
     {
       "id": "sahara",
@@ -508,7 +536,8 @@
         "depth": 90,
         "height": 116
       },
-      "label": "SAHARA"
+      "label": "SAHARA",
+      "era": "present"
     },
     {
       "id": "the-strat",
@@ -524,7 +553,8 @@
         "height": 240
       },
       "label": "THE STRAT",
-      "terminus": true
+      "terminus": true,
+      "era": "present"
     }
   ],
   "adAnchors": [

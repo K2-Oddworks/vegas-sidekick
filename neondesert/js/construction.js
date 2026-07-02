@@ -40,17 +40,17 @@ function craneUnitGeometry(mastH, jibLen){
   return mergeGeometries(parts);
 }
 
-function sparseWorkLightTexture(){
+function sparseWorkLightTexture(repeatX = 3, repeatY = 6, count = 10){
   const c = document.createElement('canvas'); c.width = c.height = 128;
   const ctx = c.getContext('2d');
   ctx.fillStyle = '#000'; ctx.fillRect(0,0,128,128);
-  for (let i = 0; i < 10; i++){
+  for (let i = 0; i < count; i++){
     ctx.fillStyle = 'rgba(190,220,255,0.8)';
     ctx.fillRect(Math.random()*120, Math.random()*120, 3, 6);
   }
   const t = new THREE.CanvasTexture(c);
   t.wrapS = t.wrapT = THREE.RepeatWrapping;
-  t.repeat.set(3, 6);
+  t.repeat.set(repeatX, repeatY);
   return t;
 }
 
@@ -80,11 +80,17 @@ export function buildConstructionSites({ scene, spine, data }){
     }
 
     if (z.constructionSite.type === 'ballpark-bowl'){
+      // A bare unlit torus this size (radius ~100) reads as a black void
+      // crossing the corridor at night — work-light emissive + a brighter
+      // base tone keep it legible as a construction bowl instead of a hole.
       const bowl = new THREE.TorusGeometry(z.footprint.width*0.5, 6, 8, 32, Math.PI*1.45);
       bowl.rotateX(Math.PI/2);
       bowl.scale(1, 1, 0.62);
       bowl.translate(position.x, 16, position.z);
-      const mat = new THREE.MeshStandardMaterial({ color: 0x30343c, roughness: 0.9, metalness: 0.2 });
+      const mat = new THREE.MeshStandardMaterial({
+        color: 0x565d69, roughness: 0.8, metalness: 0.2,
+        emissiveMap: sparseWorkLightTexture(10, 20, 40), emissive: 0xffffff, emissiveIntensity: 1.1
+      });
       scene.add(new THREE.Mesh(bowl, mat));
     }
 

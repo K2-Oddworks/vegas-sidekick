@@ -5,17 +5,18 @@ import * as THREE from 'three';
 // can keep serving them against the new index.html and silently break (HUD
 // elements the stale script expects no longer exist). Bump PHASE when any
 // of these files changes again.
-import { createWelcomeSign } from './sign.js?v=3';
-import { createBloomPipeline } from './bloom.js?v=3';
-import { loadSpineData, buildSpine } from './spine.js?v=3';
-import { buildRoad } from './road.js?v=3';
-import { buildZones } from './zones.js?v=3';
-import { buildConstructionSites } from './construction.js?v=3';
-import { buildAdAnchors } from './adAnchors.js?v=3';
-import { buildSkyline } from './skyline.js?v=3';
-import { createCameraRig, createDriveController, wireDriveInput } from './cameraRig.js?v=3';
-import { createDebugHud } from './debug.js?v=3';
-import { buildSky } from './sky.js?v=3';
+import { createWelcomeSign } from './sign.js?v=4';
+import { createBloomPipeline } from './bloom.js?v=4';
+import { loadSpineData, buildSpine } from './spine.js?v=4';
+import { buildRoad } from './road.js?v=4';
+import { buildZones } from './zones.js?v=4';
+import { buildConstructionSites } from './construction.js?v=4';
+import { buildAdAnchors } from './adAnchors.js?v=4';
+import { buildSkyline } from './skyline.js?v=4';
+import { createCameraRig, createDriveController, wireDriveInput } from './cameraRig.js?v=4';
+import { createDebugHud } from './debug.js?v=4';
+import { buildSky } from './sky.js?v=4';
+import { createInteractablesRegistry, createInteractableMenu } from './interactables.js?v=4';
 
 /* ============================================================
    NEON DESERT · MAIN                                       🌵
@@ -39,9 +40,11 @@ renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.05;
 
-// Early-evening desert dusk, not full night — bright enough that the
-// placeholder massing actually reads as buildings instead of black voids.
-const FOG_NEAR = 30, FOG_FAR = 420, FOG_COLOR = 0x241f3a;
+// Night is the default state. Readability doesn't come from brightening the
+// time of day — it comes from the world emitting: dense emissive windows,
+// street-level glow bands, lit streetlights, all feeding a bloom pass. The
+// fog stays a warm dark navy so it blends into the sky dome's ground haze.
+const FOG_NEAR = 30, FOG_FAR = 420, FOG_COLOR = 0x0d0a06;
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(FOG_COLOR);
 scene.fog = new THREE.Fog(FOG_COLOR, FOG_NEAR, FOG_FAR);
@@ -53,27 +56,35 @@ async function boot(){
     await bootScene();
   } catch (err) {
     console.error('Neon Desert failed to boot:', err);
+    // The loader is otherwise a plain black overlay with no copy — this is
+    // the one exception, since a silent black screen on a real boot failure
+    // is undebuggable.
     const loader = document.getElementById('loader');
     loader.textContent = 'Something went sideways loading the Strip — please reload. (' + err.message + ')';
-    loader.style.whiteSpace = 'normal';
-    loader.style.padding = '0 32px';
-    loader.style.textAlign = 'center';
+    Object.assign(loader.style, {
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      whiteSpace: 'normal', padding: '0 32px', textAlign: 'center',
+      font: '500 12px/1.6 "IBM Plex Mono",ui-monospace,monospace',
+      letterSpacing: '.08em', color: '#FF6B2B'
+    });
   }
 }
 
 async function bootScene(){
-  const data = await loadSpineData(new URL('../data/strip-spine.json?v=3', import.meta.url));
+  const data = await loadSpineData(new URL('../data/strip-spine.json?v=4', import.meta.url));
   const spine = buildSpine(data);
 
   const sky = buildSky({ scene });
-  // Scene-wide dusk ambient — separate from the sign's own dimmer fill
-  // lights so the sign module stays untouched. Warm sky/ground hemisphere
-  // fill plus a low, soft "sun just set" key light give the massing blocks
-  // enough shading to read as buildings instead of flat black silhouettes.
-  scene.add(new THREE.HemisphereLight(0x5c6ea0, 0x3a2a22, 0.85));
-  const sunset = new THREE.DirectionalLight(0xffab72, 0.42);
-  sunset.position.set(300, 45, 160);
-  scene.add(sunset);
+  // Scene-wide night ambient — separate from the sign's own dimmer fill
+  // lights so the sign module stays untouched. This is intentionally low:
+  // the massing, road and street furniture read from their own emissive
+  // materials (fed into the bloom pass), not from a bright directional sun.
+  // The hemisphere + a faint cool "moonlight" key just keep flat surfaces
+  // from going pure black in areas the emissive layer doesn't reach.
+  scene.add(new THREE.HemisphereLight(0x2a3550, 0x201509, 0.6));
+  const moonKey = new THREE.DirectionalLight(0x6f86c9, 0.24);
+  moonKey.position.set(-140, 220, 90);
+  scene.add(moonKey);
 
   const sign = createWelcomeSign({ scene, renderer });
   const road = buildRoad({ scene, spine, data });
@@ -82,12 +93,18 @@ async function bootScene(){
   const adAnchors = buildAdAnchors({ scene, spine, data });
   const skyline = buildSkyline({ scene, spine, data });
 
-  const alwaysGlow = [sign.bulbs, sign.starGroup.userData.bulbs, road.bulbs];
+  const alwaysGlow = [sign.bulbs, sign.starGroup.userData.bulbs, road.bulbs, road.reflectors];
   if (construction.beacons) alwaysGlow.push(construction.beacons);
+  if (zones.glowBandMesh) alwaysGlow.push(zones.glowBandMesh);
   const bloom = createBloomPipeline({
     renderer, scene, camera, pixelRatio: PX,
     alwaysGlow, fogColor: FOG_COLOR, fogNear: FOG_NEAR, fogFar: FOG_FAR
   });
+  // Massing windows and ad-anchor screens feed the bloom pass through a
+  // dim glow-only material variant rather than their full-brightness base
+  // material, so distant towers get a soft halo instead of blowing out.
+  [...(zones.glowPairs || []), ...(adAnchors.glowPairs || [])]
+    .forEach(({ mesh, material }) => bloom.glowSwap.set(mesh, material));
 
   /* ---------- drive camera ---------- */
   const rig = createCameraRig({ camera });
@@ -96,21 +113,47 @@ async function bootScene(){
   const laneOffset = data.road.medianWidth/2 + data.road.laneWidth*0.5;
   const drive = createDriveController({ spine, initialSpineDistance: data.anchors.welcomeSign.spinePosition + 6, laneOffset });
   rig.setController(drive);
-  wireDriveInput({ canvas, throttleEl: document.getElementById('throttle'), controller: drive });
+  const driveInput = wireDriveInput({ canvas, throttleEl: document.getElementById('throttle'), controller: drive });
 
   document.getElementById('btnStop').addEventListener('click', () => drive.stop());
   document.getElementById('btnUturn').addEventListener('click', () => drive.uTurn());
   const throttleFill = document.getElementById('throttleFill');
 
-  /* ---------- sign bulb chase toggle (Phase 1 control, kept) ---------- */
+  /* ---------- interactables registry ---------- */
+  // Any customizable object in the world registers here as
+  // { id, worldPosition, label, options[] } and renders as a small pulsing
+  // orange diamond; tapping it opens a minimal pill menu of its options.
+  // The sign's bulb-chase control (formerly the bottom BULBS button) is the
+  // first entry.
+  const interactables = createInteractablesRegistry({ scene });
+  const interactableMenu = createInteractableMenu();
+
   const chaseModes = ['Classic chase','Sparkle','Steady'];
   let chaseMode = reduceMotion ? 2 : 0;
-  const btnChase = document.getElementById('btnChase');
-  btnChase.addEventListener('click', () => {
-    chaseMode = (chaseMode+1) % 3;
-    btnChase.querySelector('.val').textContent = chaseModes[chaseMode];
+  // The drive starts a few units past the sign heading away from it, in the
+  // east lane rather than the median — so the diamond needs to sit ahead of
+  // the start position and roughly in that same lane, or the portrait
+  // viewport's narrow horizontal FOV puts it off-screen at boot.
+  const bulbDiamondPos = spine.place(data.anchors.welcomeSign.spinePosition + 20, 'east', laneOffset, 3.4).position;
+  interactables.register({
+    id: 'sign-bulbs',
+    worldPosition: bulbDiamondPos,
+    label: 'Bulb Pattern',
+    options: chaseModes,
+    get: () => chaseModes[chaseMode],
+    onSelect: (opt) => { chaseMode = chaseModes.indexOf(opt); }
   });
-  btnChase.querySelector('.val').textContent = chaseModes[chaseMode];
+
+  const raycaster = new THREE.Raycaster();
+  const pointerNDC = new THREE.Vector2();
+  canvas.addEventListener('pointerup', e => {
+    if (driveInput.wasDragLook()) return;
+    pointerNDC.set((e.clientX/innerWidth)*2-1, -(e.clientY/innerHeight)*2+1);
+    raycaster.setFromCamera(pointerNDC, camera);
+    const hit = interactables.hitTest(raycaster);
+    if (hit) interactableMenu.open(hit, e.clientX, e.clientY);
+    else interactableMenu.close();
+  });
 
   const debugHud = createDebugHud({ renderer });
   if (new URLSearchParams(location.search).get('debug') === '1'){
@@ -143,6 +186,7 @@ async function bootScene(){
     sign.updateBulbs(t, chaseMode, reduceMotion);
     construction.updateBeacons?.(t);
     adAnchors.updateDigitalBillboards?.(t);
+    interactables.update(t);
     throttleFill.style.width = (drive.state.speed / drive.MAX_SPEED * 100) + '%';
 
     bloom.renderFrame();
