@@ -404,18 +404,55 @@ const STRIP = [
 
 const clickables = [];  // { mesh, name, side }
 
+// Neutral procedural window-grid facade for not-yet-built placeholders — so an unbuilt
+// property reads as "a plausible generic hotel tower" instead of a bare colored slab.
+function shadeHex(hex, amt) {
+  const c = new THREE.Color(hex);
+  c.lerp(new THREE.Color(amt >= 0 ? 0xffffff : 0x000000), Math.abs(amt));
+  return c;
+}
+function genericFacade(baseHex, cols, rows) {
+  const cw = 256, ch = Math.round(256 * rows / cols);
+  const dc = document.createElement('canvas'); dc.width = cw; dc.height = ch;
+  const dg = dc.getContext('2d');
+  const grad = dg.createLinearGradient(0, 0, 0, ch);
+  grad.addColorStop(0, '#' + shadeHex(baseHex, 0.22).getHexString());
+  grad.addColorStop(0.55, '#' + new THREE.Color(baseHex).getHexString());
+  grad.addColorStop(1, '#' + shadeHex(baseHex, -0.25).getHexString());
+  dg.fillStyle = grad; dg.fillRect(0, 0, cw, ch);
+  const ec = document.createElement('canvas'); ec.width = cw; ec.height = ch;
+  const eg = ec.getContext('2d'); eg.fillStyle = '#000'; eg.fillRect(0, 0, cw, ch);
+  const mx = cw / cols, my = ch / rows, pad = mx * 0.18;
+  for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+    const x = c * mx + pad, y = r * my + pad, ww = mx - 2 * pad, hh = my - 2 * pad;
+    dg.fillStyle = 'rgba(10,14,26,0.35)'; dg.fillRect(x, y, ww, hh);
+    dg.fillStyle = 'rgba(255,255,255,0.08)'; dg.fillRect(x, y, ww, hh * 0.4);
+    if (Math.random() < 0.32) {
+      eg.fillStyle = 'rgb(255,' + (200 + (Math.random() * 40 | 0)) + ',' + (140 + (Math.random() * 60 | 0)) + ')';
+      eg.fillRect(x, y, ww, hh);
+    }
+  }
+  return { diffuse: new THREE.CanvasTexture(dc), emissive: new THREE.CanvasTexture(ec) };
+}
+
 // ─── Core box builder (labeled + clickable) ────────────────────────────────────
 function makeBox(name, side, x, z, w, d, h, opts = {}) {
   const color   = opts.color   != null ? opts.color   : 0x2b3352;
   const edge    = opts.edge    != null ? opts.edge    : 0x4488ff;
   const emissive = opts.emissive != null ? opts.emissive : 0xffcc88;
-  const mat = toon(color, { emissive: new THREE.Color(emissive), emissiveIntensity: 0 });
+  const cols = Math.max(3, Math.min(9, Math.round(w / 3.2)));
+  const rows = Math.max(5, Math.min(16, Math.round(h / 3)));
+  const facade = genericFacade(color, cols, rows);
+  const mat = new THREE.MeshToonMaterial({
+    map: facade.diffuse, emissiveMap: facade.emissive, color: 0xffffff,
+    emissive: new THREE.Color(emissive), emissiveIntensity: 0, gradientMap: toonGrad
+  });
   const box = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
   box.position.set(x, GROUND_Y + h / 2, z);
   if (!IS_MOBILE) { box.castShadow = true; box.receiveShadow = true; }
   addEdges(box, edge, 12);
   scene.add(box);
-  structGlow.push(mat); // full-surface box fill — kept dim so it doesn't flood the bloom pass
+  emissiveMeshes.push(mat); // windows are masked via emissiveMap, so the standard glow curve is safe
   clickables.push({ mesh: box, name, side });
 
   const label = makeLabel(name);
