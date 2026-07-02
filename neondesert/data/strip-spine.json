@@ -1,0 +1,1658 @@
+{
+  "meta": {
+    "name": "strip-spine",
+    "phase": 2,
+    "units": "world units (~ meters, compressed ~40% vs real-world Strip distances)",
+    "generated": true
+  },
+  "spineLength": 3605,
+  "road": {
+    "lanesEachDirection": 4,
+    "laneWidth": 3.6,
+    "medianWidth": 6
+  },
+  "centerline": [
+    {
+      "x": 0,
+      "z": 0
+    },
+    {
+      "x": 6,
+      "z": -648.9
+    },
+    {
+      "x": -4,
+      "z": -1442
+    },
+    {
+      "x": 3,
+      "z": -2235.1
+    },
+    {
+      "x": -5,
+      "z": -2956.1
+    },
+    {
+      "x": 0,
+      "z": -3605
+    }
+  ],
+  "anchors": {
+    "welcomeSign": {
+      "spinePosition": 0,
+      "side": "median",
+      "note": "Phase 1 module, real median position"
+    },
+    "stratTerminus": {
+      "spinePosition": 3545,
+      "side": "east",
+      "note": "North terminus — tower closes the view"
+    }
+  },
+  "zones": [
+    {
+      "id": "mandalay-bay",
+      "name": "Mandalay Bay",
+      "side": "west",
+      "spineRange": [
+        140,
+        400
+      ],
+      "footprint": {
+        "width": 260,
+        "depth": 90,
+        "height": 151
+      },
+      "label": "MANDALAY BAY"
+    },
+    {
+      "id": "luxor",
+      "name": "Luxor",
+      "side": "west",
+      "spineRange": [
+        455,
+        605
+      ],
+      "footprint": {
+        "width": 150,
+        "depth": 90,
+        "height": 113
+      },
+      "label": "LUXOR"
+    },
+    {
+      "id": "excalibur",
+      "name": "Excalibur",
+      "side": "west",
+      "spineRange": [
+        660,
+        800
+      ],
+      "footprint": {
+        "width": 140,
+        "depth": 90,
+        "height": 109
+      },
+      "label": "EXCALIBUR"
+    },
+    {
+      "id": "new-york-new-york",
+      "name": "New York-New York",
+      "side": "west",
+      "spineRange": [
+        855,
+        985
+      ],
+      "footprint": {
+        "width": 130,
+        "depth": 90,
+        "height": 106
+      },
+      "label": "NEW YORK-NEW YORK"
+    },
+    {
+      "id": "park-mgm",
+      "name": "Park MGM",
+      "side": "west",
+      "spineRange": [
+        1040,
+        1190
+      ],
+      "footprint": {
+        "width": 150,
+        "depth": 90,
+        "height": 113
+      },
+      "label": "PARK MGM",
+      "reserve": "arena-behind",
+      "reserveNote": "T-Mobile Arena set behind property"
+    },
+    {
+      "id": "aria",
+      "name": "Aria",
+      "side": "west",
+      "spineRange": [
+        1245,
+        1445
+      ],
+      "footprint": {
+        "width": 200,
+        "depth": 90,
+        "height": 130
+      },
+      "label": "ARIA",
+      "reserveNote": "CityCenter cluster"
+    },
+    {
+      "id": "cosmopolitan",
+      "name": "Cosmopolitan",
+      "side": "west",
+      "spineRange": [
+        1500,
+        1650
+      ],
+      "footprint": {
+        "width": 150,
+        "depth": 90,
+        "height": 113
+      },
+      "label": "COSMOPOLITAN"
+    },
+    {
+      "id": "bellagio",
+      "name": "Bellagio",
+      "side": "west",
+      "spineRange": [
+        1705,
+        1925
+      ],
+      "footprint": {
+        "width": 220,
+        "depth": 90,
+        "height": 137
+      },
+      "label": "BELLAGIO",
+      "reserve": "fountain-lake",
+      "reserveNote": "fountain lake frontage reserved for future phase"
+    },
+    {
+      "id": "caesars-palace",
+      "name": "Caesars Palace",
+      "side": "west",
+      "spineRange": [
+        1980,
+        2200
+      ],
+      "footprint": {
+        "width": 220,
+        "depth": 90,
+        "height": 137
+      },
+      "label": "CAESARS PALACE"
+    },
+    {
+      "id": "hard-rock",
+      "name": "Hard Rock",
+      "side": "west",
+      "spineRange": [
+        2255,
+        2405
+      ],
+      "footprint": {
+        "width": 150,
+        "depth": 90,
+        "height": 130
+      },
+      "label": "HARD ROCK",
+      "constructionSite": {
+        "type": "guitar-skeleton",
+        "stories": 42,
+        "cranes": 2
+      }
+    },
+    {
+      "id": "treasure-island",
+      "name": "Treasure Island",
+      "side": "west",
+      "spineRange": [
+        2460,
+        2600
+      ],
+      "footprint": {
+        "width": 140,
+        "depth": 90,
+        "height": 109
+      },
+      "label": "TREASURE ISLAND"
+    },
+    {
+      "id": "fashion-show-mall",
+      "name": "Fashion Show Mall",
+      "side": "west",
+      "spineRange": [
+        2655,
+        2835
+      ],
+      "footprint": {
+        "width": 180,
+        "depth": 90,
+        "height": 123
+      },
+      "label": "FASHION SHOW MALL"
+    },
+    {
+      "id": "resorts-world",
+      "name": "Resorts World",
+      "side": "west",
+      "spineRange": [
+        2890,
+        3090
+      ],
+      "footprint": {
+        "width": 200,
+        "depth": 90,
+        "height": 130
+      },
+      "label": "RESORTS WORLD"
+    },
+    {
+      "id": "circus-circus",
+      "name": "Circus Circus",
+      "side": "west",
+      "spineRange": [
+        3145,
+        3315
+      ],
+      "footprint": {
+        "width": 170,
+        "depth": 90,
+        "height": 119
+      },
+      "label": "CIRCUS CIRCUS"
+    },
+    {
+      "id": "athletics-ballpark",
+      "name": "Athletics Ballpark",
+      "side": "east",
+      "spineRange": [
+        140,
+        340
+      ],
+      "footprint": {
+        "width": 200,
+        "depth": 90,
+        "height": 130
+      },
+      "label": "ATHLETICS BALLPARK",
+      "constructionSite": {
+        "type": "ballpark-bowl",
+        "cranes": 2
+      },
+      "reserveNote": "former Tropicana site"
+    },
+    {
+      "id": "mgm-grand",
+      "name": "MGM Grand",
+      "side": "east",
+      "spineRange": [
+        395,
+        615
+      ],
+      "footprint": {
+        "width": 220,
+        "depth": 90,
+        "height": 137
+      },
+      "label": "MGM GRAND"
+    },
+    {
+      "id": "showcase-mall",
+      "name": "Showcase Mall",
+      "side": "east",
+      "spineRange": [
+        670,
+        780
+      ],
+      "footprint": {
+        "width": 110,
+        "depth": 90,
+        "height": 99
+      },
+      "label": "SHOWCASE MALL"
+    },
+    {
+      "id": "planet-hollywood",
+      "name": "Planet Hollywood",
+      "side": "east",
+      "spineRange": [
+        835,
+        995
+      ],
+      "footprint": {
+        "width": 160,
+        "depth": 90,
+        "height": 116
+      },
+      "label": "PLANET HOLLYWOOD"
+    },
+    {
+      "id": "paris",
+      "name": "Paris",
+      "side": "east",
+      "spineRange": [
+        1050,
+        1230
+      ],
+      "footprint": {
+        "width": 180,
+        "depth": 90,
+        "height": 123
+      },
+      "label": "PARIS",
+      "reserve": "eiffel-tower",
+      "reserveNote": "Eiffel Tower plot reserved for future phase"
+    },
+    {
+      "id": "horseshoe",
+      "name": "Horseshoe",
+      "side": "east",
+      "spineRange": [
+        1285,
+        1425
+      ],
+      "footprint": {
+        "width": 140,
+        "depth": 90,
+        "height": 109
+      },
+      "label": "HORSESHOE"
+    },
+    {
+      "id": "the-cromwell",
+      "name": "The Cromwell",
+      "side": "east",
+      "spineRange": [
+        1480,
+        1570
+      ],
+      "footprint": {
+        "width": 90,
+        "depth": 90,
+        "height": 91
+      },
+      "label": "THE CROMWELL"
+    },
+    {
+      "id": "flamingo",
+      "name": "Flamingo",
+      "side": "east",
+      "spineRange": [
+        1625,
+        1805
+      ],
+      "footprint": {
+        "width": 180,
+        "depth": 90,
+        "height": 123
+      },
+      "label": "FLAMINGO"
+    },
+    {
+      "id": "the-linq",
+      "name": "The LINQ",
+      "side": "east",
+      "spineRange": [
+        1860,
+        2010
+      ],
+      "footprint": {
+        "width": 150,
+        "depth": 90,
+        "height": 113
+      },
+      "label": "THE LINQ",
+      "reserve": "high-roller-wheel",
+      "reserveNote": "High Roller wheel set behind — placeholder ring for now"
+    },
+    {
+      "id": "harrahs",
+      "name": "Harrah's",
+      "side": "east",
+      "spineRange": [
+        2065,
+        2205
+      ],
+      "footprint": {
+        "width": 140,
+        "depth": 90,
+        "height": 109
+      },
+      "label": "HARRAH'S"
+    },
+    {
+      "id": "venetian",
+      "name": "Venetian",
+      "side": "east",
+      "spineRange": [
+        2260,
+        2440
+      ],
+      "footprint": {
+        "width": 180,
+        "depth": 90,
+        "height": 123
+      },
+      "label": "VENETIAN"
+    },
+    {
+      "id": "palazzo",
+      "name": "Palazzo",
+      "side": "east",
+      "spineRange": [
+        2495,
+        2655
+      ],
+      "footprint": {
+        "width": 160,
+        "depth": 90,
+        "height": 116
+      },
+      "label": "PALAZZO",
+      "separateFrom": "venetian"
+    },
+    {
+      "id": "wynn",
+      "name": "Wynn",
+      "side": "east",
+      "spineRange": [
+        2710,
+        2860
+      ],
+      "footprint": {
+        "width": 150,
+        "depth": 90,
+        "height": 113
+      },
+      "label": "WYNN"
+    },
+    {
+      "id": "encore",
+      "name": "Encore",
+      "side": "east",
+      "spineRange": [
+        2915,
+        3055
+      ],
+      "footprint": {
+        "width": 140,
+        "depth": 90,
+        "height": 109
+      },
+      "label": "ENCORE",
+      "separateFrom": "wynn"
+    },
+    {
+      "id": "sahara",
+      "name": "Sahara",
+      "side": "east",
+      "spineRange": [
+        3110,
+        3270
+      ],
+      "footprint": {
+        "width": 160,
+        "depth": 90,
+        "height": 116
+      },
+      "label": "SAHARA"
+    },
+    {
+      "id": "the-strat",
+      "name": "The STRAT",
+      "side": "east",
+      "spineRange": [
+        3325,
+        3445
+      ],
+      "footprint": {
+        "width": 120,
+        "depth": 90,
+        "height": 240
+      },
+      "label": "THE STRAT",
+      "terminus": true
+    }
+  ],
+  "adAnchors": [
+    {
+      "id": "brick-mandalay-bay-01",
+      "tier": "street-brick",
+      "spinePosition": 173,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-mandalay-bay-02",
+      "tier": "street-brick",
+      "spinePosition": 238,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-mandalay-bay-03",
+      "tier": "street-brick",
+      "spinePosition": 303,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-mandalay-bay-04",
+      "tier": "street-brick",
+      "spinePosition": 368,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-luxor-01",
+      "tier": "street-brick",
+      "spinePosition": 474,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-luxor-02",
+      "tier": "street-brick",
+      "spinePosition": 511,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-luxor-03",
+      "tier": "street-brick",
+      "spinePosition": 549,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-luxor-04",
+      "tier": "street-brick",
+      "spinePosition": 586,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-excalibur-01",
+      "tier": "street-brick",
+      "spinePosition": 678,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-excalibur-02",
+      "tier": "street-brick",
+      "spinePosition": 713,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-excalibur-03",
+      "tier": "street-brick",
+      "spinePosition": 748,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-excalibur-04",
+      "tier": "street-brick",
+      "spinePosition": 783,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-new-york-new-york-01",
+      "tier": "street-brick",
+      "spinePosition": 871,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-new-york-new-york-02",
+      "tier": "street-brick",
+      "spinePosition": 904,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-new-york-new-york-03",
+      "tier": "street-brick",
+      "spinePosition": 936,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-new-york-new-york-04",
+      "tier": "street-brick",
+      "spinePosition": 969,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-park-mgm-01",
+      "tier": "street-brick",
+      "spinePosition": 1059,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-park-mgm-02",
+      "tier": "street-brick",
+      "spinePosition": 1096,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-park-mgm-03",
+      "tier": "street-brick",
+      "spinePosition": 1134,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-park-mgm-04",
+      "tier": "street-brick",
+      "spinePosition": 1171,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-aria-01",
+      "tier": "street-brick",
+      "spinePosition": 1270,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-aria-02",
+      "tier": "street-brick",
+      "spinePosition": 1320,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-aria-03",
+      "tier": "street-brick",
+      "spinePosition": 1370,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-aria-04",
+      "tier": "street-brick",
+      "spinePosition": 1420,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-cosmopolitan-01",
+      "tier": "street-brick",
+      "spinePosition": 1519,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-cosmopolitan-02",
+      "tier": "street-brick",
+      "spinePosition": 1556,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-cosmopolitan-03",
+      "tier": "street-brick",
+      "spinePosition": 1594,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-cosmopolitan-04",
+      "tier": "street-brick",
+      "spinePosition": 1631,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-bellagio-01",
+      "tier": "street-brick",
+      "spinePosition": 1733,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-bellagio-02",
+      "tier": "street-brick",
+      "spinePosition": 1788,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-bellagio-03",
+      "tier": "street-brick",
+      "spinePosition": 1843,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-bellagio-04",
+      "tier": "street-brick",
+      "spinePosition": 1898,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-caesars-palace-01",
+      "tier": "street-brick",
+      "spinePosition": 2008,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-caesars-palace-02",
+      "tier": "street-brick",
+      "spinePosition": 2063,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-caesars-palace-03",
+      "tier": "street-brick",
+      "spinePosition": 2118,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-caesars-palace-04",
+      "tier": "street-brick",
+      "spinePosition": 2173,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-hard-rock-01",
+      "tier": "street-brick",
+      "spinePosition": 2274,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-hard-rock-02",
+      "tier": "street-brick",
+      "spinePosition": 2311,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-hard-rock-03",
+      "tier": "street-brick",
+      "spinePosition": 2349,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-hard-rock-04",
+      "tier": "street-brick",
+      "spinePosition": 2386,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-treasure-island-01",
+      "tier": "street-brick",
+      "spinePosition": 2478,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-treasure-island-02",
+      "tier": "street-brick",
+      "spinePosition": 2513,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-treasure-island-03",
+      "tier": "street-brick",
+      "spinePosition": 2548,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-treasure-island-04",
+      "tier": "street-brick",
+      "spinePosition": 2583,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-fashion-show-mall-01",
+      "tier": "street-brick",
+      "spinePosition": 2678,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-fashion-show-mall-02",
+      "tier": "street-brick",
+      "spinePosition": 2723,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-fashion-show-mall-03",
+      "tier": "street-brick",
+      "spinePosition": 2768,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-fashion-show-mall-04",
+      "tier": "street-brick",
+      "spinePosition": 2813,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-resorts-world-01",
+      "tier": "street-brick",
+      "spinePosition": 2915,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-resorts-world-02",
+      "tier": "street-brick",
+      "spinePosition": 2965,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-resorts-world-03",
+      "tier": "street-brick",
+      "spinePosition": 3015,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-resorts-world-04",
+      "tier": "street-brick",
+      "spinePosition": 3065,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-circus-circus-01",
+      "tier": "street-brick",
+      "spinePosition": 3166,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-circus-circus-02",
+      "tier": "street-brick",
+      "spinePosition": 3209,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-circus-circus-03",
+      "tier": "street-brick",
+      "spinePosition": 3251,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-circus-circus-04",
+      "tier": "street-brick",
+      "spinePosition": 3294,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "brick-athletics-ballpark-01",
+      "tier": "street-brick",
+      "spinePosition": 165,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-athletics-ballpark-02",
+      "tier": "street-brick",
+      "spinePosition": 215,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-athletics-ballpark-03",
+      "tier": "street-brick",
+      "spinePosition": 265,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-athletics-ballpark-04",
+      "tier": "street-brick",
+      "spinePosition": 315,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-mgm-grand-01",
+      "tier": "street-brick",
+      "spinePosition": 423,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-mgm-grand-02",
+      "tier": "street-brick",
+      "spinePosition": 478,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-mgm-grand-03",
+      "tier": "street-brick",
+      "spinePosition": 533,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-mgm-grand-04",
+      "tier": "street-brick",
+      "spinePosition": 588,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-showcase-mall-01",
+      "tier": "street-brick",
+      "spinePosition": 684,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-showcase-mall-02",
+      "tier": "street-brick",
+      "spinePosition": 711,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-showcase-mall-03",
+      "tier": "street-brick",
+      "spinePosition": 739,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-showcase-mall-04",
+      "tier": "street-brick",
+      "spinePosition": 766,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-planet-hollywood-01",
+      "tier": "street-brick",
+      "spinePosition": 855,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-planet-hollywood-02",
+      "tier": "street-brick",
+      "spinePosition": 895,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-planet-hollywood-03",
+      "tier": "street-brick",
+      "spinePosition": 935,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-planet-hollywood-04",
+      "tier": "street-brick",
+      "spinePosition": 975,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-paris-01",
+      "tier": "street-brick",
+      "spinePosition": 1073,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-paris-02",
+      "tier": "street-brick",
+      "spinePosition": 1118,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-paris-03",
+      "tier": "street-brick",
+      "spinePosition": 1163,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-paris-04",
+      "tier": "street-brick",
+      "spinePosition": 1208,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-horseshoe-01",
+      "tier": "street-brick",
+      "spinePosition": 1303,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-horseshoe-02",
+      "tier": "street-brick",
+      "spinePosition": 1338,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-horseshoe-03",
+      "tier": "street-brick",
+      "spinePosition": 1373,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-horseshoe-04",
+      "tier": "street-brick",
+      "spinePosition": 1408,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-the-cromwell-01",
+      "tier": "street-brick",
+      "spinePosition": 1491,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-the-cromwell-02",
+      "tier": "street-brick",
+      "spinePosition": 1514,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-the-cromwell-03",
+      "tier": "street-brick",
+      "spinePosition": 1536,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-the-cromwell-04",
+      "tier": "street-brick",
+      "spinePosition": 1559,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-flamingo-01",
+      "tier": "street-brick",
+      "spinePosition": 1648,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-flamingo-02",
+      "tier": "street-brick",
+      "spinePosition": 1693,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-flamingo-03",
+      "tier": "street-brick",
+      "spinePosition": 1738,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-flamingo-04",
+      "tier": "street-brick",
+      "spinePosition": 1783,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-the-linq-01",
+      "tier": "street-brick",
+      "spinePosition": 1879,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-the-linq-02",
+      "tier": "street-brick",
+      "spinePosition": 1916,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-the-linq-03",
+      "tier": "street-brick",
+      "spinePosition": 1954,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-the-linq-04",
+      "tier": "street-brick",
+      "spinePosition": 1991,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-harrahs-01",
+      "tier": "street-brick",
+      "spinePosition": 2083,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-harrahs-02",
+      "tier": "street-brick",
+      "spinePosition": 2118,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-harrahs-03",
+      "tier": "street-brick",
+      "spinePosition": 2153,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-harrahs-04",
+      "tier": "street-brick",
+      "spinePosition": 2188,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-venetian-01",
+      "tier": "street-brick",
+      "spinePosition": 2283,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-venetian-02",
+      "tier": "street-brick",
+      "spinePosition": 2328,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-venetian-03",
+      "tier": "street-brick",
+      "spinePosition": 2373,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-venetian-04",
+      "tier": "street-brick",
+      "spinePosition": 2418,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-palazzo-01",
+      "tier": "street-brick",
+      "spinePosition": 2515,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-palazzo-02",
+      "tier": "street-brick",
+      "spinePosition": 2555,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-palazzo-03",
+      "tier": "street-brick",
+      "spinePosition": 2595,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-palazzo-04",
+      "tier": "street-brick",
+      "spinePosition": 2635,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-wynn-01",
+      "tier": "street-brick",
+      "spinePosition": 2729,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-wynn-02",
+      "tier": "street-brick",
+      "spinePosition": 2766,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-wynn-03",
+      "tier": "street-brick",
+      "spinePosition": 2804,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-wynn-04",
+      "tier": "street-brick",
+      "spinePosition": 2841,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-encore-01",
+      "tier": "street-brick",
+      "spinePosition": 2933,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-encore-02",
+      "tier": "street-brick",
+      "spinePosition": 2968,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-encore-03",
+      "tier": "street-brick",
+      "spinePosition": 3003,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-encore-04",
+      "tier": "street-brick",
+      "spinePosition": 3038,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-sahara-01",
+      "tier": "street-brick",
+      "spinePosition": 3130,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-sahara-02",
+      "tier": "street-brick",
+      "spinePosition": 3170,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-sahara-03",
+      "tier": "street-brick",
+      "spinePosition": 3210,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-sahara-04",
+      "tier": "street-brick",
+      "spinePosition": 3250,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-the-strat-01",
+      "tier": "street-brick",
+      "spinePosition": 3340,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-the-strat-02",
+      "tier": "street-brick",
+      "spinePosition": 3370,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-the-strat-03",
+      "tier": "street-brick",
+      "spinePosition": 3400,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "brick-the-strat-04",
+      "tier": "street-brick",
+      "spinePosition": 3430,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "static-billboard-01",
+      "tier": "static-billboard",
+      "spinePosition": 194,
+      "side": "west",
+      "facing": "north"
+    },
+    {
+      "id": "static-billboard-02",
+      "tier": "static-billboard",
+      "spinePosition": 441,
+      "side": "east",
+      "facing": "south"
+    },
+    {
+      "id": "static-billboard-03",
+      "tier": "static-billboard",
+      "spinePosition": 689,
+      "side": "west",
+      "facing": "north"
+    },
+    {
+      "id": "static-billboard-04",
+      "tier": "static-billboard",
+      "spinePosition": 936,
+      "side": "east",
+      "facing": "south"
+    },
+    {
+      "id": "static-billboard-05",
+      "tier": "static-billboard",
+      "spinePosition": 1184,
+      "side": "west",
+      "facing": "north"
+    },
+    {
+      "id": "static-billboard-06",
+      "tier": "static-billboard",
+      "spinePosition": 1431,
+      "side": "east",
+      "facing": "south"
+    },
+    {
+      "id": "static-billboard-07",
+      "tier": "static-billboard",
+      "spinePosition": 1679,
+      "side": "west",
+      "facing": "north"
+    },
+    {
+      "id": "static-billboard-08",
+      "tier": "static-billboard",
+      "spinePosition": 1926,
+      "side": "east",
+      "facing": "south"
+    },
+    {
+      "id": "static-billboard-09",
+      "tier": "static-billboard",
+      "spinePosition": 2174,
+      "side": "west",
+      "facing": "north"
+    },
+    {
+      "id": "static-billboard-10",
+      "tier": "static-billboard",
+      "spinePosition": 2421,
+      "side": "east",
+      "facing": "south"
+    },
+    {
+      "id": "static-billboard-11",
+      "tier": "static-billboard",
+      "spinePosition": 2669,
+      "side": "west",
+      "facing": "north"
+    },
+    {
+      "id": "static-billboard-12",
+      "tier": "static-billboard",
+      "spinePosition": 2916,
+      "side": "east",
+      "facing": "south"
+    },
+    {
+      "id": "static-billboard-13",
+      "tier": "static-billboard",
+      "spinePosition": 3164,
+      "side": "west",
+      "facing": "north"
+    },
+    {
+      "id": "static-billboard-14",
+      "tier": "static-billboard",
+      "spinePosition": 3411,
+      "side": "east",
+      "facing": "south"
+    },
+    {
+      "id": "digital-sign-approach-01",
+      "tier": "digital-billboard",
+      "spinePosition": 108,
+      "side": "east",
+      "facing": "south"
+    },
+    {
+      "id": "digital-tropicana-ave-01",
+      "tier": "digital-billboard",
+      "spinePosition": 505,
+      "side": "west",
+      "facing": "north"
+    },
+    {
+      "id": "digital-tropicana-ave-02",
+      "tier": "digital-billboard",
+      "spinePosition": 541,
+      "side": "east",
+      "facing": "south"
+    },
+    {
+      "id": "digital-flamingo-rd-01",
+      "tier": "digital-billboard",
+      "spinePosition": 1514,
+      "side": "east",
+      "facing": "south"
+    },
+    {
+      "id": "digital-flamingo-rd-02",
+      "tier": "digital-billboard",
+      "spinePosition": 1550,
+      "side": "west",
+      "facing": "north"
+    },
+    {
+      "id": "digital-spring-mtn-rd-01",
+      "tier": "digital-billboard",
+      "spinePosition": 2379,
+      "side": "west",
+      "facing": "north"
+    },
+    {
+      "id": "digital-sahara-ave-01",
+      "tier": "digital-billboard",
+      "spinePosition": 3172,
+      "side": "east",
+      "facing": "south"
+    },
+    {
+      "id": "digital-strat-approach-01",
+      "tier": "digital-billboard",
+      "spinePosition": 3497,
+      "side": "east",
+      "facing": "south"
+    },
+    {
+      "id": "premium-mandalay-bay-01",
+      "tier": "premium-marker",
+      "spinePosition": 270,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "premium-aria-01",
+      "tier": "premium-marker",
+      "spinePosition": 1345,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "premium-bellagio-01",
+      "tier": "premium-marker",
+      "spinePosition": 1815,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "premium-caesars-palace-01",
+      "tier": "premium-marker",
+      "spinePosition": 2090,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "premium-resorts-world-01",
+      "tier": "premium-marker",
+      "spinePosition": 2990,
+      "side": "west",
+      "facing": "street"
+    },
+    {
+      "id": "premium-mgm-grand-01",
+      "tier": "premium-marker",
+      "spinePosition": 505,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "premium-paris-01",
+      "tier": "premium-marker",
+      "spinePosition": 1140,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "premium-flamingo-01",
+      "tier": "premium-marker",
+      "spinePosition": 1715,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "premium-the-linq-01",
+      "tier": "premium-marker",
+      "spinePosition": 1935,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "premium-venetian-01",
+      "tier": "premium-marker",
+      "spinePosition": 2350,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "premium-palazzo-01",
+      "tier": "premium-marker",
+      "spinePosition": 2575,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "premium-wynn-01",
+      "tier": "premium-marker",
+      "spinePosition": 2785,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "premium-encore-01",
+      "tier": "premium-marker",
+      "spinePosition": 2985,
+      "side": "east",
+      "facing": "street"
+    },
+    {
+      "id": "premium-the-strat-01",
+      "tier": "premium-marker",
+      "spinePosition": 3385,
+      "side": "east",
+      "facing": "street"
+    }
+  ],
+  "skyline": [
+    {
+      "id": "skyline-sphere",
+      "type": "sphere-orb",
+      "spinePosition": 2884,
+      "side": "east",
+      "lateralOffset": 260,
+      "note": "dim glowing orb behind Venetian"
+    },
+    {
+      "id": "skyline-trump-tower",
+      "type": "generic-tower",
+      "spinePosition": 3100,
+      "side": "east",
+      "lateralOffset": 220
+    },
+    {
+      "id": "skyline-tower-01",
+      "type": "generic-tower",
+      "spinePosition": 1082,
+      "side": "west",
+      "lateralOffset": 300
+    },
+    {
+      "id": "skyline-tower-02",
+      "type": "generic-tower",
+      "spinePosition": 1983,
+      "side": "east",
+      "lateralOffset": 280
+    },
+    {
+      "id": "skyline-tower-03",
+      "type": "generic-tower",
+      "spinePosition": 2524,
+      "side": "west",
+      "lateralOffset": 320
+    }
+  ]
+}

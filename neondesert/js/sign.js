@@ -294,20 +294,14 @@ export function createWelcomeSign({ scene, renderer }){
   for(let i=0;i<bulbs.count;i++) bulbs.setColorAt(i, COL_OFF);
   bulbs.instanceColor.needsUpdate = true;
 
-  /* ---------- WELCOME circles along the top edges ---------- */
+  /* ---------- WELCOME circles along the top edges ----------
+     Reuse the diamond shape's own top-left/top-right curves (rather
+     than re-deriving control points with a different sign convention)
+     so the circles sit exactly on the real border edge instead of
+     drifting off it toward the star. */
   const topPath = new THREE.CurvePath();
-  {
-    const cpv=(a,b,out)=>{
-      const m=new THREE.Vector2().addVectors(a,b).multiplyScalar(0.5);
-      const d=new THREE.Vector2().subVectors(b,a);
-      const n=new THREE.Vector2(-d.y,d.x).normalize();
-      if (n.dot(m)<0) n.negate();
-      return m.add(n.multiplyScalar(out));
-    };
-    const L=new THREE.Vector2(-SIGN.w,0), T=new THREE.Vector2(0,SIGN.h), R=new THREE.Vector2(SIGN.w,0);
-    topPath.add(new THREE.QuadraticBezierCurve(L, cpv(L,T,SIGN.bulge), T));
-    topPath.add(new THREE.QuadraticBezierCurve(T, cpv(T,R,SIGN.bulge), R));
-  }
+  topPath.add(shape.curves[0]); // L -> T
+  topPath.add(shape.curves[1]); // T -> R
 
   const WELCOME = 'WELCOME';
   const circleGroup = new THREE.Group();
@@ -385,14 +379,26 @@ export function createWelcomeSign({ scene, renderer }){
 
   /* ---------- structure: poles, star frame, hardware ---------- */
   const steelBlue = new THREE.MeshStandardMaterial({ color:0x5FA8CF, roughness:0.55, metalness:0.35 });
+  // Star-frame verticals sit well above the ground uplights and the moon's
+  // grazing angle barely touches them, so with steelBlue's higher metalness
+  // they read as near-black voids at night. Lighten + desaturate the base
+  // color, drop metalness so ambient/hemisphere light does more work, and
+  // add a faint self-emissive tint so the bars always read as lit structure.
+  const steelBlueFrame = new THREE.MeshStandardMaterial({
+    color:0x8FC4E8, roughness:0.6, metalness:0.12,
+    emissive:0x1C3450, emissiveIntensity:0.55
+  });
+  const frameFill = new THREE.PointLight(0x9fc0ff, 9, 14, 2);
+  frameFill.position.set(0, 10.2, 2.6); scene.add(frameFill);
+
   function box(w,h,d,x,y,z,mat=steelBlue){
     const m = new THREE.Mesh(new THREE.BoxGeometry(w,h,d), mat);
     m.position.set(x,y,z); scene.add(m); return m;
   }
   box(0.44, 4.2, 0.30,  1.18, 2.1, 0);  // legs — stop beneath the panel, tucked inside sign depth
   box(0.44, 4.2, 0.30, -1.18, 2.1, 0);
-  box(0.30, 4.3, 0.30,  1.02, 9.45, 0); // star frame verticals — perch on the top edges
-  box(0.30, 4.3, 0.30, -1.02, 9.45, 0);
+  box(0.30, 4.3, 0.30,  1.02, 9.45, 0, steelBlueFrame); // star frame verticals — perch on the top edges
+  box(0.30, 4.3, 0.30, -1.02, 9.45, 0, steelBlueFrame);
   box(2.38, 0.30, 0.30, 0, 11.55, 0);   // frame crossbar
   box(0.9, 0.5, 0.28, 1.18, 1.15, 0.30,
       new THREE.MeshStandardMaterial({color:0x9aa0a8, roughness:0.5, metalness:0.6})); // utility cabinet

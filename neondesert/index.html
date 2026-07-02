@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Neon Desert — Welcome Sign 🌵</title>
+<title>Neon Desert — The Spine 🌵</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@700;800;900&family=Kaushan+Script&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -14,16 +14,14 @@
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html,body{height:100%;overflow:hidden;background:var(--ink)}
-  #stage{position:fixed;inset:0;display:block;cursor:grab}
+  #stage{position:fixed;inset:0;display:block;cursor:grab;touch-action:none}
   #stage.dragging{cursor:grabbing}
 
-  /* vignette — subtle, sits above canvas */
   #vignette{
     position:fixed;inset:0;pointer-events:none;
     background:radial-gradient(ellipse 75% 65% at 50% 46%, transparent 52%, rgba(3,5,12,.62) 100%);
   }
 
-  /* HUD */
   .hud{position:fixed;z-index:10;color:#E8ECFF;user-select:none}
   #brand{top:22px;left:24px}
   #brand .eyebrow{
@@ -32,7 +30,7 @@
   }
   #brand h1{
     font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;
-    font-size:clamp(26px,4vw,40px);letter-spacing:.06em;line-height:1;
+    font-size:clamp(24px,3.6vw,36px);letter-spacing:.06em;line-height:1;
     margin-top:8px;color:#F4F6FF;
   }
   #brand .sub{
@@ -40,9 +38,10 @@
     letter-spacing:.18em;color:rgba(180,195,255,.55);margin-top:6px;
   }
 
-  #controls{
+  #drivebar{
     bottom:22px;left:50%;transform:translateX(-50%);
-    display:flex;gap:8px;flex-wrap:wrap;justify-content:center;
+    display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center;
+    width:min(680px,92vw);
   }
   .btn{
     appearance:none;border:1px solid rgba(80,110,220,.35);
@@ -51,17 +50,35 @@
     letter-spacing:.12em;text-transform:uppercase;
     padding:11px 16px;border-radius:999px;cursor:pointer;
     transition:border-color .2s,color .2s,background .2s;
+    white-space:nowrap;
   }
   .btn:hover{border-color:var(--orange);color:#FFD9C4}
   .btn:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
   .btn .val{color:var(--orange)}
+
+  #throttle{
+    position:relative;flex:1 1 220px;min-width:180px;height:40px;
+    border:1px solid rgba(80,110,220,.35);border-radius:999px;
+    background:rgba(10,15,44,.72);backdrop-filter:blur(8px);
+    cursor:ew-resize;touch-action:none;overflow:hidden;
+  }
+  #throttleFill{
+    position:absolute;inset:0;width:0%;
+    background:linear-gradient(90deg, rgba(26,107,255,.35), rgba(255,107,43,.55));
+    transition:width .05s linear;
+  }
+  #throttleLabel{
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font:500 10px/1 "IBM Plex Mono",ui-monospace,monospace;letter-spacing:.16em;
+    color:#D9E1FF;text-transform:uppercase;pointer-events:none;
+  }
 
   #sig{
     bottom:20px;right:22px;font-size:16px;opacity:.45;
     filter:saturate(.8);pointer-events:none;
   }
   #hint{
-    bottom:24px;left:24px;
+    top:22px;right:24px;text-align:right;
     font:400 10px/1.6 "IBM Plex Mono",ui-monospace,monospace;
     letter-spacing:.14em;color:rgba(150,168,235,.45);
   }
@@ -83,19 +100,21 @@
 
 <div class="hud" id="brand">
   <div class="eyebrow">Neon Desert · Vegas Sidekick</div>
-  <h1>Welcome Sign</h1>
-  <div class="sub">FABULOUS / DRIVE CAREFULLY</div>
+  <h1>The Spine</h1>
+  <div class="sub">LAS VEGAS BLVD · SIGN → THE STRAT</div>
 </div>
 
-<div class="hud" id="controls">
+<div class="hud" id="hint">DRAG TO LOOK AROUND · SCRUB THROTTLE TO CRUISE<br>ARROWS/WASD + SPACE + U ON DESKTOP</div>
+
+<div class="hud" id="drivebar">
+  <button class="btn" id="btnStop">Full stop</button>
+  <div id="throttle"><div id="throttleFill"></div><div id="throttleLabel">Throttle</div></div>
+  <button class="btn" id="btnUturn">U-turn</button>
   <button class="btn" id="btnChase">Bulbs: <span class="val">Classic chase</span></button>
-  <button class="btn" id="btnOrbit">Auto-orbit: <span class="val">On</span></button>
-  <button class="btn" id="btnFlip">View back</button>
 </div>
 
-<div class="hud" id="hint">DRAG TO ORBIT · SCROLL TO ZOOM</div>
 <div class="hud" id="sig">🌵</div>
-<div id="loader">Lighting the desert…</div>
+<div id="loader">Paving the Strip…</div>
 
 <script type="importmap">
 { "imports": { "three": "https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.module.min.js" } }
