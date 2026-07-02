@@ -72,12 +72,6 @@ html,body{width:100%;height:100%;overflow:hidden;background:#050510;font-family:
 
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
 
 <script>
 'use strict';
@@ -113,8 +107,11 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, IS_MOBILE ? 1.5 : 2));
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.shadowMap.enabled = !IS_MOBILE;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-renderer.toneMapping = THREE.ReinhardToneMapping;
-renderer.toneMappingExposure = 1.2;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.15;
+// Note: outputEncoding deliberately left at the default (Linear) — the scene's materials
+// were authored as plain hex values without a linear-color workflow, so adding an explicit
+// sRGB output pass here double-applies gamma and washes everything out.
 
 // ─── Scene ────────────────────────────────────────────────────────────────────
 const scene = new THREE.Scene();
@@ -146,11 +143,118 @@ function clampTarget() {
   t.z = Math.max(-780, Math.min(70, t.z));
 }
 
-// ─── Post-processing ──────────────────────────────────────────────────────────
-const composer = new THREE.EffectComposer(renderer);
-composer.addPass(new THREE.RenderPass(scene, camera));
-const bloomPass = new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.6, 0.5, 0.82);
-composer.addPass(bloomPass);
+// ─── Post-processing: selective bloom (glow-only pass + separable blur + additive composite) ──
+// Replaces a flat scene-wide bloom filter with a proper two-stage pipeline: render ONLY the
+// glowing parts of the scene (everything else painted black), blur that in isolation, then add
+// it back over the normal render. This is what lets neon signage glow without blowing out
+// nearby bright-but-non-glowing surfaces (e.g. a white sign face lit by daylight).
+let bloomStrength = 1.2; // driven by applyTOD per time-of-day mood
+const PX = renderer.getPixelRatio();
+const blackMesh = new THREE.MeshBasicMaterial({ color: 0x000000 });
+const blackPts  = new THREE.PointsMaterial({ color: 0x000000 });
+const glowCache = new WeakMap(); // source material -> derived glow-only MeshBasicMaterial
+
+// Any mesh using an emissive toon/standard material auto-glows in proportion to its current
+// emissiveIntensity — so every landmark's night lighting blooms correctly with zero bookkeeping.
+function getGlowMaterial(mat) {
+  if (!mat) return blackMesh;
+  if (mat.isMeshBasicMaterial) return mat.toneMapped === false ? mat : blackMesh;
+  const em = mat.emissive, intensity = mat.emissiveIntensity || 0;
+  if (!em || intensity <= 0.005) return blackMesh;
+  let gm = glowCache.get(mat);
+  if (!gm) {
+    gm = new THREE.MeshBasicMaterial({
+      color: em.clone().multiplyScalar(intensity), map: mat.emissiveMap || null,
+      toneMapped: false, transparent: !!mat.transparent, opacity: mat.opacity != null ? mat.opacity : 1
+    });
+    glowCache.set(mat, gm);
+  } else {
+    gm.color.copy(em).multiplyScalar(intensity);
+  }
+  return gm;
+}
+
+let rtA, rtB, rtC;
+function makeBloomRTs() {
+  const w = Math.max(2, Math.floor(window.innerWidth * PX / 2));
+  const h = Math.max(2, Math.floor(window.innerHeight * PX / 2));
+  if (rtA) { rtA.dispose(); rtB.dispose(); rtC.dispose(); }
+  rtA = new THREE.WebGLRenderTarget(w, h, { depthBuffer: true });
+  rtB = new THREE.WebGLRenderTarget(w, h, { depthBuffer: false });
+  rtC = new THREE.WebGLRenderTarget(w, h, { depthBuffer: false });
+}
+makeBloomRTs();
+
+const quadCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+const quadScene = new THREE.Scene();
+const blurMat = new THREE.ShaderMaterial({
+  uniforms: { tex: { value: null }, dir: { value: new THREE.Vector2(1, 0) }, texel: { value: new THREE.Vector2() } },
+  vertexShader: `varying vec2 vUv; void main(){ vUv=uv; gl_Position=vec4(position.xy,0.,1.); }`,
+  fragmentShader: `
+    uniform sampler2D tex; uniform vec2 dir; uniform vec2 texel; varying vec2 vUv;
+    void main(){
+      vec2 o = dir*texel;
+      vec3 c = texture2D(tex, vUv).rgb * 0.227;
+      c += (texture2D(tex, vUv+o*1.385).rgb + texture2D(tex, vUv-o*1.385).rgb) * 0.316;
+      c += (texture2D(tex, vUv+o*3.231).rgb + texture2D(tex, vUv-o*3.231).rgb) * 0.070;
+      gl_FragColor = vec4(c,1.);
+    }`
+});
+quadScene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), blurMat));
+
+const compMat = new THREE.ShaderMaterial({
+  uniforms: { tex: { value: null }, strength: { value: 1.2 } },
+  transparent: true, blending: THREE.AdditiveBlending, depthTest: false, depthWrite: false,
+  vertexShader: `varying vec2 vUv; void main(){ vUv=uv; gl_Position=vec4(position.xy,0.,1.); }`,
+  fragmentShader: `
+    uniform sampler2D tex; uniform float strength; varying vec2 vUv;
+    void main(){ gl_FragColor = vec4(texture2D(tex, vUv).rgb * strength, 1.0); }`
+});
+const compScene = new THREE.Scene();
+compScene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), compMat));
+
+const savedMats = new Map(), savedVis = new Map();
+function swapForBloom() {
+  scene.traverse(o => {
+    if (o.isLineSegments) { savedVis.set(o, o.visible); o.visible = false; return; }
+    if (o.isPoints) { savedMats.set(o, o.material); o.material = blackPts; return; }
+    if (o.isSprite) { if (o.userData.isLabel || o.userData.skipBloom) { savedVis.set(o, o.visible); o.visible = false; } return; }
+    if (!o.isMesh && !o.isInstancedMesh) return;
+    savedMats.set(o, o.material);
+    o.material = getGlowMaterial(o.material);
+  });
+}
+function restoreMats() {
+  savedMats.forEach((m, o) => { o.material = m; }); savedMats.clear();
+  savedVis.forEach((v, o) => { o.visible = v; }); savedVis.clear();
+}
+function blurPass(src, dst, dx, dy) {
+  blurMat.uniforms.tex.value = src.texture;
+  blurMat.uniforms.dir.value.set(dx, dy);
+  blurMat.uniforms.texel.value.set(1 / src.width, 1 / src.height);
+  renderer.setRenderTarget(dst);
+  renderer.render(quadScene, quadCam);
+}
+function renderFrame() {
+  const fogSave = scene.fog;
+  swapForBloom();
+  scene.fog = null;
+  renderer.setRenderTarget(rtA);
+  renderer.render(scene, camera);
+  restoreMats();
+  scene.fog = fogSave;
+
+  blurPass(rtA, rtB, 1, 0); blurPass(rtB, rtC, 0, 1);
+  blurPass(rtC, rtB, 2.5, 0); blurPass(rtB, rtC, 0, 2.5);
+
+  renderer.setRenderTarget(null);
+  renderer.render(scene, camera);
+  compMat.uniforms.tex.value = rtC.texture;
+  compMat.uniforms.strength.value = bloomStrength;
+  renderer.autoClear = false;
+  renderer.render(compScene, quadCam);
+  renderer.autoClear = true;
+}
 
 // ─── Las Vegas time ───────────────────────────────────────────────────────────
 const LV_TZ = 'America/Los_Angeles';
@@ -235,7 +339,9 @@ scene.add(ground);
 
 // ─── Shared night-time lighting registries (driven by applyTOD) ────────────────
 const streetLights   = [];   // PointLights that switch on at dusk/night
-const emissiveMeshes = [];    // MeshToonMaterials whose emissive glows at night
+const emissiveMeshes = [];    // designed glow: window facades etc. (emissiveMap-masked, safe to bloom bright)
+const structGlow     = [];    // structural placeholders (grey boxes, STRAT mass, median strip) — full-surface
+                               // fill, so capped low to avoid flooding the selective-bloom pass
 let   signGlow = 0.15;        // baseline neon glow for animated pulsing
 
 // ─── Canvas text label (billboard sprite, always faces camera) ─────────────────
@@ -264,6 +370,7 @@ function makeLabel(text) {
   tex.anisotropy = IS_MOBILE ? 2 : 8;
   const spr = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, transparent: true, depthWrite: false, depthTest: true }));
   spr.scale.set(22, 5.5, 1);
+  spr.userData.isLabel = true; // excluded from the glow pass (see swapForBloom)
   return spr;
 }
 
@@ -316,7 +423,7 @@ function makeBox(name, side, x, z, w, d, h, opts = {}) {
   if (!IS_MOBILE) { box.castShadow = true; box.receiveShadow = true; }
   addEdges(box, edge, 12);
   scene.add(box);
-  emissiveMeshes.push(mat);
+  structGlow.push(mat); // full-surface box fill — kept dim so it doesn't flood the bloom pass
   clickables.push({ mesh: box, name, side });
 
   const label = makeLabel(name);
@@ -487,19 +594,19 @@ const sphereMat = new THREE.MeshToonMaterial({
   base.position.set(x, GROUND_Y + 13, z);
   if (!IS_MOBILE) base.castShadow = true;
   addEdges(base, 0x4488ff, 12);
-  scene.add(base); emissiveMeshes.push(baseMat);
+  scene.add(base); structGlow.push(baseMat);
 
   const towerMat = toon(0x33405f, { emissive: new THREE.Color(0xffd9a0), emissiveIntensity: 0 });
   const tower = new THREE.Mesh(new THREE.CylinderGeometry(2.2, 4.5, 90, 12), towerMat);
   tower.position.set(x, GROUND_Y + 26 + 45, z);
   if (!IS_MOBILE) tower.castShadow = true;
-  scene.add(tower); emissiveMeshes.push(towerMat);
+  scene.add(tower); structGlow.push(towerMat);
 
   const podMat = toon(0x44557a, { emissive: new THREE.Color(0xff8844), emissiveIntensity: 0.2 });
   const pod = new THREE.Mesh(new THREE.CylinderGeometry(7, 5, 8, 12), podMat);
   pod.position.set(x, GROUND_Y + 26 + 90 - 4, z);
   addEdges(pod, 0x66aaff, 15);
-  scene.add(pod); emissiveMeshes.push(podMat);
+  scene.add(pod); structGlow.push(podMat);
 
   const spire = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 1.2, 30, 8), toon(0x556688));
   spire.position.set(x, GROUND_Y + 26 + 90 + 15, z);
@@ -683,6 +790,8 @@ const signFontReady = (function () {
   signHalo = makeGlowSprite();
   signHalo.scale.set(SIGN_W * 2.0, SIGN_H * 1.7, 1);
   signHalo.position.set(0, PANEL_Y, -0.7);
+  signHalo.userData.skipBloom = true; // real selective bloom now handles the glow; avoid double-blurring this
+
   grp.add(signHalo);
 
   // individually-lit border bulbs (ordered around the perimeter so a wave can chase)
@@ -780,7 +889,7 @@ const signFontReady = (function () {
   const capMat = new THREE.MeshToonMaterial({ color: 0xffcc88, emissive: 0xffaa55, emissiveIntensity: 0.35, gradientMap: toonGrad });
   const cap = new THREE.Mesh(new THREE.BoxGeometry(MEDIAN_HALF * 2 + 0.1, 0.14, LEN), capMat);
   cap.position.set(0, GROUND_Y + 1.05, MID);
-  scene.add(cap); emissiveMeshes.push(capMat);
+  scene.add(cap); structGlow.push(capMat); // runs the full road length — keep dim, not a bloom source
 
   // white lane dashes — two interior lines per side split each half into 3 lanes
   if (!IS_MOBILE) {
@@ -857,19 +966,23 @@ function applyTOD(phase) {
 
   sunLight.intensity = dy ? 2.2 : s ? 0.9 : g ? 1.3 : d ? 0.4 : 0.0;
   sunLight.color.setHex(dy ? 0xffffff : s ? 0xff8844 : g ? 0xffbb44 : d ? 0x6688cc : 0x111122);
-  ambientLight.intensity = dy ? 0.6 : s ? 0.35 : g ? 0.4 : d ? 0.3 : 0.5;
+  ambientLight.intensity = dy ? 0.6 : s ? 0.35 : g ? 0.4 : d ? 0.3 : 0.32;
   ambientLight.color.setHex(dy ? 0x8899cc : s ? 0xdd8866 : g ? 0xcc9944 : d ? 0x445577 : 0x5566aa);
-  moonLight.intensity = n ? 0.4 : d ? 0.12 : 0.0;
+  moonLight.intensity = n ? 0.28 : d ? 0.1 : 0.0;
 
   starMat.opacity = n ? 1.0 : d ? 0.4 : 0.0;
-  bloomPass.strength = n ? (IS_MOBILE?1.15:1.7) : (d||g) ? (IS_MOBILE?0.7:1.0) : (IS_MOBILE?0.3:0.5);
+  bloomStrength = n ? 0.9 : (d||g) ? 0.7 : 0.35;
   scene.fog.color.setHex(n ? 0x0a0a24 : dy ? 0xbfe0ff : (d||g) ? 0x2a2050 : 0x1a1a4e);
 
-  const litI = n ? 1.6 : (d||g) ? 1.0 : 0.0;
+  const litI = n ? 1.2 : (d||g) ? 0.8 : 0.0;
   streetLights.forEach(l => { l.intensity = litI; });
 
   const emI = n ? 0.7 : (d||g) ? 0.4 : 0.0;
   emissiveMeshes.forEach(m => { m.emissiveIntensity = emI; });
+  // structural placeholders fill their ENTIRE surface (no window masking), so a much lower
+  // ceiling keeps them from flooding the selective-bloom pass into a blown-out wash
+  const structI = n ? 0.08 : (d||g) ? 0.05 : 0.0;
+  structGlow.forEach(m => { m.emissiveIntensity = structI; });
 
   signGlow = n ? 1.0 : (d||g) ? 0.65 : 0.2;
 }
@@ -1009,13 +1122,13 @@ function animate() {
     clampTarget();
     controls.update();
   }
-  composer.render();
+  renderFrame();
 }
 
 window.addEventListener('resize', () => {
   const w = window.innerWidth, h = window.innerHeight;
   camera.aspect = w / h; camera.updateProjectionMatrix();
-  renderer.setSize(w, h); composer.setSize(w, h);
+  renderer.setSize(w, h); makeBloomRTs();
 });
 window.addEventListener('load', () => {
   setTimeout(() => { const ld = document.getElementById('loading'); ld.classList.add('fade'); setTimeout(() => ld.remove(), 1100); }, 1000);
