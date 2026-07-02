@@ -5,17 +5,17 @@ import * as THREE from 'three';
 // can keep serving them against the new index.html and silently break (HUD
 // elements the stale script expects no longer exist). Bump PHASE when any
 // of these files changes again.
-import { createWelcomeSign } from './sign.js?v=phase2';
-import { createBloomPipeline } from './bloom.js?v=phase2';
-import { loadSpineData, buildSpine } from './spine.js?v=phase2';
-import { buildRoad } from './road.js?v=phase2';
-import { buildZones } from './zones.js?v=phase2';
-import { buildConstructionSites } from './construction.js?v=phase2';
-import { buildAdAnchors } from './adAnchors.js?v=phase2';
-import { buildSkyline } from './skyline.js?v=phase2';
-import { createCameraRig, createDriveController, wireDriveInput } from './cameraRig.js?v=phase2';
-import { createDebugHud } from './debug.js?v=phase2';
-import { buildSky } from './sky.js?v=phase2';
+import { createWelcomeSign } from './sign.js?v=3';
+import { createBloomPipeline } from './bloom.js?v=3';
+import { loadSpineData, buildSpine } from './spine.js?v=3';
+import { buildRoad } from './road.js?v=3';
+import { buildZones } from './zones.js?v=3';
+import { buildConstructionSites } from './construction.js?v=3';
+import { buildAdAnchors } from './adAnchors.js?v=3';
+import { buildSkyline } from './skyline.js?v=3';
+import { createCameraRig, createDriveController, wireDriveInput } from './cameraRig.js?v=3';
+import { createDebugHud } from './debug.js?v=3';
+import { buildSky } from './sky.js?v=3';
 
 /* ============================================================
    NEON DESERT · MAIN                                       🌵
@@ -62,7 +62,7 @@ async function boot(){
 }
 
 async function bootScene(){
-  const data = await loadSpineData(new URL('../data/strip-spine.json', import.meta.url));
+  const data = await loadSpineData(new URL('../data/strip-spine.json?v=3', import.meta.url));
   const spine = buildSpine(data);
 
   const sky = buildSky({ scene });
