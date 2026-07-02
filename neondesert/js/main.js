@@ -1,14 +1,20 @@
 import * as THREE from 'three';
-import { createWelcomeSign } from './sign.js';
-import { createBloomPipeline } from './bloom.js';
-import { loadSpineData, buildSpine } from './spine.js';
-import { buildRoad } from './road.js';
-import { buildZones } from './zones.js';
-import { buildConstructionSites } from './construction.js';
-import { buildAdAnchors } from './adAnchors.js';
-import { buildSkyline } from './skyline.js';
-import { createCameraRig, createDriveController, wireDriveInput } from './cameraRig.js';
-import { createDebugHud } from './debug.js';
+// Cache-busting query on every local import: this is a no-build static site,
+// so filenames never change across deploys — without a version marker a
+// browser (or CDN edge) that already cached the pre-Phase-2 main.js/sign.js
+// can keep serving them against the new index.html and silently break (HUD
+// elements the stale script expects no longer exist). Bump PHASE when any
+// of these files changes again.
+import { createWelcomeSign } from './sign.js?v=phase2';
+import { createBloomPipeline } from './bloom.js?v=phase2';
+import { loadSpineData, buildSpine } from './spine.js?v=phase2';
+import { buildRoad } from './road.js?v=phase2';
+import { buildZones } from './zones.js?v=phase2';
+import { buildConstructionSites } from './construction.js?v=phase2';
+import { buildAdAnchors } from './adAnchors.js?v=phase2';
+import { buildSkyline } from './skyline.js?v=phase2';
+import { createCameraRig, createDriveController, wireDriveInput } from './cameraRig.js?v=phase2';
+import { createDebugHud } from './debug.js?v=phase2';
 
 /* ============================================================
    NEON DESERT · MAIN                                       🌵
@@ -40,6 +46,19 @@ scene.fog = new THREE.Fog(0x04060e, FOG_NEAR, FOG_FAR);
 const camera = new THREE.PerspectiveCamera(62, innerWidth/innerHeight, 0.1, 1400);
 
 async function boot(){
+  try {
+    await bootScene();
+  } catch (err) {
+    console.error('Neon Desert failed to boot:', err);
+    const loader = document.getElementById('loader');
+    loader.textContent = 'Something went sideways loading the Strip — please reload. (' + err.message + ')';
+    loader.style.whiteSpace = 'normal';
+    loader.style.padding = '0 32px';
+    loader.style.textAlign = 'center';
+  }
+}
+
+async function bootScene(){
   const data = await loadSpineData(new URL('../data/strip-spine.json', import.meta.url));
   const spine = buildSpine(data);
 
