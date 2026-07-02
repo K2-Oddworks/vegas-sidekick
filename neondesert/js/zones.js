@@ -35,10 +35,12 @@ function buildWindowTexture(){
 
 function tintFor(seed){
   // deterministic-ish desaturated navy/steel tint per zone, so massing
-  // reads as varied blocks rather than one flat slab
-  const r = 0.06 + (seed % 5) * 0.012;
-  const g = 0.07 + ((seed*3) % 5) * 0.012;
-  const b = 0.10 + ((seed*7) % 5) * 0.015;
+  // reads as varied blocks rather than one flat slab. Lightened for the
+  // early-evening pass — dark enough to still read as unbuilt massing,
+  // bright enough to catch the dusk ambient instead of going pure black.
+  const r = 0.14 + (seed % 5) * 0.018;
+  const g = 0.16 + ((seed*3) % 5) * 0.018;
+  const b = 0.22 + ((seed*7) % 5) * 0.022;
   return [r, g, b];
 }
 

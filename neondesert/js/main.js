@@ -15,6 +15,7 @@ import { buildAdAnchors } from './adAnchors.js?v=phase2';
 import { buildSkyline } from './skyline.js?v=phase2';
 import { createCameraRig, createDriveController, wireDriveInput } from './cameraRig.js?v=phase2';
 import { createDebugHud } from './debug.js?v=phase2';
+import { buildSky } from './sky.js?v=phase2';
 
 /* ============================================================
    NEON DESERT · MAIN                                       🌵
@@ -38,10 +39,12 @@ renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.05;
 
-const FOG_NEAR = 30, FOG_FAR = 420;
+// Early-evening desert dusk, not full night — bright enough that the
+// placeholder massing actually reads as buildings instead of black voids.
+const FOG_NEAR = 30, FOG_FAR = 420, FOG_COLOR = 0x241f3a;
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x04060e);
-scene.fog = new THREE.Fog(0x04060e, FOG_NEAR, FOG_FAR);
+scene.background = new THREE.Color(FOG_COLOR);
+scene.fog = new THREE.Fog(FOG_COLOR, FOG_NEAR, FOG_FAR);
 
 const camera = new THREE.PerspectiveCamera(62, innerWidth/innerHeight, 0.1, 1400);
 
@@ -62,6 +65,16 @@ async function bootScene(){
   const data = await loadSpineData(new URL('../data/strip-spine.json', import.meta.url));
   const spine = buildSpine(data);
 
+  const sky = buildSky({ scene });
+  // Scene-wide dusk ambient — separate from the sign's own dimmer fill
+  // lights so the sign module stays untouched. Warm sky/ground hemisphere
+  // fill plus a low, soft "sun just set" key light give the massing blocks
+  // enough shading to read as buildings instead of flat black silhouettes.
+  scene.add(new THREE.HemisphereLight(0x5c6ea0, 0x3a2a22, 0.85));
+  const sunset = new THREE.DirectionalLight(0xffab72, 0.42);
+  sunset.position.set(300, 45, 160);
+  scene.add(sunset);
+
   const sign = createWelcomeSign({ scene, renderer });
   const road = buildRoad({ scene, spine, data });
   const zones = await buildZones({ scene, spine, data });
@@ -73,7 +86,7 @@ async function bootScene(){
   if (construction.beacons) alwaysGlow.push(construction.beacons);
   const bloom = createBloomPipeline({
     renderer, scene, camera, pixelRatio: PX,
-    alwaysGlow, fogNear: FOG_NEAR, fogFar: FOG_FAR
+    alwaysGlow, fogColor: FOG_COLOR, fogNear: FOG_NEAR, fogFar: FOG_FAR
   });
 
   /* ---------- drive camera ---------- */
@@ -81,7 +94,7 @@ async function bootScene(){
   // drive in the innermost northbound lane, not the median — the Welcome
   // Sign's support legs straddle the median centerline near spine 0
   const laneOffset = data.road.medianWidth/2 + data.road.laneWidth*0.5;
-  const drive = createDriveController({ spine, initialSpineDistance: 6, laneOffset });
+  const drive = createDriveController({ spine, initialSpineDistance: data.anchors.welcomeSign.spinePosition + 6, laneOffset });
   rig.setController(drive);
   wireDriveInput({ canvas, throttleEl: document.getElementById('throttle'), controller: drive });
 
@@ -126,6 +139,7 @@ async function bootScene(){
 
     renderer.info.reset();
     rig.update(dt, t);
+    sky.update(camera);
     sign.updateBulbs(t, chaseMode, reduceMotion);
     construction.updateBeacons?.(t);
     adAnchors.updateDigitalBillboards?.(t);
