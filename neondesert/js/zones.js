@@ -121,6 +121,7 @@ export async function buildZones({ scene, spine, data }){
   const curb = curbOffset(data);
   const buckets = WARM_BIAS.map(bias => ({ bias, geoms: [], tex: buildWindowTexture(bias) }));
   const glowBandGeoms = [];
+  const extraGlowPairs = []; // standalone meshes (e.g. the wheel) that need their own bloom variant
 
   data.zones.forEach((z, i) => {
     const [s, e] = z.spineRange;
@@ -166,19 +167,25 @@ export async function buildZones({ scene, spine, data }){
       bucket.geoms.push(massingBox(width*0.7, 52, 70, arenaPos, frame.tangent, [0.12,0.13,0.17]));
     }
     if (z.id === 'the-linq'){
-      // High Roller wheel — Phase 1-quality asset arrives later; flat ring for now.
-      // Lit with a visible steel tone plus a thin bright accent ring so it
-      // never renders as a dark void crossing the frame at night.
+      // High Roller wheel — Phase 1-quality asset arrives later; flat ring
+      // for now. A window-grid emissiveMap doesn't map cleanly onto a torus
+      // (the coarse UV sampling read as a mostly-dark void with a few random
+      // speckles) — instead it gets its own dedicated dim emissive rim, a
+      // uniform glow that reads consistently as a lit structure regardless
+      // of viewing angle, plus a thin bright LED accent ring.
       const ringPos = spine.place(center, z.side, lateral + depth*0.5 + 70, 55).position;
-      const ring = new THREE.TorusGeometry(48, 1.4, 8, 48);
-      ring.rotateY(Math.PI/2);
-      ring.translate(ringPos.x, ringPos.y, ringPos.z);
-      addColor(ring, [0.30,0.32,0.36]);
-      const uvAttr = ring.attributes.uv;
-      for (let k=0;k<uvAttr.count;k++) uvAttr.setXY(k, uvAttr.getX(k)*4, uvAttr.getY(k));
-      bucket.geoms.push(ring);
+      const ringGeo = new THREE.TorusGeometry(48, 1.6, 16, 96);
+      ringGeo.rotateY(Math.PI/2);
+      ringGeo.translate(ringPos.x, ringPos.y, ringPos.z);
+      const ringMat = new THREE.MeshStandardMaterial({
+        color: 0x4a4e58, roughness: 0.55, metalness: 0.35,
+        emissive: 0xffb066, emissiveIntensity: 0.5
+      });
+      const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+      scene.add(ringMesh);
+      extraGlowPairs.push({ mesh: ringMesh, material: new THREE.MeshBasicMaterial({ color: 0x3a2a12 }) });
 
-      const accent = new THREE.TorusGeometry(48, 0.32, 8, 48);
+      const accent = new THREE.TorusGeometry(48, 0.32, 8, 96);
       accent.rotateY(Math.PI/2);
       accent.translate(ringPos.x, ringPos.y, ringPos.z);
       addColor(accent, [1.0, 0.62, 0.28]);
@@ -203,6 +210,7 @@ export async function buildZones({ scene, spine, data }){
       glowPairs.push({ mesh, material: glowMat });
       return mesh;
     });
+  glowPairs.push(...extraGlowPairs);
 
   const glowBandMesh = glowBandGeoms.length
     ? new THREE.Mesh(mergeGeometries(glowBandGeoms), new THREE.MeshBasicMaterial({ vertexColors: true }))

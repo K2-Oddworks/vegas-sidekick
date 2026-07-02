@@ -5,18 +5,18 @@ import * as THREE from 'three';
 // can keep serving them against the new index.html and silently break (HUD
 // elements the stale script expects no longer exist). Bump PHASE when any
 // of these files changes again.
-import { createWelcomeSign } from './sign.js?v=4';
-import { createBloomPipeline } from './bloom.js?v=4';
-import { loadSpineData, buildSpine } from './spine.js?v=4';
-import { buildRoad } from './road.js?v=4';
-import { buildZones } from './zones.js?v=4';
-import { buildConstructionSites } from './construction.js?v=4';
-import { buildAdAnchors } from './adAnchors.js?v=4';
-import { buildSkyline } from './skyline.js?v=4';
-import { createCameraRig, createDriveController, wireDriveInput } from './cameraRig.js?v=4';
-import { createDebugHud } from './debug.js?v=4';
-import { buildSky } from './sky.js?v=4';
-import { createInteractablesRegistry, createInteractableMenu } from './interactables.js?v=4';
+import { createWelcomeSign } from './sign.js?v=5';
+import { createBloomPipeline } from './bloom.js?v=5';
+import { loadSpineData, buildSpine } from './spine.js?v=5';
+import { buildRoad } from './road.js?v=5';
+import { buildZones } from './zones.js?v=5';
+import { buildConstructionSites } from './construction.js?v=5';
+import { buildAdAnchors } from './adAnchors.js?v=5';
+import { buildSkyline } from './skyline.js?v=5';
+import { createCameraRig, createDriveController, wireDriveInput } from './cameraRig.js?v=5';
+import { createDebugHud } from './debug.js?v=5';
+import { buildSky } from './sky.js?v=5';
+import { createInteractablesRegistry, createInteractableMenu } from './interactables.js?v=5';
 
 /* ============================================================
    NEON DESERT · MAIN                                       🌵
@@ -71,7 +71,7 @@ async function boot(){
 }
 
 async function bootScene(){
-  const data = await loadSpineData(new URL('../data/strip-spine.json?v=4', import.meta.url));
+  const data = await loadSpineData(new URL('../data/strip-spine.json?v=5', import.meta.url));
   const spine = buildSpine(data);
 
   const sky = buildSky({ scene });
@@ -105,6 +105,9 @@ async function bootScene(){
   // material, so distant towers get a soft halo instead of blowing out.
   [...(zones.glowPairs || []), ...(adAnchors.glowPairs || [])]
     .forEach(({ mesh, material }) => bloom.glowSwap.set(mesh, material));
+  if (skyline.sphereMesh){
+    bloom.glowSwap.set(skyline.sphereMesh, new THREE.MeshBasicMaterial({ map: skyline.sphereMesh.material.map, color: 0x4a6a99 }));
+  }
 
   /* ---------- drive camera ---------- */
   const rig = createCameraRig({ camera });
@@ -130,11 +133,11 @@ async function bootScene(){
 
   const chaseModes = ['Classic chase','Sparkle','Steady'];
   let chaseMode = reduceMotion ? 2 : 0;
-  // The drive starts a few units past the sign heading away from it, in the
-  // east lane rather than the median — so the diamond needs to sit ahead of
-  // the start position and roughly in that same lane, or the portrait
-  // viewport's narrow horizontal FOV puts it off-screen at boot.
-  const bulbDiamondPos = spine.place(data.anchors.welcomeSign.spinePosition + 20, 'east', laneOffset, 3.4).position;
+  // Anchored beside the sign's own panel (SIGN.w=3.85, bulge=0.26, cy=5.65
+  // in sign.js — hardcoded here rather than derived, since the sign group
+  // sits at a fixed world origin, not a spine-relative position), just
+  // outside its right edge and a little above center. Never over the road.
+  const bulbDiamondPos = new THREE.Vector3(4.6, 6.4, 0.6);
   interactables.register({
     id: 'sign-bulbs',
     worldPosition: bulbDiamondPos,
@@ -144,20 +147,16 @@ async function bootScene(){
     onSelect: (opt) => { chaseMode = chaseModes.indexOf(opt); }
   });
 
-  const raycaster = new THREE.Raycaster();
-  const pointerNDC = new THREE.Vector2();
   canvas.addEventListener('pointerup', e => {
     if (driveInput.wasDragLook()) return;
-    pointerNDC.set((e.clientX/innerWidth)*2-1, -(e.clientY/innerHeight)*2+1);
-    raycaster.setFromCamera(pointerNDC, camera);
-    const hit = interactables.hitTest(raycaster);
+    const hit = interactables.hitTestScreen(camera, e.clientX, e.clientY, innerWidth, innerHeight);
     if (hit) interactableMenu.open(hit, e.clientX, e.clientY);
     else interactableMenu.close();
   });
 
   const debugHud = createDebugHud({ renderer });
   if (new URLSearchParams(location.search).get('debug') === '1'){
-    window.__NEON_DEBUG = { scene, camera, spine, data, drive, zones, road, adAnchors, construction, rig };
+    window.__NEON_DEBUG = { scene, camera, spine, data, drive, zones, road, adAnchors, construction, skyline, rig, interactables };
   }
   // The bloom pipeline calls renderer.render() several times per frame and
   // WebGLRenderer auto-resets `info` on every one of those calls — reset it
@@ -186,7 +185,7 @@ async function bootScene(){
     sign.updateBulbs(t, chaseMode, reduceMotion);
     construction.updateBeacons?.(t);
     adAnchors.updateDigitalBillboards?.(t);
-    interactables.update(t);
+    interactables.update(t, camera);
     throttleFill.style.width = (drive.state.speed / drive.MAX_SPEED * 100) + '%';
 
     bloom.renderFrame();
