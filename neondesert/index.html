@@ -18,10 +18,6 @@ html,body{width:100%;height:100%;overflow:hidden;background:#050510;font-family:
 .btn.active{background:rgba(255,107,43,0.38);border-color:#FF6B2B;color:#fff}
 #footer{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);color:#FF6B2B;font-size:12px;letter-spacing:1.5px;opacity:0;animation:fadeUp 1.5s ease 2.2s forwards;pointer-events:none;z-index:100;text-shadow:0 0 18px rgba(255,107,43,0.55);white-space:nowrap}
 @keyframes fadeUp{from{opacity:0;transform:translateX(-50%) translateY(10px)}to{opacity:0.88;transform:translateX(-50%) translateY(0)}}
-#loading{position:fixed;inset:0;background:#050510;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:999;transition:opacity 1s ease}
-#loading.fade{opacity:0;pointer-events:none}
-.ld-title{color:#FF6B2B;font-size:28px;letter-spacing:8px;font-weight:300;text-transform:uppercase;text-shadow:0 0 40px rgba(255,107,43,0.5)}
-.ld-sub{color:rgba(255,255,255,0.28);font-size:10px;letter-spacing:4px;text-transform:uppercase}
 @media(max-width:768px){#controls{top:auto;bottom:52px;right:12px;flex-direction:row;flex-wrap:wrap;justify-content:flex-end;max-width:calc(100vw - 24px)}.btn{padding:7px 10px;font-size:11px}#time-display{top:12px;left:12px}#footer{font-size:11px;bottom:8px}}
 
 /* ── Property info popup ── */
@@ -41,10 +37,6 @@ html,body{width:100%;height:100%;overflow:hidden;background:#050510;font-family:
 </style>
 </head>
 <body>
-<div id="loading">
-  <div class="ld-title">NEON DESERT</div>
-  <div class="ld-sub">VegasSidekick.com/NeonDesert</div>
-</div>
 <canvas id="canvas"></canvas>
 <div id="time-display">
   <div class="city">Las Vegas</div>
@@ -1056,22 +1048,26 @@ function showPopup(hit) {
 }
 function closePopup() { document.getElementById('bb-popup').classList.remove('visible'); }
 
-canvas.addEventListener('click', e => {
-  getPointerNDC(e.clientX, e.clientY);
-  const hit = hitTest();
-  if (hit) showPopup(hit);
-});
-canvas.addEventListener('touchend', e => {
-  if (e.changedTouches.length) {
-    getPointerNDC(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+// Building click-to-popup is parked for now (no info panel yet) — flip this on when that's built.
+const LANDMARK_CLICKS_ENABLED = false;
+if (LANDMARK_CLICKS_ENABLED) {
+  canvas.addEventListener('click', e => {
+    getPointerNDC(e.clientX, e.clientY);
     const hit = hitTest();
-    if (hit) { e.preventDefault(); showPopup(hit); }
-  }
-}, { passive: false });
-canvas.addEventListener('mousemove', e => {
-  getPointerNDC(e.clientX, e.clientY);
-  canvas.style.cursor = hitTest() ? 'pointer' : 'default';
-});
+    if (hit) showPopup(hit);
+  });
+  canvas.addEventListener('touchend', e => {
+    if (e.changedTouches.length) {
+      getPointerNDC(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+      const hit = hitTest();
+      if (hit) { e.preventDefault(); showPopup(hit); }
+    }
+  }, { passive: false });
+  canvas.addEventListener('mousemove', e => {
+    getPointerNDC(e.clientX, e.clientY);
+    canvas.style.cursor = hitTest() ? 'pointer' : 'default';
+  });
+}
 
 // ═══════════════════════════════════════════════════════════════════════════════
 //  ANIMATION LOOP
@@ -1129,9 +1125,6 @@ window.addEventListener('resize', () => {
   const w = window.innerWidth, h = window.innerHeight;
   camera.aspect = w / h; camera.updateProjectionMatrix();
   renderer.setSize(w, h); makeBloomRTs();
-});
-window.addEventListener('load', () => {
-  setTimeout(() => { const ld = document.getElementById('loading'); ld.classList.add('fade'); setTimeout(() => ld.remove(), 1100); }, 1000);
 });
 animate();
 </script>
