@@ -29,7 +29,7 @@ export function buildSkyline({ scene, spine, data }){
   });
 
   const towersMesh = towerGeoms.length
-    ? new THREE.Mesh(mergeGeometries(towerGeoms), new THREE.MeshBasicMaterial({ color: 0x0d1220 }))
+    ? new THREE.Mesh(mergeGeometries(towerGeoms), new THREE.MeshBasicMaterial({ color: 0x141c30 }))
     : null;
   if (towersMesh) scene.add(towersMesh);
 

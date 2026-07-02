@@ -24,7 +24,12 @@ export function curbOffset(data){
 export async function loadSpineData(url = new URL('../data/strip-spine.json', import.meta.url)){
   const res = await fetch(url);
   if (!res.ok) throw new Error(`strip-spine.json failed to load: ${res.status}`);
-  return res.json();
+  const data = await res.json();
+  // Era is future-proofing only right now — every zone ships as "present"
+  // and this is the one place that filters, so a future era can be added
+  // to the data file without every consumer module needing to know about it.
+  data.zones = (data.zones || []).filter(z => (z.era || 'present') === 'present');
+  return data;
 }
 
 /**

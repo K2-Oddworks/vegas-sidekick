@@ -5,42 +5,56 @@ import { mergeGeometries, scaleUV, bakeTransform } from './util.js';
 /* ============================================================
    NEON DESERT · ZONES                                      🌵
    The pattern every future landmark uses: each property in
-   strip-spine.json becomes a placeholder massing block (dark
-   extruded volume, low emissive window grid) + a floating
-   map-style wayfinding label. Both are merged into single draw
-   calls — this file has no per-zone meshes, only per-zone data
-   baked into one shared geometry each.
+   strip-spine.json becomes a placeholder massing block — now a
+   podium + setback tower, not a single monolith slab — with a
+   dense emissive window grid, a bright street-level glow band
+   standing in for its porte-cochère/marquee, and a floating
+   map-style wayfinding label. Everything is baked into a small,
+   fixed number of merged draw calls (three warmth "buckets" +
+   one glow band + one label mesh), never one mesh per zone.
    ============================================================ */
 
-const WINDOW_TILE = 7;      // world units per texture repeat
+const WINDOW_TILE = 6;      // world units per texture repeat
 const LABEL_W = 11, LABEL_H = 2.6;
 const LABEL_LIFT = 3.2;     // gap between block roof and label
 
-function buildWindowTexture(){
-  const cols = 8, rows = 16, cw = 16, ch = 16;
+const APRON = 16;                // setback gap between curb and property frontage
+const WIDTH_FACTOR = 0.74;       // shrinks footprints so neighboring zones show open sky
+const PODIUM_FRACTION = 0.34;    // podium height as a fraction of total envelope height
+const TOWER_WIDTH_FACTOR = 0.6;
+const TOWER_DEPTH_FACTOR = 0.68;
+const WARM_BIAS = [0.15, 0.5, 0.85]; // per-bucket window warmth, so towers vary building to building
+
+function buildWindowTexture(warmBias){
+  const cols = 10, rows = 22, cw = 14, ch = 13;
   const c = document.createElement('canvas'); c.width = cols*cw; c.height = rows*ch;
   const ctx = c.getContext('2d');
-  ctx.fillStyle = '#050608'; ctx.fillRect(0,0,c.width,c.height);
+  ctx.fillStyle = '#04050a'; ctx.fillRect(0,0,c.width,c.height);
   for (let r = 0; r < rows; r++){
     for (let col = 0; col < cols; col++){
-      if (Math.random() > 0.32) continue; // mostly dark — LOW emissive reads
-      ctx.fillStyle = Math.random() > 0.7 ? 'rgba(255,214,150,0.9)' : 'rgba(150,190,255,0.75)';
-      ctx.fillRect(col*cw+3, r*ch+3, cw-7, ch-8);
+      if (Math.random() > 0.58) continue; // ~58% lit — dense enough to read as a wall of
+                                           // light without blowing every pixel to solid white
+      const warm = Math.random() < (0.35 + warmBias*0.5);
+      const bright = 0.6 + Math.random()*0.4;
+      const [r0,g0,b0] = warm ? [255,196,120] : [150,190,255];
+      ctx.fillStyle = `rgba(${(r0*bright)|0},${(g0*bright)|0},${(b0*bright)|0},0.95)`;
+      ctx.fillRect(col*cw+2, r*ch+2, cw-4, ch-4);
     }
   }
   const tex = new THREE.CanvasTexture(c);
   tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+  tex.anisotropy = 8; // building walls are seen at shallow angles down the corridor too
   return tex;
 }
 
 function tintFor(seed){
   // deterministic-ish desaturated navy/steel tint per zone, so massing
-  // reads as varied blocks rather than one flat slab. Lightened for the
-  // early-evening pass — dark enough to still read as unbuilt massing,
-  // bright enough to catch the dusk ambient instead of going pure black.
-  const r = 0.14 + (seed % 5) * 0.018;
-  const g = 0.16 + ((seed*3) % 5) * 0.018;
-  const b = 0.22 + ((seed*7) % 5) * 0.022;
+  // reads as varied blocks rather than one flat slab. Bright enough to
+  // catch the low night ambient without the emissive windows doing all
+  // the work.
+  const r = 0.10 + (seed % 5) * 0.018;
+  const g = 0.12 + ((seed*3) % 5) * 0.018;
+  const b = 0.17 + ((seed*7) % 5) * 0.022;
   return [r, g, b];
 }
 
@@ -105,50 +119,95 @@ function labelQuad(rect, position, facingDir){
  */
 export async function buildZones({ scene, spine, data }){
   const curb = curbOffset(data);
-  const massGeoms = [];
-  const windowTex = buildWindowTexture();
+  const buckets = WARM_BIAS.map(bias => ({ bias, geoms: [], tex: buildWindowTexture(bias) }));
+  const glowBandGeoms = [];
 
   data.zones.forEach((z, i) => {
     const [s, e] = z.spineRange;
     const center = (s + e) / 2;
     const width = e - s;
     let depth = z.footprint.depth, height = z.footprint.height;
-    let lateral = curb + depth/2;
+    let lateral = curb + APRON + depth/2;
 
     if (z.reserve === 'fountain-lake' || z.reserve === 'eiffel-tower'){
       // leave the frontage strip empty for the future water/landmark phase
       lateral += 45;
     }
 
-    const { position, frame } = spine.place(center, z.side, lateral, height/2);
     if (z.constructionSite) return; // construction.js builds these
 
-    massGeoms.push(massingBox(width*0.92, height, depth, position, frame.tangent, tintFor(i)));
+    const frame = spine.frameAt(center);
+    const bucket = buckets[i % buckets.length];
+
+    const podiumWidth = width * WIDTH_FACTOR;
+    const podiumHeight = Math.max(16, height * PODIUM_FRACTION);
+    const towerWidth = podiumWidth * TOWER_WIDTH_FACTOR;
+    const towerHeight = Math.max(10, height - podiumHeight);
+    const towerDepth = depth * TOWER_DEPTH_FACTOR;
+
+    const podiumPos = spine.place(center, z.side, lateral, podiumHeight/2).position;
+    const towerPos = spine.place(center, z.side, lateral, podiumHeight + towerHeight/2).position;
+    const baseRGB = tintFor(i);
+    const towerRGB = baseRGB.map(c => Math.min(1, c*1.18));
+
+    bucket.geoms.push(massingBox(podiumWidth, podiumHeight, depth, podiumPos, frame.tangent, baseRGB));
+    bucket.geoms.push(massingBox(towerWidth, towerHeight, towerDepth, towerPos, frame.tangent, towerRGB));
+
+    // street-level glow band — placeholder porte-cochère/marquee light that
+    // pours onto the corridor from the building's own frontage
+    const glowPos = spine.place(center, z.side, curb + APRON*0.45, 1.1).position;
+    const warm = bucket.bias;
+    const glowRGB = [1.0, 0.5 + warm*0.18, 0.2 + warm*0.14];
+    glowBandGeoms.push(massingBox(podiumWidth*0.94, 2.0, 0.55, glowPos, frame.tangent, glowRGB));
 
     if (z.id === 'park-mgm'){
       // T-Mobile Arena set behind the property — cheap secondary hint block
       const arenaPos = spine.place(center, z.side, lateral + depth*0.5 + 55, 26).position;
-      massGeoms.push(massingBox(width*0.7, 52, 70, arenaPos, frame.tangent, [0.05,0.06,0.08]));
+      bucket.geoms.push(massingBox(width*0.7, 52, 70, arenaPos, frame.tangent, [0.12,0.13,0.17]));
     }
     if (z.id === 'the-linq'){
-      // High Roller wheel — Phase 1-quality asset arrives later; flat ring for now
+      // High Roller wheel — Phase 1-quality asset arrives later; flat ring for now.
+      // Lit with a visible steel tone plus a thin bright accent ring so it
+      // never renders as a dark void crossing the frame at night.
       const ringPos = spine.place(center, z.side, lateral + depth*0.5 + 70, 55).position;
       const ring = new THREE.TorusGeometry(48, 1.4, 8, 48);
       ring.rotateY(Math.PI/2);
       ring.translate(ringPos.x, ringPos.y, ringPos.z);
-      addColor(ring, [0.08,0.09,0.12]);
+      addColor(ring, [0.30,0.32,0.36]);
       const uvAttr = ring.attributes.uv;
       for (let k=0;k<uvAttr.count;k++) uvAttr.setXY(k, uvAttr.getX(k)*4, uvAttr.getY(k));
-      massGeoms.push(ring);
+      bucket.geoms.push(ring);
+
+      const accent = new THREE.TorusGeometry(48, 0.32, 8, 48);
+      accent.rotateY(Math.PI/2);
+      accent.translate(ringPos.x, ringPos.y, ringPos.z);
+      addColor(accent, [1.0, 0.62, 0.28]);
+      glowBandGeoms.push(accent);
     }
   });
 
-  const massMat = new THREE.MeshStandardMaterial({
-    vertexColors: true, emissiveMap: windowTex, emissive: 0xffffff,
-    emissiveIntensity: 0.55, roughness: 0.85, metalness: 0.1
-  });
-  const massMesh = new THREE.Mesh(mergeGeometries(massGeoms), massMat);
-  scene.add(massMesh);
+  const glowPairs = [];
+  const massMeshes = buckets
+    .filter(b => b.geoms.length)
+    .map(bucket => {
+      const massMat = new THREE.MeshStandardMaterial({
+        vertexColors: true, emissiveMap: bucket.tex, emissive: 0xffffff,
+        emissiveIntensity: 1.0, roughness: 0.82, metalness: 0.12
+      });
+      const mesh = new THREE.Mesh(mergeGeometries(bucket.geoms), massMat);
+      scene.add(mesh);
+      // dim glow-only variant feeds the bloom pass at low intensity — the
+      // window texture's mostly-dark background keeps the halo soft even
+      // though the base pass reads bright and detailed up close
+      const glowMat = new THREE.MeshBasicMaterial({ map: bucket.tex, color: 0x2b2620 });
+      glowPairs.push({ mesh, material: glowMat });
+      return mesh;
+    });
+
+  const glowBandMesh = glowBandGeoms.length
+    ? new THREE.Mesh(mergeGeometries(glowBandGeoms), new THREE.MeshBasicMaterial({ vertexColors: true }))
+    : null;
+  if (glowBandMesh) scene.add(glowBandMesh);
 
   /* ---------- labels ---------- */
   const { tex, rects } = await buildLabelAtlas(data.zones);
@@ -168,5 +227,5 @@ export async function buildZones({ scene, spine, data }){
   labelMesh.renderOrder = 2;
   scene.add(labelMesh);
 
-  return { massMesh, labelMesh };
+  return { massMeshes, glowBandMesh, labelMesh, glowPairs };
 }

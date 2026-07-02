@@ -3,19 +3,20 @@ import * as THREE from 'three';
 /* ============================================================
    NEON DESERT · SKY                                         🌵
    A big inverted dome that rides with the camera (classic
-   skybox trick) painted with an early-evening desert gradient
-   via vertex colors — one mesh, no extra draw calls beyond the
-   usual bloom-pass duplicate, and it correctly pans with camera
-   yaw/pitch instead of looking like a flat sticker.
+   skybox trick) painted with a true-night gradient via vertex
+   colors: deep navy dome, never pure black, with a warm amber
+   "light dome" glow rising from the horizon — the way a real
+   desert city's light pollution washes the low sky. Sparse dim
+   stars only survive near the zenith, same as over the Strip.
    ============================================================ */
 
 const STOPS = [
-  { v: 0.00, c: [0.035, 0.035, 0.075] }, // ground-level haze (matches fog)
-  { v: 0.40, c: [0.085, 0.065, 0.120] }, // dark band just under the horizon
-  { v: 0.50, c: [0.560, 0.335, 0.260] }, // warm horizon glow — sun just set
-  { v: 0.60, c: [0.260, 0.195, 0.320] }, // afterglow transitioning to sky
-  { v: 0.78, c: [0.120, 0.145, 0.310] }, // mid sky blue
-  { v: 1.00, c: [0.050, 0.060, 0.145] }, // zenith indigo
+  { v: 0.00, c: [0.050, 0.033, 0.020] }, // ground haze — matches fog, warm dark
+  { v: 0.05, c: [0.230, 0.135, 0.058] }, // peak of the amber light-dome glow
+  { v: 0.14, c: [0.110, 0.082, 0.088] }, // glow fading into the night sky
+  { v: 0.30, c: [0.038, 0.046, 0.095] }, // deep navy transition
+  { v: 0.60, c: [0.026, 0.032, 0.072] }, // mid sky, navy
+  { v: 1.00, c: [0.014, 0.018, 0.042] }, // darkest at the zenith — where stars survive
 ];
 
 function colorAt(v){
@@ -27,6 +28,32 @@ function colorAt(v){
     }
   }
   return STOPS[STOPS.length-1].c;
+}
+
+function buildStars(radius){
+  const N = 240;
+  const positions = new Float32Array(N * 3);
+  for (let i = 0; i < N; i++){
+    // bias toward the zenith so stars only survive high overhead, where the
+    // amber ground glow can't wash them out
+    const elevation = THREE.MathUtils.lerp(Math.PI*0.30, Math.PI*0.5, Math.pow(Math.random(), 0.55));
+    const azimuth = Math.random() * Math.PI * 2;
+    const r = radius * 0.97;
+    const y = Math.sin(elevation) * r;
+    const rad = Math.cos(elevation) * r;
+    positions[i*3]   = Math.cos(azimuth) * rad;
+    positions[i*3+1] = y;
+    positions[i*3+2] = Math.sin(azimuth) * rad;
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  const mat = new THREE.PointsMaterial({
+    color: 0xaebdec, size: 1.5, sizeAttenuation: false,
+    transparent: true, opacity: 0.5, depthWrite: false, fog: false
+  });
+  const stars = new THREE.Points(geo, mat);
+  stars.renderOrder = -1;
+  return stars;
 }
 
 export function buildSky({ scene, radius = 900 }){
@@ -45,5 +72,14 @@ export function buildSky({ scene, radius = 900 }){
   dome.renderOrder = -1;
   scene.add(dome);
 
-  return { dome, update(camera){ dome.position.copy(camera.position); } };
+  const stars = buildStars(radius);
+  scene.add(stars);
+
+  return {
+    dome, stars,
+    update(camera){
+      dome.position.copy(camera.position);
+      stars.position.copy(camera.position);
+    }
+  };
 }
