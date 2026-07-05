@@ -70,15 +70,19 @@
   .nav-mobile-menu { display: block; }
   .nav-mobile-drawer { display: flex; }
 }
-#vs-memorial-banner { display: none; position: fixed; top: 84px; left: 0; right: 0; z-index: 199; background: linear-gradient(90deg, #B22234 0%, #3C3B6E 50%, #B22234 100%); color: #fff; text-align: center; padding: 7px 16px; font-family: 'Barlow Condensed', 'Barlow', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 1.2px; text-transform: uppercase; border-bottom: 2px solid #fff; box-shadow: 0 2px 12px rgba(0,0,0,0.4); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#vs-memorial-banner { display: none; position: fixed; top: 84px; left: 0; right: 0; z-index: 199; background: linear-gradient(90deg, #1A6BFF 0%, #4D90F0 50%, #1A6BFF 100%); color: #fff; text-align: center; padding: 9px 16px; font-family: 'Barlow Condensed', 'Barlow', sans-serif; font-weight: 800; font-size: 0.95rem; letter-spacing: 0.8px; text-transform: uppercase; box-shadow: 0 2px 12px rgba(0,0,0,0.35); overflow: hidden; }
 #vs-memorial-banner.vsm-visible { display: block; }
-#vs-memorial-banner .vsm-stars { color: #FFD700; margin: 0 6px; letter-spacing: 3px; }
-#vs-memorial-banner .vsm-unit { display: inline-block; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.25); padding: 1px 5px; border-radius: 3px; font-variant-numeric: tabular-nums; margin: 0 1px; min-width: 2.2ch; text-align: center; }
-#vs-memorial-banner .vsm-link { color: #FFD700; text-decoration: none; font-weight: 800; border-bottom: 1px solid rgba(255,215,0,0.5); transition: color 0.2s, border-color 0.2s; }
-#vs-memorial-banner .vsm-link:hover { color: #fff; border-color: rgba(255,255,255,0.6); }
-#vs-memorial-banner .vsm-enjoy { font-size: 1rem; letter-spacing: 1.5px; }
-@media (max-width: 900px) { #vs-memorial-banner { top: 60px; font-size: 0.75rem; padding: 6px 10px; letter-spacing: 0.8px; white-space: normal; text-align: center; line-height: 1.4; } }
-@media (max-width: 480px) { #vs-memorial-banner { font-size: 0.7rem; padding: 5px 8px; } #vs-memorial-banner .vsm-stars { margin: 0 3px; } }
+#vs-memorial-banner .vsm-inner { display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center; position: relative; z-index: 2; }
+#vs-memorial-banner .vsm-icon { display: inline-block; animation: vsmBob 2.4s ease-in-out infinite; }
+#vs-memorial-banner .vsm-icon.vsm-icon-2 { animation-delay: 1.1s; }
+@keyframes vsmBob { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-3px) rotate(-6deg); } }
+#vs-memorial-banner::before { content: ''; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgba(255,255,255,0.16) 50%, transparent 70%); background-size: 220% 100%; background-position: -120% 0; animation: vsmShimmer 5s ease-in-out infinite; pointer-events: none; z-index: 1; }
+@keyframes vsmShimmer { 0% { background-position: -120% 0; } 45% { background-position: 130% 0; } 100% { background-position: 130% 0; } }
+#vs-memorial-banner .vsm-btn { display: inline-flex; align-items: center; gap: 6px; background: #FF6B2B; color: #0A1628; text-decoration: none; font-weight: 800; letter-spacing: 0.06em; padding: 6px 16px; border-radius: 100px; font-size: 0.82rem; white-space: nowrap; transition: background 0.2s, transform 0.2s; }
+#vs-memorial-banner .vsm-btn:hover { background: #ff7d40; transform: translateY(-1px); }
+@media (prefers-reduced-motion: reduce) { #vs-memorial-banner .vsm-icon, #vs-memorial-banner::before { animation: none; } }
+@media (max-width: 900px) { #vs-memorial-banner { top: 60px; font-size: 0.78rem; padding: 8px 10px; letter-spacing: 0.5px; } #vs-memorial-banner .vsm-inner { gap: 8px; } }
+@media (max-width: 480px) { #vs-memorial-banner { font-size: 0.72rem; padding: 7px 8px; } #vs-memorial-banner .vsm-btn { padding: 5px 12px; font-size: 0.72rem; } }
 .nav-more { position: relative; }
 .nav-more-btn { background: none; border: none; color: #D4DCE8; font-weight: 600; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; font-family: 'Barlow', sans-serif; padding: 0; transition: color 0.2s; line-height: inherit; }
 .nav-more:hover .nav-more-btn { color: #FF6B2B; }
@@ -175,19 +179,14 @@
     overlay.classList.toggle('visible');
   };
 
-  // July 4th Weekend Countdown (PDT = UTC-7)
-  // Counts down to midnight PDT Friday July 3 2026 (= 2026-07-03T07:00:00Z)
-  // Switches to "Happy 4th" message through end of July 4 (2026-07-05T07:00:00Z)
+  // Labor Day Weekend Advance Notice (PDT = UTC-7)
+  // Shows through end of Labor Day 2026 (Mon Sept 7) — hides after midnight PDT Sept 8 (= 2026-09-08T07:00:00Z)
   (function() {
     var banner = document.getElementById('vs-memorial-banner');
     if (!banner) return;
-    var TARGET = new Date('2026-07-03T07:00:00Z'); // midnight PDT Fri Jul 3 — weekend starts
-    var EXPIRE = new Date('2026-07-05T07:00:00Z'); // midnight PDT end of Jul 4
-    var offsetApplied = false;
+    var EXPIRE = new Date('2026-09-08T07:00:00Z'); // midnight PDT end of Labor Day
 
     function applyBodyOffset() {
-      if (offsetApplied) return;
-      offsetApplied = true;
       requestAnimationFrame(function() {
         var bh = banner.offsetHeight;
         if (bh > 0) {
@@ -197,59 +196,19 @@
         }
       });
     }
-    function removeBodyOffset() {
-      if (!offsetApplied) return;
-      var orig = document.body.getAttribute('data-vsm-orig-pt');
-      document.body.style.setProperty('padding-top', (orig || '0') + 'px', 'important');
-    }
 
-    function pad(n) { return n < 10 ? '0' + n : '' + n; }
-    function isMobile() { return window.innerWidth < 480; }
+    var now = new Date();
+    if (now >= EXPIRE) return;
 
-    function tick() {
-      var now = new Date();
-      if (now >= EXPIRE) {
-        banner.classList.remove('vsm-visible');
-        removeBodyOffset();
-        clearInterval(vsMemTimer);
-        return;
-      }
-      if (!banner.classList.contains('vsm-visible')) {
-        banner.classList.add('vsm-visible');
-        applyBodyOffset();
-      }
-      if (now >= TARGET) {
-        banner.innerHTML = '<span class="vsm-stars">★ ★ ★</span><span class="vsm-enjoy">Happy 4th of July 2026! 🎆🇺🇸 Enjoy the fireworks — and the shows.</span><span class="vsm-stars">★ ★ ★</span>';
-        clearInterval(vsMemTimer);
-        return;
-      }
-      var diff = TARGET - now;
-      var d = Math.floor(diff / 86400000);
-      var h = Math.floor((diff % 86400000) / 3600000);
-      var m = Math.floor((diff % 3600000) / 60000);
-      var s = Math.floor((diff % 60000) / 1000);
-      if (isMobile()) {
-        banner.innerHTML =
-          '🎆 July 4th Weekend in ' +
-          '<span class="vsm-unit">' + d + 'd</span> ' +
-          '<span class="vsm-unit">' + pad(h) + 'h</span> ' +
-          '<span class="vsm-unit">' + pad(m) + 'm</span> ' +
-          '<span class="vsm-unit">' + pad(s) + 's</span>' +
-          ' &mdash; <a class="vsm-link" href="/shows/">All Shows &#8594;</a>';
-      } else {
-        banner.innerHTML =
-          '<span class="vsm-stars">★</span>' +
-          '🎆 July 4th Weekend kicks off in ' +
-          '<span class="vsm-unit">' + d + 'd</span> ' +
-          '<span class="vsm-unit">' + pad(h) + 'h</span> ' +
-          '<span class="vsm-unit">' + pad(m) + 'm</span> ' +
-          '<span class="vsm-unit">' + pad(s) + 's</span>' +
-          ' &mdash; <a class="vsm-link" href="/shows/">Plan Your Vegas Night &#8594;</a>' +
-          '<span class="vsm-stars">★</span>';
-      }
-    }
-    tick();
-    var vsMemTimer = setInterval(tick, 1000);
+    banner.innerHTML =
+      '<span class="vsm-inner">' +
+        '<span class="vsm-icon">🧳</span>' +
+        '<span>Labor Day Weekend is coming and many shows sell out early. Be smart and book ahead.</span>' +
+        '<span class="vsm-icon vsm-icon-2">🌵</span>' +
+        '<a class="vsm-btn" href="/shows/">All Shows &#8594;</a>' +
+      '</span>';
+    banner.classList.add('vsm-visible');
+    applyBodyOffset();
   })();
 
   // Google Analytics — injected once via header, covers every page
