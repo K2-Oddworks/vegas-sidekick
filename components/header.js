@@ -74,8 +74,9 @@
 #vs-memorial-banner.vsm-visible { display: block; }
 #vs-memorial-banner .vsm-clip { position: relative; overflow: hidden; padding: 8px 16px; }
 #vs-memorial-banner .vsm-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
-#vs-memorial-banner .vsm-inner { position: relative; z-index: 2; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: nowrap; white-space: nowrap; font-family: 'Barlow Condensed', 'Barlow', sans-serif; font-weight: 800; font-size: 0.86rem; letter-spacing: 0.3px; text-transform: uppercase; color: #fff; }
-#vs-memorial-banner .vsm-text { -webkit-text-stroke: 0.6px rgba(0,0,0,0.6); text-shadow: 0 1px 3px rgba(0,0,0,0.4); overflow: hidden; text-overflow: ellipsis; }
+#vs-memorial-banner .vsm-inner { position: relative; z-index: 2; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: nowrap; font-family: 'Barlow Condensed', 'Barlow', sans-serif; font-weight: 800; font-size: 0.86rem; letter-spacing: 0.3px; text-transform: uppercase; color: #fff; }
+#vs-memorial-banner .vsm-msg { display: flex; align-items: center; gap: 8px; min-width: 0; }
+#vs-memorial-banner .vsm-text { white-space: nowrap; -webkit-text-stroke: 0.6px rgba(0,0,0,0.6); text-shadow: 0 1px 3px rgba(0,0,0,0.4); }
 #vs-memorial-banner .vsm-icon { display: inline-block; flex-shrink: 0; font-size: 1.2em; line-height: 1; animation: vsmBob 2.4s ease-in-out infinite; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.45)); }
 #vs-memorial-banner .vsm-icon.vsm-icon-2 { animation-delay: 1.1s; }
 @keyframes vsmBob { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-3px) rotate(-6deg); } }
@@ -107,8 +108,19 @@
 #vs-memorial-banner .vsm-pop-success.vsm-show { display: block; }
 
 @media (prefers-reduced-motion: reduce) { #vs-memorial-banner .vsm-icon, #vs-memorial-banner .vsm-spike { animation: none; } }
-@media (max-width: 900px) { #vs-memorial-banner .vsm-clip { padding: 7px 10px; } #vs-memorial-banner .vsm-inner { font-size: 0.72rem; gap: 7px; } #vs-memorial-banner .vsm-btn { font-size: 0.72rem; padding: 4px 12px; } #vs-memorial-banner .vsm-spike { width: 26px; height: 26px; } }
-@media (max-width: 480px) { #vs-memorial-banner .vsm-inner { font-size: 0.62rem; gap: 5px; } #vs-memorial-banner .vsm-text { max-width: 44vw; } #vs-memorial-banner .vsm-btn { padding: 4px 10px; font-size: 0.62rem; } #vs-memorial-banner .vsm-popover { right: 8px; width: 210px; } }
+@media (max-width: 900px) {
+  #vs-memorial-banner .vsm-clip { padding: 8px 12px; }
+  #vs-memorial-banner .vsm-inner { flex-direction: column; gap: 7px; font-size: 0.72rem; }
+  #vs-memorial-banner .vsm-msg { justify-content: center; }
+  #vs-memorial-banner .vsm-text { white-space: normal; text-align: center; line-height: 1.35; }
+  #vs-memorial-banner .vsm-btn { font-size: 0.72rem; padding: 5px 16px; }
+  #vs-memorial-banner .vsm-spike { width: 26px; height: 26px; }
+}
+@media (max-width: 480px) {
+  #vs-memorial-banner .vsm-inner { font-size: 0.66rem; gap: 6px; }
+  #vs-memorial-banner .vsm-btn { padding: 5px 14px; font-size: 0.66rem; }
+  #vs-memorial-banner .vsm-popover { right: 8px; width: 210px; }
+}
 .nav-more { position: relative; }
 .nav-more-btn { background: none; border: none; color: #D4DCE8; font-weight: 600; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; font-family: 'Barlow', sans-serif; padding: 0; transition: color 0.2s; line-height: inherit; }
 .nav-more:hover .nav-more-btn { color: #FF6B2B; }
@@ -231,9 +243,11 @@
       '<div class="vsm-clip">' +
         '<canvas class="vsm-canvas" id="vsmCanvas"></canvas>' +
         '<div class="vsm-inner">' +
-          '<span class="vsm-icon">🧳</span>' +
-          '<span class="vsm-text">Labor Day Weekend is coming and many shows sell out early. Be smart and book ahead.</span>' +
-          '<span class="vsm-icon vsm-icon-2">🌵</span>' +
+          '<span class="vsm-msg">' +
+            '<span class="vsm-icon">🧳</span>' +
+            '<span class="vsm-text">Labor Day Weekend is coming and many shows sell out early. Be smart and book ahead.</span>' +
+            '<span class="vsm-icon vsm-icon-2">🌵</span>' +
+          '</span>' +
           '<a class="vsm-btn" href="/shows/">All Shows &#8594;</a>' +
         '</div>' +
       '</div>' +
