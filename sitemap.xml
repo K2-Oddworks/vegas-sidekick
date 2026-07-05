@@ -36,6 +36,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://vegassidekick.com/shows/adult/x-rocks/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://vegassidekick.com/shows/comedy/laugh-factory/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
