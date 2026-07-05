@@ -124,7 +124,11 @@ This is the standard template for all new show pages — locked in as the refere
 - `@media (prefers-reduced-motion: reduce)` disables Ken Burns + ticker animations
 - All primary "Get Tickets" CTA buttons (`.hero-cta`, `.sb-cta`, `.mob-cta`, `.final-cta-btn`) share one locked-in treatment: navy text on orange fill, soft light-blue neon border + matching glow (`rgba(96,165,250,...)`), pulsing glow-ring animation (`pulseGlowCta` — animated `box-shadow`, no extra wrapper markup needed), the existing shimmer sweep, and a light-blue bobbing 🎟️ ticket emoji (`.cta-ticket`, hue-rotated + drop-shadow glow, `bobTicket` animation) in place of the plain arrow
 
-The seating chart is an interactive SVG — clickable zones call `selectZone('id')`, which populates a `.zone-popup` panel below with zone name, description, and optional Sidekick Pick badge.
+The seating chart is an interactive SVG — clickable zones call `selectZone('id')`, which populates a `.zone-popup` panel below with zone name, description, and optional Sweet Spot badge.
+
+**Terminology — do not conflate these two:**
+- **"Sweet Spot"** — the recommended *seating section* within a show's venue (e.g. "VIP is the Sweet Spot"). Used in the seating chart's zone popup/accordion badge (`🪑 Sweet Spot`), urgency pills, and FAQ copy about seating.
+- **"Sidekick Pick"** — a recommendation of the *entire show* itself (the `sp:true` flag in the `SHOWS` JS arrays on `shows/index.html` and category index pages, and the standalone `🌵 Sidekick Pick` urgency pill with no section name attached). Never append a seating section name to a "Sidekick Pick" label (e.g. never "Sidekick Pick — VIP") — that's a Sweet Spot claim, not a show-level pick.
 
 ### URL Pattern for Affiliate Links
 ```
