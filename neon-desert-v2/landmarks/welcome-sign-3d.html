@@ -135,12 +135,12 @@ input[type=range]{width:100%;accent-color:#FF6B2B;cursor:pointer}
 
 <canvas id="canvas"></canvas>
 
-<div id="hint">✨ Tap the WELCOME crown to customize the sign's neon</div>
+<div id="hint">✨ Tap the sign to customize its neon lights</div>
 
 <div id="watermark">NEON DESERT</div>
 
 <div id="controls">
-  <button class="btn" id="btn-tod" onclick="cycleLighting()">☀ Day</button>
+  <button class="btn" id="btn-tod" onclick="cycleLighting()">🌇 Evening</button>
   <button class="btn" id="btn-reset" onclick="resetCamera()">↺ Reset View</button>
 </div>
 
@@ -183,7 +183,7 @@ input[type=range]{width:100%;accent-color:#FF6B2B;cursor:pointer}
     <div class="speed-val" id="speed-val">1.0x</div>
   </div>
 
-  <div class="panel-hint">The WELCOME crown pulses to invite a tap — reopen anytime to restyle the bulb string running around the whole sign.</div>
+  <div class="panel-hint">The WELCOME crown pulses to invite a tap, but you can tap anywhere on the sign — reopen anytime to restyle the bulb string running around the whole thing.</div>
 </div>
 
 <!-- Three.js r128 + bloom post-processing (no OrbitControls addon — controls are hand-rolled below) -->
@@ -611,14 +611,48 @@ const mainTex = makeCanvasTexture(1200, 522, (ctx, w, h) => {
   ctx.lineWidth = h * 0.015; ctx.strokeStyle = '#a5740a'; ctx.stroke();
 });
 const mainMat = new THREE.MeshStandardMaterial({
-  map: mainTex, transparent: true, alphaTest: 0.3, side: THREE.DoubleSide,
+  map: mainTex, transparent: true, alphaTest: 0.3, side: THREE.FrontSide,
   roughness: 0.4, emissive: 0x2a2410, emissiveIntensity: 0.12
 });
+// Real thickness: separate front/back cap planes (each keeps PlaneGeometry's
+// proven, standard 0-1 UV mapping) plus a hand-built quad strip connecting
+// their perimeters — this is what makes the panel read as a solid slab from
+// the side instead of a paper-thin cutout.
+const mainDepth = 0.4, mainHalfDepth = mainDepth / 2;
 const mainMesh = new THREE.Mesh(new THREE.PlaneGeometry(mainW, mainH), mainMat);
-mainMesh.position.y = mainY;
+mainMesh.position.set(0, mainY, mainHalfDepth);
 if (!IS_MOBILE) { mainMesh.castShadow = true; mainMesh.receiveShadow = true; }
 signGroup.add(mainMesh);
-addBulbs(polyPerimeterPoints(hexLocalPts, 70), 0, mainY, 0, 0.05, 0);
+
+const mainMeshBack = mainMesh.clone();
+mainMeshBack.rotation.y = Math.PI;
+mainMeshBack.position.z = -mainHalfDepth;
+signGroup.add(mainMeshBack);
+
+function makeSideWall(pts2D, depth, mat) {
+  const halfD = depth / 2;
+  const positions = [];
+  const n = pts2D.length;
+  for (let i = 0; i < n; i++) {
+    const [x1, y1] = pts2D[i];
+    const [x2, y2] = pts2D[(i + 1) % n];
+    positions.push(
+      x1, y1, halfD,   x2, y2, halfD,   x2, y2, -halfD,
+      x1, y1, halfD,   x2, y2, -halfD,  x1, y1, -halfD
+    );
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geo.computeVertexNormals();
+  return new THREE.Mesh(geo, mat);
+}
+const mainWallMat = new THREE.MeshStandardMaterial({ color: 0xc99a1f, roughness: 0.5, metalness: 0.4, side: THREE.DoubleSide });
+const mainWall = makeSideWall(hexLocalPts, mainDepth, mainWallMat);
+mainWall.position.y = mainY;
+if (!IS_MOBILE) { mainWall.castShadow = true; mainWall.receiveShadow = true; }
+signGroup.add(mainWall);
+
+addBulbs(polyPerimeterPoints(hexLocalPts, 70), 0, mainY, 0, mainHalfDepth + 0.08, 0);
 
 // four starburst medallions along the sides (real-sign detail)
 function makeStarburst() {
@@ -638,10 +672,19 @@ function makeStarburst() {
 [[-mainW * 0.30, mainH * 0.20], [-mainW * 0.30, -mainH * 0.20], [mainW * 0.30, mainH * 0.20], [mainW * 0.30, -mainH * 0.20]]
   .forEach(([x, y]) => {
     const sb = makeStarburst();
-    sb.position.set(x, mainY + y, 0.05);
+    sb.position.set(x, mainY + y, mainHalfDepth + 0.03);
     if (!IS_MOBILE) sb.castShadow = true;
     signGroup.add(sb);
   });
+
+// invisible hit-area covering the main panel — tapping anywhere on the sign,
+// not just the crown, opens the neon customization panel
+const mainHit = new THREE.Mesh(
+  new THREE.PlaneGeometry(mainW * 0.96, mainH * 0.96),
+  new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false })
+);
+mainHit.position.set(0, mainY, mainHalfDepth + 0.15);
+signGroup.add(mainHit);
 
 // ── WELCOME crown: 7 round medallions fanned in an arc above the main panel ──
 // (the interactive hotspot — no single "diamond" shape on the real sign; the
@@ -651,6 +694,7 @@ signGroup.add(crownGroup);
 
 const CROWN_LETTERS = ['W', 'E', 'L', 'C', 'O', 'M', 'E'];
 const crownR = 0.5;
+const crownDepth = 0.22;
 const crownSpread = mainW * 0.40;
 const crownRise = 0.8;
 const crownBaseY = mainY + mainH / 2 + crownR * 0.5;
@@ -670,14 +714,22 @@ CROWN_LETTERS.forEach((ch, i) => {
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     ctx.fillText(ch, w / 2, h / 2 + h * 0.03);
   });
-  const mat = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.5, emissive: 0x3a1a10, emissiveIntensity: 0.12, side: THREE.DoubleSide });
-  const mesh = new THREE.Mesh(new THREE.CircleGeometry(crownR, 28), mat);
-  mesh.position.set(x, y, 0.02);
-  mesh.rotation.z = -t * 0.16;
+  const capMat = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.5, emissive: 0x3a1a10, emissiveIntensity: 0.12 });
+  const mesh = new THREE.Mesh(
+    new THREE.CylinderGeometry(crownR, crownR, crownDepth, 28),
+    [edgeMat, capMat, capMat]
+  );
+  mesh.rotation.x = Math.PI / 2; // only concern: orient cap to face +Z
   if (!IS_MOBILE) { mesh.castShadow = true; mesh.receiveShadow = true; }
-  crownGroup.add(mesh);
+  // fan tilt lives on a wrapper group instead of mesh.rotation.z, so it composes
+  // independently of the x-reorientation above rather than through Euler order
+  const wrap = new THREE.Group();
+  wrap.position.set(x, y, 0);
+  wrap.rotation.z = -t * 0.16;
+  wrap.add(mesh);
+  crownGroup.add(wrap);
   crownMedallions.push(mesh);
-  addBulbs(circlePerimeterPoints(crownR, 12), x, y, 0, 0.05, 0);
+  addBulbs(circlePerimeterPoints(crownR, 12), x, y, 0, crownDepth / 2 + 0.08, 0);
 });
 
 // invisible hit-area spanning the whole crown so any medallion is tappable
@@ -783,7 +835,7 @@ signGroup.add(boltInst);
 // USE_INSTANCING is a plain #define string-injected by WebGLProgram whenever
 // object.isInstancedMesh is true, independent of the chunk system, so relying
 // on just that plus a manually declared instanceMatrix attribute is safe here.
-const bulbGeo = new THREE.SphereGeometry(0.05, 8, 6);
+const bulbGeo = new THREE.SphereGeometry(0.09, 8, 6);
 const bulbColorArr = new Float32Array(bulbPositions.length * 3);
 bulbGeo.setAttribute('instColor', new THREE.InstancedBufferAttribute(bulbColorArr, 3));
 const bulbMat = new THREE.ShaderMaterial({
@@ -836,7 +888,7 @@ const STATES = {
     ambColor: 0xcc9966, ambIntensity: 0.4,
     fogColor: 0xd98a63, fogDensity: 0.02,
     starOpacity: 0.15, bloom: IS_MOBILE ? 0.6 : 1.15,
-    bulbBrightness: 0.55, pulseBoost: 0.7
+    bulbBrightness: 0.75, pulseBoost: 0.7
   },
   night: {
     label: '🌙 Night', icon: '🌙',
@@ -849,16 +901,16 @@ const STATES = {
   }
 };
 const STATE_ORDER = ['day', 'evening', 'night'];
-let stateIdx = 0;
-let targetState = STATES.day;
+let stateIdx = 1;
+let targetState = STATES.evening;
 
 const current = {
-  skyTop: new THREE.Color(STATES.day.skyTop), skyHori: new THREE.Color(STATES.day.skyHori),
-  sunPos: STATES.day.sunPos.clone(), sunColor: new THREE.Color(STATES.day.sunColor), sunIntensity: STATES.day.sunIntensity,
-  ambColor: new THREE.Color(STATES.day.ambColor), ambIntensity: STATES.day.ambIntensity,
-  fogColor: new THREE.Color(STATES.day.fogColor), fogDensity: STATES.day.fogDensity,
-  starOpacity: STATES.day.starOpacity, bloom: STATES.day.bloom,
-  bulbBrightness: STATES.day.bulbBrightness, pulseBoost: STATES.day.pulseBoost
+  skyTop: new THREE.Color(STATES.evening.skyTop), skyHori: new THREE.Color(STATES.evening.skyHori),
+  sunPos: STATES.evening.sunPos.clone(), sunColor: new THREE.Color(STATES.evening.sunColor), sunIntensity: STATES.evening.sunIntensity,
+  ambColor: new THREE.Color(STATES.evening.ambColor), ambIntensity: STATES.evening.ambIntensity,
+  fogColor: new THREE.Color(STATES.evening.fogColor), fogDensity: STATES.evening.fogDensity,
+  starOpacity: STATES.evening.starOpacity, bloom: STATES.evening.bloom,
+  bulbBrightness: STATES.evening.bulbBrightness, pulseBoost: STATES.evening.pulseBoost
 };
 
 function cycleLighting() {
@@ -937,7 +989,7 @@ function handleTap(clientX, clientY) {
   ndc.x = (clientX / window.innerWidth) * 2 - 1;
   ndc.y = -(clientY / window.innerHeight) * 2 + 1;
   raycaster.setFromCamera(ndc, camera);
-  const hits = raycaster.intersectObject(crownHit, false);
+  const hits = raycaster.intersectObjects([crownHit, mainHit], false);
   if (hits.length) openPanel();
 }
 
