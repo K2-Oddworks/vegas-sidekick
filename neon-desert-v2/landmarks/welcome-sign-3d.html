@@ -135,7 +135,7 @@ input[type=range]{width:100%;accent-color:#FF6B2B;cursor:pointer}
 
 <canvas id="canvas"></canvas>
 
-<div id="hint">✨ Tap the diamond to customize the sign's neon</div>
+<div id="hint">✨ Tap the WELCOME crown to customize the sign's neon</div>
 
 <div id="watermark">NEON DESERT</div>
 
@@ -149,7 +149,7 @@ input[type=range]{width:100%;accent-color:#FF6B2B;cursor:pointer}
 <div id="panel-backdrop" onclick="closePanel()"></div>
 <div id="panel">
   <div class="panel-head">
-    <div class="panel-title">💎 Sign Neon</div>
+    <div class="panel-title">💡 Sign Neon</div>
     <button class="panel-close" onclick="closePanel()">✕</button>
   </div>
 
@@ -172,12 +172,18 @@ input[type=range]{width:100%;accent-color:#FF6B2B;cursor:pointer}
   </div>
 
   <div class="panel-section">
+    <div class="panel-label">Intensity</div>
+    <input type="range" id="intensity-slider" min="0.3" max="2" step="0.05" value="1">
+    <div class="speed-val" id="intensity-val">1.0x</div>
+  </div>
+
+  <div class="panel-section">
     <div class="panel-label">Chase Speed</div>
     <input type="range" id="speed-slider" min="0.2" max="3" step="0.1" value="1">
     <div class="speed-val" id="speed-val">1.0x</div>
   </div>
 
-  <div class="panel-hint">The diamond crown pulses to invite a tap — reopen anytime to restyle the bulb string running around the whole sign.</div>
+  <div class="panel-hint">The WELCOME crown pulses to invite a tap — reopen anytime to restyle the bulb string running around the whole sign.</div>
 </div>
 
 <!-- Three.js r128 + bloom post-processing (no OrbitControls addon — controls are hand-rolled below) -->
@@ -214,16 +220,16 @@ scene.fog = new THREE.FogExp2(0x0a0a20, 0.018);
 
 // ─── Camera ────────────────────────────────────────────────────────────────
 const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 500);
-const TARGET_DEFAULT = new THREE.Vector3(0, 5.6, 0);
+const TARGET_DEFAULT = new THREE.Vector3(0, 2.6, 0);
 
 // ─── Custom pointer-based orbit / pan / zoom controls ─────────────────────
 // Spherical coords around `target`; no OrbitControls.js addon (unreliable
 // from a bare CDN tag) — hand-rolled with Pointer Events for mouse + touch.
 const controls = (function () {
   const target = TARGET_DEFAULT.clone();
-  let radius = 24, theta = Math.PI * 0.32, phi = Math.PI * 0.42;      // current
+  let radius = 15, theta = Math.PI * 0.32, phi = Math.PI * 0.42;      // current
   let tRadius = radius, tTheta = theta, tPhi = phi;                    // target (damped toward)
-  const MIN_R = 7, MAX_R = 55, MIN_PHI = 0.18, MAX_PHI = Math.PI * 0.49;
+  const MIN_R = 4.5, MAX_R = 36, MIN_PHI = 0.18, MAX_PHI = Math.PI * 0.49;
 
   const pointers = new Map();
   let mode = null;     // 'rotate' | 'pan'
@@ -232,7 +238,7 @@ const controls = (function () {
   let downInfo = null; // { x, y, time } for click-vs-drag detection
 
   function setFromDefault() {
-    tRadius = radius = 24; tTheta = theta = Math.PI * 0.32; tPhi = phi = Math.PI * 0.42;
+    tRadius = radius = 15; tTheta = theta = Math.PI * 0.32; tPhi = phi = Math.PI * 0.42;
     target.copy(TARGET_DEFAULT);
   }
 
@@ -517,19 +523,23 @@ const edgeMat = new THREE.MeshStandardMaterial({ color: 0x1c2333, roughness: 0.6
 // bulb collection — filled while building each section, instanced once at the end
 const bulbPositions = []; // {x,y,z} in signGroup-local space
 
-function rectPerimeterPoints(w, h, count) {
-  const pts = [];
-  const perim = 2 * (w + h);
+// generic closed-polygon perimeter sampler (used for the hexagon body outline)
+function polyPerimeterPoints(pts, count) {
+  const segLens = pts.map((p, i) => {
+    const q = pts[(i + 1) % pts.length];
+    return Math.hypot(q[0] - p[0], q[1] - p[1]);
+  });
+  const total = segLens.reduce((a, b) => a + b, 0);
+  const out = [];
   for (let i = 0; i < count; i++) {
-    let d = (i / count) * perim;
-    let x, y;
-    if (d < w)            { x = -w/2 + d;              y =  h/2; }
-    else if (d < w + h)   { x =  w/2;                  y =  h/2 - (d - w); }
-    else if (d < 2*w + h) { x =  w/2 - (d - w - h);     y = -h/2; }
-    else                  { x = -w/2;                  y = -h/2 + (d - 2*w - h); }
-    pts.push({ x, y });
+    let d = (i / count) * total;
+    let segIdx = 0;
+    while (d > segLens[segIdx]) { d -= segLens[segIdx]; segIdx++; }
+    const p = pts[segIdx], q = pts[(segIdx + 1) % pts.length];
+    const t = segLens[segIdx] > 0 ? d / segLens[segIdx] : 0;
+    out.push({ x: p[0] + (q[0] - p[0]) * t, y: p[1] + (q[1] - p[1]) * t });
   }
-  return pts;
+  return out;
 }
 function circlePerimeterPoints(r, count) {
   const pts = [];
@@ -540,7 +550,7 @@ function circlePerimeterPoints(r, count) {
   return pts;
 }
 function addBulbs(localPts, cx, cy, cz, zOff, rotZ) {
-  const cos = Math.cos(rotZ), sin = Math.sin(rotZ);
+  const cos = Math.cos(rotZ || 0), sin = Math.sin(rotZ || 0);
   localPts.forEach(p => {
     const rx = p.x * cos - p.y * sin;
     const ry = p.x * sin + p.y * cos;
@@ -548,55 +558,72 @@ function addBulbs(localPts, cx, cy, cz, zOff, rotZ) {
   });
 }
 
-// ── NEVADA plate ───────────────────────────────────────────────────────────
-const nevadaW = 3.6, nevadaH = 0.9, nevadaDepth = 0.3, nevadaY = 0.9 + nevadaH / 2; // base sits at y=0.9
-const nevadaTex = makeCanvasTexture(1024, 256, (ctx, w, h) => {
-  ctx.fillStyle = '#12203a'; ctx.fillRect(0, 0, w, h);
-  ctx.strokeStyle = '#f4b942'; ctx.lineWidth = 8; ctx.strokeRect(14, 14, w - 28, h - 28);
-  ctx.fillStyle = '#f4b942';
-  ctx.font = '900 128px Impact, "Arial Narrow Bold", sans-serif';
+// ── Main body: single diamond/lozenge panel — "to Fabulous / LAS VEGAS / NEVADA" ──
+// The real sign is one continuous lozenge-shaped panel (not stacked separate
+// shapes) with a scalloped gold border. Built as a flat double-sided plane
+// with an alpha-cutout texture — this sidesteps ExtrudeGeometry's default cap
+// UV mapping (which uses raw, unnormalized shape coordinates in three.js r128,
+// not a 0-1 bounding-box UV), guaranteeing the texture lands correctly since
+// PlaneGeometry's UVs are the standard, well-known 0-1 mapping.
+const mainW = 6.2, mainH = 2.7;
+const mainY = 1.85;
+const hexLocalPts = [
+  [-mainW / 2, 0], [-mainW * 0.28, mainH / 2], [mainW * 0.28, mainH / 2],
+  [mainW / 2, 0], [mainW * 0.28, -mainH / 2], [-mainW * 0.28, -mainH / 2]
+];
+const mainTex = makeCanvasTexture(1200, 522, (ctx, w, h) => {
+  const pts = [
+    [0.02 * w, 0.5 * h], [0.30 * w, 0.06 * h], [0.70 * w, 0.06 * h],
+    [0.98 * w, 0.5 * h], [0.70 * w, 0.94 * h], [0.30 * w, 0.94 * h]
+  ];
+  const tracePath = () => {
+    ctx.beginPath();
+    pts.forEach(([x, y], i) => i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y));
+    ctx.closePath();
+  };
+  ctx.clearRect(0, 0, w, h);
+  ctx.save();
+  tracePath(); ctx.clip();
+  ctx.fillStyle = '#f5efe0'; ctx.fillRect(0, 0, w, h);
   ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  ctx.fillText('N E V A D A', w / 2, h / 2 + 6);
-});
-const nevadaFaceMat = new THREE.MeshStandardMaterial({ map: nevadaTex, roughness: 0.45, emissive: 0x332200, emissiveIntensity: 0.15 });
-const nevadaMesh = new THREE.Mesh(
-  new THREE.BoxGeometry(nevadaW, nevadaH, nevadaDepth),
-  [edgeMat, edgeMat, edgeMat, edgeMat, nevadaFaceMat, nevadaFaceMat]
-);
-nevadaMesh.position.y = nevadaY;
-if (!IS_MOBILE) { nevadaMesh.castShadow = true; nevadaMesh.receiveShadow = true; }
-signGroup.add(nevadaMesh);
-addBulbs(rectPerimeterPoints(nevadaW, nevadaH, 26), 0, nevadaY, 0, nevadaDepth/2 + 0.05, 0);
-
-// ── Main rectangle: LAS VEGAS ──────────────────────────────────────────────
-const mainW = 4.6, mainH = 3.2, mainDepth = 0.34;
-const mainY = nevadaY + nevadaH/2 + mainH/2 + 0.05;
-const mainTex = makeCanvasTexture(1024, 712, (ctx, w, h) => {
-  ctx.fillStyle = '#2fa6ba'; ctx.fillRect(0, 0, w, h);
-  ctx.strokeStyle = '#e8f7f9'; ctx.lineWidth = 10; ctx.strokeRect(16, 16, w - 32, h - 32);
+  ctx.fillStyle = '#1c3f8f';
+  ctx.font = `italic 900 ${Math.round(h * 0.155)}px Georgia, "Times New Roman", serif`;
+  ctx.fillText('to Fabulous', w * 0.5, h * 0.30);
   ctx.fillStyle = '#d6231c';
-  ctx.font = '900 168px Impact, "Arial Narrow Bold", sans-serif';
-  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  ctx.lineWidth = 10; ctx.strokeStyle = '#ffffff';
-  ctx.strokeText('LAS', w / 2, h * 0.36);
-  ctx.fillText('LAS', w / 2, h * 0.36);
-  ctx.strokeText('VEGAS', w / 2, h * 0.68);
-  ctx.fillText('VEGAS', w / 2, h * 0.68);
+  ctx.font = `900 ${Math.round(h * 0.30)}px Impact, "Arial Narrow Bold", sans-serif`;
+  ctx.lineWidth = h * 0.018; ctx.strokeStyle = '#ffffff';
+  ctx.strokeText('LAS VEGAS', w * 0.5, h * 0.56);
+  ctx.fillText('LAS VEGAS', w * 0.5, h * 0.56);
+  ctx.fillStyle = '#173a7a';
+  ctx.font = `900 ${Math.round(h * 0.14)}px Impact, "Arial Narrow Bold", sans-serif`;
+  ctx.fillText('NEVADA', w * 0.5, h * 0.80);
+  ctx.save();
+  ctx.translate(w * 0.5, h * 0.91);
+  ctx.rotate(Math.PI / 4);
+  ctx.fillStyle = '#c81d25';
+  ctx.fillRect(-h * 0.032, -h * 0.032, h * 0.064, h * 0.064);
+  ctx.restore();
+  ctx.restore();
+  // gold scalloped border, drawn last so it sits on top of the fill/text edges
+  tracePath();
+  ctx.lineWidth = h * 0.05; ctx.strokeStyle = '#e8b923'; ctx.stroke();
+  tracePath();
+  ctx.lineWidth = h * 0.015; ctx.strokeStyle = '#a5740a'; ctx.stroke();
 });
-const mainFaceMat = new THREE.MeshStandardMaterial({ map: mainTex, roughness: 0.4, emissive: 0x113344, emissiveIntensity: 0.12 });
-const mainMesh = new THREE.Mesh(
-  new THREE.BoxGeometry(mainW, mainH, mainDepth),
-  [edgeMat, edgeMat, edgeMat, edgeMat, mainFaceMat, mainFaceMat]
-);
+const mainMat = new THREE.MeshStandardMaterial({
+  map: mainTex, transparent: true, alphaTest: 0.3, side: THREE.DoubleSide,
+  roughness: 0.4, emissive: 0x2a2410, emissiveIntensity: 0.12
+});
+const mainMesh = new THREE.Mesh(new THREE.PlaneGeometry(mainW, mainH), mainMat);
 mainMesh.position.y = mainY;
 if (!IS_MOBILE) { mainMesh.castShadow = true; mainMesh.receiveShadow = true; }
 signGroup.add(mainMesh);
-addBulbs(rectPerimeterPoints(mainW, mainH, 64), 0, mainY, 0, mainDepth/2 + 0.05, 0);
+addBulbs(polyPerimeterPoints(hexLocalPts, 70), 0, mainY, 0, 0.05, 0);
 
 // four starburst medallions along the sides (real-sign detail)
 function makeStarburst() {
   const shape = new THREE.Shape();
-  const spikes = 8, rOuter = 0.26, rInner = 0.11;
+  const spikes = 8, rOuter = 0.22, rInner = 0.09;
   for (let i = 0; i < spikes * 2; i++) {
     const a = (i / (spikes * 2)) * Math.PI * 2;
     const r = i % 2 === 0 ? rOuter : rInner;
@@ -604,72 +631,64 @@ function makeStarburst() {
     i === 0 ? shape.moveTo(x, y) : shape.lineTo(x, y);
   }
   shape.closePath();
-  const geo = new THREE.ExtrudeGeometry(shape, { depth: 0.06, bevelEnabled: true, bevelThickness: 0.02, bevelSize: 0.02, bevelSegments: 1 });
+  const geo = new THREE.ExtrudeGeometry(shape, { depth: 0.05, bevelEnabled: true, bevelThickness: 0.02, bevelSize: 0.02, bevelSegments: 1 });
   const mat = new THREE.MeshStandardMaterial({ color: 0xf2f0e8, emissive: 0xfff2cc, emissiveIntensity: 0.35, metalness: 0.6, roughness: 0.3 });
   return new THREE.Mesh(geo, mat);
 }
-[[-mainW/2 - 0.02, mainH*0.24], [-mainW/2 - 0.02, -mainH*0.24], [mainW/2 + 0.02, mainH*0.24], [mainW/2 + 0.02, -mainH*0.24]]
+[[-mainW * 0.30, mainH * 0.20], [-mainW * 0.30, -mainH * 0.20], [mainW * 0.30, mainH * 0.20], [mainW * 0.30, -mainH * 0.20]]
   .forEach(([x, y]) => {
     const sb = makeStarburst();
-    sb.position.set(x, mainY + y, mainDepth/2 - 0.03);
+    sb.position.set(x, mainY + y, 0.05);
     if (!IS_MOBILE) sb.castShadow = true;
     signGroup.add(sb);
   });
 
-// ── Circle medallion: "to Fabulous" ────────────────────────────────────────
-const circleR = 1.3, circleDepth = 0.3;
-const circleY = mainY + mainH/2 + 0.5;
-const circleTex = makeCanvasTexture(512, 512, (ctx, w, h) => {
-  ctx.fillStyle = '#f3e9d2'; ctx.fillRect(0, 0, w, h);
-  ctx.fillStyle = '#142850';
-  ctx.font = 'italic 900 84px Georgia, "Times New Roman", serif';
-  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  ctx.fillText('to Fabulous', w / 2, h / 2 + 10);
-});
-const circleFaceMat = new THREE.MeshStandardMaterial({ map: circleTex, roughness: 0.4, emissive: 0x3a2f1a, emissiveIntensity: 0.1 });
-const circleMesh = new THREE.Mesh(
-  new THREE.CylinderGeometry(circleR, circleR, circleDepth, 48),
-  [edgeMat, circleFaceMat, circleFaceMat]
-);
-circleMesh.rotation.x = Math.PI / 2;
-circleMesh.position.y = circleY;
-if (!IS_MOBILE) { circleMesh.castShadow = true; circleMesh.receiveShadow = true; }
-signGroup.add(circleMesh);
-addBulbs(circlePerimeterPoints(circleR, 34), 0, circleY, 0, circleDepth/2 + 0.05, 0);
+// ── WELCOME crown: 7 round medallions fanned in an arc above the main panel ──
+// (the interactive hotspot — no single "diamond" shape on the real sign; the
+// crown of circles reads as the top of the sign and is the natural tap target)
+const crownGroup = new THREE.Group();
+signGroup.add(crownGroup);
 
-// ── Diamond crown: WELCOME (the interactive hotspot) ───────────────────────
-const diamondSide = 2.4, diamondDepth = 0.3;
-const diamondY = circleY + circleR + 1.05;
-const diamondTex = makeCanvasTexture(512, 512, (ctx, w, h) => {
-  ctx.fillStyle = '#f4b942'; ctx.fillRect(0, 0, w, h);
-  ctx.fillStyle = '#c81d25';
-  ctx.font = '900 96px Impact, "Arial Narrow Bold", sans-serif';
-  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  ctx.lineWidth = 6; ctx.strokeStyle = '#ffffff';
-  ctx.strokeText('WELCOME', w / 2, h / 2);
-  ctx.fillText('WELCOME', w / 2, h / 2);
-});
-const diamondFaceMat = new THREE.MeshStandardMaterial({ map: diamondTex, roughness: 0.4, emissive: 0x552200, emissiveIntensity: 0.15 });
-const diamondGroup = new THREE.Group();
-diamondGroup.position.y = diamondY;
-diamondGroup.rotation.z = Math.PI / 4;
-const diamondMesh = new THREE.Mesh(
-  new THREE.BoxGeometry(diamondSide, diamondSide, diamondDepth),
-  [edgeMat, edgeMat, edgeMat, edgeMat, diamondFaceMat, diamondFaceMat]
-);
-if (!IS_MOBILE) { diamondMesh.castShadow = true; diamondMesh.receiveShadow = true; }
-diamondGroup.add(diamondMesh);
-signGroup.add(diamondGroup);
-addBulbs(rectPerimeterPoints(diamondSide, diamondSide, 32), 0, diamondY, 0, diamondDepth/2 + 0.05, Math.PI / 4);
+const CROWN_LETTERS = ['W', 'E', 'L', 'C', 'O', 'M', 'E'];
+const crownR = 0.5;
+const crownSpread = mainW * 0.40;
+const crownRise = 0.8;
+const crownBaseY = mainY + mainH / 2 + crownR * 0.5;
+const crownMedallions = [];
 
-// invisible larger hit-area so the diamond is easy to tap
-const diamondHit = new THREE.Mesh(
-  new THREE.BoxGeometry(diamondSide * 1.25, diamondSide * 1.25, diamondDepth * 3),
+CROWN_LETTERS.forEach((ch, i) => {
+  const t = (i / (CROWN_LETTERS.length - 1)) * 2 - 1; // -1..1
+  const x = t * crownSpread;
+  const y = crownBaseY + crownRise * (1 - t * t);
+  const tex = makeCanvasTexture(256, 256, (ctx, w, h) => {
+    ctx.fillStyle = '#e7d9b0';
+    ctx.beginPath(); ctx.arc(w / 2, h / 2, w / 2 - 3, 0, Math.PI * 2); ctx.fill();
+    ctx.lineWidth = w * 0.07; ctx.strokeStyle = '#7a1f1f';
+    ctx.beginPath(); ctx.arc(w / 2, h / 2, w / 2 - w * 0.045, 0, Math.PI * 2); ctx.stroke();
+    ctx.fillStyle = '#c8351f';
+    ctx.font = `900 ${Math.round(h * 0.56)}px Impact, "Arial Narrow Bold", sans-serif`;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(ch, w / 2, h / 2 + h * 0.03);
+  });
+  const mat = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.5, emissive: 0x3a1a10, emissiveIntensity: 0.12, side: THREE.DoubleSide });
+  const mesh = new THREE.Mesh(new THREE.CircleGeometry(crownR, 28), mat);
+  mesh.position.set(x, y, 0.02);
+  mesh.rotation.z = -t * 0.16;
+  if (!IS_MOBILE) { mesh.castShadow = true; mesh.receiveShadow = true; }
+  crownGroup.add(mesh);
+  crownMedallions.push(mesh);
+  addBulbs(circlePerimeterPoints(crownR, 12), x, y, 0, 0.05, 0);
+});
+
+// invisible hit-area spanning the whole crown so any medallion is tappable
+const crownHit = new THREE.Mesh(
+  new THREE.PlaneGeometry(crownSpread * 2 + crownR * 2.6, crownRise + crownR * 2.8),
   new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false })
 );
-diamondGroup.add(diamondHit);
+crownHit.position.set(0, crownBaseY + crownRise * 0.45, 0.2);
+crownGroup.add(crownHit);
 
-// soft additive glow halo behind the diamond — pulses to invite a tap
+// soft additive glow halo behind the crown — pulses to invite a tap
 const glowMat = new THREE.SpriteMaterial({
   map: makeCanvasTexture(256, 256, (ctx, w, h) => {
     const g = ctx.createRadialGradient(w/2, h/2, 0, w/2, h/2, w/2);
@@ -679,14 +698,14 @@ const glowMat = new THREE.SpriteMaterial({
   }),
   transparent: true, depthWrite: false, blending: THREE.AdditiveBlending
 });
-const diamondGlow = new THREE.Sprite(glowMat);
-diamondGlow.scale.set(diamondSide * 2.4, diamondSide * 2.4, 1);
-diamondGlow.position.z = -0.3;
-diamondGroup.add(diamondGlow);
+const crownGlow = new THREE.Sprite(glowMat);
+crownGlow.scale.set(crownSpread * 2.7, crownSpread * 1.6, 1);
+crownGlow.position.set(0, crownBaseY + crownRise * 0.4, -0.3);
+crownGroup.add(crownGlow);
 
 // ── Support truss legs (InstancedMesh diagonal braces + rung "bolts") ─────
-const legMat = new THREE.MeshStandardMaterial({ color: 0x3a3f46, roughness: 0.55, metalness: 0.6 });
-const legBaseY = 0, legTopY = 0.9, legHalfSpan = 0.32;
+const legMat = new THREE.MeshStandardMaterial({ color: 0x3f6fa8, roughness: 0.5, metalness: 0.55 });
+const legBaseY = 0, legTopY = mainY - mainH / 2 + 0.1, legHalfSpan = 0.32;
 const legXs = [-0.9, 0.9];
 const braceLocal = []; // matrices relative to signGroup
 
@@ -720,7 +739,7 @@ legXs.forEach(lx => {
 });
 
 const braceGeo = new THREE.CylinderGeometry(0.028, 0.028, 1, 6);
-const braceMat = new THREE.MeshStandardMaterial({ color: 0x2c3138, roughness: 0.6, metalness: 0.5 });
+const braceMat = new THREE.MeshStandardMaterial({ color: 0x2f537a, roughness: 0.55, metalness: 0.55 });
 const braceInst = new THREE.InstancedMesh(braceGeo, braceMat, braceLocal.length);
 const _m4 = new THREE.Matrix4(), _quat = new THREE.Quaternion(), _scl = new THREE.Vector3(1, 1, 1);
 braceLocal.forEach((b, i) => {
@@ -735,7 +754,7 @@ signGroup.add(braceInst);
 
 // small bolt heads along the corner posts (instanced rivets)
 const boltGeo = new THREE.SphereGeometry(0.045, 6, 5);
-const boltMat = new THREE.MeshStandardMaterial({ color: 0x1c1f24, roughness: 0.4, metalness: 0.7 });
+const boltMat = new THREE.MeshStandardMaterial({ color: 0x1c2a3a, roughness: 0.4, metalness: 0.7 });
 const boltPositions = [];
 legXs.forEach(lx => {
   [[-legHalfSpan, -legHalfSpan], [legHalfSpan, -legHalfSpan], [-legHalfSpan, legHalfSpan], [legHalfSpan, legHalfSpan]]
@@ -879,7 +898,7 @@ function updateLightingLerp(dt) {
 
 // ─── Diamond panel & bulb pattern state ────────────────────────────────────
 const SWATCHES = ['#ffd37a', '#ff5a3c', '#ff2fb0', '#39c9ff', '#7dff5e'];
-const neonState = { color: new THREE.Color(SWATCHES[0]), pattern: 'chase', speed: 1.0 };
+const neonState = { color: new THREE.Color(SWATCHES[0]), pattern: 'chase', speed: 1.0, intensity: 1.0 };
 
 const swatchRow = document.getElementById('swatch-row');
 SWATCHES.forEach((hex, i) => {
@@ -899,6 +918,10 @@ document.getElementById('color-custom').addEventListener('input', e => {
   [...swatchRow.children].forEach(c => c.classList.remove('active'));
 });
 document.getElementById('pattern-select').addEventListener('change', e => { neonState.pattern = e.target.value; });
+document.getElementById('intensity-slider').addEventListener('input', e => {
+  neonState.intensity = parseFloat(e.target.value);
+  document.getElementById('intensity-val').textContent = neonState.intensity.toFixed(2) + 'x';
+});
 document.getElementById('speed-slider').addEventListener('input', e => {
   neonState.speed = parseFloat(e.target.value);
   document.getElementById('speed-val').textContent = neonState.speed.toFixed(1) + 'x';
@@ -914,7 +937,7 @@ function handleTap(clientX, clientY) {
   ndc.x = (clientX / window.innerWidth) * 2 - 1;
   ndc.y = -(clientY / window.innerHeight) * 2 + 1;
   raycaster.setFromCamera(ndc, camera);
-  const hits = raycaster.intersectObject(diamondHit, false);
+  const hits = raycaster.intersectObject(crownHit, false);
   if (hits.length) openPanel();
 }
 
@@ -925,7 +948,7 @@ function resetCamera() { controls.reset(); }
 const _bc = new THREE.Color();
 const bulbCount = bulbPositions.length;
 function updateBulbs(time) {
-  const g = current.bulbBrightness;
+  const g = current.bulbBrightness * neonState.intensity;
   const arr = bulbColorArr;
   for (let i = 0; i < bulbCount; i++) {
     if (neonState.pattern === 'solid') {
@@ -970,10 +993,10 @@ function animate() {
   updateLightingLerp(dt);
   updateBulbs(time);
 
-  // diamond idle pulse — always noticeable, amplified toward night
+  // crown idle pulse — always noticeable, amplified toward night
   const pulse = current.pulseBoost;
   const scalePulse = 1 + Math.sin(time * 2.1) * 0.018 * (0.6 + pulse);
-  diamondGroup.scale.setScalar(scalePulse);
+  crownGroup.scale.setScalar(scalePulse);
   const glowPulse = 0.35 + 0.65 * (0.5 + 0.5 * Math.sin(time * (panelOpen ? 4.2 : 2.1)));
   glowMat.opacity = (0.25 + 0.55 * pulse) * glowPulse;
 
