@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Welcome to Fabulous Las Vegas Sign — VegasSidekick.com/NeonDesert</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;background:#050510;font-family:'Helvetica Neue',Arial,sans-serif}
+#canvas{display:block;width:100vw;height:100vh;touch-action:none}
+
+#watermark{
+  position:fixed;top:19px;left:50%;transform:translateX(-50%);
+  color:rgba(255,107,43,0.22);font-size:10px;letter-spacing:6px;
+  text-transform:uppercase;font-weight:400;pointer-events:none;z-index:100;white-space:nowrap
+}
+
+#hint{
+  position:fixed;top:20px;left:20px;color:rgba(255,255,255,0.55);z-index:100;pointer-events:none;
+  font-size:11px;letter-spacing:0.6px;text-shadow:0 1px 10px rgba(0,0,0,0.95);max-width:220px;
+  opacity:0;animation:fadeUp 1.5s ease 2.4s forwards
+}
+
+#controls{
+  position:fixed;top:20px;right:20px;display:flex;flex-direction:column;gap:8px;z-index:100
+}
+.btn{
+  background:rgba(5,5,20,0.78);border:1px solid rgba(255,255,255,0.16);
+  color:rgba(255,255,255,0.82);padding:9px 16px;border-radius:6px;cursor:pointer;
+  font-size:12px;font-family:inherit;letter-spacing:0.4px;backdrop-filter:blur(10px);
+  transition:background 0.2s,border-color 0.2s,color 0.2s;text-align:left;white-space:nowrap
+}
+.btn:hover{background:rgba(255,107,43,0.28);border-color:rgba(255,107,43,0.65);color:#fff}
+.btn.active{background:rgba(255,107,43,0.38);border-color:#FF6B2B;color:#fff}
+
+#footer{
+  position:fixed;bottom:14px;left:50%;transform:translateX(-50%);
+  color:#FF6B2B;font-size:12px;letter-spacing:1.5px;opacity:0;
+  animation:fadeUp 1.5s ease 2.2s forwards;pointer-events:none;z-index:100;
+  text-shadow:0 0 18px rgba(255,107,43,0.55);white-space:nowrap
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateX(-50%) translateY(10px)}
+  to{opacity:0.88;transform:translateX(-50%) translateY(0)}
+}
+#hint{animation-name:fadeUpLeft}
+@keyframes fadeUpLeft{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:0.75;transform:translateY(0)}
+}
+
+#loading{
+  position:fixed;inset:0;background:#050510;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:14px;z-index:999;
+  transition:opacity 1s ease
+}
+#loading.fade{opacity:0;pointer-events:none}
+.ld-title{color:#FF6B2B;font-size:28px;letter-spacing:8px;font-weight:300;
+  text-transform:uppercase;text-shadow:0 0 40px rgba(255,107,43,0.5)}
+.ld-sub{color:rgba(255,255,255,0.28);font-size:10px;letter-spacing:4px;text-transform:uppercase}
+
+/* ─── Diamond customization panel ───────────────────────────────────────── */
+#panel-backdrop{
+  position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:200;
+  opacity:0;pointer-events:none;transition:opacity 0.3s ease
+}
+#panel-backdrop.open{opacity:1;pointer-events:auto}
+
+#panel{
+  position:fixed;top:0;right:0;height:100%;width:320px;max-width:88vw;
+  background:rgba(8,10,24,0.94);backdrop-filter:blur(14px);
+  border-left:1px solid rgba(255,255,255,0.12);
+  transform:translateX(100%);transition:transform 0.4s cubic-bezier(.22,.9,.35,1);
+  z-index:201;color:#fff;overflow-y:auto;padding:22px 20px 30px
+}
+#panel.open{transform:translateX(0)}
+
+.panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.panel-title{font-size:15px;letter-spacing:1.5px;text-transform:uppercase;color:#FF6B2B}
+.panel-close{
+  background:none;border:1px solid rgba(255,255,255,0.25);color:#fff;width:30px;height:30px;
+  border-radius:50%;cursor:pointer;font-size:15px;line-height:1;display:flex;align-items:center;
+  justify-content:center;transition:background 0.2s,border-color 0.2s
+}
+.panel-close:hover{background:rgba(255,107,43,0.3);border-color:#FF6B2B}
+
+.panel-section{margin-bottom:22px}
+.panel-label{
+  font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.5);
+  margin-bottom:10px
+}
+
+.swatch-row{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:12px}
+.swatch{
+  width:32px;height:32px;border-radius:50%;cursor:pointer;border:2px solid rgba(255,255,255,0.25);
+  transition:transform 0.15s,border-color 0.15s;box-shadow:0 0 8px rgba(0,0,0,0.4)
+}
+.swatch:hover{transform:scale(1.12)}
+.swatch.active{border-color:#fff;transform:scale(1.15)}
+
+.color-custom{display:flex;align-items:center;gap:10px}
+.color-custom input[type=color]{
+  width:40px;height:40px;border:none;border-radius:8px;cursor:pointer;background:none;padding:0
+}
+.color-custom span{font-size:11.5px;color:rgba(255,255,255,0.6);letter-spacing:0.4px}
+
+select.panel-select{
+  width:100%;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.18);
+  color:#fff;padding:10px 12px;border-radius:6px;font-size:13px;font-family:inherit;cursor:pointer
+}
+select.panel-select option{background:#0a0a1a;color:#fff}
+
+input[type=range]{width:100%;accent-color:#FF6B2B;cursor:pointer}
+.speed-val{font-size:11px;color:rgba(255,255,255,0.55);margin-top:6px;text-align:right}
+
+.panel-hint{font-size:11px;color:rgba(255,255,255,0.35);line-height:1.5;margin-top:4px}
+
+@media(max-width:768px){
+  #controls{top:auto;bottom:52px;right:12px;flex-direction:row;flex-wrap:wrap;
+    justify-content:flex-end;max-width:calc(100vw - 24px)}
+  .btn{padding:7px 10px;font-size:11px}
+  #hint{top:12px;left:12px;max-width:170px;font-size:10px}
+  #footer{font-size:11px;bottom:8px}
+  #panel{width:280px}
+}
+</style>
+</head>
+<body>
+
+<div id="loading">
+  <div class="ld-title">NEON DESERT</div>
+  <div class="ld-sub">Welcome to Fabulous Las Vegas</div>
+</div>
+
+<canvas id="canvas"></canvas>
+
+<div id="hint">✨ Tap the diamond to customize the sign's neon</div>
+
+<div id="watermark">NEON DESERT</div>
+
+<div id="controls">
+  <button class="btn" id="btn-tod" onclick="cycleLighting()">☀ Day</button>
+  <button class="btn" id="btn-reset" onclick="resetCamera()">↺ Reset View</button>
+</div>
+
+<div id="footer">🌵 VegasSidekick.com/NeonDesert</div>
+
+<div id="panel-backdrop" onclick="closePanel()"></div>
+<div id="panel">
+  <div class="panel-head">
+    <div class="panel-title">💎 Sign Neon</div>
+    <button class="panel-close" onclick="closePanel()">✕</button>
+  </div>
+
+  <div class="panel-section">
+    <div class="panel-label">Bulb Color</div>
+    <div class="swatch-row" id="swatch-row"></div>
+    <div class="color-custom">
+      <input type="color" id="color-custom" value="#ffd37a">
+      <span>Custom color</span>
+    </div>
+  </div>
+
+  <div class="panel-section">
+    <div class="panel-label">Pattern</div>
+    <select class="panel-select" id="pattern-select">
+      <option value="solid">Solid Glow</option>
+      <option value="chase" selected>Marquee Chase</option>
+      <option value="rainbow">Rainbow Chase</option>
+    </select>
+  </div>
+
+  <div class="panel-section">
+    <div class="panel-label">Chase Speed</div>
+    <input type="range" id="speed-slider" min="0.2" max="3" step="0.1" value="1">
+    <div class="speed-val" id="speed-val">1.0x</div>
+  </div>
+
+  <div class="panel-hint">The diamond crown pulses to invite a tap — reopen anytime to restyle the bulb string running around the whole sign.</div>
+</div>
+
+<!-- Three.js r128 + bloom post-processing (no OrbitControls addon — controls are hand-rolled below) -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+
+<script>
+'use strict';
+
+// ─── Config ────────────────────────────────────────────────────────────────
+const IS_MOBILE = window.innerWidth < 768;
+
+// ─── Renderer ──────────────────────────────────────────────────────────────
+const canvas = document.getElementById('canvas');
+const renderer = new THREE.WebGLRenderer({
+  canvas, antialias: !IS_MOBILE, powerPreference: 'high-performance'
+});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, IS_MOBILE ? 1.5 : 2));
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.shadowMap.enabled = !IS_MOBILE;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ReinhardToneMapping;
+renderer.toneMappingExposure = 1.25;
+renderer.outputEncoding = THREE.sRGBEncoding;
+
+// ─── Scene ─────────────────────────────────────────────────────────────────
+const scene = new THREE.Scene();
+scene.fog = new THREE.FogExp2(0x0a0a20, 0.018);
+
+// ─── Camera ────────────────────────────────────────────────────────────────
+const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 500);
+const TARGET_DEFAULT = new THREE.Vector3(0, 5.6, 0);
+
+// ─── Custom pointer-based orbit / pan / zoom controls ─────────────────────
+// Spherical coords around `target`; no OrbitControls.js addon (unreliable
+// from a bare CDN tag) — hand-rolled with Pointer Events for mouse + touch.
+const controls = (function () {
+  const target = TARGET_DEFAULT.clone();
+  let radius = 24, theta = Math.PI * 0.32, phi = Math.PI * 0.42;      // current
+  let tRadius = radius, tTheta = theta, tPhi = phi;                    // target (damped toward)
+  const MIN_R = 7, MAX_R = 55, MIN_PHI = 0.18, MAX_PHI = Math.PI * 0.49;
+
+  const pointers = new Map();
+  let mode = null;     // 'rotate' | 'pan'
+  let lastMid = null;
+  let lastPinchDist = null;
+  let downInfo = null; // { x, y, time } for click-vs-drag detection
+
+  function setFromDefault() {
+    tRadius = radius = 24; tTheta = theta = Math.PI * 0.32; tPhi = phi = Math.PI * 0.42;
+    target.copy(TARGET_DEFAULT);
+  }
+
+  function apply() {
+    const sp = Math.sin(phi), cp = Math.cos(phi);
+    camera.position.set(
+      target.x + radius * sp * Math.sin(theta),
+      target.y + radius * cp,
+      target.z + radius * sp * Math.cos(theta)
+    );
+    camera.lookAt(target);
+  }
+
+  function update() {
+    const k = 0.12;
+    radius += (tRadius - radius) * k;
+    theta  += (tTheta  - theta)  * k;
+    phi    += (tPhi    - phi)    * k;
+    apply();
+  }
+
+  function midOf(list) {
+    let x = 0, y = 0;
+    list.forEach(p => { x += p.x; y += p.y; });
+    return { x: x / list.length, y: y / list.length };
+  }
+  function distOf(list) {
+    const [a, b] = list;
+    return Math.hypot(a.x - b.x, a.y - b.y);
+  }
+
+  function onDown(e) {
+    canvas.setPointerCapture(e.pointerId);
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.size === 1) {
+      downInfo = { x: e.clientX, y: e.clientY, time: performance.now() };
+      mode = (e.button === 2) ? 'pan' : 'rotate';
+    } else if (pointers.size === 2) {
+      mode = 'pinch';
+      const pts = [...pointers.values()];
+      lastMid = midOf(pts);
+      lastPinchDist = distOf(pts);
+      downInfo = null;
+    }
+  }
+  function onMove(e) {
+    const prevPt = pointers.get(e.pointerId);
+    if (!prevPt) return;
+    const curPt = { x: e.clientX, y: e.clientY };
+    pointers.set(e.pointerId, curPt);
+    const pts = [...pointers.values()];
+
+    if (mode === 'pinch' && pts.length >= 2) {
+      const mid = midOf(pts);
+      const d = distOf(pts);
+      if (lastPinchDist) {
+        const scale = lastPinchDist / d;
+        tRadius = Math.min(MAX_R, Math.max(MIN_R, tRadius * scale));
+      }
+      if (lastMid) panBy(mid.x - lastMid.x, mid.y - lastMid.y);
+      lastMid = mid; lastPinchDist = d;
+      return;
+    }
+
+    if (pts.length === 1) {
+      const dx = curPt.x - prevPt.x, dy = curPt.y - prevPt.y;
+      if (mode === 'pan') {
+        panBy(dx, dy);
+      } else {
+        tTheta -= dx * 0.0045;
+        tPhi   = Math.min(MAX_PHI, Math.max(MIN_PHI, tPhi - dy * 0.0045));
+      }
+    }
+  }
+  function panBy(dx, dy) {
+    const panSpeed = radius * 0.0016;
+    const right = new THREE.Vector3().setFromMatrixColumn(camera.matrix, 0);
+    const up    = new THREE.Vector3().setFromMatrixColumn(camera.matrix, 1);
+    target.addScaledVector(right, -dx * panSpeed);
+    target.addScaledVector(up,     dy * panSpeed);
+  }
+  function onUp(e) {
+    pointers.delete(e.pointerId);
+    if (pointers.size < 2) { lastMid = null; lastPinchDist = null; }
+    if (pointers.size === 0) {
+      if (downInfo && mode !== 'pinch') {
+        const dx = e.clientX - downInfo.x, dy = e.clientY - downInfo.y;
+        const dt = performance.now() - downInfo.time;
+        if (Math.hypot(dx, dy) < 6 && dt < 600) handleTap(e.clientX, e.clientY);
+      }
+      mode = null; downInfo = null;
+    }
+  }
+  function onWheel(e) {
+    e.preventDefault();
+    const scale = Math.exp(e.deltaY * 0.0012);
+    tRadius = Math.min(MAX_R, Math.max(MIN_R, tRadius * scale));
+  }
+
+  canvas.addEventListener('pointerdown', onDown);
+  canvas.addEventListener('pointermove', onMove);
+  canvas.addEventListener('pointerup', onUp);
+  canvas.addEventListener('pointercancel', onUp);
+  canvas.addEventListener('wheel', onWheel, { passive: false });
+  canvas.addEventListener('contextmenu', e => e.preventDefault());
+
+  apply();
+  return { update, reset: setFromDefault, target };
+})();
+
+// ─── Post-processing (bloom for neon glow) ────────────────────────────────
+const composer = new THREE.EffectComposer(renderer);
+composer.addPass(new THREE.RenderPass(scene, camera));
+const bloomPass = new THREE.UnrealBloomPass(
+  new THREE.Vector2(window.innerWidth, window.innerHeight), 1.6, 0.55, 0.78
+);
+composer.addPass(bloomPass);
+
+// ─── Canvas texture helper ─────────────────────────────────────────────────
+function makeCanvasTexture(w, h, draw) {
+  const cv = document.createElement('canvas');
+  cv.width = w; cv.height = h;
+  const ctx = cv.getContext('2d');
+  draw(ctx, w, h);
+  const tex = new THREE.CanvasTexture(cv);
+  tex.needsUpdate = true;
+  tex.encoding = THREE.sRGBEncoding;
+  tex.anisotropy = 4;
+  return tex;
+}
+
+// ─── Lights ────────────────────────────────────────────────────────────────
+const ambientLight = new THREE.AmbientLight(0x8899cc, 0.5);
+scene.add(ambientLight);
+
+const sunLight = new THREE.DirectionalLight(0xffffff, 2.0);
+sunLight.position.set(30, 60, 20);
+if (!IS_MOBILE) {
+  sunLight.castShadow = true;
+  sunLight.shadow.mapSize.set(2048, 2048);
+  sunLight.shadow.camera.near = 1;
+  sunLight.shadow.camera.far = 120;
+  const sc = sunLight.shadow.camera;
+  sc.left = sc.bottom = -20; sc.right = sc.top = 20;
+  sunLight.shadow.bias = -0.0006;
+}
+scene.add(sunLight);
+scene.add(sunLight.target);
+
+// ─── Sky (gradient shader, lerped between 3 states) ───────────────────────
+const skyMat = new THREE.ShaderMaterial({
+  side: THREE.BackSide,
+  uniforms: {
+    uTop:  { value: new THREE.Color(0x1a6bdc) },
+    uHori: { value: new THREE.Color(0x9fd8ff) }
+  },
+  vertexShader: `
+    varying float vY;
+    void main() {
+      vec4 wp = modelMatrix * vec4(position, 1.0);
+      vY = wp.y;
+      gl_Position = projectionMatrix * viewMatrix * wp;
+    }
+  `,
+  fragmentShader: `
+    uniform vec3 uTop;
+    uniform vec3 uHori;
+    varying float vY;
+    void main() {
+      float t = pow(clamp(vY / 240.0, 0.0, 1.0), 0.5);
+      gl_FragColor = vec4(mix(uHori, uTop, t), 1.0);
+    }
+  `
+});
+scene.add(new THREE.Mesh(new THREE.SphereGeometry(300, 32, 16), skyMat));
+
+// ─── Stars ─────────────────────────────────────────────────────────────────
+const STAR_N = IS_MOBILE ? 900 : 2000;
+const starPos = new Float32Array(STAR_N * 3);
+for (let i = 0; i < STAR_N; i++) {
+  const th = Math.random() * Math.PI * 2;
+  const ph = Math.acos(Math.random() * 0.9);
+  const r  = 250 + Math.random() * 30;
+  starPos[i*3]   = r * Math.sin(ph) * Math.cos(th);
+  starPos[i*3+1] = r * Math.cos(ph);
+  starPos[i*3+2] = r * Math.sin(ph) * Math.sin(th);
+}
+const starGeo = new THREE.BufferGeometry();
+starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+const starMat = new THREE.PointsMaterial({ color: 0xffffff, size: 1.2, transparent: true, opacity: 0, sizeAttenuation: true });
+scene.add(new THREE.Points(starGeo, starMat));
+
+// ─── Ground / landscaped island ────────────────────────────────────────────
+const ground = new THREE.Mesh(
+  new THREE.PlaneGeometry(160, 160),
+  new THREE.MeshLambertMaterial({ color: 0xcaa877 })
+);
+ground.rotation.x = -Math.PI / 2;
+ground.receiveShadow = !IS_MOBILE;
+scene.add(ground);
+
+const curb = new THREE.Mesh(
+  new THREE.CylinderGeometry(5.6, 5.9, 0.32, 40),
+  new THREE.MeshStandardMaterial({ color: 0x8b877e, roughness: 0.9 })
+);
+curb.position.y = 0.16;
+curb.receiveShadow = !IS_MOBILE;
+scene.add(curb);
+
+const island = new THREE.Mesh(
+  new THREE.CylinderGeometry(5.4, 5.4, 0.28, 40),
+  new THREE.MeshLambertMaterial({ color: 0xd8b989 })
+);
+island.position.y = 0.34;
+island.receiveShadow = !IS_MOBILE;
+scene.add(island);
+
+function makeRock(x, z, s) {
+  const rock = new THREE.Mesh(
+    new THREE.DodecahedronGeometry(s, 0),
+    new THREE.MeshStandardMaterial({ color: 0x77706a, roughness: 1, flatShading: true })
+  );
+  rock.position.set(x, 0.5 + s * 0.35, z);
+  rock.rotation.set(Math.random() * 3, Math.random() * 3, Math.random() * 3);
+  if (!IS_MOBILE) rock.castShadow = true;
+  scene.add(rock);
+}
+[[3.6, 2.4, 0.35], [-3.9, 1.6, 0.3], [3.1, -2.8, 0.28], [-3.3, -2.2, 0.4], [0.2, 4.4, 0.3]]
+  .forEach(([x, z, s]) => makeRock(x, z, s));
+
+function makePalm(x, z, hScale) {
+  const g = new THREE.Group();
+  g.position.set(x, 0.48, z);
+  const h = (2.6 + Math.random() * 1.2) * hScale;
+  const trunk = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.05, 0.11, h, 7),
+    new THREE.MeshLambertMaterial({ color: 0x8B6914 })
+  );
+  trunk.position.y = h / 2;
+  trunk.rotation.z = (Math.random() - 0.5) * 0.15;
+  if (!IS_MOBILE) trunk.castShadow = true;
+  g.add(trunk);
+  const frondMat = new THREE.MeshLambertMaterial({ color: 0x2d7a2d, side: THREE.DoubleSide });
+  const n = 6 + Math.floor(Math.random() * 3);
+  for (let j = 0; j < n; j++) {
+    const fa = (j / n) * Math.PI * 2 + (Math.random() - 0.5) * 0.4;
+    const fLen = 0.65 + Math.random() * 0.3;
+    const frond = new THREE.Mesh(new THREE.BoxGeometry(0.03, 0.03, 0.9 + Math.random() * 0.4), frondMat);
+    frond.position.set(Math.cos(fa) * fLen, h - 0.05 + Math.sin(j * 0.7) * 0.1, Math.sin(fa) * fLen);
+    frond.rotation.y = -fa + Math.PI / 2;
+    frond.rotation.x = -(0.35 + Math.random() * 0.3);
+    if (!IS_MOBILE) frond.castShadow = true;
+    g.add(frond);
+  }
+  return g;
+}
+[[4.5, -1.2, 1.0], [-4.6, -0.6, 0.9], [3.0, 3.6, 0.85], [-2.6, 3.9, 0.95]]
+  .forEach(([x, z, h]) => scene.add(makePalm(x, z, h)));
+
+function makeBarrelCactus(x, z, s) {
+  const g = new THREE.Group();
+  g.position.set(x, 0.5, z);
+  const body = new THREE.Mesh(
+    new THREE.SphereGeometry(0.22 * s, 10, 8),
+    new THREE.MeshLambertMaterial({ color: 0x3f7a3a })
+  );
+  body.scale.y = 1.3;
+  body.position.y = 0.22 * s * 1.1;
+  if (!IS_MOBILE) body.castShadow = true;
+  g.add(body);
+  return g;
+}
+[[2.0, -4.0, 1.0], [-1.6, -4.3, 0.8], [4.6, 1.6, 0.9]].forEach(([x, z, s]) => scene.add(makeBarrelCactus(x, z, s)));
+
+// ─── Sign group ─────────────────────────────────────────────────────────────
+const signGroup = new THREE.Group();
+signGroup.position.y = 0.62; // top of island
+scene.add(signGroup);
+
+const edgeMat = new THREE.MeshStandardMaterial({ color: 0x1c2333, roughness: 0.6, metalness: 0.3 });
+
+// bulb collection — filled while building each section, instanced once at the end
+const bulbPositions = []; // {x,y,z} in signGroup-local space
+
+function rectPerimeterPoints(w, h, count) {
+  const pts = [];
+  const perim = 2 * (w + h);
+  for (let i = 0; i < count; i++) {
+    let d = (i / count) * perim;
+    let x, y;
+    if (d < w)            { x = -w/2 + d;              y =  h/2; }
+    else if (d < w + h)   { x =  w/2;                  y =  h/2 - (d - w); }
+    else if (d < 2*w + h) { x =  w/2 - (d - w - h);     y = -h/2; }
+    else                  { x = -w/2;                  y = -h/2 + (d - 2*w - h); }
+    pts.push({ x, y });
+  }
+  return pts;
+}
+function circlePerimeterPoints(r, count) {
+  const pts = [];
+  for (let i = 0; i < count; i++) {
+    const a = (i / count) * Math.PI * 2;
+    pts.push({ x: Math.cos(a) * r, y: Math.sin(a) * r });
+  }
+  return pts;
+}
+function addBulbs(localPts, cx, cy, cz, zOff, rotZ) {
+  const cos = Math.cos(rotZ), sin = Math.sin(rotZ);
+  localPts.forEach(p => {
+    const rx = p.x * cos - p.y * sin;
+    const ry = p.x * sin + p.y * cos;
+    bulbPositions.push({ x: cx + rx, y: cy + ry, z: cz + zOff });
+  });
+}
+
+// ── NEVADA plate ───────────────────────────────────────────────────────────
+const nevadaW = 3.6, nevadaH = 0.9, nevadaDepth = 0.3, nevadaY = 0.9 + nevadaH / 2; // base sits at y=0.9
+const nevadaTex = makeCanvasTexture(1024, 256, (ctx, w, h) => {
+  ctx.fillStyle = '#12203a'; ctx.fillRect(0, 0, w, h);
+  ctx.strokeStyle = '#f4b942'; ctx.lineWidth = 8; ctx.strokeRect(14, 14, w - 28, h - 28);
+  ctx.fillStyle = '#f4b942';
+  ctx.font = '900 128px Impact, "Arial Narrow Bold", sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText('N E V A D A', w / 2, h / 2 + 6);
+});
+const nevadaFaceMat = new THREE.MeshStandardMaterial({ map: nevadaTex, roughness: 0.45, emissive: 0x332200, emissiveIntensity: 0.15 });
+const nevadaMesh = new THREE.Mesh(
+  new THREE.BoxGeometry(nevadaW, nevadaH, nevadaDepth),
+  [edgeMat, edgeMat, edgeMat, edgeMat, nevadaFaceMat, nevadaFaceMat]
+);
+nevadaMesh.position.y = nevadaY;
+if (!IS_MOBILE) { nevadaMesh.castShadow = true; nevadaMesh.receiveShadow = true; }
+signGroup.add(nevadaMesh);
+addBulbs(rectPerimeterPoints(nevadaW, nevadaH, 26), 0, nevadaY, 0, nevadaDepth/2 + 0.05, 0);
+
+// ── Main rectangle: LAS VEGAS ──────────────────────────────────────────────
+const mainW = 4.6, mainH = 3.2, mainDepth = 0.34;
+const mainY = nevadaY + nevadaH/2 + mainH/2 + 0.05;
+const mainTex = makeCanvasTexture(1024, 712, (ctx, w, h) => {
+  ctx.fillStyle = '#2fa6ba'; ctx.fillRect(0, 0, w, h);
+  ctx.strokeStyle = '#e8f7f9'; ctx.lineWidth = 10; ctx.strokeRect(16, 16, w - 32, h - 32);
+  ctx.fillStyle = '#d6231c';
+  ctx.font = '900 168px Impact, "Arial Narrow Bold", sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.lineWidth = 10; ctx.strokeStyle = '#ffffff';
+  ctx.strokeText('LAS', w / 2, h * 0.36);
+  ctx.fillText('LAS', w / 2, h * 0.36);
+  ctx.strokeText('VEGAS', w / 2, h * 0.68);
+  ctx.fillText('VEGAS', w / 2, h * 0.68);
+});
+const mainFaceMat = new THREE.MeshStandardMaterial({ map: mainTex, roughness: 0.4, emissive: 0x113344, emissiveIntensity: 0.12 });
+const mainMesh = new THREE.Mesh(
+  new THREE.BoxGeometry(mainW, mainH, mainDepth),
+  [edgeMat, edgeMat, edgeMat, edgeMat, mainFaceMat, mainFaceMat]
+);
+mainMesh.position.y = mainY;
+if (!IS_MOBILE) { mainMesh.castShadow = true; mainMesh.receiveShadow = true; }
+signGroup.add(mainMesh);
+addBulbs(rectPerimeterPoints(mainW, mainH, 64), 0, mainY, 0, mainDepth/2 + 0.05, 0);
+
+// four starburst medallions along the sides (real-sign detail)
+function makeStarburst() {
+  const shape = new THREE.Shape();
+  const spikes = 8, rOuter = 0.26, rInner = 0.11;
+  for (let i = 0; i < spikes * 2; i++) {
+    const a = (i / (spikes * 2)) * Math.PI * 2;
+    const r = i % 2 === 0 ? rOuter : rInner;
+    const x = Math.cos(a) * r, y = Math.sin(a) * r;
+    i === 0 ? shape.moveTo(x, y) : shape.lineTo(x, y);
+  }
+  shape.closePath();
+  const geo = new THREE.ExtrudeGeometry(shape, { depth: 0.06, bevelEnabled: true, bevelThickness: 0.02, bevelSize: 0.02, bevelSegments: 1 });
+  const mat = new THREE.MeshStandardMaterial({ color: 0xf2f0e8, emissive: 0xfff2cc, emissiveIntensity: 0.35, metalness: 0.6, roughness: 0.3 });
+  return new THREE.Mesh(geo, mat);
+}
+[[-mainW/2 - 0.02, mainH*0.24], [-mainW/2 - 0.02, -mainH*0.24], [mainW/2 + 0.02, mainH*0.24], [mainW/2 + 0.02, -mainH*0.24]]
+  .forEach(([x, y]) => {
+    const sb = makeStarburst();
+    sb.position.set(x, mainY + y, mainDepth/2 - 0.03);
+    if (!IS_MOBILE) sb.castShadow = true;
+    signGroup.add(sb);
+  });
+
+// ── Circle medallion: "to Fabulous" ────────────────────────────────────────
+const circleR = 1.3, circleDepth = 0.3;
+const circleY = mainY + mainH/2 + 0.5;
+const circleTex = makeCanvasTexture(512, 512, (ctx, w, h) => {
+  ctx.fillStyle = '#f3e9d2'; ctx.fillRect(0, 0, w, h);
+  ctx.fillStyle = '#142850';
+  ctx.font = 'italic 900 84px Georgia, "Times New Roman", serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText('to Fabulous', w / 2, h / 2 + 10);
+});
+const circleFaceMat = new THREE.MeshStandardMaterial({ map: circleTex, roughness: 0.4, emissive: 0x3a2f1a, emissiveIntensity: 0.1 });
+const circleMesh = new THREE.Mesh(
+  new THREE.CylinderGeometry(circleR, circleR, circleDepth, 48),
+  [edgeMat, circleFaceMat, circleFaceMat]
+);
+circleMesh.rotation.x = Math.PI / 2;
+circleMesh.position.y = circleY;
+if (!IS_MOBILE) { circleMesh.castShadow = true; circleMesh.receiveShadow = true; }
+signGroup.add(circleMesh);
+addBulbs(circlePerimeterPoints(circleR, 34), 0, circleY, 0, circleDepth/2 + 0.05, 0);
+
+// ── Diamond crown: WELCOME (the interactive hotspot) ───────────────────────
+const diamondSide = 2.4, diamondDepth = 0.3;
+const diamondY = circleY + circleR + 1.05;
+const diamondTex = makeCanvasTexture(512, 512, (ctx, w, h) => {
+  ctx.fillStyle = '#f4b942'; ctx.fillRect(0, 0, w, h);
+  ctx.fillStyle = '#c81d25';
+  ctx.font = '900 96px Impact, "Arial Narrow Bold", sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.lineWidth = 6; ctx.strokeStyle = '#ffffff';
+  ctx.strokeText('WELCOME', w / 2, h / 2);
+  ctx.fillText('WELCOME', w / 2, h / 2);
+});
+const diamondFaceMat = new THREE.MeshStandardMaterial({ map: diamondTex, roughness: 0.4, emissive: 0x552200, emissiveIntensity: 0.15 });
+const diamondGroup = new THREE.Group();
+diamondGroup.position.y = diamondY;
+diamondGroup.rotation.z = Math.PI / 4;
+const diamondMesh = new THREE.Mesh(
+  new THREE.BoxGeometry(diamondSide, diamondSide, diamondDepth),
+  [edgeMat, edgeMat, edgeMat, edgeMat, diamondFaceMat, diamondFaceMat]
+);
+if (!IS_MOBILE) { diamondMesh.castShadow = true; diamondMesh.receiveShadow = true; }
+diamondGroup.add(diamondMesh);
+signGroup.add(diamondGroup);
+addBulbs(rectPerimeterPoints(diamondSide, diamondSide, 32), 0, diamondY, 0, diamondDepth/2 + 0.05, Math.PI / 4);
+
+// invisible larger hit-area so the diamond is easy to tap
+const diamondHit = new THREE.Mesh(
+  new THREE.BoxGeometry(diamondSide * 1.25, diamondSide * 1.25, diamondDepth * 3),
+  new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false })
+);
+diamondGroup.add(diamondHit);
+
+// soft additive glow halo behind the diamond — pulses to invite a tap
+const glowMat = new THREE.SpriteMaterial({
+  map: makeCanvasTexture(256, 256, (ctx, w, h) => {
+    const g = ctx.createRadialGradient(w/2, h/2, 0, w/2, h/2, w/2);
+    g.addColorStop(0, 'rgba(255,210,120,0.9)');
+    g.addColorStop(1, 'rgba(255,210,120,0)');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
+  }),
+  transparent: true, depthWrite: false, blending: THREE.AdditiveBlending
+});
+const diamondGlow = new THREE.Sprite(glowMat);
+diamondGlow.scale.set(diamondSide * 2.4, diamondSide * 2.4, 1);
+diamondGlow.position.z = -0.3;
+diamondGroup.add(diamondGlow);
+
+// ── Support truss legs (InstancedMesh diagonal braces + rung "bolts") ─────
+const legMat = new THREE.MeshStandardMaterial({ color: 0x3a3f46, roughness: 0.55, metalness: 0.6 });
+const legBaseY = 0, legTopY = 0.9, legHalfSpan = 0.32;
+const legXs = [-0.9, 0.9];
+const braceLocal = []; // matrices relative to signGroup
+
+legXs.forEach(lx => {
+  const tilt = lx < 0 ? 0.06 : -0.06;
+  // 4 corner posts
+  [[-legHalfSpan, -legHalfSpan], [legHalfSpan, -legHalfSpan], [-legHalfSpan, legHalfSpan], [legHalfSpan, legHalfSpan]]
+    .forEach(([ox, oz]) => {
+      const post = new THREE.Mesh(new THREE.BoxGeometry(0.07, legTopY - legBaseY, 0.07), legMat);
+      post.position.set(lx + ox, (legTopY + legBaseY) / 2, oz);
+      post.rotation.z = tilt;
+      if (!IS_MOBILE) post.castShadow = true;
+      signGroup.add(post);
+    });
+  // diagonal braces + rungs up the height, collected for one shared InstancedMesh
+  const rungCount = 5;
+  for (let i = 0; i < rungCount; i++) {
+    const y = legBaseY + (i / (rungCount - 1)) * (legTopY - legBaseY);
+    // horizontal rung (front face)
+    braceLocal.push({ pos: new THREE.Vector3(lx, y, -legHalfSpan), rot: new THREE.Euler(0, 0, Math.PI/2), len: legHalfSpan * 2 });
+    braceLocal.push({ pos: new THREE.Vector3(lx, y, legHalfSpan), rot: new THREE.Euler(0, 0, Math.PI/2), len: legHalfSpan * 2 });
+    if (i < rungCount - 1) {
+      const y2 = legBaseY + ((i + 1) / (rungCount - 1)) * (legTopY - legBaseY);
+      const dy = y2 - y;
+      const diagLen = Math.hypot(dy, legHalfSpan * 2);
+      const ang = Math.atan2(legHalfSpan * 2, dy);
+      braceLocal.push({ pos: new THREE.Vector3(lx, (y + y2) / 2, 0), rot: new THREE.Euler(0, 0, ang), len: diagLen });
+      braceLocal.push({ pos: new THREE.Vector3(lx, (y + y2) / 2, 0), rot: new THREE.Euler(0, 0, -ang), len: diagLen });
+    }
+  }
+});
+
+const braceGeo = new THREE.CylinderGeometry(0.028, 0.028, 1, 6);
+const braceMat = new THREE.MeshStandardMaterial({ color: 0x2c3138, roughness: 0.6, metalness: 0.5 });
+const braceInst = new THREE.InstancedMesh(braceGeo, braceMat, braceLocal.length);
+const _m4 = new THREE.Matrix4(), _quat = new THREE.Quaternion(), _scl = new THREE.Vector3(1, 1, 1);
+braceLocal.forEach((b, i) => {
+  _quat.setFromEuler(b.rot);
+  _scl.set(1, b.len, 1);
+  _m4.compose(b.pos, _quat, _scl);
+  braceInst.setMatrixAt(i, _m4);
+});
+braceInst.instanceMatrix.needsUpdate = true;
+if (!IS_MOBILE) { braceInst.castShadow = true; }
+signGroup.add(braceInst);
+
+// small bolt heads along the corner posts (instanced rivets)
+const boltGeo = new THREE.SphereGeometry(0.045, 6, 5);
+const boltMat = new THREE.MeshStandardMaterial({ color: 0x1c1f24, roughness: 0.4, metalness: 0.7 });
+const boltPositions = [];
+legXs.forEach(lx => {
+  [[-legHalfSpan, -legHalfSpan], [legHalfSpan, -legHalfSpan], [-legHalfSpan, legHalfSpan], [legHalfSpan, legHalfSpan]]
+    .forEach(([ox, oz]) => {
+      for (let i = 0; i < 6; i++) {
+        const y = legBaseY + (i / 5) * (legTopY - legBaseY);
+        boltPositions.push(new THREE.Vector3(lx + ox, y, oz));
+      }
+    });
+});
+const boltInst = new THREE.InstancedMesh(boltGeo, boltMat, boltPositions.length);
+boltPositions.forEach((p, i) => {
+  _m4.compose(p, new THREE.Quaternion(), _scl.set(1, 1, 1));
+  boltInst.setMatrixAt(i, _m4);
+});
+boltInst.instanceMatrix.needsUpdate = true;
+signGroup.add(boltInst);
+
+// ── Bulb string — single InstancedMesh ──────────────────────────────────────
+// Per-instance color is wired by hand (a raw InstancedBufferAttribute read by
+// a tiny custom shader) rather than InstancedMesh.setColorAt/.instanceColor,
+// a convenience API added to three.js after r128 — this only depends on
+// core instancing (instanceMatrix + #include<instancing_*>), present since r109.
+const bulbGeo = new THREE.SphereGeometry(0.05, 8, 6);
+const bulbColorArr = new Float32Array(bulbPositions.length * 3);
+bulbGeo.setAttribute('instColor', new THREE.InstancedBufferAttribute(bulbColorArr, 3));
+const bulbMat = new THREE.ShaderMaterial({
+  vertexShader: `
+    #include <instancing_pars_vertex>
+    attribute vec3 instColor;
+    varying vec3 vColor;
+    void main() {
+      vColor = instColor;
+      vec3 transformed = vec3(position);
+      #include <instancing_vertex>
+      vec4 mvPosition = modelViewMatrix * vec4(transformed, 1.0);
+      gl_Position = projectionMatrix * mvPosition;
+    }
+  `,
+  fragmentShader: `
+    varying vec3 vColor;
+    void main() {
+      gl_FragColor = vec4(vColor, 1.0);
+    }
+  `
+});
+const bulbInst = new THREE.InstancedMesh(bulbGeo, bulbMat, bulbPositions.length);
+bulbPositions.forEach((p, i) => {
+  _m4.compose(new THREE.Vector3(p.x, p.y, p.z), new THREE.Quaternion(), _scl.set(1, 1, 1));
+  bulbInst.setMatrixAt(i, _m4);
+});
+bulbInst.instanceMatrix.needsUpdate = true;
+signGroup.add(bulbInst);
+
+// ─── Lighting states: DAY → EARLY EVENING → NIGHT ──────────────────────────
+const STATES = {
+  day: {
+    label: '☀ Day', icon: '☀',
+    skyTop: 0x1a6bdc, skyHori: 0x9fd8ff,
+    sunPos: new THREE.Vector3(30, 60, 20), sunColor: 0xffffff, sunIntensity: 2.0,
+    ambColor: 0x8899cc, ambIntensity: 0.55,
+    fogColor: 0xaee0ff, fogDensity: 0.014,
+    starOpacity: 0, bloom: IS_MOBILE ? 0.25 : 0.5,
+    bulbBrightness: 0.05, pulseBoost: 0.35
+  },
+  evening: {
+    label: '🌇 Evening', icon: '🌇',
+    skyTop: 0x3a2a5c, skyHori: 0xff9a63,
+    sunPos: new THREE.Vector3(55, 8, -35), sunColor: 0xffb066, sunIntensity: 1.1,
+    ambColor: 0xcc9966, ambIntensity: 0.4,
+    fogColor: 0xd98a63, fogDensity: 0.02,
+    starOpacity: 0.15, bloom: IS_MOBILE ? 0.6 : 1.15,
+    bulbBrightness: 0.55, pulseBoost: 0.7
+  },
+  night: {
+    label: '🌙 Night', icon: '🌙',
+    skyTop: 0x04040c, skyHori: 0x0b0b24,
+    sunPos: new THREE.Vector3(0, -20, 0), sunColor: 0x223355, sunIntensity: 0.0,
+    ambColor: 0x222244, ambIntensity: 0.18,
+    fogColor: 0x06060f, fogDensity: 0.022,
+    starOpacity: 1.0, bloom: IS_MOBILE ? 1.1 : 2.1,
+    bulbBrightness: 1.5, pulseBoost: 1.0
+  }
+};
+const STATE_ORDER = ['day', 'evening', 'night'];
+let stateIdx = 0;
+let targetState = STATES.day;
+
+const current = {
+  skyTop: new THREE.Color(STATES.day.skyTop), skyHori: new THREE.Color(STATES.day.skyHori),
+  sunPos: STATES.day.sunPos.clone(), sunColor: new THREE.Color(STATES.day.sunColor), sunIntensity: STATES.day.sunIntensity,
+  ambColor: new THREE.Color(STATES.day.ambColor), ambIntensity: STATES.day.ambIntensity,
+  fogColor: new THREE.Color(STATES.day.fogColor), fogDensity: STATES.day.fogDensity,
+  starOpacity: STATES.day.starOpacity, bloom: STATES.day.bloom,
+  bulbBrightness: STATES.day.bulbBrightness, pulseBoost: STATES.day.pulseBoost
+};
+
+function cycleLighting() {
+  stateIdx = (stateIdx + 1) % STATE_ORDER.length;
+  targetState = STATES[STATE_ORDER[stateIdx]];
+  document.getElementById('btn-tod').textContent = targetState.label;
+}
+
+function updateLightingLerp(dt) {
+  const k = 1 - Math.exp(-dt * 1.6);
+  current.skyTop.lerp(new THREE.Color(targetState.skyTop), k);
+  current.skyHori.lerp(new THREE.Color(targetState.skyHori), k);
+  current.sunPos.lerp(targetState.sunPos, k);
+  current.sunColor.lerp(new THREE.Color(targetState.sunColor), k);
+  current.sunIntensity += (targetState.sunIntensity - current.sunIntensity) * k;
+  current.ambColor.lerp(new THREE.Color(targetState.ambColor), k);
+  current.ambIntensity += (targetState.ambIntensity - current.ambIntensity) * k;
+  current.fogColor.lerp(new THREE.Color(targetState.fogColor), k);
+  current.fogDensity += (targetState.fogDensity - current.fogDensity) * k;
+  current.starOpacity += (targetState.starOpacity - current.starOpacity) * k;
+  current.bloom += (targetState.bloom - current.bloom) * k;
+  current.bulbBrightness += (targetState.bulbBrightness - current.bulbBrightness) * k;
+  current.pulseBoost += (targetState.pulseBoost - current.pulseBoost) * k;
+
+  skyMat.uniforms.uTop.value.copy(current.skyTop);
+  skyMat.uniforms.uHori.value.copy(current.skyHori);
+  sunLight.position.copy(current.sunPos);
+  sunLight.color.copy(current.sunColor);
+  sunLight.intensity = current.sunIntensity;
+  ambientLight.color.copy(current.ambColor);
+  ambientLight.intensity = current.ambIntensity;
+  scene.fog.color.copy(current.fogColor);
+  scene.fog.density = current.fogDensity;
+  starMat.opacity = current.starOpacity;
+  bloomPass.strength = current.bloom;
+}
+
+// ─── Diamond panel & bulb pattern state ────────────────────────────────────
+const SWATCHES = ['#ffd37a', '#ff5a3c', '#ff2fb0', '#39c9ff', '#7dff5e'];
+const neonState = { color: new THREE.Color(SWATCHES[0]), pattern: 'chase', speed: 1.0 };
+
+const swatchRow = document.getElementById('swatch-row');
+SWATCHES.forEach((hex, i) => {
+  const el = document.createElement('div');
+  el.className = 'swatch' + (i === 0 ? ' active' : '');
+  el.style.background = hex;
+  el.addEventListener('click', () => {
+    neonState.color.set(hex);
+    document.getElementById('color-custom').value = hex;
+    [...swatchRow.children].forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+  });
+  swatchRow.appendChild(el);
+});
+document.getElementById('color-custom').addEventListener('input', e => {
+  neonState.color.set(e.target.value);
+  [...swatchRow.children].forEach(c => c.classList.remove('active'));
+});
+document.getElementById('pattern-select').addEventListener('change', e => { neonState.pattern = e.target.value; });
+document.getElementById('speed-slider').addEventListener('input', e => {
+  neonState.speed = parseFloat(e.target.value);
+  document.getElementById('speed-val').textContent = neonState.speed.toFixed(1) + 'x';
+});
+
+let panelOpen = false;
+function openPanel() { panelOpen = true; document.getElementById('panel').classList.add('open'); document.getElementById('panel-backdrop').classList.add('open'); }
+function closePanel() { panelOpen = false; document.getElementById('panel').classList.remove('open'); document.getElementById('panel-backdrop').classList.remove('open'); }
+
+const raycaster = new THREE.Raycaster();
+const ndc = new THREE.Vector2();
+function handleTap(clientX, clientY) {
+  ndc.x = (clientX / window.innerWidth) * 2 - 1;
+  ndc.y = -(clientY / window.innerHeight) * 2 + 1;
+  raycaster.setFromCamera(ndc, camera);
+  const hits = raycaster.intersectObject(diamondHit, false);
+  if (hits.length) openPanel();
+}
+
+// ─── Camera controls buttons ───────────────────────────────────────────────
+function resetCamera() { controls.reset(); }
+
+// ─── Bulb animation (solid / chase / rainbow) ──────────────────────────────
+const _bc = new THREE.Color();
+const bulbCount = bulbPositions.length;
+function updateBulbs(time) {
+  const g = current.bulbBrightness;
+  const arr = bulbColorArr;
+  for (let i = 0; i < bulbCount; i++) {
+    if (neonState.pattern === 'solid') {
+      _bc.copy(neonState.color).multiplyScalar(g * (0.85 + 0.15 * Math.sin(time * 1.5 + i)));
+    } else if (neonState.pattern === 'chase') {
+      const wave = 0.2 + 0.8 * Math.pow(0.5 + 0.5 * Math.sin(time * neonState.speed * 2.2 - i * 0.35), 2.2);
+      _bc.copy(neonState.color).multiplyScalar(g * wave);
+    } else { // rainbow
+      const hue = ((time * neonState.speed * 0.12) + i * 0.015) % 1;
+      _bc.setHSL(hue < 0 ? hue + 1 : hue, 1, 0.55).multiplyScalar(g);
+    }
+    arr[i * 3] = _bc.r; arr[i * 3 + 1] = _bc.g; arr[i * 3 + 2] = _bc.b;
+  }
+  bulbGeo.attributes.instColor.needsUpdate = true;
+}
+
+// ─── Resize ─────────────────────────────────────────────────────────────────
+window.addEventListener('resize', () => {
+  const w = window.innerWidth, h = window.innerHeight;
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+  renderer.setSize(w, h);
+  composer.setSize(w, h);
+});
+
+// ─── Hide loading screen ────────────────────────────────────────────────────
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const ld = document.getElementById('loading');
+    ld.classList.add('fade');
+    setTimeout(() => ld.remove(), 1100);
+  }, 900);
+});
+
+// ─── Animation loop ─────────────────────────────────────────────────────────
+const clock = new THREE.Clock();
+function animate() {
+  requestAnimationFrame(animate);
+  const dt = Math.min(clock.getDelta(), 0.1);
+  const time = clock.getElapsedTime();
+
+  updateLightingLerp(dt);
+  updateBulbs(time);
+
+  // diamond idle pulse — always noticeable, amplified toward night
+  const pulse = current.pulseBoost;
+  const scalePulse = 1 + Math.sin(time * 2.1) * 0.018 * (0.6 + pulse);
+  diamondGroup.scale.setScalar(scalePulse);
+  const glowPulse = 0.35 + 0.65 * (0.5 + 0.5 * Math.sin(time * (panelOpen ? 4.2 : 2.1)));
+  glowMat.opacity = (0.25 + 0.55 * pulse) * glowPulse;
+
+  controls.update();
+  composer.render();
+}
+animate();
+</script>
+</body>
+</html>
