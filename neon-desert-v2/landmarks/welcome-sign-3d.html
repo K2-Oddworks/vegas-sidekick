@@ -757,21 +757,30 @@ signGroup.add(boltInst);
 // ── Bulb string — single InstancedMesh ──────────────────────────────────────
 // Per-instance color is wired by hand (a raw InstancedBufferAttribute read by
 // a tiny custom shader) rather than InstancedMesh.setColorAt/.instanceColor,
-// a convenience API added to three.js after r128 — this only depends on
-// core instancing (instanceMatrix + #include<instancing_*>), present since r109.
+// a convenience API added to three.js after r128. The instancing transform
+// below is hand-written (not pulled in via #include <chunk>) — three.js's
+// #include resolver throws if a chunk name doesn't exist in that build, and
+// r128 predates the instancing_pars_vertex/instancing_vertex chunk split.
+// USE_INSTANCING is a plain #define string-injected by WebGLProgram whenever
+// object.isInstancedMesh is true, independent of the chunk system, so relying
+// on just that plus a manually declared instanceMatrix attribute is safe here.
 const bulbGeo = new THREE.SphereGeometry(0.05, 8, 6);
 const bulbColorArr = new Float32Array(bulbPositions.length * 3);
 bulbGeo.setAttribute('instColor', new THREE.InstancedBufferAttribute(bulbColorArr, 3));
 const bulbMat = new THREE.ShaderMaterial({
   vertexShader: `
-    #include <instancing_pars_vertex>
     attribute vec3 instColor;
     varying vec3 vColor;
+    #ifdef USE_INSTANCING
+      attribute mat4 instanceMatrix;
+    #endif
     void main() {
       vColor = instColor;
-      vec3 transformed = vec3(position);
-      #include <instancing_vertex>
-      vec4 mvPosition = modelViewMatrix * vec4(transformed, 1.0);
+      vec4 localPosition = vec4(position, 1.0);
+      #ifdef USE_INSTANCING
+        localPosition = instanceMatrix * localPosition;
+      #endif
+      vec4 mvPosition = modelViewMatrix * localPosition;
       gl_Position = projectionMatrix * mvPosition;
     }
   `,
