@@ -200,7 +200,7 @@
 </div>
 
 <!-- HUD: hint -->
-<div class="hud" id="hint"><span>👀</span><span>Click the <span class="u">🛸 UFO</span> to remix the Sphere · click any <span class="u">building or billboard</span> for details</span></div>
+<div class="hud" id="hint"><span>👀</span><span>Click a <span class="u">🛸 UFO</span> to remix the Sphere or the wheel · click any <span class="u">landmark</span> for details</span></div>
 
 <!-- Info panel -->
 <aside id="info">
@@ -217,8 +217,8 @@
 <!-- UFO Studio -->
 <section id="studio">
   <button class="xbtn" data-close="studio" style="top:10px;right:10px">✕</button>
-  <h3><span class="em">🛸</span> Sphere Studio</h3>
-  <div class="sub">Remix the giant screen</div>
+  <h3><span class="em">🛸</span> <span id="studio-title">Sphere Studio</span></h3>
+  <div class="sub" id="studio-sub">Remix the giant screen</div>
 
   <div class="field">
     <label>Colors</label>
@@ -231,12 +231,7 @@
 
   <div class="field">
     <label>Pattern</label>
-    <div class="patterns" id="patterns">
-      <button class="pat on" data-pat="solid"><span>Solid</span></button>
-      <button class="pat" data-pat="stripes"><span>Stripes</span></button>
-      <button class="pat" data-pat="pulse"><span>Pulse</span></button>
-      <button class="pat" data-pat="checker"><span>Twinkle</span></button>
-    </div>
+    <div class="patterns" id="patterns"></div>
   </div>
 
   <div class="field">
@@ -407,36 +402,37 @@ sphere.userData.pick = 'sphere';
 scene.add(sphere);
 const SPHERE_CTR = sphere.position.clone();
 
-/* ---------------- UFO (Easter-egg companion) ---------------- */
-const ufo = new THREE.Group();
-const saucerMat = new THREE.MeshStandardMaterial({color:0xbfc9dd, metalness:0.9, roughness:0.25});
-const saucer = new THREE.Mesh(new THREE.SphereGeometry(2.4, 32, 16), saucerMat);
-saucer.scale.set(1, 0.32, 1); ufo.add(saucer);
-const domeMat = new THREE.MeshStandardMaterial({color:0x8fe3ff, metalness:0.3, roughness:0.1,
-  transparent:true, opacity:0.6, emissive:0x2bd6ff, emissiveIntensity:0.6});
-const dome = new THREE.Mesh(new THREE.SphereGeometry(1.15, 24, 16, 0, Math.PI*2, 0, Math.PI/2), domeMat);
-dome.position.y = 0.55; ufo.add(dome);
-const beltMat = new THREE.MeshStandardMaterial({color:0x0A1628, emissive:0xffd36b, emissiveIntensity:2.0, roughness:0.4});
-const belt = new THREE.Mesh(new THREE.TorusGeometry(2.15, 0.22, 10, 40), beltMat);
-belt.rotation.x = Math.PI/2; ufo.add(belt);
-const ufoLights = [];
-for(let i=0;i<6;i++){
-  const a = i/6*Math.PI*2;
-  const m = new THREE.MeshStandardMaterial({color:0x0A1628, emissive:0xff2bd6, emissiveIntensity:2.4, roughness:0.4});
-  const bulb = new THREE.Mesh(new THREE.SphereGeometry(0.28, 12, 12), m);
-  bulb.position.set(Math.cos(a)*2.0, -0.35, Math.sin(a)*2.0);
-  ufo.add(bulb); ufoLights.push(m);
+/* ---------------- Shared registries ---------------- */
+const pickTargets = [sphere];
+const frameUpdaters = [];
+
+/* ---------------- UFO companions (Easter-egg customizers) ---------------- */
+const ufos = [];
+function makeUFO(studioName, center, radius, baseY, speed){
+  const g = new THREE.Group();
+  const saucer = new THREE.Mesh(new THREE.SphereGeometry(2.4,32,16),
+    new THREE.MeshStandardMaterial({color:0xbfc9dd, metalness:0.9, roughness:0.25}));
+  saucer.scale.set(1,0.32,1); g.add(saucer);
+  const dome = new THREE.Mesh(new THREE.SphereGeometry(1.15,24,16,0,Math.PI*2,0,Math.PI/2),
+    new THREE.MeshStandardMaterial({color:0x8fe3ff, metalness:0.3, roughness:0.1, transparent:true, opacity:0.6, emissive:0x2bd6ff, emissiveIntensity:0.6}));
+  dome.position.y=0.55; g.add(dome);
+  const beltMat = new THREE.MeshStandardMaterial({color:0x0A1628, emissive:0xffd36b, emissiveIntensity:2.0, roughness:0.4});
+  const belt = new THREE.Mesh(new THREE.TorusGeometry(2.15,0.22,10,40), beltMat); belt.rotation.x=Math.PI/2; g.add(belt);
+  const lights=[];
+  for(let i=0;i<6;i++){ const a=i/6*Math.PI*2;
+    const m=new THREE.MeshStandardMaterial({color:0x0A1628, emissive:0xff2bd6, emissiveIntensity:2.4, roughness:0.4});
+    const b=new THREE.Mesh(new THREE.SphereGeometry(0.28,12,12), m); b.position.set(Math.cos(a)*2.0,-0.35,Math.sin(a)*2.0); g.add(b); lights.push(m); }
+  const glow=new THREE.PointLight(0x8fe3ff,1.4,40,2); g.add(glow);
+  g.userData.pick='ufo'; g.userData.studio=studioName;
+  g.traverse(o=>{ if(o.isMesh){ o.userData.pick='ufo'; o.userData.studio=studioName; } });
+  scene.add(g); pickTargets.push(g);
+  const u={g, lights, glow, beltMat, studio:studioName, cx:center.x, cz:center.z, r:radius, baseY, speed:speed||0.35, phase:ufos.length*2.1};
+  ufos.push(u); return u;
 }
-const ufoGlow = new THREE.PointLight(0x8fe3ff, 1.4, 40, 2); ufo.add(ufoGlow);
-ufo.userData.pick = 'ufo';
-ufo.traverse(o=>{ if(o.isMesh) o.userData.pick='ufo'; });
-ufo.position.set(38, 40, 20);
-scene.add(ufo);
+makeUFO('sphere', SPHERE_CTR, 40, 40, 0.35);
 
 /* ================= City: LINQ hotel + show billboards ================= */
 const texLoader = new THREE.TextureLoader();
-const pickTargets = [sphere, ufo];
-const frameUpdaters = [];
 const bbDispMats = [];
 
 function rr2(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);
@@ -507,11 +503,11 @@ const bbData=[
     photo:'/images/mystere-hero.jpg', show:'/shows/cirque/mystere/', accent:'#ffcf3f',
     desc:'Cirque du Soleil’s original Las Vegas production — a surreal, acrobatic celebration of color, comedy, and raw human strength. The show that launched the Cirque revolution on the Strip.',
     pos:new THREE.Vector3(-70, 0, 60) },
-  { id:'bb_carrot', variant:'blade', title:'Carrot Top', kicker:'Prop Comedy · Luxor',
+  { id:'bb_carrot', variant:'marquee', title:'Carrot Top', kicker:'Prop Comedy · Luxor',
     photo:'/images/carrot-top-hero.jpg', show:'/shows/comedy/carrot-top/', accent:'#ff5ec8',
     desc:'Prop-comedy legend Carrot Top hauls his trunkful of outrageous inventions and rapid-fire gags to the Luxor. A high-octane, only-in-Vegas comedy staple.',
     pos:new THREE.Vector3(60, 0, 96) },
-  { id:'bb_blueman', variant:'jumbo', title:'Blue Man Group', kicker:'Experiential Show · Luxor',
+  { id:'bb_blueman', variant:'marquee', title:'Blue Man Group', kicker:'Experiential Show · Luxor',
     photo:'/images/blue-man-group-hero.webp', show:'/shows/music/blue-man-group/', accent:'#33c6ff',
     desc:'Three enigmatic blue beings drum, paint, and riff through a wildly original mix of music, comedy, and multimedia mayhem. Unlike anything else in Vegas.',
     pos:new THREE.Vector3(158, 0, 44) },
@@ -568,6 +564,60 @@ function buildBillboard(d){
   scene.add(g); pickTargets.push(g);
 }
 bbData.forEach(buildBillboard);
+
+/* ================= High Roller observation wheel ================= */
+let customHR = null;
+const HR_POS = new THREE.Vector3(-172, 0, -18);
+const HR_CENTER_Y = 44, HR_R = 38, HR_N = 28;
+const hr = new THREE.Group();
+hr.position.set(HR_POS.x, 0, HR_POS.z);
+hr.rotation.y = Math.atan2(158-HR_POS.x, 214-HR_POS.z);   // face the wheel broadside to default camera
+const legMat=new THREE.MeshStandardMaterial({color:0x2a2e3a, metalness:0.6, roughness:0.5});
+function hrLeg(x0,z0){
+  const foot=new THREE.Vector3(x0,0,z0), hubP=new THREE.Vector3(0,HR_CENTER_Y,0);
+  const dir=new THREE.Vector3().subVectors(hubP,foot); const len=dir.length();
+  const m=new THREE.Mesh(new THREE.CylinderGeometry(1.4,2.0,len,10), legMat);
+  m.position.copy(foot).addScaledVector(dir,0.5);
+  m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0), dir.clone().normalize());
+  m.castShadow=true; hr.add(m);
+}
+hrLeg(-22,11); hrLeg(-22,-11); hrLeg(22,11); hrLeg(22,-11);
+const hub=new THREE.Mesh(new THREE.CylinderGeometry(3,3,11,20), new THREE.MeshStandardMaterial({color:0x3a3f4d, metalness:0.7, roughness:0.4}));
+hub.rotation.x=Math.PI/2; hub.position.y=HR_CENTER_Y; hr.add(hub);
+const wheel=new THREE.Group(); wheel.position.y=HR_CENTER_Y; hr.add(wheel);
+const rimMat=new THREE.MeshStandardMaterial({color:0x9aa6bd, metalness:0.85, roughness:0.3, emissive:0x1A6BFF, emissiveIntensity:0.4});
+wheel.add(new THREE.Mesh(new THREE.TorusGeometry(HR_R,0.9,12,96), rimMat));
+wheel.add(new THREE.Mesh(new THREE.TorusGeometry(HR_R-2.6,0.5,10,84), rimMat));
+const spokeMat=new THREE.MeshStandardMaterial({color:0x6b7488, metalness:0.6, roughness:0.5});
+for(let i=0;i<HR_N;i++){ const th=i/HR_N*Math.PI*2;
+  const s=new THREE.Mesh(new THREE.CylinderGeometry(0.12,0.12,HR_R,6), spokeMat);
+  s.position.set(Math.cos(th)*HR_R/2, Math.sin(th)*HR_R/2, 0); s.rotation.z=th-Math.PI/2; wheel.add(s); }
+const hrPods=[];
+for(let i=0;i<HR_N;i++){ const th=i/HR_N*Math.PI*2;
+  const m=new THREE.MeshStandardMaterial({color:0x0a0a0f, emissive:0xffffff, emissiveIntensity:1.5, roughness:0.35, metalness:0.1});
+  const pod=new THREE.Mesh(new THREE.SphereGeometry(2.1,16,14), m);
+  pod.position.set(Math.cos(th)*(HR_R+1.5), Math.sin(th)*(HR_R+1.5), 0); pod.castShadow=true; wheel.add(pod); hrPods.push(m); }
+hr.traverse(o=>{ if(o.isMesh) o.userData.pick='highroller'; });
+scene.add(hr); pickTargets.push(hr);
+const _hc=new THREE.Color(), _hc1=new THREE.Color(), _hc2=new THREE.Color();
+const HR_RED=new THREE.Color('#B22234'), HR_WHITE=new THREE.Color('#f4f6ff'), HR_BLUE=new THREE.Color('#2b4cff');
+frameUpdaters.push(t=>{
+  const d=customHR, base=0.3+nightFactor*2.1;
+  if(d){ _hc1.set(d.c1); _hc2.set(d.c2); }
+  for(let i=0;i<HR_N;i++){ let inten=base;
+    if(!d || d.pattern==='rainbow'){ _hc.setHSL(((i/HR_N)+t*0.05)%1, 0.85, 0.55); }
+    else if(d.pattern==='solid'){ _hc.copy(_hc1); }
+    else if(d.pattern==='alt'){ _hc.copy(i%2?_hc2:_hc1); }
+    else if(d.pattern==='chase'){ const band=Math.floor(t*(2+d.flash*8))%HR_N; const dd=Math.min((i-band+HR_N)%HR_N,(band-i+HR_N)%HR_N); _hc.copy(dd<2?_hc1:_hc2); }
+    else if(d.pattern==='pulse'){ _hc.copy(_hc1).lerp(_hc2, 0.5+0.5*Math.sin(t*(2+d.flash*10))); }
+    else if(d.pattern==='usa'){ const seg=Math.floor(i/HR_N*3)%3; _hc.copy(seg===0?HR_RED:seg===1?HR_WHITE:HR_BLUE); }
+    if(d && d.flash>0.01){ inten*= 0.55+0.45*Math.abs(Math.sin(t*(1.5+d.flash*18)-i*0.35)); }
+    hrPods[i].emissive.copy(_hc); hrPods[i].emissiveIntensity=inten;
+  }
+  wheel.rotation.z = t*0.06;
+  rimMat.emissiveIntensity = 0.15 + nightFactor*0.9;
+});
+makeUFO('highroller', new THREE.Vector3(HR_POS.x, 0, HR_POS.z), 30, HR_CENTER_Y+HR_R*0.52, 0.4);
 
 /* ================= Display drawing ================= */
 let customDesign = null;   // {c1,c2,pattern,flash}
@@ -808,7 +858,6 @@ function updateTime(t){
   // Sphere screen glow + podium ring respond to night
   sphereMat.emissiveIntensity = 0.34 + nightFactor*1.85;
   ringMat.emissiveIntensity = 0.3 + nightFactor*2.2;
-  belt.material.emissiveIntensity = 0.6 + nightFactor*2.0;
 
   // City lighting responds to night
   towerMat.emissiveIntensity = 0.06 + nightFactor*1.55;
@@ -880,11 +929,12 @@ renderer.domElement.addEventListener('pointerup', e=>{
   let o=hits[0].object; while(o && !o.userData.pick) o=o.parent;
   if(!o) return;
   const id=o.userData.pick;
-  if(id==='ufo'){ openStudio(); return; }
+  if(id==='ufo'){ openStudio(o.userData.studio||'sphere'); return; }
   openInfo(id);
   let fp, fd;
   if(id==='sphere'){ fp=SPHERE_CTR.clone(); fd=78; }
   else if(id==='linq'){ fp=new THREE.Vector3(LINQ_POS.x, 70, LINQ_POS.z); fd=215; }
+  else if(id==='highroller'){ fp=new THREE.Vector3(HR_POS.x, HR_CENTER_Y, HR_POS.z); fd=150; }
   else { const b=bbData.find(x=>x.id===id); fp=new THREE.Vector3(b.pos.x, 26, b.pos.z); fd=62; }
   focusOn(camera.position.clone(), fp, fd, 1.3);
 });
@@ -898,8 +948,12 @@ const PLACES = {
     facts:[['📏','366 ft tall · 516 ft wide'],['💡','~1.2M exterior LED pucks'],['🎵','17,600-seat auditorium'],['📍','Behind The Venetian']],
     cta:{href:'https://vegassidekick.com/', label:'🎟️ Explore Shows'} },
   linq:{ title:'The LINQ', kicker:'Hotel + Promenade · Center Strip', img:null,
-    desc:'The LINQ Hotel anchors a lively open-air promenade of dining, bars, and the High Roller — the tallest observation wheel in North America. A buzzing center-Strip hub (and the future home of our High Roller build).',
+    desc:'The LINQ Hotel anchors a lively open-air promenade of dining, bars, and the High Roller — the tallest observation wheel in North America. A buzzing center-Strip hub.',
     facts:[['🎡','High Roller · 550 ft'],['🛍️','LINQ Promenade'],['🏨','Center Strip'],['🎢','FlyOver Las Vegas']],
+    cta:{href:'https://vegassidekick.com/', label:'🎟️ Explore Shows'} },
+  highroller:{ title:'The High Roller', kicker:'Observation Wheel · The LINQ', img:null,
+    desc:'At 550 feet, the High Roller is the tallest observation wheel in North America. Its 28 glass cabins glide you high above the Strip for 360° views — and after dark the whole wheel becomes a programmable light show. Psst: click the 🛸 UFO to design your own.',
+    facts:[['🎡','550 ft — tallest in N. America'],['🚡','28 glass cabins · 40 guests each'],['🕓','~30-min full rotation'],['📍','The LINQ Promenade']],
     cta:{href:'https://vegassidekick.com/', label:'🎟️ Explore Shows'} }
 };
 bbData.forEach(d=>{ PLACES[d.id]={ title:d.title, kicker:d.kicker, img:d.photo, desc:d.desc, facts:null, cta:{href:d.show, label:'View Show →'} }; });
@@ -916,39 +970,54 @@ function openInfo(id){
   cta.target = /^https?:/.test(p.cta.href)?'_blank':'_self';
   infoEl.classList.add('open');
 }
-function openStudio(){ studioEl.classList.add('open'); }
 document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>{
   document.getElementById(b.dataset.close).classList.remove('open');
 }));
 
-/* ---- Studio wiring ---- */
+/* ---- Studio (generic, per-landmark customizer) ---- */
 const col1=document.getElementById('col1'), col2=document.getElementById('col2'),
-      flash=document.getElementById('flash'), flashval=document.getElementById('flashval');
-let curPattern='solid';
-function applyDesign(){
-  customDesign={ c1:col1.value, c2:col2.value, pattern:curPattern, flash:parseFloat(flash.value) };
+      flash=document.getElementById('flash'), flashval=document.getElementById('flashval'),
+      patWrap=document.getElementById('patterns');
+let curPattern='solid', studioTarget='sphere';
+const STUDIOS = {
+  sphere:{ title:'Sphere Studio', sub:'Remix the giant screen',
+    patterns:[['solid','Solid'],['stripes','Stripes'],['pulse','Pulse'],['checker','Twinkle']],
+    defaults:{c1:'#ff2bd6', c2:'#2bd6ff', pattern:'solid', flash:0.4},
+    preset:{c1:'#B22234', c2:'#3C3B6E', pattern:'usa', flash:0.45},
+    apply:d=>{ customDesign = d ? {c1:d.c1,c2:d.c2,pattern:d.pattern,flash:d.flash} : null; } },
+  highroller:{ title:'High Roller Studio', sub:'Light up the wheel',
+    patterns:[['rainbow','Rainbow'],['solid','Solid'],['alt','Alternate'],['chase','Chase'],['pulse','Pulse']],
+    defaults:{c1:'#ff6b2b', c2:'#1A6BFF', pattern:'rainbow', flash:0.4},
+    preset:{c1:'#B22234', c2:'#2b4cff', pattern:'usa', flash:0.5},
+    apply:d=>{ customHR = d ? {c1:d.c1,c2:d.c2,pattern:d.pattern,flash:d.flash} : null; } }
+};
+function flashLabel(v){ return v<0.2?'Steady': v<0.45?'Gentle': v<0.72?'Medium': v<0.9?'Fast':'Strobe'; }
+function setPatternUI(val){ curPattern=val;
+  patWrap.querySelectorAll('.pat').forEach(x=>x.classList.toggle('on', x.dataset.pat===val)); }
+function applyStudio(){ const c=STUDIOS[studioTarget];
+  const d={c1:col1.value, c2:col2.value, pattern:curPattern, flash:parseFloat(flash.value)};
+  c.current=d; c.apply(d); }
+function openStudio(target){
+  studioTarget=target; const c=STUDIOS[target]; if(!c) return;
+  document.getElementById('studio-title').textContent=c.title;
+  document.getElementById('studio-sub').textContent=c.sub;
+  patWrap.innerHTML='';
+  c.patterns.forEach(([val,label])=>{ const b=document.createElement('button'); b.className='pat'; b.dataset.pat=val;
+    b.innerHTML='<span>'+label+'</span>'; b.addEventListener('click',()=>{ setPatternUI(val); applyStudio(); }); patWrap.appendChild(b); });
+  const d=c.current||c.defaults;
+  col1.value=d.c1; col2.value=d.c2; flash.value=d.flash; flashval.textContent=flashLabel(d.flash);
+  setPatternUI(d.pattern);
+  studioEl.classList.add('open');
 }
-document.querySelectorAll('#patterns .pat').forEach(p=>p.addEventListener('click',()=>{
-  document.querySelectorAll('#patterns .pat').forEach(x=>x.classList.remove('on'));
-  p.classList.add('on'); curPattern=p.dataset.pat; applyDesign();
-}));
-[col1,col2].forEach(c=>c.addEventListener('input',applyDesign));
-flash.addEventListener('input',()=>{
-  const v=parseFloat(flash.value);
-  flashval.textContent = v<0.2?'Steady': v<0.45?'Gentle': v<0.72?'Medium': v<0.9?'Fast':'Strobe';
-  applyDesign();
-});
-document.getElementById('usa').addEventListener('click',()=>{
-  col1.value='#B22234'; col2.value='#3C3B6E'; curPattern='usa'; flash.value='0.45';
-  flashval.textContent='Gentle';
-  document.querySelectorAll('#patterns .pat').forEach(x=>x.classList.remove('on'));
-  applyDesign();
-});
-document.getElementById('reset').addEventListener('click',()=>{
-  customDesign=null; curPattern='solid';
-  col1.value='#ff2bd6'; col2.value='#2bd6ff'; flash.value='0.4'; flashval.textContent='Medium';
-  document.querySelectorAll('#patterns .pat').forEach((x,i)=>x.classList.toggle('on',i===0));
-});
+[col1,col2].forEach(c=>c.addEventListener('input',applyStudio));
+flash.addEventListener('input',()=>{ flashval.textContent=flashLabel(parseFloat(flash.value)); applyStudio(); });
+document.getElementById('usa').addEventListener('click',()=>{ const p=STUDIOS[studioTarget].preset;
+  col1.value=p.c1; col2.value=p.c2; flash.value=p.flash; flashval.textContent=flashLabel(p.flash);
+  setPatternUI(p.pattern); applyStudio(); });
+document.getElementById('reset').addEventListener('click',()=>{ const c=STUDIOS[studioTarget];
+  c.current=null; c.apply(null);
+  col1.value=c.defaults.c1; col2.value=c.defaults.c2; flash.value=c.defaults.flash; flashval.textContent=flashLabel(c.defaults.flash);
+  setPatternUI(c.defaults.pattern); });
 
 /* ================= Resize ================= */
 let composer, bloom;
@@ -980,15 +1049,18 @@ function animate(){
   glowLight.intensity = nightFactor * 2.2;
   bloom.strength = 0.38 + nightFactor*0.5;
 
-  // UFO idle motion
+  // UFO companions + all per-frame animations
   if(!REDUCE){
-    const a=elapsed*0.35;
-    ufo.position.set(Math.cos(a)*40, 38+Math.sin(elapsed*0.9)*3.2, Math.sin(a)*24);
-    ufo.rotation.y = -a + Math.PI/2;
-    const tw=0.5+0.5*Math.sin(elapsed*6);
-    ufoLights.forEach((m,i)=>{ m.emissiveIntensity = 1.4+2.4*(0.5+0.5*Math.sin(elapsed*6+i)); });
-    ufoGlow.intensity = 1.0+tw*0.8;
-    belt.material.emissive.copy(curGlow);
+    for(const u of ufos){
+      const a=elapsed*u.speed + u.phase;
+      u.g.position.set(u.cx+Math.cos(a)*u.r, u.baseY+Math.sin(elapsed*0.9+u.phase)*3.2, u.cz+Math.sin(a)*u.r*0.6);
+      u.g.rotation.y = -a + Math.PI/2;
+      const ni = 0.4 + nightFactor*1.8;
+      u.lights.forEach((m,i)=>{ m.emissiveIntensity = ni*(0.5+0.5*Math.sin(elapsed*6+i)) + 0.2; });
+      u.glow.intensity = (0.5+nightFactor*0.9)*(0.7+0.3*Math.sin(elapsed*6));
+      u.beltMat.emissiveIntensity = 0.5 + nightFactor*1.8;
+      if(u.studio==='sphere') u.beltMat.emissive.copy(curGlow);
+    }
     for(let i=0;i<frameUpdaters.length;i++) frameUpdaters[i](elapsed);
   }
 
