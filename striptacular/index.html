@@ -92,7 +92,10 @@
   #info .ihero .orb{position:absolute;top:-30px;right:-20px;width:150px;height:150px;border-radius:50%;
     background:radial-gradient(circle at 40% 35%,#ffd36b,#ff6b2b 45%,#7a2bff 90%);filter:blur(2px);opacity:.85;
     box-shadow:0 0 60px rgba(255,120,60,.6)}
-  #info .ihero h2{position:relative;font-family:'Bebas Neue',sans-serif;font-size:44px;letter-spacing:1px;
+  #info .ihero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;z-index:0}
+  #info .ihero:after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(180deg,rgba(8,16,30,0) 38%,rgba(8,16,30,.9))}
+  #info .ihero h2{position:relative;z-index:2;font-family:'Bebas Neue',sans-serif;font-size:44px;letter-spacing:1px;
     padding:0 20px 12px;line-height:.9;text-shadow:0 2px 20px rgba(0,0,0,.6)}
   #info .ibody{padding:20px;overflow-y:auto;flex:1}
   #info .kicker{font-family:'Barlow Condensed',sans-serif;font-weight:800;letter-spacing:3px;text-transform:uppercase;
@@ -197,12 +200,12 @@
 </div>
 
 <!-- HUD: hint -->
-<div class="hud" id="hint"><span>👀</span><span>Pssst — click the <span class="u">🛸 UFO</span> to remix the Sphere. Click the Sphere for details.</span></div>
+<div class="hud" id="hint"><span>👀</span><span>Click the <span class="u">🛸 UFO</span> to remix the Sphere · click any <span class="u">building or billboard</span> for details</span></div>
 
 <!-- Info panel -->
 <aside id="info">
   <button class="xbtn" data-close="info">✕</button>
-  <div class="ihero"><div class="orb"></div><h2 id="info-title">The Sphere</h2></div>
+  <div class="ihero"><img id="info-img" alt=""><div class="orb"></div><h2 id="info-title">The Sphere</h2></div>
   <div class="ibody">
     <div class="kicker" id="info-kicker">Exosphere · The Venetian</div>
     <p id="info-desc"></p>
@@ -288,14 +291,14 @@ const scene = new THREE.Scene();
 scene.fog = new THREE.FogExp2(0x0a1628, 0.0016);
 
 const camera = new THREE.PerspectiveCamera(50, window.innerWidth/window.innerHeight, 0.5, 4000);
-camera.position.set(62, 46, 96);
+camera.position.set(158, 108, 214);
 
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 controls.dampingFactor = 0.06;
-controls.target.set(0, 24, 0);
+controls.target.set(0, 22, 0);
 controls.minDistance = 34;
-controls.maxDistance = 320;
+controls.maxDistance = 780;
 controls.maxPolarAngle = Math.PI * 0.5;   // don't go under the ground
 controls.update();
 
@@ -429,6 +432,142 @@ ufo.userData.pick = 'ufo';
 ufo.traverse(o=>{ if(o.isMesh) o.userData.pick='ufo'; });
 ufo.position.set(38, 40, 20);
 scene.add(ufo);
+
+/* ================= City: LINQ hotel + show billboards ================= */
+const texLoader = new THREE.TextureLoader();
+const pickTargets = [sphere, ufo];
+const frameUpdaters = [];
+const bbDispMats = [];
+
+function rr2(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);
+  c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath();}
+function makeLabelTex(text,o){
+  o=o||{}; const cw=512, ch=150; const cv=document.createElement('canvas'); cv.width=cw; cv.height=ch;
+  const x=cv.getContext('2d');
+  if(o.bg){ x.fillStyle=o.bg; if(o.round){ rr2(x,6,6,cw-12,ch-12,26); x.fill(); } else x.fillRect(0,0,cw,ch); }
+  x.textAlign='center'; x.textBaseline='middle';
+  x.font=(o.weight||'800')+' '+(o.size||96)+"px 'Barlow Condensed', Impact, sans-serif";
+  x.fillStyle=o.fg||'#ff8a3d'; x.shadowColor=o.glow||o.fg||'#ff6b2b'; x.shadowBlur=(o.glow===null)?0:26;
+  x.fillText(text, cw/2, ch/2+4);
+  const t=new THREE.CanvasTexture(cv); t.encoding=THREE.sRGBEncoding; t.anisotropy=4; return t;
+}
+function makeTicker(text,color){
+  const cw=1024, ch=64; const cv=document.createElement('canvas'); cv.width=cw; cv.height=ch;
+  const x=cv.getContext('2d'); x.fillStyle='#05070f'; x.fillRect(0,0,cw,ch);
+  x.textAlign='left'; x.textBaseline='middle'; x.font="800 40px 'Barlow Condensed', Impact, sans-serif";
+  x.fillStyle=color; x.shadowColor=color; x.shadowBlur=14; x.fillText(text+text, 8, ch/2+3);
+  const t=new THREE.CanvasTexture(cv); t.wrapS=THREE.RepeatWrapping; t.encoding=THREE.sRGBEncoding; return t;
+}
+function makeScanTex(){
+  const cv=document.createElement('canvas'); cv.width=8; cv.height=256; const x=cv.getContext('2d');
+  const g=x.createLinearGradient(0,0,0,256);
+  g.addColorStop(0,'rgba(160,225,255,0)'); g.addColorStop(.47,'rgba(160,225,255,0)');
+  g.addColorStop(.5,'rgba(185,238,255,.85)'); g.addColorStop(.53,'rgba(160,225,255,0)'); g.addColorStop(1,'rgba(160,225,255,0)');
+  x.fillStyle=g; x.fillRect(0,0,8,256);
+  const t=new THREE.CanvasTexture(cv); t.wrapT=THREE.RepeatWrapping; t.encoding=THREE.sRGBEncoding; return t;
+}
+
+// -- LINQ hotel tower (reusable resort-tower recipe: window-grid facade + lit windows) --
+function makeTowerTex(cols,rows){
+  const cw=cols*14, ch=rows*18;
+  const base=document.createElement('canvas'); base.width=cw; base.height=ch; const bx=base.getContext('2d');
+  const grd=bx.createLinearGradient(0,0,cw,0); grd.addColorStop(0,'#3a3944'); grd.addColorStop(.5,'#4b4a56'); grd.addColorStop(1,'#323140');
+  bx.fillStyle=grd; bx.fillRect(0,0,cw,ch);
+  const em=document.createElement('canvas'); em.width=cw; em.height=ch; const ex=em.getContext('2d');
+  ex.fillStyle='#000'; ex.fillRect(0,0,cw,ch);
+  for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){
+    const x=c*14+2, y=r*18+2, w=10, h=13;
+    bx.fillStyle='#0e1c30'; bx.fillRect(x,y,w,h);
+    if(Math.random()<0.42){ ex.fillStyle=(Math.random()<0.82)?'rgb(255,206,120)':'rgb(150,205,255)'; ex.fillRect(x,y,w,h); }
+  }
+  const t1=new THREE.CanvasTexture(base); t1.encoding=THREE.sRGBEncoding; t1.anisotropy=4;
+  const t2=new THREE.CanvasTexture(em); t2.encoding=THREE.sRGBEncoding; t2.anisotropy=4;
+  return {map:t1, emissive:t2};
+}
+const LINQ_POS = new THREE.Vector3(14, 0, -168);
+const linq = new THREE.Group(); linq.position.copy(LINQ_POS);
+const TH=118, TWD=40, TDP=24;
+const tw=makeTowerTex(14,30);
+const towerMat=new THREE.MeshStandardMaterial({map:tw.map, emissive:0xffffff, emissiveMap:tw.emissive, emissiveIntensity:0.1, roughness:0.5, metalness:0.3});
+const tower=new THREE.Mesh(new THREE.BoxGeometry(TWD,TH,TDP), towerMat);
+tower.position.y=TH/2+11; tower.castShadow=true; tower.receiveShadow=true; linq.add(tower);
+const tbase=new THREE.Mesh(new THREE.BoxGeometry(TWD+18,22,TDP+18), new THREE.MeshStandardMaterial({color:0x20202c, roughness:0.82, metalness:0.15}));
+tbase.position.y=11; tbase.castShadow=true; tbase.receiveShadow=true; linq.add(tbase);
+const crown=new THREE.Mesh(new THREE.BoxGeometry(TWD+2,7,TDP+2), new THREE.MeshStandardMaterial({color:0x14141d, roughness:0.6, metalness:0.4}));
+crown.position.y=TH+11+3.5; linq.add(crown);
+const linqSignTex=makeLabelTex('THE LINQ',{fg:'#ff8a3d', glow:'#ff6b2b', size:104});
+const linqSignMat=new THREE.MeshStandardMaterial({map:linqSignTex, emissive:0xffffff, emissiveMap:linqSignTex, emissiveIntensity:1.0, transparent:true, roughness:0.4});
+[0, Math.PI/2].forEach(ry=>{ const s=new THREE.Mesh(new THREE.PlaneGeometry(28,7.8), linqSignMat); s.position.set(0,TH+15,0); s.rotation.y=ry; linq.add(s); });
+linq.traverse(o=>{ if(o.isMesh) o.userData.pick='linq'; });
+scene.add(linq); pickTargets.push(linq);
+
+// -- show billboards (each a different eye-catching design) --
+const bbData=[
+  { id:'bb_mystere', variant:'marquee', title:'Mystère', kicker:'Cirque du Soleil · Treasure Island',
+    photo:'/images/mystere-hero.jpg', show:'/shows/cirque/mystere/', accent:'#ffcf3f',
+    desc:'Cirque du Soleil’s original Las Vegas production — a surreal, acrobatic celebration of color, comedy, and raw human strength. The show that launched the Cirque revolution on the Strip.',
+    pos:new THREE.Vector3(-70, 0, 60) },
+  { id:'bb_carrot', variant:'blade', title:'Carrot Top', kicker:'Prop Comedy · Luxor',
+    photo:'/images/carrot-top-hero.jpg', show:'/shows/comedy/carrot-top/', accent:'#ff5ec8',
+    desc:'Prop-comedy legend Carrot Top hauls his trunkful of outrageous inventions and rapid-fire gags to the Luxor. A high-octane, only-in-Vegas comedy staple.',
+    pos:new THREE.Vector3(60, 0, 96) },
+  { id:'bb_blueman', variant:'jumbo', title:'Blue Man Group', kicker:'Experiential Show · Luxor',
+    photo:'/images/blue-man-group-hero.webp', show:'/shows/music/blue-man-group/', accent:'#33c6ff',
+    desc:'Three enigmatic blue beings drum, paint, and riff through a wildly original mix of music, comedy, and multimedia mayhem. Unlike anything else in Vegas.',
+    pos:new THREE.Vector3(158, 0, 44) },
+];
+function buildBillboard(d){
+  const g=new THREE.Group(); g.position.copy(d.pos); g.rotation.y=Math.atan2(158-d.pos.x, 214-d.pos.z);
+  const BW=30, BH=17, POST=18, yC=POST+BH/2;
+  const postMat=new THREE.MeshStandardMaterial({color:0x1a1a22, roughness:0.7, metalness:0.45});
+  const posts = d.variant==='blade'? [0] : [-BW*0.34, BW*0.34];
+  posts.forEach(px=>{ const p=new THREE.Mesh(new THREE.CylinderGeometry(0.8,1.0,POST,12), postMat); p.position.set(px,POST/2,0); p.castShadow=true; g.add(p); });
+  const back=new THREE.Mesh(new THREE.BoxGeometry(BW+2.6,BH+2.6,1.3), new THREE.MeshStandardMaterial({color:0x08080e, roughness:0.6, metalness:0.3}));
+  back.position.set(0,yC,-0.25); back.castShadow=true; g.add(back);
+  const dispMat=new THREE.MeshStandardMaterial({emissive:0xffffff, emissiveIntensity:0.22, roughness:0.5, metalness:0.0, color:0x777777, side:THREE.DoubleSide});
+  const disp=new THREE.Mesh(new THREE.PlaneGeometry(BW,BH), dispMat); disp.position.set(0,yC,0.45); g.add(disp);
+  const tex=texLoader.load(d.photo, tx=>{ const im=tx.image; if(im&&im.width){ const a=im.width/im.height; let w=BH*a,h=BH; if(w>BW){w=BW;h=BW/a;} disp.scale.set(w/BW,h/BH,1); } });
+  tex.encoding=THREE.sRGBEncoding; tex.anisotropy=4;
+  dispMat.map=tex; dispMat.emissiveMap=tex; dispMat.color.setHex(0xffffff); dispMat.needsUpdate=true;
+  bbDispMats.push(dispMat);
+
+  if(d.variant==='marquee'){
+    const bulbs=[]; const per=[]; const nx=10, ny=6;
+    for(let i=0;i<nx;i++){ const x=-BW/2+(i+0.5)/nx*BW; per.push([x,yC+BH/2+1.2]); per.push([x,yC-BH/2-1.2]); }
+    for(let j=0;j<ny;j++){ const y=yC-BH/2+(j+0.5)/ny*BH; per.push([-BW/2-1.2,y]); per.push([BW/2+1.2,y]); }
+    per.forEach(([x,y],idx)=>{ const m=new THREE.MeshStandardMaterial({color:0x140f02, emissive:new THREE.Color(d.accent), emissiveIntensity:2, roughness:0.4});
+      const b=new THREE.Mesh(new THREE.SphereGeometry(0.55,10,10), m); b.position.set(x,y,0.75); g.add(b); bulbs.push({m,idx}); });
+    const hdrTex=makeLabelTex(d.title.toUpperCase(),{fg:'#0A1628', bg:d.accent, round:true, glow:null, size:82});
+    const hdrMat=new THREE.MeshStandardMaterial({map:hdrTex, emissive:0xffffff, emissiveMap:hdrTex, emissiveIntensity:0.5, transparent:true, roughness:0.5, side:THREE.DoubleSide});
+    const hdr=new THREE.Mesh(new THREE.PlaneGeometry(20,5.6), hdrMat);
+    hdr.position.set(0,yC+BH/2+5.6,0.6); g.add(hdr);
+    frameUpdaters.push(t=>{ const base=0.25+nightFactor*1.9; bulbs.forEach(({m,idx})=> m.emissiveIntensity=base*(0.45+0.55*Math.sin(t*5-idx*0.55))+0.12); hdrMat.emissiveIntensity=0.3+nightFactor*1.1; });
+  } else if(d.variant==='blade'){
+    const neonMat=new THREE.MeshStandardMaterial({color:0x120014, emissive:new THREE.Color(d.accent), emissiveIntensity:2, roughness:0.4});
+    [[BW+2.6,1.1,0,yC+BH/2+1.1],[BW+2.6,1.1,0,yC-BH/2-1.1],[1.1,BH+2.6,-BW/2-1.1,yC],[1.1,BH+2.6,BW/2+1.1,yC]]
+      .forEach(([w,h,x,y])=>{ const b=new THREE.Mesh(new THREE.BoxGeometry(w,h,1.1), neonMat); b.position.set(x,y,0.7); g.add(b); });
+    const tkTex=makeTicker('  ★  TONIGHT  ★  '+d.title.toUpperCase()+'  ★  LIVE AT THE LUXOR  ', d.accent);
+    const tkMat=new THREE.MeshStandardMaterial({map:tkTex, emissive:0xffffff, emissiveMap:tkTex, emissiveIntensity:1, roughness:0.5, side:THREE.DoubleSide});
+    const tk=new THREE.Mesh(new THREE.PlaneGeometry(BW+2.6,2.7), tkMat); tk.position.set(0,POST-1.4,0.5); g.add(tk);
+    frameUpdaters.push(t=>{ neonMat.emissiveIntensity=(0.3+nightFactor*1.7)*(0.62+0.38*Math.sin(t*2.4)); tkTex.offset.x=(t*0.05)%1; tkMat.emissiveIntensity=0.35+nightFactor*1.15; });
+  } else {
+    const jf=new THREE.MeshStandardMaterial({color:0x00121e, emissive:new THREE.Color(d.accent), emissiveIntensity:1.8, roughness:0.5});
+    [[BW+2.6,1.0,0,yC+BH/2+1.1],[BW+2.6,1.0,0,yC-BH/2-1.1],[1.0,BH+2.6,-BW/2-1.1,yC],[1.0,BH+2.6,BW/2+1.1,yC]]
+      .forEach(([w,h,x,y])=>{ const b=new THREE.Mesh(new THREE.BoxGeometry(w,h,1.0), jf); b.position.set(x,y,0.7); g.add(b); });
+    const scanTex=makeScanTex();
+    const scanMat=new THREE.MeshBasicMaterial({map:scanTex, transparent:true, opacity:0.2, blending:THREE.AdditiveBlending, depthWrite:false});
+    const scan=new THREE.Mesh(new THREE.PlaneGeometry(BW,BH), scanMat); scan.position.set(0,yC,0.55); g.add(scan);
+    const tagTex=makeLabelTex('GET TICKETS',{fg:'#0A1628', bg:'#ff6b2b', round:true, glow:null, size:70});
+    const tagMat=new THREE.MeshStandardMaterial({map:tagTex, emissive:0xffffff, emissiveMap:tagTex, emissiveIntensity:1, transparent:true, roughness:0.5, side:THREE.DoubleSide});
+    const tag=new THREE.Mesh(new THREE.PlaneGeometry(13,3.7), tagMat); tag.position.set(BW/2-7.2,yC-BH/2+2.6,0.7); g.add(tag);
+    const beamMat=new THREE.MeshBasicMaterial({color:new THREE.Color(d.accent), transparent:true, opacity:0.06, blending:THREE.AdditiveBlending, depthWrite:false, side:THREE.DoubleSide});
+    const beam=new THREE.Mesh(new THREE.ConeGeometry(4.5,30,20,1,true), beamMat); beam.position.set(0,yC+BH/2+15,1); g.add(beam);
+    frameUpdaters.push(t=>{ jf.emissiveIntensity=0.4+nightFactor*1.7; scanTex.offset.y=(-t*0.28)%1; scanMat.opacity=0.06+nightFactor*0.2; tagMat.emissiveIntensity=(0.4+nightFactor*1.4)*(0.6+0.4*Math.sin(t*4)); beam.rotation.z=Math.sin(t*0.7)*0.32; beamMat.opacity=0.02+nightFactor*0.06; });
+  }
+  g.traverse(o=>{ if(o.isMesh) o.userData.pick=d.id; });
+  scene.add(g); pickTargets.push(g);
+}
+bbData.forEach(buildBillboard);
 
 /* ================= Display drawing ================= */
 let customDesign = null;   // {c1,c2,pattern,flash}
@@ -671,6 +810,11 @@ function updateTime(t){
   ringMat.emissiveIntensity = 0.3 + nightFactor*2.2;
   belt.material.emissiveIntensity = 0.6 + nightFactor*2.0;
 
+  // City lighting responds to night
+  towerMat.emissiveIntensity = 0.06 + nightFactor*1.55;
+  linqSignMat.emissiveIntensity = 0.2 + nightFactor*2.0;
+  for(let i=0;i<bbDispMats.length;i++) bbDispMats[i].emissiveIntensity = 0.24 + nightFactor*1.5;
+
   // update UI phase + clock
   const em = e>0.32?'☀️': e>0.02?'🌇': e>-0.12?'🌆':'🌙';
   document.getElementById('phase').textContent = em;
@@ -688,13 +832,13 @@ updateTime(timeOfDay);
 /* ================= Camera modes & tours ================= */
 let mode='orbit';
 const flyCurve = new THREE.CatmullRomCurve3([
-  new THREE.Vector3(120,54,120), new THREE.Vector3(0,78,150), new THREE.Vector3(-130,50,90),
-  new THREE.Vector3(-150,40,-70), new THREE.Vector3(-30,90,-140), new THREE.Vector3(110,46,-110),
-  new THREE.Vector3(160,40,30)
+  new THREE.Vector3(210,70,200), new THREE.Vector3(40,112,244), new THREE.Vector3(-180,80,150),
+  new THREE.Vector3(-244,64,-40), new THREE.Vector3(-120,122,-190), new THREE.Vector3(150,74,-180),
+  new THREE.Vector3(252,60,60)
 ], true, 'catmullrom', 0.5);
 const limoCurve = new THREE.CatmullRomCurve3([
-  new THREE.Vector3(-190,3.4,60), new THREE.Vector3(-90,3.4,52), new THREE.Vector3(-20,3.4,58),
-  new THREE.Vector3(40,3.4,50), new THREE.Vector3(120,3.4,58), new THREE.Vector3(210,3.4,54)
+  new THREE.Vector3(-232,3.6,80), new THREE.Vector3(-150,3.6,52), new THREE.Vector3(-60,3.6,66),
+  new THREE.Vector3(10,3.6,70), new THREE.Vector3(90,3.6,64), new THREE.Vector3(160,3.6,44), new THREE.Vector3(252,3.6,80)
 ], false, 'catmullrom', 0.5);
 let tourU=0;
 
@@ -731,25 +875,45 @@ renderer.domElement.addEventListener('pointerup', e=>{
   ndc.x=(e.clientX/window.innerWidth)*2-1;
   ndc.y=-(e.clientY/window.innerHeight)*2+1;
   ray.setFromCamera(ndc, camera);
-  const hits = ray.intersectObjects([sphere, ufo], true);
+  const hits = ray.intersectObjects(pickTargets, true);
   if(!hits.length) return;
   let o=hits[0].object; while(o && !o.userData.pick) o=o.parent;
   if(!o) return;
-  if(o.userData.pick==='ufo'){ openStudio(); }
-  else if(o.userData.pick==='sphere'){ openInfo(); focusOn(camera.position.clone(), SPHERE_CTR.clone(), 78, 1.3); }
+  const id=o.userData.pick;
+  if(id==='ufo'){ openStudio(); return; }
+  openInfo(id);
+  let fp, fd;
+  if(id==='sphere'){ fp=SPHERE_CTR.clone(); fd=78; }
+  else if(id==='linq'){ fp=new THREE.Vector3(LINQ_POS.x, 70, LINQ_POS.z); fd=215; }
+  else { const b=bbData.find(x=>x.id===id); fp=new THREE.Vector3(b.pos.x, 26, b.pos.z); fd=62; }
+  focusOn(camera.position.clone(), fp, fd, 1.3);
 });
 
 /* ================= Panels ================= */
 const infoEl=document.getElementById('info');
 const studioEl=document.getElementById('studio');
-function openInfo(){
-  document.getElementById('info-title').textContent='The Sphere';
-  document.getElementById('info-kicker').textContent='Exosphere · The Venetian';
-  document.getElementById('info-desc').textContent=
-    'The world’s largest spherical structure — a 366-ft-tall LED marvel wrapped in 1.2 million programmable pucks. By day it’s a sleek dark orb; after dark its exosphere blazes across the Strip. Home to immersive concerts and the Postcard from Earth experience.';
-  const facts=[['📏','366 ft tall · 516 ft wide'],['💡','~1.2M exterior LED pucks'],['🎵','17,600-seat auditorium'],['📍','Behind The Venetian, off the Strip']];
-  document.getElementById('info-facts').innerHTML=facts.map(f=>`<li><span class="fi">${f[0]}</span>${f[1]}</li>`).join('');
-  document.getElementById('info-cta').href='https://vegassidekick.com/';
+const PLACES = {
+  sphere:{ title:'The Sphere', kicker:'Exosphere · The Venetian', img:null,
+    desc:'The world’s largest spherical structure — a 366-ft-tall LED marvel wrapped in ~1.2 million programmable pucks. By day a sleek dark orb; after dark its exosphere blazes across the Strip. Home to immersive concerts and the Postcard from Earth experience.',
+    facts:[['📏','366 ft tall · 516 ft wide'],['💡','~1.2M exterior LED pucks'],['🎵','17,600-seat auditorium'],['📍','Behind The Venetian']],
+    cta:{href:'https://vegassidekick.com/', label:'🎟️ Explore Shows'} },
+  linq:{ title:'The LINQ', kicker:'Hotel + Promenade · Center Strip', img:null,
+    desc:'The LINQ Hotel anchors a lively open-air promenade of dining, bars, and the High Roller — the tallest observation wheel in North America. A buzzing center-Strip hub (and the future home of our High Roller build).',
+    facts:[['🎡','High Roller · 550 ft'],['🛍️','LINQ Promenade'],['🏨','Center Strip'],['🎢','FlyOver Las Vegas']],
+    cta:{href:'https://vegassidekick.com/', label:'🎟️ Explore Shows'} }
+};
+bbData.forEach(d=>{ PLACES[d.id]={ title:d.title, kicker:d.kicker, img:d.photo, desc:d.desc, facts:null, cta:{href:d.show, label:'View Show →'} }; });
+function openInfo(id){
+  const p=PLACES[id]; if(!p) return;
+  document.getElementById('info-title').textContent=p.title;
+  document.getElementById('info-kicker').textContent=p.kicker;
+  document.getElementById('info-desc').textContent=p.desc;
+  const img=document.getElementById('info-img'), orb=document.querySelector('#info .orb');
+  if(p.img){ img.src=p.img; img.style.display='block'; if(orb) orb.style.display='none'; }
+  else { img.style.display='none'; if(orb) orb.style.display='block'; }
+  document.getElementById('info-facts').innerHTML = p.facts? p.facts.map(f=>`<li><span class="fi">${f[0]}</span>${f[1]}</li>`).join('') : '';
+  const cta=document.getElementById('info-cta'); cta.href=p.cta.href; cta.textContent=p.cta.label;
+  cta.target = /^https?:/.test(p.cta.href)?'_blank':'_self';
   infoEl.classList.add('open');
 }
 function openStudio(){ studioEl.classList.add('open'); }
@@ -825,6 +989,7 @@ function animate(){
     ufoLights.forEach((m,i)=>{ m.emissiveIntensity = 1.4+2.4*(0.5+0.5*Math.sin(elapsed*6+i)); });
     ufoGlow.intensity = 1.0+tw*0.8;
     belt.material.emissive.copy(curGlow);
+    for(let i=0;i<frameUpdaters.length;i++) frameUpdaters[i](elapsed);
   }
 
   // camera drive
