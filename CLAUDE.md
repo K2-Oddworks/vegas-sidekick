@@ -222,10 +222,12 @@ Currently no category landing pages exist (links go directly to show detail page
 ### Modifying the Header or Footer
 
 Edit the component files directly:
-- `components/header.js` — nav links, logo, mobile menu
+- `components/header.js` — nav links, logo, mobile menu, site-wide announcement banner
 - `components/footer.js` — link columns, email signup, Brevo list ID
 
 Changes apply site-wide automatically since all pages load these components.
+
+**Cache-busting is required on every edit.** Both files are referenced with a version query string — `<script src="/components/header.js?v=2"></script>` and `.../footer.js?v=2` — across every page (84 files as of this writing). Browsers cache these scripts per-URL, so without a version bump, users who already loaded an older page won't see header/footer changes until they hard-refresh. Whenever you edit `header.js` or `footer.js`, bump the `?v=` number on **all** pages that reference it (`grep -rl 'header.js?v=' --include="*.html" .` to find them all, then bulk-replace with the next version number). Skipping this step is why a banner or nav change can appear to "work on the homepage but not other pages" — it's stale cache, not a real bug, but it's confusing enough to avoid.
 
 ### Deploying
 
