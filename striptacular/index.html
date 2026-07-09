@@ -63,6 +63,30 @@
   #info .status{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-weight:800;letter-spacing:2px;text-transform:uppercase;font-size:11px;padding:6px 12px;border-radius:999px}
   .xbtn{position:absolute;top:12px;right:12px;z-index:3;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.18s}
   .xbtn:hover{background:rgba(255,107,43,.85);border-color:#fff}
+  #studio{position:fixed;z-index:40;left:18px;bottom:112px;width:min(320px,90vw);background:linear-gradient(180deg,rgba(14,26,48,.94),rgba(9,17,32,.96));border:1px solid var(--glass-brd);border-radius:18px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 20px 60px rgba(0,0,0,.55);padding:16px 16px 18px;opacity:0;transform:translateY(14px) scale(.97);pointer-events:none;transition:.32s cubic-bezier(.16,1,.3,1)}
+  #studio.open{opacity:1;transform:none;pointer-events:auto}
+  #studio h3{font-family:'Bebas Neue',sans-serif;font-size:25px;letter-spacing:1px;display:flex;align-items:center;gap:8px}
+  #studio h3 .em{font-size:22px;filter:drop-shadow(0 0 8px rgba(96,165,250,.7))}
+  #studio .sub{font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;font-size:10px;color:#8ea6c8;margin:2px 0 14px}
+  .field{margin-bottom:13px}
+  .field>label{display:block;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;font-size:10.5px;color:#9fb6d6;margin-bottom:7px}
+  .swatches{display:flex;gap:8px;align-items:center}
+  .swatches .ci{position:relative;width:34px;height:34px}
+  .swatches input[type=color]{position:absolute;inset:0;width:100%;height:100%;padding:0;border:none;border-radius:9px;background:none;cursor:pointer}
+  .swatches input[type=color]::-webkit-color-swatch-wrapper{padding:0}
+  .swatches input[type=color]::-webkit-color-swatch{border:2px solid rgba(255,255,255,.25);border-radius:9px}
+  .swatches small{font-size:11px;color:#8ea6c8}
+  .patterns{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+  .pat{aspect-ratio:1;border-radius:9px;border:1.5px solid rgba(255,255,255,.12);cursor:pointer;position:relative;transition:.16s;background:#0b1830}
+  .pat:hover{border-color:var(--blue-lt)}
+  .pat.on{border-color:var(--orange);box-shadow:0 0 12px rgba(255,107,43,.5)}
+  .pat span{position:absolute;bottom:2px;left:0;right:0;text-align:center;font-size:8px;letter-spacing:.3px;font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;color:#cfe0f5;text-shadow:0 1px 3px #000}
+  #flash{width:100%;background:linear-gradient(90deg,#254a86,#ff8a3d)}
+  .srow{display:flex;gap:8px;margin-top:6px}
+  .sbtn{flex:1;font-family:'Barlow Condensed',sans-serif;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;font-size:12px;padding:11px;border-radius:11px;cursor:pointer;border:1px solid var(--glass-brd);background:rgba(255,255,255,.05);color:#cfe0f5;transition:.16s}
+  .sbtn:hover{border-color:var(--blue-lt);color:#fff}
+  .sbtn.usa{background:linear-gradient(100deg,#B22234 0 34%,#f7f7ff 34% 66%,#3C3B6E 66%);color:#0A1628;border-color:#fff;text-shadow:0 1px 2px rgba(255,255,255,.6);flex:1.4;margin-bottom:2px}
+  .sbtn.close{background:linear-gradient(180deg,#ff7d43,#ff6b2b);color:#0A1628;border-color:#ffd0b3}
   @media (max-width:600px){ #brand .mark{font-size:26px} #cams .lbl{display:none} .cbtn .ic{font-size:17px} #reset{top:58px} }
 </style>
 </head>
@@ -95,6 +119,17 @@
   <div class="ihero"><div class="bar" id="info-bar"></div><h2 id="info-title">Property</h2></div>
   <div class="ibody"><div class="kicker" id="info-kicker"></div><p id="info-desc"></p><ul class="facts" id="info-facts"></ul><span class="status" id="info-status"></span></div>
 </aside>
+
+<section id="studio">
+  <button class="xbtn" data-close="studio" style="top:10px;right:10px">✕</button>
+  <h3><span class="em">🛸</span> <span id="studio-title">Sign Studio</span></h3>
+  <div class="sub" id="studio-sub">Light up the bulbs</div>
+  <div class="field"><label>Colors</label><div class="swatches"><span class="ci"><input type="color" id="col1" value="#ff2bd6"></span><span class="ci"><input type="color" id="col2" value="#2bd6ff"></span><small>Primary &amp; secondary</small></div></div>
+  <div class="field"><label>Pattern</label><div class="patterns" id="patterns"></div></div>
+  <div class="field"><label>Flash intensity — <span id="flashval" style="color:#ffd36b">Medium</span></label><input type="range" id="flash" min="0" max="1" step="0.01" value="0.5"></div>
+  <button class="sbtn usa" id="usa">🇺🇸 USA Patriotic Preset</button>
+  <div class="srow"><button class="sbtn" id="studio-reset">Reset</button><button class="sbtn close" data-close="studio">Close</button></div>
+</section>
 
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
@@ -192,23 +227,11 @@ const lampMats=[];
 const CATC={mega:0x2f7bd6,icon:0xffb020,classic:0xff7a3d,venue:0x18b7a6,off:0x8a93a3};
 const CATN={mega:'Mega-Resort',icon:'Icon',classic:'Classic',venue:'Venue',off:'Off-Strip'};
 // {n, side:'W'|'E'|'C', cat, z, w(frontage), d(depth), h, note, set(back setback), sign}
+// Placeholders removed — new map coming. Only the (built) Welcome sign remains.
 const DATA=[
-  {n:'Welcome to Las Vegas',side:'C',cat:'icon',z:0,w:34,d:20,h:40,note:'The famous sign — our south anchor. Betty Willis, 1959.',sign:true},
-  {n:'Allegiant Stadium',side:'W',cat:'off',z:300,w:220,d:200,h:80,set:360,note:'Home of the Raiders (off-Strip, west).'},
-  {n:'Four Seasons',side:'W',cat:'mega',z:300,w:120,d:120,h:120,set:170,note:'Atop Mandalay Bay’s south tower.'},
-  {n:'Mandalay Bay',side:'W',cat:'mega',z:440,w:300,d:160,h:150,note:'Beach, convention halls, Shark Reef.'},
-  {n:'OYO',side:'E',cat:'classic',z:400,w:150,d:110,h:70,note:'Small south-end casino (former Hooters).'},
-  {n:'Luxor',side:'W',cat:'icon',z:660,w:240,d:150,h:120,note:'The black-glass pyramid + the sky beam.'},
-  {n:'Athletics Ballpark',side:'E',cat:'venue',z:700,w:240,d:170,h:75,note:'The A’s stadium rising on the Tropicana site (2028).'},
-  {n:'Excalibur',side:'W',cat:'classic',z:880,w:250,d:150,h:95,note:'The medieval castle.'},
-  {n:'MGM Grand',side:'E',cat:'mega',z:900,w:330,d:170,h:135,note:'The emerald-green giant, at Tropicana.'},
-  {n:'New York-New York',side:'W',cat:'icon',z:1060,w:260,d:150,h:135,note:'A mini Manhattan skyline + the Big Apple Coaster.'},
-  {n:'T-Mobile Arena',side:'W',cat:'venue',z:1120,w:210,d:160,h:72,set:150,note:'20,000-seat arena behind The Park.'},
-  {n:'The Park',side:'W',cat:'venue',z:1150,w:120,d:90,h:36,set:40,note:'Dining promenade to the arena.'},
-  {n:'Park MGM',side:'W',cat:'mega',z:1230,w:210,d:140,h:120,note:'Formerly Monte Carlo.'},
-  {n:'Planet Hollywood',side:'E',cat:'mega',z:1200,w:240,d:150,h:110,note:'Miracle Mile Shops wrap around it.'},
-  {n:'Aria · CityCenter',side:'W',cat:'mega',z:1420,w:250,d:160,h:180,note:'Sweeping glass towers.'},
-  {n:'Crystals',side:'W',cat:'venue',z:1350,w:120,d:100,h:44,set:150,note:'The luxury shopping galleria.'},
+  {n:'Welcome to Las Vegas',side:'C',cat:'icon',z:0,w:34,d:20,h:40,note:'The famous sign — our south anchor. Betty Willis, 1959.',sign:true}
+];
+const _REMOVED=[
   {n:'Vdara',side:'W',cat:'mega',z:1470,w:120,d:110,h:140,set:170,note:'All-suite non-gaming tower.'},
   {n:'Waldorf Astoria',side:'W',cat:'mega',z:1510,w:100,d:100,h:150,set:150,note:'Slim luxury tower at CityCenter.'},
   {n:'Paris Las Vegas',side:'E',cat:'icon',z:1420,w:250,d:160,h:180,note:'The half-scale Eiffel Tower.'},
@@ -247,6 +270,7 @@ function labelTex(name,hex){
   const t=new THREE.CanvasTexture(cv); t.encoding=THREE.sRGBEncoding; t.anisotropy=4; return t;
 }
 const propMeshes=[], bodies=[], labels=[], signUpdaters=[];
+let customSign=null;   // set by the Sign Studio (UFO)
 function addProp(p){
   const hex='#'+CATC[p.cat].toString(16).padStart(6,'0');
   const x=p.side==='C'?0:(p.side==='W'?-1:1)*(INNER+(p.set||0)+p.d/2);
@@ -283,7 +307,8 @@ function buildWelcomeSign(p){
       diamondPathC(ctx,SIGN.w*scaleX-70,SIGN.h*scaleY-70,CX,CY,bp*0.88); ctx.lineWidth=9;ctx.strokeStyle='#C9992F';ctx.stroke();
       ctx.textAlign='center';ctx.textBaseline='middle';
       ctx.fillStyle='#1553B8'; ctx.font=`400 ${TEXH*0.16}px ${F.script}`; ctx.save();ctx.translate(CX,TEXH*0.315);ctx.rotate(-0.03);ctx.fillText('to  Fabulous',0,0);ctx.restore();
-      ctx.fillStyle='#D0312D'; ctx.font=`800 ${TEXH*0.30}px ${F.block}`; ctx.save();ctx.translate(CX,TEXH*0.55);ctx.scale(1.06,1);ctx.fillText('LAS VEGAS',0,0);ctx.restore();
+      ctx.fillStyle='#BE1A17'; { let fs=TEXH*0.27; ctx.font=`800 ${fs}px ${F.block}`; const maxw=SIGN.w*scaleX*1.08; let w=ctx.measureText('LAS VEGAS').width; if(w>maxw){ fs*=maxw/w; ctx.font=`800 ${fs}px ${F.block}`; } }
+      ctx.save();ctx.translate(CX,TEXH*0.53);ctx.fillText('LAS VEGAS',0,0);ctx.restore();
       ctx.fillStyle='#1553B8'; ctx.font=`700 ${TEXH*0.10}px ${F.block}`; const nev='NEVADA',tr=TEXH*0.05; let tw=0;for(const ch of nev)tw+=ctx.measureText(ch).width+tr; tw-=tr; let xx=CX-tw/2; for(const ch of nev){const w=ctx.measureText(ch).width;ctx.fillText(ch,xx+w/2,TEXH*0.74);xx+=w+tr;}
       ctx.font=`700 ${TEXH*0.03}px ${F.block}`; ctx.fillStyle='#C43B2E'; ctx.fillText('YESCO',CX+TEXW*0.05,TEXH*0.85);
       t.needsUpdate=true; }
@@ -295,13 +320,13 @@ function buildWelcomeSign(p){
   const shape=diamondShape(SIGN.w,SIGN.h,SIGN.bulge);
   const slab=new THREE.Mesh(new THREE.ExtrudeGeometry(shape,{depth:SIGN.depth,bevelEnabled:false}),new THREE.MeshStandardMaterial({color:0xDCD8CE,roughness:0.6,metalness:0.15})); slab.geometry.translate(0,0,-SIGN.depth/2);
   const faceGeo=new THREE.ShapeGeometry(shape,24); { faceGeo.computeBoundingBox(); const bb=faceGeo.boundingBox,uv=faceGeo.attributes.uv,pos=faceGeo.attributes.position,w=bb.max.x-bb.min.x,h=bb.max.y-bb.min.y; for(let i=0;i<uv.count;i++) uv.setXY(i,(pos.getX(i)-bb.min.x)/w,(pos.getY(i)-bb.min.y)/h); uv.needsUpdate=true; }
-  const front=new THREE.Mesh(faceGeo,new THREE.MeshBasicMaterial({map:faceTex})); front.position.z=SIGN.depth/2+0.01;
-  const back=new THREE.Mesh(faceGeo.clone(),new THREE.MeshBasicMaterial({map:faceTex})); back.rotation.y=Math.PI; back.position.z=-SIGN.depth/2-0.01;
+  const front=new THREE.Mesh(faceGeo,new THREE.MeshBasicMaterial({map:faceTex,color:0xc2bdb0})); front.position.z=SIGN.depth/2+0.01;
+  const back=new THREE.Mesh(faceGeo.clone(),new THREE.MeshBasicMaterial({map:faceTex,color:0xc2bdb0})); back.rotation.y=Math.PI; back.position.z=-SIGN.depth/2-0.01;
   const signG=new THREE.Group(); signG.add(slab,front,back); signG.position.y=SIGN.cy; grp.add(signG);
   // perimeter bulbs
-  const COL_ON=new THREE.Color(0xFFE9B8).multiplyScalar(3.0), COL_OFF=new THREE.Color(0x3a2510), _c=new THREE.Color();
+  const COL_ON=new THREE.Color(0xFFE9B8).multiplyScalar(2.0), COL_OFF=new THREE.Color(0x2a1a0a), _c=new THREE.Color();
   const NB=72, pts=shape.getSpacedPoints(NB); pts.pop();
-  const bulbs=new THREE.InstancedMesh(new THREE.SphereGeometry(0.055,10,8),new THREE.MeshBasicMaterial(),NB*2); const _m=new THREE.Matrix4();
+  const bulbs=new THREE.InstancedMesh(new THREE.SphereGeometry(0.078,12,10),new THREE.MeshBasicMaterial(),NB*2); const _m=new THREE.Matrix4();
   for(let f=0;f<2;f++){ const z=(f?-1:1)*(SIGN.depth/2+0.06); for(let i=0;i<NB;i++){ const pt=pts[i]; _m.makeTranslation(pt.x*1.01,pt.y*1.01,z); bulbs.setMatrixAt(f*NB+i,_m); bulbs.setColorAt(f*NB+i,COL_OFF); } }
   bulbs.instanceColor.needsUpdate=true; signG.add(bulbs);
   // 7 WELCOME circles along top edges
@@ -318,8 +343,8 @@ function buildWelcomeSign(p){
   for(let i=0;i<7;i++){ const tt=T0+(T1-T0)*(i/6); const pt=topPath.getPointAt(tt); const tan=topPath.getTangentAt(tt); const n=new THREE.Vector2(-tan.y,tan.x); if(n.dot(pt)<0)n.negate();
     const g2=new THREE.Group(); g2.position.set(pt.x+n.x*0.34,SIGN.cy+pt.y+n.y*0.34,0);
     const side=new THREE.Mesh(new THREE.CylinderGeometry(R0,R0,0.16,32,1,true),new THREE.MeshStandardMaterial({color:0xB9BCC4,roughness:0.45,metalness:0.6})); side.rotation.x=Math.PI/2;
-    const fc=new THREE.Mesh(new THREE.CircleGeometry(R0,32),new THREE.MeshBasicMaterial({map:circleTex(WEL[i])})); fc.position.z=0.081;
-    const bk=new THREE.Mesh(new THREE.CircleGeometry(R0,32),new THREE.MeshBasicMaterial({map:circleTex(WEL[i])})); bk.rotation.y=Math.PI; bk.position.z=-0.081;
+    const fc=new THREE.Mesh(new THREE.CircleGeometry(R0,32),new THREE.MeshBasicMaterial({map:circleTex(WEL[i]),color:0xcccfd6})); fc.position.z=0.081;
+    const bk=new THREE.Mesh(new THREE.CircleGeometry(R0,32),new THREE.MeshBasicMaterial({map:circleTex(WEL[i]),color:0xcccfd6})); bk.rotation.y=Math.PI; bk.position.z=-0.081;
     g2.add(side,fc,bk); grp.add(g2); }
   // star
   function starShape(sc){ const len=[2.35,1.45,1.85,1.45,1.65,1.45,1.85,1.45],inner=0.34,s=new THREE.Shape();
@@ -330,16 +355,43 @@ function buildWelcomeSign(p){
   const sbData=[]; { const len=[2.35,1.45,1.85,1.45,1.65,1.45,1.85,1.45],pos=[]; for(let i=0;i<8;i++){const a=Math.PI/2-i*(Math.PI/4);const fr=len[i]>1.6?[0.3,0.55,0.8,1.0]:[0.42,0.78];for(const f of fr)pos.push([Math.cos(a)*len[i]*f,Math.sin(a)*len[i]*f,f===1?0.14:0.11,f===1]);}
     const sbb=new THREE.InstancedMesh(new THREE.SphereGeometry(1,8,6),new THREE.MeshBasicMaterial(),pos.length); pos.forEach((pp,i)=>{const r=pp[3]?0.09:0.062;_m.compose(new THREE.Vector3(pp[0],pp[1],pp[2]),new THREE.Quaternion(),new THREE.Vector3(r,r,r));sbb.setMatrixAt(i,_m);sbb.setColorAt(i,COL_OFF);sbData.push({phase:Math.random()*6.28,speed:1.6+Math.random()*2.2});}); sbb.instanceColor.needsUpdate=true; starG.add(sbb); starG.userData.b=sbb; }
   grp.add(starG);
-  // structure: teal poles + star frame
-  const steel=new THREE.MeshStandardMaterial({color:0x3f7f9c,roughness:0.55,metalness:0.35});
-  function bx(w,h,d,x,y){const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),steel);m.position.set(x,y,0);grp.add(m);}
+  // structure: teal poles + star frame — placed BEHIND the sign so they never cover the face
+  const steel=new THREE.MeshStandardMaterial({color:0x2c4a58,roughness:0.6,metalness:0.4});
+  function bx(w,h,d,x,y){const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),steel);m.position.set(x,y,-0.75);grp.add(m);}
   bx(0.44,6.4,0.5,1.18,3.2); bx(0.44,6.4,0.5,-1.18,3.2); bx(0.34,4.6,0.34,1.02,9.4); bx(0.34,4.6,0.34,-1.02,9.4); bx(2.38,0.3,0.34,0,11.55);
   grp.scale.setScalar(S); grp.position.set(0,0,p.z); grp.rotation.y=Math.PI;   // front faces south
   grp.traverse(o=>{ if(o.isMesh) o.userData.p=p; });
   scene.add(grp); propMeshes.push(slab,front,back);
-  // bulb chase animation
-  signUpdaters.push(t=>{ const N=NB; for(let f=0;f<2;f++)for(let i=0;i<N;i++){ const step=Math.floor(t*7)%3, ph=(i+(f?1:0))%3; let k=ph===step?1:(ph===(step+2)%3?0.18:0.05); _c.copy(COL_OFF).lerp(COL_ON,k); bulbs.setColorAt(f*N+i,_c);} bulbs.instanceColor.needsUpdate=true;
-    const sbb=starG.userData.b, burst=Math.max(0,Math.sin(t*0.7))>0.985?1:0; for(let i=0;i<sbb.count;i++){const d=sbData[i];let k=0.3+0.7*Math.max(0,Math.sin(t*d.speed+d.phase));k=Math.max(k*k,burst);_c.copy(COL_OFF).lerp(COL_ON,k);sbb.setColorAt(i,_c);} sbb.instanceColor.needsUpdate=true; });
+  // bulb chase / Sign-Studio animation
+  const _s1=new THREE.Color(),_s2=new THREE.Color(),_sc=new THREE.Color();
+  const USR=new THREE.Color('#c81f1a'),USW=new THREE.Color('#f4f6ff'),USB=new THREE.Color('#2b4cff');
+  const HDR=3.2;
+  function bulbColor(i,N,t,out){
+    const d=customSign;
+    if(!d){ const step=Math.floor(t*7)%3, ph=i%3; const k=ph===step?1:(ph===(step+2)%3?0.18:0.05); out.copy(COL_OFF).lerp(COL_ON,k); return; }
+    _s1.set(d.c1); _s2.set(d.c2); const fl=d.flash; let k=1;
+    if(d.pattern==='chase'){ const step=Math.floor(t*(5+fl*10))%3, ph=i%3; k=ph===step?1:(ph===(step+2)%3?0.2:0.06); out.copy(_s1); }
+    else if(d.pattern==='rainbow'){ out.setHSL(((i/N)+t*0.08)%1,1.0,0.5); k=0.95; }
+    else if(d.pattern==='alt'){ out.copy(i%2?_s2:_s1); k=0.95; }
+    else if(d.pattern==='solid'){ out.copy(_s1); k=0.82+0.18*Math.sin(t*3); }
+    else if(d.pattern==='pulse'){ out.copy(_s1).lerp(_s2,0.5+0.5*Math.sin(t*(2+fl*8))); k=1; }
+    else if(d.pattern==='usa'){ const seg=Math.floor(i/N*6)%3; out.copy(seg===0?USR:seg===1?USW:USB); const st=Math.floor(t*(4+fl*8))%2; k=(Math.floor(i/6)%2===st)?1:0.35; }
+    else out.copy(_s1);
+    if(fl>0.55) k*=0.55+0.45*Math.abs(Math.sin(t*(4+fl*16)-i*0.3));
+    out.multiplyScalar(HDR*k+0.06);
+  }
+  signUpdaters.push(t=>{
+    const N=NB;
+    for(let i=0;i<N;i++){ bulbColor(i,N,t,_sc); for(let f=0;f<2;f++) bulbs.setColorAt(f*N+i,_sc); }
+    bulbs.instanceColor.needsUpdate=true;
+    const sbb=starG.userData.b, d=customSign;
+    for(let i=0;i<sbb.count;i++){ const sd=sbData[i]; let k=0.3+0.7*Math.max(0,Math.sin(t*sd.speed+sd.phase)); k*=k;
+      if(!d){ _sc.copy(COL_OFF).lerp(COL_ON,k); }
+      else if(d.pattern==='rainbow'){ _sc.setHSL(((i/sbb.count)+t*0.08)%1,1,0.55).multiplyScalar(HDR*(0.4+0.6*k)); }
+      else { _s1.set(d.c1);_s2.set(d.c2); _sc.copy(i%2?_s2:_s1).multiplyScalar(HDR*(0.4+0.6*k)); }
+      sbb.setColorAt(i,_sc); }
+    sbb.instanceColor.needsUpdate=true;
+  });
 }
 
 /* ===== Time of day ===== */
@@ -368,7 +420,7 @@ function updateTime(t){
   for(const m of ROAD_MATS) m.emissiveIntensity=0.05+nightFactor*0.7;
   for(const m of yellowMats) m.emissiveIntensity=0.5+nightFactor*1.6;
   for(const m of lampMats) m.emissiveIntensity=0.4+nightFactor*2.4;
-  if(bloom) bloom.strength=0.4+nightFactor*0.7;
+  if(bloom) bloom.strength=0.33+nightFactor*0.6;
   const em=e>0.32?'☀️':e>0.02?'🌇':e>-0.12?'🌆':'🌙'; document.getElementById('phase').textContent=em; document.getElementById('clock').textContent=fmtClock(t);
 }
 function fmtClock(t){let h=Math.floor(t)%24;const m=Math.floor((t-Math.floor(t))*60);const ap=h<12?'AM':'PM';let hh=h%12;if(hh===0)hh=12;return hh+':'+String(m).padStart(2,'0')+' '+ap;}
@@ -376,12 +428,12 @@ const timeInput=document.getElementById('time');let timeOfDay=parseFloat(timeInp
 timeInput.addEventListener('input',e=>{timeOfDay=parseFloat(e.target.value);updateTime(timeOfDay);});
 
 /* ===== Build world ===== */
-STRAT_Z=DATA[DATA.length-1].z; RZ0=-360; RZ1=STRAT_Z+260; RLEN=RZ1-RZ0; RZC=(RZ0+RZ1)/2;
+STRAT_Z=99999; RZ0=-360; RZ1=3600; RLEN=RZ1-RZ0; RZC=(RZ0+RZ1)/2;   // fixed length; properties come with the new map
 buildRoad();
 DATA.forEach(addProp);
 
 /* ===== Camera: default = south end facing north ===== */
-const HOME_POS=new THREE.Vector3(0,30,-92), HOME_TGT=new THREE.Vector3(0,19,64);
+const HOME_POS=new THREE.Vector3(0,30,-100), HOME_TGT=new THREE.Vector3(0,18,48);
 camera.position.copy(HOME_POS); controls.target.copy(HOME_TGT); controls.update();
 let mode='orbit', tourU=0, tween=null;
 const camBtns=[...document.querySelectorAll('.cbtn')];
@@ -397,6 +449,7 @@ const ray=new THREE.Raycaster(),ndc=new THREE.Vector2();let downXY=null;
 renderer.domElement.addEventListener('pointerdown',e=>{downXY=[e.clientX,e.clientY];});
 renderer.domElement.addEventListener('pointerup',e=>{ if(!downXY)return;const moved=Math.hypot(e.clientX-downXY[0],e.clientY-downXY[1]);downXY=null;if(moved>6)return;
   ndc.x=(e.clientX/window.innerWidth)*2-1;ndc.y=-(e.clientY/window.innerHeight)*2+1;ray.setFromCamera(ndc,camera);
+  const uh=ray.intersectObjects(ufoMeshes,false); if(uh.length){ openStudio(uh[0].object.userData.studio||'welcomesign'); return; }
   const hits=ray.intersectObjects(propMeshes,false);if(!hits.length)return;const p=hits[0].object.userData.p;if(!p)return;
   openInfo(p); focusOn(new THREE.Vector3(p.x,p.h*0.55,p.z),Math.max(150,p.d*1.6+p.h*1.2)); });
 
@@ -414,6 +467,44 @@ function openInfo(p){ document.getElementById('info-title').textContent=p.n; con
   infoEl.classList.add('open'); }
 document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>document.getElementById(b.dataset.close).classList.remove('open')));
 
+/* ===== UFO + Sign Studio ===== */
+const ufos=[], ufoMeshes=[];
+function makeUFO(studioName,cx,cz,radius,baseY,speed,scale){
+  const g=new THREE.Group();
+  const saucer=new THREE.Mesh(new THREE.SphereGeometry(2.4,32,16),new THREE.MeshStandardMaterial({color:0xbfc9dd,metalness:0.9,roughness:0.25}));saucer.scale.set(1,0.32,1);g.add(saucer);
+  const dome=new THREE.Mesh(new THREE.SphereGeometry(1.15,24,16,0,Math.PI*2,0,Math.PI/2),new THREE.MeshStandardMaterial({color:0x8fe3ff,metalness:0.3,roughness:0.1,transparent:true,opacity:0.6,emissive:0x2bd6ff,emissiveIntensity:0.6}));dome.position.y=0.55;g.add(dome);
+  const beltMat=new THREE.MeshStandardMaterial({color:0x0A1628,emissive:0xffd36b,emissiveIntensity:2.0,roughness:0.4});
+  const belt=new THREE.Mesh(new THREE.TorusGeometry(2.15,0.22,10,40),beltMat);belt.rotation.x=Math.PI/2;g.add(belt);
+  const lights=[];for(let i=0;i<6;i++){const a=i/6*Math.PI*2;const m=new THREE.MeshStandardMaterial({color:0x0A1628,emissive:0xff2bd6,emissiveIntensity:2.4,roughness:0.4});const b=new THREE.Mesh(new THREE.SphereGeometry(0.28,12,12),m);b.position.set(Math.cos(a)*2,-0.35,Math.sin(a)*2);g.add(b);lights.push(m);}
+  const glow=new THREE.PointLight(0x8fe3ff,1.2,140,2);g.add(glow);
+  g.scale.setScalar(scale||1);
+  g.traverse(o=>{if(o.isMesh){o.userData.studio=studioName;ufoMeshes.push(o);}});
+  scene.add(g);
+  const u={g,lights,beltMat,glow,cx,cz,r:radius,baseY,speed:speed||0.4,phase:ufos.length*2};ufos.push(u);return u;
+}
+makeUFO('welcomesign',0,0,30,52,0.4,2.6);
+
+const col1=document.getElementById('col1'),col2=document.getElementById('col2'),flashI=document.getElementById('flash'),flashval=document.getElementById('flashval'),patWrap=document.getElementById('patterns'),studioEl=document.getElementById('studio');
+let curPattern='chase', studioTarget='welcomesign';
+const STUDIOS={ welcomesign:{ title:'Sign Studio', sub:'Light up the bulbs',
+  patterns:[['chase','Chase'],['rainbow','Rainbow'],['solid','Solid'],['alt','Alternate'],['pulse','Pulse']],
+  defaults:{c1:'#ff2bd6',c2:'#2bd6ff',pattern:'chase',flash:0.5},
+  preset:{c1:'#c81f1a',c2:'#2b4cff',pattern:'usa',flash:0.5},
+  apply:d=>{ customSign = d?{c1:d.c1,c2:d.c2,pattern:d.pattern,flash:d.flash}:null; } } };
+function flashLabel(v){return v<0.2?'Steady':v<0.45?'Gentle':v<0.72?'Medium':v<0.9?'Fast':'Strobe';}
+function setPatternUI(val){curPattern=val;patWrap.querySelectorAll('.pat').forEach(x=>x.classList.toggle('on',x.dataset.pat===val));}
+function applyStudio(){const c=STUDIOS[studioTarget];const d={c1:col1.value,c2:col2.value,pattern:curPattern,flash:parseFloat(flashI.value)};c.current=d;c.apply(d);}
+function openStudio(target){studioTarget=target;const c=STUDIOS[target];if(!c)return;
+  document.getElementById('studio-title').textContent=c.title;document.getElementById('studio-sub').textContent=c.sub;
+  patWrap.innerHTML='';c.patterns.forEach(([val,label])=>{const b=document.createElement('button');b.className='pat';b.dataset.pat=val;b.innerHTML='<span>'+label+'</span>';b.addEventListener('click',()=>{setPatternUI(val);applyStudio();});patWrap.appendChild(b);});
+  const d=c.current||c.defaults;col1.value=d.c1;col2.value=d.c2;flashI.value=d.flash;flashval.textContent=flashLabel(d.flash);setPatternUI(d.pattern);studioEl.classList.add('open');
+  if(target==='welcomesign') focusOn(new THREE.Vector3(0,21,2),66);   // glide in so the bulbs pop
+}
+[col1,col2].forEach(c=>c.addEventListener('input',applyStudio));
+flashI.addEventListener('input',()=>{flashval.textContent=flashLabel(parseFloat(flashI.value));applyStudio();});
+document.getElementById('usa').addEventListener('click',()=>{const p=STUDIOS[studioTarget].preset;col1.value=p.c1;col2.value=p.c2;flashI.value=p.flash;flashval.textContent=flashLabel(p.flash);setPatternUI(p.pattern);applyStudio();});
+document.getElementById('studio-reset').addEventListener('click',()=>{const c=STUDIOS[studioTarget];c.current=null;c.apply(null);col1.value=c.defaults.c1;col2.value=c.defaults.c2;flashI.value=c.defaults.flash;flashval.textContent=flashLabel(c.defaults.flash);setPatternUI(c.defaults.pattern);});
+
 /* ===== Sound ===== */
 let audioCtx=null,audioOn=false,masterGain=null;
 function initAudio(){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return false;audioCtx=new AC();masterGain=audioCtx.createGain();masterGain.gain.value=0;masterGain.connect(audioCtx.destination);
@@ -429,7 +520,7 @@ document.getElementById('sound').addEventListener('click',toggleSound);
 let composer,bloom;
 window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight);if(composer)composer.setSize(window.innerWidth,window.innerHeight);});
 composer=new THREE.EffectComposer(renderer); composer.addPass(new THREE.RenderPass(scene,camera));
-bloom=new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth,window.innerHeight),0.7,0.8,0.62); composer.addPass(bloom);
+bloom=new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth,window.innerHeight),0.55,0.6,0.82); composer.addPass(bloom);
 
 /* ===== Animate ===== */
 updateTime(timeOfDay);
@@ -438,6 +529,7 @@ function animate(){ requestAnimationFrame(animate); const dt=Math.min(clock.getD
   for(let i=0;i<labels.length;i++) labels[i].quaternion.copy(camera.quaternion);
   disc.lookAt(camera.position);
   if(!REDUCE) for(let i=0;i<signUpdaters.length;i++) signUpdaters[i](elapsed);
+  if(!REDUCE) for(const u of ufos){ const a=elapsed*u.speed+u.phase; u.g.position.set(u.cx+Math.cos(a)*u.r,u.baseY+Math.sin(elapsed*0.9)*3,u.cz+Math.sin(a)*u.r*0.6); u.g.rotation.y=-a+Math.PI/2; const ni=0.5+nightFactor*1.6; u.lights.forEach((m,j)=>m.emissiveIntensity=ni*(0.5+0.5*Math.sin(elapsed*6+j))+0.2); u.beltMat.emissiveIntensity=0.6+nightFactor*1.6; u.glow.intensity=0.4+nightFactor*1.0; }
   if(tween){ tween.t+=dt/tween.dur; const k=easeIO(Math.min(1,tween.t)); camera.position.lerpVectors(tween.fromP,tween.toP,k); controls.target.lerpVectors(tween.fromT,tween.toT,k); controls.update(); if(tween.t>=1)tween=null; }
   else if(mode==='fly'){ tourU=(tourU+dt*0.012)%1; const z=RZ0+tourU*RLEN; camera.position.set(Math.sin(elapsed*0.12)*120,240,z); camera.lookAt(0,40,z+320); }
   else if(mode==='limo'){ tourU=(tourU+dt*0.02)%1; const z=RZ0+tourU*RLEN; camera.position.set(CARR-LANE,6,z); camera.lookAt(CARR-LANE+Math.sin(elapsed*0.3)*10,9,z+120); }
