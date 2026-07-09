@@ -452,9 +452,11 @@ function makeLabelTex(text,o){
   const x=cv.getContext('2d');
   if(o.bg){ x.fillStyle=o.bg; if(o.round){ rr2(x,6,6,cw-12,ch-12,26); x.fill(); } else x.fillRect(0,0,cw,ch); }
   x.textAlign='center'; x.textBaseline='middle';
-  x.font=(o.weight||'800')+' '+(o.size||96)+"px 'Barlow Condensed', Impact, sans-serif";
+  x.font=(o.weight||'800')+' '+(o.size||96)+'px '+(o.font||"'Barlow Condensed', Impact, sans-serif");
+  if('letterSpacing' in x && o.spacing) x.letterSpacing=o.spacing;
   x.fillStyle=o.fg||'#ff8a3d'; x.shadowColor=o.glow||o.fg||'#ff6b2b'; x.shadowBlur=(o.glow===null)?0:26;
   x.fillText(text, cw/2, ch/2+4);
+  if('letterSpacing' in x) x.letterSpacing='0px';
   const t=new THREE.CanvasTexture(cv); t.encoding=THREE.sRGBEncoding; t.anisotropy=4; return t;
 }
 function makeTicker(text,color){
@@ -474,17 +476,19 @@ function makeScanTex(){
 }
 
 // -- LINQ hotel tower (reusable resort-tower recipe: window-grid facade + lit windows) --
-function makeTowerTex(cols,rows){
-  const cw=cols*14, ch=rows*18;
+function makeTowerTex(cols,rows,o){
+  o=o||{}; const cw=cols*14, ch=rows*18;
+  const fac=o.fac||['#3a3944','#4b4a56','#323140'], glass=o.glass||'#0e1c30';
+  const warm=o.warm||'rgb(255,206,120)', cool=o.cool||'rgb(150,205,255)', lit=o.lit!=null?o.lit:0.42;
   const base=document.createElement('canvas'); base.width=cw; base.height=ch; const bx=base.getContext('2d');
-  const grd=bx.createLinearGradient(0,0,cw,0); grd.addColorStop(0,'#3a3944'); grd.addColorStop(.5,'#4b4a56'); grd.addColorStop(1,'#323140');
+  const grd=bx.createLinearGradient(0,0,cw,0); grd.addColorStop(0,fac[0]); grd.addColorStop(.5,fac[1]); grd.addColorStop(1,fac[2]);
   bx.fillStyle=grd; bx.fillRect(0,0,cw,ch);
   const em=document.createElement('canvas'); em.width=cw; em.height=ch; const ex=em.getContext('2d');
   ex.fillStyle='#000'; ex.fillRect(0,0,cw,ch);
   for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){
     const x=c*14+2, y=r*18+2, w=10, h=13;
-    bx.fillStyle='#0e1c30'; bx.fillRect(x,y,w,h);
-    if(Math.random()<0.42){ ex.fillStyle=(Math.random()<0.82)?'rgb(255,206,120)':'rgb(150,205,255)'; ex.fillRect(x,y,w,h); }
+    bx.fillStyle=glass; bx.fillRect(x,y,w,h);
+    if(Math.random()<lit){ ex.fillStyle=(Math.random()<0.82)?warm:cool; ex.fillRect(x,y,w,h); }
   }
   const t1=new THREE.CanvasTexture(base); t1.encoding=THREE.sRGBEncoding; t1.anisotropy=4;
   const t2=new THREE.CanvasTexture(em); t2.encoding=THREE.sRGBEncoding; t2.anisotropy=4;
@@ -611,28 +615,28 @@ const spokeMat=new THREE.MeshStandardMaterial({color:0x6b7488, metalness:0.6, ro
 for(let i=0;i<HR_N;i++){ const th=i/HR_N*Math.PI*2;
   const s=new THREE.Mesh(new THREE.CylinderGeometry(0.12,0.12,HR_R,6), spokeMat);
   s.position.set(Math.cos(th)*HR_R/2, Math.sin(th)*HR_R/2, 0); s.rotation.z=th-Math.PI/2; wheel.add(s); }
-// cabins: solid lit lower half + glass upper dome; kept upright as the wheel turns
-const hrPods=[], hrCabins=[];
+// cabins: solid lit lower half + glass upper dome (the dome glows the cabin color too)
+const hrPods=[], hrCabins=[], hrDomes=[];
 const cabinTopGeo=new THREE.SphereGeometry(2.2,20,10, 0, Math.PI*2, 0, Math.PI/2);        // upper (glass dome)
 const cabinBotGeo=new THREE.SphereGeometry(2.2,20,10, 0, Math.PI*2, Math.PI/2, Math.PI/2); // lower (solid, lit)
-const cabinGlassMat=new THREE.MeshStandardMaterial({color:0xbfe6ff, metalness:0.2, roughness:0.08, transparent:true, opacity:0.34, emissive:0x2a6cff, emissiveIntensity:0.25, side:THREE.DoubleSide});
 for(let i=0;i<HR_N;i++){ const th=i/HR_N*Math.PI*2;
   const cab=new THREE.Group(); cab.position.set(Math.cos(th)*(HR_R+1.8), Math.sin(th)*(HR_R+1.8), 0);
-  const lightMat=new THREE.MeshStandardMaterial({color:0x0a0a0f, emissive:0xffffff, emissiveIntensity:1.5, roughness:0.4, metalness:0.1});
+  const lightMat=new THREE.MeshStandardMaterial({color:0x08080c, emissive:0xffffff, emissiveIntensity:1.4, roughness:0.4, metalness:0.05});
+  const domeMat=new THREE.MeshStandardMaterial({color:0x0a0a10, metalness:0.1, roughness:0.06, transparent:true, opacity:0.5, emissive:0xffffff, emissiveIntensity:0.6, side:THREE.DoubleSide});
   const bot=new THREE.Mesh(cabinBotGeo, lightMat); bot.castShadow=true; cab.add(bot);
-  cab.add(new THREE.Mesh(cabinTopGeo, cabinGlassMat));
+  cab.add(new THREE.Mesh(cabinTopGeo, domeMat));
   const ring=new THREE.Mesh(new THREE.TorusGeometry(2.24,0.13,8,22), spokeMat); ring.rotation.x=Math.PI/2; cab.add(ring);
-  wheel.add(cab); hrCabins.push(cab); hrPods.push(lightMat);
+  wheel.add(cab); hrCabins.push(cab); hrPods.push(lightMat); hrDomes.push(domeMat);
 }
 hr.traverse(o=>{ if(o.isMesh) o.userData.pick='highroller'; });
 scene.add(hr); pickTargets.push(hr);
 const _hc=new THREE.Color(), _hc1=new THREE.Color(), _hc2=new THREE.Color();
 const HR_RED=new THREE.Color('#B22234'), HR_WHITE=new THREE.Color('#f4f6ff'), HR_BLUE=new THREE.Color('#2b4cff');
 frameUpdaters.push(t=>{
-  const d=customHR, base=0.3+nightFactor*2.1;
+  const d=customHR, base=0.4+nightFactor*1.5;
   if(d){ _hc1.set(d.c1); _hc2.set(d.c2); }
   for(let i=0;i<HR_N;i++){ let inten=base;
-    if(!d || d.pattern==='rainbow'){ _hc.setHSL(((i/HR_N)+t*0.05)%1, 0.85, 0.55); }
+    if(!d || d.pattern==='rainbow'){ _hc.setHSL(((i/HR_N)+t*0.05)%1, 1.0, 0.5); }
     else if(d.pattern==='solid'){ _hc.copy(_hc1); }
     else if(d.pattern==='alt'){ _hc.copy(i%2?_hc2:_hc1); }
     else if(d.pattern==='chase'){ const band=Math.floor(t*(2+d.flash*8))%HR_N; const dd=Math.min((i-band+HR_N)%HR_N,(band-i+HR_N)%HR_N); _hc.copy(dd<2?_hc1:_hc2); }
@@ -640,6 +644,7 @@ frameUpdaters.push(t=>{
     else if(d.pattern==='usa'){ const seg=Math.floor(i/HR_N*3)%3; _hc.copy(seg===0?HR_RED:seg===1?HR_WHITE:HR_BLUE); }
     if(d && d.flash>0.01){ inten*= 0.55+0.45*Math.abs(Math.sin(t*(1.5+d.flash*18)-i*0.35)); }
     hrPods[i].emissive.copy(_hc); hrPods[i].emissiveIntensity=inten;
+    hrDomes[i].emissive.copy(_hc); hrDomes[i].emissiveIntensity=inten*0.6;
   }
   const wheelAngle = t*0.06;
   wheel.rotation.z = wheelAngle;
@@ -656,21 +661,24 @@ const wel=new THREE.Group(); wel.position.copy(WEL_POS); wel.rotation.y=Math.ata
 const welPoleMat=new THREE.MeshStandardMaterial({color:0x2a2e3a,metalness:0.6,roughness:0.5});
 [-6,6].forEach(px=>{ const p=new THREE.Mesh(new THREE.CylinderGeometry(0.7,0.9,15,10),welPoleMat); p.position.set(px,7.5,0); p.castShadow=true; wel.add(p); });
 const welBase=new THREE.Mesh(new THREE.BoxGeometry(20,2,6), welPoleMat); welBase.position.y=1; welBase.receiveShadow=true; wel.add(welBase);
-const WW=13, WH=14, welCY=15+WH;
+const WW=14, WH=13, welCY=15+WH;
 function makeWelcomeFace(){
-  const cw=512, ch=552; const cv=document.createElement('canvas'); cv.width=cw; cv.height=ch;
+  const cw=560, ch=520; const cv=document.createElement('canvas'); cv.width=cw; cv.height=ch;
   const ctx=cv.getContext('2d'); const tex=new THREE.CanvasTexture(cv); tex.encoding=THREE.sRGBEncoding; tex.anisotropy=4;
   function draw(){
-    ctx.clearRect(0,0,cw,ch); ctx.fillStyle='#123a86'; ctx.fillRect(0,0,cw,ch);
+    ctx.clearRect(0,0,cw,ch); ctx.fillStyle='#1552b0'; ctx.fillRect(0,0,cw,ch);   // cobalt blue
     ctx.textAlign='center'; ctx.textBaseline='middle';
-    const sx=cw/2, sy=ch*0.205, sr=46;
-    ctx.fillStyle='#ffd23b'; ctx.beginPath();
-    for(let i=0;i<16;i++){ const a=-Math.PI/2+i/16*Math.PI*2, r=(i%2?sr*0.58:sr); i?ctx.lineTo(sx+Math.cos(a)*r,sy+Math.sin(a)*r):ctx.moveTo(sx+Math.cos(a)*r,sy+Math.sin(a)*r);} ctx.closePath(); ctx.fill();
-    ctx.fillStyle='#c1121f'; ctx.font="700 22px 'Barlow Condensed', Impact, sans-serif"; ctx.fillText('WELCOME', sx, sy+1);
-    ctx.fillStyle='#ffffff'; ctx.font="italic 38px Georgia, serif"; ctx.fillText('to Fabulous', cw/2, ch*0.355);
-    ctx.font="104px 'Bebas Neue', Impact, sans-serif";
-    ctx.fillText('LAS', cw/2, ch*0.495); ctx.fillText('VEGAS', cw/2, ch*0.625);
-    ctx.font="italic 34px Georgia, serif"; ctx.fillText('Nevada', cw/2, ch*0.735);
+    // 7 "silver-dollar" circles spelling WELCOME (the sign's signature top row)
+    const letters='WELCOME', n=7, arcY=ch*0.24, spread=cw*0.62, cr=cw*0.046;
+    for(let i=0;i<n;i++){ const f=(i-(n-1)/2)/((n-1)/2), cxp=cw/2+f*spread/2, cyp=arcY+f*f*ch*0.045;
+      ctx.beginPath(); ctx.arc(cxp,cyp,cr,0,Math.PI*2); ctx.fillStyle='#f6f4ee'; ctx.fill();
+      ctx.lineWidth=2.5; ctx.strokeStyle='#c9cfd8'; ctx.stroke();
+      ctx.fillStyle='#c1121f'; ctx.font="700 "+(cr*1.15)+"px 'Barlow Condensed', Impact, sans-serif"; ctx.fillText(letters[i],cxp,cyp+2); }
+    // to Fabulous (script)
+    ctx.fillStyle='#ffffff'; ctx.font="italic "+(ch*0.082)+"px 'Brush Script MT','Segoe Script',Georgia,serif"; ctx.fillText('to Fabulous', cw/2, ch*0.44);
+    ctx.font=(ch*0.185)+"px 'Bebas Neue', Impact, sans-serif";
+    ctx.fillText('LAS', cw/2, ch*0.575); ctx.fillText('VEGAS', cw/2, ch*0.70);
+    ctx.fillStyle='#ffffff'; ctx.font="italic "+(ch*0.066)+"px 'Brush Script MT','Segoe Script',Georgia,serif"; ctx.fillText('Nevada', cw/2, ch*0.80);
     tex.needsUpdate=true;
   }
   draw(); registerFontRedraw(draw); return tex;
@@ -687,16 +695,16 @@ welEdges.forEach(([x1,y1,x2,y2])=>{ for(let k=0;k<7;k++){ const f=(k+0.5)/7, x=x
   const m=new THREE.MeshStandardMaterial({color:0x201802, emissive:0xffef9f, emissiveIntensity:2, roughness:0.4});
   const b=new THREE.Mesh(new THREE.SphereGeometry(0.5,10,10), m); b.position.set(x,welCY+y,0.6); wel.add(b);
   const b2=new THREE.Mesh(new THREE.SphereGeometry(0.5,10,10), m); b2.position.set(x,welCY+y,-0.6); wel.add(b2); welBulbs.push(m); } });
-const welStarMat=new THREE.MeshStandardMaterial({color:0x1a1400, emissive:0xffd23b, emissiveIntensity:2.2, roughness:0.4});
+const welStarMat=new THREE.MeshStandardMaterial({color:0x1a1400, emissive:0xffc21a, emissiveIntensity:1.4, roughness:0.4});
 const welStarShape=new THREE.Shape(); for(let i=0;i<10;i++){ const a=-Math.PI/2+i/10*Math.PI*2, r=(i%2?1.5:3.4); const px=Math.cos(a)*r, py=Math.sin(a)*r; i?welStarShape.lineTo(px,py):welStarShape.moveTo(px,py);} welStarShape.closePath();
 const welStar=new THREE.Mesh(new THREE.ShapeGeometry(welStarShape), welStarMat); welStar.position.set(0,welCY+WH+3.6,0.2); wel.add(welStar);
 wel.traverse(o=>{ if(o.isMesh) o.userData.pick='welcome'; });
 scene.add(wel); pickTargets.push(wel);
 const _wc=new THREE.Color(), _wc1=new THREE.Color(), _wc2=new THREE.Color();
-frameUpdaters.push(t=>{ const d=customWelcome, base=0.4+nightFactor*2.0, N=welBulbs.length; if(d){_wc1.set(d.c1);_wc2.set(d.c2);}
+frameUpdaters.push(t=>{ const d=customWelcome, base=0.45+nightFactor*1.3, N=welBulbs.length; if(d){_wc1.set(d.c1);_wc2.set(d.c2);}
   for(let i=0;i<N;i++){ let inten=base;
-    if(!d){ _wc.setRGB(1,0.93,0.6); inten=base*(0.5+0.5*Math.sin(t*5-i*0.5))+0.15; }
-    else if(d.pattern==='rainbow'){ _wc.setHSL(((i/N)+t*0.05)%1,0.85,0.55); }
+    if(!d){ _wc.setRGB(1,0.7,0.12); inten=base*(0.55+0.55*Math.sin(t*5-i*0.5))+0.18; }   // warm gold chase
+    else if(d.pattern==='rainbow'){ _wc.setHSL(((i/N)+t*0.05)%1,1.0,0.5); }
     else if(d.pattern==='solid'){ _wc.copy(_wc1); }
     else if(d.pattern==='alt'){ _wc.copy(i%2?_wc2:_wc1); }
     else if(d.pattern==='chase'){ const band=Math.floor(t*(2+d.flash*8))%N, dd=Math.min((i-band+N)%N,(band-i+N)%N); _wc.copy(dd<1?_wc1:_wc2); }
@@ -705,7 +713,7 @@ frameUpdaters.push(t=>{ const d=customWelcome, base=0.4+nightFactor*2.0, N=welBu
     if(d && d.flash>0.01 && d.pattern!=='chase'){ inten*=0.55+0.45*Math.abs(Math.sin(t*(1.5+d.flash*18)-i*0.4)); }
     welBulbs[i].emissive.copy(_wc); welBulbs[i].emissiveIntensity=inten;
   }
-  welFaceMat.emissiveIntensity=0.35+nightFactor*0.95; welStarMat.emissiveIntensity=1.2+nightFactor*1.6;
+  welFaceMat.emissiveIntensity=0.4+nightFactor*1.0; welStarMat.emissiveIntensity=0.9+nightFactor*0.9;
 });
 makeUFO('welcome', new THREE.Vector3(WEL_POS.x,0,WEL_POS.z), 12, welCY+WH+12, 0.45);
 
@@ -713,37 +721,43 @@ makeUFO('welcome', new THREE.Vector3(WEL_POS.x,0,WEL_POS.z), 12, welCY+WH+12, 0.
 let customFountain=null;
 const BEL_POS=new THREE.Vector3(214,0,-64);
 const bel=new THREE.Group(); bel.position.copy(BEL_POS); bel.rotation.y=Math.atan2(158-BEL_POS.x,214-BEL_POS.z);
-const belTex=makeTowerTex(20,22);
-const belMat=new THREE.MeshStandardMaterial({map:belTex.map, emissive:0xffffff, emissiveMap:belTex.emissive, emissiveIntensity:0.1, roughness:0.5, metalness:0.25});
-function belBlock(w,h,dp,x,z,ry){ const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,dp), belMat); m.position.set(x,h/2+4,z); m.rotation.y=ry; m.castShadow=true; m.receiveShadow=true; bel.add(m); }
-belBlock(56,86,26, 0,0, 0); belBlock(26,72,22, -37,16, 0.5); belBlock(26,72,22, 37,16, -0.5);
-const belBase=new THREE.Mesh(new THREE.BoxGeometry(120,8,60), new THREE.MeshStandardMaterial({color:0x1c2230,roughness:0.85,metalness:0.1})); belBase.position.y=4; belBase.receiveShadow=true; bel.add(belBase);
-const belSignTex=makeLabelTex('BELLAGIO',{fg:'#f2e2b8',glow:'#f2e2b8',size:96});
+// warm cream facade (the real Bellagio is a pale sand-colored curved tower)
+const belTex=makeTowerTex(20,22,{fac:['#cdbb98','#ded0ad','#c1ae88'], glass:'#2a2417', warm:'rgb(255,222,150)', cool:'rgb(255,236,190)', lit:0.5});
+const belMat=new THREE.MeshStandardMaterial({map:belTex.map, emissive:0xffffff, emissiveMap:belTex.emissive, emissiveIntensity:0.1, roughness:0.55, metalness:0.15});
+// gently curved arc of segments embracing the lake (concave toward the viewer)
+const belN=7, belCurve=17;
+for(let i=0;i<belN;i++){ const frac=(i-(belN-1)/2)/((belN-1)/2), x=frac*46, h=80-Math.abs(frac)*22, z=belCurve*frac*frac;
+  const seg=new THREE.Mesh(new THREE.BoxGeometry(15.5,h,20), belMat);
+  seg.position.set(x, h/2+4, z); seg.rotation.y=-frac*0.5; seg.castShadow=true; seg.receiveShadow=true; bel.add(seg); }
+const belBase=new THREE.Mesh(new THREE.BoxGeometry(120,8,64), new THREE.MeshStandardMaterial({color:0x1c2230,roughness:0.85,metalness:0.1})); belBase.position.set(0,4,6); belBase.receiveShadow=true; bel.add(belBase);
+// elegant serif wordmark in warm bronze/cream
+const belSignTex=makeLabelTex('BELLAGIO',{fg:'#f0e2bf', glow:'#c9a94e', size:84, weight:'400', font:"Georgia,'Times New Roman',serif", spacing:'12px'});
 const belSignMat=new THREE.MeshStandardMaterial({map:belSignTex,emissive:0xffffff,emissiveMap:belSignTex,emissiveIntensity:1,transparent:true,roughness:0.4});
-const belSign=new THREE.Mesh(new THREE.PlaneGeometry(34,9),belSignMat); belSign.position.set(0,78,13.4); bel.add(belSign);
+const belSign=new THREE.Mesh(new THREE.PlaneGeometry(40,9),belSignMat); belSign.position.set(0,72,10.6); bel.add(belSign);
 bel.traverse(o=>{ if(o.isMesh) o.userData.pick='bellagio'; });
 scene.add(bel); pickTargets.push(bel);
 // fountain lake (world-space, in front of the resort toward the viewer)
 const lakeCx=BEL_POS.x-6, lakeCz=BEL_POS.z+58;
 const lake=new THREE.Mesh(new THREE.CircleGeometry(46,48), new THREE.MeshStandardMaterial({color:0x0a2038, roughness:0.14, metalness:0.6, emissive:0x0a1a30, emissiveIntensity:0.2}));
 lake.rotation.x=-Math.PI/2; lake.position.set(lakeCx,0.15,lakeCz); lake.receiveShadow=true; scene.add(lake);
-const fountainJets=[]; const jetGeo=new THREE.CylinderGeometry(0.18,0.6,1,8); jetGeo.translate(0,0.5,0);
-for(let i=0;i<18;i++){ const f=i/17, central=1-Math.abs(f-0.5)*2;
-  const jx=lakeCx+(f-0.5)*74, jz=lakeCz + Math.cos(f*Math.PI)*-6 + 5*Math.sin(f*6.3);
-  const mat=new THREE.MeshStandardMaterial({color:0xbfe0ff, emissive:0xdfefff, emissiveIntensity:1.2, transparent:true, opacity:0.6, roughness:0.2, depthWrite:false});
-  const jet=new THREE.Mesh(jetGeo, mat); jet.position.set(jx,0.2,jz); jet.scale.set(1,4,1); scene.add(jet);
-  const sp=new THREE.Mesh(new THREE.SphereGeometry(1.2,10,8), mat); sp.scale.y=0.4; sp.position.set(jx,0.35,jz); scene.add(sp);
-  fountainJets.push({jet, phase:i*0.5, baseH:5+central*6, ampH:9+central*27, mat});
+const fountainJets=[]; const NJET=24; const jetGeo=new THREE.CylinderGeometry(0.45,1.4,1,10); jetGeo.translate(0,0.5,0);
+const sprayGeo=new THREE.SphereGeometry(1.9,12,10);
+for(let i=0;i<NJET;i++){ const f=i/(NJET-1), central=1-Math.abs(f-0.5)*2;
+  const jx=lakeCx+(f-0.5)*80, jz=lakeCz + Math.cos(f*Math.PI)*-6 + 4*Math.sin(f*8.1);
+  const mat=new THREE.MeshStandardMaterial({color:0x88b6ff, emissive:0x7fc4ff, emissiveIntensity:2.0, transparent:true, opacity:0.82, roughness:0.12, depthWrite:false});
+  const jet=new THREE.Mesh(jetGeo, mat); jet.position.set(jx,0.2,jz); jet.scale.set(1,6,1); scene.add(jet);
+  const sp=new THREE.Mesh(sprayGeo, mat); sp.scale.set(1,0.45,1); sp.position.set(jx,0.4,jz); scene.add(sp);
+  fountainJets.push({jet, phase:i*0.42, baseH:8+central*10, ampH:18+central*48, mat});
 }
 const _fc=new THREE.Color(), _fc1=new THREE.Color(), _fc2=new THREE.Color();
 frameUpdaters.push(t=>{ const d=customFountain, N=fountainJets.length; if(d){_fc1.set(d.c1);_fc2.set(d.c2);}
-  const glow=0.5+nightFactor*1.9;
+  const glow=0.95+nightFactor*1.9;
   for(let i=0;i<N;i++){ const J=fountainJets[i];
     const s=Math.max(0,Math.sin(t*1.1+J.phase)), h=J.baseH+J.ampH*Math.pow(s,1.6);
-    J.jet.scale.y=h; J.jet.scale.x=J.jet.scale.z=0.65+0.5*(h/(J.baseH+J.ampH));
-    let inten=glow*(0.45+0.7*s);
-    if(!d){ _fc.setRGB(0.85,0.94,1.0); }
-    else if(d.pattern==='rainbow'){ _fc.setHSL(((i/N)+t*0.06)%1,0.8,0.6); }
+    J.jet.scale.y=h; J.jet.scale.x=J.jet.scale.z=0.6+0.5*(h/(J.baseH+J.ampH));
+    let inten=glow*(0.5+0.75*s);
+    if(!d){ _fc.setRGB(0.45,0.78,1.0); }
+    else if(d.pattern==='rainbow'){ _fc.setHSL(((i/N)+t*0.06)%1,1.0,0.55); }
     else if(d.pattern==='solid'){ _fc.copy(_fc1); }
     else if(d.pattern==='alt'){ _fc.copy(i%2?_fc2:_fc1); }
     else if(d.pattern==='pulse'){ _fc.copy(_fc1).lerp(_fc2,0.5+0.5*Math.sin(t*(2+d.flash*8))); }
@@ -1214,7 +1228,7 @@ window.addEventListener('resize', onResize);
 /* ================= Post-processing ================= */
 composer = new THREE.EffectComposer(renderer);
 composer.addPass(new THREE.RenderPass(scene, camera));
-bloom = new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth,window.innerHeight), 0.8, 0.7, 0.82);
+bloom = new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth,window.innerHeight), 0.85, 0.75, 0.64);
 composer.addPass(bloom);
 
 /* ================= Animate ================= */
@@ -1230,7 +1244,7 @@ function animate(){
   // glow bleed from screen
   glowLight.color.copy(curGlow);
   glowLight.intensity = nightFactor * 2.2;
-  bloom.strength = 0.38 + nightFactor*0.5;
+  bloom.strength = 0.5 + nightFactor*0.78;
 
   // UFO companions + all per-frame animations
   if(!REDUCE){
