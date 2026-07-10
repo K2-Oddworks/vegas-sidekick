@@ -1,6 +1,6 @@
 // Vegas Sidekick — Header Component
 // Drop <div id="vs-header"></div> at top of body + <script src="/components/header.js"></script>
-// [connection test] 2026-07-10 — Claude connected & deploying live ✓ (UFO recolor: violet saucer, cyan beam)
+// [connection test] 2026-07-10 v4 — Claude connected & deploying live ✓ (UFO recolor: glowing purple/cyan saucer)
 (function() {
   const html = `
 <nav id="vs-nav">
@@ -87,7 +87,7 @@
 /* Floating UFO sprite — flashing lights + subtle laser beam */
 #vs-memorial-banner .vsm-ufo { position: absolute; top: 30%; left: -50px; width: 36px; height: 30px; cursor: pointer; z-index: 3; animation: vsmUfoDrift 18s linear infinite; }
 #vs-memorial-banner .vsm-ufo:hover, #vs-memorial-banner .vsm-ufo.vsm-paused { animation-play-state: paused; }
-#vs-memorial-banner .vsm-ufo-body { font-size: 1.6rem; line-height: 1; text-align: center; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.4)) hue-rotate(235deg) saturate(1.35); animation: vsmUfoWobble 3s ease-in-out infinite; }
+#vs-memorial-banner .vsm-ufo-body { font-size: 1.6rem; line-height: 1; text-align: center; filter: drop-shadow(0 0 6px rgba(168,85,247,0.95)) drop-shadow(0 0 11px rgba(34,211,238,0.6)) hue-rotate(275deg) saturate(2.4) brightness(1.15); animation: vsmUfoWobble 3s ease-in-out infinite; }
 #vs-memorial-banner .vsm-ufo-beam { position: absolute; left: 50%; top: 76%; width: 12px; height: 20px; transform: translateX(-50%); background: linear-gradient(to bottom, rgba(94,234,212,0.65), rgba(94,234,212,0)); clip-path: polygon(32% 0, 68% 0, 100% 100%, 0% 100%); animation: vsmBeamPulse 2.6s ease-in-out infinite; pointer-events: none; }
 #vs-memorial-banner .vsm-ufo-light { position: absolute; width: 4px; height: 4px; border-radius: 50%; bottom: 6px; animation: vsmLightBlink 1.5s ease-in-out infinite; }
 #vs-memorial-banner .vsm-ufo-light-1 { left: 2px; background: #A855F7; animation-delay: 0s; }
