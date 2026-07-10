@@ -10,5 +10,9 @@
   },
   "compatibility_flags": [
     "nodejs_compat"
+  ],
+  "routes": [
+    { "pattern": "vegassidekick.com", "custom_domain": true },
+    { "pattern": "www.vegassidekick.com", "custom_domain": true }
   ]
 }
