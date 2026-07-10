@@ -1,6 +1,6 @@
 // Vegas Sidekick — Header Component
 // Drop <div id="vs-header"></div> at top of body + <script src="/components/header.js"></script>
-// [connection test] 2026-07-10 v5 — Claude connected & deploying live ✓ (UFO recolor: orange halo + orange beam)
+// [connection test] 2026-07-10 v6 — Claude connected & deploying live ✓ (header All Shows button → green)
 (function() {
   const html = `
 <nav id="vs-nav">
@@ -49,7 +49,7 @@
 .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
 .nav-links a { color: #D4DCE8; text-decoration: none; font-weight: 600; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; font-family: 'Barlow', sans-serif; }
 .nav-links a:hover { color: #FF6B2B; }
-.nav-cta { background: #FF6B2B !important; color: #0A1628 !important; padding: 8px 20px; border-radius: 4px; }
+.nav-cta { background: #22C55E !important; color: #0A1628 !important; padding: 8px 20px; border-radius: 4px; }
 .nav-mobile-right { display: none; align-items: center; gap: 8px; }
 .nav-mobile-tickets { display: inline-block; background: #FF6B2B; color: #0A1628 !important; font-family: 'Barlow Condensed', 'Barlow', sans-serif; font-weight: 800; font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; padding: 6px 12px; border-radius: 4px; white-space: nowrap; transition: background 0.2s; }
 .nav-mobile-tickets:hover { background: #e85e22; }
