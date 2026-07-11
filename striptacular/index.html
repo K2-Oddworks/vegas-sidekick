@@ -274,7 +274,8 @@ const propMeshes=[], bodies=[], labels=[], signUpdaters=[], landmarkGlow=[]; // 
 let customSign=null;   // set by the Sign Studio (UFO)
 function addProp(p){
   const hex='#'+CATC[p.cat].toString(16).padStart(6,'0');
-  const x=p.side==='C'?0:(p.side==='W'?-1:1)*(INNER+(p.set||0)+p.d/2);
+  // Facing north (+z), screen-left is +x — so West sits at +x, East at -x (matches a real map when you look up the Strip).
+  const x=p.side==='C'?0:(p.side==='W'?1:-1)*(INNER+(p.set||0)+p.d/2);
   p.x=x;
   if(p.sign){ buildWelcomeSign(p); }
   else if(p.build==='mandalay'){ buildMandalay(p); }
@@ -418,6 +419,7 @@ function mandalayEnv(){                          // bright warm equirect so the 
 }
 function buildMandalay(p){
   const grp=new THREE.Group(); grp.position.set(p.x,0,p.z);
+  grp.rotation.y=p.x>0?Math.PI:0;   // facade (+localX) turns to face the median/Strip whichever side the lot is on
   const env=mandalayEnv();
   // --- materials (gold sheen: saturated gold tint + reflective env + moderate roughness) ---
   const gold  =new THREE.MeshStandardMaterial({color:0xD9A22E,metalness:0.88,roughness:0.24,emissive:0x9c6a1c,emissiveIntensity:0.05,envMap:env,envMapIntensity:0.95});
