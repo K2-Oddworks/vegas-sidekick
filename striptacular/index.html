@@ -229,7 +229,8 @@ const CATN={mega:'Mega-Resort',icon:'Icon',classic:'Classic',venue:'Venue',off:'
 // {n, side:'W'|'E'|'C', cat, z, w(frontage), d(depth), h, note, set(back setback), sign}
 // Placeholders removed — new map coming. Only the (built) Welcome sign remains.
 const DATA=[
-  {n:'Welcome to Las Vegas',side:'C',cat:'icon',z:0,w:34,d:20,h:40,note:'The famous sign — our south anchor. Betty Willis, 1959.',sign:true}
+  {n:'Welcome to Las Vegas',side:'C',cat:'icon',z:0,w:34,d:20,h:40,note:'The famous sign — our south anchor. Betty Willis, 1959.',sign:true},
+  {n:'Mandalay Bay',side:'W',cat:'mega',z:440,w:250,d:180,h:150,set:30,built:true,build:'mandalay',note:'The golden south-anchor mega-resort — its 43-story tower is sheathed in gold mirror-glass. Home of Shark Reef, the beach & wave pool, and the Michelob Ultra Arena. Opened 1999.'}
 ];
 const _REMOVED=[
   {n:'Vdara',side:'W',cat:'mega',z:1470,w:120,d:110,h:140,set:170,note:'All-suite non-gaming tower.'},
@@ -269,13 +270,14 @@ function labelTex(name,hex){
   x.fillStyle='#fff'; x.shadowColor=hex; x.shadowBlur=10; x.fillText(name,cw/2,ch/2+3); x.shadowBlur=0; if('letterSpacing'in x)x.letterSpacing='0px';
   const t=new THREE.CanvasTexture(cv); t.encoding=THREE.sRGBEncoding; t.anisotropy=4; return t;
 }
-const propMeshes=[], bodies=[], labels=[], signUpdaters=[];
+const propMeshes=[], bodies=[], labels=[], signUpdaters=[], landmarkGlow=[]; // landmarkGlow: {m,day,night} emissive ramps with nightFactor
 let customSign=null;   // set by the Sign Studio (UFO)
 function addProp(p){
   const hex='#'+CATC[p.cat].toString(16).padStart(6,'0');
   const x=p.side==='C'?0:(p.side==='W'?-1:1)*(INNER+(p.set||0)+p.d/2);
   p.x=x;
   if(p.sign){ buildWelcomeSign(p); }
+  else if(p.build==='mandalay'){ buildMandalay(p); }
   else {
     const col=new THREE.Color(CATC[p.cat]);
     const bodyMat=new THREE.MeshStandardMaterial({color:col.clone().multiplyScalar(0.2),emissive:col,emissiveIntensity:0.25,transparent:true,opacity:0.42,roughness:0.5,metalness:0.2});
@@ -394,6 +396,74 @@ function buildWelcomeSign(p){
   });
 }
 
+/* ===== Mandalay Bay — golden mirror-glass mega-resort (West side, ~½ mi N of the sign) ===== */
+function mandalaySignTex(){
+  const cw=1024,ch=128,c=document.createElement('canvas');c.width=cw;c.height=ch;const x=c.getContext('2d');
+  x.clearRect(0,0,cw,ch);
+  x.textAlign='center';x.textBaseline='middle';x.fillStyle='#14110b';
+  let fs=76; x.font=`700 ${fs}px 'Barlow Condensed',Impact,sans-serif`; if('letterSpacing'in x)x.letterSpacing='10px';
+  const txt='MANDALAY BAY', maxw=cw-60; let w=x.measureText(txt).width; if(w>maxw){ fs*=maxw/w; x.font=`700 ${fs}px 'Barlow Condensed',Impact,sans-serif`; }
+  x.fillText(txt,cw/2,ch/2+2); if('letterSpacing'in x)x.letterSpacing='0px';
+  const t=new THREE.CanvasTexture(c); t.encoding=THREE.sRGBEncoding; t.anisotropy=4; return t;
+}
+let MB_ENV=null;
+function mandalayEnv(){                          // bright warm equirect so the gold mirror-glass has something to reflect
+  if(MB_ENV) return MB_ENV;
+  const w=512,h=256,c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');
+  const g=x.createLinearGradient(0,0,0,h);
+  g.addColorStop(0,'#f6dc94');g.addColorStop(0.44,'#ffe6a4');g.addColorStop(0.5,'#ffd874');g.addColorStop(0.53,'#b47f2c');g.addColorStop(0.72,'#6d5228');g.addColorStop(1,'#33270f');
+  x.fillStyle=g;x.fillRect(0,0,w,h);
+  x.fillStyle='rgba(255,240,190,0.85)';x.beginPath();x.ellipse(w*0.5,h*0.4,w*0.15,h*0.13,0,0,7);x.fill();  // warm sun band
+  const t=new THREE.CanvasTexture(c);t.mapping=THREE.EquirectangularReflectionMapping;t.encoding=THREE.sRGBEncoding;MB_ENV=t;return t;
+}
+function buildMandalay(p){
+  const grp=new THREE.Group(); grp.position.set(p.x,0,p.z);
+  const env=mandalayEnv();
+  // --- materials (gold sheen: saturated gold tint + reflective env + moderate roughness) ---
+  const gold  =new THREE.MeshStandardMaterial({color:0xD9A22E,metalness:0.88,roughness:0.24,emissive:0x9c6a1c,emissiveIntensity:0.05,envMap:env,envMapIntensity:0.95});
+  const goldDk=new THREE.MeshStandardMaterial({color:0xC28C24,metalness:0.85,roughness:0.32,emissive:0x7d5418,emissiveIntensity:0.05,envMap:env,envMapIntensity:0.82});
+  const fin   =new THREE.MeshStandardMaterial({color:0xEDEBE1,metalness:0.25,roughness:0.5 ,emissive:0x2b2d34,emissiveIntensity:0.0});
+  const crownM=new THREE.MeshStandardMaterial({color:0xE3D6B6,metalness:0.4 ,roughness:0.45,emissive:0x6a5228,emissiveIntensity:0.1,envMap:env,envMapIntensity:0.5});
+  const podM  =new THREE.MeshStandardMaterial({color:0x6b5f49,roughness:0.85,metalness:0.15,emissive:0x241d10,emissiveIntensity:0.15});
+  const winM  =new THREE.MeshStandardMaterial({color:0x141a26,emissive:0xffd98a,emissiveIntensity:0.2,roughness:0.4});
+  const poolM =new THREE.MeshStandardMaterial({color:0x1560a0,emissive:0x0c3f6e,emissiveIntensity:0.4,roughness:0.15,metalness:0.4});
+  landmarkGlow.push({m:gold,day:0.06,night:0.72},{m:goldDk,day:0.06,night:0.66},{m:crownM,day:0.1,night:0.7},{m:winM,day:0.14,night:1.5},{m:fin,day:0.0,night:0.22},{m:podM,day:0.12,night:0.4});
+  const meshes=[];
+  // --- tower: gently concave gold curtain wall facing the Strip (+x); center recedes, wings come forward ---
+  const FW=250,H=150,TH=46,FACEX=16,A=42,HALF=FW/2,N=26;
+  const fx=t=>FACEX+A*t*t;
+  for(let i=0;i<N;i++){
+    const t=(i+0.5)/N*2-1, z=t*HALF, xf=fx(t), sw=FW/N+0.7, hh=H-10*t*t;
+    const slice=new THREE.Mesh(new THREE.BoxGeometry(TH,hh,sw), i%2?gold:goldDk);
+    slice.position.set(xf-TH/2, hh/2, z); grp.add(slice); meshes.push(slice);
+    const cr=new THREE.Mesh(new THREE.BoxGeometry(TH+2,11,sw),crownM);   // pale crown band
+    cr.position.set(xf-TH/2+0.6, hh+5, z); grp.add(cr);
+  }
+  // vertical white mullion fins at each seam, full height, protruding from the gold face
+  for(let i=0;i<=N;i++){
+    const t=i/N*2-1, z=t*HALF, xf=fx(t), hh=H-10*t*t;
+    const f=new THREE.Mesh(new THREE.BoxGeometry(3.4,hh-3,1.7),fin);
+    f.position.set(xf+0.7,(hh-3)/2,z); grp.add(f);
+  }
+  // "MANDALAY BAY" crown sign on the upper-right wing, facing the Strip (+x)
+  { const zs=52, xs=fx(zs/HALF), sg=new THREE.Mesh(new THREE.PlaneGeometry(96,12),new THREE.MeshBasicMaterial({map:mandalaySignTex(),transparent:true,depthWrite:false,fog:false}));
+    sg.rotation.y=Math.PI/2; sg.position.set(xs+1.2,H-10*(zs/HALF)*(zs/HALF)+5,zs); grp.add(sg); }
+  // --- podium: broad tan casino/convention base ---
+  const pod=new THREE.Mesh(new THREE.BoxGeometry(150,26,FW+40),podM); pod.position.set(-6,13,0); grp.add(pod); meshes.push(pod);
+  const band=new THREE.Mesh(new THREE.BoxGeometry(2,5.5,FW+36),winM); band.position.set(69.2,20,0); grp.add(band);   // lit storefront strip
+  const cap=new THREE.Mesh(new THREE.BoxGeometry(154,2,FW+44),crownM); cap.position.set(-6,27,0); grp.add(cap);       // parapet cap
+  // --- garden: lagoon pool + palms between the podium and the Strip ---
+  const pool=new THREE.Mesh(new THREE.PlaneGeometry(15,150),poolM); pool.rotation.x=-Math.PI/2; pool.position.set(80,0.5,0); grp.add(pool);
+  const ptrunk=new THREE.MeshStandardMaterial({color:0x4a3a26,roughness:0.9});
+  const pfrond=new THREE.MeshStandardMaterial({color:0x1f7a43,roughness:0.7,emissive:0x0c3a1e,emissiveIntensity:0.25});
+  for(let k=0;k<8;k++){ const pz=-98+k*28, px=72+((k%2)?13:3);
+    const tr=new THREE.Mesh(new THREE.CylinderGeometry(0.4,0.7,13,7),ptrunk); tr.position.set(px,6.5,pz); grp.add(tr);
+    const fr=new THREE.Mesh(new THREE.SphereGeometry(3.4,8,6),pfrond); fr.scale.set(1,0.5,1); fr.position.set(px,13.5,pz); grp.add(fr); }
+  grp.traverse(o=>{if(o.isMesh)o.userData.p=p;});
+  meshes.forEach(m=>propMeshes.push(m));
+  scene.add(grp);
+}
+
 /* ===== Time of day ===== */
 const SKY=[
   {e:-1.0,top:0x060b1c,bot:0x0a1226,sun:0x2a3358,si:0.06,amb:0.16,hemi:0.3,fog:0x080f1f,night:1},
@@ -417,6 +487,7 @@ function updateTime(t){
   ambient.intensity=THREE.MathUtils.lerp(a.amb,b.amb,f); hemi.intensity=THREE.MathUtils.lerp(a.hemi,b.hemi,f);
   starMat.opacity=THREE.MathUtils.clamp((nightFactor-0.35)/0.5,0,1)*0.9;
   const litB=0.22+nightFactor*0.9; for(let k=0;k<bodies.length;k++) bodies[k].emissiveIntensity=litB;
+  for(const g of landmarkGlow) g.m.emissiveIntensity=g.day+(g.night-g.day)*nightFactor;
   for(const m of ROAD_MATS) m.emissiveIntensity=0.05+nightFactor*0.7;
   for(const m of yellowMats) m.emissiveIntensity=0.5+nightFactor*1.6;
   for(const m of lampMats) m.emissiveIntensity=0.4+nightFactor*2.4;
@@ -458,7 +529,7 @@ const infoEl=document.getElementById('info');const SIDEN={W:'West side',E:'East 
 function openInfo(p){ document.getElementById('info-title').textContent=p.n; const hex='#'+CATC[p.cat].toString(16).padStart(6,'0');
   document.getElementById('info-bar').style.background=hex; document.getElementById('info-kicker').textContent=CATN[p.cat]+' · '+SIDEN[p.side];
   document.getElementById('info-desc').textContent=p.note||'A Las Vegas Strip property. Full build coming soon.';
-  const built=/memory bank/i.test(p.note||'')||p.sign;
+  const built=/memory bank/i.test(p.note||'')||p.sign||p.built;
   document.getElementById('info-facts').innerHTML=`<li><span>🧭</span>${SIDEN[p.side]} of Las Vegas Blvd</li><li><span>🏷️</span>${CATN[p.cat]}</li><li><span>📐</span>Footprint ${Math.round(p.w)}×${Math.round(p.d)} · height ${Math.round(p.h)}</li>`;
   const st=document.getElementById('info-status');
   if(p.sign){ st.textContent='✔ Built · live'; st.style.background='rgba(24,183,166,.2)';st.style.color='#7ff0d8'; }
