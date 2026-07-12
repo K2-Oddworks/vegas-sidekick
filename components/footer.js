@@ -71,7 +71,7 @@
       </div>
     </div>
     <div class="vs-footer-bottom">
-      <div class="vs-footer-copy">© 2026 Vegas Sidekick. All rights reserved.</div>
+      <div class="vs-footer-copy">© 2026 Vegas Sidekick. All rights reserved. <a href="/play/desert-crossing/" class="vs-footer-egg">🌵 Bored? Cross the Promenade.</a></div>
       <div class="vs-footer-disclosure">Affiliate Disclosure: Vegas Sidekick earns commissions when you purchase tickets through our links. This never affects our pricing or recommendations.</div>
     </div>
   </div>
@@ -160,6 +160,8 @@
 .vs-footer-col a:hover { color: #1A6BFF; }
 .vs-footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); }
 .vs-footer-copy { font-size: 0.78rem; color: #A8B4C4; font-family: 'Barlow', sans-serif; }
+.vs-footer-egg { color: rgba(168,180,196,0.45); text-decoration: none; margin-left: 4px; transition: color 0.2s; }
+.vs-footer-egg:hover { color: #FF6B2B; }
 .vs-footer-disclosure { font-size: 0.72rem; color: rgba(168,180,196,0.5); max-width: 500px; text-align: right; line-height: 1.5; font-family: 'Barlow', sans-serif; }
 
 @media (max-width: 900px) {
