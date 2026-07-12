@@ -2,3 +2,5 @@
 /admin/ /admin/index.html 200
 /favicon.png /favicon.svg 200
 /favicon.ico /favicon.svg 200
+/play/desert-crossing/ /play/walk-the-strip/ 301
+/play/desert-crossing/* /play/walk-the-strip/ 301
