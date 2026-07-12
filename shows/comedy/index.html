@@ -284,6 +284,7 @@ const SHOWS = [
   { order:8, slug:'la-comedy-club', name:'LA Comedy Club', subtitle:'', venue:'Dragon Room · The STRAT', price:43, pd:'$43', sp:false, pills:['Great Value','Up-and-Comers'], img:'/images/la-comedy-club-hero.jpg', duration:'75 min', age:'Ages 15+', schedule:'Check current schedule' },
   { order:9, slug:'las-vegas-live-comedy-club', name:'Las Vegas LIVE', subtitle:'Comedy Club', venue:'V Theater · Planet Hollywood', price:30, pd:'$30', sp:false, pills:['Cheapest on Strip','Local Talent'], img:'/images/las-vegas-live-comedy-club-hero.jpg', duration:'75 min', age:'Ages 16+', schedule:'Check current schedule' },
   { order:10, slug:'popovich-comedy-pet-theater', name:'Popovich', subtitle:'Comedy Pet Theater', venue:'V Theater · Planet Hollywood', price:31, pd:'$31', sp:false, pills:['Pets on Stage','Great for Kids'], img:'/images/popovich-comedy-pet-theater-hero.jpg', duration:'70 min', age:'All ages', schedule:'Check current schedule' },
+  { order:11, slug:'an-r-rated-magic-show', path:'/shows/magic/an-r-rated-magic-show/', name:'An R-Rated Magic Show', subtitle:'', venue:'V Theater · Planet Hollywood', price:34, pd:'$34', sp:true, pills:['Adults-Only Comedy','Wild Audience Participation'], img:'/images/an-r-rated-magic-show-hero.webp', duration:'75 min', age:'Rec. 18+', schedule:'Wed · Thu · Fri · Sat · 7 PM' },
 ];
 
 let sort = 'order';
@@ -304,7 +305,7 @@ function renderGrid() {
     const dis = !on && sel.size >= 3;
     return `<div class="show-card${on?' selected':''}${dis?' compare-disabled':''}" id="c-${s.slug}">
   <div class="card-img-wrap">
-    <a href="/shows/comedy/${s.slug}/" class="card-img-link"><img src="${s.img}" alt="${s.name} Las Vegas" loading="lazy" /></a>
+    <a href="${s.path||'/shows/comedy/'+s.slug+'/'}" class="card-img-link"><img src="${s.img}" alt="${s.name} Las Vegas" loading="lazy" /></a>
     ${s.sp ? '<div class="card-sp-badge">🌵 Sidekick Pick</div>' : ''}
     <label class="cb-label" title="${dis?'Max 3 selected — deselect one to swap':'Compare'}">
       <input type="checkbox" ${on?'checked':''} ${dis?'disabled':''} onchange="toggleSel('${s.slug}',this)" />
@@ -313,7 +314,7 @@ function renderGrid() {
     </label>
   </div>
   <div class="card-body">
-    <a href="/shows/comedy/${s.slug}/" class="card-name-link"><div class="card-name">${s.name}${s.subtitle?'<br><span class="card-subtitle">'+s.subtitle+'</span>':''}</div></a>
+    <a href="${s.path||'/shows/comedy/'+s.slug+'/'}" class="card-name-link"><div class="card-name">${s.name}${s.subtitle?'<br><span class="card-subtitle">'+s.subtitle+'</span>':''}</div></a>
     <div class="card-venue">${s.venue}</div>
     <div class="card-pills">
       <span class="card-pill cp1">${s.pills[0]}</span>
@@ -323,7 +324,7 @@ function renderGrid() {
       <span class="card-from">From</span>
       <span class="card-price">${s.pd}</span>
     </div>
-    <a href="/shows/comedy/${s.slug}/" class="card-cta">See Show →</a>
+    <a href="${s.path||'/shows/comedy/'+s.slug+'/'}" class="card-cta">See Show →</a>
   </div>
 </div>`;
   }).join('');
@@ -386,7 +387,7 @@ function openCompare() {
       <div class="cmp-row"><div class="cmp-row-lbl">Age Requirement</div><div class="cmp-row-val">${s.age}</div></div>
       <div class="cmp-row"><div class="cmp-row-lbl">Schedule</div><div class="cmp-row-val">${s.schedule}</div></div>
       <div class="cmp-row"><div class="cmp-row-lbl">Sidekick Pick</div><div class="cmp-row-val">${s.sp?'🌵 Yes':'—'}</div></div>
-      <a href="/shows/comedy/${s.slug}/" class="cmp-col-cta">See Show →</a>
+      <a href="${s.path||'/shows/comedy/'+s.slug+'/'}" class="cmp-col-cta">See Show →</a>
     </div>`).join('');
   document.getElementById('cmp-modal').classList.add('visible');
   document.body.style.overflow = 'hidden';

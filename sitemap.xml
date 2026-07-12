@@ -92,6 +92,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://vegassidekick.com/shows/magic/an-r-rated-magic-show/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://vegassidekick.com/shows/magic/criss-angel/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
