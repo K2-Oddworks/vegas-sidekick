@@ -212,6 +212,10 @@ This is a one-time step per article and takes ~10 seconds. Article content, in-p
 6. Add the show to `sitemap.xml`
 7. Link the show from the relevant category section on `index.html`
 
+**Image order:** When multiple photos are provided for a new show page, the **first one uploaded/attached is always the hero image** — main hero slide, primary `og:image`/`twitter:image`, first entry in the Event JSON-LD `image` array — unless explicitly told otherwise. Don't guess which photo looks most "hero-like."
+
+**Sidekick Pick (`sp:true`):** Never set `sp:true` on a new show by default. It stays `sp:false` unless the user explicitly says to mark that specific show as a Sidekick Pick.
+
 ### Adding a New Category Page
 
 Currently no category landing pages exist (links go directly to show detail pages). If adding:

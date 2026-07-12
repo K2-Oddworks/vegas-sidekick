@@ -1,6 +1,6 @@
 // Vegas Sidekick — Header Component
 // Drop <div id="vs-header"></div> at top of body + <script src="/components/header.js"></script>
-// [connection test] 2026-07-11 v7 — header All Shows button → orange w/ light-blue border
+// [connection test] 2026-07-12 v8 — fix UFO drift causing page-width jitter/fixed-button shift
 (function() {
   const html = `
 <nav id="vs-nav">
@@ -242,13 +242,13 @@
           '</span>' +
           '<a class="vsm-btn" href="/shows/">All Shows &#8594;</a>' +
         '</div>' +
-      '</div>' +
-      '<div class="vsm-ufo" id="vsmUfo" role="button" tabindex="0" aria-label="A friendly UFO passing by — click to say hi">' +
-        '<div class="vsm-ufo-beam"></div>' +
-        '<div class="vsm-ufo-body">🛸</div>' +
-        '<span class="vsm-ufo-light vsm-ufo-light-1"></span>' +
-        '<span class="vsm-ufo-light vsm-ufo-light-2"></span>' +
-        '<span class="vsm-ufo-light vsm-ufo-light-3"></span>' +
+        '<div class="vsm-ufo" id="vsmUfo" role="button" tabindex="0" aria-label="A friendly UFO passing by — click to say hi">' +
+          '<div class="vsm-ufo-beam"></div>' +
+          '<div class="vsm-ufo-body">🛸</div>' +
+          '<span class="vsm-ufo-light vsm-ufo-light-1"></span>' +
+          '<span class="vsm-ufo-light vsm-ufo-light-2"></span>' +
+          '<span class="vsm-ufo-light vsm-ufo-light-3"></span>' +
+        '</div>' +
       '</div>' +
       '<div class="vsm-popover" id="vsmPopover">' +
         '<button class="vsm-pop-close" id="vsmPopClose" aria-label="Close">&times;</button>' +
