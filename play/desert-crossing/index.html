@@ -136,6 +136,29 @@
     color:var(--dim);
     font-style:italic;
   }
+  #overlay .hint{
+    font-size:11px;
+    color:#FFD24A;
+    letter-spacing:.02em;
+    max-width:340px;
+  }
+  .share-btn{
+    background:transparent;
+    color:#FFFFFF;
+    border:1.5px solid rgba(255,255,255,.4);
+    font-size:14px;
+    letter-spacing:.1em;
+    padding:9px 22px;
+    border-radius:6px;
+    margin-top:-2px;
+  }
+  .share-btn:hover{
+    border-color:#FFFFFF;
+    background:rgba(255,255,255,.08);
+    box-shadow:none;
+    transform:none;
+  }
+  .share-btn.hidden{display:none}
   button{
     font-family:'Bebas Neue',sans-serif;
     font-size:22px;
@@ -202,7 +225,7 @@
 </header>
 
 <div class="hud">
-  <div><span class="label">Crossings</span><span class="crossings" id="score">0</span></div>
+  <div><span class="label">Score</span><span class="crossings" id="score">0</span></div>
   <div><span class="label">Best</span><span id="best">0</span></div>
   <div><span class="label">Patience</span><span class="lives" id="lives">🌵🌵🌵</span></div>
   <div><span class="label">Sound</span><button id="soundBtn" class="sound-toggle" aria-label="Toggle sound">OFF</button></div>
@@ -214,8 +237,10 @@
     <h2>DESERT CROSSING</h2>
     <p>Spike has tickets. The show doors are at the far end of the Promenade.<br>
     Between here and there: everyone who wants "just one second" of his time.</p>
+    <p class="hint">Not all doors pay the same. Line up a hot one before you commit.</p>
     <p class="quote">"I've walked this promenade since 2005. Nobody has ever successfully handed me anything." — Spike, SVP of Strategic Ticket Savings &amp; Desert Affairs</p>
     <button id="startBtn">CROSS</button>
+    <button id="shareBtn" class="share-btn hidden" type="button">🔗 Share Score</button>
   </div>
 </div>
 
@@ -289,9 +314,27 @@
   };
 
   // ---------- STATE ----------
-  let spike, hazards, score, best, lives, playing, invuln, hitMsg, hitLabel, hitTimer;
+  let spike, hazards, score, crossings, best, lives, playing, invuln, hitMsg, hitLabel, hitTimer, lastHitLabel, goalZones, popups;
   best = Number(localStorage_safe_get("vs_dc_best")) || 0;
   document.getElementById("best").textContent = best;
+  popups = [];
+
+  // ---------- GOAL ZONE MULTIPLIERS ----------
+  // One guaranteed x5 jackpot, two x3, two x2, the rest x1 — reshuffled every crossing
+  // so the "hot door" is always visible ahead of time but never memorizable.
+  function shuffle(arr){
+    for (let i = arr.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+  function buildGoalZones(){
+    goalZones = new Array(COLS).fill(1);
+    const order = shuffle([...Array(COLS).keys()]);
+    const pattern = [5, 3, 3, 2, 2];
+    pattern.forEach((mult, i) => { if (order[i] !== undefined) goalZones[order[i]] = mult; });
+  }
 
   function localStorage_safe_get(k){
     try { return window.localStorage ? localStorage.getItem(k) : null; } catch(e){ return null; }
@@ -338,7 +381,12 @@
     o.stop(audioCtx.currentTime + dur);
   }
   function sfxHop(){ beep(520 + Math.random()*60, 0.05, "square", 0.04); }
-  function sfxScore(){ beep(660, 0.07, "square", 0.06); setTimeout(() => beep(880, 0.09, "square", 0.06), 70); }
+  function sfxScore(mult = 1){
+    const step = 660 + (mult - 1) * 60;
+    beep(step, 0.07, "square", 0.06);
+    setTimeout(() => beep(step + 220, 0.09, "square", 0.06), 70);
+    if (mult >= 5) setTimeout(() => beep(step + 440, 0.12, "square", 0.07), 140);
+  }
   function sfxHit(){ beep(220, 0.12, "sawtooth", 0.07); setTimeout(() => beep(150, 0.18, "sawtooth", 0.06), 100); }
   function sfxGameOver(){ [330, 262, 196, 147].forEach((f, i) => setTimeout(() => beep(f, 0.16, "triangle", 0.07), i * 140)); }
 
@@ -370,11 +418,14 @@
   }
 
   function startGame(){
-    score = 0; lives = 3; playing = true; invuln = 0; hitMsg = null; hitTimer = 0;
+    score = 0; crossings = 0; lives = 3; playing = true; invuln = 0; hitMsg = null; hitTimer = 0; lastHitLabel = "";
+    popups = [];
     resetSpike();
     buildHazards(0);
+    buildGoalZones();
     updateHUD();
     document.getElementById("overlay").classList.add("hidden");
+    document.getElementById("shareBtn").classList.add("hidden");
   }
 
   function updateHUD(){
@@ -392,13 +443,52 @@
     const ov = document.getElementById("overlay");
     ov.querySelector("h2").textContent = "OUT OF PATIENCE";
     ov.querySelectorAll("p")[0].innerHTML =
-      `Spike made it to the show doors <b style="color:var(--blue)">${score}</b> time${score===1?"":"s"} before the Promenade won.<br>Best run: <b style="color:var(--orange)">${best}</b>.`;
+      `Spike racked up <b style="color:var(--blue)">${score}</b> point${score===1?"":"s"} across <b>${crossings}</b> crossing${crossings===1?"":"s"} before a <b style="color:var(--orange)">${lastHitLabel || "Promenade regular"}</b> ended the run.<br>Best score: <b style="color:var(--orange)">${best}</b>.`;
+    ov.querySelector(".hint").textContent = "Aim for the gold doors next time — they're worth 5x.";
     ov.querySelector(".quote").textContent =
-      score >= 10 ? '"Respectable. You may walk beside me." — Spike'
-      : score >= 5 ? '"Adequate. The desert acknowledges you." — Spike'
+      score >= 30 ? '"Respectable. You may walk beside me." — Spike'
+      : score >= 12 ? '"Adequate. The desert acknowledges you." — Spike'
       : '"The Promenade remains undefeated." — Spike';
-    ov.querySelector("button").textContent = "CROSS AGAIN";
+    ov.querySelector("button#startBtn").textContent = "CROSS AGAIN";
     ov.classList.remove("hidden");
+
+    const shareBtn = document.getElementById("shareBtn");
+    shareBtn.classList.remove("hidden");
+    shareBtn.textContent = "🔗 Share Score";
+    shareBtn.onclick = () => shareScore();
+  }
+
+  function shareScore(){
+    const gameUrl = "https://vegassidekick.com/play/desert-crossing/";
+    const villain = lastHitLabel ? lastHitLabel.toLowerCase() : "the promenade";
+    const text = `🌵 Desert Crossing: I scored ${score} point${score===1?"":"s"} across ${crossings} crossing${crossings===1?"":"s"} before a ${villain} got me. Beat my score → ${gameUrl}`;
+    const shareBtn = document.getElementById("shareBtn");
+
+    function confirmShared(label){
+      shareBtn.textContent = label;
+      setTimeout(() => { shareBtn.textContent = "🔗 Share Score"; }, 2000);
+    }
+
+    if (navigator.share){
+      navigator.share({ text, url: gameUrl }).catch(() => {});
+      return;
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(() => confirmShared("✅ Copied!")).catch(() => fallbackCopy());
+    } else {
+      fallbackCopy();
+    }
+    function fallbackCopy(){
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); confirmShared("✅ Copied!"); }
+      catch(e){ confirmShared("Copy failed"); }
+      document.body.removeChild(ta);
+    }
   }
 
   document.getElementById("startBtn").addEventListener("click", startGame);
@@ -417,16 +507,23 @@
     spike.col = col; spike.row = row; spike.hop = 0.12;
 
     if (row === 0){
-      score++;
+      const mult = (goalZones && goalZones[col]) || 1;
+      crossings++;
+      score += mult;
       if (score > best){ best = score; localStorage_safe_set("vs_dc_best", best); } // live best update
-      sfxScore();
+      sfxScore(mult);
+      spawnScorePopup(mult, col);
       updateHUD();
-      // rebuild lanes slightly faster, reset to start
+      // rebuild lanes slightly faster, reset to start — difficulty scales with
+      // crossings (not score) so multiplier zones don't accelerate hazards
       setTimeout(() => {
         resetSpike();
-        buildHazards(score);
+        buildHazards(crossings);
         invuln = 0.6;
       }, 180);
+      // hold the goal-lane multiplier layout until the score popup has fully
+      // faded (~1.1s) so the "+N" toast never floats over a re-shuffled zone
+      setTimeout(buildGoalZones, 1250);
     }
   }
 
@@ -457,6 +554,7 @@
     lives--;
     hitMsg = HIT_LINES[h.kind];
     hitLabel = (CAST.find(c => c.kind === h.kind) || {}).label || "";
+    lastHitLabel = hitLabel;
     hitTimer = 2.6;
     invuln = 1.2;
     sfxHit();
@@ -465,7 +563,16 @@
     resetSpike();
   }
 
+  function spawnScorePopup(mult, col){
+    const color = mult >= 5 ? "#FFD24A" : mult >= 3 ? "#FF6B2B" : mult >= 2 ? "#1A6BFF" : "#8A93B8";
+    popups.push({ x: col*TILE + TILE/2, y: TILE*0.5, color, text: "+" + mult, t: 1.0 });
+  }
+
   function update(dt){
+    for (let i = popups.length - 1; i >= 0; i--){
+      popups[i].t -= dt * 0.9;
+      if (popups[i].t <= 0) popups.splice(i, 1);
+    }
     if (!playing) return;
     if (spike.hop > 0) spike.hop = Math.max(0, spike.hop - dt);
     if (invuln > 0) invuln -= dt;
@@ -721,10 +828,31 @@
       if (t === "goal"){
         ctx.fillStyle = "#101736";
         ctx.fillRect(0,y,W,TILE);
-        ctx.fillStyle = "#1A6BFF";
-        ctx.font = "700 14px 'Barlow Condensed'";
-        ctx.textAlign = "center";
-        ctx.fillText("✦ SHOW DOORS — YOUR SEATS ARE WAITING ✦", W/2, y+TILE/2+5);
+        if (goalZones){
+          for (let c = 0; c < COLS; c++){
+            const mult = goalZones[c];
+            const cx = c*TILE, cy = y;
+            let fill, glow;
+            if (mult >= 5){ fill = "rgba(255,210,74,.22)"; glow = "#FFD24A"; }
+            else if (mult >= 3){ fill = "rgba(255,107,43,.16)"; glow = "#FF6B2B"; }
+            else if (mult >= 2){ fill = "rgba(26,107,255,.14)"; glow = "#4d90f0"; }
+            else { fill = "rgba(255,255,255,.03)"; glow = null; }
+            ctx.fillStyle = fill;
+            ctx.fillRect(cx+1, cy+1, TILE-2, TILE-2);
+            if (glow){
+              const pulse = mult >= 5 ? 0.5 + Math.sin(performance.now()/220)*0.3 : 1;
+              ctx.strokeStyle = glow;
+              ctx.globalAlpha = pulse;
+              ctx.lineWidth = mult >= 5 ? 2 : 1.2;
+              ctx.strokeRect(cx+2, cy+2, TILE-4, TILE-4);
+              ctx.globalAlpha = 1;
+            }
+            ctx.fillStyle = glow || "rgba(255,255,255,.35)";
+            ctx.font = (mult >= 5 ? "800 15px" : "700 12px") + " 'Barlow Condensed'";
+            ctx.textAlign = "center";
+            ctx.fillText("×" + mult, cx+TILE/2, cy+TILE/2+5);
+          }
+        }
       } else if (t === "median"){
         ctx.fillStyle = "#0E1430";
         ctx.fillRect(0,y,W,TILE);
@@ -762,6 +890,16 @@
 
     for (const h of hazards) drawHazard(h);
     if (playing || lives > 0) drawSpike(spike.x, spike.y);
+
+    for (const p of popups){
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, p.t);
+      ctx.fillStyle = p.color;
+      ctx.font = "800 20px 'Barlow Condensed'";
+      ctx.textAlign = "center";
+      ctx.fillText(p.text, p.x, p.y - (1 - p.t) * 30);
+      ctx.restore();
+    }
 
     // hit message toast — WHO got you + what happened
     if (hitTimer > 0 && hitMsg){
