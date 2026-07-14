@@ -338,6 +338,10 @@
     .trust-card-title { font-family: var(--font-price); font-size: 0.86rem; font-weight: 800; color: var(--navy); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 3px; }
     .trust-card-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.52; }
 
+    /* MOBILE TRUST STRIP — compact single-row strip under the hero, replaces the 2x2 grid on small screens */
+    .trust-strip-mobile { display: none; justify-content: space-between; background: var(--gray-100); border-top: 1px solid var(--gray-200); border-bottom: 1px solid var(--gray-200); padding: 10px 20px; }
+    .trust-strip-item { display: flex; align-items: center; gap: 4px; font-family: var(--font-mono); font-size: 0.66rem; font-weight: 600; color: var(--text); white-space: nowrap; }
+
     /* ABOUT */
     .about-body p { font-size: 0.98rem; color: var(--text); line-height: 1.78; margin-bottom: 16px; }
     .about-body p:last-child { margin-bottom: 0; }
@@ -471,10 +475,11 @@
     .mob-cta { flex: 1; max-width: 230px; padding: 17px; background: var(--orange); color: var(--navy); font-family: var(--font-price); font-size: 1.35rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; text-align: center; border-radius: var(--radius-sm); border: 2px solid rgba(96,165,250,0.65); position: relative; overflow: hidden; transition: background 0.2s; animation: pulseGlowCta 2.4s ease-out infinite; }
     .mob-cta::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.17), transparent); animation: shimmer 2s infinite; }
     .mob-cta:hover { background: var(--orange-lt); }
+    .mob-trust-line { font-family: var(--font-mono); font-size: 0.56rem; font-weight: 600; color: rgba(147,197,253,0.7); margin-top: 3px; }
 
     /* RESPONSIVE */
     @media (max-width: 940px) { .page-layout { grid-template-columns: 1fr; } .sidebar { display: none; } .mobile-sticky { display: block; } .details-grid { grid-template-columns: repeat(2,1fr); } .also-grid { grid-template-columns: repeat(2,1fr); } .stats-inner { grid-template-columns: repeat(2,1fr); } .stat-item:nth-child(2) { border-right: none; } }
-    @media (max-width: 600px) { .hero-content { padding: 22px 16px 26px; } .main-content { padding: 26px 16px 120px; } .trust-grid { grid-template-columns: 1fr; } .details-grid { grid-template-columns: 1fr; } .expect-grid { grid-template-columns: 1fr; } .also-grid { grid-template-columns: 1fr; } .email-signup { flex-direction: column; gap: 12px; } .email-form { flex-direction: column; } .price-strip { flex-direction: column; align-items: flex-start; gap: 13px; } .stats-inner { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 600px) { .hero-content { padding: 22px 16px 26px; } .main-content { padding: 26px 16px 120px; } .trust-grid { display: none; } .trust-strip-mobile { display: flex; } .details-grid { grid-template-columns: 1fr; } .expect-grid { grid-template-columns: 1fr; } .also-grid { grid-template-columns: 1fr; } .email-signup { flex-direction: column; gap: 12px; } .email-form { flex-direction: column; } .price-strip { flex-direction: column; align-items: flex-start; gap: 13px; } .stats-inner { grid-template-columns: repeat(2,1fr); } }
 
     @media (prefers-reduced-motion: reduce) {
       .fade-up { transition: none; }
@@ -650,6 +655,14 @@
       <div class="stat-lbl">Seating Zones</div>
     </div>
   </div>
+</div>
+
+<!-- MOBILE TRUST STRIP -->
+<div class="trust-strip-mobile">
+  <div class="trust-strip-item">🔒 Secure</div>
+  <div class="trust-strip-item">⚡ Instant</div>
+  <div class="trust-strip-item">✅ No Fees</div>
+  <div class="trust-strip-item">🎫 No Account</div>
 </div>
 
 <div class="page-layout">
@@ -1097,6 +1110,7 @@
       <div class="mob-price-lbl">VS Price</div>
       <div class="mob-price">$63</div>
       <div class="mob-save">Save $35</div>
+      <div class="mob-trust-line">🔒 Secure · No Hidden Fees</div>
     </div>
     <a href="https://spotlight.vegas/shows/cirque-du-soleil/mystere/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="mob-cta">Get Tickets <span class="cta-ticket">🎟️</span></a>
   </div>
