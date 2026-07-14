@@ -24,20 +24,6 @@
   </div>
 </div>
 
-<!-- Sidekick Standards Trust Strip -->
-<div class="sidekick-standards">
-  <div class="sidekick-standards-inner">
-    <span class="ss-label">Sidekick Standards</span>
-    <span class="ss-item"><span class="ss-x">✕</span> Fake timers</span>
-    <span class="ss-sep">·</span>
-    <span class="ss-item"><span class="ss-x">✕</span> Fake reviews</span>
-    <span class="ss-sep">·</span>
-    <span class="ss-item"><span class="ss-x">✕</span> Hidden fees</span>
-    <span class="ss-sep">·</span>
-    <span class="ss-item"><span class="ss-x">✕</span> Email walls</span>
-  </div>
-</div>
-
 <footer id="vs-footer-inner">
   <div class="vs-footer-inner">
     <div class="vs-footer-top">
@@ -81,51 +67,6 @@
   const styles = `
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Sidekick Standards Trust Strip */
-.sidekick-standards {
-  background: #ffffff;
-  border-top: 1px solid rgba(10, 15, 44, 0.08);
-  border-bottom: 1px solid rgba(10, 15, 44, 0.08);
-  padding: 16px 20px;
-}
-.sidekick-standards-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 28px;
-  flex-wrap: wrap;
-  font-family: 'Barlow', sans-serif;
-}
-.ss-label {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 2.5px;
-  color: #8a93a8;
-  text-transform: uppercase;
-}
-.ss-item {
-  font-size: 13px;
-  color: #0A0F2C;
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-.ss-x {
-  color: #FF6B2B;
-  font-weight: 700;
-}
-.ss-sep {
-  color: #8a93a8;
-  opacity: 0.4;
-}
-@media (max-width: 720px) {
-  .ss-sep { display: none; }
-  .sidekick-standards-inner { gap: 16px 20px; }
-}
-
 /* EMAIL BAR */
 @keyframes vsEmailPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(255,107,0,0.5); } 50% { box-shadow: 0 0 0 10px rgba(255,107,0,0); } }
 .vs-email-bar { background: linear-gradient(135deg, #FF6B2B 0%, #D94F00 40%, #B83E00 100%); padding: 52px 40px; position: relative; overflow: hidden; }
