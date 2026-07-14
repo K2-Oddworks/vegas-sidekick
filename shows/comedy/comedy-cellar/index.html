@@ -515,7 +515,12 @@
   .sk-sched-slider-wrap{position:relative;}
   .sk-sched-slider-wrap::after{content:"";position:absolute;top:0;right:0;width:52px;height:calc(100% - 14px);background:linear-gradient(to right,transparent,#fff 85%);pointer-events:none;}
   .sk-swipe-hint{font-size:14px;color:#6B7280;text-align:center;margin-top:8px;letter-spacing:0.2px;font-weight:500;}
-  </style>
+      /* MOBILE TRUST STRIP */
+    .trust-strip-mobile { display: none; justify-content: space-between; background: var(--gray-100, #f1f4f9); border-top: 1px solid var(--gray-200, #e2e8f2); border-bottom: 1px solid var(--gray-200, #e2e8f2); padding: 10px 20px; }
+    .trust-strip-item { display: flex; align-items: center; gap: 4px; font-family: var(--font-mono, 'Barlow', sans-serif); font-size: 0.66rem; font-weight: 600; color: var(--text, #0f172a); white-space: nowrap; }
+    .mob-trust-line { font-family: var(--font-mono, monospace); font-size: 0.56rem; font-weight: 600; color: rgba(147,197,253,0.7); margin-top: 3px; }
+    @media (max-width: 600px) { .trust-grid { display: none; } .trust-strip-mobile { display: flex; } }
+</style>
 </head>
 <body>
 
@@ -661,6 +666,14 @@
 </div>
 
 <!-- PAGE LAYOUT -->
+<!-- MOBILE TRUST STRIP -->
+<div class="trust-strip-mobile">
+  <div class="trust-strip-item">🔒 Secure</div>
+  <div class="trust-strip-item">⚡ Instant</div>
+  <div class="trust-strip-item">✅ No Fees</div>
+  <div class="trust-strip-item">🎫 No Account</div>
+</div>
+
 <div class="page-layout">
 <main class="main-content" role="main">
 
@@ -1046,13 +1059,14 @@
     <div>
       <div class="mob-price-lbl">VS Price</div>
       <div class="mob-price">$41</div>
-    </div>
+      <div class="mob-trust-line">🔒 Secure · No Hidden Fees</div>
+      </div>
     <a href="https://spotlight.vegas/shows/comedy/comedy-cellar/ref/vegassidekick" target="_blank" rel="noopener sponsored" class="mob-cta">Get Tickets →</a>
   </div>
 </div>
 
 <div id="vs-footer"></div>
-<script src="/components/footer.js?v=8"></script>
+<script src="/components/footer.js?v=9"></script>
 
 <script>
   /* PROGRESS BAR */
