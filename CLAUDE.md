@@ -235,7 +235,7 @@ Changes apply site-wide automatically since all pages load these components.
 
 ### Deploying
 
-Push to `master` branch. Netlify auto-deploys on push. The Cloudflare Worker (`functions/api/auth.js`) must be deployed separately via Cloudflare dashboard or Wrangler CLI.
+Push to the `main` branch (the repository's default branch). Netlify auto-deploys on push. The Cloudflare Worker (`functions/api/auth.js`) must be deployed separately via Cloudflare dashboard or Wrangler CLI.
 
 ---
 
