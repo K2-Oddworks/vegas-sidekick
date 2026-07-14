@@ -1150,6 +1150,18 @@
   }
   window.addEventListener('scroll', updateProgress, { passive: true });
 
+  // Keep the bottom progress bar pinned just above the mobile sticky CTA bar,
+  // whatever its actual rendered height is (it grows/shrinks with content).
+  function placeProgressBarBottom() {
+    const mobileSticky = document.querySelector('.mobile-sticky');
+    const pbb = document.getElementById('progress-bar-bottom');
+    if (!mobileSticky || !pbb) return;
+    const visible = window.getComputedStyle(mobileSticky).display !== 'none';
+    pbb.style.bottom = visible ? mobileSticky.getBoundingClientRect().height + 'px' : '0px';
+  }
+  placeProgressBarBottom();
+  window.addEventListener('resize', placeProgressBarBottom, { passive: true });
+
   // HERO PARALLAX
   const heroSlider = document.getElementById('heroSlider');
   window.addEventListener('scroll', () => {
