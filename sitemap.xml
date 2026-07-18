@@ -31,6 +31,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://vegassidekick.com/shows/comedy/steve-falcons-comedy-hypnosis-hour/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-18</lastmod>
+  </url>
+  <url>
     <loc>https://vegassidekick.com/shows/comedy/laugh-factory/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -85,6 +91,12 @@
     <loc>https://vegassidekick.com/shows/magic/criss-angel/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/magic/now-you-see-me-live/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-17</lastmod>
   </url>
   <url>
     <loc>https://vegassidekick.com/shows/comedy/marriage-can-be-murder/</loc>
