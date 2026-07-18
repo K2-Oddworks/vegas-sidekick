@@ -435,7 +435,8 @@
 
     /* ── SHOW CARD ── */
     .show-card {
-      flex: 0 0 300px;
+      /* fixed 300px on desktop; on narrow phones shrink to keep a peek of the next card visible */
+      flex: 0 0 min(300px, 78vw);
       scroll-snap-align: start;
       background: var(--white);
       border: 2px solid var(--card-border);
