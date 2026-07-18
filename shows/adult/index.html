@@ -204,6 +204,32 @@
     /* TOAST */
     .max-toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(10px); background: var(--navy); color: white; font-family: var(--font-mono); font-size: 0.7rem; padding: 10px 18px; border-radius: 8px; border: 1px solid rgba(255,107,0,0.3); opacity: 0; transition: opacity 0.22s, transform 0.22s; pointer-events: none; white-space: nowrap; z-index: 600; }
     .max-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  
+    /* MOBILE: list-row layout (thumbnail left, details right, whole row taps through) */
+    @media (max-width: 520px) {
+      .show-grid { grid-template-columns: 1fr; gap: 0; }
+      .show-card { flex-direction: row; align-items: center; gap: 13px; padding: 13px 2px; border: none; border-bottom: 1.5px solid var(--border); border-radius: 0; box-shadow: none; background: transparent; cursor: pointer; }
+      .show-card:first-child { border-top: 1.5px solid var(--border); }
+      .show-card:hover { transform: none; box-shadow: none; }
+      .show-card.selected { border-color: transparent; border-bottom-color: var(--blue); box-shadow: none; background: rgba(26,107,221,0.05); }
+      .show-card:hover .card-img-wrap img { transform: none; }
+      .card-img-wrap { width: 82px; height: 82px; aspect-ratio: auto; border-radius: 12px; flex-shrink: 0; align-self: center; }
+      .card-cat-tag { display: none; }
+      .card-sp-badge { top: 5px; left: 5px; padding: 2px 6px; font-size: 0.48rem; gap: 2px; }
+      .cb-label { top: 5px; right: 5px; width: 20px; height: 20px; }
+      .card-body { padding: 0; display: grid; grid-template-columns: 1fr auto; column-gap: 12px; align-items: center; }
+      .card-cat-eyebrow { display: block; grid-column: 1; grid-row: 1; font-family: var(--font-mono); font-size: 0.53rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--blue); margin-bottom: 2px; }
+      .card-name-link { grid-column: 1; grid-row: 2; }
+      .card-name { font-size: 1.15rem; margin-bottom: 1px; }
+      .card-subtitle { font-size: 0.8rem; }
+      .card-venue { grid-column: 1; grid-row: 3; margin: 2px 0 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .card-pills { display: none; }
+      .card-price-row { grid-column: 2; grid-row: 1 / 4; flex-direction: column; align-items: flex-end; justify-content: center; gap: 0; margin: 0; }
+      .card-from { font-size: 0.52rem; }
+      .card-price { font-size: 1.7rem; }
+      .card-price-row::after { content: '\203A'; color: var(--orange); font-family: var(--font-price); font-weight: 800; font-size: 1.15rem; line-height: 1; margin-top: 1px; }
+      .card-cta { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -449,5 +475,16 @@ renderGrid();
 </script>
 <script src="/components/header.js?v=8"></script>
 <script src="/components/footer.js?v=9"></script>
+<script>
+/* mobile: tapping anywhere on a show-card row opens the show */
+document.addEventListener('click', function (e) {
+  if (window.innerWidth > 520) return;
+  if (e.target.closest('a, label, input, button, select')) return;
+  var card = e.target.closest('.show-card');
+  if (!card) return;
+  var link = card.querySelector('a[href^="/shows/"]');
+  if (link) window.location.href = link.getAttribute('href');
+});
+</script>
 </body>
 </html>
