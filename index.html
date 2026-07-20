@@ -1249,20 +1249,20 @@
     .vh-picks-cta { display: block; text-align: center; margin-top: 10px; padding: 13px; border-radius: 12px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.18); color: #fff; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.98rem; text-decoration: none; transition: 0.18s; }
     .vh-picks-cta:hover { background: rgba(255,107,43,0.14); border-color: var(--orange); }
     .vh-search { position: relative; display: flex; gap: 8px; max-width: 440px; margin-bottom: 20px; }
-    .vh-search input { flex: 1; min-width: 0; background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.2); border-radius: 10px; padding: 12px 14px; color: #fff; font-family: 'Barlow', sans-serif; font-size: 0.95rem; outline: none; }
-    .vh-search input::placeholder { color: rgba(255,255,255,0.45); }
-    .vh-search input:focus { border-color: #5b9bff; }
+    .vh-search input { flex: 1; min-width: 0; background: #fff; border: 1.5px solid #fff; border-radius: 10px; padding: 12px 14px; color: #0A0F2C; font-family: 'Barlow', sans-serif; font-size: 0.95rem; outline: none; box-shadow: 0 6px 22px rgba(0,0,0,0.28); }
+    .vh-search input::placeholder { color: #6b7280; }
+    .vh-search input:focus { border-color: #5b9bff; box-shadow: 0 6px 22px rgba(0,0,0,0.28), 0 0 0 3px rgba(91,155,255,0.35); }
     .vh-search button { flex: 0 0 auto; background: var(--orange); color: var(--navy); border: none; border-radius: 10px; padding: 0 16px; font-size: 1.05rem; transition: 0.18s; }
     .vh-search button:hover { background: #ff8c33; }
-    .vh-sugg { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #0d1330; border: 1px solid rgba(255,255,255,0.14); border-radius: 12px; overflow: hidden; z-index: 40; box-shadow: 0 14px 40px rgba(0,0,0,0.5); display: none; }
+    .vh-sugg { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 12px; overflow: hidden; z-index: 40; box-shadow: 0 14px 40px rgba(0,0,0,0.45); display: none; }
     .vh-sugg.open { display: block; }
-    .vh-sugg a { display: flex; align-items: center; gap: 10px; padding: 9px 13px; border-bottom: 1px solid rgba(255,255,255,0.06); text-decoration: none; }
+    .vh-sugg a { display: flex; align-items: center; gap: 10px; padding: 9px 13px; border-bottom: 1px solid rgba(0,0,0,0.07); text-decoration: none; }
     .vh-sugg a:last-child { border-bottom: none; }
-    .vh-sugg a:hover { background: rgba(255,255,255,0.06); }
-    .vh-sugg .n { font-family: 'Bebas Neue', sans-serif; font-size: 1.02rem; letter-spacing: 0.5px; color: #fff; line-height: 1; }
-    .vh-sugg .v { font-family: 'Barlow', sans-serif; font-size: 0.64rem; color: rgba(255,255,255,0.5); margin-top: 2px; }
-    .vh-sugg .p { margin-left: auto; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; color: var(--orange); font-size: 0.95rem; white-space: nowrap; }
-    .vh-sugg .all { justify-content: center; color: #7fb0ff; font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 0.8rem; }
+    .vh-sugg a:hover { background: rgba(26,107,255,0.07); }
+    .vh-sugg .n { font-family: 'Bebas Neue', sans-serif; font-size: 1.02rem; letter-spacing: 0.5px; color: #0A0F2C; line-height: 1; }
+    .vh-sugg .v { font-family: 'Barlow', sans-serif; font-size: 0.64rem; color: #6b7280; margin-top: 2px; }
+    .vh-sugg .p { margin-left: auto; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; color: #e0561f; font-size: 0.95rem; white-space: nowrap; }
+    .vh-sugg .all { justify-content: center; color: #1A6BFF; font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 0.8rem; }
     @media (max-width: 900px) {
       .vh-inner { grid-template-columns: 1fr; gap: 22px; padding: 36px 20px 34px; }
       .vh-picks { background: none; border: none; padding: 0; }
@@ -1280,7 +1280,7 @@
 
   <!-- HEADER COMPONENT (nav + mobile drawer + Google Analytics) -->
   <div id="vs-header"></div>
-  <script src="/components/header.js"></script>
+  <script src="/components/header.js?v=9"></script>
 
   <!-- GRADIENT SEPARATOR BAR -->
   <div class="gradient-bar"></div>
