@@ -1248,6 +1248,21 @@
     .vh-rg { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.72rem; color: rgba(255,255,255,0.35); text-decoration: line-through; }
     .vh-picks-cta { display: block; text-align: center; margin-top: 10px; padding: 13px; border-radius: 12px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.18); color: #fff; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.98rem; text-decoration: none; transition: 0.18s; }
     .vh-picks-cta:hover { background: rgba(255,107,43,0.14); border-color: var(--orange); }
+    .vh-search { position: relative; display: flex; gap: 8px; max-width: 440px; margin-bottom: 20px; }
+    .vh-search input { flex: 1; min-width: 0; background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.2); border-radius: 10px; padding: 12px 14px; color: #fff; font-family: 'Barlow', sans-serif; font-size: 0.95rem; outline: none; }
+    .vh-search input::placeholder { color: rgba(255,255,255,0.45); }
+    .vh-search input:focus { border-color: #5b9bff; }
+    .vh-search button { flex: 0 0 auto; background: var(--orange); color: var(--navy); border: none; border-radius: 10px; padding: 0 16px; font-size: 1.05rem; transition: 0.18s; }
+    .vh-search button:hover { background: #ff8c33; }
+    .vh-sugg { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #0d1330; border: 1px solid rgba(255,255,255,0.14); border-radius: 12px; overflow: hidden; z-index: 40; box-shadow: 0 14px 40px rgba(0,0,0,0.5); display: none; }
+    .vh-sugg.open { display: block; }
+    .vh-sugg a { display: flex; align-items: center; gap: 10px; padding: 9px 13px; border-bottom: 1px solid rgba(255,255,255,0.06); text-decoration: none; }
+    .vh-sugg a:last-child { border-bottom: none; }
+    .vh-sugg a:hover { background: rgba(255,255,255,0.06); }
+    .vh-sugg .n { font-family: 'Bebas Neue', sans-serif; font-size: 1.02rem; letter-spacing: 0.5px; color: #fff; line-height: 1; }
+    .vh-sugg .v { font-family: 'Barlow', sans-serif; font-size: 0.64rem; color: rgba(255,255,255,0.5); margin-top: 2px; }
+    .vh-sugg .p { margin-left: auto; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; color: var(--orange); font-size: 0.95rem; white-space: nowrap; }
+    .vh-sugg .all { justify-content: center; color: #7fb0ff; font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 0.8rem; }
     @media (max-width: 900px) {
       .vh-inner { grid-template-columns: 1fr; gap: 22px; padding: 36px 20px 34px; }
       .vh-picks { background: none; border: none; padding: 0; }
@@ -1277,6 +1292,11 @@
         <span class="vh-badge">Your Vegas Insider</span>
         <h1><span class="b">BIGGEST VEGAS SHOWS.</span><br><span class="o">REAL DISCOUNTS.</span> NO BS.</h1>
         <p class="vh-sub">The best Las Vegas show tickets at real discounts &mdash; no membership, no hidden fees, no markup games.</p>
+        <form class="vh-search" id="vh-search" role="search" autocomplete="off">
+          <input id="vh-q" type="search" placeholder="Search 50+ shows&hellip;" aria-label="Search shows" />
+          <button type="submit" aria-label="Search">&#128269;</button>
+          <div class="vh-sugg" id="vh-sugg" role="listbox"></div>
+        </form>
         <div class="vh-trust">
           <span><b>&#10003;</b>No Hidden Fees</span>
           <span><b>&#10003;</b>No Membership</span>
@@ -2200,6 +2220,39 @@
         observer.observe(el);
       });
     }());
+  </script>
+  <!-- Hero search (client-side, shows only) -->
+  <script src="/components/search-data.js?v=1"></script>
+  <script src="/components/search.js?v=1"></script>
+  <script>
+  (function () {
+    var input = document.getElementById('vh-q'),
+        sugg  = document.getElementById('vh-sugg'),
+        form  = document.getElementById('vh-search');
+    if (!input) return;
+    function esc(s) { return (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+    function go() { var q = input.value.trim(); if (q) location.href = '/search/?q=' + encodeURIComponent(q); }
+    function render() {
+      var q = input.value.trim();
+      if (!q) { sugg.classList.remove('open'); sugg.innerHTML = ''; return; }
+      var list = (window.vsSearch ? vsSearch(q) : []).slice(0, 6);
+      var html;
+      if (!list.length) {
+        html = '<a class="all" href="/search/?q=' + encodeURIComponent(q) + '">No matches &mdash; search all shows &rarr;</a>';
+      } else {
+        html = list.map(function (s) {
+          return '<a href="' + s.url + '"><div><div class="n">' + esc(s.name) + '</div><div class="v">' + esc(s.venue) + '</div></div>' +
+                 '<span class="p">' + (s.pd ? 'From ' + esc(s.pd) : '') + '</span></a>';
+        }).join('');
+        html += '<a class="all" href="/search/?q=' + encodeURIComponent(q) + '">See all results for &ldquo;' + esc(q) + '&rdquo; &rarr;</a>';
+      }
+      sugg.innerHTML = html; sugg.classList.add('open');
+    }
+    input.addEventListener('input', render);
+    input.addEventListener('focus', render);
+    form.addEventListener('submit', function (e) { e.preventDefault(); go(); });
+    document.addEventListener('click', function (e) { if (!form.contains(e.target)) sugg.classList.remove('open'); });
+  })();
   </script>
 </body>
 </html>

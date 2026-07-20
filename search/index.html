@@ -6,11 +6,10 @@
   <link rel="shortcut icon" href="/favicon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Search Las Vegas Shows | Vegas Sidekick</title>
-  <meta name="description" content="Search all Las Vegas shows, comedy, magic, Cirque du Soleil, production shows and more. Find discount tickets with no hidden fees." />
+  <meta name="description" content="Search all Las Vegas shows — comedy, magic, Cirque du Soleil, production shows and more. Find discount tickets with no hidden fees." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@8/themes/reset-min.css" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -19,76 +18,66 @@
       --white: #FFFFFF; --gray: #A8B4C4; --gray-light: #D4DCE8;
       --card-bg: #0F1E38; --green: #22C55E;
     }
-    body { background: var(--navy); color: var(--white); font-family: 'Barlow', sans-serif; min-height: 100vh; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--navy); color: var(--white); font-family: 'Barlow', sans-serif; min-height: 100vh; overflow-x: hidden; }
     body::before { content: ''; position: fixed; inset: 0; background-image: radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.4) 0%, transparent 100%), radial-gradient(1px 1px at 70% 45%, rgba(255,255,255,0.3) 0%, transparent 100%), radial-gradient(1px 1px at 40% 80%, rgba(255,255,255,0.3) 0%, transparent 100%); pointer-events: none; z-index: 0; }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; }
 
-    .search-page { position: relative; z-index: 1; padding: 100px 40px 80px; max-width: 1000px; margin: 0 auto; }
-
-    .search-hero { text-align: center; margin-bottom: 40px; }
+    .search-page { position: relative; z-index: 1; padding: 100px 40px 80px; max-width: 1040px; margin: 0 auto; }
+    .search-hero { text-align: center; margin-bottom: 28px; }
     .search-eyebrow { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--orange); margin-bottom: 12px; }
     .search-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: 2px; line-height: 1; margin-bottom: 12px; }
     .search-title span { color: var(--blue-bright); }
     .search-sub { font-size: 1rem; color: var(--gray); }
 
     /* SEARCH BOX */
-    .ais-SearchBox { margin-bottom: 32px; }
-    .ais-SearchBox-form { display: flex; gap: 0; position: relative; }
-    .ais-SearchBox-input { width: 100%; background: var(--card-bg); border: 2px solid rgba(26,127,232,0.25); border-radius: 10px 0 0 10px; padding: 16px 20px; color: var(--white); font-family: 'Barlow', sans-serif; font-size: 1.1rem; outline: none; transition: border-color 0.2s; }
-    .ais-SearchBox-input:focus { border-color: var(--blue-bright); }
-    .ais-SearchBox-input::placeholder { color: var(--gray); }
-    .ais-SearchBox-submit { background: var(--orange); border: none; border-radius: 0 10px 10px 0; padding: 16px 28px; cursor: pointer; color: var(--navy); font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; transition: background 0.2s; white-space: nowrap; }
-    .ais-SearchBox-submit:hover { background: var(--orange-bright); }
-    .ais-SearchBox-reset { display: none; }
+    .vs-searchbox { display: flex; gap: 0; position: relative; max-width: 720px; margin: 0 auto 18px; }
+    .vs-searchbox input { width: 100%; background: var(--card-bg); border: 2px solid rgba(26,127,232,0.25); border-right: none; border-radius: 10px 0 0 10px; padding: 16px 20px; color: var(--white); font-family: 'Barlow', sans-serif; font-size: 1.1rem; outline: none; transition: border-color 0.2s; }
+    .vs-searchbox input:focus { border-color: var(--blue-bright); }
+    .vs-searchbox input::placeholder { color: var(--gray); }
+    .vs-searchbox button { background: var(--orange); border: none; border-radius: 0 10px 10px 0; padding: 16px 28px; color: var(--navy); font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; transition: background 0.2s; white-space: nowrap; }
+    .vs-searchbox button:hover { background: var(--orange-bright); }
 
-    /* FILTERS */
-    .search-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
-    .ais-RefinementList-list { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; }
-    .ais-RefinementList-item { }
-    .ais-RefinementList-label { display: flex; align-items: center; gap: 6px; background: var(--card-bg); border: 1px solid rgba(26,127,232,0.2); border-radius: 100px; padding: 6px 14px; font-size: 0.8rem; color: var(--gray-light); font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'Barlow', sans-serif; }
-    .ais-RefinementList-label:hover { border-color: var(--orange); color: var(--orange); }
-    .ais-RefinementList-item--selected .ais-RefinementList-label { background: rgba(255,107,0,0.12); border-color: var(--orange); color: var(--orange); }
-    .ais-RefinementList-checkbox { display: none; }
-    .ais-RefinementList-count { background: rgba(26,127,232,0.15); border-radius: 100px; padding: 1px 7px; font-size: 0.7rem; color: var(--blue-bright); }
+    /* CHIPS */
+    .vs-chips-wrap { max-width: 720px; margin: 0 auto 28px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .vs-chips-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gray); margin-right: 2px; }
+    .vs-chip { background: var(--card-bg); border: 1px solid rgba(26,127,232,0.22); border-radius: 100px; padding: 6px 14px; font-size: 0.8rem; color: var(--gray-light); font-weight: 600; transition: all 0.18s; }
+    .vs-chip:hover { border-color: var(--orange); color: var(--orange); }
 
-    /* STATS */
-    .ais-Stats { font-size: 0.8rem; color: var(--gray); margin-bottom: 20px; font-family: 'Barlow', sans-serif; }
+    .vs-stats { font-size: 0.82rem; color: var(--gray); margin: 0 auto 18px; max-width: 720px; }
 
-    /* HITS */
-    .ais-Hits-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; list-style: none; }
-    .ais-Hits-item { }
-    .show-hit-card { background: var(--card-bg); border: 1px solid rgba(26,127,232,0.12); border-radius: 12px; overflow: hidden; text-decoration: none; color: var(--white); transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; }
-    .show-hit-card:hover { transform: translateY(-4px); border-color: rgba(255,107,0,0.3); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
-    .show-hit-img { height: 140px; background: linear-gradient(135deg, #122448, #0D1F3C); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; position: relative; overflow: hidden; }
+    /* RESULTS GRID (reuses card look) */
+    .vs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 18px; list-style: none; }
+    .show-hit-card { background: var(--card-bg); border: 1px solid rgba(26,127,232,0.12); border-radius: 12px; overflow: hidden; color: var(--white); transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; }
+    .show-hit-card:hover { transform: translateY(-4px); border-color: rgba(255,107,0,0.35); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+    .show-hit-img { aspect-ratio: 16/9; background: linear-gradient(135deg, #122448, #0D1F3C); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 1px; color: rgba(255,255,255,0.5); position: relative; overflow: hidden; }
     .show-hit-img img { width: 100%; height: 100%; object-fit: cover; }
-    .show-hit-category { position: absolute; top: 10px; left: 10px; background: var(--orange); color: var(--navy); font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; }
-    .show-hit-body { padding: 16px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
-    .show-hit-venue { font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--blue-bright); }
-    .show-hit-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; font-weight: 800; line-height: 1.2; }
-    .show-hit-name mark { background: rgba(255,107,0,0.2); color: var(--orange); border-radius: 2px; }
-    .show-hit-desc { font-size: 0.82rem; color: var(--gray); line-height: 1.5; flex: 1; }
-    .show-hit-footer { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-top: 1px solid rgba(255,255,255,0.06); }
-    .show-hit-price { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: var(--orange); }
-    .show-hit-cta { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--blue-bright); background: rgba(26,127,232,0.1); border: 1px solid rgba(26,127,232,0.2); padding: 6px 14px; border-radius: 4px; transition: all 0.2s; }
+    .show-hit-category { position: absolute; top: 8px; left: 8px; background: var(--orange); color: var(--navy); font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 9px; border-radius: 4px; }
+    .show-hit-body { padding: 13px 15px; flex: 1; display: flex; flex-direction: column; gap: 5px; }
+    .show-hit-venue { font-size: 0.66rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--blue-bright); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .show-hit-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.35rem; line-height: 1.02; letter-spacing: 0.5px; }
+    .show-hit-name mark { background: rgba(255,107,0,0.28); color: #ffb380; border-radius: 3px; padding: 0 1px; }
+    .show-hit-footer { display: flex; align-items: center; justify-content: space-between; padding: 11px 15px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .show-hit-price { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.2rem; color: var(--orange); }
+    .show-hit-price small { font-size: 0.62rem; font-weight: 700; color: var(--gray); letter-spacing: 1px; text-transform: uppercase; margin-right: 2px; vertical-align: 1px; }
+    .show-hit-cta { font-family: 'Barlow Condensed', sans-serif; font-size: 0.76rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--blue-bright); background: rgba(26,127,232,0.1); border: 1px solid rgba(26,127,232,0.2); padding: 6px 13px; border-radius: 5px; transition: all 0.2s; }
     .show-hit-card:hover .show-hit-cta { background: var(--orange); color: var(--navy); border-color: var(--orange); }
 
-    /* NO RESULTS */
-    .ais-EmptyQueryBoundary, .vs-search-empty { text-align: center; padding: 60px 20px; }
-    .vs-search-empty-icon { font-size: 3rem; margin-bottom: 16px; opacity: 0.4; }
-    .vs-search-empty-text { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 2px; color: var(--gray); margin-bottom: 8px; }
-    .vs-search-empty-sub { font-size: 0.9rem; color: var(--gray); }
-
-    /* PAGINATION */
-    .ais-Pagination { margin-top: 40px; display: flex; justify-content: center; }
-    .ais-Pagination-list { display: flex; gap: 8px; list-style: none; }
-    .ais-Pagination-link { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: var(--card-bg); border: 1px solid rgba(26,127,232,0.15); border-radius: 6px; color: var(--gray-light); text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: all 0.2s; font-family: 'Barlow', sans-serif; }
-    .ais-Pagination-link:hover { border-color: var(--orange); color: var(--orange); }
-    .ais-Pagination-item--selected .ais-Pagination-link { background: var(--orange); border-color: var(--orange); color: var(--navy); }
-    .ais-Pagination-item--disabled .ais-Pagination-link { opacity: 0.3; pointer-events: none; }
+    /* EMPTY STATE */
+    .vs-empty { text-align: center; padding: 46px 20px 20px; }
+    .vs-empty-icon { font-size: 2.6rem; margin-bottom: 12px; }
+    .vs-empty-head { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; letter-spacing: 1.5px; margin-bottom: 6px; }
+    .vs-empty-sub { font-size: 0.9rem; color: var(--gray); margin-bottom: 22px; }
+    .vs-empty .vs-chips-wrap { justify-content: center; }
+    .vs-browse { display: inline-block; margin-top: 22px; background: var(--orange); color: var(--navy); font-family: 'Barlow Condensed', sans-serif; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; font-size: 0.95rem; padding: 12px 26px; border-radius: 8px; transition: background 0.2s; }
+    .vs-browse:hover { background: var(--orange-bright); }
 
     @media (max-width: 600px) {
-      .search-page { padding: 90px 20px 80px; }
-      .ais-SearchBox-submit { padding: 16px 18px; font-size: 0.85rem; }
-      .ais-Hits-list { grid-template-columns: 1fr; }
+      .search-page { padding: 90px 18px 70px; }
+      .vs-searchbox button { padding: 16px 16px; font-size: 0.85rem; }
+      .vs-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .show-hit-name { font-size: 1.15rem; }
     }
   </style>
 </head>
@@ -100,97 +89,116 @@
     <div class="search-hero">
       <div class="search-eyebrow">Vegas Sidekick</div>
       <h1 class="search-title">Find Your <span>Show</span></h1>
-      <p class="search-sub">Search 100+ Las Vegas shows. Discount tickets, no hidden fees.</p>
+      <p class="search-sub">Search 50+ Las Vegas shows. Discount tickets, no hidden fees.</p>
     </div>
 
-    <div id="search-container">
-      <div id="searchbox"></div>
-      <div id="refinements"></div>
-      <div id="stats"></div>
-      <div id="hits"></div>
-      <div id="pagination"></div>
+    <form class="vs-searchbox" id="vs-form" role="search">
+      <input id="vs-q" type="search" placeholder="Search shows, venues, categories…" autocomplete="off" aria-label="Search shows" />
+      <button type="submit">Search</button>
+    </form>
+
+    <div class="vs-chips-wrap" id="vs-chips">
+      <span class="vs-chips-label">Popular</span>
     </div>
+
+    <div class="vs-stats" id="vs-stats" hidden></div>
+    <div class="vs-grid" id="vs-results"></div>
+    <div class="vs-empty" id="vs-empty" hidden></div>
   </div>
 
   <div id="vs-footer"></div>
 
   <script src="/components/header.js?v=8"></script>
   <script src="/components/footer.js?v=9"></script>
-
-  <!-- Algolia InstantSearch -->
-  <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script>
-
+  <script src="/components/search-data.js?v=1"></script>
+  <script src="/components/search.js?v=1"></script>
   <script>
-    const searchClient = algoliasearch('E402SBJE6D', '95724ebb40815970fc1a638321c47644');
+  (function () {
+    var POPULAR = ['Comedy', 'Magic', 'Cirque', 'Cirque du Soleil', 'Carrot Top', 'Family', 'Adult'];
+    var input   = document.getElementById('vs-q');
+    var form    = document.getElementById('vs-form');
+    var results = document.getElementById('vs-results');
+    var stats   = document.getElementById('vs-stats');
+    var empty   = document.getElementById('vs-empty');
+    var chips   = document.getElementById('vs-chips');
 
-    const search = instantsearch({
-      indexName: 'vegas_shows',
-      searchClient,
-      future: { preserveSharedStateOnUnmount: true }
+    function esc(s) { return (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+    // Highlight the matched query inside the show name
+    function hl(name, q) {
+      if (!q) return esc(name);
+      var nn = vsNorm(name), nq = vsNorm(q), i = nn.indexOf(nq);
+      if (i < 0) return esc(name);
+      return esc(name.slice(0, i)) + '<mark>' + esc(name.slice(i, i + q.length)) + '</mark>' + esc(name.slice(i + q.length));
+    }
+
+    function card(s, q) {
+      var img = s.img
+        ? '<img src="' + s.img + '" alt="' + esc(s.name) + '" loading="lazy" onerror="this.remove()">'
+        : esc(s.name);
+      var price = s.pd ? '<span class="show-hit-price"><small>From</small>' + esc(s.pd) + '</span>'
+                       : '<span class="show-hit-price">See Prices</span>';
+      return '<a class="show-hit-card" href="' + s.url + '">' +
+        '<div class="show-hit-img">' + img + '<span class="show-hit-category">' + esc(s.cat) + '</span></div>' +
+        '<div class="show-hit-body"><div class="show-hit-venue">' + esc(s.venue) + '</div>' +
+        '<div class="show-hit-name">' + hl(s.name, q) + '</div></div>' +
+        '<div class="show-hit-footer">' + price + '<span class="show-hit-cta">See Show →</span></div></a>';
+    }
+
+    function chipRow(label) {
+      var html = '<span class="vs-chips-label">' + label + '</span>';
+      POPULAR.forEach(function (t) { html += '<button type="button" class="vs-chip" data-q="' + esc(t) + '">' + esc(t) + '</button>'; });
+      return html;
+    }
+
+    function render(q, pushUrl) {
+      chips.innerHTML = chipRow('Popular');
+      var list = vsSearch(q);
+      if (!q) {
+        results.innerHTML = '';
+        stats.hidden = true;
+        empty.hidden = false;
+        empty.innerHTML = '<div class="vs-empty-icon">🎟️</div>' +
+          '<div class="vs-empty-head">What are you in the mood for?</div>' +
+          '<div class="vs-empty-sub">Search a show, venue, or category — or start with a popular pick.</div>' +
+          '<div class="vs-chips-wrap">' + chipRow('Try') + '</div>';
+      } else if (list.length) {
+        empty.hidden = true;
+        stats.hidden = false;
+        stats.textContent = list.length + (list.length === 1 ? ' show' : ' shows') + ' matching “' + q + '”';
+        results.innerHTML = list.map(function (s) { return card(s, q); }).join('');
+      } else {
+        results.innerHTML = '';
+        stats.hidden = true;
+        empty.hidden = false;
+        empty.innerHTML = '<div class="vs-empty-icon">🤔</div>' +
+          '<div class="vs-empty-head">No shows match “' + esc(q) + '”</div>' +
+          '<div class="vs-empty-sub">Check the spelling, or try one of these:</div>' +
+          '<div class="vs-chips-wrap">' + chipRow('Try') + '</div>' +
+          '<a class="vs-browse" href="/shows/">Browse all 50+ shows →</a>';
+      }
+      var url = q ? '/search/?q=' + encodeURIComponent(q) : '/search/';
+      if (pushUrl) history.replaceState(null, '', url);
+    }
+
+    // chip clicks (event delegation covers header row + empty-state rows)
+    document.addEventListener('click', function (e) {
+      var c = e.target.closest('.vs-chip');
+      if (!c) return;
+      input.value = c.getAttribute('data-q');
+      input.focus();
+      render(input.value, true);
     });
 
-    search.addWidgets([
-      instantsearch.widgets.searchBox({
-        container: '#searchbox',
-        placeholder: 'Search shows, performers, venues...',
-        autofocus: true
-      }),
+    input.addEventListener('input', function () { render(input.value, true); });
+    form.addEventListener('submit', function (e) { e.preventDefault(); render(input.value, true); });
 
-      instantsearch.widgets.refinementList({
-        container: '#refinements',
-        attribute: 'category',
-        cssClasses: { root: 'search-filters' }
-      }),
-
-      instantsearch.widgets.stats({
-        container: '#stats',
-        templates: {
-          text: ({ nbHits }) => nbHits === 0
-            ? 'No shows found — try a different search'
-            : `${nbHits.toLocaleString()} show${nbHits === 1 ? '' : 's'} found`
-        }
-      }),
-
-      instantsearch.widgets.hits({
-        container: '#hits',
-        templates: {
-          item: (hit, { html, components }) => html`
-            <a href="${hit.url}" class="show-hit-card">
-              <div class="show-hit-img">
-                ${hit.image
-                  ? html`<img src="${hit.image}" alt="${hit.name}" onerror="this.style.display='none'" />`
-                  : html`<span>${hit.emoji || '🎭'}</span>`
-                }
-                <span class="show-hit-category">${hit.category}</span>
-              </div>
-              <div class="show-hit-body">
-                <div class="show-hit-venue">${hit.venue}</div>
-                <div class="show-hit-name">${components.Highlight({ hit, attribute: 'name' })}</div>
-                <div class="show-hit-desc">${hit.description}</div>
-              </div>
-              <div class="show-hit-footer">
-                <div class="show-hit-price">${hit.price ? 'From $' + hit.price : 'See Prices'}</div>
-                <div class="show-hit-cta">Get Tickets →</div>
-              </div>
-            </a>
-          `,
-          empty: () => `
-            <div class="vs-search-empty">
-              <div class="vs-search-empty-icon">🔍</div>
-              <div class="vs-search-empty-text">No Shows Found</div>
-              <div class="vs-search-empty-sub">Try searching for a show name, performer, or venue</div>
-            </div>
-          `
-        }
-      }),
-
-      instantsearch.widgets.pagination({
-        container: '#pagination'
-      })
-    ]);
-
-    search.start();
+    // initial: read ?q=
+    var q0 = new URLSearchParams(location.search).get('q') || '';
+    input.value = q0;
+    render(q0, false);
+    if (!q0) input.focus();
+  })();
   </script>
 
 </body>
