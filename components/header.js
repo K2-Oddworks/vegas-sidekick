@@ -408,4 +408,97 @@
   gtag('js', new Date());
   gtag('config', 'G-BM6QGF7B4Y');
 
+  // ---- Custom event tracking (site-wide via header) ----
+  window.vsTrack = function(name, params){
+    try { gtag('event', name, params || {}); } catch(e){}
+  };
+
+  // Best-effort show/page name for event context
+  function vsShowName(){
+    var h1 = document.querySelector('h1');
+    var t = (h1 && h1.textContent.trim()) || document.title || '';
+    return t.replace(/\s*[|–—-]\s*Vegas Sidekick.*$/i, '').trim().slice(0, 120);
+  }
+
+  // Delegated clicks: affiliate CTAs, search-result cards, seen widget, FAQ, seating, deal popup
+  document.addEventListener('click', function(e){
+    var t = e.target;
+    if (!t || !t.closest) return;
+
+    // 1) Affiliate ticket clicks (the money metric)
+    var a = t.closest('a[href*="spotlight.vegas"]');
+    if (a){
+      var c = a.className || '';
+      var loc = /hero-cta/.test(c) ? 'hero'
+              : /sb-cta/.test(c) ? 'sidebar'
+              : /mob-cta/.test(c) ? 'mobile_bar'
+              : /final-cta-btn/.test(c) ? 'final_cta'
+              : 'other';
+      window.vsTrack('affiliate_click', { show: vsShowName(), cta_location: loc, link_url: a.href });
+    }
+
+    // 2) Search-result card clicks (search page)
+    var hit = t.closest('.show-hit-card');
+    if (hit){
+      var ha = hit.tagName === 'A' ? hit : hit.querySelector('a');
+      window.vsTrack('search_result_click', { link_url: ha ? ha.href : '' });
+    }
+
+    // 3) "Have you seen this show?" widget
+    var seen = t.closest('.seen-btn');
+    if (seen){
+      window.vsTrack('seen_widget', { show: vsShowName(), answer: seen.classList.contains('seen-yes') ? 'yes' : 'no' });
+    }
+
+    // 4) FAQ open (fire only when it ends up open)
+    var faqQ = t.closest('.faq-q');
+    if (faqQ){
+      var item = faqQ.closest('.faq-item');
+      var qEl = faqQ.querySelector('.faq-q-text');
+      setTimeout(function(){
+        if (item && item.classList.contains('open')){
+          window.vsTrack('faq_open', { show: vsShowName(), question: qEl ? qEl.textContent.trim().slice(0,120) : '' });
+        }
+      }, 0);
+    }
+
+    // 5) Seating-chart zone clicks
+    var zone = t.closest('.seat-zone');
+    if (zone){
+      var lbl = (zone.getAttribute('aria-label') || '').split('—')[0].split(' - ')[0].trim();
+      window.vsTrack('seating_zone', { show: vsShowName(), zone: lbl.slice(0,80) });
+    }
+
+    // 6) Deal-popup email signup (button, not a form submit)
+    var dealBtn = t.closest('.vs-deal-btn');
+    if (dealBtn){
+      var di = document.getElementById('vsDealInput');
+      if (di && di.value.trim()) window.vsTrack('email_signup', { form_location: 'deal_popup' });
+    }
+  }, true);
+
+  // Email signups: any real <form> that contains an email field (footer, hero, article)
+  document.addEventListener('submit', function(e){
+    var f = e.target;
+    if (f && f.querySelector && f.querySelector('input[type="email"]')){
+      var id = (f.id || '').toLowerCase();
+      var loc = /footer|vsemail/.test(id) ? 'footer'
+              : /spikes|picks|hero/.test(id) ? 'homepage_hero'
+              : /article|dispatch|news/.test(id) ? 'article'
+              : 'other';
+      window.vsTrack('email_signup', { form_location: loc });
+    }
+  }, true);
+
+  // Search performed — fires on the /search results page (hero + drawer + direct all land here)
+  (function(){
+    var path = location.pathname.replace(/\/+$/, '');
+    if (path === '/search' || path === '/search/index'){
+      try {
+        var q = (new URLSearchParams(location.search).get('q') || '').trim();
+        if (q) window.vsTrack('search', { search_term: q.slice(0,120) });
+      } catch(err){}
+    }
+  })();
+
 })();
