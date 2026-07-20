@@ -28,6 +28,10 @@
   </div>
 </nav>
 <div class="nav-mobile-drawer" id="vsMobileDrawer">
+  <form class="drawer-search" role="search" onsubmit="return vsMobileSearch(event)">
+    <input id="vsDrawerSearch" type="search" name="q" placeholder="Search shows&hellip;" aria-label="Search shows" autocomplete="off" />
+    <button type="submit" aria-label="Search">&#128269;</button>
+  </form>
   <a href="/shows/comedy/">Comedy</a>
   <a href="/shows/magic/">Magic</a>
   <a href="/shows/cirque/">Cirque &amp; Acrobatic</a>
@@ -58,6 +62,12 @@
 .nav-mobile-drawer.open { right: 0; }
 .nav-mobile-drawer a { color: #D4DCE8; text-decoration: none; font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 1rem; letter-spacing: 1px; text-transform: uppercase; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.14); transition: color 0.2s; }
 .nav-mobile-drawer a:hover { color: #FF6B2B; }
+.drawer-search { display: flex; gap: 6px; margin-bottom: 8px; }
+.drawer-search input { flex: 1; min-width: 0; background: #fff; border: 1.5px solid #fff; border-radius: 8px; padding: 10px 12px; color: #0A1628; font-family: 'Barlow', sans-serif; font-size: 0.95rem; outline: none; }
+.drawer-search input::placeholder { color: #6b7280; }
+.drawer-search input:focus { border-color: #60A5FA; box-shadow: 0 0 0 3px rgba(96,165,250,0.35); }
+.drawer-search button { flex: 0 0 auto; background: #FF6B2B; color: #0A1628; border: none; border-radius: 8px; padding: 0 14px; font-size: 1rem; cursor: pointer; transition: background 0.2s; }
+.drawer-search button:hover { background: #e85e22; }
 .mobile-drawer-dispatch { border-left: 3px solid #FF6B2B !important; padding-left: 12px !important; color: #FF8C2A !important; margin-top: 4px; }
 .mobile-drawer-dispatch:hover { color: #FFB347 !important; }
 .mobile-drawer-cta { background: #FF6B2B !important; color: #0A1628 !important; text-align: center; border-radius: 6px; padding: 14px !important; border-bottom: none !important; margin-top: 8px; }
@@ -220,6 +230,14 @@
     const overlay = document.getElementById('vsNavOverlay');
     drawer.classList.toggle('open');
     overlay.classList.toggle('visible');
+  };
+
+  window.vsMobileSearch = function(e) {
+    if (e) e.preventDefault();
+    var input = document.getElementById('vsDrawerSearch');
+    var q = input ? input.value.trim() : '';
+    window.location.href = '/search/' + (q ? '?q=' + encodeURIComponent(q) : '');
+    return false;
   };
 
   // Labor Day Weekend Advance Notice (PDT = UTC-7)
