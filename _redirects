@@ -4,3 +4,5 @@
 /favicon.ico /favicon.svg 200
 /play/desert-crossing/ /play/walk-the-strip/ 301
 /play/desert-crossing/* /play/walk-the-strip/ 301
+/shows/adult/absinthe/ /shows/spectaculars/absinthe/ 301
+/shows/adult/absinthe/* /shows/spectaculars/absinthe/ 301
