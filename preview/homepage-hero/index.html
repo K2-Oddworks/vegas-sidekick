@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="icon" href="/favicon.png" type="image/png" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex,nofollow" />
+<title>Homepage Hero Preview | Vegas Sidekick</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --navy:#0A1628;--navy2:#0d1c34;--blue:#1A6BFF;--blue-lt:#5b9bff;--orange:#FF6B2B;--orange-lt:#ff8c33;
+    --white:#fff;--ink:#0A1628;--soft:#64748B;--line:#E4E9F1;--green:#22c55e;
+    --display:'Bebas Neue',sans-serif;--cond:'Barlow Condensed',sans-serif;--body:'Barlow',sans-serif;
+  }
+  html{scroll-behavior:smooth}
+  body{font-family:var(--body);background:var(--navy);color:var(--white);line-height:1.5;-webkit-font-smoothing:antialiased}
+  img{max-width:100%;display:block}
+  a{text-decoration:none;color:inherit}
+
+  /* preview explainer */
+  .pv{background:#12213c;border-bottom:1px solid rgba(255,255,255,.08);padding:90px 20px 16px;text-align:center}
+  .pv .tag{font-family:var(--body);font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:.62rem;color:var(--orange-lt);margin-bottom:6px}
+  .pv h2{font-family:var(--display);font-size:1.5rem;letter-spacing:.02em;margin-bottom:6px}
+  .pv p{max-width:640px;margin:0 auto;color:rgba(255,255,255,.6);font-size:.85rem}
+  .pv b{color:#fff}
+
+  /* HERO */
+  .hero{position:relative;overflow:hidden;background:radial-gradient(ellipse at 78% 40%,rgba(26,107,255,.14) 0%,transparent 55%),var(--navy)}
+  .hero::after{content:'';position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--orange))}
+  .hero-inner{max-width:1200px;margin:0 auto;padding:40px 24px 46px;display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center}
+
+  .badge{display:inline-block;font-family:var(--body);font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:.62rem;color:var(--blue-lt);border:1px solid rgba(91,155,255,.4);border-radius:100px;padding:5px 12px;margin-bottom:16px}
+  .hero h1{font-family:var(--display);font-size:clamp(2.6rem,5vw,4rem);line-height:.9;letter-spacing:.01em;margin-bottom:14px;text-wrap:balance}
+  .hero h1 .b{color:var(--blue-lt)}.hero h1 .o{color:var(--orange)}
+  .hero-sub{color:rgba(255,255,255,.66);font-size:1rem;max-width:440px;margin-bottom:16px}
+  .trust{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:22px}
+  .trust span{font-size:.78rem;color:rgba(255,255,255,.72);font-weight:600}
+  .trust b{color:var(--green);margin-right:3px}
+
+  .ctas{display:flex;gap:12px;flex-wrap:wrap}
+  .cta{display:inline-flex;flex-direction:column;gap:1px;padding:13px 22px;border-radius:12px;font-family:var(--cond);text-transform:uppercase;letter-spacing:.04em;transition:.18s;border:2px solid transparent}
+  .cta .big{font-weight:800;font-size:1.05rem;line-height:1}
+  .cta .small{font-family:var(--body);font-weight:600;letter-spacing:.02em;text-transform:none;font-size:.66rem;opacity:.8}
+  .cta-primary{background:var(--orange);color:var(--navy)}
+  .cta-primary:hover{background:var(--orange-lt)}
+  .cta-primary .small{color:rgba(10,22,40,.7)}
+  .cta-ghost{background:rgba(255,255,255,.05);color:#fff;border-color:rgba(255,255,255,.18)}
+  .cta-ghost:hover{border-color:var(--orange);color:#fff;background:rgba(255,107,43,.1)}
+  .cta-ghost .small{color:rgba(255,255,255,.55)}
+
+  /* PICKS panel */
+  .picks{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:16px}
+  .picks-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+  .picks-hd .t{font-family:var(--cond);font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:.86rem;color:#fff}
+  .picks-hd .t .dot{color:var(--orange)}
+  .picks-hd .all{font-family:var(--body);font-size:.72rem;font-weight:700;color:var(--blue-lt)}
+  .picks-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .pcard{background:var(--navy2);border:1px solid rgba(255,255,255,.07);border-radius:12px;overflow:hidden;transition:.18s;display:block}
+  .pcard:hover{transform:translateY(-3px);border-color:rgba(255,107,43,.45)}
+  .pcard .imgw{position:relative;aspect-ratio:16/9;background:#1a2540}
+  .pcard img{width:100%;height:100%;object-fit:cover}
+  .pcard .save{position:absolute;top:6px;left:6px;font-family:var(--cond);font-weight:800;font-size:.6rem;letter-spacing:.03em;color:#fff;background:var(--green);padding:2px 7px;border-radius:5px}
+  .pcard .cat{position:absolute;bottom:6px;right:6px;font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:.56rem;color:#fff;background:rgba(10,22,40,.8);padding:2px 7px;border-radius:5px}
+  .pcard .bd{padding:9px 11px 11px}
+  .pcard .nm{font-family:var(--display);font-size:1.12rem;line-height:1;letter-spacing:.02em;color:#fff;margin-bottom:2px}
+  .pcard .vn{font-size:.64rem;color:rgba(255,255,255,.5);margin-bottom:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .pcard .prow{display:flex;align-items:baseline;gap:6px}
+  .pcard .from{font-family:var(--cond);font-weight:700;text-transform:uppercase;font-size:.54rem;color:rgba(255,255,255,.5)}
+  .pcard .pr{font-family:var(--cond);font-weight:800;font-size:1.25rem;color:var(--orange);line-height:1}
+  .pcard .rg{font-family:var(--cond);font-weight:600;font-size:.72rem;color:rgba(255,255,255,.35);text-decoration:line-through}
+
+  .swipe-hint{display:none}
+
+  @media (max-width:900px){
+    .hero-inner{grid-template-columns:1fr;gap:22px;padding:26px 18px 34px}
+    .picks{background:none;border:none;padding:0}
+    .picks-grid{display:flex;overflow-x:auto;gap:12px;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:4px;margin:0 -18px;padding-left:18px;padding-right:18px}
+    .picks-grid::-webkit-scrollbar{display:none}
+    .pcard{flex:0 0 min(230px,66vw);scroll-snap-align:start}
+    .swipe-hint{display:block;text-align:center;font-size:.72rem;color:rgba(255,255,255,.4);margin-top:8px}
+    .ctas .cta{flex:1}
+  }
+  @media (max-width:420px){ .hero h1{font-size:2.4rem} }
+</style>
+</head>
+<body>
+<div id="vs-header"></div>
+
+<section class="pv">
+  <div class="tag">Design Preview · Not Live Yet</div>
+  <h2>Homepage Hero — Proposed</h2>
+  <p><b>#1</b> puts real shows &amp; prices above the fold, and <b>#3</b> gives the two buttons distinct jobs. Search (<b>#2</b>) drops in here once your Algolia index is live. This is a mockup — the real homepage is unchanged.</p>
+</section>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <span class="badge">Your Vegas Insider</span>
+      <h1><span class="b">BIGGEST SHOWS.</span><br><span class="o">REAL DISCOUNTS.</span> NO BS.</h1>
+      <p class="hero-sub">The best Las Vegas show tickets at real discounts — no membership, no hidden fees, no markup games.</p>
+      <div class="trust">
+        <span><b>&#10003;</b>No Hidden Fees</span>
+        <span><b>&#10003;</b>No Membership</span>
+        <span><b>&#10003;</b>Legit Discounts</span>
+      </div>
+      <div class="ctas">
+        <a href="/shows/" class="cta cta-primary">
+          <span class="big">Browse All Shows &rarr;</span>
+          <span class="small">All 49 Vegas shows</span>
+        </a>
+        <a href="/shows/" class="cta cta-ghost">
+          <span class="big">🔥 Deals Under $50</span>
+          <span class="small">Biggest discounts first</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="picks">
+      <div class="picks-hd">
+        <div class="t"><span class="dot">🌵</span> Tonight's Top Picks</div>
+        <a href="/shows/" class="all">See all &rarr;</a>
+      </div>
+      <div class="picks-grid">
+        <a class="pcard" href="/shows/music/all-motown/">
+          <div class="imgw"><img src="/images/all-motown-hero.webp" alt="All Motown"><span class="save">60% OFF</span><span class="cat">Music</span></div>
+          <div class="bd"><div class="nm">All Motown</div><div class="vn">Athena Showlounge · Alexis Park</div><div class="prow"><span class="from">From</span><span class="pr">$40</span><span class="rg">$100</span></div></div>
+        </a>
+        <a class="pcard" href="/shows/cirque/mystere/">
+          <div class="imgw"><img src="/images/mystere-hero.jpg" alt="Mystère by Cirque du Soleil"><span class="save">SAVE $25</span><span class="cat">Cirque</span></div>
+          <div class="bd"><div class="nm">Mystère</div><div class="vn">Cirque du Soleil · TI Hotel</div><div class="prow"><span class="from">From</span><span class="pr">$68</span><span class="rg">$93</span></div></div>
+        </a>
+        <a class="pcard" href="/shows/comedy/steve-falcons-comedy-hypnosis-hour/">
+          <div class="imgw"><img src="/images/steve-falcons-comedy-hypnosis-hour-hero.webp" alt="Steve Falcon's Comedy Hypnosis Hour"><span class="save">SAVE $14</span><span class="cat">Comedy</span></div>
+          <div class="bd"><div class="nm">Steve Falcon's Hypnosis</div><div class="vn">Underground Theater · MGM Grand</div><div class="prow"><span class="from">From</span><span class="pr">$58</span><span class="rg">$72</span></div></div>
+        </a>
+        <a class="pcard" href="/shows/magic/now-you-see-me-live/">
+          <div class="imgw"><img src="/images/now-you-see-me-live-hero.webp" alt="Now You See Me LIVE"><span class="cat">Magic</span></div>
+          <div class="bd"><div class="nm">Now You See Me LIVE</div><div class="vn">MGM Grand Theater</div><div class="prow"><span class="from">From</span><span class="pr">$72</span></div></div>
+        </a>
+      </div>
+      <div class="swipe-hint">Swipe for more picks &rarr;</div>
+    </div>
+  </div>
+</section>
+
+<div id="vs-footer"></div>
+<script src="/components/header.js?v=8"></script>
+<script src="/components/footer.js?v=9"></script>
+</body>
+</html>
