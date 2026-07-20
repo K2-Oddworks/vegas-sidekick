@@ -552,6 +552,18 @@ function closeCompare() {
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCompare(); });
 
+// Deep-link a sort via ?sort=price|name|order (e.g. /shows/?sort=price for lowest price first)
+(function applyUrlSort() {
+  const s = new URLSearchParams(window.location.search).get('sort');
+  const idx = { order: 0, name: 1, price: 2 };
+  if (s && Object.prototype.hasOwnProperty.call(idx, s)) {
+    sort = s;
+    const btns = document.querySelectorAll('.sort-btn');
+    btns.forEach(b => b.classList.remove('active'));
+    if (btns[idx[s]]) btns[idx[s]].classList.add('active');
+  }
+})();
+
 renderGrid();
 </script>
 <script src="/components/header.js?v=8"></script>
