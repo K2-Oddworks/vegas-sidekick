@@ -4,232 +4,208 @@
     <loc>https://vegassidekick.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <lastmod>2026-07-20</lastmod>
   </url>
   <url>
     <loc>https://vegassidekick.com/shows/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/adult/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2026-07-20</lastmod>
   </url>
   <url>
     <loc>https://vegassidekick.com/shows/cirque/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/shows/magic/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <lastmod>2026-07-20</lastmod>
   </url>
   <url>
     <loc>https://vegassidekick.com/shows/comedy/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <lastmod>2026-07-20</lastmod>
   </url>
   <url>
-    <loc>https://vegassidekick.com/shows/comedy/carrot-top/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/shows/comedy/steve-falcons-comedy-hypnosis-hour/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <lastmod>2026-07-18</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/shows/comedy/laugh-factory/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <lastmod>2026-05-02</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/shows/comedy/marc-savard-comedy-hypnosis/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/shows/comedy/brad-garretts-comedy-club/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/shows/comedy/tape-face/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/shows/comedy/comedy-cellar/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/shows/comedy/popovich-comedy-pet-theater/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/shows/comedy/la-comedy-club/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/shows/comedy/las-vegas-live-comedy-club/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/shows/magic/nathan-burton-comedy-magic/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/shows/magic/mac-king/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/shows/magic/criss-angel/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/shows/magic/now-you-see-me-live/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <lastmod>2026-07-17</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/shows/comedy/marriage-can-be-murder/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/news/</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/news/bini-signals-world-tour-august-8/</loc>
+    <loc>https://vegassidekick.com/shows/family/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <lastmod>2026-04-25</lastmod>
+    <lastmod>2026-07-20</lastmod>
   </url>
   <url>
-    <loc>https://vegassidekick.com/news/soda-stereo-ecos-september-13/</loc>
+    <loc>https://vegassidekick.com/shows/magic/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <lastmod>2026-05-04</lastmod>
+    <lastmod>2026-07-20</lastmod>
   </url>
   <url>
-    <loc>https://vegassidekick.com/news/eagles-sphere-additional-shows-2026/</loc>
+    <loc>https://vegassidekick.com/shows/music/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <lastmod>2026-05-05</lastmod>
+    <lastmod>2026-07-20</lastmod>
   </url>
   <url>
-    <loc>https://vegassidekick.com/news/jay-silent-bob-save-vegas-october-16/</loc>
+    <loc>https://vegassidekick.com/shows/spectaculars/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <lastmod>2026-05-05</lastmod>
+    <lastmod>2026-07-20</lastmod>
   </url>
   <url>
-    <loc>https://vegassidekick.com/news/live-nation-las-vegas-listings-update-may-2026/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <lastmod>2026-05-07</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/news/matt-rife-stay-golden-dolby-live-december-4/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <lastmod>2026-05-12</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/news/tumua-das-how-tour-venetian-october-9/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <lastmod>2026-05-18</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/news/for-king-country-pearl-palms-october-8/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <lastmod>2026-05-18</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/news/clay-walker-venetian-december-5/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <lastmod>2026-05-18</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/news/smashing-pumpkins-rats-in-a-cage-tour-mgm-grand-october-30/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <lastmod>2026-05-18</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/news/new-shows-announced-may-14-2026/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <lastmod>2026-05-14</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/news/alicia-villarreal-bendita-locura-pearl-palms-november-28/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <lastmod>2026-06-15</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/news/lewis-black-live-venetian-october-30/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <lastmod>2026-05-19</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/news/new-shows-announced-may-19-2026/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <lastmod>2026-05-19</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/news/marco-antonio-solis-tour-gratitud-dolby-live-september-11/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <lastmod>2026-05-19</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/news/blue-dot-fever-what-it-means-for-vegas/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <lastmod>2026-05-10</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/shows/music/jabbawockeez/</loc>
+    <loc>https://vegassidekick.com/shows/adult/atomic-saloon/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-07-20</lastmod>
   </url>
   <url>
-    <loc>https://vegassidekick.com/shows/music/all-motown/</loc>
+    <loc>https://vegassidekick.com/shows/adult/chippendales/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <lastmod>2026-07-19</lastmod>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/adult/fantasy/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
   </url>
   <url>
     <loc>https://vegassidekick.com/shows/adult/magic-mike-live/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/adult/rouge/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
   </url>
   <url>
     <loc>https://vegassidekick.com/shows/adult/thunder-from-down-under/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-07-20</lastmod>
   </url>
   <url>
-    <loc>https://vegassidekick.com/shows/spectaculars/absinthe/</loc>
+    <loc>https://vegassidekick.com/shows/adult/x-burlesque/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/adult/x-country/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/adult/x-rocks/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/adult/zombie-burlesque/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/cirque/ka/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/cirque/mad-apple/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/cirque/michael-jackson-one/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/cirque/mystere/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/cirque/o/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/comedy/brad-garretts-comedy-club/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/comedy/carrot-top/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/comedy/comedy-cellar/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/comedy/la-comedy-club/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/comedy/las-vegas-live-comedy-club/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/comedy/laugh-factory/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/comedy/marc-savard-comedy-hypnosis/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/comedy/marriage-can-be-murder/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/comedy/popovich-comedy-pet-theater/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/comedy/steve-falcons-comedy-hypnosis-hour/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/comedy/tape-face/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <lastmod>2026-07-20</lastmod>
@@ -238,50 +214,330 @@
     <loc>https://vegassidekick.com/shows/family/battlebots-destruct-a-thon/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <lastmod>2026-05-29</lastmod>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/family/tournament-of-kings/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/family/v-the-ultimate-variety-show/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/magic/allstars-of-magic/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/magic/an-r-rated-magic-show/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/magic/colin-cloud/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/magic/criss-angel/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/magic/mac-king/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/magic/mat-franco/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/magic/nathan-burton-comedy-magic/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/magic/now-you-see-me-live/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/magic/penn-and-teller/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/magic/shin-lim/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/magic/the-mentalist/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/music/all-motown/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/music/all-shook-up/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/music/blue-man-group/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/music/jabbawockeez/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/music/rupauls-drag-race-live/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/music/vegas-the-show/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/spectaculars/absinthe/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/spectaculars/awakening/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/spectaculars/wizard-of-oz/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/shows/spectaculars/wow-the-vegas-spectacular/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/news/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/news/alicia-villarreal-bendita-locura-pearl-palms-november-28/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/news/backstreet-boys-f1-afterparty-sphere-november-21/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/news/best-vegas-shows-for-first-timers/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/news/bini-signals-world-tour-august-8/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/news/blue-dot-fever-what-it-means-for-vegas/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/news/clay-walker-venetian-december-5/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/news/daughtry-20-years-unplugged-pearl-palms-november-7/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/news/eagles-sphere-additional-shows-2026/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/news/for-king-country-pearl-palms-october-8/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/news/jay-silent-bob-save-vegas-october-16/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/news/jo-koy-live-colosseum-caesars-palace-september-19/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/news/lewis-black-live-venetian-october-30/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/news/live-nation-las-vegas-listings-update-may-2026/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/news/marco-antonio-solis-tour-gratitud-dolby-live-september-11/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/news/matt-rife-stay-golden-dolby-live-december-4/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/news/new-shows-announced-may-14-2026/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/news/new-shows-announced-may-19-2026/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/news/smashing-pumpkins-rats-in-a-cage-tour-mgm-grand-october-30/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/news/soda-stereo-ecos-september-13/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/news/tumua-das-how-tour-venetian-october-9/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/play/koko-plinko/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/play/stephen-skates/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <lastmod>2026-07-16</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/play/walk-the-strip/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/about/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/about/kris-kidd/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <lastmod>2026-07-20</lastmod>
   </url>
   <url>
     <loc>https://vegassidekick.com/affiliate-disclosure/</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+    <lastmod>2026-07-20</lastmod>
   </url>
   <url>
-    <loc>https://vegassidekick.com/about/</loc>
+    <loc>https://vegassidekick.com/contact/</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.4</priority>
+    <lastmod>2026-07-20</lastmod>
   </url>
   <url>
     <loc>https://vegassidekick.com/privacy/</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://vegassidekick.com/search/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <lastmod>2026-07-20</lastmod>
   </url>
   <url>
     <loc>https://vegassidekick.com/terms/</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/news/daughtry-20-years-unplugged-pearl-palms-november-7/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <lastmod>2026-06-16</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/news/jo-koy-live-colosseum-caesars-palace-september-19/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <lastmod>2026-06-16</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/news/best-vegas-shows-for-first-timers/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-    <lastmod>2026-06-30</lastmod>
-  </url>
-  <url>
-    <loc>https://vegassidekick.com/news/backstreet-boys-f1-afterparty-sphere-november-21/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <lastmod>2026-07-17</lastmod>
+    <lastmod>2026-07-20</lastmod>
   </url>
 </urlset>

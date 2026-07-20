@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Internal / non-public areas
+Disallow: /admin/
+Disallow: /preview/
+Disallow: /logo-sample/
+Disallow: /striptacular/
+Disallow: /mom/
+Disallow: /_archive/
+Disallow: /shows/comedy/carrot-top/test-v1/
+
+Sitemap: https://vegassidekick.com/sitemap.xml
