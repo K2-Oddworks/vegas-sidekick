@@ -81,10 +81,9 @@
   @media (max-width:900px){
     .hero-inner{grid-template-columns:1fr;gap:22px;padding:26px 18px 34px}
     .picks{background:none;border:none;padding:0}
-    .picks-grid{display:flex;overflow-x:auto;gap:12px;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:4px;margin:0 -18px;padding-left:18px;padding-right:18px;min-width:0}
-    .picks-grid::-webkit-scrollbar{display:none}
-    .pcard{flex:0 0 min(230px,66vw);scroll-snap-align:start}
-    .swipe-hint{display:block;text-align:center;font-size:.72rem;color:rgba(255,255,255,.4);margin-top:8px}
+    .picks-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;min-width:0}
+    .pcard{min-width:0}
+    .swipe-hint{display:none}
     .ctas .cta{flex:1}
   }
   @media (max-width:520px){ .hero h1{font-size:2.2rem} }
