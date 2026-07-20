@@ -17,7 +17,7 @@
     --display:'Bebas Neue',sans-serif;--cond:'Barlow Condensed',sans-serif;--body:'Barlow',sans-serif;
   }
   html{scroll-behavior:smooth}
-  body{font-family:var(--body);background:var(--navy);color:var(--white);line-height:1.5;-webkit-font-smoothing:antialiased}
+  body{font-family:var(--body);background:var(--navy);color:var(--white);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
   img{max-width:100%;display:block}
   a{text-decoration:none;color:inherit}
 
@@ -31,7 +31,7 @@
   /* HERO */
   .hero{position:relative;overflow:hidden;background:radial-gradient(ellipse at 78% 40%,rgba(26,107,255,.14) 0%,transparent 55%),var(--navy)}
   .hero::after{content:'';position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--orange))}
-  .hero-inner{max-width:1200px;margin:0 auto;padding:40px 24px 46px;display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center}
+  .hero-inner{max-width:1200px;margin:0 auto;padding:40px 24px 46px;display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}
 
   .badge{display:inline-block;font-family:var(--body);font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:.62rem;color:var(--blue-lt);border:1px solid rgba(91,155,255,.4);border-radius:100px;padding:5px 12px;margin-bottom:16px}
   .hero h1{font-family:var(--display);font-size:clamp(2.6rem,5vw,4rem);line-height:.9;letter-spacing:.01em;margin-bottom:14px;text-wrap:balance}
@@ -53,7 +53,8 @@
   .cta-ghost .small{color:rgba(255,255,255,.55)}
 
   /* PICKS panel */
-  .picks{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:16px}
+  .hero-left{min-width:0}
+  .picks{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:16px;min-width:0}
   .picks-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
   .picks-hd .t{font-family:var(--cond);font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:.86rem;color:#fff}
   .picks-hd .t .dot{color:var(--orange)}
@@ -73,18 +74,22 @@
   .pcard .pr{font-family:var(--cond);font-weight:800;font-size:1.25rem;color:var(--orange);line-height:1}
   .pcard .rg{font-family:var(--cond);font-weight:600;font-size:.72rem;color:rgba(255,255,255,.35);text-decoration:line-through}
 
+  .picks-cta{display:block;text-align:center;margin-top:10px;padding:13px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);color:#fff;font-family:var(--cond);font-weight:800;text-transform:uppercase;letter-spacing:.04em;font-size:.98rem;transition:.18s}
+  .picks-cta:hover{background:rgba(255,107,43,.14);border-color:var(--orange)}
   .swipe-hint{display:none}
 
   @media (max-width:900px){
     .hero-inner{grid-template-columns:1fr;gap:22px;padding:26px 18px 34px}
     .picks{background:none;border:none;padding:0}
-    .picks-grid{display:flex;overflow-x:auto;gap:12px;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:4px;margin:0 -18px;padding-left:18px;padding-right:18px}
+    .picks-grid{display:flex;overflow-x:auto;gap:12px;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:4px;margin:0 -18px;padding-left:18px;padding-right:18px;min-width:0}
     .picks-grid::-webkit-scrollbar{display:none}
     .pcard{flex:0 0 min(230px,66vw);scroll-snap-align:start}
     .swipe-hint{display:block;text-align:center;font-size:.72rem;color:rgba(255,255,255,.4);margin-top:8px}
     .ctas .cta{flex:1}
   }
-  @media (max-width:420px){ .hero h1{font-size:2.4rem} }
+  @media (max-width:520px){ .hero h1{font-size:2.2rem} }
+  @media (max-width:400px){ .hero h1{font-size:1.95rem} }
+  @media (max-width:360px){ .hero h1{font-size:1.8rem} }
 </style>
 </head>
 <body>
@@ -100,7 +105,7 @@
   <div class="hero-inner">
     <div class="hero-left">
       <span class="badge">Your Vegas Insider</span>
-      <h1><span class="b">BIGGEST SHOWS.</span><br><span class="o">REAL DISCOUNTS.</span> NO BS.</h1>
+      <h1><span class="b">BIGGEST VEGAS SHOWS.</span><br><span class="o">REAL DISCOUNTS.</span> NO BS.</h1>
       <p class="hero-sub">The best Las Vegas show tickets at real discounts — no membership, no hidden fees, no markup games.</p>
       <div class="trust">
         <span><b>&#10003;</b>No Hidden Fees</span>
@@ -121,28 +126,36 @@
 
     <div class="picks">
       <div class="picks-hd">
-        <div class="t"><span class="dot">🌵</span> Tonight's Top Picks</div>
-        <a href="/shows/" class="all">See all &rarr;</a>
+        <div class="t"><span class="dot">🌵</span> Featured Shows</div>
       </div>
       <div class="picks-grid">
-        <a class="pcard" href="/shows/music/all-motown/">
-          <div class="imgw"><img src="/images/all-motown-hero.webp" alt="All Motown"><span class="save">60% OFF</span><span class="cat">Music</span></div>
-          <div class="bd"><div class="nm">All Motown</div><div class="vn">Athena Showlounge · Alexis Park</div><div class="prow"><span class="from">From</span><span class="pr">$40</span><span class="rg">$100</span></div></div>
-        </a>
         <a class="pcard" href="/shows/cirque/mystere/">
           <div class="imgw"><img src="/images/mystere-hero.jpg" alt="Mystère by Cirque du Soleil"><span class="save">SAVE $25</span><span class="cat">Cirque</span></div>
           <div class="bd"><div class="nm">Mystère</div><div class="vn">Cirque du Soleil · TI Hotel</div><div class="prow"><span class="from">From</span><span class="pr">$68</span><span class="rg">$93</span></div></div>
         </a>
-        <a class="pcard" href="/shows/comedy/steve-falcons-comedy-hypnosis-hour/">
-          <div class="imgw"><img src="/images/steve-falcons-comedy-hypnosis-hour-hero.webp" alt="Steve Falcon's Comedy Hypnosis Hour"><span class="save">SAVE $14</span><span class="cat">Comedy</span></div>
-          <div class="bd"><div class="nm">Steve Falcon's Hypnosis</div><div class="vn">Underground Theater · MGM Grand</div><div class="prow"><span class="from">From</span><span class="pr">$58</span><span class="rg">$72</span></div></div>
+        <a class="pcard" href="/shows/music/vegas-the-show/">
+          <div class="imgw"><img src="/images/vegas-the-show-hero.webp" alt="VEGAS! The Show"><span class="save">SAVE $35</span><span class="cat">Music</span></div>
+          <div class="bd"><div class="nm">VEGAS! The Show</div><div class="vn">Saxe Theater · Planet Hollywood</div><div class="prow"><span class="from">From</span><span class="pr">$55</span><span class="rg">$90</span></div></div>
         </a>
-        <a class="pcard" href="/shows/magic/now-you-see-me-live/">
-          <div class="imgw"><img src="/images/now-you-see-me-live-hero.webp" alt="Now You See Me LIVE"><span class="cat">Magic</span></div>
-          <div class="bd"><div class="nm">Now You See Me LIVE</div><div class="vn">MGM Grand Theater</div><div class="prow"><span class="from">From</span><span class="pr">$72</span></div></div>
+        <a class="pcard" href="/shows/magic/criss-angel/">
+          <div class="imgw"><img src="/images/criss-angel-hero.jpg" alt="Criss Angel MINDFREAK"><span class="save">SAVE $45</span><span class="cat">Magic</span></div>
+          <div class="bd"><div class="nm">Criss Angel MINDFREAK</div><div class="vn">Criss Angel Theater · Planet Hollywood</div><div class="prow"><span class="from">From</span><span class="pr">$117</span><span class="rg">$162</span></div></div>
+        </a>
+        <a class="pcard" href="/shows/spectaculars/awakening/">
+          <div class="imgw"><img src="/images/awakening-hero.webp" alt="Awakening at Wynn Las Vegas"><span class="cat">Spectacular</span></div>
+          <div class="bd"><div class="nm">Awakening</div><div class="vn">Awakening Theater · Wynn</div><div class="prow"><span class="from">From</span><span class="pr">$70</span></div></div>
+        </a>
+        <a class="pcard" href="/shows/adult/zombie-burlesque/">
+          <div class="imgw"><img src="/images/zombie-burlesque-hero.jpg" alt="Zombie Burlesque"><span class="save">SAVE $17</span><span class="cat">Adult</span></div>
+          <div class="bd"><div class="nm">Zombie Burlesque</div><div class="vn">V Theater · Planet Hollywood</div><div class="prow"><span class="from">From</span><span class="pr">$51</span><span class="rg">$68</span></div></div>
+        </a>
+        <a class="pcard" href="/shows/family/tournament-of-kings/">
+          <div class="imgw"><img src="/images/tournament-of-kings-hero.webp" alt="Tournament of Kings at Excalibur"><span class="cat">Family</span></div>
+          <div class="bd"><div class="nm">Tournament of Kings</div><div class="vn">King Arthur's Arena · Excalibur</div><div class="prow"><span class="from">From</span><span class="pr">$74</span></div></div>
         </a>
       </div>
-      <div class="swipe-hint">Swipe for more picks &rarr;</div>
+      <a href="/shows/" class="picks-cta">🎟️ 50+ Shows to Choose From &rarr;</a>
+      <div class="swipe-hint">Swipe for more &rarr;</div>
     </div>
   </div>
 </section>
