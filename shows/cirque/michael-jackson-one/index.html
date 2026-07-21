@@ -163,7 +163,7 @@
     #progress-bar::after, #progress-bar-bottom::after { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%); animation: pb-shimmer 2.2s linear infinite; }
     @keyframes pb-shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
     @keyframes pb-glow { 0%, 100% { box-shadow: 0 0 3px rgba(255,107,0,0.3); } 50% { box-shadow: 0 0 12px rgba(255,184,77,0.8), 0 0 4px rgba(255,107,0,0.5); } }
-    @media (max-width: 940px) { #progress-bar-bottom { bottom: 72px; } }
+    @media (max-width: 940px) { #progress-bar-bottom { display: none; } }
 
     /* ── DOT NAV ── */
     .dot-nav { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); z-index: 500; display: flex; flex-direction: column; gap: 12px; }
