@@ -12,6 +12,7 @@
     <li><a href="/shows/cirque/">Cirque</a></li>
     <li><a href="/shows/music/">Music</a></li>
     <li><a href="/shows/family/">Family</a></li>
+    <li><a href="/guides/">Guides</a></li>
     <li class="nav-more">
       <button class="nav-more-btn" aria-haspopup="true">MORE &#9660;</button>
       <div class="nav-more-menu">
@@ -39,6 +40,7 @@
   <a href="/shows/spectaculars/">Spectaculars</a>
   <a href="/shows/family/">Family Shows</a>
   <a href="/shows/adult/">Adult Shows</a>
+  <a href="/guides/" class="mobile-drawer-guides">🌵 Guides</a>
   <a href="/news/" class="mobile-drawer-dispatch">Vegas Dispatch</a>
   <a href="/shows/" class="mobile-drawer-cta">All Shows →</a>
 </div>
@@ -50,10 +52,10 @@
 #vs-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: 10px 40px; background: rgba(10,22,40,0.95); backdrop-filter: blur(12px); }
 #vs-nav::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #FF6B2B 0%, #1A6BFF 100%); }
 .nav-logo { display: flex !important; align-items: center; } .vs-logo-text { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 2.1rem; letter-spacing: .03em; text-transform: uppercase; line-height: 1; white-space: nowrap; } .vs-lv { color: #1A6BFF; } .vs-ls { color: #FF6B2B; }
-.nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+.nav-links { display: flex; gap: 22px; list-style: none; align-items: center; }
 .nav-links a { color: #D4DCE8; text-decoration: none; font-weight: 600; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; font-family: 'Barlow', sans-serif; }
 .nav-links a:hover { color: #FF6B2B; }
-.nav-cta { background: #FF6B2B !important; color: #0A1628 !important; padding: 8px 20px; border-radius: 4px; border: 2px solid #60A5FA; }
+.nav-cta { background: #FF6B2B !important; color: #0A1628 !important; padding: 8px 18px; border-radius: 4px; border: 2px solid #60A5FA; white-space: nowrap; }
 .nav-mobile-right { display: none; align-items: center; gap: 8px; }
 .nav-mobile-tickets { display: inline-block; background: #FF6B2B; color: #0A1628 !important; font-family: 'Barlow Condensed', 'Barlow', sans-serif; font-weight: 800; font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; padding: 6px 12px; border-radius: 4px; border: 2px solid #60A5FA; white-space: nowrap; transition: background 0.2s; }
 .nav-mobile-tickets:hover { background: #e85e22; }
@@ -68,12 +70,14 @@
 .drawer-search input:focus { border-color: #60A5FA; box-shadow: 0 0 0 3px rgba(96,165,250,0.35); }
 .drawer-search button { flex: 0 0 auto; background: #FF6B2B; color: #0A1628; border: none; border-radius: 8px; padding: 0 14px; font-size: 1rem; cursor: pointer; transition: background 0.2s; }
 .drawer-search button:hover { background: #e85e22; }
-.mobile-drawer-dispatch { border-left: 3px solid #FF6B2B !important; padding-left: 12px !important; color: #FF8C2A !important; margin-top: 4px; }
+.mobile-drawer-guides { border-left: 3px solid #60A5FA !important; padding-left: 12px !important; color: #8FC0FF !important; margin-top: 4px; }
+.mobile-drawer-guides:hover { color: #FFFFFF !important; }
+.mobile-drawer-dispatch { border-left: 3px solid #FF6B2B !important; padding-left: 12px !important; color: #FF8C2A !important; }
 .mobile-drawer-dispatch:hover { color: #FFB347 !important; }
 .mobile-drawer-cta { background: #FF6B2B !important; color: #0A1628 !important; text-align: center; border-radius: 6px; padding: 14px !important; border-bottom: none !important; margin-top: 8px; }
 .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 250; }
 .nav-overlay.visible { display: block; }
-@media (max-width: 900px) {
+@media (max-width: 1240px) {
   #vs-nav { padding: 8px 20px; }
   .nav-logo img { height: 54px !important; } .vs-logo-text { font-size: 1.5rem; }
   .nav-links { display: none; }
