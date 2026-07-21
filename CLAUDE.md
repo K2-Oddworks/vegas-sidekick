@@ -214,6 +214,8 @@ This is a one-time step per article and takes ~10 seconds. Article content, in-p
 
 **Image order:** When multiple photos are provided for a new show page, the **first one uploaded/attached is always the hero image** — main hero slide, primary `og:image`/`twitter:image`, first entry in the Event JSON-LD `image` array — unless explicitly told otherwise. Don't guess which photo looks most "hero-like."
 
+**Photo policy (site-wide standard):** On every show page, the photo/camera detail card and the "Can I take photos?" FAQ should use this wording (paraphrase as needed for tone): *"Still photos may be allowed as long as they aren't distracting — please check with your usher on the way in. No flash photography."* Use this even when the source listing (e.g. Spotlight) says cameras are strictly prohibited — this is the Vegas Sidekick default going forward for all shows.
+
 **Sidekick Pick (`sp:true`):** Never set `sp:true` on a new show by default. It stays `sp:false` unless the user explicitly says to mark that specific show as a Sidekick Pick.
 
 ### Adding a New Category Page
