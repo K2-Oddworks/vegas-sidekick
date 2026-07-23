@@ -118,7 +118,9 @@
   }
   @media (max-width:900px){
     .room, .room.reverse{ grid-template-columns:1fr; direction:ltr; }
-    .room-media{ min-height:48vh; }
+    /* Show the whole photo on mobile — no crop */
+    .room-media{ min-height:0; overflow:visible; }
+    .room-media img{ height:auto; object-fit:contain; transform:none !important; }
     .room-copy{ padding:54px 26px; }
   }
 
@@ -260,7 +262,7 @@
       <h3 class="serif">Living Room</h3>
       <div class="room-tag">for an old friend who's earned the good chair</div>
       <p>Named for a small, gentle Yorkie who's seen enough of the world to know exactly where the sun lands in the afternoon. A leather chair, a warm fire, and a little bed tucked right into that patch of light. Nobody's in a hurry here.</p>
-      <div class="detail">Suite 1 of 3 — Living Room</div>
+      <div class="detail">Room 1 of 3 — Living Room</div>
     </div>
   </section>
 
@@ -273,7 +275,7 @@
       <h3 class="serif">Bedroom</h3>
       <div class="room-tag">a proper Sunday nap, any day of the week</div>
       <p>Soft caramel and dusty blue, low to the ground, easy to climb onto. The garden just outside the window does most of the talking.</p>
-      <div class="detail">Suite 2 of 3 — Bedroom</div>
+      <div class="detail">Room 2 of 3 — Bedroom</div>
     </div>
   </section>
 
@@ -286,7 +288,7 @@
       <h3 class="serif">Bath</h3>
       <div class="room-tag">a small paw print, if you look</div>
       <p>Brass hardware carries his mark quietly on every drawer. The tub looks straight out over the gardens — the kind of soak that isn't going anywhere fast.</p>
-      <div class="detail">Suite 3 of 3 — Bath</div>
+      <div class="detail">Room 3 of 3 — Bath</div>
     </div>
   </section>
 
@@ -299,7 +301,7 @@
       <h3 class="serif">Living Room</h3>
       <div class="room-tag">a little guarded at the door — worth the wait</div>
       <p>Named for a small black rescue with a mind of his own. The entry's composed, almost cool — but follow the light back to the corner and the room opens right up: a mismatched gallery wall, a well-loved leather chair, and a brass dog lamp that's clearly the one in charge.</p>
-      <div class="detail">Suite 1 of 3 — Living Room</div>
+      <div class="detail">Room 1 of 3 — Living Room</div>
     </div>
   </section>
 
@@ -312,7 +314,7 @@
       <h3 class="serif">Bedroom</h3>
       <div class="room-tag">a little eclectic, entirely on purpose</div>
       <p>Charcoal and mustard, mixed patterns that don't quite match and don't need to. A small brass dog keeps watch from the dresser.</p>
-      <div class="detail">Suite 2 of 3 — Bedroom</div>
+      <div class="detail">Room 2 of 3 — Bedroom</div>
     </div>
   </section>
 
@@ -325,7 +327,7 @@
       <h3 class="serif">Bath</h3>
       <div class="room-tag">warms up, same as he does</div>
       <p>Composed near the door, golden by the tub. Give it a minute. It's worth it.</p>
-      <div class="detail">Suite 3 of 3 — Bath</div>
+      <div class="detail">Room 3 of 3 — Bath</div>
     </div>
   </section>
 
@@ -412,7 +414,7 @@
     const text = el.textContent; el.textContent = '';
     [...text].forEach(ch=>{
       const sp = document.createElement('span'); sp.className = 'ltr';
-      sp.textContent = (ch === ' ') ? ' ' : ch; el.appendChild(sp);
+      sp.textContent = (ch === ' ') ? '\u00A0' : ch; el.appendChild(sp);
     });
   });
 
