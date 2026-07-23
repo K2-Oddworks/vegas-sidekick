@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>The Serling — Hotel · Casino · Resort</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0A0F2C;
+    --charcoal:#15161A;
+    --brass:#C9A15A;
+    --brass-dim:#8a7040;
+    --cream:#EDE6D6;
+    --cream-dim:#c9c1ae;
+    --terracotta:#B4562F;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--charcoal);
+    color:var(--cream);
+    font-family:'Barlow Condensed', sans-serif;
+    overflow-x:hidden;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  h1,h2,h3{font-family:'Bebas Neue', sans-serif; letter-spacing:0.04em; font-weight:400;}
+  .room-name{font-family:'Fraunces', serif; font-weight:500; font-style:normal;}
+
+  a{color:inherit;}
+  ::selection{background:var(--brass); color:var(--navy);}
+
+  /* ---------- Signature rotating ring ---------- */
+  .ring-bg{
+    position:fixed;
+    top:50%; left:50%;
+    width:140vmax; height:140vmax;
+    transform:translate(-50%,-50%);
+    pointer-events:none;
+    z-index:0;
+    opacity:0.05;
+  }
+  .ring-bg svg{width:100%; height:100%; animation:spin 180s linear infinite;}
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+
+  /* ---------- Nav dots ---------- */
+  .dot-nav{
+    position:fixed;
+    right:28px; top:50%;
+    transform:translateY(-50%);
+    z-index:50;
+    display:flex; flex-direction:column; gap:16px;
+  }
+  .dot-nav a{
+    width:8px; height:8px;
+    border-radius:50%;
+    background:rgba(237,230,214,0.25);
+    display:block;
+    transition:background 0.3s, transform 0.3s;
+  }
+  .dot-nav a:hover, .dot-nav a.active{
+    background:var(--brass);
+    transform:scale(1.4);
+  }
+  @media (max-width:820px){ .dot-nav{display:none;} }
+
+  /* ---------- Header / Hero ---------- */
+  header.hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    background:
+      linear-gradient(180deg, rgba(10,15,44,0.35) 0%, rgba(10,15,44,0.55) 55%, var(--charcoal) 100%),
+      url('images/exterior.webp') center 60% / cover no-repeat;
+    padding:24px;
+  }
+  .eyebrow{
+    font-family:'Barlow Condensed', sans-serif;
+    letter-spacing:0.35em;
+    text-transform:uppercase;
+    font-size:13px;
+    color:var(--brass);
+    margin-bottom:22px;
+  }
+  header.hero h1{
+    font-size:clamp(64px, 14vw, 160px);
+    line-height:0.9;
+    color:var(--cream);
+    text-shadow:0 4px 40px rgba(0,0,0,0.5);
+  }
+  header.hero .sub{
+    margin-top:20px;
+    font-size:clamp(15px, 2vw, 20px);
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--cream-dim);
+  }
+  .scroll-cue{
+    position:absolute;
+    bottom:36px;
+    font-size:12px;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:var(--cream-dim);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+  }
+  .scroll-cue .line{
+    width:1px; height:40px;
+    background:linear-gradient(var(--brass), transparent);
+    animation:pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse{ 0%,100%{opacity:0.3;} 50%{opacity:1;} }
+
+  /* ---------- Intro strip ---------- */
+  .intro{
+    max-width:760px;
+    margin:0 auto;
+    padding:140px 24px;
+    text-align:center;
+  }
+  .intro h2{
+    font-size:clamp(28px,4vw,44px);
+    color:var(--brass);
+    margin-bottom:28px;
+    letter-spacing:0.06em;
+  }
+  .intro p{
+    font-size:clamp(17px,2vw,20px);
+    line-height:1.7;
+    color:var(--cream-dim);
+    font-weight:400;
+  }
+  .intro p + p{margin-top:18px;}
+
+  /* ---------- Room sections ---------- */
+  .room{
+    position:relative;
+    min-height:100vh;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    align-items:stretch;
+  }
+  .room.reverse{direction:rtl;}
+  .room.reverse .room-copy{direction:ltr;}
+  .room-media{
+    position:relative;
+    min-height:60vh;
+    overflow:hidden;
+  }
+  .room-media img{
+    width:100%; height:100%;
+    object-fit:cover;
+    display:block;
+    filter:saturate(1.02);
+  }
+  .room-copy{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:80px 64px;
+    z-index:2;
+  }
+  .room-index{
+    font-family:'Barlow Condensed', sans-serif;
+    font-size:14px;
+    letter-spacing:0.3em;
+    color:var(--brass-dim);
+    text-transform:uppercase;
+    margin-bottom:18px;
+  }
+  .room-copy h3{
+    font-size:clamp(30px,3.4vw,48px);
+    letter-spacing:0.02em;
+    color:var(--cream);
+    margin-bottom:6px;
+  }
+  .room-copy .room-tag{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:400;
+    color:var(--brass);
+    font-size:clamp(16px,1.6vw,20px);
+    margin-bottom:26px;
+  }
+  .room-copy p{
+    font-size:17px;
+    line-height:1.75;
+    color:var(--cream-dim);
+    font-weight:400;
+    max-width:480px;
+  }
+  .room-copy .detail{
+    margin-top:28px;
+    padding-top:22px;
+    border-top:1px solid rgba(201,161,90,0.25);
+    font-size:14px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--brass-dim);
+  }
+
+  @media (max-width:900px){
+    .room, .room.reverse{grid-template-columns:1fr; direction:ltr;}
+    .room-media{min-height:50vh;}
+    .room-copy{padding:56px 28px;}
+  }
+
+  /* ---------- Section-specific mood ---------- */
+  #robin-living .room-copy, #robin-bed .room-copy, #robin-bath .room-copy{
+    background:linear-gradient(135deg, #2a1c1c 0%, var(--charcoal) 100%);
+  }
+  #robin-living .room-tag, #robin-bed .room-tag, #robin-bath .room-tag{ color:var(--terracotta); }
+
+  #arts-bar .room-copy{ background:linear-gradient(135deg, #1c1210 0%, var(--charcoal) 100%); }
+  #bardstown .room-copy{ background:linear-gradient(135deg, #1a140c 0%, var(--charcoal) 100%); }
+  #lounge .room-copy{ background:linear-gradient(135deg, #0d0d10 0%, var(--charcoal) 100%); }
+  #lobby .room-copy, #atrium .room-copy{ background:linear-gradient(135deg, #14181f 0%, var(--charcoal) 100%); }
+  #pool .room-copy{ background:linear-gradient(135deg, #0a1420 0%, var(--charcoal) 100%); }
+
+  /* ---------- Family note (quiet, not a plaque tour) ---------- */
+  .note{
+    max-width:640px;
+    margin:0 auto;
+    padding:120px 24px;
+    text-align:center;
+    border-top:1px solid rgba(201,161,90,0.15);
+  }
+  .note .room-tag{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    color:var(--brass);
+    font-size:20px;
+    display:block;
+    margin-bottom:22px;
+  }
+  .note p{
+    font-size:17px;
+    line-height:1.8;
+    color:var(--cream-dim);
+    font-weight:400;
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding:100px 24px 60px;
+    text-align:center;
+    position:relative;
+    z-index:2;
+  }
+  footer h2{
+    font-size:clamp(40px,6vw,72px);
+    color:var(--cream);
+    margin-bottom:18px;
+  }
+  footer .sub{
+    color:var(--cream-dim);
+    font-size:15px;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    margin-bottom:40px;
+  }
+  footer .mark{
+    font-size:12px;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:var(--brass-dim);
+  }
+
+  /* fade-up reveal */
+  .reveal{
+    opacity:0;
+    transform:translateY(24px);
+    transition:opacity 0.9s ease, transform 0.9s ease;
+  }
+  .reveal.in{opacity:1; transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<div class="ring-bg" aria-hidden="true">
+  <svg viewBox="0 0 200 200">
+    <circle cx="100" cy="100" r="95" fill="none" stroke="#C9A15A" stroke-width="0.3"/>
+    <circle cx="100" cy="100" r="75" fill="none" stroke="#C9A15A" stroke-width="0.3"/>
+    <circle cx="100" cy="100" r="55" fill="none" stroke="#C9A15A" stroke-width="0.3"/>
+    <path d="M100 5 A95 95 0 0 1 195 100" fill="none" stroke="#C9A15A" stroke-width="0.6"/>
+    <path d="M100 25 A75 75 0 0 0 25 100" fill="none" stroke="#C9A15A" stroke-width="0.6"/>
+  </svg>
+</div>
+
+<nav class="dot-nav" aria-label="Section navigation">
+  <a href="#top" data-label="Top"></a>
+  <a href="#robin-living" data-label="Robin Suite"></a>
+  <a href="#arts-bar" data-label="Art's Bar"></a>
+  <a href="#bardstown" data-label="Bardstown"></a>
+  <a href="#lounge" data-label="Late Checkout"></a>
+  <a href="#lobby" data-label="Lobby"></a>
+  <a href="#atrium" data-label="Atrium"></a>
+  <a href="#pool" data-label="Pool"></a>
+</nav>
+
+<header class="hero" id="top">
+  <div class="eyebrow">Las Vegas, Nevada · Est. 1963</div>
+  <h1>THE SERLING</h1>
+  <div class="sub">Hotel · Casino · Resort</div>
+  <div class="scroll-cue"><span>Enter</span><span class="line"></span></div>
+</header>
+
+<section class="intro reveal">
+  <h2>You are entering a familiar place.</h2>
+  <p>A mid-century resort that never stopped believing in itself — boomerang concrete, diamond-lattice glass, a five-pointed star worked quietly into the stone. It looks like it opened in 1963 and simply never let itself go soft.</p>
+  <p>Every room here belongs to someone. Look closely enough, and you'll find them.</p>
+</section>
+
+<main>
+
+  <section class="room" id="robin-living">
+    <div class="room-media">
+      <img src="images/robin-living.webp" alt="The Robin Suite living room, warm mid-century furniture in coral, blue, and mustard, a horse painting above the credenza" loading="lazy">
+    </div>
+    <div class="room-copy reveal">
+      <div class="room-index">01 — The Robin Suite</div>
+      <h3 class="room-name">Living Room</h3>
+      <div class="room-tag">for the one who loves horses, birds, and bright color</div>
+      <p>Coral velvet against teal, a checkerboard rug underfoot, a running horse rendered in oil above the credenza. A brass heron watches from the shelf. This room doesn't ask you to relax — it just quietly makes it impossible not to.</p>
+      <div class="detail">Suite 1 of 3 — Living Room</div>
+    </div>
+  </section>
+
+  <section class="room reverse" id="robin-bed">
+    <div class="room-media">
+      <img src="images/robin-bedroom.webp" alt="The Robin Suite bedroom, blush tufted headboard, muted checkerboard rug, desert sunrise through the window" loading="lazy">
+    </div>
+    <div class="room-copy reveal">
+      <div class="room-index">01 — The Robin Suite</div>
+      <h3 class="room-name">Bedroom</h3>
+      <div class="room-tag">the quiet half</div>
+      <p>Turned down a notch from the room next door — a blush headboard, a muted rug, a brass bird resting on the dresser. Sunrise over the desert, most mornings, right through the window.</p>
+      <div class="detail">Suite 2 of 3 — Bedroom</div>
+    </div>
+  </section>
+
+  <section class="room" id="robin-bath">
+    <div class="room-media">
+      <img src="images/robin-bath.webp" alt="The Robin Suite bathroom, marble vanity, soaking tub with a Joshua tree desert view" loading="lazy">
+    </div>
+    <div class="room-copy reveal">
+      <div class="room-index">01 — The Robin Suite</div>
+      <h3 class="room-name">Bath</h3>
+      <div class="room-tag">a soak with the desert for company</div>
+      <p>The tub faces west, straight into a field of Joshua trees. Nothing in here is trying to impress you. It already has.</p>
+      <div class="detail">Suite 3 of 3 — Bath</div>
+    </div>
+  </section>
+
+  <section class="room reverse" id="arts-bar">
+    <div class="room-media">
+      <img src="images/arts-bar.webp" alt="Art's Bar, a yellow 1960s Corvette on a rotating platform surrounded by bar stools, Coca-Cola memorabilia on the walls" loading="lazy">
+    </div>
+    <div class="room-copy reveal">
+      <div class="room-index">02 — Art's Bar</div>
+      <h3 class="room-name">The Corvette Bar</h3>
+      <div class="room-tag">a career, a bike, and a very good car</div>
+      <p>The yellow '65 sits center stage on a slow rotating platform, because some things deserve to be seen from every angle. A lifetime with Coca-Cola glows on the wall behind the taps. A motorcycle stands guard by the door.</p>
+      <div class="detail">Est. 1963</div>
+    </div>
+  </section>
+
+  <section class="room" id="bardstown">
+    <div class="room-media">
+      <img src="images/bardstown.webp" alt="Bardstown steakhouse, bourbon wall, black and white photography, pinball machine and coffee cart beside the open kitchen" loading="lazy">
+    </div>
+    <div class="room-copy reveal">
+      <div class="room-index">03 — Bardstown</div>
+      <h3 class="room-name">Steakhouse</h3>
+      <div class="room-tag">a name that means something, if you know</div>
+      <p>Floor-to-ceiling bourbon, an open kitchen called Stephen's, and a pinball machine nobody's ever asked to move. Named for a street the man behind it knew better than most streets have any right to be known.</p>
+      <div class="detail">Stephen's Kitchen — Open Nightly</div>
+    </div>
+  </section>
+
+  <section class="room reverse" id="lounge">
+    <div class="room-media">
+      <img src="images/lounge.webp" alt="Late Checkout Lounge, small stage with an upright bass under a single spotlight, dark cocktail tables" loading="lazy">
+    </div>
+    <div class="room-copy reveal">
+      <div class="room-index">04 — Late Checkout Lounge</div>
+      <h3 class="room-name">The Listening Room</h3>
+      <div class="room-tag">no bar in sight, on purpose</div>
+      <p>Waitress service, a low stage, and whoever's playing tonight — probably someone you've never heard of, and probably better than you'd expect. The kind of room you find once and don't mention to too many people.</p>
+      <div class="detail">Nightly — Doors at Nine</div>
+    </div>
+  </section>
+
+  <section class="room" id="lobby">
+    <div class="room-media">
+      <img src="images/lobby.webp" alt="The Serling lobby, a brass clock with thirteen hour marks above the concierge desk, an impossible shadow pattern on the reflective floor" loading="lazy">
+    </div>
+    <div class="room-copy reveal">
+      <div class="room-index">05 — Arrival</div>
+      <h3 class="room-name">The Lobby</h3>
+      <div class="room-tag">look up at the clock. now look again.</div>
+      <p>Everything here is beautiful and correct, mostly. The lattice screen above the desk throws a shadow more intricate than its own geometry should allow. Nobody's ever complained. Most people never notice.</p>
+      <div class="detail">Concierge — 24 Hours</div>
+    </div>
+  </section>
+
+  <section class="room reverse" id="atrium">
+    <div class="room-media">
+      <img src="images/atrium.webp" alt="A massive kinetic brass sculpture suspended in a multi-story atrium, concentric rings rotating slowly at different speeds" loading="lazy">
+    </div>
+    <div class="room-copy reveal">
+      <div class="room-index">06 — The Atrium</div>
+      <h3 class="room-name">The Mechanism</h3>
+      <div class="room-tag">not glitzy. not exciting. just watch it.</div>
+      <p>Dozens of brass rings, each turning at its own unrelated speed, four stories tall, lit from within. No plaque explains it. No one's asked for one. People sit down to check their phone for a minute and stand up forty minutes later.</p>
+      <div class="detail">Always in Motion</div>
+    </div>
+  </section>
+
+  <section class="room" id="pool">
+    <div class="room-media">
+      <img src="images/pool.webp" alt="A still, dark reflecting pool at midday, private cabanas, desert landscaping, the Serling tower reflected in the water" loading="lazy">
+    </div>
+    <div class="room-copy reveal">
+      <div class="room-index">07 — Poolside</div>
+      <h3 class="room-name">The Pool</h3>
+      <div class="room-tag">no DJ. no line. just quiet.</div>
+      <p>The water sits dark and still enough to mirror the sky rather than compete with it. Cabanas spaced far enough apart to matter. Joshua trees where a splash pad would usually be. It's the one place on property built entirely for daylight.</p>
+      <div class="detail">Open Sunrise to Sunset</div>
+    </div>
+  </section>
+
+</main>
+
+<section class="note reveal">
+  <span class="room-tag">a word before you go</span>
+  <p>Every hotel claims a story. This one just happens to be true — three people, one building, and a name borrowed from a man who understood that the strangest things are the ones hiding in plain sight.</p>
+</section>
+
+<footer>
+  <h2>THE SERLING</h2>
+  <div class="sub">Las Vegas, Nevada</div>
+  <div class="mark">Hotel · Casino · Resort — Est. 1963</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); }
+    });
+  }, {threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+  // Active dot nav
+  const sections = document.querySelectorAll('header.hero, .room');
+  const dots = document.querySelectorAll('.dot-nav a');
+  const navObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      const id = entry.target.getAttribute('id');
+      const dot = document.querySelector('.dot-nav a[href="#'+id+'"]');
+      if(entry.isIntersecting && dot){
+        dots.forEach(d=>d.classList.remove('active'));
+        dot.classList.add('active');
+      }
+    });
+  }, {threshold:0.5});
+  sections.forEach(s=>navObserver.observe(s));
+</script>
+
+</body>
+</html>
