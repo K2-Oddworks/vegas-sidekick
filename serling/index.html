@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>The Serling — Hotel · Casino · Resort</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='5' fill='%2315161A'/%3E%3Cpath d='M16 4 L19.4 12.6 L28.6 13.1 L21.5 19 L23.8 28 L16 22.9 L8.2 28 L10.5 19 L3.4 13.1 L12.6 12.6 Z' fill='%23C9A15A'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Serling — Hotel · Casino · Resort">
+<meta property="og:description" content="A mid-century resort that never stopped believing in itself. Est. 1963. Every room here belongs to someone.">
+<meta property="og:image" content="https://vegassidekick.com/serling/images/og.jpg">
+<meta property="og:url" content="https://vegassidekick.com/serling/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Serling — Est. 1963">
+<meta name="twitter:description" content="You are entering a familiar place.">
+<meta name="twitter:image" content="https://vegassidekick.com/serling/images/og.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -287,9 +297,133 @@
     transition:opacity 0.9s ease, transform 0.9s ease;
   }
   .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---------- Scroll progress hairline ---------- */
+  #progress{
+    position:fixed; top:0; left:0; height:2px; width:0;
+    background:linear-gradient(90deg, var(--brass-dim), var(--brass));
+    box-shadow:0 0 8px rgba(201,161,90,0.6);
+    z-index:60; pointer-events:none;
+  }
+
+  /* ---------- Custom cursor ---------- */
+  .cursor-ring{
+    position:fixed; top:0; left:0; width:26px; height:26px;
+    border:1px solid var(--brass); border-radius:50%;
+    transform:translate(-50%,-50%); pointer-events:none; z-index:9999;
+    opacity:0; mix-blend-mode:screen;
+    transition:width .2s, height .2s, background .2s, opacity .35s;
+  }
+  .cursor-ring.hot{ width:46px; height:46px; background:rgba(201,161,90,0.08); }
+  @media (hover:none), (pointer:coarse){ .cursor-ring{display:none;} }
+  @media (prefers-reduced-motion:reduce){ .cursor-ring{display:none;} }
+
+  /* ---------- Dot-nav tooltips ---------- */
+  .dot-nav a{ position:relative; }
+  .dot-nav a::after{
+    content:attr(data-label); position:absolute; right:20px; top:50%;
+    transform:translateY(-50%) translateX(6px); white-space:nowrap;
+    font-family:'Barlow Condensed', sans-serif; font-size:11px;
+    letter-spacing:0.18em; text-transform:uppercase; color:var(--brass);
+    background:rgba(21,22,26,0.92); padding:4px 10px;
+    border:1px solid rgba(201,161,90,0.25); border-radius:3px;
+    opacity:0; pointer-events:none; transition:opacity .25s, transform .25s;
+  }
+  .dot-nav a:hover::after{ opacity:1; transform:translateY(-50%) translateX(0); }
+
+  /* ---------- 13-hour clock ---------- */
+  .clock{
+    position:fixed; left:24px; bottom:24px; width:76px; height:76px;
+    z-index:40; opacity:0.5; transition:opacity .4s;
+  }
+  .clock:hover{ opacity:0.92; }
+  .clock svg{ width:100%; height:100%; filter:drop-shadow(0 2px 10px rgba(0,0,0,0.55)); }
+  @media (max-width:820px){ .clock{ width:56px; height:56px; left:14px; bottom:14px; } }
+
+  /* ---------- Ambient audio toggle ---------- */
+  .audio-toggle{
+    position:fixed; right:24px; bottom:24px; width:44px; height:44px; z-index:40;
+    border-radius:50%; border:1px solid rgba(201,161,90,0.35);
+    background:rgba(21,22,26,0.7); color:var(--brass); cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px);
+    transition:border-color .3s, background .3s, transform .3s, box-shadow .3s;
+  }
+  .audio-toggle:hover{ border-color:var(--brass); transform:scale(1.08); }
+  .audio-toggle svg{ width:20px; height:20px; }
+  .audio-toggle .wave{ opacity:0.15; transition:opacity .3s; }
+  .audio-toggle.on{ border-color:var(--brass); box-shadow:0 0 16px rgba(201,161,90,0.32); }
+  .audio-toggle.on .wave{ opacity:1; }
+  @media (max-width:820px){ .audio-toggle{ right:14px; bottom:14px; } }
+
+  /* ---------- Secret star / Room 13 ---------- */
+  .star-secret{
+    color:var(--brass); cursor:pointer;
+    border-bottom:1px dotted rgba(201,161,90,0.3);
+    transition:text-shadow .3s, border-color .3s;
+  }
+  .star-secret:hover{ text-shadow:0 0 12px rgba(201,161,90,0.85); border-color:var(--brass); }
+  #room13{
+    position:fixed; inset:0; z-index:9998; background:#050507;
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    padding:24px; opacity:0; pointer-events:none; transition:opacity 1.2s ease;
+  }
+  #room13.open{ opacity:1; pointer-events:auto; }
+  #room13 .r13-img{
+    position:absolute; inset:0; background:url('images/lounge.webp') center/cover;
+    filter:grayscale(1) brightness(0.22) contrast(1.15);
+  }
+  #room13 .r13-img::after{ content:''; position:absolute; inset:0; background:radial-gradient(circle at 50% 45%, transparent 30%, #050507 85%); }
+  #room13 .r13-inner{ position:relative; z-index:2; max-width:580px; }
+  #room13 .r13-index{ font-family:'Barlow Condensed', sans-serif; letter-spacing:0.38em; text-transform:uppercase; font-size:12px; color:var(--brass-dim); margin-bottom:22px; }
+  #room13 h3{ font-family:'Fraunces', serif; font-style:italic; font-weight:400; font-size:clamp(38px,7vw,66px); color:var(--cream); margin-bottom:26px; letter-spacing:0.01em; }
+  #room13 p{ font-size:18px; line-height:1.85; color:var(--cream-dim); font-weight:400; }
+  #room13 .r13-close{ margin-top:36px; font-family:'Barlow Condensed', sans-serif; letter-spacing:0.3em; text-transform:uppercase; font-size:11px; color:var(--brass-dim); }
+
+  /* ---------- Room-name plaque letter reveal ---------- */
+  .room .room-name .ltr{
+    display:inline-block; opacity:0; transform:translateY(0.35em);
+    transition:opacity .5s ease, transform .5s ease;
+  }
+  .room .room-name .ltr.lit{ opacity:1; transform:translateY(0); }
+  @media (prefers-reduced-motion:reduce){
+    .room .room-name .ltr{ opacity:1 !important; transform:none !important; }
+  }
 </style>
 </head>
 <body>
+
+<div id="progress" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"></div>
+
+<div class="clock" title="Thirteen hours. Count them." aria-hidden="true">
+  <svg viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="48" fill="rgba(21,22,26,0.85)" stroke="#C9A15A" stroke-width="1.2"/>
+    <g id="clockTicks" stroke="#C9A15A" stroke-width="1.4" stroke-linecap="round"></g>
+    <line id="hHand" x1="50" y1="50" x2="50" y2="30" stroke="#EDE6D6" stroke-width="2.4" stroke-linecap="round"/>
+    <line id="mHand" x1="50" y1="50" x2="50" y2="20" stroke="#EDE6D6" stroke-width="1.6" stroke-linecap="round"/>
+    <line id="sHand" x1="50" y1="50" x2="50" y2="16" stroke="#C9A15A" stroke-width="0.8" stroke-linecap="round"/>
+    <circle cx="50" cy="50" r="2.2" fill="#C9A15A"/>
+  </svg>
+</div>
+
+<button class="audio-toggle" aria-label="Toggle room tone" title="Room tone">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 9.5v5h3.5L12 18V6L7.5 9.5H4z" fill="currentColor" stroke="none"/>
+    <path class="wave" d="M15.5 8.8a4.5 4.5 0 0 1 0 6.4"/>
+    <path class="wave" d="M18 6.3a8 8 0 0 1 0 11.4"/>
+  </svg>
+</button>
+
+<div id="room13" aria-hidden="true">
+  <div class="r13-img"></div>
+  <div class="r13-inner">
+    <div class="r13-index">Floor Thirteen · The Room You Don't Remember Booking</div>
+    <h3>Room 13</h3>
+    <p>You weren't supposed to find this one — nobody is. But the key still works, the bed is already turned down, and the register at the front desk has your name in it. Dated the day before you arrived.</p>
+    <div class="r13-close">click anywhere to step back out</div>
+  </div>
+</div>
 
 <div class="ring-bg" aria-hidden="true">
   <svg viewBox="0 0 200 200">
@@ -302,14 +436,16 @@
 </div>
 
 <nav class="dot-nav" aria-label="Section navigation">
-  <a href="#top" data-label="Top"></a>
-  <a href="#robin-living" data-label="Robin Suite"></a>
+  <a href="#top" data-label="Arrival"></a>
+  <a href="#robin-living" data-label="Robin · Living"></a>
+  <a href="#robin-bed" data-label="Robin · Bedroom"></a>
+  <a href="#robin-bath" data-label="Robin · Bath"></a>
   <a href="#arts-bar" data-label="Art's Bar"></a>
   <a href="#bardstown" data-label="Bardstown"></a>
   <a href="#lounge" data-label="Late Checkout"></a>
-  <a href="#lobby" data-label="Lobby"></a>
-  <a href="#atrium" data-label="Atrium"></a>
-  <a href="#pool" data-label="Pool"></a>
+  <a href="#lobby" data-label="The Lobby"></a>
+  <a href="#atrium" data-label="The Atrium"></a>
+  <a href="#pool" data-label="Poolside"></a>
 </nav>
 
 <header class="hero" id="top">
@@ -321,7 +457,7 @@
 
 <section class="intro reveal">
   <h2>You are entering a familiar place.</h2>
-  <p>A mid-century resort that never stopped believing in itself — boomerang concrete, diamond-lattice glass, a five-pointed star worked quietly into the stone. It looks like it opened in 1963 and simply never let itself go soft.</p>
+  <p>A mid-century resort that never stopped believing in itself — boomerang concrete, diamond-lattice glass, a five-pointed <span class="star-secret" id="starSecret" role="button" tabindex="0" aria-label="star">star</span> worked quietly into the stone. It looks like it opened in 1963 and simply never let itself go soft.</p>
   <p>Every room here belongs to someone. Look closely enough, and you'll find them.</p>
 </section>
 
@@ -458,10 +594,30 @@
 </footer>
 
 <script>
-  // Scroll reveal
+  // Split room-name plaques into letters for the engraved reveal
+  document.querySelectorAll('.room .room-name').forEach(el=>{
+    const text = el.textContent;
+    el.textContent = '';
+    [...text].forEach(ch=>{
+      const s = document.createElement('span');
+      s.className = 'ltr';
+      s.textContent = (ch === ' ') ? ' ' : ch;
+      el.appendChild(s);
+    });
+  });
+
+  // Scroll reveal (+ light the plaque letters when a room enters view)
   const observer = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{
-      if(e.isIntersecting){ e.target.classList.add('in'); }
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        const name = e.target.querySelector('.room-name');
+        if(name && !name.dataset.lit){
+          name.dataset.lit = '1';
+          name.querySelectorAll('.ltr').forEach((l,i)=>
+            setTimeout(()=>l.classList.add('lit'), 80 + i*45));
+        }
+      }
     });
   }, {threshold:0.15});
   document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
@@ -480,6 +636,159 @@
     });
   }, {threshold:0.5});
   sections.forEach(s=>navObserver.observe(s));
+
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- "You've been here before" ---------- */
+  try{
+    const seen = localStorage.getItem('serling_seen');
+    const h2 = document.querySelector('.intro h2');
+    if(seen && h2){ h2.textContent = "You're back. We kept your room."; }
+    localStorage.setItem('serling_seen', '1');
+  }catch(e){}
+
+  /* ---------- Scroll progress hairline ---------- */
+  const progress = document.getElementById('progress');
+  addEventListener('scroll', ()=>{
+    const h = document.documentElement.scrollHeight - innerHeight;
+    progress.style.width = (h > 0 ? (scrollY / h * 100) : 0) + '%';
+  }, {passive:true});
+
+  /* ---------- 13-hour clock (runs a touch fast, on purpose) ---------- */
+  (function(){
+    const ticks = document.getElementById('clockTicks');
+    for(let i=0;i<13;i++){
+      const a = (i/13) * Math.PI * 2 - Math.PI/2;
+      const x1 = 50 + Math.cos(a)*44, y1 = 50 + Math.sin(a)*44;
+      const x2 = 50 + Math.cos(a)*47, y2 = 50 + Math.sin(a)*47;
+      const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+      line.setAttribute('x1',x1.toFixed(2)); line.setAttribute('y1',y1.toFixed(2));
+      line.setAttribute('x2',x2.toFixed(2)); line.setAttribute('y2',y2.toFixed(2));
+      ticks.appendChild(line);
+    }
+    const hH = document.getElementById('hHand'),
+          mH = document.getElementById('mHand'),
+          sH = document.getElementById('sHand');
+    const now = new Date();
+    let base = (now.getHours()%13)*3600 + now.getMinutes()*60 + now.getSeconds();
+    const t0 = Date.now();
+    function tick(){
+      const secs = base + ((Date.now()-t0)/1000) * 1.017; // ~1 extra min/hr
+      const s = secs % 60, m = (secs/60) % 60, h = (secs/3600) % 13;
+      sH.setAttribute('transform','rotate('+(s*6)+' 50 50)');
+      mH.setAttribute('transform','rotate('+(m*6)+' 50 50)');
+      hH.setAttribute('transform','rotate('+(h*(360/13))+' 50 50)');
+    }
+    tick();
+    setInterval(tick, 250);
+  })();
+
+  /* ---------- Image parallax ---------- */
+  if(!reduce){
+    const media = [...document.querySelectorAll('.room-media img')];
+    media.forEach(img=>{ img.style.transform = 'scale(1.12)'; });
+    let ticking = false;
+    function para(){
+      const vh = innerHeight;
+      media.forEach(img=>{
+        const r = img.getBoundingClientRect();
+        if(r.bottom < 0 || r.top > vh) return;
+        const prog = (r.top + r.height/2 - vh/2) / vh;   // -1 .. 1
+        const shift = Math.max(-22, Math.min(22, prog * -38));
+        img.style.transform = 'translateY('+shift.toFixed(1)+'px) scale(1.12)';
+      });
+      ticking = false;
+    }
+    addEventListener('scroll', ()=>{ if(!ticking){ ticking = true; requestAnimationFrame(para); } }, {passive:true});
+    para();
+  }
+
+  /* ---------- Custom cursor ---------- */
+  (function(){
+    const ring = document.querySelector('.cursor-ring');
+    if(reduce || !matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+    addEventListener('mousemove', e=>{
+      ring.style.opacity = '1';
+      ring.style.left = e.clientX + 'px';
+      ring.style.top  = e.clientY + 'px';
+    });
+    document.addEventListener('mouseleave', ()=>{ ring.style.opacity = '0'; });
+    document.querySelectorAll('a, button, .star-secret, .clock, .audio-toggle, .dot-nav a')
+      .forEach(el=>{
+        el.addEventListener('mouseenter', ()=>ring.classList.add('hot'));
+        el.addEventListener('mouseleave', ()=>ring.classList.remove('hot'));
+      });
+  })();
+
+  /* ---------- Room 13 (the door that shouldn't be there) ---------- */
+  (function(){
+    const r13 = document.getElementById('room13');
+    let open = false;
+    function openR13(){ if(open) return; open = true; r13.classList.add('open'); r13.setAttribute('aria-hidden','false'); }
+    function closeR13(){ open = false; r13.classList.remove('open'); r13.setAttribute('aria-hidden','true'); }
+    r13.addEventListener('click', closeR13);
+    addEventListener('keydown', e=>{ if(e.key === 'Escape') closeR13(); });
+
+    // 1) the star hiding in the intro copy
+    const star = document.getElementById('starSecret');
+    if(star){
+      star.addEventListener('click', openR13);
+      star.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openR13(); } });
+    }
+
+    // 2) the Konami code
+    const seq = [38,38,40,40,37,39,37,39,66,65];
+    let ki = 0;
+    addEventListener('keydown', e=>{
+      ki = (e.keyCode === seq[ki]) ? ki + 1 : (e.keyCode === seq[0] ? 1 : 0);
+      if(ki === seq.length){ ki = 0; openR13(); }
+    });
+
+    // 3) keep pushing past the bottom of the page
+    let over = 0;
+    addEventListener('wheel', e=>{
+      const atBottom = innerHeight + Math.ceil(scrollY) >= document.body.offsetHeight - 2;
+      if(atBottom && e.deltaY > 0){ over += e.deltaY; if(over > 700){ over = 0; openR13(); } }
+      else { over = 0; }
+    }, {passive:true});
+  })();
+
+  /* ---------- Ambient room tone (Web Audio, synthesized — no files) ---------- */
+  (function(){
+    const btn = document.querySelector('.audio-toggle');
+    let ctx = null, master = null, playing = false;
+    const LEVEL = 0.085;
+    function build(){
+      const AC = window.AudioContext || window.webkitAudioContext;
+      ctx = new AC();
+      master = ctx.createGain(); master.gain.value = 0; master.connect(ctx.destination);
+      // low detuned drone
+      const drone = ctx.createGain(); drone.gain.value = 0.5; drone.connect(master);
+      [55, 55.5].forEach(f=>{ const o = ctx.createOscillator(); o.type='sine'; o.frequency.value=f; o.connect(drone); o.start(); });
+      const o3 = ctx.createOscillator(); o3.type='triangle'; o3.frequency.value=110;
+      const o3g = ctx.createGain(); o3g.gain.value=0.05; o3.connect(o3g); o3g.connect(master); o3.start();
+      // filtered noise = room air
+      const buf = ctx.createBuffer(1, 2*ctx.sampleRate, ctx.sampleRate);
+      const d = buf.getChannelData(0);
+      for(let i=0;i<d.length;i++) d[i] = Math.random()*2-1;
+      const noise = ctx.createBufferSource(); noise.buffer = buf; noise.loop = true;
+      const lp = ctx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=300;
+      const ng = ctx.createGain(); ng.gain.value=0.04;
+      noise.connect(lp); lp.connect(ng); ng.connect(master); noise.start();
+      // slow breathing LFO on the master level
+      const lfo = ctx.createOscillator(); lfo.frequency.value=0.07;
+      const lg = ctx.createGain(); lg.gain.value=0.025;
+      lfo.connect(lg); lg.connect(master.gain); lfo.start();
+    }
+    btn.addEventListener('click', ()=>{
+      if(!ctx){ build(); }
+      if(ctx.state === 'suspended') ctx.resume();
+      playing = !playing;
+      master.gain.setTargetAtTime(playing ? LEVEL : 0, ctx.currentTime, 0.7);
+      btn.classList.toggle('on', playing);
+      btn.setAttribute('aria-pressed', playing ? 'true' : 'false');
+    });
+  })();
 </script>
 
 </body>
