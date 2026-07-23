@@ -206,8 +206,8 @@
   /* ---------- Scene: description above the photo ---------- */
   .scene{ max-width:960px; margin:0 auto; padding:70px 26px 12px; }
   .scene-copy{ max-width:640px; }
-  .scene-eyebrow{ font-size:13px; letter-spacing:0.26em; text-transform:uppercase; font-weight:600; color:var(--sky-deep); margin-bottom:12px; }
-  .scene h3.serif{ font-size:clamp(30px,4.4vw,50px); color:var(--charcoal); line-height:1.02; margin-bottom:8px; }
+  .scene-eyebrow{ font-size:14px; letter-spacing:0.24em; text-transform:uppercase; font-weight:700; color:var(--sky-deep); margin-bottom:12px; }
+  .scene h3.serif{ font-size:clamp(40px,6.6vw,76px); font-weight:600; color:var(--charcoal); line-height:1.0; letter-spacing:0.005em; margin-bottom:10px; }
   .scene .room-tag{ font-family:'Fraunces',serif; font-style:italic; font-weight:400; font-size:clamp(17px,1.9vw,21px); display:block; margin-bottom:20px; }
   .scene-copy p{ font-size:clamp(17px,1.5vw,18.5px); line-height:1.8; color:var(--ink); font-weight:400; }
   .scene .detail{ margin-top:18px; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; font-weight:600; }
@@ -225,6 +225,42 @@
     .scene-photo{ margin-top:26px; }
     .suite-intro{ padding:84px 22px 4px; }
   }
+
+  /* ---------- Featured tribute: Gmiter Shore Garden ---------- */
+  .featured{ margin:60px 0 20px; padding:64px 0 20px; background:linear-gradient(180deg, var(--cream-deep) 0%, var(--cream) 100%); border-top:1px solid rgba(43,38,32,0.08); border-bottom:1px solid rgba(43,38,32,0.08); }
+  .featured-inner{ max-width:820px; margin:0 auto; padding:0 26px; text-align:center; }
+  .featured-eyebrow{ font-size:14px; letter-spacing:0.28em; text-transform:uppercase; font-weight:700; color:var(--sky-deep); margin-bottom:16px; }
+  .featured-title{ font-family:'Fraunces',serif; font-weight:600; font-size:clamp(46px,8.5vw,96px); line-height:0.98; color:var(--charcoal); margin-bottom:20px; }
+  .featured-lede{ font-family:'Fraunces',serif; font-style:italic; font-weight:400; font-size:clamp(18px,2.3vw,24px); line-height:1.62; color:var(--ink); }
+  .featured-photo{ max-width:1240px; margin:44px auto 0; padding:0 26px; }
+  .featured-photo figure{ border-radius:16px; overflow:hidden; box-shadow:0 34px 90px -30px rgba(43,38,32,0.6); background:var(--cream-deep); }
+  .featured-photo img{ width:100%; height:auto; display:block; }
+  .featured-caption{ margin-top:14px; text-align:center; font-family:'IBM Plex Mono', 'Barlow Condensed', monospace; font-size:12.5px; letter-spacing:0.06em; color:var(--sky-deep); }
+
+  /* ---------- Amenities gallery ---------- */
+  .gallery{ max-width:1180px; margin:0 auto; padding:96px 26px 40px; }
+  .gallery-head{ text-align:center; max-width:640px; margin:0 auto 42px; }
+  .gallery-head .g-eyebrow{ font-size:14px; letter-spacing:0.26em; text-transform:uppercase; font-weight:700; color:var(--clay); margin-bottom:14px; }
+  .gallery-head h2{ font-size:clamp(40px,7vw,72px); line-height:0.96; color:var(--charcoal); margin-bottom:14px; }
+  .gallery-head p{ font-family:'Fraunces',serif; font-style:italic; font-size:clamp(17px,2vw,20px); color:var(--ink); }
+  .gallery-grid{ column-count:2; column-gap:20px; }
+  .gitem{ break-inside:avoid; margin:0 0 20px; cursor:pointer; }
+  .gitem figure{ border-radius:13px; overflow:hidden; box-shadow:0 16px 44px -22px rgba(43,38,32,0.5); background:var(--cream-deep); transition:transform .3s, box-shadow .3s; }
+  .gitem:hover figure{ transform:translateY(-3px); box-shadow:0 24px 56px -22px rgba(43,38,32,0.55); }
+  .gitem img{ width:100%; height:auto; display:block; }
+  .gcap{ margin:12px 2px 0; }
+  .gcap b{ display:block; font-family:'Fraunces',serif; font-weight:600; font-size:19px; color:var(--charcoal); }
+  .gcap span{ font-size:15px; color:var(--ink); }
+  @media (max-width:720px){ .gallery-grid{ column-count:1; } .gallery{ padding:70px 22px 30px; } }
+
+  /* ---------- Lightbox ---------- */
+  .lightbox{ position:fixed; inset:0; z-index:9997; background:rgba(20,18,15,0.92); display:flex; align-items:center; justify-content:center; padding:24px; opacity:0; pointer-events:none; transition:opacity .3s; }
+  .lightbox.open{ opacity:1; pointer-events:auto; }
+  .lightbox img{ max-width:96vw; max-height:90vh; width:auto; height:auto; border-radius:10px; box-shadow:0 30px 80px rgba(0,0,0,0.6); }
+  .lightbox .lb-cap{ position:absolute; bottom:22px; left:0; right:0; text-align:center; color:var(--cream); font-family:'Fraunces',serif; font-style:italic; font-size:16px; }
+  .lightbox .lb-close{ position:absolute; top:18px; right:24px; color:var(--cream); font-size:34px; line-height:1; cursor:pointer; opacity:0.8; }
+  .lightbox .lb-close:hover{ opacity:1; }
+  @media (prefers-reduced-motion:reduce){ .gitem figure{ transition:none; } .lightbox{ transition:none; } }
 </style>
 </head>
 <body>
@@ -241,6 +277,8 @@
   <a href="#paddock" data-label="The Paddock"></a>
   <a href="#kristophers" data-label="Kristopher's"></a>
   <a href="#michaels-porch" data-label="Michael's Porch"></a>
+  <a href="#gmiter-garden" data-label="Shore Garden"></a>
+  <a href="#gallery" data-label="Amenities"></a>
 </nav>
 
 <header class="hero" id="top">
@@ -380,6 +418,34 @@
 
 </main>
 
+<section class="featured reveal" id="gmiter-garden">
+  <div class="featured-inner">
+    <div class="featured-eyebrow">A Bird-Watching Garden</div>
+    <h2 class="featured-title">Gmiter Shore Garden</h2>
+    <p class="featured-lede">The quiet heart of the manor — named in tribute, and given over to the birds. Mist rises off the water at first light; lavender and river stone line the path; and the feeder is never empty. A place built for slow mornings and long, unhurried looks at small winged things.</p>
+  </div>
+  <div class="featured-photo">
+    <figure><img src="images/gmiter-garden.webp" alt="Gmiter Shore Garden at dawn — a misty desert pond with a pergola, benches, lavender, river stones, and a wooden feeder crowded with songbirds, mountains beyond" loading="lazy"></figure>
+    <div class="featured-caption">Gmiter Shore Garden — at first light</div>
+  </div>
+</section>
+
+<section class="gallery reveal" id="gallery">
+  <div class="gallery-head">
+    <div class="g-eyebrow">Around the Manor</div>
+    <h2>A Few More Corners</h2>
+    <p>Everything else worth slowing down for — pool to nightcap.</p>
+  </div>
+  <div class="gallery-grid">
+    <div class="gitem"><figure><img src="images/pool-day.webp" alt="Blue Robin Manor main pool by day, striped umbrellas, a thatched pool bar, and the Las Vegas Strip skyline beyond" loading="lazy"></figure><div class="gcap"><b>The Main Pool</b><span>Cabana bar, striped shade, and the Strip on the horizon.</span></div></div>
+    <div class="gitem"><figure><img src="images/pool-golden.webp" alt="The main pool at golden hour, warm light on the water, loungers and umbrellas by a wood fence" loading="lazy"></figure><div class="gcap"><b>Golden Hour, Poolside</b><span>The same water once the desert light goes soft.</span></div></div>
+    <div class="gitem"><figure><img src="images/guest-room.webp" alt="A standard guest room at Blue Robin Manor, cane headboard, sage linens, whitewashed wood, and a desert garden view" loading="lazy"></figure><div class="gcap"><b>A Guest Room</b><span>Cane, linen, and sage — a garden view in every one.</span></div></div>
+    <div class="gitem"><figure><img src="images/spa.webp" alt="Blue Robin Manor Spa, travertine walls, olive trees, candlelight, and a steaming soaking pool" loading="lazy"></figure><div class="gcap"><b>The Spa</b><span>Travertine, olive trees, and a warm soaking pool.</span></div></div>
+    <div class="gitem"><figure><img src="images/lounge.webp" alt="The Blue Robin Manor lounge at night, leather and velvet armchairs, candlelit tables, and an upright piano on a small raised stage" loading="lazy"></figure><div class="gcap"><b>The Lounge</b><span>A small stage, an old piano, and a nightcap by candlelight.</span></div></div>
+    <div class="gitem"><figure><img src="images/ballroom.webp" alt="The Blue Robin Manor ballroom, arched windows and brass chandeliers, sage-green banquet rounds set for an event, and a small stage at the far end" loading="lazy"></figure><div class="gcap"><b>The Ballroom</b><span>Arched light, brass chandeliers, and room for the whole family.</span></div></div>
+  </div>
+</section>
+
 <section class="note reveal">
   <div class="robin" id="robin" role="button" tabindex="0" aria-label="A blue robin">
     <svg viewBox="0 0 120 100" aria-hidden="true">
@@ -396,6 +462,12 @@
   <span class="room-tag serif">a word before you go</span>
   <p>This whole place started with one woman who loves horses, birds, dogs, and sunshine more than almost anything — and a family who wanted to build her something that felt like all of it at once. Every room here is true. That's the whole point.</p>
 </section>
+
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <span class="lb-close" id="lbClose" role="button" aria-label="Close">&times;</span>
+  <img id="lbImg" src="" alt="">
+  <div class="lb-cap" id="lbCap"></div>
+</div>
 
 <footer>
   <h2>BLUE ROBIN MANOR</h2>
@@ -427,7 +499,7 @@
   }, {threshold:0.15});
   document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
-  const sections = document.querySelectorAll('header.hero, .scene, .suite-intro');
+  const sections = document.querySelectorAll('header.hero, .scene, .suite-intro, .featured, .gallery');
   const dots = document.querySelectorAll('.dot-nav a');
   const navObserver = new IntersectionObserver((entries)=>{
     entries.forEach(entry=>{
@@ -462,6 +534,27 @@
       el.addEventListener('mouseenter', ()=>ring.classList.add('hot'));
       el.addEventListener('mouseleave', ()=>ring.classList.remove('hot'));
     });
+  })();
+
+  /* Gallery lightbox */
+  (function(){
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lbImg');
+    const lbCap = document.getElementById('lbCap');
+    function open(src, cap, alt){
+      lbImg.src = src; lbImg.alt = alt || ''; lbCap.textContent = cap || '';
+      lb.classList.add('open'); lb.setAttribute('aria-hidden','false');
+    }
+    function close(){ lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); lbImg.src=''; }
+    document.querySelectorAll('.gitem').forEach(item=>{
+      item.addEventListener('click', ()=>{
+        const img = item.querySelector('img');
+        const b = item.querySelector('.gcap b');
+        open(img.getAttribute('src'), b ? b.textContent : '', img.alt);
+      });
+    });
+    lb.addEventListener('click', e=>{ if(e.target !== lbImg) close(); });
+    addEventListener('keydown', e=>{ if(e.key === 'Escape') close(); });
   })();
 
   /* The blue robin: a soft chirp + a little hop */
