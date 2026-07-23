@@ -262,12 +262,60 @@
   .lightbox .lb-close{ position:absolute; top:18px; right:24px; color:var(--cream); font-size:34px; line-height:1; cursor:pointer; opacity:0.8; }
   .lightbox .lb-close:hover{ opacity:1; }
   @media (prefers-reduced-motion:reduce){ .gitem figure{ transition:none; } .lightbox{ transition:none; } }
+
+  /* ---------- Music toggle ---------- */
+  .music-hero{
+    position:fixed; left:50%; bottom:118px; transform:translateX(-50%);
+    z-index:58; display:inline-flex; align-items:center; gap:11px;
+    padding:14px 26px; border-radius:100px; border:2px solid rgba(251,246,236,0.55);
+    background:var(--clay); color:var(--cream); cursor:pointer;
+    font-family:'Barlow Condensed', sans-serif; font-weight:700; font-size:15.5px;
+    letter-spacing:0.13em; text-transform:uppercase; white-space:nowrap;
+    box-shadow:0 12px 34px rgba(180,86,47,0.42);
+    animation:musicPulse 2.2s ease-in-out infinite;
+    transition:opacity .45s ease, transform .3s ease;
+  }
+  .music-hero:hover{ transform:translateX(-50%) scale(1.04); }
+  .music-hero .mh-icon{ font-size:17px; line-height:1; }
+  @keyframes musicPulse{ 0%,100%{ box-shadow:0 12px 30px rgba(180,86,47,0.34); } 50%{ box-shadow:0 14px 48px rgba(180,86,47,0.62); } }
+  body.music-on .music-hero{ animation:none; }
+  @media (prefers-reduced-motion:reduce){ .music-hero{ animation:none; } }
+  @media (max-width:560px){ .music-hero{ font-size:13.5px; padding:12px 20px; bottom:120px; } }
+
+  .music-mini{
+    position:fixed; right:24px; bottom:24px; z-index:58;
+    width:54px; height:54px; border-radius:50%; border:2px solid rgba(251,246,236,0.5);
+    background:var(--clay); color:var(--cream); cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 8px 24px rgba(180,86,47,0.42);
+    opacity:0; pointer-events:none; transition:opacity .45s ease, transform .3s ease;
+  }
+  .music-mini:hover{ transform:scale(1.09); }
+  .music-mini .mm-note{ font-size:22px; line-height:1; }
+  .music-mini .eq{ display:none; align-items:flex-end; gap:3px; height:18px; }
+  body.music-on .music-mini .eq{ display:flex; }
+  body.music-on .music-mini .mm-note{ display:none; }
+  .music-mini .eq span{ width:3px; height:5px; background:var(--cream); border-radius:2px; animation:eqbar .9s ease-in-out infinite; }
+  .music-mini .eq span:nth-child(2){ animation-delay:.25s; }
+  .music-mini .eq span:nth-child(3){ animation-delay:.5s; }
+  @keyframes eqbar{ 0%,100%{ height:5px; } 50%{ height:16px; } }
+  @media (prefers-reduced-motion:reduce){ .music-mini .eq span{ animation:none; height:11px; } .music-mini{ transition:none; } }
 </style>
 </head>
 <body>
 
 <div id="progress" aria-hidden="true"></div>
 <div class="cursor-ring" aria-hidden="true"></div>
+
+<audio id="song" src="audio/forever-young.mp3" loop preload="none"></audio>
+<button class="music-hero" id="musicHero" aria-label="Play music">
+  <span class="mh-icon" id="mhIcon">&#9835;</span>
+  <span class="mh-label" id="mhLabel">Play &ldquo;Forever Young&rdquo;</span>
+</button>
+<button class="music-mini" id="musicMini" aria-label="Toggle music">
+  <span class="mm-note">&#9835;</span>
+  <span class="eq" aria-hidden="true"><span></span><span></span><span></span></span>
+</button>
 
 <nav class="dot-nav" aria-label="Section navigation">
   <a href="#top" data-label="Arrival"></a>
@@ -556,6 +604,59 @@
     });
     lb.addEventListener('click', e=>{ if(e.target !== lbImg) close(); });
     addEventListener('keydown', e=>{ if(e.key === 'Escape') close(); });
+  })();
+
+  /* Music toggle — obvious at the top, fades into a mini control on scroll */
+  (function(){
+    const song = document.getElementById('song');
+    const heroBtn = document.getElementById('musicHero');
+    const miniBtn = document.getElementById('musicMini');
+    const mhIcon = document.getElementById('mhIcon');
+    const mhLabel = document.getElementById('mhLabel');
+    const TARGET = 0.85;
+
+    function fadeVol(to, done){
+      clearInterval(song._fade);
+      const step = (to - song.volume) / 14;
+      song._fade = setInterval(()=>{
+        let v = song.volume + step;
+        v = Math.max(0, Math.min(1, v));
+        song.volume = v;
+        if((step >= 0 && v >= to) || (step < 0 && v <= to) || Math.abs(v-to) < 0.001){
+          song.volume = to; clearInterval(song._fade); if(done) done();
+        }
+      }, 45);
+    }
+    function setState(on){
+      document.body.classList.toggle('music-on', on);
+      mhIcon.innerHTML = on ? '&#10074;&#10074;' : '&#9835;';
+      mhLabel.textContent = on ? 'Pause the music' : 'Play “Forever Young”';
+      heroBtn.setAttribute('aria-label', on ? 'Pause music' : 'Play music');
+    }
+    function toggle(){
+      if(song.paused){
+        song.volume = 0;
+        const p = song.play();
+        if(p && p.then){ p.then(()=>{ setState(true); fadeVol(TARGET); }).catch(()=>{}); }
+        else { setState(true); fadeVol(TARGET); }
+      } else {
+        fadeVol(0, ()=>song.pause());
+        setState(false);
+      }
+    }
+    heroBtn.addEventListener('click', toggle);
+    miniBtn.addEventListener('click', toggle);
+
+    // Cross-fade: hero pill out, mini in, as you scroll past the first screen
+    function onScroll(){
+      const t = Math.min(1, scrollY / (innerHeight * 0.55));
+      heroBtn.style.opacity = String(1 - t);
+      heroBtn.style.pointerEvents = t > 0.7 ? 'none' : 'auto';
+      miniBtn.style.opacity = String(t);
+      miniBtn.style.pointerEvents = t > 0.3 ? 'auto' : 'none';
+    }
+    addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
   })();
 
   /* The blue robin: a soft chirp + a little hop */
