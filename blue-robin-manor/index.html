@@ -8,7 +8,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23FBF6EC'/%3E%3Ctext x='16' y='25' font-size='22' text-anchor='middle'%3E%F0%9F%90%A6%3C/text%3E%3C/svg%3E">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Blue Robin Manor">
-<meta property="og:description" content="Slow mornings, lively nights. Every room here belongs to someone.">
+<meta property="og:description" content="Slow mornings, lively nights. Every room here is true.">
 <meta property="og:image" content="https://vegassidekick.com/blue-robin-manor/images/og.jpg">
 <meta property="og:url" content="https://vegassidekick.com/blue-robin-manor/">
 <meta name="twitter:card" content="summary_large_image">
@@ -125,20 +125,15 @@
   }
 
   /* section moods */
-  #exterior-2 .room-index, #exterior-2 .detail{ color:var(--sky-deep); }
-  #exterior-2 .room-tag{ color:var(--sky-deep); }
-  #loui-living .room-index, #loui-bed .room-index, #loui-bath .room-index{ color:var(--sky-deep); }
+  #exterior-2 .scene-eyebrow, #exterior-2 .detail, #exterior-2 .room-tag{ color:var(--sky-deep); }
+  #loui .suite-kicker, #loui .suite-lede{ color:var(--sky-deep); }
   #loui-living .room-tag, #loui-bed .room-tag, #loui-bath .room-tag{ color:var(--sky-deep); }
-  #levi-living .room-index, #levi-bed .room-index, #levi-bath .room-index{ color:var(--charcoal); }
+  #levi .suite-kicker{ color:var(--charcoal); }
   #levi-living .room-tag, #levi-bed .room-tag, #levi-bath .room-tag{ color:var(--charcoal); }
-  #paddock .room-index, #paddock .detail{ color:#8B5FA3; }
-  #paddock .room-tag{ color:#8B5FA3; }
-  #arts-garage .room-index, #arts-garage .detail{ color:var(--clay); }
-  #arts-garage .room-tag{ color:var(--clay); }
-  #kristophers .room-index, #kristophers .detail{ color:var(--clay); }
-  #kristophers .room-tag{ color:var(--clay); }
-  #michaels-porch .room-index, #michaels-porch .detail{ color:var(--sage); }
-  #michaels-porch .room-tag{ color:var(--sage); }
+  #paddock .scene-eyebrow, #paddock .detail, #paddock .room-tag{ color:#8B5FA3; }
+  #arts-garage .scene-eyebrow, #arts-garage .detail, #arts-garage .room-tag{ color:var(--clay); }
+  #kristophers .scene-eyebrow, #kristophers .detail, #kristophers .room-tag{ color:var(--clay); }
+  #michaels-porch .scene-eyebrow, #michaels-porch .detail, #michaels-porch .room-tag{ color:var(--sage); }
 
   /* ---------- Closing note ---------- */
   .note{ max-width:660px; margin:0 auto; padding:130px 24px; text-align:center; border-top:1px solid rgba(43,38,32,0.12); }
@@ -186,13 +181,13 @@
   .dot-nav a:hover::after{ opacity:1; transform:translateY(-50%) translateX(0); }
 
   /* ---------- Engraved room-name letter reveal ---------- */
-  .room h3.serif .ltr{
+  .scene h3.serif .ltr{
     display:inline-block; opacity:0; transform:translateY(0.32em);
     transition:opacity .5s ease, transform .5s ease;
   }
-  .room h3.serif .ltr.lit{ opacity:1; transform:translateY(0); }
+  .scene h3.serif .ltr.lit{ opacity:1; transform:translateY(0); }
   @media (prefers-reduced-motion:reduce){
-    .room h3.serif .ltr{ opacity:1 !important; transform:none !important; }
+    .scene h3.serif .ltr{ opacity:1 !important; transform:none !important; }
   }
 
   /* ---------- The hidden blue robin ---------- */
@@ -207,6 +202,29 @@
   }
   @keyframes robinHop{ 0%,100%{ transform:translateY(0) rotate(0); } 40%{ transform:translateY(-11px) rotate(-4deg); } }
   @media (prefers-reduced-motion:reduce){ .note.in .robin svg, .robin.hop svg{ animation:none; } }
+
+  /* ---------- Scene: description above the photo ---------- */
+  .scene{ max-width:960px; margin:0 auto; padding:70px 26px 12px; }
+  .scene-copy{ max-width:640px; }
+  .scene-eyebrow{ font-size:13px; letter-spacing:0.26em; text-transform:uppercase; font-weight:600; color:var(--sky-deep); margin-bottom:12px; }
+  .scene h3.serif{ font-size:clamp(30px,4.4vw,50px); color:var(--charcoal); line-height:1.02; margin-bottom:8px; }
+  .scene .room-tag{ font-family:'Fraunces',serif; font-style:italic; font-weight:400; font-size:clamp(17px,1.9vw,21px); display:block; margin-bottom:20px; }
+  .scene-copy p{ font-size:clamp(17px,1.5vw,18.5px); line-height:1.8; color:var(--ink); font-weight:400; }
+  .scene .detail{ margin-top:18px; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; font-weight:600; }
+  .scene-photo{ margin:34px 0 0; border-radius:14px; overflow:hidden; box-shadow:0 22px 60px -24px rgba(43,38,32,0.55); background:var(--cream-deep); }
+  .scene-photo img{ width:100%; height:auto; display:block; }
+
+  /* ---------- Suite intro: a couple of sentences ---------- */
+  .suite-intro{ max-width:780px; margin:0 auto; padding:120px 26px 6px; text-align:center; }
+  .suite-intro .suite-kicker{ font-size:13px; letter-spacing:0.3em; text-transform:uppercase; font-weight:600; color:var(--clay); margin-bottom:16px; }
+  .suite-intro h2{ font-size:clamp(46px,9vw,104px); line-height:0.92; color:var(--charcoal); }
+  .suite-intro .suite-lede{ margin-top:18px; font-family:'Fraunces',serif; font-style:italic; font-weight:400; font-size:clamp(18px,2.2vw,23px); line-height:1.6; color:var(--sky-deep); }
+
+  @media (max-width:900px){
+    .scene{ padding:52px 22px 6px; }
+    .scene-photo{ margin-top:26px; }
+    .suite-intro{ padding:84px 22px 4px; }
+  }
 </style>
 </head>
 <body>
@@ -217,8 +235,8 @@
 <nav class="dot-nav" aria-label="Section navigation">
   <a href="#top" data-label="Arrival"></a>
   <a href="#exterior-2" data-label="The Grounds"></a>
-  <a href="#loui-living" data-label="The Loui Suite"></a>
-  <a href="#levi-living" data-label="The Levi Suite"></a>
+  <a href="#loui" data-label="The Loui Suite"></a>
+  <a href="#levi" data-label="The Levi Suite"></a>
   <a href="#arts-garage" data-label="Art's Garage"></a>
   <a href="#paddock" data-label="The Paddock"></a>
   <a href="#kristophers" data-label="Kristopher's"></a>
@@ -235,152 +253,129 @@
 <section class="intro reveal">
   <h2>Somewhere between the paddock and the Strip.</h2>
   <p>Fog rolls across bluegrass lawns at sunrise. A horse stands watch over the fountain. By nightfall, the same grounds hum with warm light and good company — because this is still Las Vegas, and the sun does go down eventually.</p>
-  <p>Every room here belongs to someone. This is theirs.</p>
 </section>
 
 <main>
 
-  <section class="room" id="exterior-2">
-    <div class="room-media">
-      <img src="images/grounds.webp" alt="Blue Robin Manor grounds from above, a curved tower behind a farmhouse entrance, a bronze horse fountain in the roundabout, string lights along the porch" loading="lazy">
-    </div>
-    <div class="room-copy reveal">
-      <div class="room-index">Arrival</div>
+  <section class="scene reveal" id="exterior-2">
+    <div class="scene-copy">
+      <div class="scene-eyebrow">Arrival</div>
       <h3 class="serif">The Grounds</h3>
       <div class="room-tag">still enough to hear the fountain</div>
       <p>A bronze horse stands quiet in the roundabout, water gently overflowing at his feet. Paddock fencing lines the drive. Behind it all, a tower rises the way the Strip insists it should — string lights, skyline, and just enough fog to remind you where the morning came from.</p>
       <div class="detail">Blue Robin Manor — Resort &amp; Grounds</div>
     </div>
+    <figure class="scene-photo"><img src="images/grounds.webp" alt="Blue Robin Manor grounds from above, a curved tower behind a farmhouse entrance, a bronze horse fountain in the roundabout, string lights along the porch" loading="lazy"></figure>
   </section>
 
-  <section class="room reverse" id="loui-living">
-    <div class="room-media">
-      <img src="images/loui-living.webp" alt="The Loui Suite living room, a cream sofa, warm fireplace, and a small dog bed tucked into a sunlit window" loading="lazy">
-    </div>
-    <div class="room-copy reveal">
-      <div class="room-index">01 — The Loui Suite</div>
+  <section class="suite-intro reveal" id="loui">
+    <div class="suite-kicker">A Three-Room Suite</div>
+    <h2>The Loui Suite</h2>
+    <p class="suite-lede">Named for a small, gentle Yorkie who's seen enough of the world to know exactly where the afternoon sun lands. Three quiet rooms, and not one of them in a hurry.</p>
+  </section>
+
+  <section class="scene reveal" id="loui-living">
+    <div class="scene-copy">
       <h3 class="serif">Living Room</h3>
       <div class="room-tag">for an old friend who's earned the good chair</div>
-      <p>Named for a small, gentle Yorkie who's seen enough of the world to know exactly where the sun lands in the afternoon. A leather chair, a warm fire, and a little bed tucked right into that patch of light. Nobody's in a hurry here.</p>
-      <div class="detail">Room 1 of 3 — Living Room</div>
+      <p>A leather chair, a warm fire, and a little bed tucked right into that patch of light. This is where he'd spend the whole afternoon — and you're welcome to do the same.</p>
     </div>
+    <figure class="scene-photo"><img src="images/loui-living.webp" alt="The Loui Suite living room, a cream sofa, warm fireplace, and a small dog bed tucked into a sunlit window" loading="lazy"></figure>
   </section>
 
-  <section class="room" id="loui-bed">
-    <div class="room-media">
-      <img src="images/loui-bedroom.webp" alt="The Loui Suite bedroom, caramel headboard, dusty blue linens, garden view through the window" loading="lazy">
-    </div>
-    <div class="room-copy reveal">
-      <div class="room-index">01 — The Loui Suite</div>
+  <section class="scene reveal" id="loui-bed">
+    <div class="scene-copy">
       <h3 class="serif">Bedroom</h3>
       <div class="room-tag">a proper Sunday nap, any day of the week</div>
-      <p>Soft caramel and dusty blue, low to the ground, easy to climb onto. The garden just outside the window does most of the talking.</p>
-      <div class="detail">Room 2 of 3 — Bedroom</div>
+      <p>Soft caramel and dusty blue, low to the ground and easy to climb onto. The garden just outside the window does most of the talking.</p>
     </div>
+    <figure class="scene-photo"><img src="images/loui-bedroom.webp" alt="The Loui Suite bedroom, caramel headboard, dusty blue linens, garden view through the window" loading="lazy"></figure>
   </section>
 
-  <section class="room reverse" id="loui-bath">
-    <div class="room-media">
-      <img src="images/loui-bath2.webp" alt="The Loui Suite bathroom, marble vanity with paw-print hardware, soaking tub facing the desert garden" loading="lazy">
-    </div>
-    <div class="room-copy reveal">
-      <div class="room-index">01 — The Loui Suite</div>
+  <section class="scene reveal" id="loui-bath">
+    <div class="scene-copy">
       <h3 class="serif">Bath</h3>
       <div class="room-tag">a small paw print, if you look</div>
       <p>Brass hardware carries his mark quietly on every drawer. The tub looks straight out over the gardens — the kind of soak that isn't going anywhere fast.</p>
-      <div class="detail">Room 3 of 3 — Bath</div>
     </div>
+    <figure class="scene-photo"><img src="images/loui-bath2.webp" alt="The Loui Suite bathroom, marble vanity with paw-print hardware, soaking tub facing the desert garden" loading="lazy"></figure>
   </section>
 
-  <section class="room" id="levi-living">
-    <div class="room-media">
-      <img src="images/levi-living.webp" alt="The Levi Suite living room, an eclectic gallery wall, leather armchair, and a brass dog lamp full of personality" loading="lazy">
-    </div>
-    <div class="room-copy reveal">
-      <div class="room-index">02 — The Levi Suite</div>
+  <section class="suite-intro reveal" id="levi">
+    <div class="suite-kicker">A Three-Room Suite</div>
+    <h2>The Levi Suite</h2>
+    <p class="suite-lede">Named for a small black rescue with a mind of his own — a little guarded at the door, and entirely worth the wait. Give each room a minute; it warms up, same as he does.</p>
+  </section>
+
+  <section class="scene reveal" id="levi-living">
+    <div class="scene-copy">
       <h3 class="serif">Living Room</h3>
       <div class="room-tag">a little guarded at the door — worth the wait</div>
-      <p>Named for a small black rescue with a mind of his own. The entry's composed, almost cool — but follow the light back to the corner and the room opens right up: a mismatched gallery wall, a well-loved leather chair, and a brass dog lamp that's clearly the one in charge.</p>
-      <div class="detail">Room 1 of 3 — Living Room</div>
+      <p>The entry's composed, almost cool — but follow the light back to the corner and the room opens right up: a mismatched gallery wall, a well-loved leather chair, and a brass dog lamp that's clearly the one in charge.</p>
     </div>
+    <figure class="scene-photo"><img src="images/levi-living.webp" alt="The Levi Suite living room, an eclectic gallery wall, leather armchair, and a brass dog lamp full of personality" loading="lazy"></figure>
   </section>
 
-  <section class="room reverse" id="levi-bed">
-    <div class="room-media">
-      <img src="images/levi-bedroom.webp" alt="The Levi Suite bedroom, charcoal headboard, mustard and cream layered bedding, black-framed windows" loading="lazy">
-    </div>
-    <div class="room-copy reveal">
-      <div class="room-index">02 — The Levi Suite</div>
+  <section class="scene reveal" id="levi-bed">
+    <div class="scene-copy">
       <h3 class="serif">Bedroom</h3>
       <div class="room-tag">a little eclectic, entirely on purpose</div>
       <p>Charcoal and mustard, mixed patterns that don't quite match and don't need to. A small brass dog keeps watch from the dresser.</p>
-      <div class="detail">Room 2 of 3 — Bedroom</div>
     </div>
+    <figure class="scene-photo"><img src="images/levi-bedroom.webp" alt="The Levi Suite bedroom, charcoal headboard, mustard and cream layered bedding, black-framed windows" loading="lazy"></figure>
   </section>
 
-  <section class="room" id="levi-bath">
-    <div class="room-media">
-      <img src="images/levi-bath.webp" alt="The Levi Suite bathroom, dark wood vanity, patterned tile, soaking tub with garden views" loading="lazy">
-    </div>
-    <div class="room-copy reveal">
-      <div class="room-index">02 — The Levi Suite</div>
+  <section class="scene reveal" id="levi-bath">
+    <div class="scene-copy">
       <h3 class="serif">Bath</h3>
       <div class="room-tag">warms up, same as he does</div>
       <p>Composed near the door, golden by the tub. Give it a minute. It's worth it.</p>
-      <div class="detail">Room 3 of 3 — Bath</div>
     </div>
+    <figure class="scene-photo"><img src="images/levi-bath.webp" alt="The Levi Suite bathroom, dark wood vanity, patterned tile, soaking tub with garden views" loading="lazy"></figure>
   </section>
 
-  <section class="room reverse" id="arts-garage">
-    <div class="room-media">
-      <img src="images/arts-garage.webp" alt="Art's Garage, a yellow Corvette parked inside a sunlit barn space, vintage Coca-Cola signage, a motorcycle by the open doors" loading="lazy">
-    </div>
-    <div class="room-copy reveal">
-      <div class="room-index">03 — Art's Garage</div>
+  <section class="scene reveal" id="arts-garage">
+    <div class="scene-copy">
+      <div class="scene-eyebrow">Art's Garage</div>
       <h3 class="serif">The Corvette Bay</h3>
       <div class="room-tag">a career, a bike, and a very good car</div>
       <p>Doors thrown wide open to the sunshine, string lights overhead, the '65 parked like it's about to be driven right out into the afternoon. A lifetime with Coca-Cola on the wall. A motorcycle by the door. This one's a celebration, through and through.</p>
       <div class="detail">Open to the Grounds — Daylight Hours</div>
     </div>
+    <figure class="scene-photo"><img src="images/arts-garage.webp" alt="Art's Garage, a yellow Corvette parked inside a sunlit barn space, vintage Coca-Cola signage, a motorcycle by the open doors" loading="lazy"></figure>
   </section>
 
-  <section class="room" id="paddock">
-    <div class="room-media">
-      <img src="images/paddock.webp" alt="The Paddock wine bar, oversized colorful hat-shaped pendant lights, a glowing wine wall, jewel-tone seating" loading="lazy">
-    </div>
-    <div class="room-copy reveal">
-      <div class="room-index">04 — The Paddock</div>
+  <section class="scene reveal" id="paddock">
+    <div class="scene-copy">
+      <div class="scene-eyebrow">The Paddock</div>
       <h3 class="serif">Wine Bar</h3>
       <div class="room-tag">Derby hats, minus the fuss</div>
       <p>Big color, big flowers, a wine wall that means business. The hats hang overhead as pure shape and shade — coral, marigold, lavender — because a room can be dressed up without taking itself too seriously.</p>
       <div class="detail">Open Evenings</div>
     </div>
+    <figure class="scene-photo"><img src="images/paddock.webp" alt="The Paddock wine bar, oversized colorful hat-shaped pendant lights, a glowing wine wall, jewel-tone seating" loading="lazy"></figure>
   </section>
 
-  <section class="room reverse" id="kristophers">
-    <div class="room-media">
-      <img src="images/kristophers.webp" alt="Breakfast at Kristopher's, a marquee sign, neon coffee sign, jukebox, and a chalkboard reading Mom's Biscuits and Gravy" loading="lazy">
-    </div>
-    <div class="room-copy reveal">
-      <div class="room-index">05 — Breakfast at Kristopher's</div>
+  <section class="scene reveal" id="kristophers">
+    <div class="scene-copy">
+      <div class="scene-eyebrow">Breakfast at Kristopher's</div>
       <h3 class="serif">All Day, Every Day</h3>
       <div class="room-tag">house specialty: Mom's Biscuits and Gravy</div>
       <p>Coffee's twenty-five cents, same as it should be. The jukebox plays what it wants to. And somewhere near the register, a small collage of two-dollar bills — a private joke between a mother and her son, hiding in plain sight.</p>
       <div class="detail">Breakfast &amp; Lunch — Served All Day</div>
     </div>
+    <figure class="scene-photo"><img src="images/kristophers.webp" alt="Breakfast at Kristopher's, a marquee sign, neon coffee sign, jukebox, and a chalkboard reading Mom's Biscuits and Gravy" loading="lazy"></figure>
   </section>
 
-  <section class="room" id="michaels-porch">
-    <div class="room-media">
-      <img src="images/michaels-porch.webp" alt="Michael's Porch, a bright modern lobby with a full library wall and three warm wood check-in desks" loading="lazy">
-    </div>
-    <div class="room-copy reveal">
-      <div class="room-index">06 — Michael's Porch</div>
+  <section class="scene reveal" id="michaels-porch">
+    <div class="scene-copy">
+      <div class="scene-eyebrow">Michael's Porch</div>
       <h3 class="serif">Arrival</h3>
       <div class="room-tag">no drama, just a good place to sit</div>
       <p>The first thing every guest sees — a real library wall, warm light, nothing shouting for attention. Simple, steady, and exactly as much as it needs to be. Some people don't need a loud room to be remembered in.</p>
       <div class="detail">Check-In — The Michael Royce Study</div>
     </div>
+    <figure class="scene-photo"><img src="images/michaels-porch.webp" alt="Michael's Porch, a bright modern lobby with a full library wall and three warm wood check-in desks" loading="lazy"></figure>
   </section>
 
 </main>
@@ -410,7 +405,7 @@
 
 <script>
   // Split room names into letters for the engraved reveal
-  document.querySelectorAll('.room h3.serif').forEach(el=>{
+  document.querySelectorAll('.scene h3.serif').forEach(el=>{
     const text = el.textContent; el.textContent = '';
     [...text].forEach(ch=>{
       const sp = document.createElement('span'); sp.className = 'ltr';
@@ -432,7 +427,7 @@
   }, {threshold:0.15});
   document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
-  const sections = document.querySelectorAll('header.hero, .room');
+  const sections = document.querySelectorAll('header.hero, .scene, .suite-intro');
   const dots = document.querySelectorAll('.dot-nav a');
   const navObserver = new IntersectionObserver((entries)=>{
     entries.forEach(entry=>{
@@ -455,25 +450,7 @@
     progress.style.width = (h > 0 ? (scrollY / h * 100) : 0) + '%';
   }, {passive:true});
 
-  /* Gentle image parallax */
-  if(!reduce){
-    const media = [...document.querySelectorAll('.room-media img')];
-    media.forEach(img=>{ img.style.transform = 'scale(1.1)'; });
-    let ticking = false;
-    function para(){
-      const vh = innerHeight;
-      media.forEach(img=>{
-        const r = img.getBoundingClientRect();
-        if(r.bottom < 0 || r.top > vh) return;
-        const p = (r.top + r.height/2 - vh/2) / vh;
-        const shift = Math.max(-20, Math.min(20, p * -34));
-        img.style.transform = 'translateY('+shift.toFixed(1)+'px) scale(1.1)';
-      });
-      ticking = false;
-    }
-    addEventListener('scroll', ()=>{ if(!ticking){ ticking = true; requestAnimationFrame(para); } }, {passive:true});
-    para();
-  }
+  /* (image parallax intentionally removed — scenes now show full, uncropped photos) */
 
   /* Custom cursor */
   (function(){
