@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blue Robin Manor — Slow Mornings, Early Nights</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23FBF6EC'/%3E%3Ctext x='16' y='25' font-size='22' text-anchor='middle'%3E%F0%9F%90%A6%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Blue Robin Manor">
+<meta property="og:description" content="Slow mornings, early nights. Every room here belongs to someone.">
+<meta property="og:image" content="https://vegassidekick.com/blue-robin-manor/images/og.jpg">
+<meta property="og:url" content="https://vegassidekick.com/blue-robin-manor/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Blue Robin Manor">
+<meta name="twitter:description" content="Slow mornings, early nights.">
+<meta name="twitter:image" content="https://vegassidekick.com/blue-robin-manor/images/og.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF6EC;
+    --cream-deep:#F1E9D8;
+    --clay:#B4562F;
+    --sky:#8FAFC4;
+    --sky-deep:#41586b;
+    --sage:#8A9A7E;
+    --brass:#B8935A;
+    --charcoal:#2b2620;
+    --ink:#3a342b;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Barlow Condensed', sans-serif;
+    overflow-x:hidden;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+  h1,h2,h3{font-family:'Bebas Neue', sans-serif; letter-spacing:0.03em; font-weight:400;}
+  .serif{font-family:'Fraunces', serif;}
+  a{color:inherit;}
+  ::selection{background:var(--clay); color:var(--cream);}
+  img{display:block; width:100%; height:100%; object-fit:cover;}
+
+  /* ---------- Nav dots ---------- */
+  .dot-nav{
+    position:fixed; right:26px; top:50%; transform:translateY(-50%);
+    z-index:50; display:flex; flex-direction:column; gap:14px;
+  }
+  .dot-nav a{
+    width:8px; height:8px; border-radius:50%;
+    background:rgba(43,38,32,0.2);
+    display:block; transition:background 0.3s, transform 0.3s;
+  }
+  .dot-nav a:hover, .dot-nav a.active{ background:var(--clay); transform:scale(1.4); }
+  @media (max-width:840px){ .dot-nav{display:none;} }
+
+  /* ---------- Hero ---------- */
+  header.hero{
+    position:relative; min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:24px;
+    background:
+      linear-gradient(180deg, rgba(65,88,107,0.15) 0%, rgba(251,246,236,0.35) 60%, var(--cream) 100%),
+      url('images/exterior-final.webp') center 55% / cover no-repeat;
+  }
+  .eyebrow{
+    font-size:13px; letter-spacing:0.35em; text-transform:uppercase;
+    color:var(--clay); margin-bottom:20px; font-weight:600;
+  }
+  header.hero h1{
+    font-size:clamp(56px,13vw,148px); line-height:0.92; color:var(--charcoal);
+    text-shadow:0 2px 30px rgba(251,246,236,0.7);
+  }
+  header.hero .tagline{
+    margin-top:22px; font-family:'Fraunces', serif; font-style:italic; font-weight:400;
+    font-size:clamp(17px,2.4vw,26px); color:var(--sky-deep);
+  }
+  .scroll-cue{
+    position:absolute; bottom:34px; font-size:12px; letter-spacing:0.3em; text-transform:uppercase;
+    color:var(--ink); opacity:0.6; display:flex; flex-direction:column; align-items:center; gap:10px;
+  }
+  .scroll-cue .line{ width:1px; height:38px; background:linear-gradient(var(--clay), transparent); animation:pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{opacity:0.25;} 50%{opacity:1;} }
+
+  /* ---------- Intro ---------- */
+  .intro{ max-width:720px; margin:0 auto; padding:130px 24px; text-align:center; }
+  .intro h2{ font-size:clamp(26px,4vw,40px); color:var(--clay); margin-bottom:26px; }
+  .intro p{ font-size:clamp(17px,2vw,19px); line-height:1.75; color:var(--ink); font-weight:400; }
+  .intro p + p{ margin-top:16px; }
+
+  /* ---------- Room sections ---------- */
+  .room{ position:relative; min-height:100vh; display:grid; grid-template-columns:1fr 1fr; align-items:stretch; }
+  .room.reverse{ direction:rtl; }
+  .room.reverse .room-copy{ direction:ltr; }
+  .room-media{ position:relative; min-height:56vh; overflow:hidden; }
+  .room-copy{
+    position:relative; display:flex; flex-direction:column; justify-content:center;
+    padding:76px 60px; z-index:2; background:var(--cream);
+  }
+  .room-index{
+    font-size:14px; letter-spacing:0.3em; text-transform:uppercase; margin-bottom:16px; font-weight:600;
+  }
+  .room-copy h3{ font-size:clamp(28px,3.2vw,46px); color:var(--charcoal); margin-bottom:6px; }
+  .room-copy .room-tag{
+    font-family:'Fraunces', serif; font-style:italic; font-weight:400; font-size:clamp(16px,1.6vw,19px);
+    margin-bottom:24px;
+  }
+  .room-copy p{ font-size:17px; line-height:1.75; color:var(--ink); font-weight:400; max-width:470px; }
+  .room-copy .detail{
+    margin-top:26px; padding-top:20px; border-top:1px solid rgba(43,38,32,0.15);
+    font-size:14px; letter-spacing:0.08em; text-transform:uppercase; font-weight:600;
+  }
+  @media (max-width:900px){
+    .room, .room.reverse{ grid-template-columns:1fr; direction:ltr; }
+    .room-media{ min-height:48vh; }
+    .room-copy{ padding:54px 26px; }
+  }
+
+  /* section moods */
+  #exterior-2 .room-index, #exterior-2 .detail{ color:var(--sky-deep); }
+  #exterior-2 .room-tag{ color:var(--sky-deep); }
+  #loui-living .room-index, #loui-bed .room-index, #loui-bath .room-index{ color:var(--sky-deep); }
+  #loui-living .room-tag, #loui-bed .room-tag, #loui-bath .room-tag{ color:var(--sky-deep); }
+  #levi-living .room-index, #levi-bed .room-index, #levi-bath .room-index{ color:var(--charcoal); }
+  #levi-living .room-tag, #levi-bed .room-tag, #levi-bath .room-tag{ color:var(--charcoal); }
+  #paddock .room-index, #paddock .detail{ color:#8B5FA3; }
+  #paddock .room-tag{ color:#8B5FA3; }
+  #arts-garage .room-index, #arts-garage .detail{ color:var(--clay); }
+  #arts-garage .room-tag{ color:var(--clay); }
+  #kristophers .room-index, #kristophers .detail{ color:var(--clay); }
+  #kristophers .room-tag{ color:var(--clay); }
+  #michaels-porch .room-index, #michaels-porch .detail{ color:var(--sage); }
+  #michaels-porch .room-tag{ color:var(--sage); }
+
+  /* ---------- Closing note ---------- */
+  .note{ max-width:660px; margin:0 auto; padding:130px 24px; text-align:center; border-top:1px solid rgba(43,38,32,0.12); }
+  .note .room-tag{ font-family:'Fraunces', serif; font-style:italic; color:var(--clay); font-size:21px; display:block; margin-bottom:22px; }
+  .note p{ font-size:18px; line-height:1.85; color:var(--ink); font-weight:400; }
+
+  /* ---------- Footer ---------- */
+  footer{ padding:100px 24px 60px; text-align:center; background:var(--charcoal); color:var(--cream); }
+  footer h2{ font-size:clamp(40px,6vw,68px); margin-bottom:16px; }
+  footer .sub{ font-family:'Fraunces', serif; font-style:italic; font-size:17px; color:var(--brass); margin-bottom:34px; }
+  footer .mark{ font-size:12px; letter-spacing:0.3em; text-transform:uppercase; opacity:0.5; }
+
+  .reveal{ opacity:0; transform:translateY(22px); transition:opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- Scroll progress hairline ---------- */
+  #progress{
+    position:fixed; top:0; left:0; height:2px; width:0;
+    background:linear-gradient(90deg, var(--brass), var(--clay));
+    box-shadow:0 0 8px rgba(180,86,47,0.35); z-index:60; pointer-events:none;
+  }
+
+  /* ---------- Custom cursor ---------- */
+  .cursor-ring{
+    position:fixed; top:0; left:0; width:24px; height:24px;
+    border:1.5px solid var(--clay); border-radius:50%;
+    transform:translate(-50%,-50%); pointer-events:none; z-index:9999;
+    opacity:0; transition:width .2s, height .2s, background .2s, opacity .35s;
+  }
+  .cursor-ring.hot{ width:44px; height:44px; background:rgba(180,86,47,0.07); }
+  @media (hover:none), (pointer:coarse){ .cursor-ring{display:none;} }
+  @media (prefers-reduced-motion:reduce){ .cursor-ring{display:none;} }
+
+  /* ---------- Dot-nav tooltips ---------- */
+  .dot-nav a{ position:relative; }
+  .dot-nav a::after{
+    content:attr(data-label); position:absolute; right:20px; top:50%;
+    transform:translateY(-50%) translateX(6px); white-space:nowrap;
+    font-size:11px; letter-spacing:0.16em; text-transform:uppercase; font-weight:600;
+    color:var(--clay); background:rgba(251,246,236,0.95); padding:4px 10px;
+    border:1px solid rgba(180,86,47,0.2); border-radius:3px;
+    box-shadow:0 4px 14px rgba(43,38,32,0.12);
+    opacity:0; pointer-events:none; transition:opacity .25s, transform .25s;
+  }
+  .dot-nav a:hover::after{ opacity:1; transform:translateY(-50%) translateX(0); }
+
+  /* ---------- Engraved room-name letter reveal ---------- */
+  .room h3.serif .ltr{
+    display:inline-block; opacity:0; transform:translateY(0.32em);
+    transition:opacity .5s ease, transform .5s ease;
+  }
+  .room h3.serif .ltr.lit{ opacity:1; transform:translateY(0); }
+  @media (prefers-reduced-motion:reduce){
+    .room h3.serif .ltr{ opacity:1 !important; transform:none !important; }
+  }
+
+  /* ---------- The hidden blue robin ---------- */
+  .robin{ display:block; width:98px; margin:0 auto 6px; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+  .robin svg{ width:100%; height:auto; overflow:visible; transform-origin:60% 92%; }
+  .note.in .robin svg{ animation:robinLand 1.1s ease both; }
+  .robin.hop svg{ animation:robinHop .5s ease; }
+  @keyframes robinLand{
+    0%{ opacity:0; transform:translateY(-34px) rotate(-7deg); }
+    60%{ opacity:1; transform:translateY(5px) rotate(3deg); }
+    100%{ opacity:1; transform:translateY(0) rotate(0); }
+  }
+  @keyframes robinHop{ 0%,100%{ transform:translateY(0) rotate(0); } 40%{ transform:translateY(-11px) rotate(-4deg); } }
+  @media (prefers-reduced-motion:reduce){ .note.in .robin svg, .robin.hop svg{ animation:none; } }
+</style>
+</head>
+<body>
+
+<div id="progress" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"></div>
+
+<nav class="dot-nav" aria-label="Section navigation">
+  <a href="#top" data-label="Arrival"></a>
+  <a href="#exterior-2" data-label="The Grounds"></a>
+  <a href="#loui-living" data-label="The Loui Suite"></a>
+  <a href="#levi-living" data-label="The Levi Suite"></a>
+  <a href="#arts-garage" data-label="Art's Garage"></a>
+  <a href="#paddock" data-label="The Paddock"></a>
+  <a href="#kristophers" data-label="Kristopher's"></a>
+  <a href="#michaels-porch" data-label="Michael's Porch"></a>
+</nav>
+
+<header class="hero" id="top">
+  <div class="eyebrow">Las Vegas, Nevada · Est. 2024</div>
+  <h1>BLUE ROBIN MANOR</h1>
+  <div class="tagline">Slow Mornings, Early Nights</div>
+  <div class="scroll-cue"><span>Enter</span><span class="line"></span></div>
+</header>
+
+<section class="intro reveal">
+  <h2>Somewhere between the paddock and the Strip.</h2>
+  <p>Fog rolls across bluegrass lawns at sunrise. A horse stands watch over the fountain. By nightfall, the same grounds hum with warm light and good company — because this is still Las Vegas, and the sun does go down eventually.</p>
+  <p>Every room here belongs to someone. This is theirs.</p>
+</section>
+
+<main>
+
+  <section class="room" id="exterior-2">
+    <div class="room-media">
+      <img src="images/grounds.webp" alt="Blue Robin Manor grounds from above, a curved tower behind a farmhouse entrance, a bronze horse fountain in the roundabout, string lights along the porch" loading="lazy">
+    </div>
+    <div class="room-copy reveal">
+      <div class="room-index">Arrival</div>
+      <h3 class="serif">The Grounds</h3>
+      <div class="room-tag">still enough to hear the fountain</div>
+      <p>A bronze horse stands quiet in the roundabout, water gently overflowing at his feet. Paddock fencing lines the drive. Behind it all, a tower rises the way the Strip insists it should — string lights, skyline, and just enough fog to remind you where the morning came from.</p>
+      <div class="detail">Blue Robin Manor — Resort &amp; Grounds</div>
+    </div>
+  </section>
+
+  <section class="room reverse" id="loui-living">
+    <div class="room-media">
+      <img src="images/loui-living.webp" alt="The Loui Suite living room, a cream sofa, warm fireplace, and a small dog bed tucked into a sunlit window" loading="lazy">
+    </div>
+    <div class="room-copy reveal">
+      <div class="room-index">01 — The Loui Suite</div>
+      <h3 class="serif">Living Room</h3>
+      <div class="room-tag">for an old friend who's earned the good chair</div>
+      <p>Named for a small, gentle Yorkie who's seen enough of the world to know exactly where the sun lands in the afternoon. A leather chair, a warm fire, and a little bed tucked right into that patch of light. Nobody's in a hurry here.</p>
+      <div class="detail">Suite 1 of 3 — Living Room</div>
+    </div>
+  </section>
+
+  <section class="room" id="loui-bed">
+    <div class="room-media">
+      <img src="images/loui-bedroom.webp" alt="The Loui Suite bedroom, caramel headboard, dusty blue linens, garden view through the window" loading="lazy">
+    </div>
+    <div class="room-copy reveal">
+      <div class="room-index">01 — The Loui Suite</div>
+      <h3 class="serif">Bedroom</h3>
+      <div class="room-tag">a proper Sunday nap, any day of the week</div>
+      <p>Soft caramel and dusty blue, low to the ground, easy to climb onto. The garden just outside the window does most of the talking.</p>
+      <div class="detail">Suite 2 of 3 — Bedroom</div>
+    </div>
+  </section>
+
+  <section class="room reverse" id="loui-bath">
+    <div class="room-media">
+      <img src="images/loui-bath2.webp" alt="The Loui Suite bathroom, marble vanity with paw-print hardware, soaking tub facing the desert garden" loading="lazy">
+    </div>
+    <div class="room-copy reveal">
+      <div class="room-index">01 — The Loui Suite</div>
+      <h3 class="serif">Bath</h3>
+      <div class="room-tag">a small paw print, if you look</div>
+      <p>Brass hardware carries his mark quietly on every drawer. The tub looks straight out over the gardens — the kind of soak that isn't going anywhere fast.</p>
+      <div class="detail">Suite 3 of 3 — Bath</div>
+    </div>
+  </section>
+
+  <section class="room" id="levi-living">
+    <div class="room-media">
+      <img src="images/levi-living.webp" alt="The Levi Suite living room, an eclectic gallery wall, leather armchair, and a brass dog lamp full of personality" loading="lazy">
+    </div>
+    <div class="room-copy reveal">
+      <div class="room-index">02 — The Levi Suite</div>
+      <h3 class="serif">Living Room</h3>
+      <div class="room-tag">a little guarded at the door — worth the wait</div>
+      <p>Named for a small black rescue with a mind of his own. The entry's composed, almost cool — but follow the light back to the corner and the room opens right up: a mismatched gallery wall, a well-loved leather chair, and a brass dog lamp that's clearly the one in charge.</p>
+      <div class="detail">Suite 1 of 3 — Living Room</div>
+    </div>
+  </section>
+
+  <section class="room reverse" id="levi-bed">
+    <div class="room-media">
+      <img src="images/levi-bedroom.webp" alt="The Levi Suite bedroom, charcoal headboard, mustard and cream layered bedding, black-framed windows" loading="lazy">
+    </div>
+    <div class="room-copy reveal">
+      <div class="room-index">02 — The Levi Suite</div>
+      <h3 class="serif">Bedroom</h3>
+      <div class="room-tag">a little eclectic, entirely on purpose</div>
+      <p>Charcoal and mustard, mixed patterns that don't quite match and don't need to. A small brass dog keeps watch from the dresser.</p>
+      <div class="detail">Suite 2 of 3 — Bedroom</div>
+    </div>
+  </section>
+
+  <section class="room" id="levi-bath">
+    <div class="room-media">
+      <img src="images/levi-bath.webp" alt="The Levi Suite bathroom, dark wood vanity, patterned tile, soaking tub with garden views" loading="lazy">
+    </div>
+    <div class="room-copy reveal">
+      <div class="room-index">02 — The Levi Suite</div>
+      <h3 class="serif">Bath</h3>
+      <div class="room-tag">warms up, same as he does</div>
+      <p>Composed near the door, golden by the tub. Give it a minute. It's worth it.</p>
+      <div class="detail">Suite 3 of 3 — Bath</div>
+    </div>
+  </section>
+
+  <section class="room reverse" id="arts-garage">
+    <div class="room-media">
+      <img src="images/arts-garage.webp" alt="Art's Garage, a yellow Corvette parked inside a sunlit barn space, vintage Coca-Cola signage, a motorcycle by the open doors" loading="lazy">
+    </div>
+    <div class="room-copy reveal">
+      <div class="room-index">03 — Art's Garage</div>
+      <h3 class="serif">The Corvette Bay</h3>
+      <div class="room-tag">a career, a bike, and a very good car</div>
+      <p>Doors thrown wide open to the sunshine, string lights overhead, the '65 parked like it's about to be driven right out into the afternoon. A lifetime with Coca-Cola on the wall. A motorcycle by the door. This one's a celebration, through and through.</p>
+      <div class="detail">Open to the Grounds — Daylight Hours</div>
+    </div>
+  </section>
+
+  <section class="room" id="paddock">
+    <div class="room-media">
+      <img src="images/paddock.webp" alt="The Paddock wine bar, oversized colorful hat-shaped pendant lights, a glowing wine wall, jewel-tone seating" loading="lazy">
+    </div>
+    <div class="room-copy reveal">
+      <div class="room-index">04 — The Paddock</div>
+      <h3 class="serif">Wine Bar</h3>
+      <div class="room-tag">Derby hats, minus the fuss</div>
+      <p>Big color, big flowers, a wine wall that means business. The hats hang overhead as pure shape and shade — coral, marigold, lavender — because a room can be dressed up without taking itself too seriously.</p>
+      <div class="detail">Open Evenings</div>
+    </div>
+  </section>
+
+  <section class="room reverse" id="kristophers">
+    <div class="room-media">
+      <img src="images/kristophers.webp" alt="Breakfast at Kristopher's, a marquee sign, neon coffee sign, jukebox, and a chalkboard reading Mom's Biscuits and Gravy" loading="lazy">
+    </div>
+    <div class="room-copy reveal">
+      <div class="room-index">05 — Breakfast at Kristopher's</div>
+      <h3 class="serif">All Day, Every Day</h3>
+      <div class="room-tag">house specialty: Mom's Biscuits and Gravy</div>
+      <p>Coffee's twenty-five cents, same as it should be. The jukebox plays what it wants to. And somewhere near the register, a small collage of two-dollar bills — a private joke between a mother and her son, hiding in plain sight.</p>
+      <div class="detail">Breakfast &amp; Lunch — Served All Day</div>
+    </div>
+  </section>
+
+  <section class="room" id="michaels-porch">
+    <div class="room-media">
+      <img src="images/michaels-porch.webp" alt="Michael's Porch, a bright modern lobby with a full library wall and three warm wood check-in desks" loading="lazy">
+    </div>
+    <div class="room-copy reveal">
+      <div class="room-index">06 — Michael's Porch</div>
+      <h3 class="serif">Arrival</h3>
+      <div class="room-tag">no drama, just a good place to sit</div>
+      <p>The first thing every guest sees — a real library wall, warm light, nothing shouting for attention. Simple, steady, and exactly as much as it needs to be. Some people don't need a loud room to be remembered in.</p>
+      <div class="detail">Check-In — The Michael Royce Study</div>
+    </div>
+  </section>
+
+</main>
+
+<section class="note reveal">
+  <div class="robin" id="robin" role="button" tabindex="0" aria-label="A blue robin">
+    <svg viewBox="0 0 120 100" aria-hidden="true">
+      <path d="M20 46 L2 39 L17 55 Z" fill="#6f93ab"/>
+      <ellipse cx="58" cy="53" rx="34" ry="26" fill="#8FAFC4"/>
+      <path d="M40 66 Q47 79 67 74 Q52 70 48 56 Q42 60 40 66 Z" fill="#B4562F"/>
+      <path d="M52 45 Q75 40 85 55 Q70 59 52 53 Z" fill="#6f93ab"/>
+      <circle cx="87" cy="36" r="17" fill="#8FAFC4"/>
+      <circle cx="94" cy="33" r="2.4" fill="#2b2620"/>
+      <path d="M103 35 L116 33 L104 42 Z" fill="#B8935A"/>
+      <path d="M55 78 L55 91 M64 78 L64 91" stroke="#6f5636" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <span class="room-tag serif">a word before you go</span>
+  <p>This whole place started with one woman who loves horses, birds, dogs, and sunshine more than almost anything — and a family who wanted to build her something that felt like all of it at once. Every room here is true. That's the whole point.</p>
+</section>
+
+<footer>
+  <h2>BLUE ROBIN MANOR</h2>
+  <div class="sub serif">Slow Mornings, Early Nights</div>
+  <div class="mark">Las Vegas, Nevada — Resort &amp; Casino — Est. 2024</div>
+</footer>
+
+<script>
+  // Split room names into letters for the engraved reveal
+  document.querySelectorAll('.room h3.serif').forEach(el=>{
+    const text = el.textContent; el.textContent = '';
+    [...text].forEach(ch=>{
+      const sp = document.createElement('span'); sp.className = 'ltr';
+      sp.textContent = (ch === ' ') ? ' ' : ch; el.appendChild(sp);
+    });
+  });
+
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        const name = e.target.querySelector('h3.serif');
+        if(name && !name.dataset.lit){
+          name.dataset.lit = '1';
+          name.querySelectorAll('.ltr').forEach((l,i)=> setTimeout(()=>l.classList.add('lit'), 80 + i*45));
+        }
+      }
+    });
+  }, {threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+  const sections = document.querySelectorAll('header.hero, .room');
+  const dots = document.querySelectorAll('.dot-nav a');
+  const navObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      const id = entry.target.getAttribute('id');
+      const dot = document.querySelector('.dot-nav a[href="#'+id+'"]');
+      if(entry.isIntersecting && dot){
+        dots.forEach(d=>d.classList.remove('active'));
+        dot.classList.add('active');
+      }
+    });
+  }, {threshold:0.5});
+  sections.forEach(s=>navObserver.observe(s));
+
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Scroll progress hairline */
+  const progress = document.getElementById('progress');
+  addEventListener('scroll', ()=>{
+    const h = document.documentElement.scrollHeight - innerHeight;
+    progress.style.width = (h > 0 ? (scrollY / h * 100) : 0) + '%';
+  }, {passive:true});
+
+  /* Gentle image parallax */
+  if(!reduce){
+    const media = [...document.querySelectorAll('.room-media img')];
+    media.forEach(img=>{ img.style.transform = 'scale(1.1)'; });
+    let ticking = false;
+    function para(){
+      const vh = innerHeight;
+      media.forEach(img=>{
+        const r = img.getBoundingClientRect();
+        if(r.bottom < 0 || r.top > vh) return;
+        const p = (r.top + r.height/2 - vh/2) / vh;
+        const shift = Math.max(-20, Math.min(20, p * -34));
+        img.style.transform = 'translateY('+shift.toFixed(1)+'px) scale(1.1)';
+      });
+      ticking = false;
+    }
+    addEventListener('scroll', ()=>{ if(!ticking){ ticking = true; requestAnimationFrame(para); } }, {passive:true});
+    para();
+  }
+
+  /* Custom cursor */
+  (function(){
+    const ring = document.querySelector('.cursor-ring');
+    if(reduce || !matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+    addEventListener('mousemove', e=>{ ring.style.opacity='1'; ring.style.left=e.clientX+'px'; ring.style.top=e.clientY+'px'; });
+    document.addEventListener('mouseleave', ()=>{ ring.style.opacity='0'; });
+    document.querySelectorAll('a, .dot-nav a, #robin').forEach(el=>{
+      el.addEventListener('mouseenter', ()=>ring.classList.add('hot'));
+      el.addEventListener('mouseleave', ()=>ring.classList.remove('hot'));
+    });
+  })();
+
+  /* The blue robin: a soft chirp + a little hop */
+  (function(){
+    const robin = document.getElementById('robin');
+    if(!robin) return;
+    function chirp(){
+      try{
+        const AC = window.AudioContext || window.webkitAudioContext;
+        const ctx = new AC(); const now = ctx.currentTime;
+        [[1900,0],[2500,0.10],[2150,0.19]].forEach(([f,t])=>{
+          const o = ctx.createOscillator(), g = ctx.createGain();
+          o.type='sine'; o.frequency.setValueAtTime(f, now+t);
+          o.frequency.exponentialRampToValueAtTime(f*1.28, now+t+0.06);
+          g.gain.setValueAtTime(0.0001, now+t);
+          g.gain.exponentialRampToValueAtTime(0.14, now+t+0.012);
+          g.gain.exponentialRampToValueAtTime(0.0001, now+t+0.09);
+          o.connect(g); g.connect(ctx.destination); o.start(now+t); o.stop(now+t+0.11);
+        });
+        setTimeout(()=>ctx.close(), 700);
+      }catch(e){}
+    }
+    function go(){
+      chirp();
+      robin.classList.remove('hop'); void robin.offsetWidth; robin.classList.add('hop');
+    }
+    robin.addEventListener('click', go);
+    robin.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } });
+  })();
+</script>
+
+</body>
+</html>
